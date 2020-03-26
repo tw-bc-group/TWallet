@@ -2,6 +2,8 @@
 
 A new Flutter project for tw block-chain's wallet ui.
 
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
@@ -14,3 +16,38 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
+## Run
+
+```bash
+flutter run -d device
+```
+
+
+
+The device above can get from
+
+```
+flutter doctor
+```
+
+
+
+## Deploy
+
+[Android](https://flutter.dev/docs/deployment/android)
+
+app bundle 
+
+```bash
+flutter build appbundle
+```
+
+apk
+
+```bash
+flutter build apk --split-per-abi
+```
+
