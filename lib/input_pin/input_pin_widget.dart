@@ -1,51 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:tw_wallet_ui/util/color.dart';
 
-import '../../color.dart';
+import 'input_pin.dart';
 
-enum _InputStatus {
-  Ok,
-  Diff,
-  Partially,
-}
+class PinCodeInputWidget extends StatelessWidget {
+  final _inputPin = InputPin();
 
-class PinCodeVerificationScreen extends StatefulWidget {
-  PinCodeVerificationScreen();
-
-  @override
-  _PinCodeVerificationScreenState createState() =>
-      _PinCodeVerificationScreenState();
-}
-
-class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
-  String pin1 = "";
-  String pin2 = "";
-
-  _InputStatus _inputStatus = _InputStatus.Partially;
-
-  TextEditingController textEditingController1 = TextEditingController();
-  TextEditingController textEditingController2 = TextEditingController();
-
-  Function _judgmentInputStatus(
-      String pin1, String pin2, _InputStatus inputStatus) {
-    _InputStatus curStatus = _InputStatus.Ok;
-
-    if (pin1.length == 6 && pin2.length == 6) {
-      if (pin1 != pin2) {
-        curStatus = _InputStatus.Diff;
-      }
-    } else {
-      curStatus = _InputStatus.Partially;
-    }
-
-    if (curStatus != inputStatus) {
-      return () {
-        return curStatus;
-      };
-    }
-    return null;
-  }
+  final TextEditingController textEditingController1 = TextEditingController();
+  final TextEditingController textEditingController2 = TextEditingController();
 
   Decoration _nextButtonDecoration(bool isEnabled) {
     Color color = Colors.grey;
@@ -141,14 +106,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                   child: _inputPinField(textEditingController1, (value) {
-                    pin1 = value;
-                    var callback =
-                        _judgmentInputStatus(pin1, pin2, _inputStatus);
-                    if (null != callback) {
-                      setState(() {
-                        _inputStatus = callback();
-                      });
-                    }
+                    _inputPin.updatePin1(value);
                   })),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -161,45 +119,44 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                   child: _inputPinField(textEditingController2, (value) {
-                    pin2 = value;
-                    var callback =
-                        _judgmentInputStatus(pin1, pin2, _inputStatus);
-                    if (null != callback) {
-                      setState(() {
-                        _inputStatus = callback();
-                      });
-                    }
+                    _inputPin.updatePin2(value);
                   })),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Text(
-                  _inputStatus == _InputStatus.Diff ? "* 请输入一致的 PIN 码" : "",
-                  style: TextStyle(color: Colors.red.shade300, fontSize: 15),
-                ),
+                child: Observer(
+                    builder: (_) => Text(
+                          _inputPin.status == InputPinStatus.Unequal
+                              ? "* 请输入一致的 PIN 码"
+                              : "",
+                          style: TextStyle(
+                              color: Colors.red.shade300, fontSize: 15),
+                        )),
               ),
               SizedBox(
                 height: 20,
               ),
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                child: ButtonTheme(
-                  height: 50,
-                  child: FlatButton(
-                    disabledColor: Colors.grey,
-                    onPressed: _inputStatus != _InputStatus.Ok ? null : () {},
-                    child: Center(
-                        child: Text(
-                      "下一步",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    )),
+              Observer(
+                builder: (_) => Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 30),
+                  child: ButtonTheme(
+                    height: 50,
+                    child: FlatButton(
+                      disabledColor: Colors.grey,
+                      onPressed: _inputPin.status.isUnequal() ? () => {} : null,
+                      child: Center(
+                          child: Text(
+                        "下一步",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
                   ),
+                  decoration:
+                      _nextButtonDecoration(_inputPin.status.isCompleted()),
                 ),
-                decoration:
-                    _nextButtonDecoration(_inputStatus == _InputStatus.Ok),
               ),
               SizedBox(
                 height: 16,

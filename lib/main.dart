@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/src/routes/iPin.dart';
+
+import 'input_pin/input_pin_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: PinCodeVerificationScreen(),
+      home: PinCodeInputWidget(),
     );
   }
 }

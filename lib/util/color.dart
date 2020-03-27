@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WalletColor extends Object {
+class WalletColor {
   static Color blue() {
     return rgbColor('0x3E71C0');
   }
