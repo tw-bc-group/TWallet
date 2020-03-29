@@ -9,11 +9,16 @@ part of 'input_pin.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InputPin on _InputPin, Store {
-  Computed<InputPinStatus> _$statusComputed;
+  Computed<bool> _$isCompletedComputed;
 
   @override
-  InputPinStatus get status =>
-      (_$statusComputed ??= Computed<InputPinStatus>(() => super.status)).value;
+  bool get isCompleted =>
+      (_$isCompletedComputed ??= Computed<bool>(() => super.isCompleted)).value;
+  Computed<bool> _$isUnequalComputed;
+
+  @override
+  bool get isUnequal =>
+      (_$isUnequalComputed ??= Computed<bool>(() => super.isUnequal)).value;
 
   final _$pin1Atom = Atom(name: '_InputPin.pin1');
 
@@ -74,7 +79,7 @@ mixin _$InputPin on _InputPin, Store {
   @override
   String toString() {
     final string =
-        'pin1: ${pin1.toString()},pin2: ${pin2.toString()},status: ${status.toString()}';
+        'pin1: ${pin1.toString()},pin2: ${pin2.toString()},isCompleted: ${isCompleted.toString()},isUnequal: ${isUnequal.toString()}';
     return '{$string}';
   }
 }

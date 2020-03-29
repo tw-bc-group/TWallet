@@ -6,40 +6,24 @@ const PinLength = 6;
 
 class InputPin = _InputPin with _$InputPin;
 
-enum InputPinStatus {
-  InCompleted,
-  Unequal,
-  Completed,
-}
-
-extension InputPinStatusExtension on InputPinStatus {
-  bool isCompleted() {
-    return this == InputPinStatus.Completed;
-  }
-
-  bool isUnequal() {
-    return this == InputPinStatus.Unequal;
-  }
-}
-
 abstract class _InputPin with Store {
+  @observable
   String pin1 = '';
+
+  @observable
   String pin2 = '';
 
   @computed
-  InputPinStatus get status {
-    InputPinStatus status;
+  bool get isCompleted {
+    return (pin1 == pin2 &&
+        pin1.length == PinLength &&
+        pin2.length == PinLength);
+  }
 
-    if (pin1.length == PinLength && pin2.length == PinLength) {
-      if (pin1 != pin2) {
-        status = InputPinStatus.Unequal;
-      } else {
-        status = InputPinStatus.Completed;
-      }
-    } else {
-      status = InputPinStatus.InCompleted;
-    }
-    return status;
+  @computed
+  bool get isUnequal {
+    return (pin1 != pin2 &&
+        (pin1.length == PinLength && pin2.length == PinLength));
   }
 
   @action

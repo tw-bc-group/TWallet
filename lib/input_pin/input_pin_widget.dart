@@ -125,7 +125,7 @@ class PinCodeInputWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Observer(
                     builder: (_) => Text(
-                          _inputPin.status.isUnequal() ? "* 请输入一致的 PIN 码" : "",
+                          _inputPin.isUnequal ? "* 请输入一致的 PIN 码" : "",
                           style: TextStyle(
                               color: Colors.red.shade300, fontSize: 15),
                         )),
@@ -141,8 +141,7 @@ class PinCodeInputWidget extends StatelessWidget {
                     height: 50,
                     child: FlatButton(
                       disabledColor: Colors.grey,
-                      onPressed:
-                          _inputPin.status.isCompleted() ? () => {} : null,
+                      onPressed: _inputPin.isCompleted ? () => {} : null,
                       child: Center(
                           child: Text(
                         "下一步",
@@ -153,8 +152,7 @@ class PinCodeInputWidget extends StatelessWidget {
                       )),
                     ),
                   ),
-                  decoration:
-                      _nextButtonDecoration(_inputPin.status.isCompleted()),
+                  decoration: _nextButtonDecoration(_inputPin.isCompleted),
                 ),
               ),
               SizedBox(
