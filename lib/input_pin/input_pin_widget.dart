@@ -66,6 +66,15 @@ class PinCodeInputWidget extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Icon(
+                      Icons.account_balance_wallet,
+                    )),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: Text(
                   "欢迎来到 TW Wallet",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
@@ -89,8 +98,24 @@ class PinCodeInputWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text("解锁钱包"), Text("确认交易"), Text("更多设置")]),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(children: [
+                        Icon(Icons.lock_open),
+                        SizedBox(width: 10),
+                        Text("解锁钱包")
+                      ]),
+                      Row(children: [
+                        Icon(Icons.payment),
+                        SizedBox(width: 10),
+                        Text("确认交易")
+                      ]),
+                      Row(children: [
+                        Icon(Icons.settings),
+                        SizedBox(width: 10),
+                        Text("更多设置")
+                      ]),
+                    ]),
               ),
               SizedBox(
                 height: 20,
