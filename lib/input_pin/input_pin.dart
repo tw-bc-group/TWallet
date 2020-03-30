@@ -1,8 +1,9 @@
 import 'package:mobx/mobx.dart';
+import 'package:tw_wallet_ui/pub/master_key.dart';
 
 part 'input_pin.g.dart';
 
-const PinLength = 6;
+const PIN_LENGTH = 6;
 
 class InputPin = _InputPin with _$InputPin;
 
@@ -16,14 +17,14 @@ abstract class _InputPin with Store {
   @computed
   bool get isCompleted {
     return (pin1 == pin2 &&
-        pin1.length == PinLength &&
-        pin2.length == PinLength);
+        pin1.length == PIN_LENGTH &&
+        pin2.length == PIN_LENGTH);
   }
 
   @computed
   bool get isUnequal {
     return (pin1 != pin2 &&
-        (pin1.length == PinLength && pin2.length == PinLength));
+        (pin1.length == PIN_LENGTH && pin2.length == PIN_LENGTH));
   }
 
   @action
@@ -34,5 +35,12 @@ abstract class _InputPin with Store {
   @action
   updatePin2(String value) {
     pin2 = value;
+  }
+
+  @action
+  setMasterKey() {
+    assert(pin1.length == PIN_LENGTH);
+    assert(pin1 == pin2);
+    MasterKey().setNewKey(pin: pin1);
   }
 }

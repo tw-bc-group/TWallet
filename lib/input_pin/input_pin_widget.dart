@@ -1,32 +1,15 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:tw_wallet_ui/util/color.dart';
+import 'package:tw_wallet_ui/pub/theme.dart';
 
 import 'input_pin.dart';
 
-class PinCodeInputWidget extends StatelessWidget {
+class PinInputWidget extends StatelessWidget {
   final _inputPin = InputPin();
 
   final TextEditingController textEditingController1 = TextEditingController();
   final TextEditingController textEditingController2 = TextEditingController();
-
-  Decoration _nextButtonDecoration(bool isEnabled) {
-    Color color = Colors.grey;
-
-    if (isEnabled) {
-      color = WalletColor.blue();
-    }
-
-    return BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(5),
-        boxShadow: [
-          BoxShadow(color: color, offset: Offset(1, -2), blurRadius: 5),
-          BoxShadow(color: color, offset: Offset(-1, 2), blurRadius: 5)
-        ]);
-  }
 
   Widget _inputPinField(
       TextEditingController textEditingController, Function onChanged) {
@@ -52,7 +35,7 @@ class PinCodeInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: WalletTheme.bgColor(),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -162,22 +145,20 @@ class PinCodeInputWidget extends StatelessWidget {
                 builder: (_) => Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 30),
-                  child: ButtonTheme(
-                    height: 50,
-                    child: FlatButton(
-                      disabledColor: Colors.grey,
-                      onPressed: _inputPin.isCompleted ? () => {} : null,
-                      child: Center(
-                          child: Text(
-                        "下一步",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ),
-                  decoration: _nextButtonDecoration(_inputPin.isCompleted),
+                  child: WalletTheme.flatButton(
+                      text: '下一步',
+                      onPressed: _inputPin.isCompleted
+                          ? () {
+                              _inputPin.setMasterKey();
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                '/',
+                                (route) => route == null,
+                              );
+                            }
+                          : null),
+                  decoration: WalletTheme.buttonDecoration(
+                      isEnabled: _inputPin.isCompleted),
                 ),
               ),
               SizedBox(
