@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/pub/master_key.dart';
+import 'package:tw_wallet_ui/common/master_key.dart';
 
 part 'input_pin.g.dart';
 

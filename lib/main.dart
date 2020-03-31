@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/pub/master_key.dart';
+import 'package:tw_wallet_ui/common/master_key.dart';
 
-import 'home/home_widget.dart';
-import 'input_pin/input_pin_widget.dart';
+import 'views/home/home_widget.dart';
+import 'views/input_pin/input_pin_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
