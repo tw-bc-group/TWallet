@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: firstTime ? '/input_pin' : '/',
+      initialRoute: firstTime ? '/input_pin' : '/assets',
       onGenerateRoute: router.generator,
     );
   }

@@ -6,7 +6,7 @@ class WalletTheme {
   }
 
   static Color bgColor() {
-    return Colors.grey.shade50;
+    return rgbColor('0xf2f2f2');
   }
 
   static Decoration buttonDecoration({bool isEnabled = false}) {
