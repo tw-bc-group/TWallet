@@ -51,6 +51,24 @@ class AssetsWidgetState extends State<AssetsWidget>
     return Container();
   }
 
+  Widget _tabView(int index) {
+    Widget _view;
+    switch (index) {
+      case 0:
+        _view = _pointView();
+        break;
+
+      case 1:
+        _view = _assetsView();
+        break;
+
+      default:
+        assert(true);
+        break;
+    }
+    return _view;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -74,24 +92,15 @@ class AssetsWidgetState extends State<AssetsWidget>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: _tabs.asMap().keys.map((k) {
-          Widget _view;
-          switch (k) {
-            case 0:
-              _view = _pointView();
-              break;
-
-            case 1:
-              _view = _assetsView();
-              break;
-
-            default:
-              assert(true);
-              break;
-          }
-          return _view;
-        }).toList(),
+        children: _tabs.asMap().keys.map((index) => _tabView(index)).toList(),
       ),
+      bottomNavigationBar: BottomAppBar(
+          child: Row(children: <Widget>[
+        IconButton(icon: Icon(Icons.home), onPressed: () {}),
+        IconButton(icon: Icon(Icons.more), onPressed: () {}),
+        IconButton(icon: Icon(Icons.business), onPressed: () {}),
+        IconButton(icon: Icon(Icons.account_box), onPressed: () {}),
+      ], mainAxisAlignment: MainAxisAlignment.spaceAround)),
     );
   }
 }
