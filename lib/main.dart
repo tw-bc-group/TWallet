@@ -1,21 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/master_key.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp(first: await MasterKey().read() == null));
+  runApp(MyApp(firstTime: await MasterKey().read() == null));
 }
 
 class MyApp extends StatelessWidget {
-  final bool first;
+  final bool firstTime;
   final router = new Router();
-  
-  MyApp({@required this.first}) {
+
+  MyApp({@required this.firstTime}) {
     Routes.configureRoutes(router);
   }
-  
 
   // This widget is the root of your application.
   @override
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: first ? '/input_pin' : '/',
+      initialRoute: firstTime ? '/input_pin' : '/',
       onGenerateRoute: router.generator,
     );
   }
