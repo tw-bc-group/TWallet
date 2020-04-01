@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 
 class HomeWidget extends StatelessWidget {
   @override
@@ -17,7 +18,12 @@ class HomeWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 30),
-                  child: WalletTheme.flatButton(text: '创建钱包', onPressed: () {}),
+                  child: WalletTheme.flatButton(
+                    text: '创建钱包',
+                    onPressed: () {
+                      Application.router.navigateTo(context, 'backup_mnemonics');
+                    }
+                  ),
                   decoration: WalletTheme.buttonDecoration(isEnabled: true),
                 ),
                 Container(
