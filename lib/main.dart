@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 import 'package:tw_wallet_ui/common/master_key.dart';
-
-import 'views/home/home_widget.dart';
-import 'views/input_pin/input_pin_widget.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,8 +9,13 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({@required this.first});
   final bool first;
+  final router = new Router();
+  
+  MyApp({@required this.first}) {
+    Routes.configureRoutes(router);
+  }
+  
 
   // This widget is the root of your application.
   @override
@@ -31,23 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: first ? '/input_pin' : '/',
-      onGenerateRoute: (RouteSettings settings) {
-        WidgetBuilder builder;
-
-        switch (settings.name) {
-          case '/':
-            builder = (BuildContext context) => HomeWidget();
-            break;
-
-          case '/input_pin':
-            builder = (BuildContext context) => PinInputWidget();
-            break;
-
-          default:
-            break;
-        }
-        return MaterialPageRoute(builder: builder, settings: settings);
-      },
+      onGenerateRoute: router.generator,
     );
   }
 }

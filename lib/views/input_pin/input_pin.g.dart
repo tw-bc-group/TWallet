@@ -77,6 +77,16 @@ mixin _$InputPin on _InputPin, Store {
   }
 
   @override
+  dynamic setMasterKey() {
+    final _$actionInfo = _$_InputPinActionController.startAction();
+    try {
+      return super.setMasterKey();
+    } finally {
+      _$_InputPinActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
         'pin1: ${pin1.toString()},pin2: ${pin2.toString()},isCompleted: ${isCompleted.toString()},isUnequal: ${isUnequal.toString()}';
