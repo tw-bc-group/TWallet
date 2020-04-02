@@ -1,32 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 
 class ConfirmMnemonicsPage extends StatelessWidget {
 
   final TextEditingController textEditingController1 = TextEditingController();
   final TextEditingController textEditingController2 = TextEditingController();
-
-  Widget _inputPinField(
-      TextEditingController textEditingController, Function onChanged) {
-    return PinCodeTextField(
-      length: 6,
-      obsecureText: true,
-      animationType: AnimationType.fade,
-      shape: PinCodeFieldShape.box,
-      animationDuration: Duration(milliseconds: 300),
-      borderRadius: BorderRadius.circular(5),
-      fieldHeight: 50,
-      backgroundColor: Colors.grey.shade50,
-      fieldWidth: 40,
-      inactiveFillColor: Colors.white,
-      activeFillColor: Colors.white,
-      enableActiveFill: true,
-      textInputType: TextInputType.number,
-      controller: textEditingController,
-      onChanged: onChanged,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
