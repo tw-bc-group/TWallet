@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/env.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
-import 'package:tw_wallet_ui/models/tw_point.dart';
+import 'package:tw_wallet_ui/views/assets/point_tab_view.dart';
+
+import 'assets_tab_view.dart';
 
 class AssetsWidget extends StatefulWidget {
   AssetsWidget({@required this.name, @required this.address});
@@ -38,52 +40,15 @@ class AssetsWidgetState extends State<AssetsWidget>
     _tabController = TabController(length: _tabs.length, vsync: this);
   }
 
-  Widget _pointItem() {
-    return Container(
-        height: 80,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Container(
-            padding: EdgeInsets.all(10),
-            child: Row(children: <Widget>[
-              Text('TW Points'),
-              Expanded(child: Container()),
-              Text('50.00'),
-            ])));
-  }
-
-  FutureBuilder<TwPoint> _pointView() {
-    return FutureBuilder<TwPoint>(
-        future: fetchPoint(dio: _dio, address: address),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              padding: EdgeInsets.all(18),
-              child: ListView(children: <Widget>[_pointItem()]),
-            );
-          } else if (snapshot.hasError) {
-            return Center(child: Text("${snapshot.error}"));
-          }
-          return Center(child: CircularProgressIndicator());
-        });
-  }
-
-  Widget _assetsView() {
-    return Container();
-  }
-
   Widget _tabView(String tabName) {
     Widget _view;
     switch (tabName) {
       case '分数':
-        _view = _pointView();
+        _view = pointTabViewWidget(dio: _dio, address: address);
         break;
 
       case '资产':
-        _view = _assetsView();
+        _view = assetsTabViewWidget(dio: _dio, address: address);
         break;
 
       default:
@@ -110,7 +75,7 @@ class AssetsWidgetState extends State<AssetsWidget>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: _tabs.map((index) => _tabView(index)).toList(),
+        children: _tabs.map((t) => _tabView(t)).toList(),
       ),
       bottomNavigationBar: BottomAppBar(
           child: Row(children: <Widget>[
