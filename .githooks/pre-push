@@ -1,0 +1,29 @@
+#!/bin/sh
+# To use add to `.git/hooks/`
+# Should be named `pre-push`
+# Make executable with `chmod +x`
+
+# stash any unstaged changes
+git stash -q --keep-index
+
+# run Flutter analyze + test
+flutter analyze
+
+if [ $? -ne 0 ]; then
+        # unstash the unstashed changes
+        git stash pop -q
+        exit 1
+fi
+
+flutter test
+
+
+if [ $? -ne 0 ]; then
+        # unstash the unstashed changes
+        git stash pop -q
+        exit 1
+fi
+
+# unstash the unstashed changes
+git stash pop -q
+exit 0
