@@ -1,17 +1,17 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/master_key.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp(first: await MasterKey().read() == null));
+  runApp(MyApp(first: await SecureStorage().getMasterKey() == null));
 }
 
 class MyApp extends StatelessWidget {
   final bool first;
-  
+
   MyApp({@required this.first}) {
     final router = new Router();
     Routes.configureRoutes(router);

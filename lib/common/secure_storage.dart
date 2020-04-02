@@ -9,14 +9,14 @@ const AES_ENCRYPT_MODE = 'cbc';
 const AES_ENCRYPT_PADDING = 'pkcs7';
 const AES_ENCRYPT_IV = '1234567890123456';
 
-class MasterKey {
+class SecureStorage {
   final FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  Future<String> read() async {
+  Future<String> getMasterKey() async {
     return await _storage.read(key: STORAGE_KEY);
   }
 
-  Future<void> setNewKey({@required String pin}) async {
+  Future<void> setMasterKey({@required String pin}) async {
     String masterKey = randomString(MASTER_KEY_LENGTH);
     var crypt = AesCrypt(masterKey, AES_ENCRYPT_MODE, AES_ENCRYPT_PADDING);
     var encrypt = crypt.encrypt(masterKey, AES_ENCRYPT_IV);

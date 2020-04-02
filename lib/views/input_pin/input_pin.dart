@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/common/master_key.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
 
 part 'input_pin.g.dart';
 
@@ -41,6 +41,6 @@ abstract class _InputPin with Store {
   setMasterKey() {
     assert(pin1.length == PIN_LENGTH);
     assert(pin1 == pin2);
-    MasterKey().setNewKey(pin: pin1);
+    SecureStorage().setMasterKey(pin: pin1);
   }
 }
