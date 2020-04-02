@@ -15,14 +15,14 @@ if [ $? -ne 0 ]; then
         exit 1
 fi
 
-flutter test
+# flutter test
 
 
-if [ $? -ne 0 ]; then
+#if [ $? -ne 0 ]; then
         # unstash the unstashed changes
-        git stash pop -q
-        exit 1
-fi
+#        git stash pop -q
+#        exit 1
+#fi
 
 # unstash the unstashed changes
 git stash pop -q
