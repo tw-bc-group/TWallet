@@ -30,6 +30,7 @@ dependencies:
   random_string: ^2.0.1
   steel_crypt: ^1.7.1+1
   fluro: ^1.3.4
+  decimal: ^0.3.5
 
 dev_dependencies:
   flutter_test:
