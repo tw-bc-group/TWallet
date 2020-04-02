@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/common/env.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/models/tw_point.dart';
 
 class AssetsWidget extends StatefulWidget {
   AssetsWidget({@required this.name, @required this.address});
@@ -21,7 +24,19 @@ class AssetsWidgetState extends State<AssetsWidget>
   final String address;
   final List<String> _tabs = ['分数', '资产'];
 
+  Dio _dio;
   TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _dio = Dio()
+      ..options.baseUrl = API_GATEWAY_BASE_URL
+      ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT;
+
+    _tabController = TabController(length: _tabs.length, vsync: this);
+  }
 
   Widget _pointItem() {
     return Container(
@@ -40,25 +55,34 @@ class AssetsWidgetState extends State<AssetsWidget>
             ])));
   }
 
-  Widget _pointView() {
-    return Container(
-      padding: EdgeInsets.all(18),
-      child: ListView(children: <Widget>[_pointItem()]),
-    );
+  FutureBuilder<TwPoint> _pointView() {
+    return FutureBuilder<TwPoint>(
+        future: fetchPoint(dio: _dio, address: address),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              padding: EdgeInsets.all(18),
+              child: ListView(children: <Widget>[_pointItem()]),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text("${snapshot.error}"));
+          }
+          return Center(child: CircularProgressIndicator());
+        });
   }
 
   Widget _assetsView() {
     return Container();
   }
 
-  Widget _tabView(int index) {
+  Widget _tabView(String tabName) {
     Widget _view;
-    switch (index) {
-      case 0:
+    switch (tabName) {
+      case '分数':
         _view = _pointView();
         break;
 
-      case 1:
+      case '资产':
         _view = _assetsView();
         break;
 
@@ -67,12 +91,6 @@ class AssetsWidgetState extends State<AssetsWidget>
         break;
     }
     return _view;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
   }
 
   @override
@@ -92,7 +110,7 @@ class AssetsWidgetState extends State<AssetsWidget>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: _tabs.asMap().keys.map((index) => _tabView(index)).toList(),
+        children: _tabs.map((index) => _tabView(index)).toList(),
       ),
       bottomNavigationBar: BottomAppBar(
           child: Row(children: <Widget>[
