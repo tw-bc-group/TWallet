@@ -32,7 +32,7 @@ FutureBuilder<TwPoint> pointTabViewWidget(
                 children: <Widget>[_pointItem(point: snapshot.data.strValue)]),
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text("${snapshot.error}"));
+          return Center(child: Text("请求失败，请退出重试"));
         }
         return Center(child: CircularProgressIndicator());
       });
