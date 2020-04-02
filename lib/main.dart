@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: first ? '/input_pin' : '/assets',
+      initialRoute: first ? '/input_pin' : '/',
       onGenerateRoute: Application.router.generator,
     );
   }

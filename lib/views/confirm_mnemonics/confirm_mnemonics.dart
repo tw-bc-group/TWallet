@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 
 class ConfirmMnemonicsPage extends StatelessWidget {
-
   final TextEditingController textEditingController1 = TextEditingController();
   final TextEditingController textEditingController2 = TextEditingController();
 

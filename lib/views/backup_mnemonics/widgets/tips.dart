@@ -5,10 +5,9 @@ class Tips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        margin: EdgeInsets.only(top: 16),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           Container(
             margin: EdgeInsets.only(right: 7),
             child: Icon(
@@ -25,8 +24,6 @@ class Tips extends StatelessWidget {
               fontWeight: FontWeight.w300,
             ),
           ),
-        ]
-      )
-    );
+        ]));
   }
 }

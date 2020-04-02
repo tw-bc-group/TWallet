@@ -1,44 +1,89 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/common/env.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
-import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/views/home/point_tab_view.dart';
 
-class HomeWidget extends StatelessWidget {
+import 'assets_tab_view.dart';
+
+class HomeWidget extends StatefulWidget {
+  HomeWidget({@required this.name, @required this.address});
+
+  final String name;
+  final String address;
+
+  @override
+  HomeWidgetState createState() =>
+      HomeWidgetState(name: name, address: address);
+}
+
+class HomeWidgetState extends State<HomeWidget>
+    with SingleTickerProviderStateMixin {
+  HomeWidgetState({this.name, this.address});
+
+  final String name;
+  final String address;
+  final List<String> _tabs = ['分数', '资产'];
+
+  Dio _dio;
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _dio = Dio()
+      ..options.baseUrl = API_GATEWAY_BASE_URL
+      ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT;
+
+    _tabController = TabController(length: _tabs.length, vsync: this);
+  }
+
+  Widget _tabView(String tabName) {
+    Widget _view;
+    switch (tabName) {
+      case '分数':
+        _view = pointTabViewWidget(dio: _dio, address: address);
+        break;
+
+      case '资产':
+        _view = assetsTabViewWidget(dio: _dio, address: address);
+        break;
+
+      default:
+        assert(true);
+        break;
+    }
+    return _view;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: WalletTheme.bgColor(),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height / 3),
-              Column(children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 30),
-                  child: WalletTheme.flatButton(
-                    text: '创建钱包',
-                    onPressed: () {
-                      Application.router.navigateTo(context, 'backup_mnemonics');
-                    }
-                  ),
-                  decoration: WalletTheme.buttonDecoration(isEnabled: true),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 30),
-                  child: FlatButton(
-                    child:
-                        WalletTheme.flatButton(text: '恢复钱包', onPressed: () {}),
-                    onPressed: () {},
-                  ),
-                  decoration: WalletTheme.buttonDecoration(isEnabled: true),
-                ),
-              ])
-            ],
-          ),
-        ));
+      backgroundColor: WalletTheme.bgColor(),
+      appBar: AppBar(
+        leading: Container(
+            padding: EdgeInsets.all(10),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/avatar.jpg'),
+            )),
+        title: Text(name),
+        bottom: TabBar(
+            controller: _tabController,
+            tabs: _tabs.map((t) => Tab(text: t)).toList()),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: _tabs.map((t) => _tabView(t)).toList(),
+      ),
+      bottomNavigationBar: BottomAppBar(
+          child: Row(children: <Widget>[
+        IconButton(icon: Icon(Icons.home), onPressed: () {}),
+        IconButton(icon: Icon(Icons.more), onPressed: () {}),
+        IconButton(icon: Icon(Icons.business), onPressed: () {}),
+        IconButton(icon: Icon(Icons.account_box), onPressed: () {}),
+      ], mainAxisAlignment: MainAxisAlignment.spaceAround)),
+    );
   }
 }
