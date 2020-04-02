@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:decimal/decimal.dart';
+import 'package:dio/dio.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 
 class TwPoint {
   int decimal;
@@ -19,5 +23,15 @@ class TwPoint {
 
   String get strValue {
     return value.toStringAsFixed(2);
+  }
+}
+
+Future<TwPoint> fetchPoint({Dio dio, String address}) async {
+  final response = await ApiProvider(dio: dio).fetchPointV1(address: address);
+
+  if (response.statusCode == 200) {
+    return TwPoint.fromJson(json.decode(response.data));
+  } else {
+    throw Exception('Failed to fetch point.');
   }
 }
