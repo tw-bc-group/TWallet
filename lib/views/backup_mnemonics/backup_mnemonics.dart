@@ -9,7 +9,9 @@ import './widgets/page_title.dart';
 
 class BackupMnemonicsPage extends StatelessWidget {
   Widget buildWords(mnemonics) {
-    mnemonics.createMnemonics();
+    if (mnemonics.mnemonics == null) {
+      mnemonics.createMnemonics();
+    }
     var words = mnemonics.mnemonics.split(' ');
     List<Widget> wordWidgets = [];
     for (var word in words) {
@@ -54,7 +56,7 @@ class BackupMnemonicsPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 60,
                 child: WalletTheme.flatButton(
                   text: '下一步',
-                  onPressed: () {
+                  onPressed: () async {
                     Application.router.navigateTo(context, 'confirm_mnemonics');
                   }),
                 decoration: WalletTheme.buttonDecoration(isEnabled: true),

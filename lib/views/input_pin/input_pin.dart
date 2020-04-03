@@ -50,6 +50,6 @@ abstract class _InputPin with Store {
     String masterKey = randomString(MASTER_KEY_LENGTH);
     var crypt = AesCrypt(masterKey, AES_ENCRYPT_MODE, AES_ENCRYPT_PADDING);
     var encrypt = crypt.encrypt(masterKey, AES_ENCRYPT_IV);
-    return await SecureStorage().set(SecureStorageItem.MasterKey, encrypt);
+    return await SecureStorage.set(SecureStorageItem.MasterKey, encrypt);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hex/hex.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +8,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import "package:ethereum_address/ethereum_address.dart";
 
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
@@ -102,7 +105,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                 width: MediaQuery.of(context).size.width - 60,
                 child: WalletTheme.flatButton(
                   text: '完成',
-                  onPressed: buttonDisabled ? () {
+                  onPressed: buttonDisabled ? null : () async {
                     var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
                     var hdWallet = bip32.BIP32.fromSeed(seed);
                     var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
@@ -116,8 +119,10 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                       pubKey: HEX.encode(publicKey),
                       address: address,
                     );
+                    var identityJsonStr = json.encode(identity);
+                    await SecureStorage.set(SecureStorageItem.Identity, identityJsonStr);
                     Application.router.navigateTo(context, '/');
-                  } : null
+                  }
                 ),
                 decoration: WalletTheme.buttonDecoration(isEnabled: true),
               ),

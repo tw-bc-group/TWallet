@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 
 import 'input_pin.dart';
@@ -150,11 +151,7 @@ class PinInputWidget extends StatelessWidget {
                       onPressed: _inputPin.isCompleted
                           ? () async {
                               await _inputPin.setMasterKey();
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                '/',
-                                (route) => route == null,
-                              );
+                              Application.router.navigateTo(context, 'new_wallet');
                             }
                           : null),
                   decoration: WalletTheme.buttonDecoration(

@@ -12,13 +12,17 @@ extension _SecureStorageItemExtension on SecureStorageItem {
 }
 
 class SecureStorage {
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
+  static final FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  Future<String> get(SecureStorageItem item) async {
+  static Future<String> get(SecureStorageItem item) async {
     return await _storage.read(key: item.asKey());
   }
 
-  Future<void> set(SecureStorageItem item, String value) {
+  static Future<void> set(SecureStorageItem item, String value) {
     return _storage.write(key: item.asKey(), value: value);
+  }
+
+  static Future<void> delete(SecureStorageItem item) {
+    return _storage.delete(key: item.asKey());
   }
 }
