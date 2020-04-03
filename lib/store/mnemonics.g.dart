@@ -8,22 +8,22 @@ part of 'mnemonics.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$Mnemonics on MnemonicsBase, Store {
-  final _$mnemoncisAtom = Atom(name: 'MnemonicsBase.mnemoncis');
+mixin _$MnemonicsStore on MnemonicsBase, Store {
+  final _$mnemonicsAtom = Atom(name: 'MnemonicsBase.mnemonics');
 
   @override
   String get mnemonics {
-    _$mnemoncisAtom.context.enforceReadPolicy(_$mnemoncisAtom);
-    _$mnemoncisAtom.reportObserved();
+    _$mnemonicsAtom.context.enforceReadPolicy(_$mnemonicsAtom);
+    _$mnemonicsAtom.reportObserved();
     return super.mnemonics;
   }
 
   @override
   set mnemonics(String value) {
-    _$mnemoncisAtom.context.conditionallyRunInAction(() {
+    _$mnemonicsAtom.context.conditionallyRunInAction(() {
       super.mnemonics = value;
-      _$mnemoncisAtom.reportChanged();
-    }, _$mnemoncisAtom, name: '${_$mnemoncisAtom.name}_set');
+      _$mnemonicsAtom.reportChanged();
+    }, _$mnemonicsAtom, name: '${_$mnemonicsAtom.name}_set');
   }
 
   final _$MnemonicsBaseActionController =
@@ -51,7 +51,7 @@ mixin _$Mnemonics on MnemonicsBase, Store {
 
   @override
   String toString() {
-    final string = 'mnemoncis: ${mnemonics.toString()}';
+    final string = 'mnemonics: ${mnemonics.toString()}';
     return '{$string}';
   }
 }

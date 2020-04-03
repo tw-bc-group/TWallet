@@ -3,7 +3,7 @@ import 'package:bip39/bip39.dart' as bip39;
 
 part 'mnemonics.g.dart';
 
-class MnemonicsStore = MnemonicsBase with _$Mnemonics;
+class MnemonicsStore = MnemonicsBase with _$MnemonicsStore;
 
 abstract class MnemonicsBase with Store {
   @observable

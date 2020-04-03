@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hex/hex.dart';
 import 'package:provider/provider.dart';
-// import 'package:bip32/bip32.dart' as bip32;
-// import 'package:bip39/bip39.dart' as bip39;
-// import "package:ethereum_address/ethereum_address.dart";
+import 'package:bip32/bip32.dart' as bip32;
+import 'package:bip39/bip39.dart' as bip39;
+import "package:ethereum_address/ethereum_address.dart";
 
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
@@ -101,14 +103,19 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                 child: WalletTheme.flatButton(
                   text: '完成',
                   onPressed: buttonDisabled ? () {
-                    // var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
-                    // var hdWallet = bip32.BIP32.fromSeed(seed);
-                    // var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
-                    // var privateKey = keypair.toWIF();
-                    // var nodeNeutered = hdWallet.neutered();
-                    // var publicKey = nodeNeutered.publicKey;
-                    // var address = ethereumAddressFromPublicKey(publicKey);
-                    // print(HEX.encode(masterKey.publicKey));
+                    var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
+                    var hdWallet = bip32.BIP32.fromSeed(seed);
+                    var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+                    var privateKey = keypair.toWIF();
+                    var nodeNeutered = hdWallet.neutered();
+                    var publicKey = nodeNeutered.publicKey;
+                    var address = ethereumAddressFromPublicKey(publicKey);
+                    var identity = new Identity(
+                      name: '小钱',
+                      priKey: privateKey,
+                      pubKey: HEX.encode(publicKey),
+                      address: address,
+                    );
                     Application.router.navigateTo(context, '/');
                   } : null
                 ),
