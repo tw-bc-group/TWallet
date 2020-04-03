@@ -3,7 +3,7 @@ import 'package:random_string/random_string.dart';
 import 'package:steel_crypt/steel_crypt.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 
-part 'input_pin.g.dart';
+part 'input_pin_store.g.dart';
 
 const PIN_LENGTH = 6;
 const MASTER_KEY_LENGTH = 32;

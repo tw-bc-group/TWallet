@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'input_pin.dart';
+part of 'input_pin_store.dart';
 
 // **************************************************************************
 // StoreGenerator

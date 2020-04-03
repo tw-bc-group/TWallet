@@ -5,7 +5,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
-import 'input_pin.dart';
+import 'input_pin_store.dart';
 
 class PinInputWidget extends StatelessWidget {
   final _inputPin = InputPin();
