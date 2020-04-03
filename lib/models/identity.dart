@@ -14,7 +14,8 @@ class Identity {
 
   Identity({this.name, this.priKey, this.pubKey, this.address});
 
-  factory Identity.fromJson(Map<String, dynamic> json) => _$IdentityFromJson(json);
+  factory Identity.fromJson(Map<String, dynamic> json) =>
+      _$IdentityFromJson(json);
 
   Map<String, dynamic> toJson() => _$IdentityToJson(this);
 

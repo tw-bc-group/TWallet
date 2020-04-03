@@ -9,18 +9,18 @@ class PageTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget titleWidget = new Text(
+    Widget titleWidget = Text(
       '',
-      style: new TextStyle(
+      style: TextStyle(
         fontSize: 28,
         fontWeight: FontWeight.bold,
         color: WalletTheme.rgbColor('#38508c'),
       ),
     );
     if (title != null) {
-      titleWidget = new Text(
+      titleWidget = Text(
         title,
-        style: new TextStyle(
+        style: TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.bold,
           color: WalletTheme.rgbColor('#38508c'),
@@ -28,33 +28,33 @@ class PageTitle extends StatelessWidget {
       );
     }
 
-    Widget descWidget = new Text(
+    Widget descWidget = Text(
       '',
-      style: new TextStyle(
+      style: TextStyle(
         fontSize: 14,
         color: Colors.grey[700],
       ),
     );
     if (desc != null) {
-      descWidget = new Text(
+      descWidget = Text(
         desc,
-        style: new TextStyle(
+        style: TextStyle(
           fontSize: 14,
           color: Colors.grey[700],
         ),
       );
     }
 
-    return new Container(
+    return Container(
       // padding: const EdgeInsets.all(32),
-      margin: new EdgeInsets.only(top: 80, left: 30, right: 30),
-      child: new Row(
+      margin: EdgeInsets.only(top: 80, left: 30, right: 30),
+      child: Row(
         children: [
-          new Expanded(
-            child: new Column(
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                new Container(
+                Container(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: titleWidget),
                 descWidget

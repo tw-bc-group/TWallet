@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:hex/hex.dart';
-import 'package:provider/provider.dart';
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
 import "package:ethereum_address/ethereum_address.dart";
-
+import 'package:flutter/material.dart';
+import 'package:hex/hex.dart';
+import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
@@ -18,7 +18,7 @@ import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 class ConfirmMnemonicsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new ConfirmMnemonicsState();
+    return ConfirmMnemonicsState();
   }
 }
 
@@ -29,27 +29,23 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
   Widget buildWords() {
     List<Widget> wordWidgets = [];
     for (var word in selectedWords) {
-      wordWidgets.add(
-        Container(
+      wordWidgets.add(Container(
           padding: EdgeInsets.all(10),
           child: Text(
             word,
-            style: new TextStyle(
+            style: TextStyle(
               fontSize: 20,
               color: WalletTheme.rgbColor('#38508c'),
             ),
-          )
-        )
-      );
+          )));
     }
-    return new Wrap(children: wordWidgets);
+    return Wrap(children: wordWidgets);
   }
 
   Widget buildWordButtons(mnemonics) {
     List<Widget> wordButtons = [];
-    for(var word in words) {
-      wordButtons.add(
-        WordButton(
+    for (var word in words) {
+      wordButtons.add(WordButton(
           text: word,
           onPressed: () {
             if (!selectedWords.contains(word)) {
@@ -62,11 +58,9 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                 selectedWords.removeAt(wordIndex);
               });
             }
-          }
-        )
-      );
+          }));
     }
-    return new Wrap(children: wordButtons);
+    return Wrap(children: wordButtons);
   }
 
   @override
@@ -78,11 +72,11 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
     }
     var buttonDisabled = selectedWords.join(' ') != mnemonics.mnemonics;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-      body: Stack(
-        children: [
-          OverflowBox(
-            child: Container(
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        body: Stack(
+          children: [
+            OverflowBox(
+                child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.only(bottom: 100),
@@ -92,53 +86,59 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                   ConstrainedBox(
                     constraints: BoxConstraints(minHeight: 200),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                      margin: EdgeInsets.only(top: 48, left: 30, right: 30),
-                      decoration: BoxDecoration(color: WalletTheme.rgbColor('#f6f8f9')),
-                      child: buildWords()
-                    ),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                        margin: EdgeInsets.only(top: 48, left: 30, right: 30),
+                        decoration: BoxDecoration(
+                            color: WalletTheme.rgbColor('#f6f8f9')),
+                        child: buildWords()),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                    margin: EdgeInsets.only(top: 40),
-                    child: buildWordButtons(mnemonics)
-                  )
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                      margin: EdgeInsets.only(top: 40),
+                      child: buildWordButtons(mnemonics))
                 ],
               ),
-            )
-          ),
-          Positioned(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-              width: MediaQuery.of(context).size.width - 60,
-              child: WalletTheme.flatButton(
-                text: '完成',
-                onPressed: buttonDisabled ? null : () async {
-                  var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
-                  var hdWallet = bip32.BIP32.fromSeed(seed);
-                  var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
-                  var privateKey = keypair.toWIF();
-                  var nodeNeutered = hdWallet.neutered();
-                  var publicKey = nodeNeutered.publicKey;
-                  var address = ethereumAddressFromPublicKey(publicKey);
-                  var identity = new Identity(
-                    name: '小钱',
-                    priKey: privateKey,
-                    pubKey: HEX.encode(publicKey),
-                    address: address,
-                  );
-                  var identityJsonStr = json.encode(identity);
-                  await SecureStorage.set(SecureStorageItem.Identity, identityJsonStr);
-                  Application.router.navigateTo(context, '/');
-                }
+            )),
+            Positioned(
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
+                width: MediaQuery.of(context).size.width - 60,
+                child: WalletTheme.flatButton(
+                    text: '完成',
+                    onPressed: buttonDisabled
+                        ? null
+                        : () async {
+                            var seed =
+                                bip39.mnemonicToSeed(mnemonics.mnemonics);
+                            var hdWallet = bip32.BIP32.fromSeed(seed);
+                            var keypair =
+                                hdWallet.derivePath("m/44'/60'/0'/0/0");
+                            var privateKey = keypair.toWIF();
+                            var nodeNeutered = hdWallet.neutered();
+                            var publicKey = nodeNeutered.publicKey;
+                            var address =
+                                ethereumAddressFromPublicKey(publicKey);
+                            var identity = Identity(
+                              name: '小钱',
+                              priKey: privateKey,
+                              pubKey: HEX.encode(publicKey),
+                              address: address,
+                            );
+                            var identityJsonStr = json.encode(identity);
+                            await SecureStorage.set(
+                                SecureStorageItem.Identity, identityJsonStr);
+                            Application.router.navigateTo(context,
+                                Routes.home + '?identity=' + identityJsonStr);
+                          }),
+                decoration: WalletTheme.buttonDecoration(isEnabled: true),
               ),
-              decoration: WalletTheme.buttonDecoration(isEnabled: true),
-            ),
-            bottom: 40,
-            left: 0,
-          )
-        ],
-      )
-    );
+              bottom: 40,
+              left: 0,
+            )
+          ],
+        ));
   }
 }

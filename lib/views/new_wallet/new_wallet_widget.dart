@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 
 class NewWalletWidget extends StatelessWidget {
   @override
@@ -22,7 +23,7 @@ class NewWalletWidget extends StatelessWidget {
                       text: '创建钱包',
                       onPressed: () {
                         Application.router
-                            .navigateTo(context, 'backup_mnemonics');
+                            .navigateTo(context, Routes.backupMnemonics);
                       }),
                   decoration: WalletTheme.buttonDecoration(isEnabled: true),
                 ),

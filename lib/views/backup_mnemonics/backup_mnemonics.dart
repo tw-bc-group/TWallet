@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
+
 import './widgets/page_title.dart';
 
 class BackupMnemonicsPage extends StatelessWidget {
@@ -19,54 +20,55 @@ class BackupMnemonicsPage extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: Text(
             word,
-            style: new TextStyle(
+            style: TextStyle(
               fontSize: 20,
               color: WalletTheme.rgbColor('#38508c'),
             ),
           )));
     }
-    return new Wrap(children: wordWidgets);
+    return Wrap(children: wordWidgets);
   }
 
   @override
   Widget build(BuildContext context) {
     final mnemonics = Provider.of<MnemonicsStore>(context);
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            ListView(
-              children: <Widget>[
-                PageTitle(title: '备份助记词', desc: '请用纸笔抄写下助记词，我们将在下一步验证'),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                    margin: EdgeInsets.only(top: 48),
-                    decoration: BoxDecoration(color: WalletTheme.rgbColor('#f6f8f9')),
-                    child: buildWords(mnemonics)
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        body: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                ListView(
+                  children: <Widget>[
+                    PageTitle(title: '备份助记词', desc: '请用纸笔抄写下助记词，我们将在下一步验证'),
+                    Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                        margin: EdgeInsets.only(top: 48),
+                        decoration: BoxDecoration(
+                            color: WalletTheme.rgbColor('#f6f8f9')),
+                        child: buildWords(mnemonics)),
+                    Tips(),
+                  ],
+                ),
+                Positioned(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 30),
+                    width: MediaQuery.of(context).size.width - 60,
+                    child: WalletTheme.flatButton(
+                        text: '下一步',
+                        onPressed: () async {
+                          Application.router
+                              .navigateTo(context, Routes.confirmMnemonics);
+                        }),
+                    decoration: WalletTheme.buttonDecoration(isEnabled: true),
                   ),
-                Tips(),
+                  bottom: 40,
+                  left: 0,
+                )
               ],
-            ),
-            Positioned(
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                width: MediaQuery.of(context).size.width - 60,
-                child: WalletTheme.flatButton(
-                  text: '下一步',
-                  onPressed: () async {
-                    Application.router.navigateTo(context, 'confirm_mnemonics');
-                  }),
-                decoration: WalletTheme.buttonDecoration(isEnabled: true),
-              ),
-              bottom: 40,
-              left: 0,
-            )
-          ],
-        )
-      )
-    );
+            )));
   }
 }

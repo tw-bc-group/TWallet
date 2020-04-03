@@ -9,7 +9,7 @@ class WordButton extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new WordButtonState(text: text, onPressed: onPressed);
+    return WordButtonState(text: text, onPressed: onPressed);
   }
 }
 
@@ -42,13 +42,13 @@ class WordButtonState extends State<WordButton> {
             margin: EdgeInsets.only(top: 10, right: 16),
             decoration: BoxDecoration(
               color: selected ? selectedBackColor : defaultBackColor,
-              borderRadius: new BorderRadius.all(
+              borderRadius: BorderRadius.all(
                 const Radius.circular(17),
               ),
             ),
             child: Text(
               text,
-              style: new TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 color: selected ? selectedFontColor : defaultFontColor,
               ),

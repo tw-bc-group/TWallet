@@ -9,22 +9,19 @@ import 'package:tw_wallet_ui/views/home/point_tab_view.dart';
 import 'assets_tab_view.dart';
 
 class HomeWidget extends StatefulWidget {
-  HomeWidget({@required this.name, @required this.address});
+  HomeWidget({this.identity});
 
-  final String name;
-  final String address;
+  final Identity identity;
 
   @override
-  HomeWidgetState createState() =>
-      HomeWidgetState(name: name, address: address);
+  HomeWidgetState createState() => HomeWidgetState(identity: identity);
 }
 
 class HomeWidgetState extends State<HomeWidget>
     with SingleTickerProviderStateMixin {
-  HomeWidgetState({this.name, this.address});
+  HomeWidgetState({this.identity});
 
-  String name;
-  String address;
+  final Identity identity;
   final List<String> _tabs = ['分数', '资产'];
 
   Dio _dio;
@@ -39,24 +36,17 @@ class HomeWidgetState extends State<HomeWidget>
       ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT;
 
     _tabController = TabController(length: _tabs.length, vsync: this);
-
-    Future.value(Identity().getFromSecureStorage()).then((identity) {
-      setState(() {
-        name = identity.name;
-        address = identity.address;
-      });
-    });
   }
 
   Widget _tabView(String tabName) {
     Widget _view;
     switch (tabName) {
       case '分数':
-        _view = pointTabViewWidget(dio: _dio, address: address);
+        _view = pointTabViewWidget(dio: _dio, address: identity.address);
         break;
 
       case '资产':
-        _view = assetsTabViewWidget(dio: _dio, address: address);
+        _view = assetsTabViewWidget(dio: _dio, address: identity.address);
         break;
 
       default:
@@ -76,7 +66,7 @@ class HomeWidgetState extends State<HomeWidget>
             child: CircleAvatar(
               backgroundImage: AssetImage('assets/images/avatar.jpg'),
             )),
-        title: Text(name),
+        title: Text(identity.name),
         bottom: TabBar(
             controller: _tabController,
             tabs: _tabs.map((t) => Tab(text: t)).toList()),

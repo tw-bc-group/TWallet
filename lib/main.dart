@@ -8,13 +8,14 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
-  var hasIdentity = await SecureStorage.get(SecureStorageItem.Identity) != null;
+  bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
+  String identity = await SecureStorage.get(SecureStorageItem.Identity);
+
   var initialRoute = !hasPin
-    ? 'input_pin'
-    : !hasIdentity
-      ? 'new_wallet'
-      : '/';
+      ? 'input_pin'
+      : identity == null
+          ? 'new_wallet'
+          : 'home?identity=' + Uri.encodeComponent(identity);
   runApp(MyApp(initialRoute: initialRoute));
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   final initialRoute;
 
   MyApp({@required this.initialRoute}) {
-    final router = new Router();
+    final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
   }
