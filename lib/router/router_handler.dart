@@ -17,7 +17,8 @@ var newWalletHandler = Handler(
 
 var homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return HomeWidget(identity: Identity.fromJson(json.decode(params['identity'][0])));
+  return HomeWidget(
+      identity: Identity.fromJson(json.decode(params['identity'][0])));
 });
 
 var inputPinHandler = Handler(

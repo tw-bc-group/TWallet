@@ -1,0 +1,6 @@
+git stash -q --keep-index
+
+flutter format .
+
+git stash pop -q
+exit 0
