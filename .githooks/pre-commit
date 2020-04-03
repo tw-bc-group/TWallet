@@ -2,7 +2,5 @@ git stash -q --keep-index
 
 flutter format .
 
-git add .
-
 git stash pop -q
 exit 0
