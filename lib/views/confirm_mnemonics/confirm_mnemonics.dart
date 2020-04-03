@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import 'package:bip32/bip32.dart' as bip32;
+// import 'package:bip39/bip39.dart' as bip39;
+// import "package:ethereum_address/ethereum_address.dart";
 
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 
 class ConfirmMnemonicsPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return new ConfirmMnemonicsState();
@@ -14,7 +18,6 @@ class ConfirmMnemonicsPage extends StatefulWidget {
 }
 
 class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
-  final words = ['couple', 'open', 'atom', 'good', 'inflict', 'shadow', 'allow', 'creek', 'pave', 'miss', 'indicate', 'broken'];
   final selectedWords = [];
 
   Widget buildWords() {
@@ -36,7 +39,8 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
     return new Wrap(children: wordWidgets);
   }
 
-  Widget buildWordButtons() {
+  Widget buildWordButtons(mnemonics) {
+    var words = mnemonics.mnemonics.split(' ');
     List<Widget> wordButtons = [];
     for(var word in words) {
       wordButtons.add(
@@ -62,9 +66,9 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget wordsWidget = buildWords();
-    Widget wordButtonsWidget = buildWordButtons();
-    return new Scaffold(
+    final mnemonics = Provider.of<MnemonicsStore>(context);
+    var buttonDisabled = selectedWords.join(' ') != mnemonics.mnemonics;
+    return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -80,13 +84,13 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
                     margin: EdgeInsets.only(top: 48, left: 30, right: 30),
                     decoration: BoxDecoration(color: WalletTheme.rgbColor('#f6f8f9')),
-                    child: wordsWidget
+                    child: buildWords()
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   margin: EdgeInsets.only(top: 40),
-                  child: wordButtonsWidget
+                  child: buildWordButtons(mnemonics)
                 )
               ],
             ),
@@ -96,9 +100,17 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                 width: MediaQuery.of(context).size.width - 60,
                 child: WalletTheme.flatButton(
                   text: '完成',
-                  onPressed: () {
-                    Application.router.navigateTo(context, 'confirm_mnemonics');
-                  }
+                  onPressed: buttonDisabled ? () {
+                    // var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
+                    // var hdWallet = bip32.BIP32.fromSeed(seed);
+                    // var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+                    // var privateKey = keypair.toWIF();
+                    // var nodeNeutered = hdWallet.neutered();
+                    // var publicKey = nodeNeutered.publicKey;
+                    // var address = ethereumAddressFromPublicKey(publicKey);
+                    // print(HEX.encode(masterKey.publicKey));
+                    Application.router.navigateTo(context, '/');
+                  } : null
                 ),
                 decoration: WalletTheme.buttonDecoration(isEnabled: true),
               ),
