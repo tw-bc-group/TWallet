@@ -12,10 +12,10 @@ Future<void> main() async {
   String identity = await SecureStorage.get(SecureStorageItem.Identity);
 
   var initialRoute = !hasPin
-      ? 'input_pin'
+      ? Routes.inputPin
       : identity == null
-          ? 'new_wallet'
-          : 'home?identity=' + Uri.encodeComponent(identity);
+          ? Routes.newWallet
+          : Routes.home + '?identity=' + Uri.encodeComponent(identity);
   runApp(MyApp(initialRoute: initialRoute));
 }
 

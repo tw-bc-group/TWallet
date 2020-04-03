@@ -43,8 +43,8 @@ void main() {
     test('returns a TwPoint if the http call completes successfully', () async {
       when(dio.get(url)).thenAnswer((_) async => Response(
           statusCode: 200,
-          data:
-              '{"code": 200, "msg": "OK", "result": {"address": "0xed9d02e382b34818e88B88a309c7fe71E65f419d", "balance": "10000000000000000000000", "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}}}'));
+          data: json.decode(
+              '{"code": 200, "msg": "OK", "result": {"address": "0xed9d02e382b34818e88B88a309c7fe71E65f419d", "balance": "10000000000000000000000", "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}}}')));
 
       expect(await fetchPoint(dio: dio, address: address), isA<TwPoint>());
     });

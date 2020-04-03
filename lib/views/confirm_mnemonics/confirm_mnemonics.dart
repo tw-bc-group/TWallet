@@ -130,8 +130,11 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                             var identityJsonStr = json.encode(identity);
                             await SecureStorage.set(
                                 SecureStorageItem.Identity, identityJsonStr);
-                            Application.router.navigateTo(context,
-                                Routes.home + '?identity=' + identityJsonStr);
+                            Application.router.navigateTo(
+                                context,
+                                Routes.home +
+                                    '?identity=' +
+                                    Uri.encodeComponent(identityJsonStr));
                           }),
                 decoration: WalletTheme.buttonDecoration(isEnabled: true),
               ),
