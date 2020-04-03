@@ -54,6 +54,13 @@ mixin _$InputPin on _InputPin, Store {
     }, _$pin2Atom, name: '${_$pin2Atom.name}_set');
   }
 
+  final _$setMasterKeyAsyncAction = AsyncAction('setMasterKey');
+
+  @override
+  Future<void> setMasterKey() {
+    return _$setMasterKeyAsyncAction.run(() => super.setMasterKey());
+  }
+
   final _$_InputPinActionController = ActionController(name: '_InputPin');
 
   @override
@@ -71,16 +78,6 @@ mixin _$InputPin on _InputPin, Store {
     final _$actionInfo = _$_InputPinActionController.startAction();
     try {
       return super.updatePin2(value);
-    } finally {
-      _$_InputPinActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setMasterKey() {
-    final _$actionInfo = _$_InputPinActionController.startAction();
-    try {
-      return super.setMasterKey();
     } finally {
       _$_InputPinActionController.endAction(_$actionInfo);
     }

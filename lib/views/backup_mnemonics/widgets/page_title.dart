@@ -55,9 +55,8 @@ class PageTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 new Container(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: titleWidget
-                ),
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: titleWidget),
                 descWidget
               ],
             ),

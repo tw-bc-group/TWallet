@@ -1,4 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:random_string/random_string.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 
 part 'input_pin.g.dart';
@@ -38,9 +40,12 @@ abstract class _InputPin with Store {
   }
 
   @action
-  setMasterKey() {
+  Future<void> setMasterKey() async {
     assert(pin1.length == PIN_LENGTH);
     assert(pin1 == pin2);
-    SecureStorage().setMasterKey(pin: pin1);
+    String masterKey = randomString(MASTER_KEY_LENGTH);
+    var crypt = AesCrypt(masterKey, AES_ENCRYPT_MODE, AES_ENCRYPT_PADDING);
+    var encrypt = crypt.encrypt(masterKey, AES_ENCRYPT_IV);
+    return await SecureStorage().set(SecureStorageItem.MasterKey, encrypt);
   }
 }

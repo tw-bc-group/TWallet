@@ -148,8 +148,8 @@ class PinInputWidget extends StatelessWidget {
                   child: WalletTheme.flatButton(
                       text: '下一步',
                       onPressed: _inputPin.isCompleted
-                          ? () {
-                              _inputPin.setMasterKey();
+                          ? () async {
+                              await _inputPin.setMasterKey();
                               Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 '/',

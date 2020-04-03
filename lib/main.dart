@@ -8,7 +8,8 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp(first: await SecureStorage().getMasterKey() == null));
+  runApp(MyApp(
+      first: await SecureStorage().get(SecureStorageItem.MasterKey) == null));
 }
 
 class MyApp extends StatelessWidget {

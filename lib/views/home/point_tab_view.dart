@@ -26,11 +26,14 @@ FutureBuilder<TwPoint> pointTabViewWidget(
       future: fetchPoint(dio: dio, address: address),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Container(
-            padding: EdgeInsets.all(18),
-            child: ListView(
-                children: <Widget>[_pointItem(point: snapshot.data.strValue)]),
-          );
+          return RefreshIndicator(
+              onRefresh: () => fetchPoint(dio: dio, address: address),
+              child: Container(
+                padding: EdgeInsets.all(18),
+                child: ListView(children: <Widget>[
+                  _pointItem(point: snapshot.data.strValue)
+                ]),
+              ));
         } else if (snapshot.hasError) {
           return Center(child: Text("请求失败，请退出重试"));
         }
