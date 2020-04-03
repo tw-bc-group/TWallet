@@ -8,7 +8,7 @@ part of 'input_pin_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$InputPin on _InputPin, Store {
+mixin _$InputPinStore on _InputPinStore, Store {
   Computed<bool> _$isCompletedComputed;
 
   @override
@@ -20,7 +20,7 @@ mixin _$InputPin on _InputPin, Store {
   bool get isUnequal =>
       (_$isUnequalComputed ??= Computed<bool>(() => super.isUnequal)).value;
 
-  final _$pin1Atom = Atom(name: '_InputPin.pin1');
+  final _$pin1Atom = Atom(name: '_InputPinStore.pin1');
 
   @override
   String get pin1 {
@@ -37,7 +37,7 @@ mixin _$InputPin on _InputPin, Store {
     }, _$pin1Atom, name: '${_$pin1Atom.name}_set');
   }
 
-  final _$pin2Atom = Atom(name: '_InputPin.pin2');
+  final _$pin2Atom = Atom(name: '_InputPinStore.pin2');
 
   @override
   String get pin2 {
@@ -61,25 +61,26 @@ mixin _$InputPin on _InputPin, Store {
     return _$setMasterKeyAsyncAction.run(() => super.setMasterKey());
   }
 
-  final _$_InputPinActionController = ActionController(name: '_InputPin');
+  final _$_InputPinStoreActionController =
+      ActionController(name: '_InputPinStore');
 
   @override
   dynamic updatePin1(String value) {
-    final _$actionInfo = _$_InputPinActionController.startAction();
+    final _$actionInfo = _$_InputPinStoreActionController.startAction();
     try {
       return super.updatePin1(value);
     } finally {
-      _$_InputPinActionController.endAction(_$actionInfo);
+      _$_InputPinStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic updatePin2(String value) {
-    final _$actionInfo = _$_InputPinActionController.startAction();
+    final _$actionInfo = _$_InputPinStoreActionController.startAction();
     try {
       return super.updatePin2(value);
     } finally {
-      _$_InputPinActionController.endAction(_$actionInfo);
+      _$_InputPinStoreActionController.endAction(_$actionInfo);
     }
   }
 

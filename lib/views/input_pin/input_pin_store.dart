@@ -11,9 +11,9 @@ const AES_ENCRYPT_MODE = 'cbc';
 const AES_ENCRYPT_PADDING = 'pkcs7';
 const AES_ENCRYPT_IV = '1234567890123456';
 
-class InputPin = _InputPin with _$InputPin;
+class InputPinStore = _InputPinStore with _$InputPinStore;
 
-abstract class _InputPin with Store {
+abstract class _InputPinStore with Store {
   @observable
   String pin1 = '';
 
