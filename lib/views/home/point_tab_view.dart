@@ -35,7 +35,7 @@ FutureBuilder<TwPoint> pointTabViewWidget(
                 ]),
               ));
         } else if (snapshot.hasError) {
-          return Center(child: Text("请求失败，请退出重试"));
+          return Center(child: Text(snapshot.error.toString()));
         }
         return Center(child: CircularProgressIndicator());
       });
