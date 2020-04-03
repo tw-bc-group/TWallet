@@ -2,6 +2,8 @@ git stash -q --keep-index
 
 flutter format .
 
+git add .
+
 if [ $? -ne 0 ]; then
         # unstash the unstashed changes
         git stash pop -q
