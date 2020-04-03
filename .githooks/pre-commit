@@ -1,0 +1,12 @@
+git stash -q --keep-index
+
+flutter format .
+
+if [ $? -ne 0 ]; then
+        # unstash the unstashed changes
+        git stash pop -q
+        exit 1
+fi
+
+git stash pop -q
+exit 0

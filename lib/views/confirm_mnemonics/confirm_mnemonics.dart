@@ -86,12 +86,12 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                   ConstrainedBox(
                     constraints: BoxConstraints(minHeight: 200),
                     child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                        margin: EdgeInsets.only(top: 48, left: 30, right: 30),
-                        decoration: BoxDecoration(
-                            color: WalletTheme.rgbColor('#f6f8f9')),
-                        child: buildWords()),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                      margin: EdgeInsets.only(top: 48, left: 30, right: 30),
+                      decoration: BoxDecoration(
+                          color: WalletTheme.rgbColor('#f6f8f9')),
+                      child: buildWords()),
                   ),
                   Container(
                       padding:
