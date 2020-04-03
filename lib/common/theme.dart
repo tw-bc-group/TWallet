@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class WalletTheme {
   static Color blue() {
-    return rgbColor('0x3E71C0');
+    return Colors.blue;
   }
 
   static Color bgColor() {
