@@ -23,6 +23,7 @@ class ConfirmMnemonicsPage extends StatefulWidget {
 }
 
 class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
+  List<String> words = [];
   final selectedWords = [];
 
   Widget buildWords() {
@@ -45,7 +46,6 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
   }
 
   Widget buildWordButtons(mnemonics) {
-    var words = mnemonics.mnemonics.split(' ');
     List<Widget> wordButtons = [];
     for(var word in words) {
       wordButtons.add(
@@ -72,6 +72,10 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
   @override
   Widget build(BuildContext context) {
     final mnemonics = Provider.of<MnemonicsStore>(context);
+    if (words.length == 0) {
+      words = mnemonics.mnemonics.split(' ');
+      words.shuffle();
+    }
     var buttonDisabled = selectedWords.join(' ') != mnemonics.mnemonics;
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
