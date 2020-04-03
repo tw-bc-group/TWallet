@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/env.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/views/home/point_tab_view.dart';
 
 import 'assets_tab_view.dart';
@@ -22,8 +23,8 @@ class HomeWidgetState extends State<HomeWidget>
     with SingleTickerProviderStateMixin {
   HomeWidgetState({this.name, this.address});
 
-  final String name;
-  final String address;
+  String name;
+  String address;
   final List<String> _tabs = ['分数', '资产'];
 
   Dio _dio;
@@ -38,6 +39,13 @@ class HomeWidgetState extends State<HomeWidget>
       ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT;
 
     _tabController = TabController(length: _tabs.length, vsync: this);
+
+    Future.value(Identity().getFromSecureStorage()).then((identity) {
+      setState(() {
+        name = identity.name;
+        address = identity.address;
+      });
+    });
   }
 
   Widget _tabView(String tabName) {
