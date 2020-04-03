@@ -47,7 +47,7 @@ class PageTitle extends StatelessWidget {
 
     return Container(
       // padding: const EdgeInsets.all(32),
-      margin: EdgeInsets.only(top: 80, left: 30, right: 30),
+      margin: EdgeInsets.only(top: 30, left: 30, right: 30),
       child: Row(
         children: [
           Expanded(

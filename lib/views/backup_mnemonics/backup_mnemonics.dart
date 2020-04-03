@@ -4,6 +4,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
+import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 
 import './widgets/page_title.dart';
@@ -41,6 +42,7 @@ class BackupMnemonicsPage extends StatelessWidget {
               children: [
                 ListView(
                   children: <Widget>[
+                    IconBackButton(),
                     PageTitle(title: '备份助记词', desc: '请用纸笔抄写下助记词，我们将在下一步验证'),
                     Container(
                         padding:

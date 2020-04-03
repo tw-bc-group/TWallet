@@ -12,6 +12,7 @@ import 'package:tw_wallet_ui/common/theme.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
+import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 
@@ -82,6 +83,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
               padding: EdgeInsets.only(bottom: 100),
               child: ListView(
                 children: <Widget>[
+                  IconBackButton(),
                   PageTitle(title: '确认助记词', desc: '请按顺序点击下方助记词，确认您的正确备份'),
                   ConstrainedBox(
                     constraints: BoxConstraints(minHeight: 200),
