@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -29,6 +30,7 @@ class PinInputWidget extends StatelessWidget {
       activeFillColor: Colors.white,
       enableActiveFill: true,
       textInputType: TextInputType.number,
+      inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
       controller: textEditingController,
       onChanged: onChanged,
     );
