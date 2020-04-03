@@ -23,7 +23,7 @@ class PinInputWidget extends StatelessWidget {
       animationDuration: Duration(milliseconds: 300),
       borderRadius: BorderRadius.circular(5),
       fieldHeight: 50,
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: WalletTheme.bgColor(),
       fieldWidth: 40,
       inactiveFillColor: Colors.white,
       activeFillColor: Colors.white,
