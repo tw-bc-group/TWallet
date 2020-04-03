@@ -79,62 +79,65 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
     var buttonDisabled = selectedWords.join(' ') != mnemonics.mnemonics;
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            ListView(
-              children: <Widget>[
-                PageTitle(title: '确认助记词', desc: '请按顺序点击下方助记词，确认您的正确备份'),
-                ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: 200),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                    margin: EdgeInsets.only(top: 48, left: 30, right: 30),
-                    decoration: BoxDecoration(color: WalletTheme.rgbColor('#f6f8f9')),
-                    child: buildWords()
+      body: Stack(
+        children: [
+          OverflowBox(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(bottom: 100),
+              child: ListView(
+                children: <Widget>[
+                  PageTitle(title: '确认助记词', desc: '请按顺序点击下方助记词，确认您的正确备份'),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: 200),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                      margin: EdgeInsets.only(top: 48, left: 30, right: 30),
+                      decoration: BoxDecoration(color: WalletTheme.rgbColor('#f6f8f9')),
+                      child: buildWords()
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                  margin: EdgeInsets.only(top: 40),
-                  child: buildWordButtons(mnemonics)
-                )
-              ],
-            ),
-            Positioned(
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                width: MediaQuery.of(context).size.width - 60,
-                child: WalletTheme.flatButton(
-                  text: '完成',
-                  onPressed: buttonDisabled ? null : () async {
-                    var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
-                    var hdWallet = bip32.BIP32.fromSeed(seed);
-                    var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
-                    var privateKey = keypair.toWIF();
-                    var nodeNeutered = hdWallet.neutered();
-                    var publicKey = nodeNeutered.publicKey;
-                    var address = ethereumAddressFromPublicKey(publicKey);
-                    var identity = new Identity(
-                      name: '小钱',
-                      priKey: privateKey,
-                      pubKey: HEX.encode(publicKey),
-                      address: address,
-                    );
-                    var identityJsonStr = json.encode(identity);
-                    await SecureStorage.set(SecureStorageItem.Identity, identityJsonStr);
-                    Application.router.navigateTo(context, '/');
-                  }
-                ),
-                decoration: WalletTheme.buttonDecoration(isEnabled: true),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                    margin: EdgeInsets.only(top: 40),
+                    child: buildWordButtons(mnemonics)
+                  )
+                ],
               ),
-              bottom: 60,
-              left: 0,
             )
-          ],
-        )
+          ),
+          Positioned(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
+              width: MediaQuery.of(context).size.width - 60,
+              child: WalletTheme.flatButton(
+                text: '完成',
+                onPressed: buttonDisabled ? null : () async {
+                  var seed = bip39.mnemonicToSeed(mnemonics.mnemonics);
+                  var hdWallet = bip32.BIP32.fromSeed(seed);
+                  var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+                  var privateKey = keypair.toWIF();
+                  var nodeNeutered = hdWallet.neutered();
+                  var publicKey = nodeNeutered.publicKey;
+                  var address = ethereumAddressFromPublicKey(publicKey);
+                  var identity = new Identity(
+                    name: '小钱',
+                    priKey: privateKey,
+                    pubKey: HEX.encode(publicKey),
+                    address: address,
+                  );
+                  var identityJsonStr = json.encode(identity);
+                  await SecureStorage.set(SecureStorageItem.Identity, identityJsonStr);
+                  Application.router.navigateTo(context, '/');
+                }
+              ),
+              decoration: WalletTheme.buttonDecoration(isEnabled: true),
+            ),
+            bottom: 40,
+            left: 0,
+          )
+        ],
       )
     );
   }
