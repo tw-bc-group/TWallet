@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bip32/bip32.dart' as bip32;
+import 'package:bip32/bip32.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import "package:ethereum_address/ethereum_address.dart";
 import 'package:flutter/material.dart';
@@ -115,18 +115,19 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                         : () async {
                             var seed =
                                 bip39.mnemonicToSeed(mnemonics.mnemonics);
-                            var hdWallet = bip32.BIP32.fromSeed(seed);
+                            var hdWallet = BIP32.fromSeed(seed);
                             var keypair =
                                 hdWallet.derivePath("m/44'/60'/0'/0/0");
-                            var privateKey = keypair.toWIF();
-                            var nodeNeutered = hdWallet.neutered();
-                            var publicKey = nodeNeutered.publicKey;
+                            var privateKey =
+                                '0x' + HEX.encode(keypair.privateKey);
+                            var publicKey =
+                                '0x' + HEX.encode(keypair.publicKey);
                             var address =
-                                ethereumAddressFromPublicKey(publicKey);
+                                ethereumAddressFromPublicKey(keypair.publicKey);
                             var identity = Identity(
                               name: '小钱',
                               priKey: privateKey,
-                              pubKey: HEX.encode(publicKey),
+                              pubKey: publicKey,
                               address: address,
                             );
                             var identityJsonStr = json.encode(identity);
