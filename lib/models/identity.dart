@@ -17,15 +17,19 @@ class Identity {
   factory Identity.fromJson(Map<String, dynamic> json) =>
       _$IdentityFromJson(json);
 
+  factory Identity.unknown() {
+    return Identity(
+      name: '',
+      priKey: '',
+      pubKey: '',
+      address: '',
+    );
+  }
+
   Map<String, dynamic> toJson() => _$IdentityToJson(this);
 
-  Future<Identity> getFromSecureStorage() async {
-    var identityGet = await SecureStorage.get(SecureStorageItem.Identity);
-    var identity = json.decode(identityGet);
-    this.name = identity.name;
-    this.priKey = identity.priKey;
-    this.pubKey = identity.pubKey;
-    this.address = identity.address;
-    return this;
+  static Future<Identity> getFromSecureStorage() async {
+    return Identity.fromJson(
+        json.decode(await SecureStorage.get(SecureStorageItem.Identity)));
   }
 }
