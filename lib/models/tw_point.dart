@@ -1,6 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
-import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/service/home.service.dart';
 
 class TwPoint {
   int decimal;
@@ -25,7 +25,7 @@ class TwPoint {
 }
 
 Future<TwPoint> fetchPoint({Dio dio, String address}) async {
-  final response = await ApiProvider(dio: dio).fetchPointV1(address: address);
+  final response = await HomeService.fetchPointV1(address: address);
 
   if (response.statusCode == 200) {
     return TwPoint.fromJson(response.data);
