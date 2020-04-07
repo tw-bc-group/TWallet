@@ -40,29 +40,30 @@ class HomeWidgetState extends State<HomeWidget>
   }
 
   @override
-  Widget build(BuildContext context) => Observer(builder: (_) {
-        final future = store.currentIdentity;
-
-        return Scaffold(
-          backgroundColor: WalletTheme.bgColor(),
-          appBar: AppBar(
-            leading: Container(
-                padding: EdgeInsets.all(10),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/avatar.jpg'),
-                )),
-            title: Text(future.status == FutureStatus.fulfilled
-                ? future.result.name
-                : 'Unknown'),
-            bottom: TabBar(
-                controller: _tabController,
-                tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
-          ),
-          body: SafeArea(
-              child: TabBarView(
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: WalletTheme.bgColor(),
+      appBar: AppBar(
+        leading: Container(
+            padding: EdgeInsets.all(10),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/avatar.jpg'),
+            )),
+        title: Observer(builder: (_) {
+          final future = store.currentIdentity;
+          return Text(future.status == FutureStatus.fulfilled
+              ? future.result.name
+              : '');
+        }),
+        bottom: TabBar(
             controller: _tabController,
-            children: [PointTabView(store: store), TokenTabView(store: store)],
-          )),
-        );
-      });
+            tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
+      ),
+      body: SafeArea(
+          child: TabBarView(
+        controller: _tabController,
+        children: [PointTabView(store: store), TokenTabView(store: store)],
+      )),
+    );
+  }
 }
