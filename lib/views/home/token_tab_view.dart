@@ -37,13 +37,7 @@ class TokenTabView extends StatelessWidget {
                   )
                 ]);
           case FutureStatus.fulfilled:
-            return RefreshIndicator(
-              onRefresh: _refresh,
-              child: Container(
-                padding: EdgeInsets.all(18),
-                child: ListView(children: <Widget>[]),
-              ),
-            );
+            return Container();
         }
       });
 }
