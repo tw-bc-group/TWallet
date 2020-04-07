@@ -67,7 +67,7 @@ class BackupMnemonicsPage extends StatelessWidget {
                         }),
                     decoration: WalletTheme.buttonDecoration(isEnabled: true),
                   ),
-                  bottom: 40,
+                  bottom: 30,
                   left: 0,
                 )
               ],

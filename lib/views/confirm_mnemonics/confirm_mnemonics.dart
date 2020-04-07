@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
@@ -77,7 +76,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                 child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(bottom: 100),
+              padding: EdgeInsets.only(bottom: 110),
               child: ListView(
                 children: <Widget>[
                   IconBackButton(),
@@ -94,8 +93,8 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                   ),
                   Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                      margin: EdgeInsets.only(top: 40),
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      margin: EdgeInsets.only(top: 30),
                       child: buildWordButtons(mnemonics))
                 ],
               ),
@@ -110,15 +109,9 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     onPressed: buttonDisabled
                         ? null
                         : () async {
-                            var rootKey =
-                                BlockChainService.createRootKeyFromMnemonics(
+                            var identity = BlockChainService
+                                .createRootKeyIdentityFromMnemonics(
                                     mnemonics.mnemonics);
-                            var identity = Identity(
-                              name: '小钱',
-                              priKey: rootKey.privateKey,
-                              pubKey: rootKey.publicKey,
-                              address: rootKey.address,
-                            );
                             var identityJsonStr = json.encode(identity);
                             await SecureStorage.set(
                                 SecureStorageItem.Identity, identityJsonStr);
@@ -130,7 +123,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                           }),
                 decoration: WalletTheme.buttonDecoration(isEnabled: true),
               ),
-              bottom: 40,
+              bottom: 30,
               left: 0,
             )
           ],
