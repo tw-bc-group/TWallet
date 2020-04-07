@@ -6,7 +6,10 @@ import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 
+import 'common/get_it.dart';
+
 Future<void> main() async {
+  getItInit();
   WidgetsFlutterBinding.ensureInitialized();
   bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
   String identity = await SecureStorage.get(SecureStorageItem.Identity);

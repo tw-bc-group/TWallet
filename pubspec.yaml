@@ -36,6 +36,7 @@ dependencies:
   bip39: ^1.0.3
   provider: ^4.0.4
   hex: ^0.1.2
+  get_it: ^4.0.1
   ethereum_address: ^1.0.1
   json_annotation: ^3.0.1
 
