@@ -54,21 +54,4 @@ class WordButtonState extends State<WordButton> {
               ),
             )));
   }
-  //   return Container(
-  //     margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-  //     padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-  //     child: Text(
-  //       text,
-  //       style: TextStyle(
-  //       color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-  //     ),
-  //     // child: FlatButton(
-  //       // disabledColor: Colors.grey,
-  //       // onPressed: onPressed,
-  //       // child: Center(
-  //       //   ,
-  //     // decoration: WalletTheme.buttonDecoration(isEnabled: true),
-  //   // )
-  //   );
-  // }
 }
