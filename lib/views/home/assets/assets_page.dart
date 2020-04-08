@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
-import 'package:tw_wallet_ui/views/home/assets/point_tab_view.dart';
-import 'package:tw_wallet_ui/views/home/assets/token_tab_view.dart';
+import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
+import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 
 import 'assets_store.dart';
 
@@ -72,10 +72,7 @@ class _AssetsPageWidgetState extends State<AssetsPageWidget>
                   color: WalletTheme.bgColor(),
                   child: TabBarView(
                     controller: _tabController,
-                    children: [
-                      PointTabView(store: store),
-                      TokenTabView(store: store)
-                    ],
+                    children: [PointTab(store: store), TokenTab(store: store)],
                   ))),
         ]));
   }

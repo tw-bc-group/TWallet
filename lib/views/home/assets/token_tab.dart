@@ -5,8 +5,8 @@ import 'package:mobx/mobx.dart';
 
 import 'assets_store.dart';
 
-class TokenTabView extends StatelessWidget {
-  const TokenTabView({this.store});
+class TokenTab extends StatelessWidget {
+  const TokenTab({this.store});
 
   final AssetsStore store;
 

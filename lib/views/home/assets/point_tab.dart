@@ -24,8 +24,8 @@ Widget _pointItem({@required String point}) {
           ])));
 }
 
-class PointTabView extends StatelessWidget {
-  const PointTabView({this.store});
+class PointTab extends StatelessWidget {
+  const PointTab({this.store});
   final AssetsStore store;
 
   Future _refresh() => store.fetchLatestPoint();

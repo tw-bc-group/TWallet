@@ -23,7 +23,7 @@ class HomeWidgetState extends State<HomeWidget> {
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
     //BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
     //BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('身份')),
-    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('我')),
+    BottomNavigationBarItem(icon: Icon(Icons.account_box), title: Text('我')),
   ];
 
   int _currentIndex = 0;
