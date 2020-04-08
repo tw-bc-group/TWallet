@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/theme.dart';
-import 'package:tw_wallet_ui/views/home/point_tab_view.dart';
-import 'package:tw_wallet_ui/views/home/token_tab_view.dart';
 
-import 'home_store.dart';
+import 'assets/assets_page.dart';
+import 'assets/assets_store.dart';
+import 'my/my_page.dart';
 
 class HomeWidget extends StatefulWidget {
   HomeWidget();
@@ -15,55 +13,38 @@ class HomeWidget extends StatefulWidget {
   HomeWidgetState createState() => HomeWidgetState();
 }
 
-class HomeWidgetState extends State<HomeWidget>
-    with SingleTickerProviderStateMixin {
-  HomeWidgetState();
+class HomeWidgetState extends State<HomeWidget> {
+  final List<Widget> _pages = [
+    AssetsPageWidget(store: AssetsStore()),
+    MyPageWidget()
+  ];
 
-  final HomeStore store = HomeStore();
-  final Map<AssetsType, String> _tabs = {
-    AssetsType.point: '积分',
-    AssetsType.token: '资产'
-  };
+  final List<BottomNavigationBarItem> _barItems = [
+    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
+    //BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
+    //BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('身份')),
+    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('我')),
+  ];
 
-  TabController _tabController;
-
-  void _onTabChange() {
-    store.loadAssets(_tabs.keys.toList()[_tabController.index]);
-  }
-
-  @override
-  void initState() {
-    _tabController = TabController(length: _tabs.length, vsync: this)
-      ..addListener(_onTabChange);
-    store.loadAssets(_tabs.keys.first);
-    super.initState();
-  }
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: WalletTheme.bgColor(),
-      appBar: AppBar(
-        leading: Container(
-            padding: EdgeInsets.all(10),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.jpg'),
-            )),
-        title: Observer(builder: (_) {
-          final future = store.currentIdentity;
-          return Text(future.status == FutureStatus.fulfilled
-              ? future.result.name
-              : '');
-        }),
-        bottom: TabBar(
-            controller: _tabController,
-            tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
+      body: SafeArea(child: _pages[_currentIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _barItems,
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        fixedColor: Colors.blue,
+        selectedFontSize: 12,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
-      body: SafeArea(
-          child: TabBarView(
-        controller: _tabController,
-        children: [PointTabView(store: store), TokenTabView(store: store)],
-      )),
     );
   }
 }

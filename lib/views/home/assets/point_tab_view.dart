@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tw_wallet_ui/common/theme.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 
-import 'home_store.dart';
+import 'assets_store.dart';
 
 Widget _pointItem({@required String point}) {
   return Container(
       height: 80,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: WalletTheme.rgbColor('f6f6f6'),
         boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -25,7 +26,7 @@ Widget _pointItem({@required String point}) {
 
 class PointTabView extends StatelessWidget {
   const PointTabView({this.store});
-  final HomeStore store;
+  final AssetsStore store;
 
   Future _refresh() => store.fetchLatestPoint();
 

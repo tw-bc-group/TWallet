@@ -4,13 +4,13 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 
-part 'home_store.g.dart';
+part 'assets_store.g.dart';
 
 enum AssetsType { point, token }
 
-class HomeStore = _HomeStore with _$HomeStore;
+class AssetsStore = _AssetsStore with _$AssetsStore;
 
-abstract class _HomeStore with Store {
+abstract class _AssetsStore with Store {
   final dio = getItGet<Dio>();
 
   @observable

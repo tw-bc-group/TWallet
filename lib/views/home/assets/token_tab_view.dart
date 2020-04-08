@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import 'home_store.dart';
+import 'assets_store.dart';
 
 class TokenTabView extends StatelessWidget {
   const TokenTabView({this.store});
 
-  final HomeStore store;
+  final AssetsStore store;
 
   void _refresh() => store.fetchLatestPoint();
 
