@@ -61,6 +61,12 @@ class _AssetsPageWidgetState extends State<AssetsPageWidget>
                   : '');
             }),
             Expanded(child: Container()),
+            PopupMenuButton(
+              icon: Icon(Icons.apps),
+              itemBuilder: (BuildContext context) {
+                return [PopupMenuItem(child: Text('老钱'))];
+              },
+            ),
           ]),
           TabBar(
               labelColor: Colors.blue,
@@ -76,32 +82,4 @@ class _AssetsPageWidgetState extends State<AssetsPageWidget>
                   ))),
         ]));
   }
-
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      backgroundColor: WalletTheme.bgColor(),
-//      appBar: AppBar(
-//        leading: Container(
-//            padding: EdgeInsets.all(10),
-//            child: CircleAvatar(
-//              backgroundImage: AssetImage('assets/images/avatar.jpg'),
-//            )),
-//        title: Observer(builder: (_) {
-//          final future = store.currentIdentity;
-//          return Text(future.status == FutureStatus.fulfilled
-//              ? future.result.name
-//              : '');
-//        }),
-//        bottom: TabBar(
-//            controller: _tabController,
-//            tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
-//      ),
-//      body: SafeArea(
-//          child: TabBarView(
-//        controller: _tabController,
-//        children: [PointTabView(store: store), TokenTabView(store: store)],
-//      )),
-//    );
-//  }
 }
