@@ -1,13 +1,10 @@
-import 'dart:convert';
-
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
@@ -109,17 +106,10 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     onPressed: buttonDisabled
                         ? null
                         : () async {
-                            var identity = BlockChainService
-                                .createRootKeyIdentityFromMnemonics(
-                                    mnemonics.mnemonics);
-                            var identityJsonStr = json.encode(identity);
-                            await SecureStorage.set(
-                                SecureStorageItem.Identity, identityJsonStr);
-                            Application.router.navigateTo(
-                                context,
-                                Routes.home +
-                                    '?identity=' +
-                                    Uri.encodeComponent(identityJsonStr));
+                            await SecureStorage.set(SecureStorageItem.Mnemonics,
+                                mnemonics.mnemonics);
+                            Application.router.navigateTo(context, '/home/2',
+                                transition: TransitionType.native);
                           }),
                 decoration: WalletTheme.buttonDecoration(isEnabled: true),
               ),

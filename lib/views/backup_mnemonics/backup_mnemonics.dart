@@ -61,7 +61,7 @@ class BackupMnemonicsPage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width - 60,
                     child: WalletTheme.flatButton(
                         text: '下一步',
-                        onPressed: () async {
+                        onPressed: () {
                           Application.router
                               .navigateTo(context, Routes.confirmMnemonics);
                         }),

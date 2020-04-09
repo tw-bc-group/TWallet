@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 enum SecureStorageItem {
   Identity,
   MasterKey,
+  Mnemonics,
 }
 
 extension _SecureStorageItemExtension on SecureStorageItem {

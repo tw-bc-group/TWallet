@@ -8,13 +8,19 @@ import 'identity/identity.dart';
 import 'my/my_page.dart';
 
 class HomeWidget extends StatefulWidget {
-  HomeWidget();
+  final int defaultIndex;
+  HomeWidget({this.defaultIndex});
 
   @override
-  HomeWidgetState createState() => HomeWidgetState();
+  HomeWidgetState createState() => HomeWidgetState(defaultIndex: defaultIndex);
 }
 
 class HomeWidgetState extends State<HomeWidget> {
+  final int defaultIndex;
+  int _currentIndex = 0;
+
+  HomeWidgetState({this.defaultIndex});
+
   final List<Widget> _pages = [
     AssetsPage(store: AssetsStore()),
     DiscoveryPage(),
@@ -29,7 +35,11 @@ class HomeWidgetState extends State<HomeWidget> {
     BottomNavigationBarItem(icon: Icon(Icons.account_box), title: Text('我')),
   ];
 
-  int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    this._currentIndex = defaultIndex;
+  }
 
   @override
   Widget build(BuildContext context) {

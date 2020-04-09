@@ -35,6 +35,10 @@ class PointTab extends StatelessWidget {
   Widget build(BuildContext context) => Observer(builder: (_) {
         final future = store.latestPointFuture;
 
+        if (future == null) {
+          return Container();
+        }
+
         switch (future.status) {
           case FutureStatus.pending:
             return Column(

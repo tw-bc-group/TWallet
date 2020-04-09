@@ -16,6 +16,9 @@ class TokenTab extends StatelessWidget {
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
         final future = store.latestPointFuture;
+        if (future == null) {
+          return Container();
+        }
         // TODO: implement build
         switch (future.status) {
           case FutureStatus.pending:

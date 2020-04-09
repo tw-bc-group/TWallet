@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:tw_wallet_ui/router/router_handler.dart';
 
 class Routes {
-  static String home = "home";
+  static String home = "home/:index";
   static String newWallet = "new_wallet";
   static String inputPin = "input_pin";
   static String backupMnemonics = "backup_mnemonics";

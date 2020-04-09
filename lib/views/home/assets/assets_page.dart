@@ -30,15 +30,51 @@ class _AssetsPageState extends State<AssetsPage>
   TabController _tabController;
 
   void _onTabChange() {
-    store.loadAssets(_tabs.keys.toList()[_tabController.index]);
+    // store.loadAssets(_tabs.keys.toList()[_tabController.index]);
   }
 
   @override
   void initState() {
     _tabController = TabController(length: _tabs.length, vsync: this)
       ..addListener(_onTabChange);
-    store.loadAssets(_tabs.keys.first);
+    // store.loadAssets(_tabs.keys.first);
     super.initState();
+  }
+
+  Widget buildHeader() {
+    if (store.currentIdentity == null) {
+      return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+        Expanded(child: Container()),
+        PopupMenuButton(
+          icon: Icon(Icons.apps),
+          itemBuilder: (BuildContext context) {
+            return [PopupMenuItem(child: Text('老钱'))];
+          },
+        ),
+      ]);
+    }
+
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+      Container(
+        padding: EdgeInsets.all(15),
+        child: CircleAvatar(
+          backgroundImage: AssetImage('assets/images/avatar.jpg'),
+        ),
+      ),
+      SizedBox(width: 10),
+      Observer(builder: (_) {
+        final future = store.currentIdentity;
+        return Text(
+            future.status == FutureStatus.fulfilled ? future.result.name : '');
+      }),
+      Expanded(child: Container()),
+      PopupMenuButton(
+        icon: Icon(Icons.apps),
+        itemBuilder: (BuildContext context) {
+          return [PopupMenuItem(child: Text('老钱'))];
+        },
+      ),
+    ]);
   }
 
   @override
@@ -46,28 +82,7 @@ class _AssetsPageState extends State<AssetsPage>
     return Container(
         color: WalletTheme.rgbColor('fafafa'),
         child: Column(children: <Widget>[
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(15),
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/avatar.jpg'),
-              ),
-            ),
-            SizedBox(width: 10),
-            Observer(builder: (_) {
-              final future = store.currentIdentity;
-              return Text(future.status == FutureStatus.fulfilled
-                  ? future.result.name
-                  : '');
-            }),
-            Expanded(child: Container()),
-            PopupMenuButton(
-              icon: Icon(Icons.view_list),
-              itemBuilder: (BuildContext context) {
-                return [PopupMenuItem(child: Text('老钱'))];
-              },
-            ),
-          ]),
+          buildHeader(),
           TabBar(
               labelColor: Colors.blue,
               unselectedLabelColor: Colors.grey,

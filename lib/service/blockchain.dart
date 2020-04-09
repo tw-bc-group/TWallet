@@ -5,10 +5,13 @@ import 'package:hex/hex.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 
 class BlockChainService {
-  static Identity createRootKeyIdentityFromMnemonics(String mnemonics) {
+  static BIP32 generateHDWallet(String mnemonics) {
     var seed = bip39.mnemonicToSeed(mnemonics);
-    var hdWallet = BIP32.fromSeed(seed);
-    var keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+    return BIP32.fromSeed(seed);
+  }
+
+  static generateIdentity(BIP32 hdWallet, [int index = 0]) {
+    var keypair = hdWallet.derivePath("m/44'/60'/0'/0/" + index.toString());
     var privateKey = '0x' + HEX.encode(keypair.privateKey);
     var publicKey = '0x' + HEX.encode(keypair.publicKey);
     var address = ethereumAddressFromPublicKey(keypair.publicKey);

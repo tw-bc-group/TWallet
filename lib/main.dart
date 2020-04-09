@@ -12,13 +12,11 @@ Future<void> main() async {
   getItInit();
   WidgetsFlutterBinding.ensureInitialized();
   bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
-  String identity = await SecureStorage.get(SecureStorageItem.Identity);
+  String mnemonics = await SecureStorage.get(SecureStorageItem.Mnemonics);
 
   var initialRoute = !hasPin
       ? Routes.inputPin
-      : identity == null
-          ? Routes.newWallet
-          : Routes.home + '?identity=' + Uri.encodeComponent(identity);
+      : mnemonics == null ? Routes.newWallet : Routes.home;
   runApp(MyApp(initialRoute: initialRoute));
 }
 
@@ -41,7 +39,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: initialRoute,
+        // initialRoute: initialRoute,
+        initialRoute: '/backup_mnemonics',
         onGenerateRoute: Application.router.generator,
       ),
     );
