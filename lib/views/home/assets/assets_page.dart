@@ -62,7 +62,7 @@ class _AssetsPageState extends State<AssetsPage>
             }),
             Expanded(child: Container()),
             PopupMenuButton(
-              icon: Icon(Icons.apps),
+              icon: Icon(Icons.view_list),
               itemBuilder: (BuildContext context) {
                 return [PopupMenuItem(child: Text('老钱'))];
               },
