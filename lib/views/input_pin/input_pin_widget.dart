@@ -154,8 +154,9 @@ class PinInputWidget extends StatelessWidget {
                       onPressed: _inputPin.isCompleted
                           ? () async {
                               await _inputPin.setMasterKey();
-                              Application.router
-                                  .navigateTo(context, Routes.newWallet);
+                              Application.router.navigateTo(
+                                  context, Routes.newWallet,
+                                  clearStack: true);
                             }
                           : null),
                   decoration: WalletTheme.buttonDecoration(
