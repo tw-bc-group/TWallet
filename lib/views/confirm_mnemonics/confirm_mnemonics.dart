@@ -111,7 +111,8 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                             Application.router.navigateTo(context, '/home/2',
                                 transition: TransitionType.native);
                           }),
-                decoration: WalletTheme.buttonDecoration(isEnabled: true),
+                decoration:
+                    WalletTheme.buttonDecoration(isEnabled: !buttonDisabled),
               ),
               bottom: 30,
               left: 0,
