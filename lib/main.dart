@@ -16,7 +16,7 @@ Future<void> main() async {
 
   var initialRoute = !hasPin
       ? Routes.inputPin
-      : mnemonics == null ? Routes.newWallet : Routes.home;
+      : mnemonics == null ? Routes.newWallet : Routes.home + '?index=2'; //TODO: read identity
   runApp(MyApp(initialRoute: initialRoute));
 }
 
