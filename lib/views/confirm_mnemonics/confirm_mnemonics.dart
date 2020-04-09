@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
+import 'package:tw_wallet_ui/views/home/home.dart';
 
 class ConfirmMnemonicsPage extends StatefulWidget {
   @override
@@ -108,8 +109,8 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                         : () async {
                             await SecureStorage.set(SecureStorageItem.Mnemonics,
                                 mnemonics.mnemonics);
-                            Application.router.navigateTo(
-                                context, '/home?index=2',
+                            Application.router.navigateTo(context,
+                                '/home?index=${HomeState.identityIndex}',
                                 transition: TransitionType.native);
                           }),
                 decoration:

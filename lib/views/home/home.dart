@@ -9,19 +9,29 @@ import 'discovery/discovery.dart';
 import 'identity/identity.dart';
 import 'my/my_page.dart';
 
-class HomeWidget extends StatefulWidget {
+class Home extends StatefulWidget {
+  Home({this.defaultIndex = 0});
   final int defaultIndex;
-  HomeWidget({this.defaultIndex});
 
   @override
-  HomeWidgetState createState() => HomeWidgetState(defaultIndex: defaultIndex);
+  HomeState createState() => HomeState(currentIndex: defaultIndex);
 }
 
-class HomeWidgetState extends State<HomeWidget> {
-  final int defaultIndex;
-  HomeStore homeStore;
+class HomeState extends State<Home> {
+  HomeState({this.currentIndex = 0});
 
-  HomeWidgetState({this.defaultIndex});
+  static final List<BottomNavigationBarItem> _barItems = [
+    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
+    BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
+    BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('身份')),
+    BottomNavigationBarItem(icon: Icon(Icons.account_box), title: Text('我')),
+  ];
+
+  static int get identityIndex => 2;
+  // _barItems.indexWhere((item) => (item.title as Text).data == '');
+
+  int currentIndex;
+  HomeStore homeStore;
 
   final List<Widget> _pages = [
     AssetsPage(store: AssetsStore()),
@@ -30,18 +40,11 @@ class HomeWidgetState extends State<HomeWidget> {
     MyPage()
   ];
 
-  final List<BottomNavigationBarItem> _barItems = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
-    BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
-    BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('身份')),
-    BottomNavigationBarItem(icon: Icon(Icons.account_box), title: Text('我')),
-  ];
-
   @override
   Widget build(BuildContext context) {
     if (homeStore == null) {
       homeStore = Provider.of<HomeStore>(context);
-      homeStore.changeIndex(defaultIndex);
+      homeStore.changeIndex(currentIndex);
     }
 
     return Scaffold(

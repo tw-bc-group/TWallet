@@ -15,7 +15,7 @@ var newWalletHandler = Handler(
 var homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   var index = (params['index'] ?? ['0']).first ?? '0';
-  return HomeWidget(defaultIndex: int.parse(index));
+  return Home(defaultIndex: int.parse(index));
 });
 
 var inputPinHandler = Handler(

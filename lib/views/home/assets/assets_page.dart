@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 
+import '../home.dart';
 import 'assets_store.dart';
 
 class AssetsPage extends StatefulWidget {
