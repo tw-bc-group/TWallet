@@ -108,7 +108,8 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                         : () async {
                             await SecureStorage.set(SecureStorageItem.Mnemonics,
                                 mnemonics.mnemonics);
-                            Application.router.navigateTo(context, '/home/2',
+                            Application.router.navigateTo(
+                                context, '/home?index=2',
                                 transition: TransitionType.native);
                           }),
                 decoration:

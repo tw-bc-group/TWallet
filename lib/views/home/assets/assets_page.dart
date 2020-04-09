@@ -65,7 +65,8 @@ class _AssetsPageState extends State<AssetsPage>
               child: WalletTheme.flatButton(
                   text: '确定',
                   onPressed: () {
-                    Application.router.navigateTo(context, '/home/2',
+                    Application.router.navigateTo(
+                        context, '/home?index=${HomeState.identityIndex}',
                         replace: true,
                         transition: TransitionType.fadeIn,
                         transitionDuration: Duration(milliseconds: 1));

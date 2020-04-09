@@ -26,4 +26,9 @@ class SecureStorage {
   static Future<void> delete(SecureStorageItem item) {
     return _storage.delete(key: item.asKey());
   }
+
+  static Future<void> clearAll() async {
+    return SecureStorageItem.values
+        .forEach((item) async => await _storage.delete(key: item.asKey()));
+  }
 }
