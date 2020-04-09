@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 

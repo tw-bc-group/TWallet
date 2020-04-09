@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 class NewWalletWidget extends StatelessWidget {

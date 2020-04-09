@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:tw_wallet_ui/common/env.dart';
+import 'package:tw_wallet_ui/global/common/env.dart';
 
 class Http {
   static final Dio httpInstance = Dio(BaseOptions(

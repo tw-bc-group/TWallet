@@ -1,5 +1,5 @@
-import 'package:mobx/mobx.dart';
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:mobx/mobx.dart';
 
 part 'mnemonics.g.dart';
 

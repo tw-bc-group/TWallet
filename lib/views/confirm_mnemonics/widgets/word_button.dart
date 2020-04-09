@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/theme.dart';
+import 'package:tw_wallet_ui/global/common/theme.dart';
 
 class WordButton extends StatefulWidget {
   final String text;

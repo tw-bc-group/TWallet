@@ -1,12 +1,12 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/mnemonics.dart';
 
-import 'common/get_it.dart';
+import 'global/common/application.dart';
+import 'global/common/get_it.dart';
+import 'global/common/secure_storage.dart';
+import 'global/store/mnemonics.dart';
 
 Future<void> main() async {
   getItInit();

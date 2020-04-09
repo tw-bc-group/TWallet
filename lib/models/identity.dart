@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 
 part 'identity.g.dart';
 
