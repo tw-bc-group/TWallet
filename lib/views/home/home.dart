@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/theme.dart';
 
 import 'assets/assets_page.dart';
 import 'assets/assets_store.dart';
@@ -35,7 +34,6 @@ class HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WalletTheme.bgColor(),
       body: SafeArea(child: _pages[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
         items: _barItems,

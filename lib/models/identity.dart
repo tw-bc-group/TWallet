@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 
@@ -11,8 +12,17 @@ class Identity {
   String priKey;
   String pubKey;
   String address;
+  String phone;
+  String email;
+  DateTime birthday;
 
-  Identity({this.name, this.priKey, this.pubKey, this.address});
+  Identity(
+      {@required this.name,
+      @required this.priKey,
+      @required this.pubKey,
+      @required this.address,
+      this.phone,
+      this.email});
 
   factory Identity.fromJson(Map<String, dynamic> json) =>
       _$IdentityFromJson(json);

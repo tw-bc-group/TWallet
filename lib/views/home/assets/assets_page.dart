@@ -75,7 +75,7 @@ class _AssetsPageState extends State<AssetsPage>
               tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
           Expanded(
               child: Container(
-                  color: WalletTheme.bgColor(),
+                  color: WalletTheme.mainBgColor,
                   child: TabBarView(
                     controller: _tabController,
                     children: [PointTab(store: store), TokenTab(store: store)],

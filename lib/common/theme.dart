@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
 class WalletTheme {
-  static Color blue() {
-    return Colors.blue;
-  }
-
-  static Color bgColor() {
-    return rgbColor('0xf2f2f2');
-  }
+  static Color get titleBgColor => rgbColor('0xfafafa');
+  static Color get mainBgColor => rgbColor('0xf2f2f2');
 
   static Decoration buttonDecoration({bool isEnabled = false}) {
     Color color = Colors.grey;
 
     if (isEnabled) {
-      color = WalletTheme.blue();
+      color = Colors.blue;
     }
 
     return BoxDecoration(

@@ -8,7 +8,7 @@ class NewWalletWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: WalletTheme.bgColor(),
+        backgroundColor: WalletTheme.mainBgColor,
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

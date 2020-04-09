@@ -24,7 +24,7 @@ class PinInputWidget extends StatelessWidget {
       animationDuration: Duration(milliseconds: 300),
       borderRadius: BorderRadius.circular(5),
       fieldHeight: 50,
-      backgroundColor: WalletTheme.bgColor(),
+      backgroundColor: WalletTheme.mainBgColor,
       fieldWidth: 40,
       inactiveFillColor: Colors.white,
       activeFillColor: Colors.white,
@@ -39,7 +39,7 @@ class PinInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WalletTheme.bgColor(),
+      backgroundColor: WalletTheme.mainBgColor,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
