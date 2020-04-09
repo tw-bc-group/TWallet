@@ -11,7 +11,7 @@ Widget _pointItem({@required String point}) {
   return Container(
       height: 80,
       decoration: BoxDecoration(
-        color: WalletTheme.rgbColor('f6f6f6'),
+        color: WalletTheme.listItemBgColor,
         boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
         borderRadius: BorderRadius.circular(10.0),
       ),

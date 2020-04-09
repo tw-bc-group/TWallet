@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class WalletTheme {
   static Color get titleBgColor => rgbColor('0xfafafa');
   static Color get mainBgColor => rgbColor('0xf2f2f2');
+  static Color get listItemBgColor => rgbColor('0xf6f6f6');
 
   static Decoration buttonDecoration({bool isEnabled = false}) {
     Color color = Colors.grey;
