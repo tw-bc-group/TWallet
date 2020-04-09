@@ -39,8 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // initialRoute: initialRoute,
-        initialRoute: '/backup_mnemonics',
+        initialRoute: initialRoute,
         onGenerateRoute: Application.router.generator,
       ),
     );
