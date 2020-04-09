@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/assets_page.dart';
 import 'assets/assets_store.dart';
@@ -17,7 +19,7 @@ class HomeWidget extends StatefulWidget {
 
 class HomeWidgetState extends State<HomeWidget> {
   final int defaultIndex;
-  int _currentIndex = 0;
+  HomeStore homeStore;
 
   HomeWidgetState({this.defaultIndex});
 
@@ -36,24 +38,23 @@ class HomeWidgetState extends State<HomeWidget> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    this._currentIndex = defaultIndex;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (homeStore == null) {
+      homeStore = Provider.of<HomeStore>(context);
+      homeStore.changeIndex(defaultIndex);
+    }
+
     return Scaffold(
-      body: SafeArea(child: _pages[_currentIndex]),
+      body: SafeArea(child: _pages[homeStore.currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
         items: _barItems,
-        currentIndex: _currentIndex,
+        currentIndex: homeStore.currentIndex,
         type: BottomNavigationBarType.fixed,
         fixedColor: Colors.blue,
         selectedFontSize: 12,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            homeStore.changeIndex(index);
           });
         },
       ),

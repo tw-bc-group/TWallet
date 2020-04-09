@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'global/common/application.dart';
 import 'global/common/get_it.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
 
   var initialRoute = !hasPin
       ? Routes.inputPin
-      : mnemonics == null ? Routes.newWallet : Routes.home + '?index=2'; //TODO: read identity
+      : mnemonics == null ? Routes.newWallet : Routes.home;
   runApp(MyApp(initialRoute: initialRoute));
 }
 
@@ -33,7 +34,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [Provider<MnemonicsStore>(create: (_) => MnemonicsStore())],
+      providers: [
+        Provider<MnemonicsStore>(create: (_) => MnemonicsStore()),
+        Provider<HomeStore>(create: (_) => HomeStore())
+      ],
       child: MaterialApp(
         title: 'TW Wallet',
         theme: ThemeData(

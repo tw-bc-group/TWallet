@@ -1,7 +1,9 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
@@ -35,10 +37,45 @@ class _AssetsPageState extends State<AssetsPage>
 
   @override
   void initState() {
+    super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this)
       ..addListener(_onTabChange);
     // store.loadAssets(_tabs.keys.first);
-    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await showDialog<String>(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) => new SimpleDialog(
+          contentPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+          children: <Widget>[
+            Center(
+                child: Text(
+              '您还没有添加身份，请前往\"身份\"页面添加身份',
+              style: TextStyle(
+                fontSize: 15,
+                height: 1.82,
+              ),
+              textAlign: TextAlign.center,
+            )),
+            Center(
+                child: Container(
+              margin: EdgeInsets.only(top: 48),
+              width: 100.0,
+              height: 40.0,
+              child: WalletTheme.flatButton(
+                  text: '确定',
+                  onPressed: () {
+                    Application.router.navigateTo(context, '/home/2',
+                        replace: true,
+                        transition: TransitionType.fadeIn,
+                        transitionDuration: Duration(milliseconds: 1));
+                  }),
+              decoration: WalletTheme.buttonDecoration(isEnabled: true),
+            )),
+          ],
+        ),
+      );
+    });
   }
 
   Widget buildHeader() {
