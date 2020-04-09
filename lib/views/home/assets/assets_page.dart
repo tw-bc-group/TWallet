@@ -8,18 +8,18 @@ import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 
 import 'assets_store.dart';
 
-class AssetsPageWidget extends StatefulWidget {
-  const AssetsPageWidget({this.store});
+class AssetsPage extends StatefulWidget {
+  const AssetsPage({this.store});
 
   final AssetsStore store;
 
   @override
-  State<StatefulWidget> createState() => _AssetsPageWidgetState(store: store);
+  State<StatefulWidget> createState() => _AssetsPageState(store: store);
 }
 
-class _AssetsPageWidgetState extends State<AssetsPageWidget>
+class _AssetsPageState extends State<AssetsPage>
     with SingleTickerProviderStateMixin {
-  _AssetsPageWidgetState({this.store});
+  _AssetsPageState({this.store});
 
   final AssetsStore store;
   final Map<AssetsType, String> _tabs = {

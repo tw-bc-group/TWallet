@@ -4,6 +4,8 @@ import 'package:tw_wallet_ui/common/theme.dart';
 
 import 'assets/assets_page.dart';
 import 'assets/assets_store.dart';
+import 'discovery/discovery.dart';
+import 'identity/identity.dart';
 import 'my/my_page.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -15,14 +17,16 @@ class HomeWidget extends StatefulWidget {
 
 class HomeWidgetState extends State<HomeWidget> {
   final List<Widget> _pages = [
-    AssetsPageWidget(store: AssetsStore()),
-    MyPageWidget()
+    AssetsPage(store: AssetsStore()),
+    DiscoveryPage(),
+    IdentityPage(),
+    MyPage()
   ];
 
   final List<BottomNavigationBarItem> _barItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
-    //BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
-    //BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('身份')),
+    BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
+    BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('身份')),
     BottomNavigationBarItem(icon: Icon(Icons.account_box), title: Text('我')),
   ];
 
