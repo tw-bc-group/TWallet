@@ -14,7 +14,7 @@ var newWalletHandler = Handler(
 
 var homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  var index = (params['index'] ?? ['0']).first ?? '0';
+  var index = (params['index'] ?? ['0']).first;
   return Home(defaultIndex: int.parse(index));
 });
 

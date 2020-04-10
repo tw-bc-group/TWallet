@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
@@ -41,8 +42,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'TW Wallet',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            primarySwatch: Colors.blue,
+            primaryColor: WalletTheme.rgbColor('#3e71c0'),
+            disabledColor: Colors.grey),
         initialRoute: initialRoute,
         onGenerateRoute: Application.router.generator,
       ),

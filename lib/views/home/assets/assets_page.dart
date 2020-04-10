@@ -7,6 +7,7 @@ import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
+import 'package:tw_wallet_ui/widgets/button.dart';
 
 import '../home.dart';
 import 'assets_store.dart';
@@ -58,12 +59,11 @@ class _AssetsPageState extends State<AssetsPage>
               ),
               textAlign: TextAlign.center,
             )),
-            Center(
-                child: Container(
-              margin: EdgeInsets.only(top: 48),
-              width: 100.0,
-              height: 40.0,
-              child: WalletTheme.flatButton(
+            Container(
+                margin: EdgeInsets.only(top: 48),
+                child: Button(
+                  width: 100,
+                  height: 40,
                   text: '确定',
                   onPressed: () {
                     Application.router.navigateTo(
@@ -71,9 +71,8 @@ class _AssetsPageState extends State<AssetsPage>
                         replace: true,
                         transition: TransitionType.fadeIn,
                         transitionDuration: Duration(milliseconds: 1));
-                  }),
-              decoration: WalletTheme.buttonDecoration(isEnabled: true),
-            )),
+                  },
+                ))
           ],
         ),
       );
