@@ -11,7 +11,7 @@ enum AssetsType { point, token }
 class AssetsStore = _AssetsStore with _$AssetsStore;
 
 abstract class _AssetsStore with Store {
-  final dio = getItGet<Dio>();
+  final dio = getIt<Dio>();
 
   @observable
   ObservableFuture<Identity> currentIdentity;

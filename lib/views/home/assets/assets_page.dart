@@ -118,7 +118,7 @@ class _AssetsPageState extends State<AssetsPage>
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: WalletTheme.rgbColor('fafafa'),
+        color: WalletTheme.titleBgColor,
         child: Column(children: <Widget>[
           buildHeader(),
           TabBar(

@@ -6,11 +6,7 @@ import 'env.dart';
 GetIt getIt = GetIt.instance;
 
 void getItInit() {
-  getIt.registerFactory<Dio>(() => Dio()
+  getIt.registerSingleton<Dio>(Dio()
     ..options.baseUrl = API_GATEWAY_BASE_URL
     ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT);
-}
-
-T getItGet<T>() {
-  return getIt<T>();
 }

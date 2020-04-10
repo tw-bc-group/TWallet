@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/assets_page.dart';
 import 'assets/assets_store.dart';
 import 'discovery/discovery.dart';
-import 'identity/identity.dart';
+import 'identity/identity_page.dart';
 import 'my/my_page.dart';
 
 class Home extends StatefulWidget {
@@ -61,6 +63,12 @@ class HomeState extends State<Home> {
           });
         },
       ),
+      floatingActionButton: currentIndex == HomeState.identityIndex
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () =>
+                  Application.router.navigateTo(context, Routes.newIdentity))
+          : null,
     );
   }
 }

@@ -18,9 +18,10 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.flatButton(
                       text: '清除数据',
                       onPressed: () async {
-                        await SecureStorage.clearAll();
-                        Application.router.navigateTo(context, Routes.inputPin,
-                            clearStack: true);
+                        await SecureStorage.clearAll().then((_) => Application
+                            .router
+                            .navigateTo(context, Routes.inputPin,
+                                clearStack: true));
                       }))
             ]));
   }
