@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
@@ -20,8 +21,10 @@ var newIdentityHandler = Handler(
 
 var homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  var index = (params['index'] ?? ['0']).first;
-  return Home(defaultIndex: int.parse(index));
+  return Home(
+      defaultIndex: int.parse(Optional.ofNullable(params['index'])
+          .map((indexes) => indexes.first)
+          .orElse('0')));
 });
 
 var inputPinHandler = Handler(

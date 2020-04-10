@@ -42,6 +42,7 @@ dependencies:
   validators: ^2.0.0+1
   cached_network_image: ^2.0.0
   avataaar_image: ^1.0.8
+  optional: ^4.1.0
 
 dev_dependencies:
   flutter_test:
