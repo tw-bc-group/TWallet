@@ -1,8 +1,8 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 import 'package:tw_wallet_ui/widgets/button.dart';
 
 import '../home.dart';
+import '../home_store.dart';
 import 'assets_store.dart';
 
 class AssetsPage extends StatefulWidget {
@@ -66,11 +67,9 @@ class _AssetsPageState extends State<AssetsPage>
                   height: 40,
                   text: '确定',
                   onPressed: () {
-                    Application.router.navigateTo(
-                        context, '/home?index=${HomeState.identityIndex}',
-                        replace: true,
-                        transition: TransitionType.fadeIn,
-                        transitionDuration: Duration(milliseconds: 1));
+                    Application.router.pop(context);
+                    Provider.of<HomeStore>(context, listen: false)
+                        .changePage(HomeState.identityIndex);
                   },
                 ))
           ],

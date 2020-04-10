@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -16,11 +17,11 @@ class Home extends StatefulWidget {
   final int defaultIndex;
 
   @override
-  HomeState createState() => HomeState(currentIndex: defaultIndex);
+  HomeState createState() => HomeState(defaultIndex: defaultIndex);
 }
 
 class HomeState extends State<Home> {
-  HomeState({this.currentIndex = 0});
+  HomeState({this.defaultIndex = 0});
 
   static final List<BottomNavigationBarItem> _barItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
@@ -30,9 +31,10 @@ class HomeState extends State<Home> {
   ];
 
   static int get identityIndex => 2;
+
   // _barItems.indexWhere((item) => (item.title as Text).data == '');
 
-  int currentIndex;
+  int defaultIndex;
   HomeStore homeStore;
 
   final List<Widget> _pages = [
@@ -43,32 +45,32 @@ class HomeState extends State<Home> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    if (homeStore == null) {
-      homeStore = Provider.of<HomeStore>(context);
-      homeStore.changeIndex(currentIndex);
-    }
-
-    return Scaffold(
-      body: SafeArea(child: _pages[homeStore.currentIndex]),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _barItems,
-        currentIndex: homeStore.currentIndex,
-        type: BottomNavigationBarType.fixed,
-        fixedColor: Colors.blue,
-        selectedFontSize: 12,
-        onTap: (index) {
-          setState(() {
-            homeStore.changeIndex(index);
-          });
-        },
-      ),
-      floatingActionButton: currentIndex == HomeState.identityIndex
-          ? FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () =>
-                  Application.router.navigateTo(context, Routes.newIdentity))
-          : null,
-    );
+  void initState() {
+    homeStore = Provider.of<HomeStore>(context, listen: false);
+    homeStore.changePage(defaultIndex);
+    super.initState();
   }
+
+  @override
+  Widget build(BuildContext context) => Observer(builder: (_) {
+        return Scaffold(
+          body: SafeArea(child: _pages[homeStore.currentPage]),
+          bottomNavigationBar: BottomNavigationBar(
+            items: _barItems,
+            currentIndex: homeStore.currentPage,
+            type: BottomNavigationBarType.fixed,
+            fixedColor: Colors.blue,
+            selectedFontSize: 12,
+            onTap: (index) {
+              homeStore.changePage(index);
+            },
+          ),
+          floatingActionButton: homeStore.currentPage == HomeState.identityIndex
+              ? FloatingActionButton(
+                  child: Icon(Icons.add),
+                  onPressed: () => Application.router
+                      .navigateTo(context, Routes.newIdentity))
+              : null,
+        );
+      });
 }
