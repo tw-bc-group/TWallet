@@ -159,8 +159,6 @@ class PinInputWidget extends StatelessWidget {
                                   clearStack: true);
                             }
                           : null),
-                  decoration: WalletTheme.buttonDecoration(
-                      isEnabled: _inputPin.isCompleted),
                 ),
               ),
               SizedBox(

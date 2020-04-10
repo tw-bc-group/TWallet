@@ -25,7 +25,6 @@ class NewWalletWidget extends StatelessWidget {
                         Application.router
                             .navigateTo(context, Routes.backupMnemonics);
                       }),
-                  decoration: WalletTheme.buttonDecoration(isEnabled: true),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(
@@ -35,7 +34,6 @@ class NewWalletWidget extends StatelessWidget {
                         WalletTheme.flatButton(text: '恢复钱包', onPressed: () {}),
                     onPressed: () {},
                   ),
-                  decoration: WalletTheme.buttonDecoration(isEnabled: true),
                 ),
               ])
             ],

@@ -96,14 +96,11 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                       errorText: store.error.birthday,
                                     ))),
                             Expanded(child: Container()),
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 50, horizontal: 30),
-                              child: WalletTheme.flatButton(
-                                  text: '添加', onPressed: () => {}),
-                              decoration:
-                                  WalletTheme.buttonDecoration(isEnabled: true),
-                            ),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 55),
+                                child: WalletTheme.flatButton(
+                                    text: '添加', onPressed: () {}))
                           ],
                         )),
                   ))

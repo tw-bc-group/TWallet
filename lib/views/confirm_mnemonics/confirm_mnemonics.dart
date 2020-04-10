@@ -113,8 +113,6 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                                 '/home?index=${HomeState.identityIndex}',
                                 transition: TransitionType.native);
                           }),
-                decoration:
-                    WalletTheme.buttonDecoration(isEnabled: !buttonDisabled),
               ),
               bottom: 30,
               left: 0,

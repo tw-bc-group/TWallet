@@ -56,17 +56,15 @@ class BackupMnemonicsPage extends StatelessWidget {
                 ),
                 Positioned(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 30),
-                    width: MediaQuery.of(context).size.width - 60,
-                    child: WalletTheme.flatButton(
-                        text: '下一步',
-                        onPressed: () {
-                          Application.router
-                              .navigateTo(context, Routes.confirmMnemonics);
-                        }),
-                    decoration: WalletTheme.buttonDecoration(isEnabled: true),
-                  ),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 30),
+                      width: MediaQuery.of(context).size.width - 60,
+                      child: WalletTheme.flatButton(
+                          text: '下一步',
+                          onPressed: () {
+                            Application.router
+                                .navigateTo(context, Routes.confirmMnemonics);
+                          })),
                   bottom: 30,
                   left: 0,
                 )
