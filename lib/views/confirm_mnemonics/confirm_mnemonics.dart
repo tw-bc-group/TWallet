@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,8 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dar
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
+
+import '../../service/blockchain.dart';
 
 class ConfirmMnemonicsPage extends StatefulWidget {
   @override
@@ -109,6 +113,9 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                         : () async {
                             await SecureStorage.set(SecureStorageItem.Mnemonics,
                                 mnemonics.mnemonics);
+                            var hdwallet = BlockChainService.generateHDWallet(mnemonics.mnemonics);
+                            var identity = BlockChainService.generateIdentity(hdwallet);
+                            await SecureStorage.set(SecureStorageItem.Identity, json.encode(identity));
                             Application.router.navigateTo(context,
                                 '/home?index=${HomeState.identityIndex}',
                                 transition: TransitionType.native);

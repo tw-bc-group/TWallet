@@ -14,11 +14,8 @@ class WalletTheme {
 
     return BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(5),
-        boxShadow: [
-          BoxShadow(color: color, offset: Offset(1, -2), blurRadius: 5),
-          BoxShadow(color: color, offset: Offset(-1, 2), blurRadius: 5)
-        ]);
+        borderRadius: BorderRadius.circular(10)
+    );
   }
 
   static Widget flatButton(
