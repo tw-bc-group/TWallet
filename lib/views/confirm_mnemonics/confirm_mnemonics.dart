@@ -102,7 +102,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                 margin:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
                 width: MediaQuery.of(context).size.width - 60,
-                child: WalletTheme.flatButton(
+                child: WalletTheme.button(
                     text: '完成',
                     onPressed: buttonDisabled
                         ? null

@@ -19,7 +19,7 @@ class NewWalletWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 30),
-                  child: WalletTheme.flatButton(
+                  child: WalletTheme.button(
                       text: '创建钱包',
                       onPressed: () {
                         Application.router
@@ -29,7 +29,7 @@ class NewWalletWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 30),
-                  child: WalletTheme.flatButton(text: '恢复钱包', onPressed: null),
+                  child: WalletTheme.button(text: '恢复钱包', onPressed: null),
                 ),
               ])
             ],

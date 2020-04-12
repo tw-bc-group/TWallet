@@ -5,37 +5,27 @@ class WalletTheme {
   static Color get mainBgColor => rgbColor('0xf2f2f2');
   static Color get listItemBgColor => rgbColor('0xf6f6f6');
 
-  static Widget flatButton({String text, Function onPressed}) {
-    const circular = 10.0;
-    final color = onPressed == null ? Colors.grey : Colors.blue;
+  static Widget button({String text, Function onPressed}) {
+    const circular = 8.0;
 
     return Container(
-        child: ButtonTheme(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(circular)),
-          child: FlatButton(
-            color: Colors.blue,
-            disabledColor: Colors.grey,
-            onPressed: onPressed,
-            child: Center(
-                child: Text(
-              text,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            )),
-          ),
+      child: ButtonTheme(
+        height: 45,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(circular)),
+        child: RaisedButton(
+          color: Colors.blue,
+          disabledColor: Colors.grey,
+          onPressed: onPressed,
+          child: Center(
+              child: Text(
+            text,
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          )),
         ),
-        decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(circular),
-            boxShadow: [
-              BoxShadow(
-                  color: color, offset: Offset(1, -2), blurRadius: circular),
-              BoxShadow(
-                  color: color, offset: Offset(-1, 2), blurRadius: circular)
-            ]));
+      ),
+    );
   }
 
   static Color rgbColor(String colorString, {double alpha = 1.0}) {

@@ -149,7 +149,7 @@ class PinInputWidget extends StatelessWidget {
                 builder: (_) => Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 30),
-                  child: WalletTheme.flatButton(
+                  child: WalletTheme.button(
                       text: '下一步',
                       onPressed: _inputPin.isCompleted
                           ? () async {

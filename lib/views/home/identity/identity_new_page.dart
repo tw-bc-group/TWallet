@@ -99,7 +99,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                             Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 30, vertical: 55),
-                                child: WalletTheme.flatButton(
+                                child: WalletTheme.button(
                                     text: '添加', onPressed: () {}))
                           ],
                         )),

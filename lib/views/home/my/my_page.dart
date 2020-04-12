@@ -14,7 +14,7 @@ class MyPage extends StatelessWidget {
             children: <Widget>[
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
-                  child: WalletTheme.flatButton(
+                  child: WalletTheme.button(
                       text: '清除数据',
                       onPressed: () async {
                         await SecureStorage.clearAll().then((_) => Application
