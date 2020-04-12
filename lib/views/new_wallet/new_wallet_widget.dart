@@ -29,11 +29,7 @@ class NewWalletWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 30),
-                  child: FlatButton(
-                    child:
-                        WalletTheme.flatButton(text: '恢复钱包', onPressed: () {}),
-                    onPressed: () {},
-                  ),
+                  child: WalletTheme.flatButton(text: '恢复钱包', onPressed: null),
                 ),
               ])
             ],
