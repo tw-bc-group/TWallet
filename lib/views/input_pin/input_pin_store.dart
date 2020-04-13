@@ -1,15 +1,12 @@
+import 'package:encrypt/encrypt.dart';
 import 'package:mobx/mobx.dart';
 import 'package:random_string/random_string.dart';
-import 'package:steel_crypt/steel_crypt.dart';
 import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 
 part 'input_pin_store.g.dart';
 
 const PIN_LENGTH = 6;
 const MASTER_KEY_LENGTH = 32;
-const AES_ENCRYPT_MODE = 'cbc';
-const AES_ENCRYPT_PADDING = 'pkcs7';
-const AES_ENCRYPT_IV = '1234567890123456';
 
 class InputPinStore = _InputPinStore with _$InputPinStore;
 
@@ -45,11 +42,13 @@ abstract class _InputPinStore with Store {
 
   @action
   Future<void> setMasterKey() async {
+    final iv = IV.fromUtf8(pin1 + '0123456789');
+
     assert(pin1.length == PIN_LENGTH);
     assert(pin1 == pin2);
-    String masterKey = randomString(MASTER_KEY_LENGTH);
-    var crypt = AesCrypt(masterKey, AES_ENCRYPT_MODE, AES_ENCRYPT_PADDING);
-    var encrypt = crypt.encrypt(masterKey, AES_ENCRYPT_IV);
-    return await SecureStorage.set(SecureStorageItem.MasterKey, encrypt);
+    Key aesKey = Key.fromUtf8(pin1 + 'abcdefghijklmnopqrstuvwxyz');
+    var encrypt = Encrypter(AES(aesKey, mode: AESMode.cbc));
+    return await SecureStorage.set(SecureStorageItem.MasterKey,
+        encrypt.encrypt(randomString(MASTER_KEY_LENGTH), iv: iv).base64);
   }
 }

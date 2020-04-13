@@ -83,6 +83,13 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
     }, _$birthdayAtom, name: '${_$birthdayAtom.name}_set');
   }
 
+  final _$addIdentityAsyncAction = AsyncAction('addIdentity');
+
+  @override
+  Future<bool> addIdentity() {
+    return _$addIdentityAsyncAction.run(() => super.addIdentity());
+  }
+
   final _$_IdentityNewStoreActionController =
       ActionController(name: '_IdentityNewStore');
 

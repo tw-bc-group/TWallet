@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 
@@ -59,15 +60,19 @@ class PointTab extends StatelessWidget {
                   )
                 ]);
           case FutureStatus.fulfilled:
-            final TwPoint point = future.result;
+            final Optional<TwPoint> fetchRes = future.result;
+            List<Widget> children = fetchRes
+                .map((point) => [_pointItem(point: point.strValue)])
+                .orElse([]);
+
             return RefreshIndicator(
-              onRefresh: _refresh,
-              child: Container(
-                padding: EdgeInsets.all(18),
-                child: ListView(
-                    children: <Widget>[_pointItem(point: point.strValue)]),
-              ),
-            );
+                onRefresh: _refresh,
+                child: Container(
+                  padding: EdgeInsets.all(18),
+                  child: ListView(
+                    children: children,
+                  ),
+                ));
         }
       });
 }

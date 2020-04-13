@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:optional/optional_internal.dart';
 import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 import 'package:tw_wallet_ui/widgets/button.dart';
@@ -27,6 +33,7 @@ class _AssetsPageState extends State<AssetsPage>
   _AssetsPageState({this.store});
 
   final AssetsStore store;
+  final IdentityStore _identityStore = getIt<IdentityStore>();
   final Map<AssetsType, String> _tabs = {
     AssetsType.point: '积分',
     AssetsType.token: '资产'
@@ -35,7 +42,7 @@ class _AssetsPageState extends State<AssetsPage>
   TabController _tabController;
 
   void _onTabChange() {
-    // store.loadAssets(_tabs.keys.toList()[_tabController.index]);
+    store.loadAssets(_tabs.keys.toList()[_tabController.index]);
   }
 
   @override
@@ -43,9 +50,13 @@ class _AssetsPageState extends State<AssetsPage>
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this)
       ..addListener(_onTabChange);
-    // store.loadAssets(_tabs.keys.first);
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await showDialog<String>(
+    store.loadAssets(_tabs.keys.first);
+  }
+
+  void _showAddIdentityDialog() async {
+    var _currentIdentity = await store.currentIdentity;
+    if (_currentIdentity.isEmpty) {
+      showDialog<String>(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) => new SimpleDialog(
@@ -75,63 +86,84 @@ class _AssetsPageState extends State<AssetsPage>
           ],
         ),
       );
-    });
+    }
   }
 
-  Widget buildHeader() {
-    if (store.currentIdentity == null) {
-      return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-        Expanded(child: Container()),
+  Widget buildHeader(
+      {@required Optional<Identity> selectedIdentity,
+      @required List<Identity> identities}) {
+    List<Widget> children = <Widget>[
+      Container(
+        padding: EdgeInsets.all(15),
+        child: selectedIdentity.isPresent
+            ? CircleAvatar(
+                backgroundImage: AssetImage('assets/images/avatar.jpg'))
+            : Container(),
+      ),
+      SizedBox(width: 10),
+      Text(selectedIdentity.map((identity) => identity.name).orElse('')),
+      Expanded(child: Container()),
+    ];
+
+    if (identities.length > 1) {
+      children.add(
         PopupMenuButton(
           icon: Icon(Icons.apps),
           itemBuilder: (BuildContext context) {
-            return [PopupMenuItem(child: Text('老钱'))];
+            return identities
+                .where((identity) =>
+                    identity.name !=
+                    selectedIdentity
+                        .map((identity) => identity.name)
+                        .orElse(''))
+                .map((identity) => PopupMenuItem(child: Text(identity.name)))
+                .toList();
           },
         ),
-      ]);
+      );
     }
 
-    return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-      Container(
-        padding: EdgeInsets.all(15),
-        child: CircleAvatar(
-          backgroundImage: AssetImage('assets/images/avatar.jpg'),
-        ),
-      ),
-      SizedBox(width: 10),
-      Observer(builder: (_) {
-        final future = store.currentIdentity;
-        return Text(
-            future.status == FutureStatus.fulfilled ? future.result.name : '');
-      }),
-      Expanded(child: Container()),
-      PopupMenuButton(
-        icon: Icon(Icons.apps),
-        itemBuilder: (BuildContext context) {
-          return [PopupMenuItem(child: Text('老钱'))];
-        },
-      ),
-    ]);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: children,
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: WalletTheme.titleBgColor,
-        child: Column(children: <Widget>[
-          buildHeader(),
-          TabBar(
-              labelColor: Colors.blue,
-              unselectedLabelColor: Colors.grey,
-              controller: _tabController,
-              tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
-          Expanded(
-              child: Container(
-                  color: WalletTheme.mainBgColor,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [PointTab(store: store), TokenTab(store: store)],
-                  ))),
-        ]));
-  }
+  Widget build(BuildContext context) => Observer(builder: (context) {
+        final future = store.currentIdentity;
+        Optional<Identity> _selectedIdentity = Optional.empty();
+
+        if (future.status == FutureStatus.fulfilled) {
+          _selectedIdentity = future.result;
+        }
+
+        Timer(
+          Duration(milliseconds: 100),
+          _showAddIdentityDialog,
+        );
+
+        return Container(
+            color: WalletTheme.titleBgColor,
+            child: Column(children: <Widget>[
+              buildHeader(
+                  selectedIdentity: _selectedIdentity,
+                  identities: _identityStore.identities),
+              TabBar(
+                  labelColor: Colors.blue,
+                  unselectedLabelColor: Colors.grey,
+                  controller: _tabController,
+                  tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
+              Expanded(
+                  child: Container(
+                      color: WalletTheme.mainBgColor,
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          PointTab(store: store),
+                          TokenTab(store: store)
+                        ],
+                      ))),
+            ]));
+      });
 }

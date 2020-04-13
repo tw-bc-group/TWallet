@@ -11,8 +11,8 @@ import 'global/common/secure_storage.dart';
 import 'global/store/mnemonics.dart';
 
 Future<void> main() async {
-  getItInit();
   WidgetsFlutterBinding.ensureInitialized();
+  await getItInit();
   bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
   String mnemonics = await SecureStorage.get(SecureStorageItem.Mnemonics);
 
