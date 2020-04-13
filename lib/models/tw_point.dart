@@ -1,6 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
-import 'package:tw_wallet_ui/service/home.service.dart';
+import 'package:tw_wallet_ui/global/service/home_service.dart';
 
 class TwPoint {
   int decimal;
