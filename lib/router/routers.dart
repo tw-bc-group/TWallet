@@ -8,6 +8,7 @@ class Routes {
   static String newIdentity = "new_identity";
   static String backupMnemonics = "backup_mnemonics";
   static String confirmMnemonics = "confirm_mnemonics";
+  static String identityDetail = "identity";
 
   static void configureRoutes(Router router) {
     router.define(home, handler: homeHandler);
@@ -16,5 +17,6 @@ class Routes {
     router.define(newIdentity, handler: newIdentityHandler);
     router.define(backupMnemonics, handler: backupMnemonicsHandler);
     router.define(confirmMnemonics, handler: confirmMnemonicsHandler);
+    router.define(identityDetail, handler: identityDetailHandler);
   }
 }

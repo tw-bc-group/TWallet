@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
+import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
 
@@ -43,4 +44,11 @@ var confirmMnemonicsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return ConfirmMnemonicsPage();
   },
+);
+
+var identityDetailHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    var id = params['id'].first;
+    return IdentityDetailPage(id: id);
+  }
 );
