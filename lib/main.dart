@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'TW Wallet',
               theme: ThemeData(
+                  platform: TargetPlatform.iOS,
                   primarySwatch: Colors.blue,
                   primaryColor: WalletTheme.rgbColor('#3e71c0'),
                   disabledColor: Colors.grey),

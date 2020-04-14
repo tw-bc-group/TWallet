@@ -1,44 +1,57 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
-import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 
 part 'mnemonics.g.dart';
+
+const SAVE_SPLIT_TAG = '|';
 
 class MnemonicsStore = MnemonicsBase with _$MnemonicsStore;
 
 abstract class MnemonicsBase with Store {
   MnemonicsBase(this.value);
 
-  @computed
-  bool get isSaved => value.isPresent;
-
   @observable
-  Optional<Tuple2<int, String>> value;
+  Tuple2<int, String> value;
 
   @computed
-  int get index => value.map((v) => v.first).orElse(0);
+  int get index => value.first;
 
   @computed
-  String get mnemonics => value.map((v) => v.second).orElseGet(() {
-        String mnemonics = bip39.generateMnemonic();
-        value = Optional.of(Tuple2(0, mnemonics));
-        return mnemonics;
-      });
+  String get mnemonics => value.second;
 
-  static Future<MnemonicsStore> fromSecretStorage() async {
-    Optional<Tuple2<int, String>> res = Optional.empty();
-    String value = await SecureStorage.get(SecureStorageItem.Mnemonics);
-    if (null != value) {
-      var splits = value.split(' ');
-      res = Optional.of(Tuple2(int.parse(splits.first), splits.last));
+  @action
+  void refresh() {
+    value = brandNew();
+  }
+
+  static Tuple2<int, String> brandNew() {
+    return Tuple2(0, bip39.generateMnemonic());
+  }
+
+  static Future<MnemonicsStore> init() async {
+    Tuple2<int, String> value;
+    String saved = await SecureStorage.get(SecureStorageItem.Mnemonics);
+
+    if (null != saved) {
+      var splits = saved.split(SAVE_SPLIT_TAG);
+      //兼容老版本
+      if (splits.length == 1) {
+        value = Tuple2(0, saved);
+      } else {
+        value = Tuple2(int.parse(splits.first), splits.last);
+      }
+    } else {
+      value = brandNew();
     }
-    return MnemonicsStore(res);
+
+    return MnemonicsStore(value);
   }
 
   @action
   Future<void> save() async {
-    await SecureStorage.set(SecureStorageItem.Mnemonics, '$index $mnemonics');
+    await SecureStorage.set(
+        SecureStorageItem.Mnemonics, '$index$SAVE_SPLIT_TAG$mnemonics');
   }
 }

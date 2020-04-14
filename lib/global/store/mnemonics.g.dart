@@ -9,11 +9,6 @@ part of 'mnemonics.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MnemonicsStore on MnemonicsBase, Store {
-  Computed<bool> _$isSavedComputed;
-
-  @override
-  bool get isSaved =>
-      (_$isSavedComputed ??= Computed<bool>(() => super.isSaved)).value;
   Computed<int> _$indexComputed;
 
   @override
@@ -27,31 +22,37 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
   final _$valueAtom = Atom(name: 'MnemonicsBase.value');
 
   @override
-  Optional<Tuple2<int, String>> get value {
+  Tuple2<int, String> get value {
     _$valueAtom.context.enforceReadPolicy(_$valueAtom);
     _$valueAtom.reportObserved();
     return super.value;
   }
 
   @override
-  set value(Optional<Tuple2<int, String>> value) {
+  set value(Tuple2<int, String> value) {
     _$valueAtom.context.conditionallyRunInAction(() {
       super.value = value;
       _$valueAtom.reportChanged();
     }, _$valueAtom, name: '${_$valueAtom.name}_set');
   }
 
-  final _$saveAsyncAction = AsyncAction('save');
+  final _$MnemonicsBaseActionController =
+      ActionController(name: 'MnemonicsBase');
 
   @override
-  Future<void> save() {
-    return _$saveAsyncAction.run(() => super.save());
+  void refresh() {
+    final _$actionInfo = _$MnemonicsBaseActionController.startAction();
+    try {
+      return super.refresh();
+    } finally {
+      _$MnemonicsBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     final string =
-        'value: ${value.toString()},isSaved: ${isSaved.toString()},index: ${index.toString()},mnemonics: ${mnemonics.toString()}';
+        'value: ${value.toString()},index: ${index.toString()},mnemonics: ${mnemonics.toString()}';
     return '{$string}';
   }
 }

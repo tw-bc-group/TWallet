@@ -15,6 +15,7 @@ class IdentityPage extends StatefulWidget {
 }
 
 class _IdentityPageState extends State<IdentityPage> {
+  final IdentityStore _store = getIt<IdentityStore>();
   TextEditingController _filter;
 
   Widget _listItem(Identity identity) {
@@ -22,24 +23,24 @@ class _IdentityPageState extends State<IdentityPage> {
         padding: EdgeInsets.all(10),
         child: GestureDetector(
           onTap: () {
-            Application.router.navigateTo(context, '${Routes.identityDetail}?id=${identity.id}');
+            Application.router.navigateTo(
+                context, '${Routes.identityDetail}?id=${identity.id}');
           },
           child: Container(
-            decoration: BoxDecoration(
-              color: WalletTheme.listItemBgColor,
-              boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Container(
-                padding: EdgeInsets.all(10),
-                child: ListTile(
-                    leading: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/images/avatar.jpg')),
-                    title: Text(identity.name),
-                subtitle: Text(identity.did)))),
-        )
-        );
+              decoration: BoxDecoration(
+                color: WalletTheme.listItemBgColor,
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: ListTile(
+                      leading: CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.jpg')),
+                      title: Text(identity.name),
+                      subtitle: Text(identity.did)))),
+        ));
   }
 
   @override
@@ -69,7 +70,6 @@ class _IdentityPageState extends State<IdentityPage> {
                 ],
               )),
           Expanded(child: Observer(builder: (_) {
-            IdentityStore _store = getIt<IdentityStore>();
             return Container(
                 padding: EdgeInsets.all(18),
                 child: ListView(

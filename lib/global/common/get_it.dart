@@ -13,5 +13,5 @@ void getItInit() {
     ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT);
 
   getIt.registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);
-  getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsBase.fromSecretStorage);
+  getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsBase.init);
 }

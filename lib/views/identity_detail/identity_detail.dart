@@ -29,68 +29,50 @@ class IdentityDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var identity = getIdentity();
     return Scaffold(
-      backgroundColor: WalletTheme.rgbColor('#fafafa'),
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-          child: Column(
-            children: <Widget>[
-              PageTitleWidget(title: '个人信息'),
-              DetailRowWidget(
-                name: '头像',
-                value: AvataaarImage(
-                  avatar: Avataaar(style: Style.circle),
-                  errorImage: Icon(Icons.error),
-                  placeholder: CircularProgressIndicator(),
-                  width: 40,
-                ),
-              ),
-              DetailRowWidget(
-                name: '名称*',
-                value: identity.name
-              ),
-              DetailRowWidget(
-                name: '邮箱',
-                value: identity.email
-              ),
-              DetailRowWidget(
-                name: '电话',
-                value: identity.phone
-              ),
-              DetailRowWidget(
-                name: '生日',
-                value: identity.birthday
-              ),
-              DetailRowWidget(
-                name: 'DID',
-                value: identity.pubKey
-              ),
-              DetailRowWidget(
-                value: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 70,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Theme.of(context).primaryColor),
-                      borderRadius: BorderRadius.all(Radius.circular(8))
+        backgroundColor: WalletTheme.titleBgColor,
+        body: SafeArea(
+          child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+              child: Column(
+                children: <Widget>[
+                  PageTitleWidget(title: '个人信息'),
+                  DetailRowWidget(
+                    name: '头像',
+                    value: AvataaarImage(
+                      avatar: Avataaar(style: Style.circle),
+                      errorImage: Icon(Icons.error),
+                      placeholder: CircularProgressIndicator(),
+                      width: 40,
                     ),
-                    child: Center(
-                      child: Text(
-                        '实名认证',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Theme.of(context).primaryColor
-                        ),
-                      ),
-                    ),
-                  )
-                )
-              ),
-            ],
-          )
-        ),
-      )
-    );
+                  ),
+                  DetailRowWidget(name: '名称*', value: identity.name),
+                  DetailRowWidget(name: '邮箱', value: identity.email),
+                  DetailRowWidget(name: '电话', value: identity.phone),
+                  DetailRowWidget(name: '生日', value: identity.birthday),
+                  DetailRowWidget(name: 'DID', value: identity.did),
+                  DetailRowWidget(
+                      value: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 70,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2,
+                                    color: Theme.of(context).primaryColor),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
+                            child: Center(
+                              child: Text(
+                                '实名认证',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ))),
+                ],
+              )),
+        ));
   }
 }

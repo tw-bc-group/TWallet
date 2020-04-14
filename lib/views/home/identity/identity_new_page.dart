@@ -106,28 +106,30 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 30, vertical: 55),
-                                  child: WalletTheme.button(
-                                      text: '添加',
-                                      onPressed: store.error.hasErrors
-                                          ? null
-                                          : () async {
-                                              setState(
-                                                  () => _isInAsyncCall = true);
-                                              Future.delayed(
-                                                      Duration(seconds: 2))
-                                                  .then((_) {
-                                                store
-                                                    .addIdentity()
-                                                    .then((success) {
+                                  child: Observer(
+                                      builder: (_) => WalletTheme.button(
+                                          text: '添加',
+                                          onPressed: store.error.hasErrors
+                                              ? null
+                                              : () async {
                                                   setState(() =>
-                                                      _isInAsyncCall = false);
-                                                  if (success) {
-                                                    Application.router
-                                                        .pop(context);
-                                                  }
-                                                });
-                                              });
-                                            }))
+                                                      _isInAsyncCall = true);
+                                                  store
+                                                      .addIdentity()
+                                                      .then((success) {
+                                                    Future.delayed(Duration(
+                                                            seconds: 2))
+                                                        .then((_) {
+                                                      setState(() =>
+                                                          _isInAsyncCall =
+                                                              false);
+                                                      if (success) {
+                                                        Application.router
+                                                            .pop(context);
+                                                      }
+                                                    });
+                                                  });
+                                                })))
                             ],
                           )),
                     ))

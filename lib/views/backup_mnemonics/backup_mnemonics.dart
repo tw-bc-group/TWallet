@@ -9,8 +9,19 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 
 import './widgets/page_title.dart';
 
-class BackupMnemonicsPage extends StatelessWidget {
+class BackupMnemonicsPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => BackupMnemonicsPageState();
+}
+
+class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
   final store = getIt<MnemonicsStore>();
+
+  @override
+  void initState() {
+    super.initState();
+    store.refresh();
+  }
 
   Widget buildWords(mnemonics) {
     var words = store.mnemonics.split(' ');
