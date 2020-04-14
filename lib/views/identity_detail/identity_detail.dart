@@ -1,8 +1,8 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/detail_row.dart';
-import 'package:tw_wallet_ui/views/identity_detail/widgets/page_title.dart';
 
 import '../../global/common/get_it.dart';
 import '../../global/store/identity_store.dart';

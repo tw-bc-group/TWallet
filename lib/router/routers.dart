@@ -14,7 +14,8 @@ class Routes {
     router.define(home, handler: homeHandler);
     router.define(inputPin, handler: inputPinHandler);
     router.define(newWallet, handler: newWalletHandler);
-    router.define(newIdentity, handler: newIdentityHandler);
+    router.define(newIdentity,
+        handler: newIdentityHandler, transitionType: TransitionType.cupertino);
     router.define(backupMnemonics, handler: backupMnemonicsHandler);
     router.define(confirmMnemonics, handler: confirmMnemonicsHandler);
     router.define(identityDetail, handler: identityDetailHandler);
