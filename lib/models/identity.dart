@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 import 'package:tw_wallet_ui/global/service/blockchain.dart';
 
 part 'identity.g.dart';
@@ -31,9 +28,4 @@ class Identity {
       _$IdentityFromJson(json);
 
   Map<String, dynamic> toJson() => _$IdentityToJson(this);
-
-  static Future<Identity> getFromSecureStorage() async {
-    return Identity.fromJson(
-        json.decode(await SecureStorage.get(SecureStorageItem.Identity)));
-  }
 }

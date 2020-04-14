@@ -54,7 +54,7 @@ class _AssetsPageState extends State<AssetsPage>
       Expanded(child: Container()),
     ];
 
-    if (identities.length > 1) {
+    if (identities.isNotEmpty) {
       children.add(
         PopupMenuButton(
           icon: Icon(Icons.apps),
@@ -65,8 +65,12 @@ class _AssetsPageState extends State<AssetsPage>
                     selectedIdentity
                         .map((identity) => identity.name)
                         .orElse(''))
-                .map((identity) => PopupMenuItem(child: Text(identity.name)))
+                .map((identity) => PopupMenuItem(
+                    child: Text(identity.name), value: identity.name))
                 .toList();
+          },
+          onSelected: (String value) {
+            _store.selectIdentity(name: value);
           },
         ),
       );
