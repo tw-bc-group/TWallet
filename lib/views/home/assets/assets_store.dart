@@ -8,7 +8,7 @@ import 'package:tw_wallet_ui/models/tw_point.dart';
 
 part 'assets_store.g.dart';
 
-enum AssetsType { point, token }
+//enum AssetsType { point, token }
 
 class AssetsStore = _AssetsStore with _$AssetsStore;
 
@@ -24,7 +24,7 @@ abstract class _AssetsStore with Store {
 
   @computed
   Future get getCurrentIdentity => currentIdentity =
-      ObservableFuture(Future.value(_identityStore.currentIdentity));
+      ObservableFuture(Future.value(_identityStore.selectedIdentity));
 
   @action
   Future<Optional<TwPoint>> fetchLatestPoint() =>
@@ -33,13 +33,13 @@ abstract class _AssetsStore with Store {
               .then((point) => Optional.of(point)))
           .orElse(Future.value(Optional.empty()))));
 
-  void loadAssets(AssetsType type) {
-    if (currentIdentity == null) {
-      getCurrentIdentity;
-    }
-
-    if (type == AssetsType.point && latestPointFuture == null) {
-      fetchLatestPoint();
-    }
-  }
+//  void loadAssets(AssetsType type) {
+//    if (currentIdentity == null) {
+//      getCurrentIdentity;
+//    }
+//
+//    if (type == AssetsType.point && latestPointFuture == null) {
+//      fetchLatestPoint();
+//    }
+//  }
 }

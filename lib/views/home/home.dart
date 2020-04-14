@@ -7,7 +7,6 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/assets_page.dart';
-import 'assets/assets_store.dart';
 import 'discovery/discovery.dart';
 import 'identity/identity_page.dart';
 import 'my/my_page.dart';
@@ -38,7 +37,7 @@ class HomeState extends State<Home> {
   HomeStore homeStore;
 
   final List<Widget> _pages = [
-    AssetsPage(store: AssetsStore()),
+    AssetsPage(),
     DiscoveryPage(),
     IdentityPage(),
     MyPage()

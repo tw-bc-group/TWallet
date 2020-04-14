@@ -2,23 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-
-import 'assets_store.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/store/identity_store.dart';
 
 class TokenTab extends StatelessWidget {
-  const TokenTab({this.store});
+  final IdentityStore _store = getIt<IdentityStore>();
 
-  final AssetsStore store;
-
-  void _refresh() => store.fetchLatestPoint();
+  Future _refresh() => _store.fetchLatestPoint();
 
   @override
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
-        final future = store.latestPointFuture;
-        if (future == null) {
-          return Container();
-        }
+        final future = _store.latestPointFuture;
+
         // TODO: implement build
         switch (future.status) {
           case FutureStatus.pending:

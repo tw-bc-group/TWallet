@@ -1,14 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/tw_point.dart';
 
 part 'identity_store.g.dart';
 
 const IDENTITIES_STORAGE_NAME = 'identities';
 const IDENTITIES_NAME_KEY = 'name';
 const SELECTED_NAME_KEY = 'selected_name';
+
+enum AssetsType { point, token }
 
 class IdentityStore = _IdentityStore with _$IdentityStore;
 
@@ -17,10 +22,12 @@ String _itemKey(String name) {
 }
 
 abstract class _IdentityStore with Store {
+  final _dio = getIt<Dio>();
   final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
 
   Future<void> loadFromStorage() async {
-    identities = (await _db.getListLike('name: %') ?? []).map((item) {
+    identities =
+        (await _db.getListLike('$IDENTITIES_NAME_KEY: %') ?? []).map((item) {
       return Identity.fromJson(item);
     }).toList();
 
@@ -35,8 +42,11 @@ abstract class _IdentityStore with Store {
   @observable
   List<Identity> identities;
 
+  @observable
+  ObservableFuture<Optional<TwPoint>> latestPointFuture;
+
   @computed
-  Optional<Identity> get currentIdentity => Optional.ofNullable(
+  Optional<Identity> get selectedIdentity => Optional.ofNullable(
       identities.firstWhere((identity) => identity.name == selectedName,
           orElse: () => null));
 
@@ -48,7 +58,8 @@ abstract class _IdentityStore with Store {
   @action
   Future<void> selectIdentity({@required String name}) async {
     assert(identities.any((identity) => identity.name == name));
-    await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name});
+    await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then(
+        (_) => selectedName = name);
   }
 
   @action
@@ -68,6 +79,22 @@ abstract class _IdentityStore with Store {
       if (index != -1) {
         await _db.deleteItem(_itemKey(name));
       }
+    }
+  }
+
+  @action
+  Future fetchLatestPoint() => latestPointFuture = ObservableFuture(
+          Future.value(selectedIdentity).then((selectedIdentity) async {
+        if (selectedIdentity.isPresent) {
+          return Optional.of(await fetchPoint(
+              dio: _dio, address: selectedIdentity.value.address));
+        }
+        return Optional.empty();
+      }));
+
+  void loadAssets(AssetsType type) {
+    if (type == AssetsType.point && latestPointFuture == null) {
+      fetchLatestPoint();
     }
   }
 }

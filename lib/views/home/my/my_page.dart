@@ -1,18 +1,21 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
+
+import '../home_store.dart';
 
 Future<void> _clearPrivateData() async {
-  await getIt<IdentityStore>().clear().then((_) => SecureStorage.clearAll());
+  //await getIt<IdentityStore>().clear().then((_) => SecureStorage.clearAll());
+  await getIt<IdentityStore>().clear();
 }
 
 class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final homeStore = Provider.of<HomeStore>(context);
+
     return Container(
         color: WalletTheme.mainBgColor,
         child: Column(
@@ -23,9 +26,8 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.button(
                       text: '清除数据',
                       onPressed: () async {
-                        await _clearPrivateData().then((_) => Application.router
-                            .navigateTo(context, Routes.inputPin,
-                                clearStack: true));
+                        await _clearPrivateData()
+                            .then((_) => homeStore.changePage(0));
                       }))
             ]));
   }

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
-
-import 'assets_store.dart';
 
 Widget _pointItem({@required String point}) {
   return Container(
@@ -26,19 +26,14 @@ Widget _pointItem({@required String point}) {
 }
 
 class PointTab extends StatelessWidget {
-  const PointTab({this.store});
-  final AssetsStore store;
+  final IdentityStore _store = getIt<IdentityStore>();
 
-  Future _refresh() => store.fetchLatestPoint();
+  Future _refresh() => _store.fetchLatestPoint();
 
   @override
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
-        final future = store.latestPointFuture;
-
-        if (future == null) {
-          return Container();
-        }
+        final future = _store.latestPointFuture;
 
         switch (future.status) {
           case FutureStatus.pending:
@@ -60,8 +55,8 @@ class PointTab extends StatelessWidget {
                   )
                 ]);
           case FutureStatus.fulfilled:
-            final Optional<TwPoint> fetchRes = future.result;
-            List<Widget> children = fetchRes
+            Optional<TwPoint> res = future.result;
+            List<Widget> children = res
                 .map((point) => [_pointItem(point: point.strValue)])
                 .orElse([]);
 
