@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 
 class IdentityPage extends StatefulWidget {
   @override
@@ -9,6 +13,31 @@ class IdentityPage extends StatefulWidget {
 
 class _IdentityPageState extends State<IdentityPage> {
   TextEditingController _filter;
+
+  Widget _listItem(Identity identity) {
+    return Padding(
+        padding: EdgeInsets.all(10),
+        child: Container(
+            decoration: BoxDecoration(
+              color: WalletTheme.listItemBgColor,
+              boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Container(
+                padding: EdgeInsets.all(10),
+                child: Row(children: <Widget>[
+                  CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/avatar.jpg')),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(identity.name),
+                        Text(
+                          identity.did,
+                        ),
+                      ])
+                ]))));
+  }
 
   @override
   void initState() {
@@ -36,9 +65,16 @@ class _IdentityPageState extends State<IdentityPage> {
                   ),
                 ],
               )),
-          Expanded(
-            child: ListView(children: []),
-          )
+          Expanded(child: Observer(builder: (_) {
+            IdentityStore _store = getIt<IdentityStore>();
+            return Container(
+                padding: EdgeInsets.all(18),
+                child: ListView(
+                  children: _store.identities
+                      .map((identity) => _listItem(identity))
+                      .toList(),
+                ));
+          }))
         ]));
   }
 }

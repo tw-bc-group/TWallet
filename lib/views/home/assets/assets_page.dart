@@ -35,45 +35,44 @@ class _AssetsPageState extends State<AssetsPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _showAddIdentityDialog();
-    });
+    if (_store.identities.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await _showAddIdentityDialog();
+      });
+    }
   }
 
   _showAddIdentityDialog() async {
-    var identities = _store.identities;
-    if (identities.isEmpty) {
-      await showDialog<String>(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) => new SimpleDialog(
-          contentPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-          children: <Widget>[
-            Center(
-                child: Text(
-              '您还没有添加身份，请前往\"身份\"页面添加身份',
-              style: TextStyle(
-                fontSize: 15,
-                height: 1.82,
-              ),
-              textAlign: TextAlign.center,
-            )),
-            Container(
-                margin: EdgeInsets.only(top: 48),
-                child: Button(
-                  width: 100,
-                  height: 40,
-                  text: '确定',
-                  onPressed: () {
-                    Application.router.pop(context);
-                    Provider.of<HomeStore>(context, listen: false)
-                        .changePage(HomeState.identityIndex);
-                  },
-                ))
-          ],
-        ),
-      );
-    }
+    await showDialog<String>(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => new SimpleDialog(
+        contentPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+        children: <Widget>[
+          Center(
+              child: Text(
+            '您还没有添加身份，请前往\"身份\"页面添加身份',
+            style: TextStyle(
+              fontSize: 15,
+              height: 1.82,
+            ),
+            textAlign: TextAlign.center,
+          )),
+          Container(
+              margin: EdgeInsets.only(top: 48),
+              child: Button(
+                width: 100,
+                height: 40,
+                text: '确定',
+                onPressed: () {
+                  Application.router.pop(context);
+                  Provider.of<HomeStore>(context, listen: false)
+                      .changePage(HomeState.identityIndex);
+                },
+              ))
+        ],
+      ),
+    );
   }
 
   Widget buildHeader(

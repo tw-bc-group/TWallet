@@ -39,7 +39,7 @@ abstract class _IdentityStore with Store {
     }).toList();
 
     await _db.getItem(SELECTED_NAME_KEY).then((item) {
-      selectIdentity(name: item[SELECTED_NAME_KEY] ?? '');
+      selectIdentity(name: item != null ? item[SELECTED_NAME_KEY] : '');
     });
   }
 
@@ -72,18 +72,19 @@ abstract class _IdentityStore with Store {
 
   @action
   Future<void> selectIdentity({@required String name}) async {
-    assert(identities.any((identity) => identity.name == name));
-    await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then((_) {
-      selectedName = name;
-      _streamController.add(ObservableFuture(
-          Future.value(selectedIdentity).then((selectedIdentity) async {
-        if (selectedIdentity.isPresent) {
-          return Optional.of(await fetchPoint(
-              dio: _dio, address: selectedIdentity.value.address));
-        }
-        return Optional.empty();
-      })));
-    });
+    if (identities.any((identity) => identity.name == name)) {
+      await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then((_) {
+        selectedName = name;
+        _streamController.add(ObservableFuture(
+            Future.value(selectedIdentity).then((selectedIdentity) async {
+          if (selectedIdentity.isPresent) {
+            return Optional.of(await fetchPoint(
+                dio: _dio, address: selectedIdentity.value.address));
+          }
+          return Optional.empty();
+        })));
+      });
+    }
   }
 
   @action
