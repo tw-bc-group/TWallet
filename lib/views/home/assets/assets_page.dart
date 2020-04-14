@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:optional/optional_internal.dart';
-import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
@@ -15,15 +14,19 @@ import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/button.dart';
 
 class AssetsPage extends StatefulWidget {
-  const AssetsPage();
+  const AssetsPage(this.homeStore);
+  final HomeStore homeStore;
 
   @override
-  State<StatefulWidget> createState() => _AssetsPageState();
+  State<StatefulWidget> createState() => _AssetsPageState(homeStore);
 }
 
 class _AssetsPageState extends State<AssetsPage>
     with SingleTickerProviderStateMixin {
-  final IdentityStore _store = getIt<IdentityStore>();
+  _AssetsPageState(this.homeStore);
+
+  final HomeStore homeStore;
+  final IdentityStore _identityStore = getIt<IdentityStore>();
   final Map<AssetsType, String> _tabs = {
     AssetsType.point: '积分',
     AssetsType.token: '资产'
@@ -35,7 +38,7 @@ class _AssetsPageState extends State<AssetsPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
-    if (_store.identities.isEmpty) {
+    if (_identityStore.identities.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await _showAddIdentityDialog();
       });
@@ -66,8 +69,7 @@ class _AssetsPageState extends State<AssetsPage>
                 text: '确定',
                 onPressed: () {
                   Application.router.pop(context);
-                  Provider.of<HomeStore>(context, listen: false)
-                      .changePage(HomeState.identityIndex);
+                  homeStore.changePage(HomeState.identityIndex);
                 },
               ))
         ],
@@ -107,7 +109,7 @@ class _AssetsPageState extends State<AssetsPage>
                 .toList();
           },
           onSelected: (String value) {
-            _store.selectIdentity(name: value);
+            _identityStore.selectIdentity(name: value);
           },
         ),
       );
@@ -125,8 +127,8 @@ class _AssetsPageState extends State<AssetsPage>
             color: WalletTheme.titleBgColor,
             child: Column(children: <Widget>[
               buildHeader(
-                  selectedIdentity: _store.selectedIdentity,
-                  identities: _store.identities),
+                  selectedIdentity: _identityStore.selectedIdentity,
+                  identities: _identityStore.identities),
               TabBar(
                   labelColor: Colors.blue,
                   unselectedLabelColor: Colors.grey,

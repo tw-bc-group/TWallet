@@ -113,7 +113,6 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                           : () async {
                                               setState(
                                                   () => _isInAsyncCall = true);
-
                                               Future.delayed(
                                                       Duration(seconds: 2))
                                                   .then((_) {

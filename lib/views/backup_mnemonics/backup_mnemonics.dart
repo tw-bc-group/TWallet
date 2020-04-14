@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -10,11 +10,10 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import './widgets/page_title.dart';
 
 class BackupMnemonicsPage extends StatelessWidget {
+  final store = getIt<MnemonicsStore>();
+
   Widget buildWords(mnemonics) {
-    if (mnemonics.mnemonics == null) {
-      mnemonics.createMnemonics();
-    }
-    var words = mnemonics.mnemonics.split(' ');
+    var words = store.mnemonics.split(' ');
     List<Widget> wordWidgets = [];
     for (var word in words) {
       wordWidgets.add(Container(
@@ -32,7 +31,6 @@ class BackupMnemonicsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mnemonics = Provider.of<MnemonicsStore>(context);
     return Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         body: Container(
@@ -50,7 +48,7 @@ class BackupMnemonicsPage extends StatelessWidget {
                         margin: EdgeInsets.only(top: 48),
                         decoration: BoxDecoration(
                             color: WalletTheme.rgbColor('#f6f8f9')),
-                        child: buildWords(mnemonics)),
+                        child: buildWords(store)),
                     Tips(),
                   ],
                 ),
