@@ -50,24 +50,6 @@ mixin _$IdentityStore on _IdentityStore, Store {
     }, _$identitiesAtom, name: '${_$identitiesAtom.name}_set');
   }
 
-  final _$latestPointFutureAtom =
-      Atom(name: '_IdentityStore.latestPointFuture');
-
-  @override
-  ObservableFuture<Optional<TwPoint>> get latestPointFuture {
-    _$latestPointFutureAtom.context.enforceReadPolicy(_$latestPointFutureAtom);
-    _$latestPointFutureAtom.reportObserved();
-    return super.latestPointFuture;
-  }
-
-  @override
-  set latestPointFuture(ObservableFuture<Optional<TwPoint>> value) {
-    _$latestPointFutureAtom.context.conditionallyRunInAction(() {
-      super.latestPointFuture = value;
-      _$latestPointFutureAtom.reportChanged();
-    }, _$latestPointFutureAtom, name: '${_$latestPointFutureAtom.name}_set');
-  }
-
   final _$clearAsyncAction = AsyncAction('clear');
 
   @override
@@ -115,7 +97,7 @@ mixin _$IdentityStore on _IdentityStore, Store {
   @override
   String toString() {
     final string =
-        'selectedName: ${selectedName.toString()},identities: ${identities.toString()},latestPointFuture: ${latestPointFuture.toString()},selectedIdentity: ${selectedIdentity.toString()}';
+        'selectedName: ${selectedName.toString()},identities: ${identities.toString()},selectedIdentity: ${selectedIdentity.toString()}';
     return '{$string}';
   }
 }

@@ -49,9 +49,6 @@ abstract class _IdentityStore with Store {
   @observable
   List<Identity> identities;
 
-  @observable
-  ObservableFuture<Optional<TwPoint>> latestPointFuture;
-
   StreamController<ObservableFuture<Optional<TwPoint>>> _streamController;
 
   ObservableStream<ObservableFuture<Optional<TwPoint>>> futureStream;
@@ -75,14 +72,7 @@ abstract class _IdentityStore with Store {
     if (identities.any((identity) => identity.name == name)) {
       await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then((_) {
         selectedName = name;
-        _streamController.add(ObservableFuture(
-            Future.value(selectedIdentity).then((selectedIdentity) async {
-          if (selectedIdentity.isPresent) {
-            return Optional.of(await fetchPoint(
-                dio: _dio, address: selectedIdentity.value.address));
-          }
-          return Optional.empty();
-        })));
+        return fetchLatestPoint();
       });
     }
   }
@@ -108,12 +98,15 @@ abstract class _IdentityStore with Store {
   }
 
   @action
-  Future fetchLatestPoint() => latestPointFuture = ObservableFuture(
-          Future.value(selectedIdentity).then((selectedIdentity) async {
-        if (selectedIdentity.isPresent) {
-          return Optional.of(await fetchPoint(
-              dio: _dio, address: selectedIdentity.value.address));
-        }
-        return Optional.empty();
-      }));
+  Future fetchLatestPoint() {
+    _streamController.add(ObservableFuture(
+        Future.value(selectedIdentity).then((selectedIdentity) async {
+      if (selectedIdentity.isPresent) {
+        return Optional.of(await fetchPoint(
+            dio: _dio, address: selectedIdentity.value.address));
+      }
+      return Optional.empty();
+    })));
+    return Future.value();
+  }
 }
