@@ -26,16 +26,10 @@ class _AssetsPageState extends State<AssetsPage>
 
   TabController _tabController;
 
-  void _onTabChange() {
-    _store.loadAssets(_tabs.keys.toList()[_tabController.index]);
-  }
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this)
-      ..addListener(_onTabChange);
-    _store.loadAssets(_tabs.keys.first);
+    _tabController = TabController(length: _tabs.length, vsync: this);
   }
 
   Widget buildHeader(

@@ -25,6 +25,7 @@ class TwPoint {
 }
 
 Future<TwPoint> fetchPoint({Dio dio, String address}) async {
+  print('address: $address');
   final response = await HomeService.fetchPointV1(address: address);
 
   if (response.statusCode == 200) {

@@ -2,6 +2,7 @@ import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
@@ -28,6 +29,16 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
 
   @override
   Widget build(BuildContext context) {
+    var pr = ProgressDialog(
+      context,
+      type: ProgressDialogType.Normal,
+      isDismissible: true,
+      customBody: LinearProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+        backgroundColor: Colors.white,
+      ),
+    );
+
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -103,12 +114,20 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                   text: '添加',
                                   onPressed: store.error.hasErrors
                                       ? null
-                                      : () =>
-                                          store.addIdentity().then((success) {
-                                            if (success) {
-                                              Application.router.pop(context);
-                                            }
-                                          })))
+                                      : () async {
+                                          pr.show();
+                                          Future.delayed(Duration(seconds: 2))
+                                              .then((_) {
+                                            store.addIdentity().then((success) {
+                                              pr.hide().whenComplete(() {
+                                                if (success) {
+                                                  Application.router
+                                                      .pop(context);
+                                                }
+                                              });
+                                            });
+                                          });
+                                        }))
                         ],
                       )),
                 ))

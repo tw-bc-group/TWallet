@@ -45,6 +45,7 @@ dependencies:
   optional: ^4.1.0
   json_store: ^1.0.3
   more: ^2.2.0
+  progress_dialog: ^1.2.2
 
 dev_dependencies:
   flutter_test:

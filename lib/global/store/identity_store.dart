@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_store/json_store.dart';
@@ -25,6 +27,11 @@ abstract class _IdentityStore with Store {
   final _dio = getIt<Dio>();
   final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
 
+  _IdentityStore() {
+    _streamController = StreamController();
+    futureStream = ObservableStream(_streamController.stream);
+  }
+
   Future<void> loadFromStorage() async {
     identities =
         (await _db.getListLike('$IDENTITIES_NAME_KEY: %') ?? []).map((item) {
@@ -32,7 +39,7 @@ abstract class _IdentityStore with Store {
     }).toList();
 
     await _db.getItem(SELECTED_NAME_KEY).then((item) {
-      selectedName = item != null ? item[SELECTED_NAME_KEY] : null;
+      selectIdentity(name: item[SELECTED_NAME_KEY] ?? '');
     });
   }
 
@@ -45,10 +52,18 @@ abstract class _IdentityStore with Store {
   @observable
   ObservableFuture<Optional<TwPoint>> latestPointFuture;
 
+  StreamController<ObservableFuture<Optional<TwPoint>>> _streamController;
+
+  ObservableStream<ObservableFuture<Optional<TwPoint>>> futureStream;
+
   @computed
   Optional<Identity> get selectedIdentity => Optional.ofNullable(
       identities.firstWhere((identity) => identity.name == selectedName,
           orElse: () => null));
+
+  void dispose() async {
+    await _streamController.close();
+  }
 
   @action
   Future<void> clear() async {
@@ -58,8 +73,17 @@ abstract class _IdentityStore with Store {
   @action
   Future<void> selectIdentity({@required String name}) async {
     assert(identities.any((identity) => identity.name == name));
-    await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then(
-        (_) => selectedName = name);
+    await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then((_) {
+      selectedName = name;
+      _streamController.add(ObservableFuture(
+          Future.value(selectedIdentity).then((selectedIdentity) async {
+        if (selectedIdentity.isPresent) {
+          return Optional.of(await fetchPoint(
+              dio: _dio, address: selectedIdentity.value.address));
+        }
+        return Optional.empty();
+      })));
+    });
   }
 
   @action
@@ -91,10 +115,4 @@ abstract class _IdentityStore with Store {
         }
         return Optional.empty();
       }));
-
-  void loadAssets(AssetsType type) {
-    if (type == AssetsType.point && latestPointFuture == null) {
-      fetchLatestPoint();
-    }
-  }
 }
