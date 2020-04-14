@@ -24,7 +24,7 @@ class Identity {
   String get address =>
       BlockChainService.publicKeyToAddress(pubKey.substring(2));
 
-  String get did => 'DID:TW:$address';
+  String get did => 'DID:TW:${address.substring(2)}';
 
   factory Identity.fromJson(Map<String, dynamic> json) =>
       _$IdentityFromJson(json);

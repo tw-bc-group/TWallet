@@ -25,18 +25,12 @@ class _IdentityPageState extends State<IdentityPage> {
             ),
             child: Container(
                 padding: EdgeInsets.all(10),
-                child: Row(children: <Widget>[
-                  CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/avatar.jpg')),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(identity.name),
-                        Text(
-                          identity.did,
-                        ),
-                      ])
-                ]))));
+                child: ListTile(
+                    leading: CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/images/avatar.jpg')),
+                    title: Text(identity.name),
+                subtitle: Text(identity.did)))));
   }
 
   @override
