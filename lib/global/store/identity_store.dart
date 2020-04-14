@@ -79,7 +79,7 @@ abstract class _IdentityStore with Store {
 
   @action
   Future<void> addIdentity({@required Identity identity}) async {
-    await _db.setItem(_itemKey(identity.name), identity.toJson()).then((_) {
+    _db.setItem(_itemKey(identity.name), identity.toJson()).then((_) {
       identities.add(identity);
       if (identities.length == 1) {
         selectIdentity(name: identity.name);
