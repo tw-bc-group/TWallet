@@ -91,7 +91,7 @@ class _AssetsPageState extends State<AssetsPage>
       Expanded(child: Container()),
     ];
 
-    if (identities.isNotEmpty) {
+    if (identities.length > 1) {
       children.add(
         PopupMenuButton(
           icon: Icon(Icons.apps),

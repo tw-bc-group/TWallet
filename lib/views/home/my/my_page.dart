@@ -6,8 +6,7 @@ import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 
 Future<void> _clearPrivateData() async {
-  //await getIt<IdentityStore>().clear().then((_) => SecureStorage.clearAll());
-  await getIt<IdentityStore>().clear();
+  await getIt<IdentityStore>().clear().then((_) => SecureStorage.clearAll());
 }
 
 class MyPage extends StatelessWidget {
