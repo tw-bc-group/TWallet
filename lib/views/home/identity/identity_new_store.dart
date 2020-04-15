@@ -1,10 +1,9 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:mobx/mobx.dart';
-import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/secure_storage.dart';
-import 'package:tw_wallet_ui/global/service/blockchain.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
@@ -97,25 +96,22 @@ abstract class _IdentityNewStore with Store {
 
   @action
   Future<bool> addIdentity() async {
+    MnemonicsStore store = getIt<MnemonicsStore>();
+
     if (!error.hasErrors) {
       return await SecureStorage.get(SecureStorageItem.Mnemonics)
           .then((mnemonics) async {
-        Tuple2<String, String> tuple = BlockChainService.generateIdentityKeys(
-            BlockChainService.generateHDWallet(mnemonics), 0);
-
-        await _identityStore.addIdentity(
+        store.generateIdentityKeys().then((keys) => _identityStore.addIdentity(
             identity: Identity(
                 id: Uuid().v1(),
                 avatar: avatar.toJson(),
                 name: name,
-                pubKey: tuple.first,
-                priKey: tuple.second,
+                pubKey: keys.first,
+                priKey: keys.second,
                 phone: phone,
                 email: email,
-                birthday: isNull(birthday) ? null : DateTime.parse(birthday)));
-
-        return true;
-      });
+                birthday: isNull(birthday) ? null : DateTime.parse(birthday))));
+      }).then((_) => true);
     }
     return false;
   }

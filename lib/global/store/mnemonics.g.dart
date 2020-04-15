@@ -36,6 +36,14 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
     }, _$valueAtom, name: '${_$valueAtom.name}_set');
   }
 
+  final _$generateIdentityKeysAsyncAction = AsyncAction('generateIdentityKeys');
+
+  @override
+  Future<Tuple2<String, String>> generateIdentityKeys() {
+    return _$generateIdentityKeysAsyncAction
+        .run(() => super.generateIdentityKeys());
+  }
+
   final _$saveAsyncAction = AsyncAction('save');
 
   @override

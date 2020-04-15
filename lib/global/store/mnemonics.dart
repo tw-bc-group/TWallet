@@ -2,6 +2,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/global/common/secure_storage.dart';
+import 'package:tw_wallet_ui/global/service/blockchain.dart';
 
 part 'mnemonics.g.dart';
 
@@ -17,6 +18,8 @@ abstract class MnemonicsBase with Store {
 
   @computed
   int get index => value.first;
+
+  set index(int newIndex) => value = value.withFirst(newIndex);
 
   @computed
   String get mnemonics => value.second;
@@ -47,6 +50,14 @@ abstract class MnemonicsBase with Store {
     }
 
     return MnemonicsStore(value);
+  }
+
+  @action
+  Future<Tuple2<String, String>> generateIdentityKeys() async {
+    Tuple2<String, String> res = BlockChainService.generateIdentityKeys(
+        BlockChainService.generateHDWallet(mnemonics), ++index);
+    await save();
+    return res;
   }
 
   @action
