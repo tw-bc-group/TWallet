@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
@@ -24,11 +25,11 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
 
   Widget buildWords() {
     List<Widget> wordWidgets = [];
-    for (var word in selectedWords) {
+    for (var tag in selectedWords) {
       wordWidgets.add(Container(
           padding: EdgeInsets.all(10),
           child: Text(
-            word,
+            tag.second,
             style: TextStyle(
               fontSize: 20,
               color: WalletTheme.rgbColor('#38508c'),
@@ -40,22 +41,23 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
 
   Widget buildWordButtons(mnemonics) {
     List<Widget> wordButtons = [];
-    for (var word in words) {
+    words.asMap().forEach((index, word) {
       wordButtons.add(WordButton(
           text: word,
           onPressed: () {
-            if (!selectedWords.contains(word)) {
+            Tuple2<int, String> tag = Tuple2(index, word);
+            if (!selectedWords.contains(tag)) {
               setState(() {
-                selectedWords.add(word);
+                selectedWords.add(tag);
               });
             } else {
-              var wordIndex = selectedWords.indexOf(word);
+              var tagIndex = selectedWords.indexOf(tag);
               setState(() {
-                selectedWords.removeAt(wordIndex);
+                selectedWords.removeAt(tagIndex);
               });
             }
           }));
-    }
+    });
     return Wrap(children: wordButtons);
   }
 
@@ -65,7 +67,9 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
       words = store.mnemonics.split(' ');
       words.shuffle();
     }
-    var buttonDisabled = selectedWords.join(' ') != store.mnemonics;
+    var buttonDisabled =
+        selectedWords.map((tuple) => tuple.second).toList().join(' ') !=
+            store.mnemonics;
 
     return Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),

@@ -5,7 +5,7 @@ class WordButton extends StatefulWidget {
   final String text;
   final Function onPressed;
 
-  WordButton({this.text, this.onPressed});
+  WordButton({@required this.text, @required this.onPressed});
 
   @override
   State<StatefulWidget> createState() {
