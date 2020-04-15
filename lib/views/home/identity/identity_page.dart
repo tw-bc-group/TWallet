@@ -20,13 +20,15 @@ class _IdentityPageState extends State<IdentityPage> {
   TextEditingController _filter;
 
   Widget _avatarWidget(String avatar) {
-    return avatar == null
+    Widget widget = avatar == null
         ? CircleAvatar(backgroundImage: AssetImage('assets/images/avatar.jpg'))
         : AvataaarImage(
             avatar: Avataaar.fromJson(avatar),
             errorImage: Icon(Icons.error),
             placeholder: CircularProgressIndicator(),
           );
+
+    return SizedBox(width: 45, height: 45, child: widget);
   }
 
   Widget _listItem(Identity identity) {
