@@ -8,7 +8,9 @@ import 'package:tw_wallet_ui/global/store/identity_store.dart';
 class TokenTab extends StatelessWidget {
   final IdentityStore _store = getIt<IdentityStore>();
 
-  Future _refresh() => _store.fetchLatestPoint();
+  Future<void> _refresh() async {
+    _store.fetchLatestPoint();
+  }
 
   @override
   // ignore: missing_return

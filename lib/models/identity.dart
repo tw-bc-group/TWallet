@@ -6,6 +6,7 @@ part 'identity.g.dart';
 
 @JsonSerializable()
 class Identity {
+  String id;
   String name;
   String pubKey;
   String priKey;
@@ -14,7 +15,8 @@ class Identity {
   DateTime birthday;
 
   Identity(
-      {@required this.name,
+      {@required this.id,
+      @required this.name,
       @required this.pubKey,
       @required this.priKey,
       this.phone,

@@ -34,13 +34,16 @@ Widget _pointItem({@required String point, BuildContext context}) {
 class PointTab extends StatelessWidget {
   final IdentityStore _store = getIt<IdentityStore>();
 
-  Future _refresh() => _store.fetchLatestPoint();
+  Future<void> _refresh() async {
+    _store.fetchLatestPoint();
+  }
 
   @override
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
         final future = _store.futureStream.value;
 
+        //TODO:
         if (future == null) {
           return Container();
         }

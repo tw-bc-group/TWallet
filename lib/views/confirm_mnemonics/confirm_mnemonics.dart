@@ -1,8 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/secure_storage.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
@@ -18,8 +17,10 @@ class ConfirmMnemonicsPage extends StatefulWidget {
 }
 
 class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
-  List<String> words = [];
+  final store = getIt<MnemonicsStore>();
   final selectedWords = [];
+
+  List<String> words = [];
 
   Widget buildWords() {
     List<Widget> wordWidgets = [];
@@ -60,12 +61,12 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final mnemonics = Provider.of<MnemonicsStore>(context);
     if (words.length == 0) {
-      words = mnemonics.mnemonics.split(' ');
+      words = store.mnemonics.split(' ');
       words.shuffle();
     }
-    var buttonDisabled = selectedWords.join(' ') != mnemonics.mnemonics;
+    var buttonDisabled = selectedWords.join(' ') != store.mnemonics;
+
     return Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         body: Stack(
@@ -93,7 +94,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                       margin: EdgeInsets.only(top: 30),
-                      child: buildWordButtons(mnemonics))
+                      child: buildWordButtons(store))
                 ],
               ),
             )),
@@ -107,11 +108,10 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     onPressed: buttonDisabled
                         ? null
                         : () async {
-                            await SecureStorage.set(SecureStorageItem.Mnemonics,
-                                mnemonics.mnemonics);
-                            Application.router.navigateTo(context,
-                                '/home?index=${HomeState.identityIndex}',
-                                transition: TransitionType.native);
+                            store.save().then((_) => Application.router
+                                .navigateTo(context,
+                                    '/home?index=${HomeState.identityIndex}',
+                                    transition: TransitionType.native));
                           }),
               ),
               bottom: 30,

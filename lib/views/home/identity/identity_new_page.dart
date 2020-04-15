@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 
 class IdentityNewPage extends StatefulWidget {
@@ -40,15 +41,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                   color: WalletTheme.mainBgColor,
                   child: Column(children: <Widget>[
                     Container(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('新建个人信息',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                          ],
-                        )),
+                        padding: EdgeInsets.all(25),
+                        child: PageTitleWidget(title: '新建个人信息')),
                     Expanded(
                         child: Form(
                       child: Padding(
@@ -106,29 +100,30 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 30, vertical: 55),
-                                  child: WalletTheme.button(
-                                      text: '添加',
-                                      onPressed: store.error.hasErrors
-                                          ? null
-                                          : () async {
-                                              setState(
-                                                  () => _isInAsyncCall = true);
-
-                                              Future.delayed(
-                                                      Duration(seconds: 2))
-                                                  .then((_) {
-                                                store
-                                                    .addIdentity()
-                                                    .then((success) {
+                                  child: Observer(
+                                      builder: (_) => WalletTheme.button(
+                                          text: '添加',
+                                          onPressed: store.error.hasErrors
+                                              ? null
+                                              : () async {
                                                   setState(() =>
-                                                      _isInAsyncCall = false);
-                                                  if (success) {
-                                                    Application.router
-                                                        .pop(context);
-                                                  }
-                                                });
-                                              });
-                                            }))
+                                                      _isInAsyncCall = true);
+                                                  store
+                                                      .addIdentity()
+                                                      .then((success) {
+                                                    Future.delayed(Duration(
+                                                            seconds: 2))
+                                                        .then((_) {
+                                                      setState(() =>
+                                                          _isInAsyncCall =
+                                                              false);
+                                                      if (success) {
+                                                        Application.router
+                                                            .pop(context);
+                                                      }
+                                                    });
+                                                  });
+                                                })))
                             ],
                           )),
                     ))

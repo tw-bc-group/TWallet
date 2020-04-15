@@ -6,31 +6,41 @@ import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 
+import '../../../global/common/application.dart';
+import '../../../router/routers.dart';
+
 class IdentityPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _IdentityPageState();
 }
 
 class _IdentityPageState extends State<IdentityPage> {
+  final IdentityStore _store = getIt<IdentityStore>();
   TextEditingController _filter;
 
   Widget _listItem(Identity identity) {
     return Padding(
         padding: EdgeInsets.all(10),
-        child: Container(
-            decoration: BoxDecoration(
-              color: WalletTheme.listItemBgColor,
-              boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Container(
-                padding: EdgeInsets.all(10),
-                child: ListTile(
-                    leading: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/images/avatar.jpg')),
-                    title: Text(identity.name),
-                subtitle: Text(identity.did)))));
+        child: GestureDetector(
+          onTap: () {
+            Application.router.navigateTo(
+                context, '${Routes.identityDetail}?id=${identity.id}');
+          },
+          child: Container(
+              decoration: BoxDecoration(
+                color: WalletTheme.listItemBgColor,
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: ListTile(
+                      leading: CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.jpg')),
+                      title: Text(identity.name),
+                      subtitle: Text(identity.did)))),
+        ));
   }
 
   @override
@@ -60,7 +70,6 @@ class _IdentityPageState extends State<IdentityPage> {
                 ],
               )),
           Expanded(child: Observer(builder: (_) {
-            IdentityStore _store = getIt<IdentityStore>();
             return Container(
                 padding: EdgeInsets.all(18),
                 child: ListView(

@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 import 'package:tw_wallet_ui/global/service/blockchain.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
 
 part 'identity_new_store.g.dart';
@@ -94,6 +95,7 @@ abstract class _IdentityNewStore with Store {
 
         await _identityStore.addIdentity(
             identity: Identity(
+                id: Uuid().v1(),
                 name: name,
                 pubKey: tuple.first,
                 priKey: tuple.second,

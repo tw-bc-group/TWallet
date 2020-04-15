@@ -17,30 +17,34 @@ const SELECTED_NAME_KEY = 'selected_name';
 
 enum AssetsType { point, token }
 
-class IdentityStore = _IdentityStore with _$IdentityStore;
+class IdentityStore = IdentityStoreBase with _$IdentityStore;
 
 String _itemKey(String name) {
   return '$IDENTITIES_NAME_KEY: $name';
 }
 
-abstract class _IdentityStore with Store {
+abstract class IdentityStoreBase with Store {
+  static final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
   final _dio = getIt<Dio>();
-  final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
 
-  _IdentityStore() {
+  IdentityStoreBase(String selectedName, List<Identity> identities) {
     _streamController = StreamController();
     futureStream = ObservableStream(_streamController.stream);
+    this.identities = identities;
+    selectIdentity(name: selectedName);
   }
 
-  Future<void> loadFromStorage() async {
-    identities =
+  static Future<IdentityStore> fromJsonStore() async {
+    String selectedName = await _db.getItem(SELECTED_NAME_KEY).then((item) {
+      return item != null ? item[SELECTED_NAME_KEY] : '';
+    });
+
+    List<Identity> identities =
         (await _db.getListLike('$IDENTITIES_NAME_KEY: %') ?? []).map((item) {
       return Identity.fromJson(item);
     }).toList();
 
-    await _db.getItem(SELECTED_NAME_KEY).then((item) {
-      selectIdentity(name: item != null ? item[SELECTED_NAME_KEY] : '');
-    });
+    return IdentityStore(selectedName, identities);
   }
 
   @observable
@@ -98,7 +102,7 @@ abstract class _IdentityStore with Store {
   }
 
   @action
-  Future fetchLatestPoint() {
+  void fetchLatestPoint() {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
@@ -107,6 +111,5 @@ abstract class _IdentityStore with Store {
       }
       return Optional.empty();
     })));
-    return Future.value();
   }
 }

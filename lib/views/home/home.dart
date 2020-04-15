@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
@@ -22,6 +21,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   HomeState({this.defaultIndex = 0});
 
+  final HomeStore homeStore = HomeStore();
   static final List<BottomNavigationBarItem> _barItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
     BottomNavigationBarItem(icon: Icon(Icons.more), title: Text('发现')),
@@ -34,19 +34,12 @@ class HomeState extends State<Home> {
   // _barItems.indexWhere((item) => (item.title as Text).data == '');
 
   int defaultIndex;
-  HomeStore homeStore;
-
-  final List<Widget> _pages = [
-    AssetsPage(),
-    DiscoveryPage(),
-    IdentityPage(),
-    MyPage()
-  ];
+  List<Widget> _pages;
 
   @override
   void initState() {
-    homeStore = Provider.of<HomeStore>(context, listen: false);
     homeStore.changePage(defaultIndex);
+    _pages = [AssetsPage(homeStore), DiscoveryPage(), IdentityPage(), MyPage()];
     super.initState();
   }
 

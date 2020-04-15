@@ -8,7 +8,7 @@ part of 'identity_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$IdentityStore on _IdentityStore, Store {
+mixin _$IdentityStore on IdentityStoreBase, Store {
   Computed<Optional<Identity>> _$selectedIdentityComputed;
 
   @override
@@ -16,7 +16,7 @@ mixin _$IdentityStore on _IdentityStore, Store {
           Computed<Optional<Identity>>(() => super.selectedIdentity))
       .value;
 
-  final _$selectedNameAtom = Atom(name: '_IdentityStore.selectedName');
+  final _$selectedNameAtom = Atom(name: 'IdentityStoreBase.selectedName');
 
   @override
   String get selectedName {
@@ -33,7 +33,7 @@ mixin _$IdentityStore on _IdentityStore, Store {
     }, _$selectedNameAtom, name: '${_$selectedNameAtom.name}_set');
   }
 
-  final _$identitiesAtom = Atom(name: '_IdentityStore.identities');
+  final _$identitiesAtom = Atom(name: 'IdentityStoreBase.identities');
 
   @override
   List<Identity> get identities {
@@ -81,16 +81,16 @@ mixin _$IdentityStore on _IdentityStore, Store {
         .run(() => super.deleteIdentity(name: name));
   }
 
-  final _$_IdentityStoreActionController =
-      ActionController(name: '_IdentityStore');
+  final _$IdentityStoreBaseActionController =
+      ActionController(name: 'IdentityStoreBase');
 
   @override
-  Future<dynamic> fetchLatestPoint() {
-    final _$actionInfo = _$_IdentityStoreActionController.startAction();
+  void fetchLatestPoint() {
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction();
     try {
       return super.fetchLatestPoint();
     } finally {
-      _$_IdentityStoreActionController.endAction(_$actionInfo);
+      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

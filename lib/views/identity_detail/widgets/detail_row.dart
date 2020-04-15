@@ -22,6 +22,7 @@ class DetailRowWidget extends StatelessWidget {
               fontWeight: FontWeight.w600
             ),
           ),
+          value == null ? Container() :
           Container(
             width: 200,
             child: Align(

@@ -8,6 +8,7 @@ part of 'identity.dart';
 
 Identity _$IdentityFromJson(Map<String, dynamic> json) {
   return Identity(
+    id: json['id'] as String,
     name: json['name'] as String,
     pubKey: json['pubKey'] as String,
     priKey: json['priKey'] as String,
@@ -20,6 +21,7 @@ Identity _$IdentityFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$IdentityToJson(Identity instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'pubKey': instance.pubKey,
       'priKey': instance.priKey,
