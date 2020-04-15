@@ -2,13 +2,20 @@ import 'dart:convert';
 
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 
 class MockDio extends Mock implements Dio {}
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  getIt.registerSingleton<Dio>(MockDio());
+  getIt.registerSingleton<ApiProvider>(ApiProvider());
+
   group('TW Point', () {
     test('Value should be 10000', () {
       var strJson =
@@ -36,7 +43,7 @@ void main() {
   });
 
   group('Fetch TW Point', () {
-    final dio = MockDio();
+    final dio = getIt<Dio>();
     final address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
     final url = '/v1/tw-points/' + address;
 
@@ -46,7 +53,7 @@ void main() {
           data: json.decode(
               '{"code": 200, "msg": "OK", "result": {"address": "0xed9d02e382b34818e88B88a309c7fe71E65f419d", "balance": "10000000000000000000000", "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}}}')));
 
-      expect(await fetchPoint(dio: dio, address: address), isA<TwPoint>());
+      expect(await TwPoint.fetchPoint(address: address), isA<TwPoint>());
     });
 
     // Note: if test throws exception, remove await for async functions, and use throwsException to match result
@@ -55,7 +62,7 @@ void main() {
       when(dio.get(url)).thenAnswer(
           (_) async => Response(statusCode: 404, data: 'Not Found'));
 
-      expect(fetchPoint(dio: dio, address: address), throwsException);
+      expect(TwPoint.fetchPoint(address: address), throwsException);
     });
   });
 }

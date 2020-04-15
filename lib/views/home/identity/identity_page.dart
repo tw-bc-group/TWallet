@@ -63,6 +63,7 @@ class _IdentityPageState extends State<IdentityPage> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   TextField(
                     controller: _filter,
+                    onChanged: (String value) => _store.updateSearchName(value),
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search), hintText: 'Search...'),
                   ),
@@ -73,6 +74,8 @@ class _IdentityPageState extends State<IdentityPage> {
                 padding: EdgeInsets.all(18),
                 child: ListView(
                   children: _store.identities
+                      .where((identity) =>
+                          identity.name.contains(_store.searchName))
                       .map((identity) => _listItem(identity))
                       .toList(),
                 ));

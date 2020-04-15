@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 
@@ -25,12 +23,13 @@ String _itemKey(String name) {
 
 abstract class IdentityStoreBase with Store {
   static final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
-  final _dio = getIt<Dio>();
 
   IdentityStoreBase(String selectedName, List<Identity> identities) {
+    searchName = '';
     _streamController = StreamController();
     futureStream = ObservableStream(_streamController.stream);
     this.identities = identities;
+    _identitiesSort();
     selectIdentity(name: selectedName);
   }
 
@@ -53,6 +52,9 @@ abstract class IdentityStoreBase with Store {
   @observable
   List<Identity> identities;
 
+  @observable
+  String searchName;
+
   StreamController<ObservableFuture<Optional<TwPoint>>> _streamController;
 
   ObservableStream<ObservableFuture<Optional<TwPoint>>> futureStream;
@@ -62,8 +64,18 @@ abstract class IdentityStoreBase with Store {
       identities.firstWhere((identity) => identity.name == selectedName,
           orElse: () => null));
 
+  void _identitiesSort() {
+    identities.sort(
+        (identity1, identity2) => identity1.name.compareTo(identity2.name));
+  }
+
   void dispose() async {
     await _streamController.close();
+  }
+
+  @action
+  void updateSearchName(String name) {
+    searchName = name;
   }
 
   @action
@@ -85,6 +97,7 @@ abstract class IdentityStoreBase with Store {
   Future<void> addIdentity({@required Identity identity}) async {
     _db.setItem(_itemKey(identity.name), identity.toJson()).then((_) {
       identities.add(identity);
+      _identitiesSort();
       if (identities.length == 1) {
         selectIdentity(name: identity.name);
       }
@@ -106,8 +119,8 @@ abstract class IdentityStoreBase with Store {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
-        return Optional.of(await fetchPoint(
-            dio: _dio, address: selectedIdentity.value.address));
+        return Optional.of(
+            await TwPoint.fetchPoint(address: selectedIdentity.value.address));
       }
       return Optional.empty();
     })));

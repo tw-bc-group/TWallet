@@ -1,7 +1,6 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/secure_storage.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
@@ -72,6 +71,9 @@ abstract class _IdentityNewStore with Store {
   void validateUsername(String value) {
     if (isNull(value) || value.isEmpty) {
       error.username = '不能为空';
+    } else if (_identityStore.identities
+        .any((identity) => identity.name == value)) {
+      error.username = '此名称已存在';
     } else {
       error.username = null;
     }
@@ -99,19 +101,23 @@ abstract class _IdentityNewStore with Store {
     MnemonicsStore store = getIt<MnemonicsStore>();
 
     if (!error.hasErrors) {
-      return await SecureStorage.get(SecureStorageItem.Mnemonics)
-          .then((mnemonics) async {
-        store.generateIdentityKeys().then((keys) => _identityStore.addIdentity(
-            identity: Identity(
-                id: Uuid().v1(),
-                avatar: avatar.toJson(),
-                name: name,
-                pubKey: keys.first,
-                priKey: keys.second,
-                phone: phone,
-                email: email,
-                birthday: isNull(birthday) ? null : DateTime.parse(birthday))));
-      }).then((_) => true);
+      return store.generateIdentityKeys().then((keys) {
+        Identity identity = Identity(
+            id: Uuid().v1(),
+            avatar: avatar.toJson(),
+            name: name,
+            pubKey: keys.first,
+            priKey: keys.second,
+            phone: phone,
+            email: email,
+            birthday: isNull(birthday) ? null : DateTime.parse(birthday));
+        return identity.add().then((success) {
+          if (success) {
+            _identityStore.addIdentity(identity: identity);
+          }
+          return success;
+        });
+      });
     }
     return false;
   }

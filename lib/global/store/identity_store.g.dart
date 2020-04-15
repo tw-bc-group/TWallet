@@ -50,6 +50,23 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     }, _$identitiesAtom, name: '${_$identitiesAtom.name}_set');
   }
 
+  final _$searchNameAtom = Atom(name: 'IdentityStoreBase.searchName');
+
+  @override
+  String get searchName {
+    _$searchNameAtom.context.enforceReadPolicy(_$searchNameAtom);
+    _$searchNameAtom.reportObserved();
+    return super.searchName;
+  }
+
+  @override
+  set searchName(String value) {
+    _$searchNameAtom.context.conditionallyRunInAction(() {
+      super.searchName = value;
+      _$searchNameAtom.reportChanged();
+    }, _$searchNameAtom, name: '${_$searchNameAtom.name}_set');
+  }
+
   final _$clearAsyncAction = AsyncAction('clear');
 
   @override
@@ -85,6 +102,16 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       ActionController(name: 'IdentityStoreBase');
 
   @override
+  void updateSearchName(String name) {
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction();
+    try {
+      return super.updateSearchName(name);
+    } finally {
+      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void fetchLatestPoint() {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction();
     try {
@@ -97,7 +124,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   @override
   String toString() {
     final string =
-        'selectedName: ${selectedName.toString()},identities: ${identities.toString()},selectedIdentity: ${selectedIdentity.toString()}';
+        'selectedName: ${selectedName.toString()},identities: ${identities.toString()},searchName: ${searchName.toString()},selectedIdentity: ${selectedIdentity.toString()}';
     return '{$string}';
   }
 }
