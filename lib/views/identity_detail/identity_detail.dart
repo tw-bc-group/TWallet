@@ -26,6 +26,16 @@ class IdentityDetailPage extends StatelessWidget {
     return identityResult;
   }
 
+  Widget _avatarWidget(String avatar) {
+    return avatar == null
+        ? CircleAvatar(backgroundImage: AssetImage('assets/images/avatar.jpg'))
+        : AvataaarImage(
+            avatar: Avataaar.fromJson(avatar),
+            errorImage: Icon(Icons.error),
+            placeholder: CircularProgressIndicator(),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     var identity = getIdentity();
@@ -39,9 +49,7 @@ class IdentityDetailPage extends StatelessWidget {
                   PageTitleWidget(title: '个人信息'),
                   DetailRowWidget(
                     name: '头像',
-                    value: CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/avatar.jpg')),
+                    value: _avatarWidget(identity.avatar),
                   ),
                   DetailRowWidget(name: '名称*', value: identity.name),
                   DetailRowWidget(name: '邮箱', value: identity.email),

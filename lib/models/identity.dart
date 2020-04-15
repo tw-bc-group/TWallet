@@ -7,6 +7,7 @@ part 'identity.g.dart';
 @JsonSerializable()
 class Identity {
   String id;
+  String avatar;
   String name;
   String pubKey;
   String priKey;
@@ -16,6 +17,7 @@ class Identity {
 
   Identity(
       {@required this.id,
+      @required this.avatar,
       @required this.name,
       @required this.pubKey,
       @required this.priKey,

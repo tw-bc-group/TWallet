@@ -36,6 +36,13 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
     }, _$valueAtom, name: '${_$valueAtom.name}_set');
   }
 
+  final _$saveAsyncAction = AsyncAction('save');
+
+  @override
+  Future<void> save() {
+    return _$saveAsyncAction.run(() => super.save());
+  }
+
   final _$MnemonicsBaseActionController =
       ActionController(name: 'MnemonicsBase');
 

@@ -1,3 +1,4 @@
+import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,6 +19,16 @@ class _IdentityPageState extends State<IdentityPage> {
   final IdentityStore _store = getIt<IdentityStore>();
   TextEditingController _filter;
 
+  Widget _avatarWidget(String avatar) {
+    return avatar == null
+        ? CircleAvatar(backgroundImage: AssetImage('assets/images/avatar.jpg'))
+        : AvataaarImage(
+            avatar: Avataaar.fromJson(avatar),
+            errorImage: Icon(Icons.error),
+            placeholder: CircularProgressIndicator(),
+          );
+  }
+
   Widget _listItem(Identity identity) {
     return Padding(
         padding: EdgeInsets.all(10),
@@ -35,9 +46,7 @@ class _IdentityPageState extends State<IdentityPage> {
               child: Container(
                   padding: EdgeInsets.all(10),
                   child: ListTile(
-                      leading: CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/avatar.jpg')),
+                      leading: _avatarWidget(identity.avatar),
                       title: Text(identity.name),
                       subtitle: Text(identity.did)))),
         ));

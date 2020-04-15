@@ -15,6 +15,23 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
   bool get canNew =>
       (_$canNewComputed ??= Computed<bool>(() => super.canNew)).value;
 
+  final _$avatarAtom = Atom(name: '_IdentityNewStore.avatar');
+
+  @override
+  Avataaar get avatar {
+    _$avatarAtom.context.enforceReadPolicy(_$avatarAtom);
+    _$avatarAtom.reportObserved();
+    return super.avatar;
+  }
+
+  @override
+  set avatar(Avataaar value) {
+    _$avatarAtom.context.conditionallyRunInAction(() {
+      super.avatar = value;
+      _$avatarAtom.reportChanged();
+    }, _$avatarAtom, name: '${_$avatarAtom.name}_set');
+  }
+
   final _$nameAtom = Atom(name: '_IdentityNewStore.name');
 
   @override
@@ -94,6 +111,16 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
       ActionController(name: '_IdentityNewStore');
 
   @override
+  void refreshAvatar() {
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
+    try {
+      return super.refreshAvatar();
+    } finally {
+      _$_IdentityNewStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void validateUsername(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
     try {
@@ -136,7 +163,7 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
   @override
   String toString() {
     final string =
-        'name: ${name.toString()},phone: ${phone.toString()},email: ${email.toString()},birthday: ${birthday.toString()},canNew: ${canNew.toString()}';
+        'avatar: ${avatar.toString()},name: ${name.toString()},phone: ${phone.toString()},email: ${email.toString()},birthday: ${birthday.toString()},canNew: ${canNew.toString()}';
     return '{$string}';
   }
 }

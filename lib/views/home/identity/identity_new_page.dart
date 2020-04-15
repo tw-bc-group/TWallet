@@ -21,7 +21,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   @override
   void initState() {
     super.initState();
-    store.setupValidators();
+    store.setupAvatarAndValidators();
     store.validateAll();
   }
 
@@ -69,12 +69,21 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                           padding: EdgeInsets.all(30),
                           child: Column(
                             children: <Widget>[
-                              AvataaarImage(
-                                avatar: Avataaar(style: Style.circle),
-                                errorImage: Icon(Icons.error),
-                                placeholder: CircularProgressIndicator(),
-                                width: 65,
-                              ),
+                              Observer(
+                                  builder: (_) => Stack(
+                                          alignment: const Alignment(0.0, 2.0),
+                                          children: <Widget>[
+                                            AvataaarImage(
+                                              avatar: store.avatar,
+                                              errorImage: Icon(Icons.error),
+                                              placeholder:
+                                                  CircularProgressIndicator(),
+                                              width: 65,
+                                            ),
+                                            IconButton(
+                                                icon: Icon(Icons.refresh),
+                                                onPressed: store.refreshAvatar)
+                                          ])),
                               Padding(
                                   padding: EdgeInsets.all(15),
                                   child: Text('以下带 * 的为必填项',
