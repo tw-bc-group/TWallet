@@ -15,26 +15,27 @@ class DetailRowWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          name == null ? Container() : Text(
-            name,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600
-            ),
-          ),
-          value == null ? Container() :
-          Container(
-            width: 200,
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: value is Widget ? value : Text(
-                value,
-                style: TextStyle(
-                  color: WalletTheme.rgbColor('#888888')
+          name == null
+              ? Container()
+              : Text(
+                  name,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
-              ),
-            ),
-          )
+          value == null
+              ? Container()
+              : Container(
+                  width: 200,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: value is Widget
+                        ? value
+                        : Text(
+                            value,
+                            style: TextStyle(
+                                color: WalletTheme.rgbColor('#888888')),
+                          ),
+                  ),
+                )
         ],
       ),
     );

@@ -48,11 +48,10 @@ var confirmMnemonicsHandler = Handler(
 );
 
 var identityDetailHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    var id = params['id'].first;
-    return IdentityDetailPage(id: id);
-  }
-);
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  var id = params['id'].first;
+  return IdentityDetailPage(id: id);
+});
 
 var transferTwPointsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {

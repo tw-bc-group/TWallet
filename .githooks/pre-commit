@@ -1,6 +1,7 @@
-git stash -q --keep-index
+#!/bin/sh
+# git stash -q --keep-index
 
-flutter format .
+# flutter format .
 
-git stash pop -q
-exit 0
+# git stash pop -q
+# exit 0

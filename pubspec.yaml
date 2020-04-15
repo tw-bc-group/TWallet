@@ -46,6 +46,7 @@ dependencies:
   more: ^2.2.0
   modal_progress_hud: ^0.1.3
   uuid: 2.0.4
+  date_format: ^1.0.8
 
 dev_dependencies:
   flutter_test:

@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/global/common/theme.dart';
 
 class PageTitleWidget extends StatelessWidget {
   final String title;
-  
+
   PageTitleWidget({this.title});
 
   @override
