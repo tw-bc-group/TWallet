@@ -39,12 +39,9 @@ class IdentityDetailPage extends StatelessWidget {
                   PageTitleWidget(title: '个人信息'),
                   DetailRowWidget(
                     name: '头像',
-                    value: AvataaarImage(
-                      avatar: Avataaar(style: Style.circle),
-                      errorImage: Icon(Icons.error),
-                      placeholder: CircularProgressIndicator(),
-                      width: 40,
-                    ),
+                    value: CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.jpg')),
                   ),
                   DetailRowWidget(name: '名称*', value: identity.name),
                   DetailRowWidget(name: '邮箱', value: identity.email),
