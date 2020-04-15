@@ -6,6 +6,7 @@ import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
@@ -83,10 +84,10 @@ class _AssetsPageState extends State<AssetsPage>
     List<Widget> children = <Widget>[
       Container(
         padding: EdgeInsets.all(15),
-        child: selectedIdentity.isPresent
-            ? CircleAvatar(
-                backgroundImage: AssetImage('assets/images/avatar.jpg'))
-            : Container(),
+        child: selectedIdentity
+            .map<Widget>(
+                (identity) => AvatarWidget(avataaar: identity.avataaar))
+            .orElse(Container()),
       ),
       SizedBox(width: 10),
       Text(selectedIdentity.map((identity) => identity.name).orElse('')),

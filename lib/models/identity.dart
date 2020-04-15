@@ -1,5 +1,7 @@
+import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/service/blockchain.dart';
 
 part 'identity.g.dart';
@@ -24,6 +26,10 @@ class Identity {
       this.phone,
       this.email,
       this.birthday});
+
+  Optional<Avataaar> get avataaar => avatar != null
+      ? Optional.of(Avataaar.fromJson(avatar))
+      : Optional.empty();
 
   String get address =>
       BlockChainService.publicKeyToAddress(pubKey.substring(2));

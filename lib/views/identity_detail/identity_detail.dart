@@ -1,7 +1,7 @@
-import 'package:avataaar_image/avataaar_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/detail_row.dart';
 
@@ -26,16 +26,6 @@ class IdentityDetailPage extends StatelessWidget {
     return identityResult;
   }
 
-  Widget _avatarWidget(String avatar) {
-    return avatar == null
-        ? CircleAvatar(backgroundImage: AssetImage('assets/images/avatar.jpg'))
-        : AvataaarImage(
-            avatar: Avataaar.fromJson(avatar),
-            errorImage: Icon(Icons.error),
-            placeholder: CircularProgressIndicator(),
-          );
-  }
-
   @override
   Widget build(BuildContext context) {
     var identity = getIdentity();
@@ -49,7 +39,7 @@ class IdentityDetailPage extends StatelessWidget {
                   PageTitleWidget(title: '个人信息'),
                   DetailRowWidget(
                     name: '头像',
-                    value: _avatarWidget(identity.avatar),
+                    value: AvatarWidget(avataaar: identity.avataaar),
                   ),
                   DetailRowWidget(name: '名称*', value: identity.name),
                   DetailRowWidget(name: '邮箱', value: identity.email),

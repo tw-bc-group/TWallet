@@ -1,10 +1,10 @@
-import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 
 import '../../../global/common/application.dart';
@@ -18,18 +18,6 @@ class IdentityPage extends StatefulWidget {
 class _IdentityPageState extends State<IdentityPage> {
   final IdentityStore _store = getIt<IdentityStore>();
   TextEditingController _filter;
-
-  Widget _avatarWidget(String avatar) {
-    Widget widget = avatar == null
-        ? CircleAvatar(backgroundImage: AssetImage('assets/images/avatar.jpg'))
-        : AvataaarImage(
-            avatar: Avataaar.fromJson(avatar),
-            errorImage: Icon(Icons.error),
-            placeholder: CircularProgressIndicator(),
-          );
-
-    return SizedBox(width: 45, height: 45, child: widget);
-  }
 
   Widget _listItem(Identity identity) {
     return Padding(
@@ -48,7 +36,7 @@ class _IdentityPageState extends State<IdentityPage> {
               child: Container(
                   padding: EdgeInsets.all(10),
                   child: ListTile(
-                      leading: _avatarWidget(identity.avatar),
+                      leading: AvatarWidget(avataaar: identity.avataaar),
                       title: Text(identity.name),
                       subtitle: Text(identity.did)))),
         ));
