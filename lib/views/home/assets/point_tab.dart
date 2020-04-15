@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
 
-Widget _pointItem({@required String point}) {
-  return Container(
+Widget _pointItem({@required String point, BuildContext context}) {
+  return GestureDetector(
+    onTap: () => Application.router
+      .navigateTo(context, Routes.transferTwPoints),
+    child: Container(
       height: 80,
       decoration: BoxDecoration(
         color: WalletTheme.listItemBgColor,
@@ -22,7 +27,8 @@ Widget _pointItem({@required String point}) {
             Text('TW Points'),
             Expanded(child: Container()),
             Text(point),
-          ])));
+          ])))
+    );
 }
 
 class PointTab extends StatelessWidget {
@@ -61,7 +67,7 @@ class PointTab extends StatelessWidget {
           case FutureStatus.fulfilled:
             Optional<TwPoint> res = future.result;
             List<Widget> children = res
-                .map((point) => [_pointItem(point: point.strValue)])
+                .map((point) => [_pointItem(point: point.strValue, context: context)])
                 .orElse([]);
 
             return RefreshIndicator(
