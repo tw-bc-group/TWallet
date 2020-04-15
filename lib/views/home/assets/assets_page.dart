@@ -98,6 +98,8 @@ class _AssetsPageState extends State<AssetsPage>
       children.add(
         PopupMenuButton(
           icon: Icon(Icons.apps),
+          initialValue:
+              selectedIdentity.map((identity) => identity.name).orElse(''),
           itemBuilder: (BuildContext context) {
             return identities
                 .map((identity) => PopupMenuItem(
