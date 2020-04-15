@@ -18,7 +18,6 @@ class IdentityDetailPage extends StatelessWidget {
   Identity getIdentity() {
     var identityResult;
     identityStore.identities.forEach((identity) {
-      print(identity.id);
       if (identity.id == id) {
         identityResult = identity;
       }

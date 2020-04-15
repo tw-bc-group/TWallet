@@ -103,6 +103,8 @@ Wallet should split state out of view to make our application has hierarchs. Mob
 
 Flutter is Google's UI toolkit for building natively compiled applications for multiply targets. Wallet use Flutter as UI Framework to build Android and iOS application.
 
+![alt UI Framework](docs/fe-structure.png)
+
 ### Nonce management
 
 Two methods:
