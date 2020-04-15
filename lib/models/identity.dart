@@ -1,5 +1,4 @@
 import 'package:avataaar_image/avataaar_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:optional/optional_internal.dart';
@@ -30,9 +29,8 @@ class Identity {
       this.email,
       this.birthday});
 
-  Optional<Avataaar> get avataaar => avatar != null
-      ? Optional.of(Avataaar.fromJson(avatar))
-      : Optional.empty();
+  Optional<Avataaar> get avataaar =>
+      Optional.ofNullable(avatar).map((avatar) => Avataaar.fromJson(avatar));
 
   String get address =>
       BlockChainService.publicKeyToAddress(pubKey.substring(2));
@@ -46,12 +44,9 @@ class Identity {
 
   Future<bool> add() async {
     ApiProvider apiProvider = getIt<ApiProvider>();
-    Response response = await apiProvider.addIdentityV1(
-        name: name, address: address, did: did, publicKey: pubKey);
-
-    if (response.statusCode == 201) {
-      return true;
-    }
-    return false;
+    return await apiProvider
+        .addIdentityV1(
+            name: name, address: address, did: did, publicKey: pubKey)
+        .then((response) => response.statusCode == 201);
   }
 }

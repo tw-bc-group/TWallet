@@ -1,4 +1,5 @@
 import 'package:decimal/decimal.dart';
+import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 
@@ -23,15 +24,11 @@ class TwPoint {
     return value.toStringAsFixed(2);
   }
 
-  static Future<TwPoint> fetchPoint({String address}) async {
+  static Future<Optional<TwPoint>> fetchPoint({String address}) async {
     ApiProvider apiProvider = getIt<ApiProvider>();
-    print('address: $address');
-    final response = await apiProvider.fetchPointV1(address: address);
-
-    if (response.statusCode == 200) {
-      return TwPoint.fromJson(response.data);
-    } else {
-      throw Exception('Failed to fetch point.');
-    }
+    return await apiProvider.fetchPointV1(address: address).then((response) =>
+        Optional.ofNullable(response.statusCode == 200
+            ? TwPoint.fromJson(response.data)
+            : null));
   }
 }
