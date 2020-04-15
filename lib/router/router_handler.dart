@@ -9,6 +9,7 @@ import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
 import 'package:tw_wallet_ui/views/transfer_tw_points/send_tw_points.dart';
+import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
 var newWalletHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -56,5 +57,11 @@ var identityDetailHandler = Handler(
 var transferTwPointsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return SendTwPoints();
+  },
+);
+
+var txListHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return TxListPage();
   },
 );
