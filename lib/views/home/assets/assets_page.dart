@@ -100,13 +100,13 @@ class _AssetsPageState extends State<AssetsPage>
           icon: Icon(Icons.apps),
           itemBuilder: (BuildContext context) {
             return identities
-                .where((identity) =>
-                    identity.name !=
-                    selectedIdentity
-                        .map((identity) => identity.name)
-                        .orElse(''))
                 .map((identity) => PopupMenuItem(
-                    child: Text(identity.name), value: identity.name))
+                      child: Text(identity.name,
+                          style: TextStyle(fontWeight: FontWeight.w700)),
+                      value: identity.name,
+                      enabled: Optional.of(identity.name) !=
+                          selectedIdentity.map((identity) => identity.name),
+                    ))
                 .toList();
           },
           onSelected: (String value) {
