@@ -22,12 +22,32 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   void initState() {
     super.initState();
     store.setupValidators();
+    store.validateAll();
   }
 
   @override
   void dispose() {
     store.dispose();
     super.dispose();
+  }
+
+  Future<void> _addOnPressed() async {
+    setState(() => _isInAsyncCall = true);
+    Future.microtask(() {
+      store.validateAll();
+    }).then((_) {
+      if (!store.error.hasErrors) {
+        store.addIdentity().then((success) {
+          Future.delayed(Duration(seconds: 2)).then((_) {
+            if (success) {
+              Application.router.pop(context);
+            } else {
+              setState(() => _isInAsyncCall = false);
+            }
+          });
+        });
+      }
+    });
   }
 
   @override
@@ -105,25 +125,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                           text: '添加',
                                           onPressed: store.error.hasErrors
                                               ? null
-                                              : () async {
-                                                  setState(() =>
-                                                      _isInAsyncCall = true);
-                                                  store
-                                                      .addIdentity()
-                                                      .then((success) {
-                                                    Future.delayed(Duration(
-                                                            seconds: 2))
-                                                        .then((_) {
-                                                      setState(() =>
-                                                          _isInAsyncCall =
-                                                              false);
-                                                      if (success) {
-                                                        Application.router
-                                                            .pop(context);
-                                                      }
-                                                    });
-                                                  });
-                                                })))
+                                              : _addOnPressed)))
                             ],
                           )),
                     ))

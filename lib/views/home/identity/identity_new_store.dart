@@ -86,7 +86,6 @@ abstract class _IdentityNewStore with Store {
 
   @action
   Future<bool> addIdentity() async {
-    validateAll();
     if (!error.hasErrors) {
       return await SecureStorage.get(SecureStorageItem.Mnemonics)
           .then((mnemonics) async {
