@@ -42,7 +42,7 @@ According to functional requirements, wallet should consider these technology:
 4. generate seed and BIP32 Root Key
 5. when user click add, show address of m/44'/60'/0'/0/{index} in the ui.
 
-> store mnemonic words here? 
+> store mnemonic words here
 
 > pin is not BIP39 Passphrase, because we want user can restore account by mnemonic words in any eth wallet without passphrase
 
@@ -59,8 +59,6 @@ For make our POC easier, we combine DID and wallet account, they have same priva
 1. select wallet account to transfer
 2. fill to-address and amount
 3. sign transaction with private key
-
-> does we store private key? 
 
 ### Import DID
 
