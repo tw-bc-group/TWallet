@@ -19,7 +19,7 @@ Future<String> _initialRoute() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   getItInit();
-  runApp(MyApp(initialRoute: _initialRoute()));
+  runApp(MyApp(initialRoute: await _initialRoute()));
 }
 
 class MyApp extends StatelessWidget {

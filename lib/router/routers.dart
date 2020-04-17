@@ -1,18 +1,21 @@
+import 'dart:io';
+
 import 'package:fluro/fluro.dart';
 import 'package:tw_wallet_ui/router/router_handler.dart';
 
 class Routes {
-  static String home = "home";
-  static String inputPin = "input_pin";
-  static String newWallet = "new_wallet";
-  static String newIdentity = "new_identity";
-  static String backupMnemonics = "backup_mnemonics";
-  static String confirmMnemonics = "confirm_mnemonics";
-  static String identityDetail = "identity";
-  static String transferTwPoints = 'transfer_tw_points';
+  static String home = "/home";
+  static String inputPin = "/input_pin";
+  static String newWallet = "/new_wallet";
+  static String newIdentity = "/new_identity";
+  static String backupMnemonics = "/backup_mnemonics";
+  static String confirmMnemonics = "/confirm_mnemonics";
+  static String identityDetail = "/identity";
+  static String transferTwPoints = '/transfer_tw_points';
 
   static void configureRoutes(Router router) {
-    TransitionType transitionType = TransitionType.native;
+    TransitionType transitionType =
+        Platform.isIOS ? TransitionType.cupertino : TransitionType.material;
 
     router.define(home, handler: homeHandler, transitionType: transitionType);
     router.define(inputPin,

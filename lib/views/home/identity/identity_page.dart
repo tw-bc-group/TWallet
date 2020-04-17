@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
@@ -36,9 +37,14 @@ class _IdentityPageState extends State<IdentityPage> {
               child: Container(
                   padding: EdgeInsets.all(10),
                   child: ListTile(
-                      leading: AvatarWidget(avataaar: identity.avataaar),
-                      title: Text(identity.name),
-                      subtitle: Text(identity.did)))),
+                    leading: AvatarWidget(avataaar: identity.avataaar),
+                    title: Text(identity.name),
+                    subtitle: GestureDetector(
+                      child: Text(identity.did),
+                      onLongPress: () =>
+                          Clipboard.setData(ClipboardData(text: identity.did)),
+                    ),
+                  ))),
         ));
   }
 
