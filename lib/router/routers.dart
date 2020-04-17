@@ -12,14 +12,22 @@ class Routes {
   static String transferTwPoints = 'transfer_tw_points';
 
   static void configureRoutes(Router router) {
-    router.define(home, handler: homeHandler);
-    router.define(inputPin, handler: inputPinHandler);
-    router.define(newWallet, handler: newWalletHandler);
+    TransitionType transitionType = TransitionType.native;
+
+    router.define(home, handler: homeHandler, transitionType: transitionType);
+    router.define(inputPin,
+        handler: inputPinHandler, transitionType: transitionType);
+    router.define(newWallet,
+        handler: newWalletHandler, transitionType: transitionType);
     router.define(newIdentity,
-        handler: newIdentityHandler, transitionType: TransitionType.cupertino);
-    router.define(backupMnemonics, handler: backupMnemonicsHandler);
-    router.define(confirmMnemonics, handler: confirmMnemonicsHandler);
-    router.define(identityDetail, handler: identityDetailHandler);
-    router.define(transferTwPoints, handler: transferTwPointsHandler);
+        handler: newIdentityHandler, transitionType: transitionType);
+    router.define(backupMnemonics,
+        handler: backupMnemonicsHandler, transitionType: transitionType);
+    router.define(confirmMnemonics,
+        handler: confirmMnemonicsHandler, transitionType: transitionType);
+    router.define(identityDetail,
+        handler: identityDetailHandler, transitionType: transitionType);
+    router.define(transferTwPoints,
+        handler: transferTwPointsHandler, transitionType: transitionType);
   }
 }

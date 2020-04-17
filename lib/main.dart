@@ -7,16 +7,19 @@ import 'global/common/application.dart';
 import 'global/common/get_it.dart';
 import 'global/common/secure_storage.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  getItInit();
+Future<String> _initialRoute() async {
   bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
   String mnemonics = await SecureStorage.get(SecureStorageItem.Mnemonics);
 
-  var initialRoute = !hasPin
+  return !hasPin
       ? Routes.inputPin
       : mnemonics == null ? Routes.newWallet : Routes.home;
-  runApp(MyApp(initialRoute: initialRoute));
+}
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  getItInit();
+  runApp(MyApp(initialRoute: _initialRoute()));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +41,6 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'TW Wallet',
               theme: ThemeData(
-                  platform: TargetPlatform.iOS,
                   primarySwatch: Colors.blue,
                   primaryColor: WalletTheme.rgbColor('#3e71c0'),
                   disabledColor: Colors.grey),

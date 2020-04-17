@@ -26,6 +26,7 @@ class TwPoint {
 
   static Future<Optional<TwPoint>> fetchPoint({String address}) async {
     ApiProvider apiProvider = getIt<ApiProvider>();
+    print('fetchPoint, address: $address');
     return await apiProvider.fetchPointV1(address: address).then((response) =>
         Optional.ofNullable(response.statusCode == 200
             ? TwPoint.fromJson(response.data)
