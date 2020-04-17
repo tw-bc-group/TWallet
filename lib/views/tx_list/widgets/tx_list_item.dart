@@ -17,7 +17,9 @@ class TxListItem extends StatelessWidget {
       this._address, this._status, this._amount, this._dateTime, this.onTap);
 
   Widget _renderDate() => Text(_parseDate(_dateTime),
-      style: TextStyle(fontSize: 10.7, color: Color(_greyColor)));
+      style: TextStyle(fontWeight: FontWeight.w600,
+          fontSize: 10.7,
+          color: Color(_greyColor)));
 
   Widget _renderAddress() => Text(_address, style: TextStyle(fontSize: 14.7));
 
