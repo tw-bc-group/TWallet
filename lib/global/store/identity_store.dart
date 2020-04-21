@@ -119,8 +119,11 @@ abstract class IdentityStoreBase with Store {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
-        return await TwPoint.fetchPoint(
-            address: selectedIdentity.value.address);
+        Optional<TwPoint> fetchRes =
+            await TwPoint.fetchPoint(address: selectedIdentity.value.address);
+        selectedIdentity.ifPresent((identity) =>
+            fetchRes.ifPresent((twPoint) => identity.twPoint = twPoint.value));
+        return fetchRes;
       }
       return Optional.empty();
     })));

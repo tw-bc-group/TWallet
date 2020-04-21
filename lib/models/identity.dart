@@ -1,4 +1,5 @@
 import 'package:avataaar_image/avataaar_image.dart';
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:optional/optional_internal.dart';
@@ -20,6 +21,7 @@ class Identity {
   String phone;
   String email;
   DateTime birthday;
+  String point;
 
   Identity(
       {@required this.id,
@@ -31,13 +33,21 @@ class Identity {
       this.email,
       this.birthday});
 
+  @JsonKey(ignore: true)
   Optional<Avataaar> get avataaar =>
       Optional.ofNullable(avatar).map((avatar) => Avataaar.fromJson(avatar));
 
+  @JsonKey(ignore: true)
   String get address =>
       BlockChainService.publicKeyToAddress(pubKey.substring(2));
 
+  @JsonKey(ignore: true)
   String get did => 'DID:TW:${address.substring(2)}';
+
+  @JsonKey(ignore: true)
+  Decimal get twPoint => Decimal.parse(point);
+
+  set twPoint(Decimal twPoint) => point = twPoint.toString();
 
   factory Identity.fromJson(Map<String, dynamic> json) =>
       _$IdentityFromJson(json);
