@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/views/tx_list/store/tx_list_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_list_item.dart';
 
@@ -13,14 +12,6 @@ class TxListPage extends StatefulWidget {
 }
 
 class _TxListPageState extends State<TxListPage> {
-  final List<String> entries = <String>['A', 'B', 'C'];
-  final List<int> colorCodes = <int>[600, 500, 100];
-  final List<TxStatus> _s = [
-    TxStatus.succeeded,
-    TxStatus.transferring,
-    TxStatus.failed
-  ];
-
   final TxListStore store = TxListStore();
 
   void _onTap() {}
