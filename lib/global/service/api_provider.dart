@@ -35,7 +35,7 @@ class ApiProvider {
 
   Future<Response> transferPoint(
       String fromAddress, String publicKey, String signedRawTx) {
-    return _dio.post('/v1/identities', data: {
+    return _dio.post('/v1/tw-points/transfer', data: {
       'fromAddress': fromAddress,
       'fromPublicKey': publicKey,
       'signedTransactionRawData': signedRawTx
