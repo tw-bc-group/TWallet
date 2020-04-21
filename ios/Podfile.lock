@@ -2,6 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_secure_storage (3.3.1):
     - Flutter
+  - flutter_statusbarcolor (0.0.1):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -16,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -29,6 +32,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  flutter_statusbarcolor:
+    :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   path_provider_macos:
@@ -39,6 +44,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
+  flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0

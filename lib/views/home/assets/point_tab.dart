@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/models/tw_point.dart';
 Widget _pointItem({@required String point, BuildContext context}) {
   return GestureDetector(
       onTap: () =>
-          Application.router.navigateTo(context, Routes.transferTwPoints),
+          Application.router.navigateTo(context, '${Routes.transferTwPoints}?balance=$point'),
       child: Container(
           height: 80,
           decoration: BoxDecoration(
