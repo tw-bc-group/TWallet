@@ -53,8 +53,6 @@ class _TxListPageState extends State<TxListPage> {
       itemCount: txList?.length == null ? 0 : txList?.length,
       itemBuilder: (BuildContext context, int index) {
         final item = txList[index];
-        print(index);
-        print(item.fromAddress);
         return Container(
           height: 70,
           child: TxListItem(item.fromAddress, item.txType, item.amount,
