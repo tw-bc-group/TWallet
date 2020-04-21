@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.39.6"
+    version: "0.39.7"
   archive:
     dependency: transitive
     description:
@@ -105,7 +105,7 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.4"
+    version: "1.3.6"
   build_runner:
     dependency: "direct dev"
     description:
@@ -278,7 +278,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.2"
   flutter_mobx:
     dependency: "direct main"
     description:
@@ -292,7 +292,7 @@ packages:
       name: flutter_secure_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.2"
+    version: "3.3.3"
   flutter_statusbarcolor:
     dependency: "direct main"
     description:
@@ -528,14 +528,14 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.5"
+    version: "1.6.7"
   path_provider_macos:
     dependency: transitive
     description:
       name: path_provider_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.4"
+    version: "0.0.4+1"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -633,7 +633,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.23.1"
+    version: "0.24.0"
   shelf:
     dependency: transitive
     description:
@@ -802,4 +802,4 @@ packages:
     version: "2.2.0"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.12.0 <2.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"

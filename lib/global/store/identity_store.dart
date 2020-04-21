@@ -64,6 +64,16 @@ abstract class IdentityStoreBase with Store {
       identities.firstWhere((identity) => identity.name == selectedName,
           orElse: () => null));
 
+  Identity getIdentityByName(String name) {
+    var identityResult;
+    identities.forEach((identity) {
+      if (identity.name == name) {
+        identityResult = identity;
+      }
+    });
+    return identityResult;
+  }
+
   void _identitiesSort() {
     identities.sort(
         (identity1, identity2) => identity1.name.compareTo(identity2.name));

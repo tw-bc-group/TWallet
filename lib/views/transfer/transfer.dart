@@ -1,35 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/models/Address.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_row_label.dart';
 
 const AMOUNT_MORE_THAN_BALANCE = '金额超过您目前的余额';
 const ADDRESS_IS_NOT_VALID = '账户地址不正确';
 
 class TransferPage extends StatefulWidget {
-
-  final String balance;
-
-  TransferPage({this.balance});
-
   @override
   State<StatefulWidget> createState() {
-    return TransferPageState(balance: double.parse(balance));
+    return TransferPageState();
   }
 }
 
 class TransferPageState extends State<TransferPage> {
-
+  final IdentityStore identityStore = getIt<IdentityStore>();
+  Identity identity;
   double balance = 0;
   double transferAmount;
   String transferToAddress;
   String amountErrMsg;
   String addressErrMsg;
 
-  TransferPageState({this.balance});
+  @override
+  void initState() {
+    super.initState();
+    identity = identityStore.getIdentityByName(identityStore.selectedName);
+    balance = double.parse(identity.point);
+  }
 
   void handleAmountChange(String value) {
     setState(() {
@@ -117,30 +121,42 @@ class TransferPageState extends State<TransferPage> {
             TransferRowWidget(
               title: '接收地址',
               errorMsg: addressErrMsg,
-              child: SizedBox(
-                width: 230,
-                height: 50,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  maxLines: 3,
-                  inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9]+')),
-                  ],
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(style: BorderStyle.none),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 230,
+                    height: 50,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      maxLines: 3,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9]+')),
+                      ],
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(style: BorderStyle.none),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(style: BorderStyle.none),
+                        ),
+                        contentPadding: EdgeInsets.all(8.0),
+                      ),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: WalletTheme.rgbColor('#888888')
+                      ),
+                      onChanged: handleAddressChange,
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(style: BorderStyle.none),
-                    ),
-                    contentPadding: EdgeInsets.all(8.0)
                   ),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: WalletTheme.rgbColor('#888888')
-                  ),
-                  onChanged: handleAddressChange,
-                ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.person),
+                      Icon(Icons.person)
+                    ],
+                  )
+                ],
               )
             ),
           ]

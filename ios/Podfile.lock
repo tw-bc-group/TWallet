@@ -46,7 +46,7 @@ SPEC CHECKSUMS:
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
 

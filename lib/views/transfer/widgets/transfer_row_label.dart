@@ -50,9 +50,9 @@ class TransferRowWidget extends StatelessWidget {
       decoration: BoxDecoration(color: WalletTheme.rgbColor('#fafafa')),
       child: Row(
         children: <Widget>[
-          child
+          Expanded(child: child),
         ],
-      ),
+      )
     );
   }
 

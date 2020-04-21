@@ -56,8 +56,7 @@ var identityDetailHandler = Handler(
 
 var transferTwPointsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    var balance = params['balance'].first;
-    return TransferPage(balance: balance);
+    return TransferPage();
   },
 );
 
