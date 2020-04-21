@@ -14,7 +14,9 @@ class TxListPage extends StatefulWidget {
 class _TxListPageState extends State<TxListPage> {
   final TxListStore store = TxListStore();
 
-  void _onTap() {}
+  void _onTap() {
+    store.fetchList("0xed9d02e382b34818e88B88a309c7fe71E65f419d");
+  }
 
   @override
   void initState() {
@@ -46,7 +48,7 @@ class _TxListPageState extends State<TxListPage> {
 
   Widget _buildListView() {
     final txList = store.list;
-    return txList == null
+    return txList == null || txList.length == 0
         ? Center(child: Text("no content"))
         : ListView.separated(
       padding: const EdgeInsets.all(8),

@@ -30,6 +30,7 @@ class TxListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+        onTap: onTap,
         title: _renderAddress(),
         subtitle: _renderStatus(_status),
         trailing: Column(
