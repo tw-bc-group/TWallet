@@ -26,10 +26,12 @@ class ApiProvider {
     });
   }
 
-  Future<List<Transaction>> listTx() async {
-    final resp = await _dio.get("/v1/transactions");
-    final ApiResponse data = ApiResponse.fromJson(resp.data);
-    return data.result;
+  Future<List<Transaction>> listTx(String fromAddress) async {
+    final resp = await _dio.get("/v1/transactions?from_addr=" + fromAddress);
+    final ApiResponse<List<dynamic>> data = ApiResponse<List<dynamic>>.fromJson(
+        resp.data);
+    return Future(() =>
+        data.result.map((tx) => Transaction.fromJson(tx)).toList());
   }
 
   Future<Transaction> fetchTxDetails({@required String txHash}) async {

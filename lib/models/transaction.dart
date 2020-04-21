@@ -1,15 +1,19 @@
 import 'package:decimal/decimal.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tw_wallet_ui/models/tx_status.dart';
 
 part 'transaction.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Transaction {
   final String hash;
-  final String txType;
+
+  @_TypeConverter()
+  TxStatus txType;
 
   @_DecimalConverter()
   Decimal amount;
+
   final DateTime createTime;
   final DateTime confirmTime;
   final String fromAddress;
@@ -17,15 +21,21 @@ class Transaction {
   final String toAddress;
   final String toAddressName;
 
-  Transaction(
-      this.hash,
-      this.txType,
-      this.createTime,
-      this.confirmTime,
-      this.fromAddress,
-      this.fromAddressName,
-      this.toAddress,
-      this.toAddressName);
+  Transaction(this.hash, this.createTime, this.confirmTime, this.fromAddress,
+      this.fromAddressName, this.toAddress, this.toAddressName);
+
+  factory Transaction.fromJson(Map<String, dynamic> json) =>
+      _$TransactionFromJson(json);
+}
+
+class _TypeConverter implements JsonConverter<TxStatus, String> {
+  const _TypeConverter();
+
+  @override
+  TxStatus fromJson(String json) => TxStatusFromString[json];
+
+  @override
+  String toJson(TxStatus object) => object.toString();
 }
 
 class _DecimalConverter implements JsonConverter<Decimal, Object> {
