@@ -38,6 +38,6 @@ class _DecimalConverter implements JsonConverter<Decimal, Object> {
 
   @override
   Object toJson(Decimal object) {
-    object.toString();
+    return object.toString();
   }
 }
