@@ -8,6 +8,8 @@ import 'package:tw_wallet_ui/views/tx_list/widgets/base_app_bar.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tool_bar_panel.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_list_item.dart';
 
+import 'tx_list_details_page.dart';
+
 class TxListPage extends StatefulWidget {
   const TxListPage();
 
@@ -18,8 +20,17 @@ class TxListPage extends StatefulWidget {
 class _TxListPageState extends State<TxListPage> {
   final TxListStore store = TxListStore();
 
-  void _onTap() {
-    store.fetchList("0xed9d02e382b34818e88B88a309c7fe71E65f419d");
+  void _onTap(Transaction item) {
+    Navigator.pushNamed(context, Routes.txListDetails,
+        arguments: TxListDetailsPageArgs(
+          amount: store.parseAmount(item.amount),
+          time: store.parseDate(item.createTime),
+          status: store.parseStatus(item.txType),
+          name: item.fromAddressName,
+          fromAddress: item.fromAddress,
+          toAddress: item.toAddress,
+          fromAddressName: item.fromAddressName,
+        ));
   }
 
   @override
