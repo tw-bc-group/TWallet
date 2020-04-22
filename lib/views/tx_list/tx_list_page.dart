@@ -40,8 +40,8 @@ class _TxListPageState extends State<TxListPage> {
 
   @override
   void initState() {
-    store.fetchList(
-        "9eff6287e55ea56b2abcf8d84a1a151e8a00e0f482ea0ee0448fef9f5d3ebad4");
+    print(_myAddress());
+    store.fetchList(_myAddress());
     super.initState();
   }
 
@@ -88,9 +88,12 @@ class _TxListPageState extends State<TxListPage> {
   }
 
   bool _isExpense(String fromAddress) {
-    final myAddress =
-    iStore.selectedIdentity.map((id) => id.address).orElse("");
+    String myAddress = _myAddress();
     return myAddress == fromAddress;
+  }
+
+  String _myAddress() {
+    return iStore.selectedIdentity.map((id) => id.address).orElse("");
   }
 
   Widget _buildListView() {
