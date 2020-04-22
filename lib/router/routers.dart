@@ -13,6 +13,7 @@ class Routes {
   static final String identityDetail = "/identity";
   static final String transferTwPoints = '/transfer_tw_points';
   static final String txList = "/tx_list";
+  static final String txListDetails = "/tx_list_details";
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -24,6 +25,7 @@ class Routes {
     identityDetail: identityDetailHandler,
     transferTwPoints: transferTwPointsHandler,
     txList: txListHandler,
+    txListDetails: txListDetailsHandler,
   };
 
   static void configureRoutes(Router router) {
