@@ -68,7 +68,7 @@ abstract class IdentityStoreBase with Store {
   String get myAddress => selectedIdentity.map((id) => id.address).orElse("");
 
   @computed
-  String get myBalance => selectedIdentity.map((id) => id.point).orElse("");
+  String get myBalance => selectedIdentity.map((id) => id.point).orElse("0");
 
   Identity getIdentityByName(String name) {
     var identityResult;

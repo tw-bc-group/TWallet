@@ -28,15 +28,16 @@ class _TxListPageState extends State<TxListPage> {
   final IdentityStore iStore = getIt<IdentityStore>();
 
   void _onTap(Transaction item) {
+    final ie = _isExpense(item.fromAddress);
     Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
-          amount: parseAmount(item.amount),
+          amount: parseAmount(_amountWithSignal(ie, item.amount)),
           time: parseDate(item.createTime),
           status: statusNameCN(item.txType),
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
           fromAddressName: iStore.selectedName,
-          isExpense: _isExpense(item.fromAddress),
+          isExpense: ie,
         ));
   }
 
@@ -109,7 +110,8 @@ class _TxListPageState extends State<TxListPage> {
                   ? item.toAddress
                   : item.fromAddress,
               item.txType,
-              item.amount,
+              _amountWithSignal(
+                  _isExpense(item.fromAddress), item.amount),
               item.createTime,
                   () => _onTap(item),
               _isExpense(item.fromAddress)),
@@ -118,5 +120,9 @@ class _TxListPageState extends State<TxListPage> {
       separatorBuilder: (BuildContext context, int index) =>
       const Divider(),
     );
+  }
+
+  Decimal _amountWithSignal(bool isExpense, Decimal decimal) {
+    return isExpense ? -decimal : decimal;
   }
 }
