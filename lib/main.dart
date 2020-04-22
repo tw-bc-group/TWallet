@@ -12,7 +12,9 @@ Future<String> _initialRoute() async {
   bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
   String mnemonics = await SecureStorage.get(SecureStorageItem.Mnemonics);
 
-  return Routes.txList;
+  return !hasPin
+      ? Routes.inputPin
+      : mnemonics == null ? Routes.newWallet : Routes.home;
 }
 
 Future<void> main() async {
