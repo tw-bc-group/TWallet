@@ -10,10 +10,12 @@ class TxListDetailsPageArgs {
   final String fromAddress;
   final String fromAddressName;
   final String toAddress;
+  final bool isExpense;
 
   TxListDetailsPageArgs(
       {this.amount,
       this.fromAddressName,
+        this.isExpense,
       this.time,
       this.status,
       this.fromAddress,
@@ -60,19 +62,30 @@ class TxListDetailsPage extends StatelessWidget {
   }
 
   Widget _buildList(BuildContext context, TxListDetailsPageArgs args) {
+    final ls = _labels(args.isExpense);
+    final as = _address(args.isExpense, args.fromAddress, args.toAddress);
+
     return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ..._buildLabelTextArea(
-            label: "发送方",
-            rows: [args.fromAddressName, args.fromAddress],
+            label: ls.first,
+            rows: [args.fromAddressName, as.first],
           ),
           SizedBox.fromSize(size: Size.fromHeight(40)),
-          ..._buildLabelTextArea(label: "发送方", rows: [args.toAddress]),
+          ..._buildLabelTextArea(label: ls.last, rows: [as.last]),
           Expanded(child: Container()),
           _buildButton(context),
         ]);
+  }
+
+  List<String> _labels(bool isExpense) {
+    return isExpense ? ["发送方", "接收方"] : [ "接收方", "发送方"];
+  }
+
+  List<String> _address(bool isExpense, String from, String to) {
+    return isExpense ? [from, to] : [to, from];
   }
 
   Widget _buildAppBarHeaderInfo(TxListDetailsPageArgs args) {

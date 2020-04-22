@@ -36,6 +36,7 @@ class _TxListPageState extends State<TxListPage> {
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
           fromAddressName: iStore.selectedName,
+          isExpense: _isExpense(item.fromAddress),
         ));
   }
 
@@ -67,8 +68,7 @@ class _TxListPageState extends State<TxListPage> {
                 color: Color(0xFF3e71c0))),
         onPressed: () {
 //          Application.router.navigateTo(context, '${Routes.transferTwPoints}?balance=$point')
-          Application.router
-              .navigateTo(context,
+          Application.router.navigateTo(context,
               '${Routes.transferTwPoints}?balance=${iStore.myBalance}');
         });
   }
@@ -105,7 +105,9 @@ class _TxListPageState extends State<TxListPage> {
         return Container(
           height: 70,
           child: TxListItem(
-              item.fromAddress,
+              _isExpense(item.fromAddress)
+                  ? item.toAddress
+                  : item.fromAddress,
               item.txType,
               item.amount,
               item.createTime,
