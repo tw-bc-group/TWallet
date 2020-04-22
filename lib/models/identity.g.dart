@@ -18,7 +18,7 @@ Identity _$IdentityFromJson(Map<String, dynamic> json) {
     birthday: json['birthday'] == null
         ? null
         : DateTime.parse(json['birthday'] as String),
-  );
+  )..point = json['point'] as String;
 }
 
 Map<String, dynamic> _$IdentityToJson(Identity instance) => <String, dynamic>{
@@ -30,4 +30,5 @@ Map<String, dynamic> _$IdentityToJson(Identity instance) => <String, dynamic>{
       'phone': instance.phone,
       'email': instance.email,
       'birthday': instance.birthday?.toIso8601String(),
+      'point': instance.point,
     };

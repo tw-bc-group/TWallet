@@ -64,6 +64,16 @@ abstract class IdentityStoreBase with Store {
       identities.firstWhere((identity) => identity.name == selectedName,
           orElse: () => null));
 
+  Identity getIdentityByName(String name) {
+    var identityResult;
+    identities.forEach((identity) {
+      if (identity.name == name) {
+        identityResult = identity;
+      }
+    });
+    return identityResult;
+  }
+
   void _identitiesSort() {
     identities.sort(
         (identity1, identity2) => identity1.name.compareTo(identity2.name));
@@ -119,8 +129,11 @@ abstract class IdentityStoreBase with Store {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
-        return await TwPoint.fetchPoint(
-            address: selectedIdentity.value.address);
+        Optional<TwPoint> fetchRes =
+            await TwPoint.fetchPoint(address: selectedIdentity.value.address);
+        selectedIdentity.ifPresent((identity) =>
+            fetchRes.ifPresent((twPoint) => identity.twPoint = twPoint.value));
+        return fetchRes;
       }
       return Optional.empty();
     })));

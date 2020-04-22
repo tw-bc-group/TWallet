@@ -1,10 +1,13 @@
 import 'package:avataaar_image/avataaar_image.dart';
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/global/service/blockchain.dart';
+import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
+import 'package:web3dart/credentials.dart';
 
 part 'identity.g.dart';
 
@@ -18,6 +21,7 @@ class Identity {
   String phone;
   String email;
   DateTime birthday;
+  String point;
 
   Identity(
       {@required this.id,
@@ -29,24 +33,52 @@ class Identity {
       this.email,
       this.birthday});
 
+  @JsonKey(ignore: true)
   Optional<Avataaar> get avataaar =>
       Optional.ofNullable(avatar).map((avatar) => Avataaar.fromJson(avatar));
 
+  @JsonKey(ignore: true)
   String get address =>
       BlockChainService.publicKeyToAddress(pubKey.substring(2));
 
+  @JsonKey(ignore: true)
   String get did => 'DID:TW:${address.substring(2)}';
+
+  @JsonKey(ignore: true)
+  Decimal get twPoint => Decimal.parse(point);
+
+  set twPoint(Decimal twPoint) => point = twPoint.toString();
 
   factory Identity.fromJson(Map<String, dynamic> json) =>
       _$IdentityFromJson(json);
 
   Map<String, dynamic> toJson() => _$IdentityToJson(this);
 
-  Future<bool> add() async {
-    ApiProvider apiProvider = getIt<ApiProvider>();
-    return await apiProvider
-        .addIdentityV1(
-            name: name, address: address, did: did, publicKey: pubKey)
-        .then((response) => response.statusCode == 201);
+  Future<bool> register() async {
+    return getIt<ContractService>().identityRegistryContract.signContractCall(
+        priKey, 'createIdentity', [
+      EthereumAddress.fromHex(address),
+      did,
+      pubKey,
+      name
+    ]).then((signedRawTx) {
+      return getIt<ApiProvider>()
+          .identityRegister(name, pubKey, address, did, signedRawTx)
+          .then((response) => response.statusCode == 201);
+    });
+  }
+
+  Future<bool> transferPoint(
+      {@required String toAddress, @required BigInt point}) async {
+    return getIt<ContractService>()
+        .twPointContract
+        .signContractCall(priKey, 'transfer', [
+      EthereumAddress.fromHex(toAddress),
+      point,
+    ]).then((signedRawTx) {
+      return getIt<ApiProvider>()
+          .transferPoint(address, pubKey, signedRawTx)
+          .then((response) => response.statusCode == 200);
+    });
   }
 }

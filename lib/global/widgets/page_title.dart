@@ -9,37 +9,39 @@ class PageTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 48,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 48,
               ),
-            ),
-          ],
-        ),
-        Positioned(
-          left: -15,
-          top: 0,
-          child: IconButton(
-            icon: Icon(Icons.close),
-            iconSize: 30,
-            color: WalletTheme.rgbColor('#aaaaaa'),
-            onPressed: () {
-              Application.router.pop(context);
-            },
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+          Positioned(
+            left: 17,
+            top: 0,
+            child: IconButton(
+              icon: Icon(Icons.close),
+              iconSize: 30,
+              color: WalletTheme.rgbColor('#aaaaaa'),
+              onPressed: () {
+                Application.router.pop(context);
+              },
+            ),
+          ),
+        ],
+      )
     );
   }
 }

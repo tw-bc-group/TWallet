@@ -111,7 +111,7 @@ abstract class _IdentityNewStore with Store {
             phone: phone,
             email: email,
             birthday: isNull(birthday) ? null : DateTime.parse(birthday));
-        return identity.add().then((success) {
+        return identity.register().then((success) {
           if (success) {
             _identityStore.addIdentity(identity: identity);
           }
