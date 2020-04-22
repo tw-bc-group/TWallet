@@ -9,3 +9,12 @@ const TxStatusFromString = {
   TxStatusTransferringStr: TxStatus.transferring,
   TxStatusFailedStr: TxStatus.failed,
 };
+
+String statusNameCN(TxStatus status) {
+  final s = {
+    TxStatus.succeeded: "成功",
+    TxStatus.transferring: "处理中",
+    TxStatus.failed: "失败",
+  }[status];
+  return s;
+}

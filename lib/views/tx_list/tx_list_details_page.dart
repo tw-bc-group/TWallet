@@ -7,7 +7,6 @@ class TxListDetailsPageArgs {
   final String amount;
   final String time;
   final String status;
-  final String name;
   final String fromAddress;
   final String fromAddressName;
   final String toAddress;
@@ -17,7 +16,6 @@ class TxListDetailsPageArgs {
       this.fromAddressName,
       this.time,
       this.status,
-      this.name,
       this.fromAddress,
       this.toAddress});
 }

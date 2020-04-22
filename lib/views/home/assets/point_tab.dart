@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/models/tw_point.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 
 Widget _pointItem({@required String point, BuildContext context}) {
   return GestureDetector(
       onTap: () =>
-          Application.router.navigateTo(context, '${Routes.transferTwPoints}?balance=$point'),
+          Navigator.pushNamed(context, Routes.txList),
       child: Container(
           height: 80,
           decoration: BoxDecoration(

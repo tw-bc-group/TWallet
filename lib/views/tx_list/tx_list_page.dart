@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
+import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/tx_list/store/tx_list_store.dart';
+import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
+import 'package:tw_wallet_ui/views/tx_list/utils/amount.dart';
+import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/base_app_bar.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tool_bar_panel.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_list_item.dart';
-
-import 'tx_list_details_page.dart';
 
 class TxListPage extends StatefulWidget {
   const TxListPage();
@@ -19,23 +24,24 @@ class TxListPage extends StatefulWidget {
 
 class _TxListPageState extends State<TxListPage> {
   final TxListStore store = TxListStore();
+  final IdentityStore iStore = getIt<IdentityStore>();
 
   void _onTap(Transaction item) {
     Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
-          amount: store.parseAmount(item.amount),
-          time: store.parseDate(item.createTime),
-          status: store.parseStatus(item.txType),
-          name: item.fromAddressName,
+          amount: parseAmount(item.amount),
+          time: parseDate(item.createTime),
+          status: statusNameCN(item.txType),
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
-          fromAddressName: item.fromAddressName,
+          fromAddressName: iStore.selectedName,
         ));
   }
 
   @override
   void initState() {
-    store.fetchList("0xed9d02e382b34818e88B88a309c7fe71E65f419d");
+    store.fetchList(
+        "9eff6287e55ea56b2abcf8d84a1a151e8a00e0f482ea0ee0448fef9f5d3ebad4");
     super.initState();
   }
 
@@ -58,12 +64,16 @@ class _TxListPageState extends State<TxListPage> {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF3e71c0))),
-        onPressed: () {});
+        onPressed: () {
+//          Application.router.navigateTo(context, '${Routes.transferTwPoints}?balance=$point')
+          Application.router
+              .navigateTo(context, '${Routes.transferTwPoints}?balance=0');
+        });
   }
 
   Widget _buildToolBarPanel() {
     return toolBarPanel(
-        balance: "50.00",
+        balance: "00.00",
         leading: Text("交易记录", style: TextStyle(color: Color(0xFF3e71c0))),
         trailing: _buildAppBarTrailing());
   }
@@ -77,6 +87,12 @@ class _TxListPageState extends State<TxListPage> {
     });
   }
 
+  bool _isExpense(String fromAddress) {
+    final myAddress =
+    iStore.selectedIdentity.map((id) => id.address).orElse("");
+    return myAddress == fromAddress;
+  }
+
   Widget _buildListView() {
     final txList = store.list;
     return txList == null || txList.length == 0
@@ -88,8 +104,13 @@ class _TxListPageState extends State<TxListPage> {
         final item = txList[index];
         return Container(
           height: 70,
-          child: TxListItem(item.fromAddress, item.txType, item.amount,
-              item.createTime, () => _onTap(item)),
+          child: TxListItem(
+              item.fromAddress,
+              item.txType,
+              item.amount,
+              item.createTime,
+                  () => _onTap(item),
+              _isExpense(item.fromAddress)),
         );
       },
       separatorBuilder: (BuildContext context, int index) =>

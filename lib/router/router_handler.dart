@@ -8,9 +8,8 @@ import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
 import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
-import 'package:tw_wallet_ui/views/transfer_tw_points/send_tw_points.dart';
-import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
+import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
 var newWalletHandler = Handler(
