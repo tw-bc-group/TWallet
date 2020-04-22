@@ -102,15 +102,16 @@ abstract class _IdentityNewStore with Store {
 
     if (!error.hasErrors) {
       return store.generateIdentityKeys().then((keys) {
-        Identity identity = Identity(
-            id: Uuid().v1(),
-            avatar: avatar.toJson(),
-            name: name,
-            pubKey: keys.first,
-            priKey: keys.second,
-            phone: phone,
-            email: email,
-            birthday: isNull(birthday) ? null : DateTime.parse(birthday));
+        Identity identity = Identity((identity) => identity
+          ..id = Uuid().v1()
+          ..avatar = avatar.toJson()
+          ..name = name
+          ..pubKey = keys.first
+          ..priKey = keys.second
+          ..phone = phone
+          ..email = email
+          ..birthday = birthday);
+
         return identity.register().then((success) {
           if (success) {
             _identityStore.addIdentity(identity: identity);

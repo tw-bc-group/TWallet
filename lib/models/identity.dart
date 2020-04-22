@@ -1,58 +1,52 @@
 import 'package:avataaar_image/avataaar_image.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/global/service/blockchain.dart';
 import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:web3dart/credentials.dart';
 
 part 'identity.g.dart';
 
-@JsonSerializable()
-class Identity {
-  String id;
-  String avatar;
-  String name;
-  String pubKey;
-  String priKey;
-  String phone;
-  String email;
-  DateTime birthday;
-  String point;
+abstract class Identity extends Object
+    implements Built<Identity, IdentityBuilder> {
+  static Serializer<Identity> get serializer => _$identitySerializer;
 
-  Identity(
-      {@required this.id,
-      @required this.avatar,
-      @required this.name,
-      @required this.pubKey,
-      @required this.priKey,
-      this.phone,
-      this.email,
-      this.birthday});
+  String get id;
+  String get avatar;
+  String get name;
+  String get pubKey;
+  String get priKey;
+  @nullable
+  String get phone;
+  @nullable
+  String get email;
+  @nullable
+  String get birthday;
+  @nullable
+  String get point;
 
-  @JsonKey(ignore: true)
-  Optional<Avataaar> get avataaar =>
-      Optional.ofNullable(avatar).map((avatar) => Avataaar.fromJson(avatar));
+  set point(String value) => point = value;
 
-  @JsonKey(ignore: true)
+  set twPoint(Decimal value) => point = value.toString();
+
+  @memoized
+  Decimal get twPoint => Decimal.parse(point);
+
+  @memoized
   String get address =>
       BlockChainService.publicKeyToAddress(pubKey.substring(2));
 
-  @JsonKey(ignore: true)
+  @memoized
   String get did => 'DID:TW:${address.substring(2)}';
 
-  @JsonKey(ignore: true)
-  Decimal get twPoint => Decimal.parse(point);
-
-  set twPoint(Decimal twPoint) => point = twPoint.toString();
-
-  factory Identity.fromJson(Map<String, dynamic> json) =>
-      _$IdentityFromJson(json);
-
-  Map<String, dynamic> toJson() => _$IdentityToJson(this);
+  @memoized
+  Optional<Avataaar> get avataaar =>
+      Optional.ofNullable(avatar).map((avatar) => Avataaar.fromJson(avatar));
 
   Future<bool> register() async {
     return getIt<ContractService>().identityRegistryContract.signContractCall(
@@ -68,8 +62,7 @@ class Identity {
     });
   }
 
-  Future<bool> transferPoint(
-      {@required String toAddress, @required BigInt point}) async {
+  Future<bool> transferPoint({String toAddress, BigInt point}) async {
     return getIt<ContractService>()
         .twPointContract
         .signContractCall(priKey, 'transfer', [
@@ -81,4 +74,16 @@ class Identity {
           .then((response) => response.statusCode == 200);
     });
   }
+
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this);
+  }
+
+  factory Identity.fromJson(Map<String, dynamic> serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(Identity));
+  }
+
+  factory Identity([void Function(IdentityBuilder) updates]) = _$Identity;
+  Identity._();
 }
