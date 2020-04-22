@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -40,8 +41,8 @@ class _TxListPageState extends State<TxListPage> {
 
   @override
   void initState() {
-    print(_myAddress());
-    store.fetchList(_myAddress());
+    print(iStore.myAddress);
+    store.fetchList(iStore.myAddress);
     super.initState();
   }
 
@@ -67,13 +68,14 @@ class _TxListPageState extends State<TxListPage> {
         onPressed: () {
 //          Application.router.navigateTo(context, '${Routes.transferTwPoints}?balance=$point')
           Application.router
-              .navigateTo(context, '${Routes.transferTwPoints}?balance=0');
+              .navigateTo(context,
+              '${Routes.transferTwPoints}?balance=${iStore.myBalance}');
         });
   }
 
   Widget _buildToolBarPanel() {
     return toolBarPanel(
-        balance: "00.00",
+        balance: parseAmount(Decimal.parse(iStore.myBalance), flag: false),
         leading: Text("交易记录", style: TextStyle(color: Color(0xFF3e71c0))),
         trailing: _buildAppBarTrailing());
   }
@@ -88,12 +90,7 @@ class _TxListPageState extends State<TxListPage> {
   }
 
   bool _isExpense(String fromAddress) {
-    String myAddress = _myAddress();
-    return myAddress == fromAddress;
-  }
-
-  String _myAddress() {
-    return iStore.selectedIdentity.map((id) => id.address).orElse("");
+    return fromAddress == iStore.myAddress;
   }
 
   Widget _buildListView() {

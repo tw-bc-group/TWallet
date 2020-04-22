@@ -64,6 +64,12 @@ abstract class IdentityStoreBase with Store {
       identities.firstWhere((identity) => identity.name == selectedName,
           orElse: () => null));
 
+  @computed
+  String get myAddress => selectedIdentity.map((id) => id.address).orElse("");
+
+  @computed
+  String get myBalance => selectedIdentity.map((id) => id.point).orElse("");
+
   Identity getIdentityByName(String name) {
     var identityResult;
     identities.forEach((identity) {
