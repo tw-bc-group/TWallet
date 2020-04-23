@@ -22,7 +22,12 @@ void getItInit() {
         default:
           return true;
       }
-    });
+    }
+    ..interceptors.add(InterceptorsWrapper(onResponse: (Response response) {
+      print(response.statusCode);
+      // print(response.data);
+      return response;
+    })));
 
   getIt.registerSingleton<ApiProvider>(ApiProvider());
   getIt.registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);

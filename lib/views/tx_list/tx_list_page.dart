@@ -36,7 +36,7 @@ class _TxListPageState extends State<TxListPage> {
           status: statusNameCN(item.txType),
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
-          fromAddressName: iStore.selectedName,
+          fromAddressName: iStore.myName,
           isExpense: ie,
         ));
   }
@@ -99,27 +99,27 @@ class _TxListPageState extends State<TxListPage> {
     return txList == null || txList.length == 0
         ? Center(child: Text("no content"))
         : ListView.separated(
-      padding: const EdgeInsets.all(8),
-      itemCount: txList?.length == null ? 0 : txList?.length,
-      itemBuilder: (BuildContext context, int index) {
-        final item = txList[index];
-        return Container(
-          height: 70,
-          child: TxListItem(
-              _isExpense(item.fromAddress)
-                  ? item.toAddress
-                  : item.fromAddress,
-              item.txType,
-              _amountWithSignal(
-                  _isExpense(item.fromAddress), item.amount),
-              item.createTime,
-                  () => _onTap(item),
-              _isExpense(item.fromAddress)),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) =>
-      const Divider(),
-    );
+            padding: const EdgeInsets.all(8),
+            itemCount: txList?.length == null ? 0 : txList?.length,
+            itemBuilder: (BuildContext context, int index) {
+              final item = txList[index];
+              return Container(
+                height: 70,
+                child: TxListItem(
+                    _isExpense(item.fromAddress)
+                        ? item.toAddress
+                        : item.fromAddress,
+                    item.txType,
+                    _amountWithSignal(
+                        _isExpense(item.fromAddress), item.amount),
+                    item.createTime,
+                    () => _onTap(item),
+                    _isExpense(item.fromAddress)),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+          );
   }
 
   Decimal _amountWithSignal(bool isExpense, Decimal decimal) {

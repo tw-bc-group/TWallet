@@ -3,6 +3,11 @@ import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 
+//part 'tw_point.g.dart';
+//
+//abstract class TwPointNew extends Object
+//    implements Built<TwPointNew, TwPointNewBuilder> {}
+
 class TwPoint {
   int decimal;
   Decimal balance;

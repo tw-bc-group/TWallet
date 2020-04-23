@@ -33,7 +33,7 @@ class TransferPageState extends State<TransferPage> {
   @override
   void initState() {
     super.initState();
-    identity = identityStore.getIdentityByName(identityStore.selectedName);
+    identity = identityStore.selectedIdentity.value;
     balance = double.parse(identity.point);
   }
 
@@ -57,7 +57,8 @@ class TransferPageState extends State<TransferPage> {
 
   bool validateFields() {
     var amountValid = transferAmount != null && transferAmount <= balance;
-    var addressValid = transferToAddress != null && Address.validateFormat(transferToAddress);
+    var addressValid =
+        transferToAddress != null && Address.validateFormat(transferToAddress);
     setState(() {
       if (!amountValid) {
         amountErrMsg = AMOUNT_MORE_THAN_BALANCE;
@@ -71,57 +72,51 @@ class TransferPageState extends State<TransferPage> {
 
   void onNext() {
     if (validateFields()) {
-      Application.router.navigateTo(context, '${Routes.transferConfirm}?currency=TWPOINTS&amount=$transferAmount&toAddress=$transferToAddress');
+      Application.router.navigateTo(context,
+          '${Routes.transferConfirm}?currency=TWPOINTS&amount=$transferAmount&toAddress=$transferToAddress');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-      withBottomBtn: true,
-      btnText: '下一步',
-      btnOnPressed: onNext,
-      title: '转账给其他人',
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            TransferRowWidget(
-              title: '当前余额',
-              child: Text(
-                balance.toStringAsFixed(2),
-                style: TextStyle(
-                  fontSize: 16,
-                  color: WalletTheme.rgbColor('#888888')
-                ),
-              ),
+        withBottomBtn: true,
+        btnText: '下一步',
+        btnOnPressed: onNext,
+        title: '转账给其他人',
+        child: SingleChildScrollView(
+            child: Column(children: <Widget>[
+          TransferRowWidget(
+            title: '当前余额',
+            child: Text(
+              balance.toStringAsFixed(2),
+              style: TextStyle(
+                  fontSize: 16, color: WalletTheme.rgbColor('#888888')),
             ),
-            TransferRowWidget(
+          ),
+          TransferRowWidget(
               title: '金额',
               errorMsg: amountErrMsg,
               child: SizedBox(
-                width: 230,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
-                  ],
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(style: BorderStyle.none),
+                  width: 230,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
+                    ],
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(style: BorderStyle.none),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(style: BorderStyle.none),
+                      ),
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(style: BorderStyle.none),
-                    ),
-                  ),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: WalletTheme.rgbColor('#888888')
-                  ),
-                  onChanged: handleAmountChange,
-                )
-              )
-            ),
-            TransferRowWidget(
+                    style: TextStyle(
+                        fontSize: 16, color: WalletTheme.rgbColor('#888888')),
+                    onChanged: handleAmountChange,
+                  ))),
+          TransferRowWidget(
               title: '接收地址',
               errorMsg: addressErrMsg,
               child: Row(
@@ -147,9 +142,7 @@ class TransferPageState extends State<TransferPage> {
                         contentPadding: EdgeInsets.all(8.0),
                       ),
                       style: TextStyle(
-                        fontSize: 16,
-                        color: WalletTheme.rgbColor('#888888')
-                      ),
+                          fontSize: 16, color: WalletTheme.rgbColor('#888888')),
                       onChanged: handleAddressChange,
                     ),
                   ),
@@ -163,11 +156,7 @@ class TransferPageState extends State<TransferPage> {
                     ],
                   )
                 ],
-              )
-            ),
-          ]
-        )
-      )
-    );
+              )),
+        ])));
   }
 }

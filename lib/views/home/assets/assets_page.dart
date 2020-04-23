@@ -98,21 +98,23 @@ class _AssetsPageState extends State<AssetsPage>
       children.add(
         PopupMenuButton(
           icon: Icon(Icons.apps),
-          initialValue:
-              selectedIdentity.map((identity) => identity.name).orElse(''),
+          initialValue: _identityStore.selectedIndex,
           itemBuilder: (BuildContext context) {
             return identities
-                .map((identity) => PopupMenuItem(
+                .asMap()
+                .map((index, identity) => MapEntry(
+                    index,
+                    PopupMenuItem(
                       child: Text(identity.name,
                           style: TextStyle(fontWeight: FontWeight.w700)),
-                      value: identity.name,
-                      enabled: Optional.of(identity.name) !=
-                          selectedIdentity.map((identity) => identity.name),
-                    ))
+                      value: index,
+                      enabled: _identityStore.selectedIndex != index,
+                    )))
+                .values
                 .toList();
           },
-          onSelected: (String value) {
-            _identityStore.selectIdentity(name: value);
+          onSelected: (int index) {
+            _identityStore.selectIdentity(index: index);
           },
         ),
       );

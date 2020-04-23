@@ -11,7 +11,7 @@ part 'identity_store.g.dart';
 
 const IDENTITIES_STORAGE_NAME = 'identities';
 const IDENTITIES_NAME_KEY = 'name';
-const SELECTED_NAME_KEY = 'selected_name';
+const SELECTED_INDEX_KEY = 'selected_index';
 
 enum AssetsType { point, token }
 
@@ -24,30 +24,30 @@ String _itemKey(String name) {
 abstract class IdentityStoreBase with Store {
   static final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
 
-  IdentityStoreBase(String selectedName, List<Identity> identities) {
+  IdentityStoreBase(this.identities, int selectedIndex) {
     searchName = '';
     _streamController = StreamController();
     futureStream = ObservableStream(_streamController.stream);
-    this.identities = identities;
     _identitiesSort();
-    selectIdentity(name: selectedName);
+    selectIdentity(index: selectedIndex);
   }
 
   static Future<IdentityStore> fromJsonStore() async {
-    String selectedName = await _db.getItem(SELECTED_NAME_KEY).then((item) {
-      return item != null ? item[SELECTED_NAME_KEY] : '';
+    int selectedIndex = await _db.getItem(SELECTED_INDEX_KEY).then((savedItem) {
+      return savedItem != null ? savedItem[SELECTED_INDEX_KEY] : 0;
     });
 
     List<Identity> identities =
-        (await _db.getListLike('$IDENTITIES_NAME_KEY: %') ?? []).map((item) {
-      return Identity.fromJson(item);
-    }).toList();
+        Optional.ofNullable(await _db.getListLike('$IDENTITIES_NAME_KEY: %'))
+            .map((listItems) =>
+                listItems.map((item) => Identity.fromJson(item)).toList())
+            .orElse([]);
 
-    return IdentityStore(selectedName, identities);
+    return IdentityStore(identities, selectedIndex);
   }
 
   @observable
-  String selectedName;
+  int selectedIndex;
 
   @observable
   List<Identity> identities;
@@ -60,25 +60,21 @@ abstract class IdentityStoreBase with Store {
   ObservableStream<ObservableFuture<Optional<TwPoint>>> futureStream;
 
   @computed
-  Optional<Identity> get selectedIdentity => Optional.ofNullable(
-      identities.firstWhere((identity) => identity.name == selectedName,
-          orElse: () => null));
+  Optional<Identity> get selectedIdentity => identities.isEmpty
+      ? Optional.empty()
+      : Optional.of(identities[selectedIndex]);
 
   @computed
-  String get myAddress => selectedIdentity.map((id) => id.address).orElse("");
+  String get myName =>
+      selectedIdentity.map((identity) => identity.name).orElse('');
 
   @computed
-  String get myBalance => selectedIdentity.map((id) => id.point).orElse("0");
+  String get myAddress =>
+      selectedIdentity.map((identity) => identity.address).orElse('');
 
-  Identity getIdentityByName(String name) {
-    var identityResult;
-    identities.forEach((identity) {
-      if (identity.name == name) {
-        identityResult = identity;
-      }
-    });
-    return identityResult;
-  }
+  @computed
+  String get myBalance =>
+      selectedIdentity.map((identity) => identity.point).orElse('0');
 
   void _identitiesSort() {
     identities.sort(
@@ -100,10 +96,11 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  Future<void> selectIdentity({@required String name}) async {
-    if (identities.any((identity) => identity.name == name)) {
-      await _db.setItem(SELECTED_NAME_KEY, {SELECTED_NAME_KEY: name}).then((_) {
-        selectedName = name;
+  Future<void> selectIdentity({@required int index}) async {
+    if (index >= 0 && index < identities.length) {
+      await _db
+          .setItem(SELECTED_INDEX_KEY, {SELECTED_INDEX_KEY: index}).then((_) {
+        selectedIndex = index;
         return fetchLatestPoint();
       });
     }
@@ -115,7 +112,7 @@ abstract class IdentityStoreBase with Store {
       identities.add(identity);
       _identitiesSort();
       if (identities.length == 1) {
-        selectIdentity(name: identity.name);
+        selectIdentity(index: 0);
       }
     });
   }
@@ -131,12 +128,10 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  Future<void> deleteIdentity({@required String name}) async {
-    if (name != selectedName) {
-      int index = identities.indexWhere((identity) => identity.name == name);
-      if (index != -1) {
-        await _db.deleteItem(_itemKey(name));
-      }
+  Future<void> deleteIdentity({@required int index}) async {
+    if (index != selectedIndex) {
+      assert(index >= 0 && index < identities.length);
+      await _db.deleteItem(_itemKey(identities[index].name));
     }
   }
 
