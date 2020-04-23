@@ -15,6 +15,11 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   Optional<Identity> get selectedIdentity => (_$selectedIdentityComputed ??=
           Computed<Optional<Identity>>(() => super.selectedIdentity))
       .value;
+  Computed<String> _$myNameComputed;
+
+  @override
+  String get myName =>
+      (_$myNameComputed ??= Computed<String>(() => super.myName)).value;
   Computed<String> _$myAddressComputed;
 
   @override
@@ -144,7 +149,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   @override
   String toString() {
     final string =
-        'selectedIndex: ${selectedIndex.toString()},identities: ${identities.toString()},searchName: ${searchName.toString()},selectedIdentity: ${selectedIdentity.toString()},myAddress: ${myAddress.toString()},myBalance: ${myBalance.toString()}';
+        'selectedIndex: ${selectedIndex.toString()},identities: ${identities.toString()},searchName: ${searchName.toString()},selectedIdentity: ${selectedIdentity.toString()},myName: ${myName.toString()},myAddress: ${myAddress.toString()},myBalance: ${myBalance.toString()}';
     return '{$string}';
   }
 }

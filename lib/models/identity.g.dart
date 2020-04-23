@@ -18,11 +18,6 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
   Iterable<Object> serialize(Serializers serializers, Identity object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'avatar',
-      serializers.serialize(object.avatar,
-          specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'pubKey',
@@ -32,6 +27,18 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
       serializers.serialize(object.priKey,
           specifiedType: const FullType(String)),
     ];
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(String)));
+    }
+    if (object.avatar != null) {
+      result
+        ..add('avatar')
+        ..add(serializers.serialize(object.avatar,
+            specifiedType: const FullType(String)));
+    }
     if (object.phone != null) {
       result
         ..add('phone')
@@ -150,12 +157,6 @@ class _$Identity extends Identity {
       this.birthday,
       this.point})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Identity', 'id');
-    }
-    if (avatar == null) {
-      throw new BuiltValueNullFieldError('Identity', 'avatar');
-    }
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
     }

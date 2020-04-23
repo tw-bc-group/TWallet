@@ -15,7 +15,9 @@ abstract class Identity extends Object
     implements Built<Identity, IdentityBuilder> {
   static Serializer<Identity> get serializer => _$identitySerializer;
 
+  @nullable
   String get id;
+  @nullable
   String get avatar;
   String get name;
   String get pubKey;
@@ -63,7 +65,7 @@ abstract class Identity extends Object
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
           .transferPoint(address, pubKey, signedRawTx)
-          .then((response) => response.statusCode == 200);
+          .then((response) => response.statusCode == 201);
     });
   }
 
