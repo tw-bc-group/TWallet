@@ -52,9 +52,12 @@ class Contract {
           .signTransaction(
               credentials,
               Transaction.callContract(
-                  contract: contract,
-                  function: contract.function(functionName),
-                  parameters: parameters),
+                contract: contract,
+                function: contract.function(functionName),
+                parameters: parameters,
+                gasPrice: EtherAmount.zero(),
+                maxGas: 3000000,
+              ),
               fetchChainIdFromNetworkId: true)
           .then((rawTx) => '0x${bytesToHex(rawTx)}');
     });
