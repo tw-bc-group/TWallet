@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/models/Address.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_row_label.dart';
 
 const AMOUNT_MORE_THAN_BALANCE = '金额超过您目前的余额';
@@ -69,7 +71,7 @@ class TransferPageState extends State<TransferPage> {
 
   void onNext() {
     if (validateFields()) {
-      print('next');
+      Application.router.navigateTo(context, '${Routes.transferConfirm}?currency=TWPOINTS&amount=$transferAmount&toAddress=$transferToAddress');
     }
   }
 
@@ -79,6 +81,7 @@ class TransferPageState extends State<TransferPage> {
       withBottomBtn: true,
       btnText: '下一步',
       btnOnPressed: onNext,
+      title: '转账给其他人',
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -152,8 +155,11 @@ class TransferPageState extends State<TransferPage> {
                   ),
                   Row(
                     children: <Widget>[
-                      Icon(Icons.person),
-                      Icon(Icons.person)
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Icon(Icons.person),
+                      ),
+                      Icon(Icons.crop_free)
                     ],
                   )
                 ],

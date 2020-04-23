@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
+import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
 var newWalletHandler = Handler(
@@ -70,5 +71,14 @@ var txListHandler = Handler(
 var txListDetailsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return TxListDetailsPage();
+  }
+);
+
+var transferConfirmHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    var amount = params['amount'].first;
+    var toAddress = params['toAddress'].first;
+    var currency = params['currency'].first;
+    return TransferConfirmPage(currency: currency, amount: amount, toAddress: toAddress);
   },
 );

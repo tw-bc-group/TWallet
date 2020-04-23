@@ -8,12 +8,14 @@ class CommonLayout extends StatelessWidget {
   final bool withBottomBtn;
   final String btnText;
   final Function btnOnPressed;
+  final String title;
 
   CommonLayout({
     this.child, 
     this.withBottomBtn = false,
     this.btnText = '完成',
     this.btnOnPressed,
+    this.title
   });
 
   @override
@@ -23,7 +25,7 @@ class CommonLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WalletTheme.rgbColor('#fafafa'),
         brightness: Brightness.dark,
-        title: PageTitleWidget(title: '转账给其他人'),
+        title: PageTitleWidget(title: title),
         textTheme: Theme.of(context).textTheme.apply(
           bodyColor: Colors.black,
           displayColor: Colors.black,
