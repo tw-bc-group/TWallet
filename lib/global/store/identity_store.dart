@@ -122,6 +122,7 @@ abstract class IdentityStoreBase with Store {
     int index = identities.indexWhere((other) => other.name == identity.name);
     if (index >= 0) {
       identities[index] = identity;
+      selectedIndex = index;
     } else {
       throw Exception('Identity updated not exist.');
     }
@@ -143,8 +144,8 @@ abstract class IdentityStoreBase with Store {
         return await TwBalance.fetchBalance(
                 address: selectedIdentity.value.address)
             .then((twBalance) {
-          selectedIdentity.value.rebuild(
-              (identity) => identity..point = twBalance.realBalance.toString());
+          updateSelectedIdentity(selectedIdentity.value.rebuild((identity) =>
+              identity..point = twBalance.realBalance.toString()));
           return twBalance;
         });
       }
