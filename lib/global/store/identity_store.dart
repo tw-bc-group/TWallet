@@ -5,7 +5,7 @@ import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
-import 'package:tw_wallet_ui/models/tw_point.dart';
+import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 part 'identity_store.g.dart';
 
@@ -55,9 +55,9 @@ abstract class IdentityStoreBase with Store {
   @observable
   String searchName;
 
-  StreamController<ObservableFuture<Optional<TwPoint>>> _streamController;
+  StreamController<ObservableFuture<TwBalance>> _streamController;
 
-  ObservableStream<ObservableFuture<Optional<TwPoint>>> futureStream;
+  ObservableStream<ObservableFuture<TwBalance>> futureStream;
 
   @computed
   Optional<Identity> get selectedIdentity => identities.isEmpty
@@ -140,15 +140,15 @@ abstract class IdentityStoreBase with Store {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
-        return await TwPoint.fetchPoint(address: selectedIdentity.value.address)
-            .then((fetchRes) {
-          fetchRes.ifPresent((twPoint) => updateSelectedIdentity(
-              selectedIdentity.value.rebuild(
-                  (identity) => identity..point = twPoint.value.toString())));
-          return fetchRes;
+        return await TwBalance.fetchBalance(
+                address: selectedIdentity.value.address)
+            .then((twBalance) {
+          selectedIdentity.value.rebuild(
+              (identity) => identity..point = twBalance.realBalance.toString());
+          return twBalance;
         });
       }
-      return Optional.empty();
+      return null;
     })));
   }
 }

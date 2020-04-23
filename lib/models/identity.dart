@@ -73,7 +73,7 @@ abstract class Identity extends Object
     return serializers.serialize(this);
   }
 
-  factory Identity.fromJson(Map<String, dynamic> serialized) {
+  factory Identity.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
         specifiedType: const FullType(Identity));
   }
