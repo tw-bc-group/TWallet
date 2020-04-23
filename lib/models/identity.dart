@@ -1,7 +1,6 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:decimal/decimal.dart';
 import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
@@ -29,13 +28,6 @@ abstract class Identity extends Object
   String get birthday;
   @nullable
   String get point;
-
-  set point(String value) => point = value;
-
-  set twPoint(Decimal value) => point = value.toString();
-
-  @memoized
-  Decimal get twPoint => Decimal.parse(point);
 
   @memoized
   String get address =>

@@ -132,7 +132,6 @@ class _$Identity extends Identity {
   final String birthday;
   @override
   final String point;
-  Decimal __twPoint;
   String __address;
   String __did;
   Optional<Avataaar> __avataaar;
@@ -167,9 +166,6 @@ class _$Identity extends Identity {
       throw new BuiltValueNullFieldError('Identity', 'priKey');
     }
   }
-
-  @override
-  Decimal get twPoint => __twPoint ??= super.twPoint;
 
   @override
   String get address => __address ??= super.address;

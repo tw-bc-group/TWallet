@@ -121,6 +121,16 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
+  void updateSelectedIdentity(Identity identity) {
+    int index = identities.indexWhere((other) => other.name == identity.name);
+    if (index >= 0) {
+      identities[index] = identity;
+    } else {
+      throw Exception('Identity updated not exist.');
+    }
+  }
+
+  @action
   Future<void> deleteIdentity({@required String name}) async {
     if (name != selectedName) {
       int index = identities.indexWhere((identity) => identity.name == name);
@@ -135,11 +145,13 @@ abstract class IdentityStoreBase with Store {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
-        Optional<TwPoint> fetchRes =
-            await TwPoint.fetchPoint(address: selectedIdentity.value.address);
-        selectedIdentity.ifPresent((identity) =>
-            fetchRes.ifPresent((twPoint) => identity.twPoint = twPoint.value));
-        return fetchRes;
+        return await TwPoint.fetchPoint(address: selectedIdentity.value.address)
+            .then((fetchRes) {
+          fetchRes.ifPresent((twPoint) => updateSelectedIdentity(
+              selectedIdentity.value.rebuild(
+                  (identity) => identity..point = twPoint.value.toString())));
+          return fetchRes;
+        });
       }
       return Optional.empty();
     })));
