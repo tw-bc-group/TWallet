@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tw_wallet_ui/models/Address.dart';
+import 'package:tw_wallet_ui/models/address.dart';
 
 void main() {
   group('Address Test', () {

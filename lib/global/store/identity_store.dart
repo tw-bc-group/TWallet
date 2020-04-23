@@ -60,9 +60,10 @@ abstract class IdentityStoreBase with Store {
   ObservableStream<ObservableFuture<TwBalance>> futureStream;
 
   @computed
-  Optional<Identity> get selectedIdentity => identities.isEmpty
-      ? Optional.empty()
-      : Optional.of(identities[selectedIndex]);
+  Optional<Identity> get selectedIdentity =>
+      Optional.ofNullable(identities).flatMap((identities) => identities.isEmpty
+          ? Optional.empty()
+          : Optional.of(identities[selectedIndex ?? 0]));
 
   @computed
   String get myName =>

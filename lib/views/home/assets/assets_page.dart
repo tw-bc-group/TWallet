@@ -98,6 +98,7 @@ class _AssetsPageState extends State<AssetsPage>
       children.add(
         PopupMenuButton(
           icon: Icon(Icons.apps),
+          offset: Offset(0, 100),
           initialValue: _identityStore.selectedIndex,
           itemBuilder: (BuildContext context) {
             return identities
