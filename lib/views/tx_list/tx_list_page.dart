@@ -87,7 +87,7 @@ class _TxListPageState extends State<TxListPage> {
   }
 
   bool _isExpense(String fromAddress) {
-    return fromAddress == iStore.myAddress;
+    return fromAddress.toLowerCase() == iStore.myAddress.toLowerCase();
   }
 
   Widget _buildListView() {
