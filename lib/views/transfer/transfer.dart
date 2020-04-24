@@ -11,7 +11,7 @@ import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_row_label.dart';
 
-const AMOUNT_MORE_THAN_BALANCE = '金额超过您目前的余额';
+const AMOUNT_ERROR = '金额不正确';
 const ADDRESS_IS_NOT_VALID = '账户地址不正确';
 
 class TransferPage extends StatefulWidget {
@@ -61,7 +61,7 @@ class TransferPageState extends State<TransferPage> {
         transferToAddress != null && Address.validateFormat(transferToAddress);
     setState(() {
       if (!amountValid) {
-        amountErrMsg = AMOUNT_MORE_THAN_BALANCE;
+        amountErrMsg = AMOUNT_ERROR;
       }
       if (!addressValid) {
         addressErrMsg = ADDRESS_IS_NOT_VALID;
