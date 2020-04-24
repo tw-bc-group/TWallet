@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
@@ -28,13 +30,20 @@ class TransferConfirmState extends State<TransferConfirmPage> {
   final String currency;
   final double amount;
   final String toAddress;
+  bool isLoading = false;
 
   TransferConfirmState({this.currency, this.amount, this.toAddress});
 
   handleConfirm() async {
     var pinValidation = await inputPinWidgetKey.currentState.validatePin();
     if (pinValidation) {
+      setState(() {
+        isLoading = true;
+      });
       var transferSuccess = await identityStore.selectedIdentity.value.transferPoint(toAddress: toAddress, point: BigInt.from(amount) * BigInt.from(10).pow(18));
+      setState(() {
+        isLoading = false;
+      });
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         Navigator.pushNamed(context, Routes.txListDetails,
@@ -62,20 +71,24 @@ class TransferConfirmState extends State<TransferConfirmPage> {
       withBottomBtn: true,
       btnText: '确认转出',
       btnOnPressed: handleConfirm,
-      child: Column(
-        children: [
-          ConfirmRowWidget(
-            title: '金额',
-            contentLeft: amount.toStringAsFixed(2),
-            contentRight: currency,
-          ),
-          ConfirmRowWidget(
-            title: '接收地址',
-            contentLeft: toAddress,
-          ),
-          InputPinWidget(key: inputPinWidgetKey)
-        ]
-      ),
+      child: ModalProgressHUD(
+        inAsyncCall: isLoading,
+        progressIndicator: CircularProgressIndicator(),
+        child: Column(
+          children: [
+            ConfirmRowWidget(
+              title: '金额',
+              contentLeft: amount.toStringAsFixed(2),
+              contentRight: currency,
+            ),
+            ConfirmRowWidget(
+              title: '接收地址',
+              contentLeft: toAddress,
+            ),
+            InputPinWidget(key: inputPinWidgetKey)
+          ]
+        ),
+      )
     );
   }
 }
