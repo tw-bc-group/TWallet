@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
@@ -38,7 +37,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
       var transferSuccess = await identityStore.selectedIdentity.value.transferPoint(toAddress: toAddress, point: BigInt.from(amount) * BigInt.from(10).pow(18));
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
-        Navigator.pushNamed(context, Routes.home,
+        Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
           amount: amount.toStringAsFixed(2),
           time: parseDate(DateTime.now()),
@@ -49,7 +48,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
           isExpense: true,
           onPressed: () {
             identityStore.fetchLatestPoint();
-            Navigator.popUntil(context, ModalRoute.withName(Routes.txList));
+            Navigator.popUntil(context, ModalRoute.withName(Routes.home));
           }
         ));
       }

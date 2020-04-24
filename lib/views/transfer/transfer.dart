@@ -56,7 +56,7 @@ class TransferPageState extends State<TransferPage> {
   }
 
   bool validateFields() {
-    var amountValid = transferAmount != null && transferAmount <= balance;
+    var amountValid = transferAmount != null && transferAmount <= balance && transferAmount > 0;
     var addressValid =
         transferToAddress != null && Address.validateFormat(transferToAddress);
     setState(() {
