@@ -48,16 +48,17 @@ class HomeState extends State<Home> {
     return Scaffold(
       body: Observer(
           builder: (_) => SafeArea(child: _pages[homeStore.currentPage])),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _barItems,
-        currentIndex: homeStore.currentPage,
-        type: BottomNavigationBarType.fixed,
-        fixedColor: Colors.blue,
-        selectedFontSize: 12,
-        onTap: (index) {
-          homeStore.changePage(index);
-        },
-      ),
+      bottomNavigationBar: Observer(
+          builder: (_) => BottomNavigationBar(
+                items: _barItems,
+                currentIndex: homeStore.currentPage,
+                type: BottomNavigationBarType.fixed,
+                fixedColor: Colors.blue,
+                selectedFontSize: 12,
+                onTap: (index) {
+                  homeStore.changePage(index);
+                },
+              )),
       floatingActionButton: Observer(
           builder: (_) => homeStore.currentPage == HomeState.identityIndex
               ? FloatingActionButton(
