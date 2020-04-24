@@ -100,7 +100,7 @@ class TransferPageState extends State<TransferPage> {
               child: SizedBox(
                   width: 230,
                   child: TextField(
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: <TextInputFormatter>[
                       WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
                     ],
