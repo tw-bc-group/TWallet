@@ -11,6 +11,7 @@ class TxListDetailsPageArgs {
   final String fromAddressName;
   final String toAddress;
   final bool isExpense;
+  final Function onPressed;
 
   TxListDetailsPageArgs(
       {this.amount,
@@ -19,7 +20,8 @@ class TxListDetailsPageArgs {
       this.time,
       this.status,
       this.fromAddress,
-      this.toAddress});
+      this.toAddress,
+      this.onPressed});
 }
 
 class TxListDetailsPage extends StatelessWidget {
@@ -51,11 +53,11 @@ class TxListDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context) {
+  Widget _buildButton(BuildContext context, TxListDetailsPageArgs args) {
     return SizedBox(
         width: double.infinity,
         child: CupertinoButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: args.onPressed == null ? () => Navigator.pop(context) : args.onPressed,
           child: Text("好的", style: TextStyle(fontSize: 20)),
           color: Color(0XFF3E71C0),
         ));
@@ -76,7 +78,7 @@ class TxListDetailsPage extends StatelessWidget {
           SizedBox.fromSize(size: Size.fromHeight(40)),
           ..._buildLabelTextArea(label: ls.last, rows: [as.last]),
           Expanded(child: Container()),
-          _buildButton(context),
+          _buildButton(context, args),
         ]);
   }
 
