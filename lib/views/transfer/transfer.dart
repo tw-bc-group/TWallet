@@ -127,7 +127,7 @@ class TransferPageState extends State<TransferPage> {
                     width: 230,
                     height: 50,
                     child: TextField(
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       maxLines: 3,
                       inputFormatters: <TextInputFormatter>[
                         WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9]+')),
