@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/util.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 
 void main() {
@@ -19,5 +21,11 @@ void main() {
     }
 
     expect(list.length, equals(1));
+  });
+
+  test("amount", () {
+    final n = formatDecimal(Amount.parse("1000000000000000000", 18), 2);
+    print(n);
+    expect(n, equals('1.00'));
   });
 }

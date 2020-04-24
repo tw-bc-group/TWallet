@@ -68,7 +68,6 @@ class _TxListPageState extends State<TxListPage> {
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF3e71c0))),
         onPressed: () {
-//          Application.router.navigateTo(context, '${Routes.transferTwPoints}?balance=$point')
           Application.router.navigateTo(context,
               '${Routes.transferTwPoints}?balance=${iStore.myBalance}');
         });
@@ -83,9 +82,6 @@ class _TxListPageState extends State<TxListPage> {
 
   Widget _buildMainContent() {
     return Observer(builder: (context) {
-//        return store.loading
-//            ? CustomProgressIndicatorWidget()
-//            : Material(child: _buildListView());
       return Material(child: _buildListView());
     });
   }

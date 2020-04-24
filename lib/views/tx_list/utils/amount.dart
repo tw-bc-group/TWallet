@@ -1,10 +1,9 @@
 import 'package:decimal/decimal.dart';
-
-const FIXED_DECIMAL = 2;
+import 'package:tw_wallet_ui/models/amount.dart';
 
 String parseAmount(Decimal num, {flag: true}) {
   final isNegative = num.isNegative;
-  final str = num.toStringAsFixed(FIXED_DECIMAL);
+  final str = Amount.readableAmount(num);
   if (!flag) return str;
   return isNegative ? str : "+" + str;
 }

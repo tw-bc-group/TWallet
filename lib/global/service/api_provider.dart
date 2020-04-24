@@ -49,7 +49,13 @@ class ApiProvider {
   }
 
   Future<List<Transaction>> listTx(String fromAddress) async {
-    final resp = await _dio.get("/v1/transactions?from_addr=" + fromAddress);
+    var resp;
+    try {
+      resp = await _dio.get("/v1/transactions?from_addr=" + fromAddress);
+    } catch (e) {
+      print(e);
+    }
+
     final ApiResponse<List<dynamic>> data =
         ApiResponse<List<dynamic>>.fromJson(resp.data);
     return Future(

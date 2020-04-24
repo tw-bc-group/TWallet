@@ -1,5 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 
 part 'transaction.g.dart';
@@ -31,8 +32,9 @@ class Transaction {
 class _TypeConverter implements JsonConverter<TxStatus, String> {
   const _TypeConverter();
 
+  // note: all records are successful right now; change if backend support status
   @override
-  TxStatus fromJson(String json) => TxStatusFromString[json];
+  TxStatus fromJson(String json) => TxStatus.succeeded;
 
   @override
   String toJson(TxStatus object) => object.toString();
@@ -43,11 +45,11 @@ class _DecimalConverter implements JsonConverter<Decimal, Object> {
 
   @override
   Decimal fromJson(Object json) {
-    return Decimal.parse(json);
+    return Amount.parse(json, 18);
   }
 
   @override
   Object toJson(Decimal object) {
-    return object.toString();
+    return Amount.original(object, 18).toString();
   }
 }

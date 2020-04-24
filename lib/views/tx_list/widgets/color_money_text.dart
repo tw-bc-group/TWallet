@@ -4,7 +4,6 @@ import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/amount.dart';
 
 class ColorMoneyText extends StatelessWidget {
-  static const FIXED_DECIMAL = 2;
   static const FONT_SIZE = 14.7;
 
   final Decimal amount;
