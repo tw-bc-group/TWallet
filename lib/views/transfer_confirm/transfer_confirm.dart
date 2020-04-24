@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -20,7 +21,8 @@ class TransferConfirmPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return TransferConfirmState(currency: currency, amount: double.parse(amount), toAddress: toAddress);
+    return TransferConfirmState(
+        currency: currency, amount: double.parse(amount), toAddress: toAddress);
   }
 }
 
@@ -40,26 +42,30 @@ class TransferConfirmState extends State<TransferConfirmPage> {
       setState(() {
         isLoading = true;
       });
-      var transferSuccess = await identityStore.selectedIdentity.value.transferPoint(toAddress: toAddress, point: BigInt.from(amount) * BigInt.from(10).pow(18));
+      var transferSuccess = await identityStore.selectedIdentity.value
+          .transferPoint(
+              toAddress: toAddress,
+              point: BigInt.parse((Decimal.parse(amount.toString()) *
+                      Decimal.fromInt(10).pow(18))
+                  .toString()));
       setState(() {
         isLoading = false;
       });
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         Navigator.pushNamed(context, Routes.txListDetails,
-        arguments: TxListDetailsPageArgs(
-          amount: amount.toStringAsFixed(2),
-          time: parseDate(DateTime.now()),
-          status: statusNameCN(TxStatus.transferring),
-          fromAddress: identityStore.selectedIdentity.value.address,
-          toAddress: toAddress,
-          fromAddressName: identityStore.myName,
-          isExpense: true,
-          onPressed: () {
-            identityStore.fetchLatestPoint();
-            Navigator.popUntil(context, ModalRoute.withName(Routes.home));
-          }
-        ));
+            arguments: TxListDetailsPageArgs(
+                amount: amount.toStringAsFixed(2),
+                time: parseDate(DateTime.now()),
+                status: statusNameCN(TxStatus.transferring),
+                fromAddress: identityStore.selectedIdentity.value.address,
+                toAddress: toAddress,
+                fromAddressName: identityStore.myName,
+                isExpense: true,
+                onPressed: () {
+                  identityStore.fetchLatestPoint();
+                  Navigator.popUntil(context, ModalRoute.withName(Routes.home));
+                }));
       }
     }
   }
@@ -67,30 +73,26 @@ class TransferConfirmState extends State<TransferConfirmPage> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-      title: '确认转出',
-      withBottomBtn: true,
-      btnText: '确认转出',
-      btnOnPressed: handleConfirm,
-      child: ModalProgressHUD(
-        inAsyncCall: isLoading,
-        progressIndicator: CircularProgressIndicator(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ConfirmRowWidget(
-                title: '金额',
-                contentLeft: amount.toStringAsFixed(2),
-                contentRight: currency,
-              ),
-              ConfirmRowWidget(
-                title: '接收地址',
-                contentLeft: toAddress,
-              ),
-              InputPinWidget(key: inputPinWidgetKey)
-            ]
-          ),
-        )
-      )
-    );
+        title: '确认转出',
+        withBottomBtn: true,
+        btnText: '确认转出',
+        btnOnPressed: handleConfirm,
+        child: ModalProgressHUD(
+            inAsyncCall: isLoading,
+            progressIndicator: CircularProgressIndicator(),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                ConfirmRowWidget(
+                  title: '金额',
+                  contentLeft: amount.toStringAsFixed(2),
+                  contentRight: currency,
+                ),
+                ConfirmRowWidget(
+                  title: '接收地址',
+                  contentLeft: toAddress,
+                ),
+                InputPinWidget(key: inputPinWidgetKey)
+              ]),
+            )));
   }
 }
