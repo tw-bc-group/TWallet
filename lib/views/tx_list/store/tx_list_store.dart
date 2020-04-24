@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
@@ -13,7 +11,7 @@ abstract class _TxListStore with Store {
 
   @observable
   ObservableFuture<List<Transaction>> listFuture =
-  ObservableFuture.value(new List<Transaction>());
+      ObservableFuture.value(new List<Transaction>());
 
   @observable
   ObservableFuture<Transaction> tx;
@@ -38,8 +36,6 @@ abstract class _TxListStore with Store {
       this.errorMessage = e.toString();
     }
   }
-
-
 
   @action
   Future fetchDetails(String hash) =>

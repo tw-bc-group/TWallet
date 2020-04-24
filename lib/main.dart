@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(WalletTheme.rgbColor('#fafafa'));
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+
     return FutureBuilder(
         future: getIt.allReady(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

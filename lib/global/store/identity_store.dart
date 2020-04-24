@@ -75,7 +75,7 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   String get myBalance =>
-      selectedIdentity.map((identity) => identity.point).orElse('0');
+      selectedIdentity.map((identity) => identity.point).orElse('0.00');
 
   void _identitiesSort() {
     identities.sort(
@@ -145,8 +145,8 @@ abstract class IdentityStoreBase with Store {
         return await TwBalance.fetchBalance(
                 address: selectedIdentity.value.address)
             .then((twBalance) {
-          updateSelectedIdentity(selectedIdentity.value.rebuild((identity) =>
-              identity..point = twBalance.realBalance.toString()));
+          updateSelectedIdentity(selectedIdentity.value
+              .rebuild((identity) => identity..point = twBalance.humanBalance));
           return twBalance;
         });
       }

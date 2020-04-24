@@ -2,6 +2,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/util.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 
@@ -31,7 +32,7 @@ abstract class TwBalance extends Object
       Decimal.parse(balance) / Decimal.fromInt(10).pow(twPoint.decimal);
 
   @memoized
-  String get humanBalance => realBalance.toStringAsFixed(2);
+  String get humanBalance => formatDecimal(realBalance, 2);
 
   factory TwBalance([void Function(TwBalanceBuilder) updates]) = _$TwBalance;
   TwBalance._();
