@@ -102,7 +102,7 @@ abstract class _IdentityNewStore with Store {
 
     if (!error.hasErrors) {
       return store.generateIdentityKeys().then((keys) {
-        Identity identity = Identity((identity) => identity
+        return Future.value(Identity((identity) => identity
           ..id = Uuid().v1()
           ..avatar = avatar.toJson()
           ..name = name
@@ -110,13 +110,13 @@ abstract class _IdentityNewStore with Store {
           ..priKey = keys.second
           ..phone = phone
           ..email = email
-          ..birthday = birthday);
-
-        return identity.register().then((success) {
-          if (success) {
-            _identityStore.addIdentity(identity: identity);
-          }
-          return success;
+          ..birthday = birthday)).then((identity) {
+          return identity.register().then((success) {
+            if (success) {
+              _identityStore.addIdentity(identity: identity);
+            }
+            return success;
+          });
         });
       });
     }
