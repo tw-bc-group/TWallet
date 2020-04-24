@@ -74,20 +74,22 @@ class TransferConfirmState extends State<TransferConfirmPage> {
       child: ModalProgressHUD(
         inAsyncCall: isLoading,
         progressIndicator: CircularProgressIndicator(),
-        child: Column(
-          children: [
-            ConfirmRowWidget(
-              title: '金额',
-              contentLeft: amount.toStringAsFixed(2),
-              contentRight: currency,
-            ),
-            ConfirmRowWidget(
-              title: '接收地址',
-              contentLeft: toAddress,
-            ),
-            InputPinWidget(key: inputPinWidgetKey)
-          ]
-        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ConfirmRowWidget(
+                title: '金额',
+                contentLeft: amount.toStringAsFixed(2),
+                contentRight: currency,
+              ),
+              ConfirmRowWidget(
+                title: '接收地址',
+                contentLeft: toAddress,
+              ),
+              InputPinWidget(key: inputPinWidgetKey)
+            ]
+          ),
+        )
       )
     );
   }
