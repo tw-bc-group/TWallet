@@ -40,10 +40,14 @@ class _IdentityPageState extends State<IdentityPage> {
                     leading: AvatarWidget(avataaar: identity.avataaar),
                     title: Text(identity.name),
                     subtitle: GestureDetector(
-                      child: Text(identity.did),
-                      onLongPress: () =>
-                          Clipboard.setData(ClipboardData(text: identity.did)),
-                    ),
+                        child: Text(identity.did),
+                        onLongPress: () {
+                          Clipboard.setData(
+                              ClipboardData(text: identity.address));
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              content:
+                                  new Text("Address Copied to Clipboard")));
+                        }),
                   ))),
         ));
   }

@@ -44,25 +44,27 @@ class HomeState extends State<Home> {
   }
 
   @override
-  Widget build(BuildContext context) => Observer(builder: (_) {
-        return Scaffold(
-          body: SafeArea(child: _pages[homeStore.currentPage]),
-          bottomNavigationBar: BottomNavigationBar(
-            items: _barItems,
-            currentIndex: homeStore.currentPage,
-            type: BottomNavigationBarType.fixed,
-            fixedColor: Colors.blue,
-            selectedFontSize: 12,
-            onTap: (index) {
-              homeStore.changePage(index);
-            },
-          ),
-          floatingActionButton: homeStore.currentPage == HomeState.identityIndex
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Observer(
+          builder: (_) => SafeArea(child: _pages[homeStore.currentPage])),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _barItems,
+        currentIndex: homeStore.currentPage,
+        type: BottomNavigationBarType.fixed,
+        fixedColor: Colors.blue,
+        selectedFontSize: 12,
+        onTap: (index) {
+          homeStore.changePage(index);
+        },
+      ),
+      floatingActionButton: Observer(
+          builder: (_) => homeStore.currentPage == HomeState.identityIndex
               ? FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () => Application.router
                       .navigateTo(context, Routes.newIdentity))
-              : null,
-        );
-      });
+              : Container()),
+    );
+  }
 }
