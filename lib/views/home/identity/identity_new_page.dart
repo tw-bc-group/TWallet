@@ -53,6 +53,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: WalletTheme.mainBgColor,
       body: SafeArea(
           child: ModalProgressHUD(
               inAsyncCall: _isInAsyncCall,
