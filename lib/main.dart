@@ -18,8 +18,7 @@ Future<String> _initialRoute() async {
 }
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  getItInit();
+  getItInit(isTest: false);
   runApp(MyApp(initialRoute: await _initialRoute()));
 }
 

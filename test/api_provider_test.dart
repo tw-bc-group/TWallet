@@ -1,10 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 
 void main() {
+  getItInit(isTest: true);
+
   test("query tx list", () async {
-    final ApiProvider provider = new ApiProvider();
+    final ApiProvider provider = getIt<ApiProvider>();
 
     List<Transaction> list;
     try {

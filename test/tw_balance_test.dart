@@ -2,22 +2,16 @@ import 'dart:convert';
 
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
-class MockDio extends Mock implements Dio {}
-
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  getIt.registerSingleton<Dio>(MockDio());
-  getIt.registerSingleton<ApiProvider>(ApiProvider());
+  getItInit(isTest: true);
 
-  group('TW Point', () {
-    test('Value should be 10000', () {
+  group('TW Balance', () {
+    test('Value should be 10000.00', () {
       var strJson =
           '{"balance": "10000000000000000000000", "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}}';
       var balance = TwBalance.fromJson(json.decode(strJson));
@@ -25,12 +19,12 @@ void main() {
       expect(balance.humanBalance, '10000.00');
     });
 
-    test('Value should be 10000.13', () {
+    test('Value should be 10000.12', () {
       var strJson =
           '{"balance": "10000126000000000000000", "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}}';
       var balance = TwBalance.fromJson(json.decode(strJson));
       expect(balance.realBalance, Decimal.parse('10000.126'));
-      expect(balance.humanBalance, '10000.13');
+      expect(balance.humanBalance, '10000.12');
     });
 
     test('Value should be 0.00', () {
@@ -59,7 +53,7 @@ void main() {
     });
 
     // Note: if test throws exception, remove await for async functions, and use throwsException to match result
-    test('return Optional empty, if the http call completes with an error',
+    test('Throws Exception, if the http call completes with an error',
         () async {
       when(dio.get(url)).thenAnswer(
           (_) async => Response(statusCode: 404, data: 'Not Found'));
