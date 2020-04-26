@@ -5,12 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
-import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/tx_list/store/tx_list_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
-import 'package:tw_wallet_ui/views/tx_list/utils/amount.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/base_app_bar.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tool_bar_panel.dart';
@@ -31,9 +30,10 @@ class _TxListPageState extends State<TxListPage> {
     final ie = _isExpense(item.fromAddress);
     Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
-          amount: parseAmount(_amountWithSignal(ie, item.amount)),
+          amount:
+              _amountWithSignal(ie, item.amount.value).humanReadableWithFlag,
           time: parseDate(item.createTime),
-          status: statusNameCN(item.txType),
+          status: item.txType.toString(),
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
           fromAddressName: iStore.myName,
@@ -75,7 +75,8 @@ class _TxListPageState extends State<TxListPage> {
 
   Widget _buildToolBarPanel() {
     return toolBarPanel(
-        balance: parseAmount(Decimal.parse(iStore.myBalance), flag: false),
+        //balance: Decimal.parse(iStore.myBalance), flag: false),
+        balance: iStore.myBalance.humanReadable,
         leading: Text("交易记录", style: TextStyle(color: Color(0xFF3e71c0))),
         trailing: _buildAppBarTrailing());
   }
@@ -107,7 +108,7 @@ class _TxListPageState extends State<TxListPage> {
                         : item.fromAddress,
                     item.txType,
                     _amountWithSignal(
-                        _isExpense(item.fromAddress), item.amount),
+                        _isExpense(item.fromAddress), item.amount.value),
                     item.createTime,
                     () => _onTap(item),
                     _isExpense(item.fromAddress)),
@@ -118,7 +119,7 @@ class _TxListPageState extends State<TxListPage> {
           );
   }
 
-  Decimal _amountWithSignal(bool isExpense, Decimal decimal) {
-    return isExpense ? -decimal : decimal;
+  Amount _amountWithSignal(bool isExpense, Decimal decimal) {
+    return isExpense ? Amount(-decimal) : Amount(decimal);
   }
 }

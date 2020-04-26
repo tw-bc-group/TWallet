@@ -9,6 +9,8 @@ import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:web3dart/credentials.dart';
 
+import 'amount.dart';
+
 part 'identity.g.dart';
 
 abstract class Identity extends Object
@@ -29,7 +31,7 @@ abstract class Identity extends Object
   @nullable
   String get birthday;
   @nullable
-  String get point;
+  Amount get balance;
 
   @memoized
   String get address =>

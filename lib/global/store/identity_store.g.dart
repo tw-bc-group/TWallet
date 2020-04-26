@@ -25,11 +25,11 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   @override
   String get myAddress =>
       (_$myAddressComputed ??= Computed<String>(() => super.myAddress)).value;
-  Computed<String> _$myBalanceComputed;
+  Computed<Amount> _$myBalanceComputed;
 
   @override
-  String get myBalance =>
-      (_$myBalanceComputed ??= Computed<String>(() => super.myBalance)).value;
+  Amount get myBalance =>
+      (_$myBalanceComputed ??= Computed<Amount>(() => super.myBalance)).value;
 
   final _$selectedIndexAtom = Atom(name: 'IdentityStoreBase.selectedIndex');
 

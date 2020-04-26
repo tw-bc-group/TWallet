@@ -1,5 +1,5 @@
-import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
 
@@ -10,7 +10,7 @@ class TxListItem extends StatelessWidget {
 
   final String _address;
   final TxStatus _status;
-  final Decimal _amount;
+  final Amount _amount;
   final DateTime _dateTime;
   final GestureTapCallback onTap;
   final bool _isExpense;
@@ -18,8 +18,7 @@ class TxListItem extends StatelessWidget {
   TxListItem(this._address, this._status, this._amount, this._dateTime,
       this.onTap, this._isExpense);
 
-  Widget _renderDate() =>
-      Text(parseDate(_dateTime),
+  Widget _renderDate() => Text(parseDate(_dateTime),
       style: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 10.7,
@@ -28,7 +27,7 @@ class TxListItem extends StatelessWidget {
   Widget _renderAddress() => Text(_address, style: TextStyle(fontSize: 14.7));
 
   Widget _renderStatus(TxStatus status) =>
-      Text(statusNameCN(status), style: TextStyle(color: Color(_greyColor)));
+      Text(status.toString(), style: TextStyle(color: Color(_greyColor)));
 
   @override
   Widget build(BuildContext context) {

@@ -57,7 +57,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
             arguments: TxListDetailsPageArgs(
                 amount: amount.toStringAsFixed(2),
                 time: parseDate(DateTime.now()),
-                status: statusNameCN(TxStatus.transferring),
+                status: TxStatus.transferring.toString(),
                 fromAddress: identityStore.selectedIdentity.value.address,
                 toAddress: toAddress,
                 fromAddressName: identityStore.myName,

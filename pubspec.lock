@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "5.1.0"
   built_collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: built_collection
       url: "https://pub.dartlang.org"
@@ -404,7 +404,7 @@ packages:
     source: hosted
     version: "0.6.1+1"
   json_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"

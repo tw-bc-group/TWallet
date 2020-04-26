@@ -1,55 +1,52 @@
-import 'package:decimal/decimal.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
+import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 
 part 'transaction.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class Transaction {
-  final String hash;
+abstract class Transaction extends Object
+    implements Built<Transaction, TransactionBuilder> {
+  static Serializer<Transaction> get serializer => _$transactionSerializer;
 
-  @_TypeConverter()
-  TxStatus txType;
+  String get hash;
+  Amount get amount;
 
-  @_DecimalConverter()
-  Decimal amount;
+  @BuiltValueField(wireName: 'create_time')
+  DateTime get createTime;
 
-  final DateTime createTime;
-  final DateTime confirmTime;
-  final String fromAddress;
-  final String fromAddressName;
-  final String toAddress;
-  final String toAddressName;
+  @nullable
+  @BuiltValueField(wireName: 'confirm_time')
+  DateTime get confirmTime;
 
-  Transaction(this.hash, this.createTime, this.confirmTime, this.fromAddress,
-      this.fromAddressName, this.toAddress, this.toAddressName);
+  @BuiltValueField(wireName: 'from_address')
+  String get fromAddress;
 
-  factory Transaction.fromJson(Map<String, dynamic> json) =>
-      _$TransactionFromJson(json);
-}
+  @nullable
+  @BuiltValueField(wireName: 'from_address_name')
+  String get fromAddressName;
 
-class _TypeConverter implements JsonConverter<TxStatus, String> {
-  const _TypeConverter();
+  @BuiltValueField(wireName: 'to_address')
+  String get toAddress;
 
-  // note: all records are successful right now; change if backend support status
-  @override
-  TxStatus fromJson(String json) => TxStatus.succeeded;
+  @nullable
+  @BuiltValueField(wireName: 'to_address_name')
+  String get toAddressName;
 
-  @override
-  String toJson(TxStatus object) => object.toString();
-}
+  @BuiltValueField(wireName: 'tx_type')
+  TxStatus get txType;
 
-class _DecimalConverter implements JsonConverter<Decimal, Object> {
-  const _DecimalConverter();
-
-  @override
-  Decimal fromJson(Object json) {
-    return Amount.parse(json, 18);
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this);
   }
 
-  @override
-  Object toJson(Decimal object) {
-    return Amount.original(object, 18).toString();
+  factory Transaction.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(Transaction));
   }
+
+  factory Transaction([void Function(TransactionBuilder) updates]) =
+      _$Transaction;
+  Transaction._();
 }

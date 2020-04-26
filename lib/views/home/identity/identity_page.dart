@@ -45,8 +45,7 @@ class _IdentityPageState extends State<IdentityPage> {
                           Clipboard.setData(
                               ClipboardData(text: identity.address));
                           Scaffold.of(context).showSnackBar(SnackBar(
-                              content:
-                                  new Text("Address Copied to Clipboard")));
+                              content: new Text('"${identity.name}"地址已复制')));
                         }),
                   ))),
         ));

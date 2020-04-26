@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 Widget _pointItem({@required String point, BuildContext context}) {
@@ -36,7 +37,7 @@ class PointTab extends StatelessWidget {
   @override
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
-        final future = _store.futureStream.value;
+        final ObservableFuture<TwBalance> future = _store.futureStream.value;
 
         //TODO:
         if (future == null) {
@@ -70,7 +71,7 @@ class PointTab extends StatelessWidget {
                   child: ListView(
                     children: [
                       _pointItem(
-                          point: future.result.humanBalance, context: context)
+                          point: future.result.humanReadable, context: context)
                     ],
                   ),
                 ));

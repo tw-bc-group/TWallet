@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional_internal.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
@@ -74,8 +75,9 @@ abstract class IdentityStoreBase with Store {
       selectedIdentity.map((identity) => identity.address).orElse('');
 
   @computed
-  String get myBalance =>
-      selectedIdentity.map((identity) => identity.point).orElse('0.00');
+  Amount get myBalance => selectedIdentity
+      .map((identity) => identity.balance)
+      .orElse(Amount.zero());
 
   void _identitiesSort() {
     identities.sort(
@@ -146,7 +148,7 @@ abstract class IdentityStoreBase with Store {
                 address: selectedIdentity.value.address)
             .then((twBalance) {
           updateSelectedIdentity(selectedIdentity.value
-              .rebuild((identity) => identity..point = twBalance.humanBalance));
+              .rebuild((identity) => identity..balance = twBalance.amount));
           return twBalance;
         });
       }

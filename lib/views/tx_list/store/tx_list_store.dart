@@ -27,7 +27,7 @@ abstract class _TxListStore with Store {
 
   @action
   Future fetchList(String myAddress) async {
-    final future = _client.listTx(myAddress);
+    final future = _client.fetchTxList(myAddress);
     listFuture = ObservableFuture(future);
 
     try {

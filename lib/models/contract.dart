@@ -1,17 +1,26 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:tw_wallet_ui/models/serializer.dart';
 
 part 'contract.g.dart';
 
-@JsonSerializable()
-class ContractModel {
-  final String name;
-  final String address;
-  final String abi;
+abstract class Contract extends Object
+    implements Built<Contract, ContractBuilder> {
+  static Serializer<Contract> get serializer => _$contractSerializer;
 
-  // EthereumAddress get ethAddress => EthereumAddress.fromHex('0x$address');
+  String get name;
+  String get address;
+  String get abi;
 
-  factory ContractModel.fromJson(Map<String, dynamic> json) =>
-      _$ContractModelFromJson(json);
-  ContractModel(this.name, this.address, this.abi);
-  Map<String, dynamic> toJson() => _$ContractModelToJson(this);
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this);
+  }
+
+  factory Contract.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(Contract));
+  }
+
+  factory Contract([void Function(ContractBuilder) updates]) = _$Contract;
+  Contract._();
 }

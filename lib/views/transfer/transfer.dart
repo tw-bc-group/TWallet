@@ -34,7 +34,7 @@ class TransferPageState extends State<TransferPage> {
   void initState() {
     super.initState();
     identity = identityStore.selectedIdentity.value;
-    balance = double.parse(identity.point);
+    balance = identity.balance.value.toDouble();
   }
 
   void handleAmountChange(String value) {
@@ -56,7 +56,9 @@ class TransferPageState extends State<TransferPage> {
   }
 
   bool validateFields() {
-    var amountValid = transferAmount != null && transferAmount <= balance && transferAmount > 0;
+    var amountValid = transferAmount != null &&
+        transferAmount <= balance &&
+        transferAmount > 0;
     var addressValid =
         transferToAddress != null && Address.validateFormat(transferToAddress);
     setState(() {
@@ -100,7 +102,8 @@ class TransferPageState extends State<TransferPage> {
               child: SizedBox(
                   width: 230,
                   child: TextField(
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: <TextInputFormatter>[
                       WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
                     ],

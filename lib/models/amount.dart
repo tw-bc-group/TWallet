@@ -1,16 +1,55 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
 import 'package:tw_wallet_ui/global/common/util.dart';
 
+const AMOUNT_PRECISION = 18;
+
 class Amount {
-  static Decimal parse(String num, int precision) {
-    return Decimal.parse(num) / Decimal.fromInt(10).pow(precision);
+  const Amount(this.value);
+  final Decimal value;
+
+  Decimal get original => value * Decimal.fromInt(10).pow(AMOUNT_PRECISION);
+  String get humanReadable => formatDecimal(value, 2);
+
+  String get humanReadableWithFlag {
+    if (!value.isNegative) {
+      return '+$humanReadable';
+    }
+    return humanReadable;
   }
 
-  static Decimal original(Decimal num, int precision) {
-    return num * Decimal.fromInt(10).pow(precision);
+  @override
+  String toString() {
+    return humanReadable;
   }
 
-  static String readableAmount(Decimal num) {
-    return formatDecimal(num, 2);
+  factory Amount.zero() {
+    return Amount(Decimal.zero);
   }
+
+  factory Amount.parse(String value) {
+    return Amount(
+        Decimal.parse(value) / Decimal.fromInt(10).pow(AMOUNT_PRECISION));
+  }
+}
+
+class AmountSerializer implements PrimitiveSerializer<Amount> {
+  @override
+  Amount deserialize(Serializers serializers, Object serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    return Amount.parse(serialized as String);
+  }
+
+  @override
+  Object serialize(Serializers serializers, Amount amount,
+      {FullType specifiedType = FullType.unspecified}) {
+    return amount.toString();
+  }
+
+  @override
+  Iterable<Type> get types => BuiltList<Type>([Amount]);
+
+  @override
+  String get wireName => 'Amount';
 }

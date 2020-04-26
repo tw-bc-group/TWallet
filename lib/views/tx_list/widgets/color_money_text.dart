@@ -1,12 +1,11 @@
-import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
-import 'package:tw_wallet_ui/views/tx_list/utils/amount.dart';
 
 class ColorMoneyText extends StatelessWidget {
   static const FONT_SIZE = 14.7;
 
-  final Decimal amount;
+  final Amount amount;
   final TxStatus status;
   final bool isExpense;
 
@@ -16,7 +15,7 @@ class ColorMoneyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-          text: parseAmount(amount),
+          text: amount.humanReadableWithFlag,
           style: TextStyle(color: _toColor(status), fontSize: FONT_SIZE)),
     );
   }

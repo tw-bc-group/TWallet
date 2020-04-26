@@ -1,20 +1,37 @@
-enum TxStatus { succeeded, transferring, failed }
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
-const TxStatusSucceededStr = "succeeded";
-const TxStatusTransferringStr = "transferring";
-const TxStatusFailedStr = "failed";
+part 'tx_status.g.dart';
 
-const TxStatusFromString = {
-  TxStatusSucceededStr: TxStatus.succeeded,
-  TxStatusTransferringStr: TxStatus.transferring,
-  TxStatusFailedStr: TxStatus.failed,
-};
+class TxStatus extends EnumClass {
+  static Serializer<TxStatus> get serializer => _$txStatusSerializer;
 
-String statusNameCN(TxStatus status) {
-  final s = {
-    TxStatus.succeeded: "成功",
-    TxStatus.transferring: "处理中",
-    TxStatus.failed: "失败",
-  }[status];
-  return s;
+  //TODO: all records are successful right now; change if backend support status
+  @BuiltValueEnumConst(wireName: 'Transfer')
+  static const TxStatus succeeded = _$succeeded;
+  static const TxStatus transferring = _$transferring;
+  static const TxStatus failed = _$failed;
+
+  const TxStatus._(String name) : super(name);
+
+  static BuiltSet<TxStatus> get values => _$values;
+  static TxStatus valueOf(String name) => _$valueOf(name);
+
+  @override
+  String toString() {
+    String res = '';
+    switch (this) {
+      case TxStatus.succeeded:
+        res = '成功';
+        break;
+      case TxStatus.failed:
+        res = '失败';
+        break;
+      case TxStatus.transferring:
+        res = '处理中';
+        break;
+    }
+    return res;
+  }
 }

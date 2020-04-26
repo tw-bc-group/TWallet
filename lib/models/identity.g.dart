@@ -57,11 +57,11 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add(serializers.serialize(object.birthday,
             specifiedType: const FullType(String)));
     }
-    if (object.point != null) {
+    if (object.balance != null) {
       result
-        ..add('point')
-        ..add(serializers.serialize(object.point,
-            specifiedType: const FullType(String)));
+        ..add('balance')
+        ..add(serializers.serialize(object.balance,
+            specifiedType: const FullType(Amount)));
     }
     return result;
   }
@@ -109,9 +109,9 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.birthday = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'point':
-          result.point = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'balance':
+          result.balance = serializers.deserialize(value,
+              specifiedType: const FullType(Amount)) as Amount;
           break;
       }
     }
@@ -138,7 +138,7 @@ class _$Identity extends Identity {
   @override
   final String birthday;
   @override
-  final String point;
+  final Amount balance;
   String __address;
   String __did;
   Optional<Avataaar> __avataaar;
@@ -155,7 +155,7 @@ class _$Identity extends Identity {
       this.phone,
       this.email,
       this.birthday,
-      this.point})
+      this.balance})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
@@ -196,7 +196,7 @@ class _$Identity extends Identity {
         phone == other.phone &&
         email == other.email &&
         birthday == other.birthday &&
-        point == other.point;
+        balance == other.balance;
   }
 
   @override
@@ -214,7 +214,7 @@ class _$Identity extends Identity {
                     phone.hashCode),
                 email.hashCode),
             birthday.hashCode),
-        point.hashCode));
+        balance.hashCode));
   }
 
   @override
@@ -228,7 +228,7 @@ class _$Identity extends Identity {
           ..add('phone', phone)
           ..add('email', email)
           ..add('birthday', birthday)
-          ..add('point', point))
+          ..add('balance', balance))
         .toString();
   }
 }
@@ -268,9 +268,9 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String get birthday => _$this._birthday;
   set birthday(String birthday) => _$this._birthday = birthday;
 
-  String _point;
-  String get point => _$this._point;
-  set point(String point) => _$this._point = point;
+  Amount _balance;
+  Amount get balance => _$this._balance;
+  set balance(Amount balance) => _$this._balance = balance;
 
   IdentityBuilder();
 
@@ -284,7 +284,7 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
       _phone = _$v.phone;
       _email = _$v.email;
       _birthday = _$v.birthday;
-      _point = _$v.point;
+      _balance = _$v.balance;
       _$v = null;
     }
     return this;
@@ -315,7 +315,7 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
             phone: phone,
             email: email,
             birthday: birthday,
-            point: point);
+            balance: balance);
     replace(_$result);
     return _$result;
   }

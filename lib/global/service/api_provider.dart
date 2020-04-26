@@ -1,8 +1,8 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/service/api_response.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
@@ -20,11 +20,10 @@ class ApiProvider {
     });
   }
 
-  Future<ContractModel> fetchContractAbiV1(
-      {@required String contractName}) async {
+  Future<Contract> fetchContractAbiV1({@required String contractName}) async {
     return _dio.get('/v1/contracts/$contractName').then((response) {
-      final ApiResponse data = ApiResponse.fromJson(response.data);
-      return Future.value(ContractModel.fromJson(data.result));
+      return Future.value(
+          ApiResponseNew.fromJson(response.data, [FullType(Contract)]).result);
     });
   }
 
@@ -48,23 +47,19 @@ class ApiProvider {
     });
   }
 
-  Future<List<Transaction>> listTx(String fromAddress) async {
-    var resp;
-    try {
-      resp = await _dio.get("/v1/transactions?from_addr=" + fromAddress);
-    } catch (e) {
-      print(e);
-    }
-
-    final ApiResponse<List<dynamic>> data =
-        ApiResponse<List<dynamic>>.fromJson(resp.data);
-    return Future(
-        () => data.result.map((tx) => Transaction.fromJson(tx)).toList());
+  Future<List<Transaction>> fetchTxList(String fromAddress) async {
+    return _dio.get('/v1/transactions?from_addr=$fromAddress').then((response) {
+      return Future.value(ApiResponseNew.fromJson(response.data, [
+        FullType(BuiltList, [FullType(Transaction)])
+      ]).result.toList());
+    });
   }
 
   Future<Transaction> fetchTxDetails({@required String txHash}) async {
-    final resp = await _dio.get('/v1/transactions/' + txHash);
-    final ApiResponse data = ApiResponse.fromJson(resp.data);
-    return data.result;
+    return _dio.get('/v1/transactions/' + txHash).then((response) {
+      return Future.value(
+          ApiResponseNew.fromJson(response.data, [FullType(Transaction)])
+              .result);
+    });
   }
 }

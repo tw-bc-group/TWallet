@@ -6,53 +6,7 @@ part of 'tw_balance.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<TwPoint> _$twPointSerializer = new _$TwPointSerializer();
 Serializer<TwBalance> _$twBalanceSerializer = new _$TwBalanceSerializer();
-
-class _$TwPointSerializer implements StructuredSerializer<TwPoint> {
-  @override
-  final Iterable<Type> types = const [TwPoint, _$TwPoint];
-  @override
-  final String wireName = 'TwPoint';
-
-  @override
-  Iterable<Object> serialize(Serializers serializers, TwPoint object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'decimal',
-      serializers.serialize(object.decimal, specifiedType: const FullType(int)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  TwPoint deserialize(Serializers serializers, Iterable<Object> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new TwPointBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final dynamic value = iterator.current;
-      switch (key) {
-        case 'decimal':
-          result.decimal = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
 
 class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
   @override
@@ -65,11 +19,8 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'balance',
-      serializers.serialize(object.balance,
-          specifiedType: const FullType(String)),
-      'twpoint',
-      serializers.serialize(object.twPoint,
-          specifiedType: const FullType(TwPoint)),
+      serializers.serialize(object.amount,
+          specifiedType: const FullType(Amount)),
     ];
 
     return result;
@@ -87,12 +38,8 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
       final dynamic value = iterator.current;
       switch (key) {
         case 'balance':
-          result.balance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'twpoint':
-          result.twPoint.replace(serializers.deserialize(value,
-              specifiedType: const FullType(TwPoint)) as TwPoint);
+          result.amount = serializers.deserialize(value,
+              specifiedType: const FullType(Amount)) as Amount;
           break;
       }
     }
@@ -101,119 +48,26 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
   }
 }
 
-class _$TwPoint extends TwPoint {
-  @override
-  final int decimal;
-  @override
-  final String name;
-
-  factory _$TwPoint([void Function(TwPointBuilder) updates]) =>
-      (new TwPointBuilder()..update(updates)).build();
-
-  _$TwPoint._({this.decimal, this.name}) : super._() {
-    if (decimal == null) {
-      throw new BuiltValueNullFieldError('TwPoint', 'decimal');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('TwPoint', 'name');
-    }
-  }
-
-  @override
-  TwPoint rebuild(void Function(TwPointBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  TwPointBuilder toBuilder() => new TwPointBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is TwPoint && decimal == other.decimal && name == other.name;
-  }
-
-  @override
-  int get hashCode {
-    return $jf($jc($jc(0, decimal.hashCode), name.hashCode));
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('TwPoint')
-          ..add('decimal', decimal)
-          ..add('name', name))
-        .toString();
-  }
-}
-
-class TwPointBuilder implements Builder<TwPoint, TwPointBuilder> {
-  _$TwPoint _$v;
-
-  int _decimal;
-  int get decimal => _$this._decimal;
-  set decimal(int decimal) => _$this._decimal = decimal;
-
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
-
-  TwPointBuilder();
-
-  TwPointBuilder get _$this {
-    if (_$v != null) {
-      _decimal = _$v.decimal;
-      _name = _$v.name;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(TwPoint other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
-    _$v = other as _$TwPoint;
-  }
-
-  @override
-  void update(void Function(TwPointBuilder) updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  _$TwPoint build() {
-    final _$result = _$v ?? new _$TwPoint._(decimal: decimal, name: name);
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$TwBalance extends TwBalance {
   @override
-  final String balance;
-  @override
-  final TwPoint twPoint;
-  Decimal __realBalance;
-  String __humanBalance;
+  final Amount amount;
+  Decimal __original;
+  String __humanReadable;
 
   factory _$TwBalance([void Function(TwBalanceBuilder) updates]) =>
       (new TwBalanceBuilder()..update(updates)).build();
 
-  _$TwBalance._({this.balance, this.twPoint}) : super._() {
-    if (balance == null) {
-      throw new BuiltValueNullFieldError('TwBalance', 'balance');
-    }
-    if (twPoint == null) {
-      throw new BuiltValueNullFieldError('TwBalance', 'twPoint');
+  _$TwBalance._({this.amount}) : super._() {
+    if (amount == null) {
+      throw new BuiltValueNullFieldError('TwBalance', 'amount');
     }
   }
 
   @override
-  Decimal get realBalance => __realBalance ??= super.realBalance;
+  Decimal get original => __original ??= super.original;
 
   @override
-  String get humanBalance => __humanBalance ??= super.humanBalance;
+  String get humanReadable => __humanReadable ??= super.humanReadable;
 
   @override
   TwBalance rebuild(void Function(TwBalanceBuilder) updates) =>
@@ -225,21 +79,17 @@ class _$TwBalance extends TwBalance {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TwBalance &&
-        balance == other.balance &&
-        twPoint == other.twPoint;
+    return other is TwBalance && amount == other.amount;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, balance.hashCode), twPoint.hashCode));
+    return $jf($jc(0, amount.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TwBalance')
-          ..add('balance', balance)
-          ..add('twPoint', twPoint))
+    return (newBuiltValueToStringHelper('TwBalance')..add('amount', amount))
         .toString();
   }
 }
@@ -247,20 +97,15 @@ class _$TwBalance extends TwBalance {
 class TwBalanceBuilder implements Builder<TwBalance, TwBalanceBuilder> {
   _$TwBalance _$v;
 
-  String _balance;
-  String get balance => _$this._balance;
-  set balance(String balance) => _$this._balance = balance;
-
-  TwPointBuilder _twPoint;
-  TwPointBuilder get twPoint => _$this._twPoint ??= new TwPointBuilder();
-  set twPoint(TwPointBuilder twPoint) => _$this._twPoint = twPoint;
+  Amount _amount;
+  Amount get amount => _$this._amount;
+  set amount(Amount amount) => _$this._amount = amount;
 
   TwBalanceBuilder();
 
   TwBalanceBuilder get _$this {
     if (_$v != null) {
-      _balance = _$v.balance;
-      _twPoint = _$v.twPoint?.toBuilder();
+      _amount = _$v.amount;
       _$v = null;
     }
     return this;
@@ -281,21 +126,7 @@ class TwBalanceBuilder implements Builder<TwBalance, TwBalanceBuilder> {
 
   @override
   _$TwBalance build() {
-    _$TwBalance _$result;
-    try {
-      _$result =
-          _$v ?? new _$TwBalance._(balance: balance, twPoint: twPoint.build());
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'twPoint';
-        twPoint.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'TwBalance', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ?? new _$TwBalance._(amount: amount);
     replace(_$result);
     return _$result;
   }
