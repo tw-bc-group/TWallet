@@ -7,8 +7,7 @@ import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
-void main() {
-  getItInit(isTest: true);
+void main() { getItInit(isTest: true);
 
   final _dio = getIt<Dio>();
   final _apiProvider = getIt<ApiProvider>();
