@@ -9,19 +9,21 @@ class CommonLayout extends StatelessWidget {
   final String btnText;
   final Function btnOnPressed;
   final String title;
+  final String bodyBackColor;
 
   CommonLayout({
     this.child, 
     this.withBottomBtn = false,
     this.btnText = '完成',
     this.btnOnPressed,
-    this.title
+    this.title,
+    this.bodyBackColor = '#f2f2f2',
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WalletTheme.rgbColor('#f2f2f2'),
+      backgroundColor: WalletTheme.rgbColor(bodyBackColor),
       appBar: AppBar(
         backgroundColor: WalletTheme.rgbColor('#fafafa'),
         brightness: Brightness.dark,
@@ -39,7 +41,7 @@ class CommonLayout extends StatelessWidget {
       body: SafeArea(
         maintainBottomViewPadding: true,
         child: Container(
-          decoration: BoxDecoration(color: WalletTheme.rgbColor('#f2f2f2')),
+          decoration: BoxDecoration(color: WalletTheme.rgbColor(bodyBackColor)),
           child: Column(
             children: <Widget>[
               Expanded(child: child),

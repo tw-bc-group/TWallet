@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
+import 'package:tw_wallet_ui/views/certificate/certificate.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
@@ -89,5 +90,12 @@ var transferResultHandler = Handler(
     var amount = params['amount'].first;
     var toAddress = params['toAddress'].first;
     return TransferResultPage(amount: amount, toAddress: toAddress);
+  },
+);
+
+var certificateHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    var id = params['id'].first;
+    return CertificatePage(id: id);
   },
 );

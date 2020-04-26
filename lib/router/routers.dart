@@ -16,6 +16,7 @@ class Routes {
   static final String txListDetails = "/tx_list_details";
   static final String transferConfirm = '/transfer_confirm';
   static final String transferResult = '/transfer_result';
+  static final String certificate = '/certificate';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -29,7 +30,8 @@ class Routes {
     txList: txListHandler,
     txListDetails: txListDetailsHandler,
     transferConfirm: transferConfirmHandler,
-    transferResult: transferResultHandler
+    transferResult: transferResultHandler,
+    certificate: certificateHandler,
   };
 
   static void configureRoutes(Router router) {
