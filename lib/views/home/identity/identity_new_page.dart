@@ -57,7 +57,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
       body: SafeArea(
           child: ModalProgressHUD(
               inAsyncCall: _isInAsyncCall,
-              progressIndicator: CircularProgressIndicator(),
+              progressIndicator: CircularProgressIndicator(
+                  backgroundColor: WalletTheme.mainBgColor),
               child: Container(
                   color: WalletTheme.mainBgColor,
                   child: Column(children: <Widget>[

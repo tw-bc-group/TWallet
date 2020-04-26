@@ -37,12 +37,8 @@ class PointTab extends StatelessWidget {
   @override
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
-        final ObservableFuture<TwBalance> future = _store.futureStream.value;
-
-        //TODO:
-        if (future == null) {
-          return Container();
-        }
+        final ObservableFuture<TwBalance> future =
+            _store.fetchBalanceFutureStream.value;
 
         switch (future.status) {
           case FutureStatus.pending:

@@ -15,7 +15,7 @@ class TokenTab extends StatelessWidget {
   @override
   // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
-        final future = _store.futureStream.value;
+        final future = _store.fetchBalanceFutureStream.value;
 
         if (future == null) {
           return Container();

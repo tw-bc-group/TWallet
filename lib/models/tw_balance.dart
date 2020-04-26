@@ -24,14 +24,16 @@ abstract class TwBalance extends Object
   factory TwBalance([void Function(TwBalanceBuilder) updates]) = _$TwBalance;
   TwBalance._();
 
+  factory TwBalance.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(TwBalance));
+  }
+
   static Future<TwBalance> fetchBalance({String address}) async {
     ApiProvider apiProvider = getIt<ApiProvider>();
     print('fetchPoint, address: $address');
     return apiProvider.fetchPointV1(address: address);
   }
 
-  factory TwBalance.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(TwBalance));
-  }
+  static TwBalance zero = TwBalance((builder) => builder.amount = Amount.zero);
 }

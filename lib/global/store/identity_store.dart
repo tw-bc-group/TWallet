@@ -28,7 +28,8 @@ abstract class IdentityStoreBase with Store {
   IdentityStoreBase(this.identities, int selectedIndex) {
     searchName = '';
     _streamController = StreamController();
-    futureStream = ObservableStream(_streamController.stream);
+    fetchBalanceFutureStream = ObservableStream(_streamController.stream,
+        initialValue: ObservableFuture(Future.value(TwBalance.zero)));
     _identitiesSort();
     selectIdentity(index: selectedIndex);
   }
@@ -58,7 +59,7 @@ abstract class IdentityStoreBase with Store {
 
   StreamController<ObservableFuture<TwBalance>> _streamController;
 
-  ObservableStream<ObservableFuture<TwBalance>> futureStream;
+  ObservableStream<ObservableFuture<TwBalance>> fetchBalanceFutureStream;
 
   @computed
   Optional<Identity> get selectedIdentity =>
@@ -75,9 +76,8 @@ abstract class IdentityStoreBase with Store {
       selectedIdentity.map((identity) => identity.address).orElse('');
 
   @computed
-  Amount get myBalance => selectedIdentity
-      .map((identity) => identity.balance)
-      .orElse(Amount.zero());
+  Amount get myBalance =>
+      selectedIdentity.map((identity) => identity.balance).orElse(Amount.zero);
 
   void _identitiesSort() {
     identities.sort(

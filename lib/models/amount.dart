@@ -24,14 +24,12 @@ class Amount {
     return humanReadable;
   }
 
-  factory Amount.zero() {
-    return Amount(Decimal.zero);
-  }
-
   factory Amount.parse(String value) {
     return Amount(
         Decimal.parse(value) / Decimal.fromInt(10).pow(AMOUNT_PRECISION));
   }
+
+  static Amount zero = Amount(Decimal.zero);
 }
 
 class AmountSerializer implements PrimitiveSerializer<Amount> {
