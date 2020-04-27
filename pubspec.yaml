@@ -43,7 +43,6 @@ dependencies:
   optional: ^4.1.0
   json_store: ^1.0.3
   more: ^2.2.0
-  modal_progress_hud: ^0.1.3
   uuid: 2.0.4
   date_format: ^1.0.8
   web3dart: ^2.0.0-dev.6
