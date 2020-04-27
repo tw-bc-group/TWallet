@@ -6,6 +6,8 @@
 # stash any unstaged changes
 git stash -q --keep-index
 
+flutter packages pub run build_runner build --delete-conflicting-outputs
+
 # run Flutter analyze + test
 flutter analyze
 
@@ -15,14 +17,13 @@ if [ $? -ne 0 ]; then
         exit 1
 fi
 
-# flutter test
+flutter test
 
-
-#if [ $? -ne 0 ]; then
+if [ $? -ne 0 ]; then
         # unstash the unstashed changes
-#        git stash pop -q
-#        exit 1
-#fi
+        git stash pop -q
+        exit 1
+fi
 
 # unstash the unstashed changes
 git stash pop -q
