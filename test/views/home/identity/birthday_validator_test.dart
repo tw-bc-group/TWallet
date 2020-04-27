@@ -5,6 +5,7 @@ void main() {
   final formats = {
     "9999-20-99": false,
     "2020-20-01": false,
+    "999999-01-40": false,
     "2020-01-40": false,
     "01-01-01": false,
     "0001-1-1": false,
