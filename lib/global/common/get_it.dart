@@ -34,7 +34,7 @@ void getItInit({@required bool isTest}) {
       }
       ..interceptors.add(InterceptorsWrapper(onResponse: (Response response) {
         print(response.statusCode);
-        // print(response.data);
+        print(response.data);
         return response;
       })));
 
