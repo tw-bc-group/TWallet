@@ -9,7 +9,8 @@ class Amount {
   final Decimal value;
 
   Decimal get original => value * Decimal.fromInt(10).pow(AMOUNT_PRECISION);
-  String get humanReadable => formatDecimal(value, AMOUNT_PRECISION);
+  String get humanReadable =>
+      formatDecimal(value, AMOUNT_HUMAN_READABLE_PRECISION);
 
   String get humanReadableWithSign {
     if (!value.isNegative) {
