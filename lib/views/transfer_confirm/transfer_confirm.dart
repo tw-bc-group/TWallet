@@ -5,6 +5,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/confirm_row.dart';
@@ -45,9 +46,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
       var transferSuccess = await identityStore.selectedIdentity.value
           .transferPoint(
               toAddress: toAddress,
-              point: BigInt.parse((Decimal.parse(amount.toString()) *
-                      Decimal.fromInt(10).pow(18))
-                  .toString()));
+              amount: Amount(Decimal.parse(amount.toString())));
       setState(() {
         isLoading = false;
       });

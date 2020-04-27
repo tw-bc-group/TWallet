@@ -58,12 +58,12 @@ abstract class Identity extends Object
     });
   }
 
-  Future<bool> transferPoint({String toAddress, BigInt point}) async {
+  Future<bool> transferPoint({String toAddress, Amount amount}) async {
     return getIt<ContractService>()
         .twPointContract
         .signContractCall(priKey, 'transfer', [
       EthereumAddress.fromHex(toAddress),
-      point,
+      BigInt.parse(amount.original.toString()),
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
           .transferPoint(address, pubKey, signedRawTx)
