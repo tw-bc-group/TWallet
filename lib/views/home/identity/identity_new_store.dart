@@ -4,6 +4,7 @@ import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/views/home/identity/date_validator.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
 
@@ -93,7 +94,8 @@ abstract class _IdentityNewStore with Store {
 
   @action
   void validateBirthday(String value) {
-    error.birthday = value != null ? isDate(value) ? null : '不是有效的日期' : null;
+    error.birthday =
+    value != null ? isValidDate(value) ? null : '不是有效的日期' : null;
   }
 
   @action
