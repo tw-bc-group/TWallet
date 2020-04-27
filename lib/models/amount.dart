@@ -11,7 +11,7 @@ class Amount {
   Decimal get original => value * Decimal.fromInt(10).pow(AMOUNT_PRECISION);
   String get humanReadable => formatDecimal(value, 2);
 
-  String get humanReadableWithFlag {
+  String get humanReadableWithSign {
     if (!value.isNegative) {
       return '+$humanReadable';
     }

@@ -13,12 +13,12 @@ void main() {
 
     test('Amount human readable with flag should be +1.00', () {
       expect(
-          Amount.parse('1000000000000000000').humanReadableWithFlag, '+1.00');
+          Amount.parse('1000000000000000000').humanReadableWithSign, '+1.00');
     });
 
     test('Amount human readable with flag should be -1.00', () {
       expect(
-          Amount.parse('-1000000000000000000').humanReadableWithFlag, '-1.00');
+          Amount.parse('-1000000000000000000').humanReadableWithSign, '-1.00');
     });
   });
 }

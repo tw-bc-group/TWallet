@@ -31,7 +31,7 @@ class _TxListPageState extends State<TxListPage> {
     Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
           amount:
-              _amountWithSignal(ie, item.amount.value).humanReadableWithFlag,
+              _amountWithSignal(ie, item.amount.value).humanReadableWithSign,
           time: parseDate(item.createTime),
           status: item.txType.toString(),
           fromAddress: item.fromAddress,

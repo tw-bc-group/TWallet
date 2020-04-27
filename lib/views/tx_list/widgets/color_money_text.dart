@@ -15,7 +15,7 @@ class ColorMoneyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-          text: amount.humanReadableWithFlag,
+          text: amount.humanReadableWithSign,
           style: TextStyle(color: _toColor(status), fontSize: FONT_SIZE)),
     );
   }
