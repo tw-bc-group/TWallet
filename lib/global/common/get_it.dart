@@ -2,12 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tw_wallet_ui/global/common/http/http.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
-
-import 'env.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -19,24 +18,7 @@ void getItInit({@required bool isTest}) {
   if (isTest) {
     getIt.registerSingleton<Dio>(MockDio());
   } else {
-    getIt.registerSingleton<Dio>(Dio()
-      ..options.baseUrl = API_GATEWAY_BASE_URL
-      ..options.connectTimeout = API_GATEWAY_CONNECT_TIMEOUT
-      ..options.validateStatus = (statusCode) {
-        switch (statusCode) {
-          case 404:
-          case 405:
-          case 502:
-            return false;
-          default:
-            return true;
-        }
-      }
-      ..interceptors.add(InterceptorsWrapper(onResponse: (Response response) {
-        print(response.statusCode);
-        print(response.data);
-        return response;
-      })));
+    getIt.registerSingleton<Dio>(Http.init());
 
     getIt
         .registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);

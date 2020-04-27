@@ -14,14 +14,14 @@ class ApiProvider {
   final Dio _dio = getIt<Dio>();
 
   Future<TwBalance> fetchPointV1({@required String address}) async {
-    return _dio.get('/v1/tw-points/' + address).then((response) {
+    return _dio.get('/v1/tw-points/' + address, options: Options(extra: { 'withoutLoading': true })).then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(TwBalance)]).result);
     });
   }
 
   Future<Contract> fetchContractAbiV1({@required String contractName}) async {
-    return _dio.get('/v1/contracts/$contractName').then((response) {
+    return _dio.get('/v1/contracts/$contractName', options: Options(extra: { 'withoutLoading': true })).then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(Contract)]).result);
     });
