@@ -6,19 +6,19 @@ part of 'api_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ApiResponseNew<Object>> _$apiResponseNewSerializer =
+Serializer<ApiResponse<Object>> _$apiResponseNewSerializer =
     new _$ApiResponseNewSerializer();
 
 class _$ApiResponseNewSerializer
-    implements StructuredSerializer<ApiResponseNew<Object>> {
+    implements StructuredSerializer<ApiResponse<Object>> {
   @override
-  final Iterable<Type> types = const [ApiResponseNew, _$ApiResponseNew];
+  final Iterable<Type> types = const [ApiResponse, _$ApiResponseNew];
   @override
   final String wireName = 'ApiResponseNew';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, ApiResponseNew<Object> object,
+      Serializers serializers, ApiResponse<Object> object,
       {FullType specifiedType = FullType.unspecified}) {
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
@@ -40,7 +40,7 @@ class _$ApiResponseNewSerializer
   }
 
   @override
-  ApiResponseNew<Object> deserialize(
+  ApiResponse<Object> deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final isUnderspecified =
@@ -78,7 +78,7 @@ class _$ApiResponseNewSerializer
   }
 }
 
-class _$ApiResponseNew<T> extends ApiResponseNew<T> {
+class _$ApiResponseNew<T> extends ApiResponse<T> {
   @override
   final int code;
   @override
@@ -105,7 +105,7 @@ class _$ApiResponseNew<T> extends ApiResponseNew<T> {
   }
 
   @override
-  ApiResponseNew<T> rebuild(void Function(ApiResponseNewBuilder<T>) updates) =>
+  ApiResponse<T> rebuild(void Function(ApiResponseNewBuilder<T>) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -115,7 +115,7 @@ class _$ApiResponseNew<T> extends ApiResponseNew<T> {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ApiResponseNew &&
+    return other is ApiResponse &&
         code == other.code &&
         message == other.message &&
         result == other.result;
@@ -138,7 +138,7 @@ class _$ApiResponseNew<T> extends ApiResponseNew<T> {
 }
 
 class ApiResponseNewBuilder<T>
-    implements Builder<ApiResponseNew<T>, ApiResponseNewBuilder<T>> {
+    implements Builder<ApiResponse<T>, ApiResponseNewBuilder<T>> {
   _$ApiResponseNew<T> _$v;
 
   int _code;
@@ -166,7 +166,7 @@ class ApiResponseNewBuilder<T>
   }
 
   @override
-  void replace(ApiResponseNew<T> other) {
+  void replace(ApiResponse<T> other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }

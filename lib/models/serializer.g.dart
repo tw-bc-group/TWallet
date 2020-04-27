@@ -7,7 +7,7 @@ part of 'serializer.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(ApiResponseNew.serializer)
+      ..add(ApiResponse.serializer)
       ..add(Contract.serializer)
       ..add(Identity.serializer)
       ..add(Transaction.serializer)

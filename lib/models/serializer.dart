@@ -14,22 +14,22 @@ import 'identity.dart';
 part 'serializer.g.dart';
 
 @SerializersFor(
-    [ApiResponseNew, Contract, Identity, Transaction, TwBalance, TxStatus])
+    [ApiResponse, Contract, Identity, Transaction, TwBalance, TxStatus])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())
       ..add(AmountSerializer())
       ..addBuilderFactory(FullType(BuiltList, [FullType(Transaction)]),
           () => ListBuilder<Transaction>())
-      ..addBuilderFactory(FullType(ApiResponseNew, [FullType(Contract)]),
+      ..addBuilderFactory(FullType(ApiResponse, [FullType(Contract)]),
           () => ApiResponseNewBuilder<Contract>())
-      ..addBuilderFactory(FullType(ApiResponseNew, [FullType(Transaction)]),
+      ..addBuilderFactory(FullType(ApiResponse, [FullType(Transaction)]),
           () => ApiResponseNewBuilder<Transaction>())
       ..addBuilderFactory(
-          FullType(ApiResponseNew, [
+          FullType(ApiResponse, [
             FullType(BuiltList, [FullType(Transaction)])
           ]),
           () => ApiResponseNewBuilder<BuiltList<Transaction>>())
-      ..addBuilderFactory(FullType(ApiResponseNew, [FullType(TwBalance)]),
+      ..addBuilderFactory(FullType(ApiResponse, [FullType(TwBalance)]),
           () => ApiResponseNewBuilder<TwBalance>())
       ..addPlugin(StandardJsonPlugin()))
     .build();

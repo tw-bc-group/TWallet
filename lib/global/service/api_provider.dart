@@ -16,14 +16,14 @@ class ApiProvider {
   Future<TwBalance> fetchPointV1({@required String address}) async {
     return _dio.get('/v1/tw-points/' + address).then((response) {
       return Future.value(
-          ApiResponseNew.fromJson(response.data, [FullType(TwBalance)]).result);
+          ApiResponse.fromJson(response.data, [FullType(TwBalance)]).result);
     });
   }
 
   Future<Contract> fetchContractAbiV1({@required String contractName}) async {
     return _dio.get('/v1/contracts/$contractName').then((response) {
       return Future.value(
-          ApiResponseNew.fromJson(response.data, [FullType(Contract)]).result);
+          ApiResponse.fromJson(response.data, [FullType(Contract)]).result);
     });
   }
 
@@ -49,7 +49,7 @@ class ApiProvider {
 
   Future<List<Transaction>> fetchTxList(String fromAddress) async {
     return _dio.get('/v1/transactions?from_addr=$fromAddress').then((response) {
-      return Future.value(ApiResponseNew.fromJson(response.data, [
+      return Future.value(ApiResponse.fromJson(response.data, [
         FullType(BuiltList, [FullType(Transaction)])
       ]).result.toList());
     });
@@ -58,8 +58,7 @@ class ApiProvider {
   Future<Transaction> fetchTxDetails({@required String txHash}) async {
     return _dio.get('/v1/transactions/' + txHash).then((response) {
       return Future.value(
-          ApiResponseNew.fromJson(response.data, [FullType(Transaction)])
-              .result);
+          ApiResponse.fromJson(response.data, [FullType(Transaction)]).result);
     });
   }
 }
