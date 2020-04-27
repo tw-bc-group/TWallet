@@ -1,9 +1,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
+import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/util.dart';
-
-const AMOUNT_PRECISION = 18;
 
 class Amount {
   const Amount(this.value);
