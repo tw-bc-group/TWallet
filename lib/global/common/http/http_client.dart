@@ -21,12 +21,12 @@ class HttpClient {
     ..interceptors.add(LoadingInterceptor())
     ..interceptors.add(LogInterceptor());
 
-  Future<Response> get(String url, {bool loading: false}) async {
+  Future<Response> get(String url, {bool loading: true}) async {
     return _dio.get(url, options: Options(extra: {'withoutLoading': !loading}));
   }
 
   Future<Response> post(String url, Map<String, dynamic> data,
-      {bool loading: false}) async {
+      {bool loading: true}) async {
     return _dio.post(url,
         options: Options(extra: {'withoutLoading': !loading}), data: data);
   }
