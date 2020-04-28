@@ -26,7 +26,7 @@ class CommonLayout extends StatelessWidget {
       backgroundColor: WalletTheme.rgbColor(bodyBackColor),
       appBar: AppBar(
         backgroundColor: WalletTheme.rgbColor('#fafafa'),
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         title: PageTitleWidget(title: title),
         textTheme: Theme.of(context).textTheme.apply(
           bodyColor: Colors.black,

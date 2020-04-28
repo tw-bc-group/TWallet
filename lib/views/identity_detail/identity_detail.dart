@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -28,8 +26,6 @@ class IdentityDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(WalletTheme.rgbColor('#fafafa'));
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     var identity = getIdentity();
     return CommonLayout(
       title: '个人信息',

@@ -5,7 +5,6 @@ import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 class LoadingInterceptor extends InterceptorsWrapper {
 
   static int requestNum = 0;
-  static dynamic context;
   YYDialog dialogInstance;
 
   @override

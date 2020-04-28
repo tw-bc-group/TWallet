@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
-import 'package:tw_wallet_ui/global/common/http/loading_interceptor.dart';
 
 import 'assets/assets_page.dart';
 import 'discovery/discovery.dart';
@@ -47,7 +46,6 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    LoadingInterceptor.context = context;
     YYDialog.init(context);
     return Scaffold(
       body: Observer(
