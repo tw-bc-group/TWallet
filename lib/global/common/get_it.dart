@@ -1,8 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tw_wallet_ui/global/common/http/http.dart';
+import 'package:tw_wallet_ui/global/common/http/http_client.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
@@ -10,15 +9,15 @@ import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 
 GetIt getIt = GetIt.instance;
 
-class MockDio extends Mock implements Dio {}
+class MockHttpClient extends Mock implements HttpClient {}
 
 void getItInit({@required bool isTest}) {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isTest) {
-    getIt.registerSingleton<Dio>(MockDio());
+    getIt.registerSingleton<HttpClient>(MockHttpClient());
   } else {
-    getIt.registerSingleton<Dio>(Http.init());
+    getIt.registerSingleton<HttpClient>(HttpClient());
 
     getIt
         .registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);

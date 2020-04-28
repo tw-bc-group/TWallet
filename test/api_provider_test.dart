@@ -2,20 +2,23 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/http/http_client.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
-void main() { getItInit(isTest: true);
+void main() {
+  getItInit(isTest: true);
 
-  final _dio = getIt<Dio>();
+  final _httpClient = getIt<HttpClient>();
+  print('_httpClient: $_httpClient');
   final _apiProvider = getIt<ApiProvider>();
   final address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 
   test('Return a Contract Instance', () async {
     final _contractName = 'test-name';
-    when(_dio.get('/v1/contracts/$_contractName'))
+    when(_httpClient.get('/v1/contracts/$_contractName', loading: false))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'OK',
@@ -32,7 +35,7 @@ void main() { getItInit(isTest: true);
 
   test('Return a TwBalance Instance', () async {
     final url = '/v1/tw-points/$address';
-    when(_dio.get(url))
+    when(_httpClient.get(url, loading: false))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',
@@ -52,7 +55,7 @@ void main() { getItInit(isTest: true);
 
   test('Return a List Of Transactions Instances', () async {
     final url = '/v1/transactions?from_addr=$address';
-    when(_dio.get(url))
+    when(_httpClient.get(url))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',
@@ -76,7 +79,7 @@ void main() { getItInit(isTest: true);
     final txHash =
         '0x13232ba90547279d00b30511ba4ca6c6f4ad08f27c22d75872d60c16fabd6ee5';
     final url = '/v1/transactions/$txHash';
-    when(_dio.get(url))
+    when(_httpClient.get(url))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',

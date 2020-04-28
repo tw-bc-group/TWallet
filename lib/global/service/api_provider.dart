@@ -3,25 +3,28 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 class ApiProvider {
-  ApiProvider();
-
-  final Dio _dio = getIt<Dio>();
+  final HttpClient _httpClient = getIt<HttpClient>();
 
   Future<TwBalance> fetchPointV1({@required String address}) async {
-    return _dio.get('/v1/tw-points/' + address, options: Options(extra: { 'withoutLoading': true })).then((response) {
+    return _httpClient
+        .get('/v1/tw-points/' + address, loading: false)
+        .then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(TwBalance)]).result);
     });
   }
 
   Future<Contract> fetchContractAbiV1({@required String contractName}) async {
-    return _dio.get('/v1/contracts/$contractName', options: Options(extra: { 'withoutLoading': true })).then((response) {
+    return _httpClient
+        .get('/v1/contracts/$contractName', loading: false)
+        .then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(Contract)]).result);
     });
@@ -29,7 +32,7 @@ class ApiProvider {
 
   Future<Response> identityRegister(String name, String publicKey,
       String address, String did, String signedRawTx) {
-    return _dio.post('/v1/identities', data: {
+    return _httpClient.post('/v1/identities', {
       'name': name,
       'publicKey': publicKey,
       'address': address,
@@ -40,7 +43,7 @@ class ApiProvider {
 
   Future<Response> transferPoint(
       String fromAddress, String publicKey, String signedRawTx) {
-    return _dio.post('/v1/tw-points/transfer', data: {
+    return _httpClient.post('/v1/tw-points/transfer', {
       'fromAddress': fromAddress,
       'fromPublicKey': publicKey,
       'signedTransactionRawData': signedRawTx
@@ -48,7 +51,9 @@ class ApiProvider {
   }
 
   Future<List<Transaction>> fetchTxList(String fromAddress) async {
-    return _dio.get('/v1/transactions?from_addr=$fromAddress').then((response) {
+    return _httpClient
+        .get('/v1/transactions?from_addr=$fromAddress')
+        .then((response) {
       return Future.value(ApiResponse.fromJson(response.data, [
         FullType(BuiltList, [FullType(Transaction)])
       ]).result.toList());
@@ -56,7 +61,7 @@ class ApiProvider {
   }
 
   Future<Transaction> fetchTxDetails({@required String txHash}) async {
-    return _dio.get('/v1/transactions/' + txHash).then((response) {
+    return _httpClient.get('/v1/transactions/' + txHash).then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(Transaction)]).result);
     });

@@ -10,7 +10,7 @@ void main() {
   group('TW Balance', () {
     test('Value should be 10000.00', () {
       final balance = TwBalance.fromJson({
-        "balance": "10000000000000000000000",
+        "balance": "1000000",
         "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}
       });
 
@@ -21,12 +21,12 @@ void main() {
 
     test('Value should be 10000.12', () {
       final balance = TwBalance.fromJson({
-        "balance": "10000126000000000000000",
+        "balance": "1000012",
         "twpoint": {"name": "TWPointERC20Token", "symbol": "TWP", "decimal": 18}
       });
 
       expect(balance.amount, isA<Amount>());
-      expect(balance.amount.value, Decimal.parse('10000.126'));
+      expect(balance.amount.value, Decimal.parse('10000.12'));
       expect(balance.humanReadable, '10000.12');
     });
 
