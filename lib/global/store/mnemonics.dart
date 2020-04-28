@@ -54,10 +54,9 @@ abstract class MnemonicsBase with Store {
 
   @action
   Future<Tuple2<String, String>> generateIdentityKeys() async {
-    Tuple2<String, String> res = BlockChainService.generateIdentityKeys(
-        BlockChainService.generateHDWallet(mnemonics), ++index);
-    await save();
-    return res;
+    return Future.value(BlockChainService.generateIdentityKeys(
+            BlockChainService.generateHDWallet(mnemonics), ++index))
+        .then((res) => save().then((_) => res));
   }
 
   @action
