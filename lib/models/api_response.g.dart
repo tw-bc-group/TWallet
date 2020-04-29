@@ -6,15 +6,15 @@ part of 'api_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ApiResponse<Object>> _$apiResponseNewSerializer =
-    new _$ApiResponseNewSerializer();
+Serializer<ApiResponse<Object>> _$apiResponseSerializer =
+    new _$ApiResponseSerializer();
 
-class _$ApiResponseNewSerializer
+class _$ApiResponseSerializer
     implements StructuredSerializer<ApiResponse<Object>> {
   @override
-  final Iterable<Type> types = const [ApiResponse, _$ApiResponseNew];
+  final Iterable<Type> types = const [ApiResponse, _$ApiResponse];
   @override
-  final String wireName = 'ApiResponseNew';
+  final String wireName = 'ApiResponse';
 
   @override
   Iterable<Object> serialize(
@@ -50,8 +50,8 @@ class _$ApiResponseNewSerializer
         isUnderspecified ? FullType.object : specifiedType.parameters[0];
 
     final result = isUnderspecified
-        ? new ApiResponseNewBuilder<Object>()
-        : serializers.newBuilder(specifiedType) as ApiResponseNewBuilder;
+        ? new ApiResponseBuilder<Object>()
+        : serializers.newBuilder(specifiedType) as ApiResponseBuilder;
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,7 +78,7 @@ class _$ApiResponseNewSerializer
   }
 }
 
-class _$ApiResponseNew<T> extends ApiResponse<T> {
+class _$ApiResponse<T> extends ApiResponse<T> {
   @override
   final int code;
   @override
@@ -86,31 +86,31 @@ class _$ApiResponseNew<T> extends ApiResponse<T> {
   @override
   final T result;
 
-  factory _$ApiResponseNew([void Function(ApiResponseNewBuilder<T>) updates]) =>
-      (new ApiResponseNewBuilder<T>()..update(updates)).build();
+  factory _$ApiResponse([void Function(ApiResponseBuilder<T>) updates]) =>
+      (new ApiResponseBuilder<T>()..update(updates)).build();
 
-  _$ApiResponseNew._({this.code, this.message, this.result}) : super._() {
+  _$ApiResponse._({this.code, this.message, this.result}) : super._() {
     if (code == null) {
-      throw new BuiltValueNullFieldError('ApiResponseNew', 'code');
+      throw new BuiltValueNullFieldError('ApiResponse', 'code');
     }
     if (message == null) {
-      throw new BuiltValueNullFieldError('ApiResponseNew', 'message');
+      throw new BuiltValueNullFieldError('ApiResponse', 'message');
     }
     if (result == null) {
-      throw new BuiltValueNullFieldError('ApiResponseNew', 'result');
+      throw new BuiltValueNullFieldError('ApiResponse', 'result');
     }
     if (T == dynamic) {
-      throw new BuiltValueMissingGenericsError('ApiResponseNew', 'T');
+      throw new BuiltValueMissingGenericsError('ApiResponse', 'T');
     }
   }
 
   @override
-  ApiResponse<T> rebuild(void Function(ApiResponseNewBuilder<T>) updates) =>
+  ApiResponse<T> rebuild(void Function(ApiResponseBuilder<T>) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ApiResponseNewBuilder<T> toBuilder() =>
-      new ApiResponseNewBuilder<T>()..replace(this);
+  ApiResponseBuilder<T> toBuilder() =>
+      new ApiResponseBuilder<T>()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -129,7 +129,7 @@ class _$ApiResponseNew<T> extends ApiResponse<T> {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ApiResponseNew')
+    return (newBuiltValueToStringHelper('ApiResponse')
           ..add('code', code)
           ..add('message', message)
           ..add('result', result))
@@ -137,9 +137,9 @@ class _$ApiResponseNew<T> extends ApiResponse<T> {
   }
 }
 
-class ApiResponseNewBuilder<T>
-    implements Builder<ApiResponse<T>, ApiResponseNewBuilder<T>> {
-  _$ApiResponseNew<T> _$v;
+class ApiResponseBuilder<T>
+    implements Builder<ApiResponse<T>, ApiResponseBuilder<T>> {
+  _$ApiResponse<T> _$v;
 
   int _code;
   int get code => _$this._code;
@@ -153,9 +153,9 @@ class ApiResponseNewBuilder<T>
   T get result => _$this._result;
   set result(T result) => _$this._result = result;
 
-  ApiResponseNewBuilder();
+  ApiResponseBuilder();
 
-  ApiResponseNewBuilder<T> get _$this {
+  ApiResponseBuilder<T> get _$this {
     if (_$v != null) {
       _code = _$v.code;
       _message = _$v.message;
@@ -170,18 +170,18 @@ class ApiResponseNewBuilder<T>
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$ApiResponseNew<T>;
+    _$v = other as _$ApiResponse<T>;
   }
 
   @override
-  void update(void Function(ApiResponseNewBuilder<T>) updates) {
+  void update(void Function(ApiResponseBuilder<T>) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ApiResponseNew<T> build() {
+  _$ApiResponse<T> build() {
     final _$result = _$v ??
-        new _$ApiResponseNew<T>._(code: code, message: message, result: result);
+        new _$ApiResponse<T>._(code: code, message: message, result: result);
     replace(_$result);
     return _$result;
   }

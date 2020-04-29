@@ -5,8 +5,8 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 part 'api_response.g.dart';
 
 abstract class ApiResponse<T>
-    implements Built<ApiResponse<T>, ApiResponseNewBuilder<T>> {
-  static Serializer<ApiResponse> get serializer => _$apiResponseNewSerializer;
+    implements Built<ApiResponse<T>, ApiResponseBuilder<T>> {
+  static Serializer<ApiResponse> get serializer => _$apiResponseSerializer;
 
   int get code;
   @BuiltValueField(wireName: 'msg')
@@ -22,7 +22,7 @@ abstract class ApiResponse<T>
     }
   }
 
-  factory ApiResponse([Function(ApiResponseNewBuilder<T>) updates]) =
-      _$ApiResponseNew<T>;
+  factory ApiResponse([Function(ApiResponseBuilder<T>) updates]) =
+      _$ApiResponse<T>;
   ApiResponse._();
 }
