@@ -85,6 +85,7 @@ class _AssetsPageState extends State<AssetsPage>
       @required List<Identity> identities}) {
     List<Widget> children = <Widget>[
       GestureDetector(
+        behavior: HitTestBehavior.opaque,
         child: Container(
           padding: EdgeInsets.all(15),
           child: selectedIdentity
