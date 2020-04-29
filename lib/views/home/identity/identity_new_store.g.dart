@@ -9,12 +9,6 @@ part of 'identity_new_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$IdentityNewStore on _IdentityNewStore, Store {
-  Computed<bool> _$canNewComputed;
-
-  @override
-  bool get canNew =>
-      (_$canNewComputed ??= Computed<bool>(() => super.canNew)).value;
-
   final _$avatarAtom = Atom(name: '_IdentityNewStore.avatar');
 
   @override
@@ -163,7 +157,7 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
   @override
   String toString() {
     final string =
-        'avatar: ${avatar.toString()},name: ${name.toString()},phone: ${phone.toString()},email: ${email.toString()},birthday: ${birthday.toString()},canNew: ${canNew.toString()}';
+        'avatar: ${avatar.toString()},name: ${name.toString()},phone: ${phone.toString()},email: ${email.toString()},birthday: ${birthday.toString()}';
     return '{$string}';
   }
 }

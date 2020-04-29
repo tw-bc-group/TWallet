@@ -34,9 +34,6 @@ abstract class _IdentityNewStore with Store {
   @observable
   String birthday;
 
-  @computed
-  bool get canNew => !error.hasErrors;
-
   List<ReactionDisposer> _disposers;
 
   void setupAvatarAndValidators() {
@@ -95,7 +92,7 @@ abstract class _IdentityNewStore with Store {
   @action
   void validateBirthday(String value) {
     error.birthday =
-    value != null ? isValidDate(value) ? null : '不是有效的日期' : null;
+        value != null ? isValidDate(value) ? null : '不是有效的日期' : null;
   }
 
   @action

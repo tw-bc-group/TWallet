@@ -21,15 +21,15 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(FullType(BuiltList, [FullType(Transaction)]),
           () => ListBuilder<Transaction>())
       ..addBuilderFactory(FullType(ApiResponse, [FullType(Contract)]),
-          () => ApiResponseNewBuilder<Contract>())
+          () => ApiResponseBuilder<Contract>())
       ..addBuilderFactory(FullType(ApiResponse, [FullType(Transaction)]),
-          () => ApiResponseNewBuilder<Transaction>())
+          () => ApiResponseBuilder<Transaction>())
       ..addBuilderFactory(
           FullType(ApiResponse, [
             FullType(BuiltList, [FullType(Transaction)])
           ]),
-          () => ApiResponseNewBuilder<BuiltList<Transaction>>())
+          () => ApiResponseBuilder<BuiltList<Transaction>>())
       ..addBuilderFactory(FullType(ApiResponse, [FullType(TwBalance)]),
-          () => ApiResponseNewBuilder<TwBalance>())
+          () => ApiResponseBuilder<TwBalance>())
       ..addPlugin(StandardJsonPlugin()))
     .build();
