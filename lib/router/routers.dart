@@ -17,6 +17,7 @@ class Routes {
   static final String transferConfirm = '/transfer_confirm';
   static final String transferResult = '/transfer_result';
   static final String certificate = '/certificate';
+  static final String qrPage = '/identity/qr';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -32,6 +33,7 @@ class Routes {
     transferConfirm: transferConfirmHandler,
     transferResult: transferResultHandler,
     certificate: certificateHandler,
+    qrPage: qrPageHandler,
   };
 
   static void configureRoutes(Router router) {

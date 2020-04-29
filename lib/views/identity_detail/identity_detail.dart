@@ -3,6 +3,7 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/detail_row.dart';
 
 import '../../global/common/get_it.dart';
@@ -45,6 +46,7 @@ class IdentityDetailPage extends StatelessWidget {
           DetailRowWidget(name: '电话', value: identity.phone),
           DetailRowWidget(name: '生日', value: identity.birthday ?? ''),
           DetailRowWidget(name: 'DID', value: identity.did),
+          DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
           DetailRowWidget(
             value: GestureDetector(
               onTap: () {},
@@ -68,6 +70,23 @@ class IdentityDetailPage extends StatelessWidget {
               ))),
         ],
       ))
+    );
+  }
+
+  Widget _buildQR(BuildContext context, Identity id) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 8, top: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(Icons.center_focus_strong),
+            Icon(Icons.keyboard_arrow_right),
+          ],
+        ),
+      ),
+      onTap: () => Navigator.pushNamed(context, Routes.qrPage, arguments: id),
     );
   }
 }
