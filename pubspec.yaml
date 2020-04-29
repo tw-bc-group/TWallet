@@ -53,6 +53,7 @@ dependencies:
   built_collection: ^4.3.2
   mockito: ^4.1.1
   flutter_custom_dialog: ^1.0.19
+  qr_flutter: ^3.2.0
 
 dev_dependencies:
   flutter_test:
