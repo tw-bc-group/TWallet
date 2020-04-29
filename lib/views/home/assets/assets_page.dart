@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
@@ -16,6 +17,7 @@ import 'package:tw_wallet_ui/widgets/button.dart';
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage(this.homeStore);
+
   final HomeStore homeStore;
 
   @override
@@ -82,12 +84,21 @@ class _AssetsPageState extends State<AssetsPage>
       {@required Optional<Identity> selectedIdentity,
       @required List<Identity> identities}) {
     List<Widget> children = <Widget>[
-      Container(
-        padding: EdgeInsets.all(15),
-        child: selectedIdentity
-            .map<Widget>(
-                (identity) => AvatarWidget(avataaar: identity.avataaar))
-            .orElse(Container()),
+      GestureDetector(
+        child: Container(
+          padding: EdgeInsets.all(15),
+          child: selectedIdentity
+              .map<Widget>(
+                  (identity) => AvatarWidget(avataaar: identity.avataaar))
+              .orElse(Container()),
+        ),
+        onTap: () {
+          selectedIdentity.ifPresent((identity) {
+            Application.router
+                .navigateTo(
+                context, '${Routes.identityDetail}?id=${identity.id}');
+          });
+        },
       ),
       SizedBox(width: 10),
       Text(selectedIdentity.map((identity) => identity.name).orElse('')),
