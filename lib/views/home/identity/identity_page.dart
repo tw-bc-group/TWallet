@@ -40,7 +40,7 @@ class _IdentityPageState extends State<IdentityPage> {
                     leading: AvatarWidget(avataaar: identity.avataaar),
                     title: Text(identity.name),
                     subtitle: GestureDetector(
-                        child: Text(identity.did),
+                        child: Text(identity.did.toString()),
                         onLongPress: () {
                           Clipboard.setData(
                               ClipboardData(text: identity.address));

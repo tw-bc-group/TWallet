@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:web3dart/credentials.dart';
 
 import 'amount.dart';
+import 'did.dart';
 
 part 'identity.g.dart';
 
@@ -38,7 +39,7 @@ abstract class Identity extends Object
       BlockChainService.publicKeyToAddress(pubKey.substring(2));
 
   @memoized
-  String get did => 'DID:TW:${address.substring(2)}';
+  DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
 
   @memoized
   Optional<Avataaar> get avataaar =>
@@ -48,12 +49,12 @@ abstract class Identity extends Object
     return getIt<ContractService>().identityRegistryContract.signContractCall(
         priKey, 'createIdentity', [
       EthereumAddress.fromHex(address),
-      did,
+      did.toString(),
       pubKey,
       name
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
-          .identityRegister(name, pubKey, address, did, signedRawTx)
+          .identityRegister(name, pubKey, address, did.toString(), signedRawTx)
           .then((response) => response.statusCode == 201);
     });
   }

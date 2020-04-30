@@ -140,7 +140,7 @@ class _$Identity extends Identity {
   @override
   final Amount balance;
   String __address;
-  String __did;
+  DID __did;
   Optional<Avataaar> __avataaar;
 
   factory _$Identity([void Function(IdentityBuilder) updates]) =>
@@ -172,7 +172,7 @@ class _$Identity extends Identity {
   String get address => __address ??= super.address;
 
   @override
-  String get did => __did ??= super.did;
+  DID get did => __did ??= super.did;
 
   @override
   Optional<Avataaar> get avataaar => __avataaar ??= super.avataaar;

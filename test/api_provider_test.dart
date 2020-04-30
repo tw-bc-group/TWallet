@@ -12,7 +12,6 @@ void main() {
   getItInit(isTest: true);
 
   final _httpClient = getIt<HttpClient>();
-  print('_httpClient: $_httpClient');
   final _apiProvider = getIt<ApiProvider>();
   final address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 
