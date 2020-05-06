@@ -1,4 +1,7 @@
 PODS:
+  - ai_barcode (0.0.1):
+    - Flutter
+    - MTBBarcodeScanner
   - Flutter (1.0.0)
   - flutter_custom_dialog (0.0.1):
     - Flutter
@@ -7,6 +10,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - MTBBarcodeScanner (5.0.11)
   - path_provider (0.0.1):
     - Flutter
   - path_provider_macos (0.0.1):
@@ -16,6 +20,7 @@ PODS:
     - FMDB (~> 2.7.2)
 
 DEPENDENCIES:
+  - ai_barcode (from `.symlinks/plugins/ai_barcode/ios`)
   - Flutter (from `Flutter`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -26,8 +31,11 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FMDB
+    - MTBBarcodeScanner
 
 EXTERNAL SOURCES:
+  ai_barcode:
+    :path: ".symlinks/plugins/ai_barcode/ios"
   Flutter:
     :path: Flutter
   flutter_custom_dialog:
@@ -42,10 +50,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
 
 SPEC CHECKSUMS:
+  ai_barcode: a415de3b4616800a963d265b292511f890a3649d
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0

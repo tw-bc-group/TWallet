@@ -18,6 +18,7 @@ class Routes {
   static final String transferResult = '/transfer_result';
   static final String certificate = '/certificate';
   static final String qrPage = '/identity/qr';
+  static final String qrScanner = '/qr_scanner';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -34,6 +35,7 @@ class Routes {
     transferResult: transferResultHandler,
     certificate: certificateHandler,
     qrPage: qrPageHandler,
+    qrScanner: qrScannerHandler,
   };
 
   static void configureRoutes(Router router) {
@@ -41,7 +43,6 @@ class Routes {
         Platform.isIOS ? TransitionType.cupertino : TransitionType.material;
 
     routers.forEach(
-            (p, h) =>
-            router.define(p, handler: h, transitionType: transitionType));
+        (p, h) => router.define(p, handler: h, transitionType: transitionType));
   }
 }

@@ -7,9 +7,11 @@ import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer_store.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_row_label.dart';
+import 'package:tw_wallet_ui/widgets/button.dart';
 
 const AMOUNT_ERROR = '金额不正确';
 const ADDRESS_IS_NOT_VALID = '账户地址不正确';
@@ -124,7 +126,53 @@ class TransferPageState extends State<TransferPage> {
                             margin: EdgeInsets.only(right: 10),
                             child: Icon(Icons.person),
                           ),
-                          Icon(Icons.crop_free)
+                          GestureDetector(
+                              child: Icon(Icons.crop_free),
+                              onTap: () async {
+                                String scanResult = await Application.router
+                                    .navigateTo(context, Routes.qrScanner);
+
+                                if (null == scanResult) {
+                                  return;
+                                }
+
+                                try {
+                                  DID did = DID.parse(scanResult);
+                                  _transferStore
+                                      .updatePayerAddress(did.eip55Address);
+                                } catch (_) {
+                                  await showDialog<String>(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        new SimpleDialog(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 50, vertical: 25),
+                                      children: <Widget>[
+                                        Center(
+                                            child: Text(
+                                          '没有找到相应的身份信息。',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            height: 1.82,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        )),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 48),
+                                            child: Button(
+                                              width: 100,
+                                              height: 40,
+                                              text: '确定',
+                                              onPressed: () {
+                                                Application.router.pop(context);
+                                              },
+                                            ))
+                                      ],
+                                    ),
+                                  );
+                                }
+                              })
                         ],
                       )
                     ],

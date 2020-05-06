@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
 import 'package:tw_wallet_ui/views/identity_qr/identity_qr_code.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
+import 'package:tw_wallet_ui/views/qr_scanner/qr_scanner.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/transfer_result/transfer_result.dart';
@@ -72,17 +73,17 @@ var txListHandler = Handler(
 );
 
 var txListDetailsHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return TxListDetailsPage();
-  }
-);
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return TxListDetailsPage();
+});
 
 var transferConfirmHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     var amount = params['amount'].first;
     var toAddress = params['toAddress'].first;
     var currency = params['currency'].first;
-    return TransferConfirmPage(currency: currency, amount: amount, toAddress: toAddress);
+    return TransferConfirmPage(
+        currency: currency, amount: amount, toAddress: toAddress);
   },
 );
 
@@ -101,9 +102,14 @@ var certificateHandler = Handler(
   },
 );
 
-
 var qrPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return IdentityQRPage();
+  },
+);
+
+var qrScannerHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return QrScannerPage();
   },
 );
