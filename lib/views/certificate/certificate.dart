@@ -54,7 +54,7 @@ class CertificateState extends State<CertificatePage> {
         phoneNumberErr = true;
       });
     }
-    apiProvider.healthCertificate(phoneNumber, getIdentity().did).then((HealthCertification response) => Application.router.pop(context));
+    apiProvider.healthCertificate(phoneNumber, getIdentity().did.toString()).then((HealthCertification response) => Application.router.pop(context));
   }
 
   @override

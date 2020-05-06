@@ -42,7 +42,7 @@ class IdentityDetailPage extends StatelessWidget {
           DetailRowWidget(name: '邮箱', value: identity.email),
           DetailRowWidget(name: '电话', value: identity.phone),
           DetailRowWidget(name: '生日', value: identity.birthday ?? ''),
-          DetailRowWidget(name: 'DID', value: identity.did),
+          DetailRowWidget(name: 'DID', value: identity.did.toString()),
           DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
           DetailRowWidget(
             value: GestureDetector(
