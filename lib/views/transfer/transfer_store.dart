@@ -65,7 +65,8 @@ abstract class _TransferStore with Store {
         error.amount = '请输入大于 0 的金额';
       } else if (res > double.parse(balance)) {
         error.amount = '金额不能大于当前余额';
-      } else if (indexOfDot >= 0 && value.length - indexOfDot > 3) {
+      } else if (indexOfDot >= 0 &&
+          value.length - indexOfDot > AMOUNT_HUMAN_READABLE_PRECISION + 1) {
         error.amount = '金额仅支持 $AMOUNT_HUMAN_READABLE_PRECISION 位小数';
       } else {
         error.amount = null;
