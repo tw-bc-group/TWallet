@@ -4,6 +4,7 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
@@ -14,7 +15,7 @@ import 'identity.dart';
 part 'serializer.g.dart';
 
 @SerializersFor(
-    [ApiResponse, Contract, Identity, Transaction, TwBalance, TxStatus])
+    [ApiResponse, Contract, Identity, Transaction, TwBalance, TxStatus, HealthCertification])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())
       ..add(AmountSerializer())
@@ -31,5 +32,7 @@ final Serializers serializers = (_$serializers.toBuilder()
           () => ApiResponseBuilder<BuiltList<Transaction>>())
       ..addBuilderFactory(FullType(ApiResponse, [FullType(TwBalance)]),
           () => ApiResponseBuilder<TwBalance>())
+      ..addBuilderFactory(FullType(ApiResponse, [FullType(HealthCertification)]),
+          () => ApiResponseBuilder<HealthCertification>())
       ..addPlugin(StandardJsonPlugin()))
     .build();

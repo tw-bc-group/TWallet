@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 
 final RegExp phoneReg = RegExp(r'^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[235-8]\d{2}|4(?:0\d|1[0-2]|9\d))|9[0135-9]\d{2}|66\d{2})\d{6}$');
@@ -22,6 +25,7 @@ class CertificatePage extends StatefulWidget {
 class CertificateState extends State<CertificatePage> {
   final String id;
   final IdentityStore identityStore = getIt<IdentityStore>();
+  final ApiProvider apiProvider = getIt<ApiProvider>();
   String phoneNumber = '';
   bool phoneNumberErr = false;
 
@@ -50,7 +54,7 @@ class CertificateState extends State<CertificatePage> {
         phoneNumberErr = true;
       });
     }
-    print('confirm');
+    apiProvider.healthCertificate(phoneNumber, getIdentity().did).then((HealthCertification response) => Application.router.pop(context));
   }
 
   @override

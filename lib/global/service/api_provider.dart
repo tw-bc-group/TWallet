@@ -6,6 +6,7 @@ import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
@@ -64,6 +65,24 @@ class ApiProvider {
     return _httpClient.get('/v1/transactions/' + txHash).then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(Transaction)]).result);
+    });
+  }
+
+  Future<HealthCertification> healthCertificate(
+      String phone, String did) {
+    return _httpClient.post('/v1/health-certifications', {
+      'phone': phone,
+      'did': did
+    }).then((response) {
+      // var a = "{@context: [String],exp: 0,iat: 0,id: string,iss: string,typ: [string],ver: string}";
+      print(response.data);
+      return Future.value(
+          // ApiResponse.fromJson(response.data, [FullType(HealthCertification)]).result);
+          ApiResponse.fromJson(response.data, [FullType(HealthCertification)]).result);
+      // var b = "{code: 0, msg: SUCCESS, result: [{hash: 0xdc70dc224450337e531918e05dfd2bcd30c79f7016f321c4317ac5d756ef754e, tx_type: Transfer, amount: 1000000000000000000, create_time: 2020-04-24 06:54:22, confirm_time: null, from_address: 0x0964f17b11f450696389599a4dece034750261ee, from_address_name: null, to_address: 0x0964f17b11f450696389599a4dece034750261ee, to_address_name: null}]}";
+      // return Future.value(ApiResponse.fromJson(b, [
+      //   FullType(BuiltList, [FullType(Transaction)])
+      // ]).result.toList());
     });
   }
 }
