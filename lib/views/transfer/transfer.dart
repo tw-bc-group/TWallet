@@ -23,6 +23,7 @@ class TransferPage extends StatefulWidget {
 
 class TransferPageState extends State<TransferPage> {
   final TransferStore _transferStore = TransferStore();
+  TextEditingController _payeeAddressController = TextEditingController();
 
   @override
   void initState() {
@@ -98,6 +99,8 @@ class TransferPageState extends State<TransferPage> {
                         width: 230,
                         height: 50,
                         child: TextField(
+                          controller: _payeeAddressController
+                            ..text = _transferStore.payeeAddress,
                           keyboardType: TextInputType.text,
                           maxLines: 3,
                           inputFormatters: <TextInputFormatter>[
