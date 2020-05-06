@@ -139,7 +139,7 @@ class TransferPageState extends State<TransferPage> {
                                 try {
                                   DID did = DID.parse(scanResult);
                                   _transferStore
-                                      .updatePayerAddress(did.eip55Address);
+                                      .updatePayeeAddress(did.eip55Address);
                                 } catch (_) {
                                   await showDialog<String>(
                                     barrierDismissible: false,

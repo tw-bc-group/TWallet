@@ -52,6 +52,11 @@ abstract class _TransferStore with Store {
   }
 
   @action
+  void updatePayeeAddress(String value) {
+    payeeAddress = value.startsWith('0x') ? value : '0x$value';
+  }
+
+  @action
   void validateAmount(String value) {
     try {
       double res = double.parse(value);
