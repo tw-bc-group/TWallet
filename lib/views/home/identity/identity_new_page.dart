@@ -119,7 +119,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                         Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 25,
-                              vertical: 20,
+                              vertical: 40,
                             ),
                             child: Observer(
                                 builder: (_) => WalletTheme.button(
