@@ -210,7 +210,7 @@ class QrScannerPageState extends State<QrScannerPage>
         ),
       );
     } else {
-      return Text("");
+      return Container();
     }
   }
 }
