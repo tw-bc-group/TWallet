@@ -51,14 +51,14 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   final _$identitiesAtom = Atom(name: 'IdentityStoreBase.identities');
 
   @override
-  List<Identity> get identities {
+  ObservableList<Identity> get identities {
     _$identitiesAtom.context.enforceReadPolicy(_$identitiesAtom);
     _$identitiesAtom.reportObserved();
     return super.identities;
   }
 
   @override
-  set identities(List<Identity> value) {
+  set identities(ObservableList<Identity> value) {
     _$identitiesAtom.context.conditionallyRunInAction(() {
       super.identities = value;
       _$identitiesAtom.reportChanged();

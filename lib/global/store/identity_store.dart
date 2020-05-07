@@ -45,14 +45,14 @@ abstract class IdentityStoreBase with Store {
                 listItems.map((item) => Identity.fromJson(item)).toList())
             .orElse([]);
 
-    return IdentityStore(identities, selectedIndex);
+    return IdentityStore(ObservableList.of(identities), selectedIndex);
   }
 
   @observable
   int selectedIndex;
 
   @observable
-  List<Identity> identities;
+  ObservableList<Identity> identities = ObservableList<Identity>();
 
   @observable
   String searchName;
@@ -62,8 +62,8 @@ abstract class IdentityStoreBase with Store {
   ObservableStream<ObservableFuture<TwBalance>> fetchBalanceFutureStream;
 
   @computed
-  Optional<Identity> get selectedIdentity =>
-      Optional.ofNullable(identities).flatMap((identities) => identities.isEmpty
+  Optional<Identity> get selectedIdentity => Optional.of(identities.toList())
+      .flatMap((identities) => identities.isEmpty
           ? Optional.empty()
           : Optional.of(identities[selectedIndex ?? 0]));
 
