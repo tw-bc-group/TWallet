@@ -20,6 +20,7 @@ class Routes {
   static final String qrPage = '/identity/qr';
   static final String healthQRPage = '/health/qr';
   static final String qrScanner = '/qr_scanner';
+  static final String healthCode = '/health_code';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -38,6 +39,7 @@ class Routes {
     qrPage: qrPageHandler,
     qrScanner: qrScannerHandler,
     healthQRPage: healthQRPageHandler,
+    healthCode: healthCodeHandler,
   };
 
   static void configureRoutes(Router router) {

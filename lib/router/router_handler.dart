@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
 import 'package:tw_wallet_ui/views/certificate/certificate.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/health_qr_page/health_qr_page.dart';
+import 'package:tw_wallet_ui/views/health_code/health_code.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
 import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
@@ -121,4 +122,8 @@ var healthQRPageHandler = Handler(
   },
 );
 
-
+var healthCodeHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return HealthCodePage();
+  },
+);
