@@ -54,6 +54,7 @@ dependencies:
   flutter_custom_dialog: ^1.0.19
   qr_flutter: ^3.2.0
   ai_barcode: ^1.0.3
+  permission_handler: ^5.0.0+hotfix.5
 
 dev_dependencies:
   flutter_test:

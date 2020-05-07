@@ -1,6 +1,7 @@
 import 'package:ai_barcode/ai_barcode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 
 class QrScannerPage extends StatefulWidget {
@@ -12,6 +13,38 @@ class QrScannerPageState extends State<QrScannerPage>
     with WidgetsBindingObserver {
   ScannerController _scannerController;
 
+  Future<bool> checkAndRequirePermission() async {
+    if (await Permission.camera.status != PermissionStatus.granted) {
+      return showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("申请权限"),
+            content: Text("使用扫码功能需要授权允许使用相机权限"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                onPressed: () async {
+                  if (await Permission.camera.request() ==
+                      PermissionStatus.granted) {
+                    Navigator.pop(context, true);
+                  }
+                },
+                child: Text("授权"),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+                child: Text("拒绝"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+    return true;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -21,11 +54,15 @@ class QrScannerPageState extends State<QrScannerPage>
       scannerResult: (String result) {
         Navigator.pop(context, result);
       },
-      scannerViewCreated: () {
-        _scannerController.startCamera();
-        Future.delayed(Duration(milliseconds: 100)).then((_) {
-          _scannerController.startCameraPreview();
-        });
+      scannerViewCreated: () async {
+        if (!await checkAndRequirePermission()) {
+          Navigator.pop(context, null);
+        } else {
+          _scannerController.startCamera();
+          Future.delayed(Duration(milliseconds: 100)).then((_) {
+            _scannerController.startCameraPreview();
+          });
+        }
       },
     );
   }
@@ -39,13 +76,12 @@ class QrScannerPageState extends State<QrScannerPage>
 
   @override
   void deactivate() {
-    super.deactivate();
-
     if (_scannerController.isStartCameraPreview) {
       _scannerController.stopCameraPreview();
     } else {
       _scannerController.startCameraPreview();
     }
+    super.deactivate();
   }
 
   @override
