@@ -86,6 +86,8 @@ class QrScannerPageState extends State<QrScannerPage>
 
   @override
   Widget build(BuildContext context) {
+    Color buttonColor = Colors.grey[800];
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -123,20 +125,26 @@ class QrScannerPageState extends State<QrScannerPage>
                         children: <Widget>[
                           Container(
                             padding: EdgeInsets.only(left: 10),
-                            child: IconButton(
-                                icon: Icon(Icons.close, color: Colors.white),
+                            child: RaisedButton(
+                                color: buttonColor,
+                                shape: CircleBorder(),
+                                child: Icon(Icons.close, color: Colors.white),
                                 onPressed: () =>
                                     Application.router.pop(context)),
                           ),
                           Expanded(child: Container()),
-                          IconButton(
-                              icon:
+                          RaisedButton(
+                              color: buttonColor,
+                              shape: CircleBorder(),
+                              child:
                                   Icon(Icons.photo_album, color: Colors.white),
                               onPressed: () => {}),
                           Container(
                             padding: EdgeInsets.only(right: 10),
-                            child: IconButton(
-                                icon: Icon(
+                            child: RaisedButton(
+                                color: buttonColor,
+                                shape: CircleBorder(),
+                                child: Icon(
                                     _scannerController.isOpenFlash
                                         ? Icons.flash_off
                                         : Icons.flash_on,
