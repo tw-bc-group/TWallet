@@ -45,5 +45,8 @@
     <string>Can we access your camera in order to scan barcodes?</string>
     <key>io.flutter.embedded_views_preview</key>
     <true/>
+    <!-- Permission options for the `camera` group -->
+    <key>NSCameraUsageDescription</key>
+    <string>camera</string>
 </dict>
 </plist>
