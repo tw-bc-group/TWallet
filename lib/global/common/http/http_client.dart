@@ -19,7 +19,7 @@ class HttpClient {
           }
         })
     ..interceptors.add(LoadingInterceptor())
-    ..interceptors.add(LogInterceptor());
+    ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
 
   Future<Response> get(String url, {bool loading: true}) async {
     return _dio.get(url, options: Options(extra: {'withoutLoading': !loading}));
