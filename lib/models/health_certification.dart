@@ -12,23 +12,20 @@ abstract class HealthCertification implements Built<HealthCertification, HealthC
 
   @BuiltValueField(wireName: '@context')
   BuiltList<String> get context;
-
   int get exp;
   int get iat;
   String get id;
   String get iss;
-
-  HealthCertificationSub get sub;
-  
+  String get ver;
   BuiltList<String> get typ;
-  String get ownerId;
+  HealthCertificationSub get sub;
 
   factory HealthCertification.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
-        specifiedType: const FullType(HealthCertification));
+        specifiedType: FullType(HealthCertification));
   }
 
-  factory HealthCertification([void Function(HealthCertificationBuilder) updates]) =
+  factory HealthCertification([Function(HealthCertificationBuilder) updates]) =
       _$HealthCertification;
 }
 
@@ -39,14 +36,14 @@ abstract class HealthCertificationSub implements Built<HealthCertificationSub, H
   
   String get id;
   String get phone;
-  HealthyStatus get healthyStatus;
+  // HealthyStatus get healthyStatus;
 
   factory HealthCertificationSub.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
-        specifiedType: const FullType(HealthCertificationSub));
+        specifiedType: FullType(HealthCertificationSub));
   }
 
-  factory HealthCertificationSub([void Function(HealthCertificationSubBuilder) updates]) =
+  factory HealthCertificationSub([Function(HealthCertificationSubBuilder) updates]) =
       _$HealthCertificationSub;
 }
 
@@ -60,9 +57,9 @@ abstract class HealthyStatus implements Built<HealthyStatus, HealthyStatusBuilde
 
   factory HealthyStatus.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
-        specifiedType: const FullType(HealthyStatus));
+        specifiedType: FullType(HealthyStatus));
   }
 
-  factory HealthyStatus([void Function(HealthyStatusBuilder) updates]) =
+  factory HealthyStatus([Function(HealthyStatusBuilder) updates]) =
       _$HealthyStatus;
 }

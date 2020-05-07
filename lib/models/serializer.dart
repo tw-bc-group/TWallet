@@ -15,7 +15,7 @@ import 'identity.dart';
 part 'serializer.g.dart';
 
 @SerializersFor(
-    [ApiResponse, Contract, Identity, Transaction, TwBalance, TxStatus, HealthCertification])
+    [ApiResponse, Contract, Identity, Transaction, TwBalance, TxStatus, HealthCertification, HealthCertificationSub, HealthyStatus])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())
       ..add(AmountSerializer())
