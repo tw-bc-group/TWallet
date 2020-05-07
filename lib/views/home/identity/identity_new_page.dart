@@ -13,6 +13,7 @@ class IdentityNewPage extends StatefulWidget {
 }
 
 class _IdentityNewPageState extends State<IdentityNewPage> {
+  bool isAdding = false;
   final IdentityNewStore store = IdentityNewStore();
 
   @override
@@ -29,17 +30,21 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   }
 
   Future<void> _addOnPressed() async {
-    Future.microtask(() {
-      store.validateAll();
-    }).then((_) {
-      if (!store.error.hasErrors) {
-        store.addIdentity().then((success) {
-          if (success) {
-            Application.router.pop(context);
-          }
-        });
-      }
-    });
+    if (!isAdding) {
+      isAdding = true;
+      Future.microtask(() {
+        store.validateAll();
+      }).then((_) {
+        if (!store.error.hasErrors) {
+          store.addIdentity().then((success) {
+            if (success) {
+              Application.router.pop(context);
+            }
+            isAdding = false;
+          });
+        }
+      });
+    }
   }
 
   @override
@@ -124,7 +129,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                             child: Observer(
                                 builder: (_) => WalletTheme.button(
                                     text: '添加',
-                                    onPressed: store.error.hasErrors
+                                    onPressed: store.error.hasErrors || isAdding
                                         ? null
                                         : _addOnPressed)))
                       ],
