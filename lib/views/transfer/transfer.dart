@@ -154,7 +154,7 @@ class TransferPageState extends State<TransferPage> {
                                       children: <Widget>[
                                         Center(
                                             child: Text(
-                                          '没有找到相应的身份信息。',
+                                          '未识别到有效的身份信息。',
                                           style: TextStyle(
                                             fontSize: 15,
                                             height: 1.82,
