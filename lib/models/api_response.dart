@@ -17,8 +17,8 @@ abstract class ApiResponse<T>
     try {
       return serializers.deserialize(serialized,
           specifiedType: FullType(ApiResponse, parameters));
-    } catch (_) {
-      throw Exception('api json deserialize error');
+    } catch (error) {
+      throw Exception('api response deserialize error, $error');
     }
   }
 
