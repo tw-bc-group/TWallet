@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/http/http_client.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
@@ -95,5 +96,36 @@ void main() {
 
     expect(
         await _apiProvider.fetchTxDetails(txHash: txHash), isA<Transaction>());
+  });
+
+  test(
+      'When send a health certificate request, should be return a HealthCertification instance',
+      () async {
+    final String phone = '13888888888';
+    final String did = '123456789';
+
+    when(_httpClient
+            .post('/v1/health-certifications', {'phone': phone, 'did': did}))
+        .thenAnswer((_) async => Response(statusCode: 200, data: {
+              'code': 200,
+              'msg': 'SUCCESS',
+              'result': {
+                '@context': ['String'],
+                'id': 'did',
+                'ver': '0.1',
+                'iss': 'null',
+                'iat': 123,
+                'exp': 123,
+                'typ': ['HealthyStatus'],
+                'sub': {
+                  'id': 'did',
+                  'phone': 'aaa',
+                  'healthyStatus': {'typ': 'HealthyStatus', 'val': 'unhealthy'}
+                }
+              }
+            }));
+
+    expect(await _apiProvider.healthCertificate(phone, did),
+        isA<HealthCertification>());
   });
 }
