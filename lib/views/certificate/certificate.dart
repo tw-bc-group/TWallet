@@ -58,8 +58,9 @@ class CertificateState extends State<CertificatePage> {
       (HealthCertification response) {
         var currentIdentity = getIdentity();
         var newIdentity = currentIdentity.rebuild((_identity) {
-          _identity..healthCertificateStatus = CERTIFICATED;
-          _identity..healthStatus = response.sub.healthyStatus.val;
+          _identity
+            ..healthCertificateStatus = CERTIFICATED
+            ..healthStatus = response.sub.healthyStatus.val;
         });
         identityStore.updateIdentity(newIdentity);
         Application.router.pop(context);
