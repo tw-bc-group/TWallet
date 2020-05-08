@@ -4,3 +4,4 @@ const QUORUM_RPC_GATEWAY = 'http://quorum.tw-wallet.in2e.com:22000';
 const AMOUNT_PRECISION = 2;
 const AMOUNT_HUMAN_READABLE_PRECISION = 2;
 const DID_PREFIX_TAG = 'DID:TW:';
+const TOKEN_NAME = 'DC/EP';

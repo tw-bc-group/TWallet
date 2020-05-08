@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
@@ -54,7 +55,7 @@ class _TxListPageState extends State<TxListPage> {
   }
 
   Widget _buildAppBar() {
-    return baseAppBar(title: 'TW Points', bottom: _buildToolBarPanel());
+    return baseAppBar(title: TOKEN_NAME, bottom: _buildToolBarPanel());
   }
 
   Widget _buildAppBarTrailing() {

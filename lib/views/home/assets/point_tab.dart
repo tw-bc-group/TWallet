@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
@@ -21,7 +22,7 @@ Widget _pointItem({@required String point, BuildContext context}) {
           child: Container(
               padding: EdgeInsets.all(10),
               child: Row(children: <Widget>[
-                Text('TW Points'),
+                Text(TOKEN_NAME),
                 Expanded(child: Container()),
                 Text(point),
               ]))));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
@@ -43,7 +44,7 @@ class TransferPageState extends State<TransferPage> {
 
   void confirmTransferPage() {
     Application.router.navigateTo(context,
-        '${Routes.transferConfirm}?currency=TWPOINTS&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
+        '${Routes.transferConfirm}?currency=$TOKEN_NAME&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
   }
 
   @override
