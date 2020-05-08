@@ -71,10 +71,10 @@ class ApiProvider {
   Future<HealthCertification> healthCertificate(String phone, String did) {
     return _httpClient
         .post('/v1/health-certifications', {'phone': phone, 'did': did}).then(
-            (response) {
-      return Future.value(
-          ApiResponse.fromJson(response.data, [FullType(HealthCertification)])
-              .result);
-    });
+            (response) =>
+            Future.value(ApiResponse
+                .fromJson(
+                response.data, [FullType(HealthCertification)])
+                .result));
   }
 }
