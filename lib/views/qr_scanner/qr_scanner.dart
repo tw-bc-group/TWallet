@@ -137,29 +137,29 @@ class QrScannerPageState extends State<QrScannerPage>
                                 onPressed: () =>
                                     Application.router.pop(context)),
                           ),
-                          Expanded(child: Container()),
-                          RaisedButton(
-                              color: buttonColor,
-                              shape: CircleBorder(),
-                              child:
-                                  Icon(Icons.photo_album, color: Colors.white),
-                              onPressed: () => {}),
-                          Container(
-                            padding: EdgeInsets.only(right: 10),
-                            child: RaisedButton(
-                                color: buttonColor,
-                                shape: CircleBorder(),
-                                child: Icon(
-                                    _scannerController.isOpenFlash
-                                        ? Icons.flash_off
-                                        : Icons.flash_on,
-                                    color: Colors.white),
-                                onPressed: () {
-                                  setState(() {
-                                    _scannerController.toggleFlash();
-                                  });
-                                }),
-                          ),
+//                          Expanded(child: Container()),
+//                          RaisedButton(
+//                              color: buttonColor,
+//                              shape: CircleBorder(),
+//                              child:
+//                                  Icon(Icons.photo_album, color: Colors.white),
+//                              onPressed: () => {}),
+//                          Container(
+//                            padding: EdgeInsets.only(right: 10),
+//                            child: RaisedButton(
+//                                color: buttonColor,
+//                                shape: CircleBorder(),
+//                                child: Icon(
+//                                    _scannerController.isOpenFlash
+//                                        ? Icons.flash_off
+//                                        : Icons.flash_on,
+//                                    color: Colors.white),
+//                                onPressed: () {
+//                                  setState(() {
+//                                    _scannerController.toggleFlash();
+//                                  });
+//                                }),
+//                          ),
                         ],
                       ),
                     )),
