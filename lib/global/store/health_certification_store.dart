@@ -2,6 +2,7 @@ import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 
 part 'health_certification_store.g.dart';
 
@@ -16,12 +17,17 @@ abstract class _HealthCertificationStore with Store {
   HealthCertification healthCertification;
 
   @observable
-  bool isBoundCert;
+  bool isBoundCert = false;
+
+  @computed
+  bool get isHealthy => healthCertification?.sub?.healthyStatus?.val == HEALTHY;
 
   @action
   Future bindHealthCert(String did, String phone) async {
     final resp = await _apiProvider.healthCertificate(phone, did);
     await _db.setItem(did, resp.toJson());
+    this.isBoundCert = true;
+    this.healthCertification = resp;
     return Future.value(resp);
   }
 

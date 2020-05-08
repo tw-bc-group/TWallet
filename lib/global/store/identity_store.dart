@@ -48,6 +48,10 @@ abstract class IdentityStoreBase with Store {
     return IdentityStore(ObservableList.of(identities), selectedIndex);
   }
 
+  Identity getIdentity(String id) {
+    return identities.firstWhere((e) => e.id == id);
+  }
+
   @observable
   int selectedIndex;
 

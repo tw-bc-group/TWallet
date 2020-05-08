@@ -9,6 +9,12 @@ part of 'health_certification_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
+  Computed<bool> _$isHealthyComputed;
+
+  @override
+  bool get isHealthy =>
+      (_$isHealthyComputed ??= Computed<bool>(() => super.isHealthy)).value;
+
   final _$healthCertificationAtom =
       Atom(name: '_HealthCertificationStore.healthCertification');
 
@@ -64,7 +70,7 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   @override
   String toString() {
     final string =
-        'healthCertification: ${healthCertification.toString()},isBoundCert: ${isBoundCert.toString()}';
+        'healthCertification: ${healthCertification.toString()},isBoundCert: ${isBoundCert.toString()},isHealthy: ${isHealthy.toString()}';
     return '{$string}';
   }
 }

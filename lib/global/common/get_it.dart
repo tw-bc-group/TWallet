@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:tw_wallet_ui/global/common/http/http_client.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/global/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 
@@ -23,6 +24,7 @@ void getItInit({@required bool isTest}) {
         .registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);
     getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsBase.init);
     getIt.registerSingletonAsync<ContractService>(ContractService.init);
+    getIt.registerSingleton(HealthCertificationStore());
   }
 
   getIt.registerSingleton<ApiProvider>(ApiProvider());
