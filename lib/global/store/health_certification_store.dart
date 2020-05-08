@@ -20,8 +20,7 @@ abstract class _HealthCertificationStore with Store {
 
   @action
   Future bindHealthCert(String did, String phone) async {
-    final HealthCertification resp =
-        await _apiProvider.healthCertificate(phone, did);
+    final resp = await _apiProvider.healthCertificate(phone, did);
     await _db.setItem(did, resp.toJson());
     return Future.value(resp);
   }
