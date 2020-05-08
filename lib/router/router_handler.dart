@@ -117,6 +117,6 @@ var qrScannerHandler = Handler(
 
 var healthCodeHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return HealthCodePage();
+    return HealthCodePage(id: params['id'].first);
   },
 );
