@@ -27,6 +27,10 @@ abstract class HealthCertification implements Built<HealthCertification, HealthC
 
   factory HealthCertification([Function(HealthCertificationBuilder) updates]) =
       _$HealthCertification;
+
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this);
+  }
 }
 
 abstract class HealthCertificationSub implements Built<HealthCertificationSub, HealthCertificationSubBuilder> {
