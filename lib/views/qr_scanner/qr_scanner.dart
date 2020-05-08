@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ai_barcode/ai_barcode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class QrScannerPageState extends State<QrScannerPage>
   ScannerController _scannerController;
 
   Future<bool> checkAndRequirePermission() async {
-    if (await Permission.camera.status != PermissionStatus.granted) {
+    if (!await Permission.camera.isGranted) {
       return showCupertinoDialog(
         context: context,
         builder: (BuildContext context) {
@@ -24,9 +26,12 @@ class QrScannerPageState extends State<QrScannerPage>
             actions: <Widget>[
               CupertinoDialogAction(
                 onPressed: () async {
-                  if (await Permission.camera.request() ==
-                      PermissionStatus.granted) {
-                    Navigator.pop(context, true);
+                  if (Platform.isIOS) {
+                    openAppSettings();
+                  } else {
+                    if (await Permission.camera.request().isGranted) {
+                      Navigator.pop(context, true);
+                    }
                   }
                 },
                 child: Text("授权"),
