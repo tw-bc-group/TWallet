@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
@@ -22,7 +23,7 @@ class TransferConfirmPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return TransferConfirmState(
-        currency: currency, amount: double.parse(amount), toAddress: toAddress);
+        currency: currency, amount: amount, toAddress: toAddress);
   }
 }
 
@@ -30,7 +31,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
   final inputPinWidgetKey = GlobalKey<InputPinWidgetState>();
   final IdentityStore identityStore = getIt<IdentityStore>();
   final String currency;
-  final double amount;
+  final String amount;
   final String toAddress;
 
   TransferConfirmState({this.currency, this.amount, this.toAddress});
@@ -46,7 +47,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
-                amount: amount.toStringAsFixed(2),
+                amount: '$TOKEN_SYMBOL$amount',
                 time: parseDate(DateTime.now()),
                 status: TxStatus.transferring.toString(),
                 fromAddress: identityStore.selectedIdentity.value.address,
@@ -72,7 +73,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
           child: Column(children: [
             ConfirmRowWidget(
               title: '金额',
-              contentLeft: amount.toStringAsFixed(2),
+              contentLeft: '$TOKEN_SYMBOL$amount',
               contentRight: currency,
             ),
             ConfirmRowWidget(

@@ -16,7 +16,7 @@ void main() {
 
       expect(balance.amount, isA<Amount>());
       expect(balance.amount.value, Decimal.parse('10000'));
-      expect(balance.humanReadable, '10000.00');
+      expect(balance.amount.humanReadable, '10000.00');
     });
 
     test('Value should be 10000.12', () {
@@ -27,7 +27,7 @@ void main() {
 
       expect(balance.amount, isA<Amount>());
       expect(balance.amount.value, Decimal.parse('10000.12'));
-      expect(balance.humanReadable, '10000.12');
+      expect(balance.amount.humanReadable, '10000.12');
     });
 
     test('Value should be 0.00', () {
@@ -38,7 +38,7 @@ void main() {
 
       expect(balance.amount, isA<Amount>());
       expect(balance.amount.value, Decimal.parse('0'));
-      expect(balance.humanReadable, '0.00');
+      expect(balance.amount.humanReadable, '0.00');
     });
   });
 }

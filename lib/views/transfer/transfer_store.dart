@@ -58,6 +58,7 @@ abstract class _TransferStore with Store {
 
   @action
   void validateAmount(String value) {
+    print(value);
     try {
       double res = double.parse(value);
       int indexOfDot = value.indexOf('.');

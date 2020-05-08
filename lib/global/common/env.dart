@@ -5,3 +5,4 @@ const AMOUNT_PRECISION = 2;
 const AMOUNT_HUMAN_READABLE_PRECISION = 2;
 const DID_PREFIX_TAG = 'DID:TW:';
 const TOKEN_NAME = 'DC/EP';
+const TOKEN_SYMBOL = '￥';

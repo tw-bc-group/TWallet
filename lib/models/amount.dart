@@ -12,11 +12,13 @@ class Amount {
   String get humanReadable =>
       formatDecimal(value, AMOUNT_HUMAN_READABLE_PRECISION);
 
+  String get humanReadableWithSymbol => '￥$humanReadable';
+
   String get humanReadableWithSign {
     if (!value.isNegative) {
-      return '+$humanReadable';
+      return '+$humanReadableWithSymbol';
     }
-    return humanReadable;
+    return humanReadableWithSymbol;
   }
 
   @override

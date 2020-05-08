@@ -69,15 +69,15 @@ class _TxListPageState extends State<TxListPage> {
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF3e71c0))),
         onPressed: () {
-          Application.router.navigateTo(context,
-              '${Routes.transferTwPoints}?balance=${iStore.myBalance}');
+          Application.router.navigateTo(
+              context, Uri.encodeFull('${Routes.transferTwPoints}'));
         });
   }
 
   Widget _buildToolBarPanel() {
     return toolBarPanel(
         //balance: Decimal.parse(iStore.myBalance), flag: false),
-        balance: iStore.myBalance.humanReadable,
+        balance: iStore.myBalance.humanReadableWithSymbol,
         leading: Text("交易记录", style: TextStyle(color: Color(0xFF3e71c0))),
         trailing: _buildAppBarTrailing());
   }

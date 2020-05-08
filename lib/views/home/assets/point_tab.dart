@@ -61,6 +61,7 @@ class PointTab extends StatelessWidget {
                   )
                 ]);
           case FutureStatus.fulfilled:
+            TwBalance balance = future.result;
             return RefreshIndicator(
                 onRefresh: _refresh,
                 child: Container(
@@ -68,7 +69,8 @@ class PointTab extends StatelessWidget {
                   child: ListView(
                     children: [
                       _pointItem(
-                          point: future.result.humanReadable, context: context)
+                          point: balance.amount.humanReadableWithSymbol,
+                          context: context)
                     ],
                   ),
                 ));

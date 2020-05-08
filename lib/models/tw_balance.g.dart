@@ -52,7 +52,6 @@ class _$TwBalance extends TwBalance {
   @override
   final Amount amount;
   Decimal __original;
-  String __humanReadable;
 
   factory _$TwBalance([void Function(TwBalanceBuilder) updates]) =>
       (new TwBalanceBuilder()..update(updates)).build();
@@ -65,9 +64,6 @@ class _$TwBalance extends TwBalance {
 
   @override
   Decimal get original => __original ??= super.original;
-
-  @override
-  String get humanReadable => __humanReadable ??= super.humanReadable;
 
   @override
   TwBalance rebuild(void Function(TwBalanceBuilder) updates) =>

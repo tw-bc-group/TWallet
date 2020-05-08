@@ -44,7 +44,7 @@ class TransferPageState extends State<TransferPage> {
 
   void confirmTransferPage() {
     Application.router.navigateTo(context,
-        '${Routes.transferConfirm}?currency=$TOKEN_NAME&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
+        '${Routes.transferConfirm}?currency=${Uri.encodeQueryComponent(TOKEN_NAME)}&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
   }
 
   @override
@@ -60,7 +60,7 @@ class TransferPageState extends State<TransferPage> {
               TransferRowWidget(
                 title: '当前余额',
                 child: Text(
-                  _transferStore.balance,
+                  '$TOKEN_SYMBOL ${_transferStore.balance}',
                   style: TextStyle(
                       fontSize: 16, color: WalletTheme.rgbColor('#888888')),
                 ),
@@ -77,6 +77,7 @@ class TransferPageState extends State<TransferPage> {
                           WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
                         ],
                         decoration: InputDecoration(
+                          prefix: Text(TOKEN_SYMBOL),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(style: BorderStyle.none),
                           ),
@@ -87,7 +88,8 @@ class TransferPageState extends State<TransferPage> {
                         style: TextStyle(
                             fontSize: 16,
                             color: WalletTheme.rgbColor('#888888')),
-                        onChanged: (value) => _transferStore.amount = value,
+                        onChanged: (value) => _transferStore.amount =
+                            value.replaceFirst(TOKEN_SYMBOL, ''),
                       ))),
               TransferRowWidget(
                   title: '接收地址',

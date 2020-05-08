@@ -18,9 +18,6 @@ abstract class TwBalance extends Object
   @memoized
   Decimal get original => amount.original;
 
-  @memoized
-  String get humanReadable => amount.humanReadable;
-
   factory TwBalance([void Function(TwBalanceBuilder) updates]) = _$TwBalance;
   TwBalance._();
 
