@@ -88,7 +88,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                         Observer(
                             builder: (_) => TextField(
                                 keyboardType: TextInputType.text,
-                                onChanged: (value) => store.name = value,
+                                onChanged: (String value) =>
+                                    store.name = value.trim(),
                                 decoration: InputDecoration(
                                   labelText: '名称*',
                                   hintText: '输入名称',
