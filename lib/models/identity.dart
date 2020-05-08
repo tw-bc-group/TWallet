@@ -14,11 +14,6 @@ import 'did.dart';
 
 part 'identity.g.dart';
 
-const String CERTIFICATED = 'CERTIFICATED';
-const String NOT_CERTIFICATED = 'NOT_CERTIFICATED';
-const String HEALTHY = 'healthy';
-const String UNHEALTHY = 'unhealthy';
-
 abstract class Identity extends Object
     implements Built<Identity, IdentityBuilder> {
   static Serializer<Identity> get serializer => _$identitySerializer;

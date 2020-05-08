@@ -5,6 +5,9 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 
 part 'health_certification.g.dart';
 
+const String HEALTHY = 'healthy';
+const String UNHEALTHY = 'unhealthy';
+
 abstract class HealthCertification implements Built<HealthCertification, HealthCertificationBuilder> {
   static Serializer<HealthCertification> get serializer => _$healthCertificationSerializer;
 

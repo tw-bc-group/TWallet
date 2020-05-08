@@ -2,7 +2,6 @@ import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/global/service/api_provider.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
 
 part 'health_certification_store.g.dart';
 
