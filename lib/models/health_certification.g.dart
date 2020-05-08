@@ -130,6 +130,9 @@ class _$HealthCertificationSubSerializer
       'phone',
       serializers.serialize(object.phone,
           specifiedType: const FullType(String)),
+      'healthyStatus',
+      serializers.serialize(object.healthyStatus,
+          specifiedType: const FullType(HealthyStatus)),
     ];
 
     return result;
@@ -154,6 +157,10 @@ class _$HealthCertificationSubSerializer
         case 'phone':
           result.phone = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'healthyStatus':
+          result.healthyStatus.replace(serializers.deserialize(value,
+              specifiedType: const FullType(HealthyStatus)) as HealthyStatus);
           break;
       }
     }
@@ -428,17 +435,24 @@ class _$HealthCertificationSub extends HealthCertificationSub {
   final String id;
   @override
   final String phone;
+  @override
+  final HealthyStatus healthyStatus;
 
   factory _$HealthCertificationSub(
           [void Function(HealthCertificationSubBuilder) updates]) =>
       (new HealthCertificationSubBuilder()..update(updates)).build();
 
-  _$HealthCertificationSub._({this.id, this.phone}) : super._() {
+  _$HealthCertificationSub._({this.id, this.phone, this.healthyStatus})
+      : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('HealthCertificationSub', 'id');
     }
     if (phone == null) {
       throw new BuiltValueNullFieldError('HealthCertificationSub', 'phone');
+    }
+    if (healthyStatus == null) {
+      throw new BuiltValueNullFieldError(
+          'HealthCertificationSub', 'healthyStatus');
     }
   }
 
@@ -456,19 +470,22 @@ class _$HealthCertificationSub extends HealthCertificationSub {
     if (identical(other, this)) return true;
     return other is HealthCertificationSub &&
         id == other.id &&
-        phone == other.phone;
+        phone == other.phone &&
+        healthyStatus == other.healthyStatus;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, id.hashCode), phone.hashCode));
+    return $jf(
+        $jc($jc($jc(0, id.hashCode), phone.hashCode), healthyStatus.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('HealthCertificationSub')
           ..add('id', id)
-          ..add('phone', phone))
+          ..add('phone', phone)
+          ..add('healthyStatus', healthyStatus))
         .toString();
   }
 }
@@ -485,12 +502,19 @@ class HealthCertificationSubBuilder
   String get phone => _$this._phone;
   set phone(String phone) => _$this._phone = phone;
 
+  HealthyStatusBuilder _healthyStatus;
+  HealthyStatusBuilder get healthyStatus =>
+      _$this._healthyStatus ??= new HealthyStatusBuilder();
+  set healthyStatus(HealthyStatusBuilder healthyStatus) =>
+      _$this._healthyStatus = healthyStatus;
+
   HealthCertificationSubBuilder();
 
   HealthCertificationSubBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _phone = _$v.phone;
+      _healthyStatus = _$v.healthyStatus?.toBuilder();
       _$v = null;
     }
     return this;
@@ -511,8 +535,22 @@ class HealthCertificationSubBuilder
 
   @override
   _$HealthCertificationSub build() {
-    final _$result =
-        _$v ?? new _$HealthCertificationSub._(id: id, phone: phone);
+    _$HealthCertificationSub _$result;
+    try {
+      _$result = _$v ??
+          new _$HealthCertificationSub._(
+              id: id, phone: phone, healthyStatus: healthyStatus.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'healthyStatus';
+        healthyStatus.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'HealthCertificationSub', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

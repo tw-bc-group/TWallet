@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
 
+enum BackIcon {
+  NONE,
+  CLOSE,
+  ARROW
+}
+
+const Map<BackIcon, IconData> BackIconMap = {
+  BackIcon.CLOSE: Icons.close,
+  BackIcon.ARROW: Icons.chevron_left
+};
+
 class PageTitleWidget extends StatelessWidget {
   final String title;
+  final BackIcon backIcon;
 
-  PageTitleWidget({this.title});
+  PageTitleWidget({this.title, this.backIcon = BackIcon.CLOSE});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +40,11 @@ class PageTitleWidget extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
+          if(backIcon != BackIcon.NONE) Positioned(
             left: 17,
             top: 0,
             child: IconButton(
-              icon: Icon(Icons.close),
+              icon: Icon(BackIconMap[backIcon]),
               iconSize: 30,
               color: WalletTheme.rgbColor('#aaaaaa'),
               onPressed: () {

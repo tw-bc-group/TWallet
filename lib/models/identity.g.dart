@@ -63,6 +63,18 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add(serializers.serialize(object.balance,
             specifiedType: const FullType(Amount)));
     }
+    if (object.healthCertificateStatus != null) {
+      result
+        ..add('healthCertificateStatus')
+        ..add(serializers.serialize(object.healthCertificateStatus,
+            specifiedType: const FullType(String)));
+    }
+    if (object.healthStatus != null) {
+      result
+        ..add('healthStatus')
+        ..add(serializers.serialize(object.healthStatus,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -113,6 +125,14 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.balance = serializers.deserialize(value,
               specifiedType: const FullType(Amount)) as Amount;
           break;
+        case 'healthCertificateStatus':
+          result.healthCertificateStatus = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'healthStatus':
+          result.healthStatus = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -139,6 +159,10 @@ class _$Identity extends Identity {
   final String birthday;
   @override
   final Amount balance;
+  @override
+  final String healthCertificateStatus;
+  @override
+  final String healthStatus;
   String __address;
   DID __did;
   Optional<Avataaar> __avataaar;
@@ -155,7 +179,9 @@ class _$Identity extends Identity {
       this.phone,
       this.email,
       this.birthday,
-      this.balance})
+      this.balance,
+      this.healthCertificateStatus,
+      this.healthStatus})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
@@ -196,7 +222,9 @@ class _$Identity extends Identity {
         phone == other.phone &&
         email == other.email &&
         birthday == other.birthday &&
-        balance == other.balance;
+        balance == other.balance &&
+        healthCertificateStatus == other.healthCertificateStatus &&
+        healthStatus == other.healthStatus;
   }
 
   @override
@@ -207,14 +235,20 @@ class _$Identity extends Identity {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), avatar.hashCode),
-                                name.hashCode),
-                            pubKey.hashCode),
-                        priKey.hashCode),
-                    phone.hashCode),
-                email.hashCode),
-            birthday.hashCode),
-        balance.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, id.hashCode),
+                                            avatar.hashCode),
+                                        name.hashCode),
+                                    pubKey.hashCode),
+                                priKey.hashCode),
+                            phone.hashCode),
+                        email.hashCode),
+                    birthday.hashCode),
+                balance.hashCode),
+            healthCertificateStatus.hashCode),
+        healthStatus.hashCode));
   }
 
   @override
@@ -228,7 +262,9 @@ class _$Identity extends Identity {
           ..add('phone', phone)
           ..add('email', email)
           ..add('birthday', birthday)
-          ..add('balance', balance))
+          ..add('balance', balance)
+          ..add('healthCertificateStatus', healthCertificateStatus)
+          ..add('healthStatus', healthStatus))
         .toString();
   }
 }
@@ -272,6 +308,15 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   Amount get balance => _$this._balance;
   set balance(Amount balance) => _$this._balance = balance;
 
+  String _healthCertificateStatus;
+  String get healthCertificateStatus => _$this._healthCertificateStatus;
+  set healthCertificateStatus(String healthCertificateStatus) =>
+      _$this._healthCertificateStatus = healthCertificateStatus;
+
+  String _healthStatus;
+  String get healthStatus => _$this._healthStatus;
+  set healthStatus(String healthStatus) => _$this._healthStatus = healthStatus;
+
   IdentityBuilder();
 
   IdentityBuilder get _$this {
@@ -285,6 +330,8 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
       _email = _$v.email;
       _birthday = _$v.birthday;
       _balance = _$v.balance;
+      _healthCertificateStatus = _$v.healthCertificateStatus;
+      _healthStatus = _$v.healthStatus;
       _$v = null;
     }
     return this;
@@ -315,7 +362,9 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
             phone: phone,
             email: email,
             birthday: birthday,
-            balance: balance);
+            balance: balance,
+            healthCertificateStatus: healthCertificateStatus,
+            healthStatus: healthStatus);
     replace(_$result);
     return _$result;
   }

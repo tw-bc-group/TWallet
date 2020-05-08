@@ -36,7 +36,7 @@ abstract class HealthCertificationSub implements Built<HealthCertificationSub, H
   
   String get id;
   String get phone;
-  // HealthyStatus get healthyStatus;
+  HealthyStatus get healthyStatus;
 
   factory HealthCertificationSub.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,

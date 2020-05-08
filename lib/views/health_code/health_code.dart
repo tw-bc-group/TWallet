@@ -11,13 +11,17 @@ class HealthCodePage extends StatefulWidget {
 }
 
 class HealthCodeState extends State<HealthCodePage> {
+  Future onRefresh() async{
+    return Future.value(2);
+  }
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
         title: '健康码',
-        child: Container(
+        child: RefreshIndicator(
+          onRefresh: onRefresh,
+          child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 49),
-            child: Column(
               children: <Widget>[
                 Container(
                   margin: EdgeInsetsDirectional.only(top: 50),
@@ -53,7 +57,8 @@ class HealthCodeState extends State<HealthCodePage> {
                       )),
                 )
               ],
-            )));
+            ),
+        ));
   }
 
   Widget _buildQrImage(String data, bool isHealth) {

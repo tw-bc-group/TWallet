@@ -25,6 +25,30 @@ class IdentityDetailPage extends StatelessWidget {
     return identityResult;
   }
 
+  String getCertificationTitle() {
+    var currentIdentity = getIdentity();
+    if (currentIdentity.healthCertificateStatus == CERTIFICATED) {
+      return '健康码';
+    }
+    return '健康认证';
+  }
+
+  Color getCertificationTitleColor(context) {
+    var currentIdentity = getIdentity();
+    if (currentIdentity.healthStatus == UNHEALTHY) {
+      return Colors.red;
+    }
+    return Theme.of(context).primaryColor;
+  }
+
+  onHealthBtnTap(BuildContext context) {
+    var currentIdentity = getIdentity();
+    if (currentIdentity.healthCertificateStatus == CERTIFICATED) {
+      return Application.router.navigateTo(context, Routes.healthCode);
+    }
+    Application.router.navigateTo(context, '${Routes.certificate}?id=$id');
+  }
+
   @override
   Widget build(BuildContext context) {
     var identity = getIdentity();
@@ -46,22 +70,22 @@ class IdentityDetailPage extends StatelessWidget {
           DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
           DetailRowWidget(
             value: GestureDetector(
-              onTap: () => Application.router.navigateTo(context, '${Routes.certificate}?id=$id'),
+              onTap: () => onHealthBtnTap(context),
               child: Container(
                 width: 70,
                 height: 30,
                 decoration: BoxDecoration(
                     border: Border.all(
                         width: 2,
-                        color: Theme.of(context).primaryColor),
+                        color: getCertificationTitleColor(context)),
                     borderRadius:
                         BorderRadius.all(Radius.circular(8))),
                 child: Center(
                   child: Text(
-                    '健康认证',
+                    getCertificationTitle(),
                     style: TextStyle(
                         fontSize: 12,
-                        color: Theme.of(context).primaryColor),
+                        color: getCertificationTitleColor(context)),
                   ),
                 ),
             )))])));

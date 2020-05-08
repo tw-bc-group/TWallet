@@ -105,6 +105,14 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.addIdentity(identity: identity));
   }
 
+  final _$updateIdentityAsyncAction = AsyncAction('updateIdentity');
+
+  @override
+  Future<void> updateIdentity(Identity identity) {
+    return _$updateIdentityAsyncAction
+        .run(() => super.updateIdentity(identity));
+  }
+
   final _$deleteIdentityAsyncAction = AsyncAction('deleteIdentity');
 
   @override

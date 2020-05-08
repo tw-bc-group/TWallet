@@ -14,6 +14,11 @@ import 'did.dart';
 
 part 'identity.g.dart';
 
+const String CERTIFICATED = 'CERTIFICATED';
+const String NOT_CERTIFICATED = 'NOT_CERTIFICATED';
+const String HEALTHY = 'healthy';
+const String UNHEALTHY = 'unhealthy';
+
 abstract class Identity extends Object
     implements Built<Identity, IdentityBuilder> {
   static Serializer<Identity> get serializer => _$identitySerializer;
@@ -33,6 +38,10 @@ abstract class Identity extends Object
   String get birthday;
   @nullable
   Amount get balance;
+  @nullable
+  String get healthCertificateStatus;
+  @nullable
+  String get healthStatus;
 
   @memoized
   String get address =>

@@ -10,6 +10,7 @@ class CommonLayout extends StatelessWidget {
   final Function btnOnPressed;
   final String title;
   final String bodyBackColor;
+  final BackIcon backIcon;
 
   CommonLayout({
     this.child, 
@@ -18,6 +19,7 @@ class CommonLayout extends StatelessWidget {
     this.btnOnPressed,
     this.title,
     this.bodyBackColor = '#f2f2f2',
+    this.backIcon,
   });
 
   @override
@@ -27,7 +29,7 @@ class CommonLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WalletTheme.rgbColor('#fafafa'),
         brightness: Brightness.light,
-        title: PageTitleWidget(title: title),
+        title: PageTitleWidget(title: title, backIcon: backIcon),
         textTheme: Theme.of(context).textTheme.apply(
           bodyColor: Colors.black,
           displayColor: Colors.black,
