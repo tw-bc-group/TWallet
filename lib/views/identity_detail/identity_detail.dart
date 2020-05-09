@@ -32,12 +32,6 @@ class IdentityDetailPage extends StatelessWidget {
     return certStore.isBoundCert ? '健康码' : '健康认证';
   }
 
-  Color certTitleColor(context) {
-    return certStore.isBoundCert && !certStore.isHealthy
-        ? Colors.red
-        : Theme.of(context).primaryColor;
-  }
-
   onHealthBtnTap(BuildContext context) {
     var path = certStore.isBoundCert
         ? '${Routes.healthCode}?id=$id'
@@ -65,13 +59,13 @@ class IdentityDetailPage extends StatelessWidget {
           DetailRowWidget(name: '生日', value: identity.birthday ?? ''),
           DetailRowWidget(name: 'DID', value: identity.did.toString()),
           DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
-          DetailRowWidget(value: buildGestureDetector(context))
+          DetailRowWidget(value: buildHealthBtn(context))
         ]),
       ),
     );
   }
 
-  Widget buildGestureDetector(BuildContext context) {
+  Widget buildHealthBtn(BuildContext context) {
     return Observer(builder: (BuildContext context) {
       return GestureDetector(
         onTap: () => onHealthBtnTap(context),
@@ -79,13 +73,13 @@ class IdentityDetailPage extends StatelessWidget {
           width: 70,
           height: 30,
           decoration: BoxDecoration(
-            border: Border.all(width: 2, color: certTitleColor(context)),
+            border: Border.all(width: 2, color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
           child: Center(
             child: Text(
               certTitle(),
-              style: TextStyle(fontSize: 12, color: certTitleColor(context)),
+              style: TextStyle(fontSize: 12, color: Theme.of(context).primaryColor),
             ),
           ),
         ),
