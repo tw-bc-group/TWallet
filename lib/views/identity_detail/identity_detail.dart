@@ -48,7 +48,7 @@ class IdentityDetailPage extends StatelessWidget {
       title: '个人信息',
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-        child: Column(children: <Widget>[
+        child: ListView(children: <Widget>[
           DetailRowWidget(
             name: '头像',
             value: AvatarWidget(avataaar: identity.avataaar),

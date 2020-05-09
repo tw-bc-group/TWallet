@@ -57,9 +57,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
         builder: (context, constraints) => Container(
             color: WalletTheme.mainBgColor,
             child: Column(children: <Widget>[
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: PageTitleWidget(title: '新建个人信息')),
+              Container(child: PageTitleWidget(title: '新建个人信息')),
               Expanded(
                   child: Form(
                 child: Padding(
