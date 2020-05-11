@@ -26,7 +26,18 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
       'abi',
       serializers.serialize(object.abi, specifiedType: const FullType(String)),
     ];
-
+    if (object.symbol != null) {
+      result
+        ..add('symbol')
+        ..add(serializers.serialize(object.symbol,
+            specifiedType: const FullType(String)));
+    }
+    if (object.decimal != null) {
+      result
+        ..add('decimal')
+        ..add(serializers.serialize(object.decimal,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -53,6 +64,14 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
           result.abi = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'symbol':
+          result.symbol = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'decimal':
+          result.decimal = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
       }
     }
 
@@ -67,11 +86,16 @@ class _$Contract extends Contract {
   final String address;
   @override
   final String abi;
+  @override
+  final String symbol;
+  @override
+  final int decimal;
 
   factory _$Contract([void Function(ContractBuilder) updates]) =>
       (new ContractBuilder()..update(updates)).build();
 
-  _$Contract._({this.name, this.address, this.abi}) : super._() {
+  _$Contract._({this.name, this.address, this.abi, this.symbol, this.decimal})
+      : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Contract', 'name');
     }
@@ -96,12 +120,17 @@ class _$Contract extends Contract {
     return other is Contract &&
         name == other.name &&
         address == other.address &&
-        abi == other.abi;
+        abi == other.abi &&
+        symbol == other.symbol &&
+        decimal == other.decimal;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, name.hashCode), address.hashCode), abi.hashCode));
+    return $jf($jc(
+        $jc($jc($jc($jc(0, name.hashCode), address.hashCode), abi.hashCode),
+            symbol.hashCode),
+        decimal.hashCode));
   }
 
   @override
@@ -109,7 +138,9 @@ class _$Contract extends Contract {
     return (newBuiltValueToStringHelper('Contract')
           ..add('name', name)
           ..add('address', address)
-          ..add('abi', abi))
+          ..add('abi', abi)
+          ..add('symbol', symbol)
+          ..add('decimal', decimal))
         .toString();
   }
 }
@@ -129,6 +160,14 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
   String get abi => _$this._abi;
   set abi(String abi) => _$this._abi = abi;
 
+  String _symbol;
+  String get symbol => _$this._symbol;
+  set symbol(String symbol) => _$this._symbol = symbol;
+
+  int _decimal;
+  int get decimal => _$this._decimal;
+  set decimal(int decimal) => _$this._decimal = decimal;
+
   ContractBuilder();
 
   ContractBuilder get _$this {
@@ -136,6 +175,8 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
       _name = _$v.name;
       _address = _$v.address;
       _abi = _$v.abi;
+      _symbol = _$v.symbol;
+      _decimal = _$v.decimal;
       _$v = null;
     }
     return this;
@@ -156,8 +197,13 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
 
   @override
   _$Contract build() {
-    final _$result =
-        _$v ?? new _$Contract._(name: name, address: address, abi: abi);
+    final _$result = _$v ??
+        new _$Contract._(
+            name: name,
+            address: address,
+            abi: abi,
+            symbol: symbol,
+            decimal: decimal);
     replace(_$result);
     return _$result;
   }

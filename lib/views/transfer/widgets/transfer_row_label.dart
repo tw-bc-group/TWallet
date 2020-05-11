@@ -7,7 +7,7 @@ class TransferRowWidget extends StatelessWidget {
   final Widget child;
 
   TransferRowWidget({this.title, this.errorMsg, this.child});
-  
+
   Widget buildLabel() {
     return Container(
       height: 43,
@@ -20,7 +20,8 @@ class TransferRowWidget extends StatelessWidget {
               ? Container()
               : Text(
                   title,
-                  style: TextStyle(fontSize: 10, color: WalletTheme.rgbColor('#aaaaaa')),
+                  style: TextStyle(
+                      fontSize: 10, color: WalletTheme.rgbColor('#aaaaaa')),
                 ),
           errorMsg == null
               ? Container()
@@ -33,8 +34,8 @@ class TransferRowWidget extends StatelessWidget {
                         : Text(
                             '* ' + errorMsg,
                             style: TextStyle(
-                              fontSize: 10,
-                              color: WalletTheme.rgbColor('#dd5757')),
+                                fontSize: 10,
+                                color: WalletTheme.rgbColor('#dd5757')),
                           ),
                   ),
                 )
@@ -45,24 +46,20 @@ class TransferRowWidget extends StatelessWidget {
 
   Widget buildContent() {
     return Container(
-      height: 91,
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-      decoration: BoxDecoration(color: WalletTheme.rgbColor('#fafafa')),
-      child: Row(
-        children: <Widget>[
-          Expanded(child: child),
-        ],
-      )
-    );
+        height: 91,
+        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+        decoration: BoxDecoration(color: WalletTheme.rgbColor('#fafafa')),
+        child: Row(
+          children: <Widget>[
+            Expanded(child: child),
+          ],
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        buildLabel(),
-        buildContent()
-      ],
+      children: <Widget>[buildLabel(), buildContent()],
     );
   }
 }

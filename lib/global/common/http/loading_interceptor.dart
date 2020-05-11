@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 
 class LoadingInterceptor extends InterceptorsWrapper {
-
   static int requestNum = 0;
   YYDialog dialogInstance;
 
@@ -24,7 +23,7 @@ class LoadingInterceptor extends InterceptorsWrapper {
       requestNum--;
       if (requestNum == 0) {
         hideLoading();
-      } 
+      }
     }
     return super.onResponse(response);
   }
@@ -35,29 +34,28 @@ class LoadingInterceptor extends InterceptorsWrapper {
       requestNum--;
       if (requestNum == 0) {
         hideLoading();
-      } 
+      }
     }
     return super.onError(err);
   }
 
   showLoading() {
     dialogInstance = YYDialog().build()
-    ..barrierColor = Color.fromRGBO(60, 60, 60, 0.1)
-    ..backgroundColor = Colors.transparent
-    ..width = 60
-    ..height = 60
-    ..widget(Padding(
-      padding: EdgeInsets.only(top: 10),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircularProgressIndicator(),
-          ],
-        ),
-      )
-    ))
-    ..show();
+      ..barrierColor = Color.fromRGBO(60, 60, 60, 0.1)
+      ..backgroundColor = Colors.transparent
+      ..width = 60
+      ..height = 60
+      ..widget(Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(),
+              ],
+            ),
+          )))
+      ..show();
   }
 
   hideLoading() {

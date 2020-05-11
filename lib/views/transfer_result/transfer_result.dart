@@ -21,22 +21,20 @@ class TransferResultPage extends StatelessWidget {
         identityStore.fetchLatestPoint();
         Navigator.popUntil(context, ModalRoute.withName(Routes.txList));
       },
-      child: Column(
-        children: [
-          ConfirmRowWidget(
-            title: '金额',
-            contentLeft: double.parse(amount).toStringAsFixed(2),
-          ),
-          ConfirmRowWidget(
-            title: '发送方',
-            contentLeft: identityStore.selectedIdentity.value.address,
-          ),
-          ConfirmRowWidget(
-            title: '接收方',
-            contentLeft: toAddress,
-          ),
-        ]
-      ),
+      child: Column(children: [
+        ConfirmRowWidget(
+          title: '金额',
+          contentLeft: double.parse(amount).toStringAsFixed(2),
+        ),
+        ConfirmRowWidget(
+          title: '发送方',
+          contentLeft: identityStore.selectedIdentity.value.address,
+        ),
+        ConfirmRowWidget(
+          title: '接收方',
+          contentLeft: toAddress,
+        ),
+      ]),
     );
   }
 }

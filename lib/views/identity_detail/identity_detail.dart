@@ -79,7 +79,8 @@ class IdentityDetailPage extends StatelessWidget {
           child: Center(
             child: Text(
               certTitle(),
-              style: TextStyle(fontSize: 12, color: Theme.of(context).primaryColor),
+              style: TextStyle(
+                  fontSize: 12, color: Theme.of(context).primaryColor),
             ),
           ),
         ),

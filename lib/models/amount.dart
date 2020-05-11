@@ -1,16 +1,17 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
-import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/util.dart';
+import 'package:tw_wallet_ui/global/store/env_store.dart';
 
 class Amount {
   const Amount(this.value);
   final Decimal value;
 
-  Decimal get original => value * Decimal.fromInt(10).pow(AMOUNT_PRECISION);
+  Decimal get original =>
+      value * Decimal.fromInt(10).pow(globalEnv().tokenPrecision);
   String get humanReadable =>
-      formatDecimal(value, AMOUNT_HUMAN_READABLE_PRECISION);
+      formatDecimal(value, globalEnv().tokenHumanReadablePrecision);
 
   String get humanReadableWithSymbol => '￥$humanReadable';
 
@@ -27,8 +28,8 @@ class Amount {
   }
 
   factory Amount.parse(String value) {
-    return Amount(
-        Decimal.parse(value) / Decimal.fromInt(10).pow(AMOUNT_PRECISION));
+    return Amount(Decimal.parse(value) /
+        Decimal.fromInt(10).pow(globalEnv().tokenPrecision));
   }
 
   static Amount zero = Amount(Decimal.zero);

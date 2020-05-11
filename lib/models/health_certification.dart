@@ -8,8 +8,10 @@ part 'health_certification.g.dart';
 const String HEALTHY = 'healthy';
 const String UNHEALTHY = 'unhealthy';
 
-abstract class HealthCertification implements Built<HealthCertification, HealthCertificationBuilder> {
-  static Serializer<HealthCertification> get serializer => _$healthCertificationSerializer;
+abstract class HealthCertification
+    implements Built<HealthCertification, HealthCertificationBuilder> {
+  static Serializer<HealthCertification> get serializer =>
+      _$healthCertificationSerializer;
 
   HealthCertification._();
 
@@ -36,11 +38,13 @@ abstract class HealthCertification implements Built<HealthCertification, HealthC
   }
 }
 
-abstract class HealthCertificationSub implements Built<HealthCertificationSub, HealthCertificationSubBuilder> {
-  static Serializer<HealthCertificationSub> get serializer => _$healthCertificationSubSerializer;
+abstract class HealthCertificationSub
+    implements Built<HealthCertificationSub, HealthCertificationSubBuilder> {
+  static Serializer<HealthCertificationSub> get serializer =>
+      _$healthCertificationSubSerializer;
 
   HealthCertificationSub._();
-  
+
   String get id;
   String get phone;
   HealthyStatus get healthyStatus;
@@ -50,15 +54,17 @@ abstract class HealthCertificationSub implements Built<HealthCertificationSub, H
         specifiedType: FullType(HealthCertificationSub));
   }
 
-  factory HealthCertificationSub([Function(HealthCertificationSubBuilder) updates]) =
+  factory HealthCertificationSub(
+          [Function(HealthCertificationSubBuilder) updates]) =
       _$HealthCertificationSub;
 }
 
-abstract class HealthyStatus implements Built<HealthyStatus, HealthyStatusBuilder> {
+abstract class HealthyStatus
+    implements Built<HealthyStatus, HealthyStatusBuilder> {
   static Serializer<HealthyStatus> get serializer => _$healthyStatusSerializer;
 
   HealthyStatus._();
-  
+
   String get typ;
   String get val;
 

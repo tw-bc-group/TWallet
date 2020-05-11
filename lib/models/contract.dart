@@ -11,6 +11,10 @@ abstract class Contract extends Object
   String get name;
   String get address;
   String get abi;
+  @nullable
+  String get symbol;
+  @nullable
+  int get decimal;
 
   Map<String, dynamic> toJson() {
     return serializers.serialize(this);

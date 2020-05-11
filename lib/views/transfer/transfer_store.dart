@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/global/common/env.dart';
+import 'package:tw_wallet_ui/global/store/env_store.dart';
 import 'package:web3dart/credentials.dart';
 
 part 'transfer_store.g.dart';
@@ -67,8 +67,9 @@ abstract class _TransferStore with Store {
       } else if (res > double.parse(balance)) {
         error.amount = '金额不能大于当前余额';
       } else if (indexOfDot >= 0 &&
-          value.length - indexOfDot > AMOUNT_HUMAN_READABLE_PRECISION + 1) {
-        error.amount = '金额仅支持 $AMOUNT_HUMAN_READABLE_PRECISION 位小数';
+          value.length - indexOfDot >
+              globalEnv().tokenHumanReadablePrecision + 1) {
+        error.amount = '金额仅支持 ${globalEnv().tokenHumanReadablePrecision} 位小数';
       } else {
         error.amount = null;
       }

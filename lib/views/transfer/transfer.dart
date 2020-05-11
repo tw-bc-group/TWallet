@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/env.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/store/env_store.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/models/did.dart';
@@ -44,7 +44,7 @@ class TransferPageState extends State<TransferPage> {
 
   void confirmTransferPage() {
     Application.router.navigateTo(context,
-        '${Routes.transferConfirm}?currency=${Uri.encodeQueryComponent(TOKEN_NAME)}&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
+        '${Routes.transferConfirm}?currency=${Uri.encodeQueryComponent(globalEnv().tokenName)}&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
   }
 
   @override
@@ -60,7 +60,7 @@ class TransferPageState extends State<TransferPage> {
               TransferRowWidget(
                 title: '当前余额',
                 child: Text(
-                  '$TOKEN_SYMBOL ${_transferStore.balance}',
+                  '${globalEnv().tokenSymbol} ${_transferStore.balance}',
                   style: TextStyle(
                       fontSize: 16, color: WalletTheme.rgbColor('#888888')),
                 ),
@@ -77,7 +77,7 @@ class TransferPageState extends State<TransferPage> {
                           WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
                         ],
                         decoration: InputDecoration(
-                          prefix: Text(TOKEN_SYMBOL),
+                          prefix: Text(globalEnv().tokenSymbol),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(style: BorderStyle.none),
                           ),
@@ -89,7 +89,7 @@ class TransferPageState extends State<TransferPage> {
                             fontSize: 16,
                             color: WalletTheme.rgbColor('#888888')),
                         onChanged: (value) => _transferStore.amount =
-                            value.replaceFirst(TOKEN_SYMBOL, ''),
+                            value.replaceFirst(globalEnv().tokenSymbol, ''),
                       ))),
               TransferRowWidget(
                   title: '接收地址',

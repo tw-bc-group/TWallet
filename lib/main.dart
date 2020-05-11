@@ -41,10 +41,9 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'TW Wallet',
               theme: ThemeData(
-                primarySwatch: Colors.blue,
-                primaryColor: WalletTheme.rgbColor('#3e71c0'),
-                disabledColor: Colors.grey
-              ),
+                  primarySwatch: Colors.blue,
+                  primaryColor: WalletTheme.rgbColor('#3e71c0'),
+                  disabledColor: Colors.grey),
               initialRoute: initialRoute,
               onGenerateRoute: Application.router.generator,
             );

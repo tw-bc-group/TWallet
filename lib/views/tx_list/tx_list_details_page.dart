@@ -16,7 +16,7 @@ class TxListDetailsPageArgs {
   TxListDetailsPageArgs(
       {this.amount,
       this.fromAddressName,
-        this.isExpense,
+      this.isExpense,
       this.time,
       this.status,
       this.fromAddress,
@@ -57,7 +57,9 @@ class TxListDetailsPage extends StatelessWidget {
     return SizedBox(
         width: double.infinity,
         child: CupertinoButton(
-          onPressed: args.onPressed == null ? () => Navigator.pop(context) : args.onPressed,
+          onPressed: args.onPressed == null
+              ? () => Navigator.pop(context)
+              : args.onPressed,
           child: Text("好的", style: TextStyle(fontSize: 20)),
           color: Color(0XFF3E71C0),
         ));
@@ -83,7 +85,7 @@ class TxListDetailsPage extends StatelessWidget {
   }
 
   List<String> _labels(bool isExpense) {
-    return isExpense ? ["发送方", "接收方"] : [ "接收方", "发送方"];
+    return isExpense ? ["发送方", "接收方"] : ["接收方", "发送方"];
   }
 
   List<String> _address(bool isExpense, String from, String to) {
