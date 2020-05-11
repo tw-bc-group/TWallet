@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -27,18 +28,69 @@ class HealthCodeState extends State<HealthCodePage> {
   final certStore = getIt<HealthCertificationStore>();
 
   final String id;
+  int counter = 60;
   Identity identity;
+  Timer countTimer;
 
   HealthCodeState({this.id});
 
   Future onRefresh() async {
-    return Future.value(2);
+    return this.refreshHealthCode();
   }
 
   @override
   void initState() {
+    super.initState();
     this.identity = identityStore.getIdentity(id);
-    certStore.fetchHealthCert(identity.did.toString());
+    this.refreshHealthCode();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    resetCountTimer();
+  }
+
+  refreshHealthCode() {
+    certStore.fetchLatestHealthCert(identity.did.toString()).whenComplete(() => startCount());
+  }
+
+  resetCountTimer() {
+    if (countTimer != null) {
+      countTimer.cancel();
+      countTimer = null;
+      setState(() {
+        counter = 60;
+      });
+    }
+  }
+
+  startCount() {
+    resetCountTimer();
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (countTimer == null) {
+        countTimer = timer;
+      }
+      setState(() {
+        counter--;
+        if (counter == 0) {
+          resetCountTimer();
+          refreshHealthCode();
+        }
+      });
+    });
+  }
+
+  getCounterText() {
+    if (counter >= 60 || counter < 0) {
+      return '';
+    }
+
+    if (counter > 0 && counter < 10) {
+      return '00:0$counter';
+    }
+
+    return '00:$counter';
   }
 
   @override
@@ -51,7 +103,13 @@ class HealthCodeState extends State<HealthCodePage> {
             padding: EdgeInsets.symmetric(horizontal: 49),
             children: <Widget>[
               Container(
-                margin: EdgeInsetsDirectional.only(top: 50),
+                margin: EdgeInsetsDirectional.only(top: 40),
+                child: Center(
+                  child: Text(getCounterText()),
+                ),
+              ),
+              Container(
+                margin: EdgeInsetsDirectional.only(top: 10),
                 child: Center(
                   child: Text(identity.name,
                       style: TextStyle(

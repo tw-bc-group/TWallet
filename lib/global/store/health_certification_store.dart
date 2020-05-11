@@ -38,4 +38,12 @@ abstract class _HealthCertificationStore with Store {
       this.healthCertification = HealthCertification.fromJson(cert);
     }
   }
+
+  @action
+  Future fetchLatestHealthCert(String did) async {
+    var latestHealthCert = await _apiProvider.fetchHealthCertificate(did);
+    await _db.setItem(did, latestHealthCert.toJson());
+    this.healthCertification = latestHealthCert;
+    return Future.value(latestHealthCert);
+  }
 }
