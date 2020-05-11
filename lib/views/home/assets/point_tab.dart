@@ -62,18 +62,20 @@ class PointTab extends StatelessWidget {
                 ]);
           case FutureStatus.fulfilled:
             TwBalance balance = future.result;
-            return RefreshIndicator(
-                onRefresh: _refresh,
-                child: Container(
-                  padding: EdgeInsets.all(18),
-                  child: ListView(
-                    children: [
-                      _pointItem(
-                          point: balance.amount.humanReadableWithSymbol,
-                          context: context)
-                    ],
-                  ),
-                ));
+            return balance == null
+                ? Container()
+                : RefreshIndicator(
+                    onRefresh: _refresh,
+                    child: Container(
+                      padding: EdgeInsets.all(18),
+                      child: ListView(
+                        children: [
+                          _pointItem(
+                              point: balance.amount.humanReadableWithSymbol,
+                              context: context)
+                        ],
+                      ),
+                    ));
         }
       });
 }

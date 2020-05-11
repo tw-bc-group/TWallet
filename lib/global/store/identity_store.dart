@@ -29,7 +29,7 @@ abstract class IdentityStoreBase with Store {
     searchName = '';
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
-        initialValue: ObservableFuture(Future.value(TwBalance.zero)));
+        initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
     selectIdentity(index: selectedIndex);
   }
