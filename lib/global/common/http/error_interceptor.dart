@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ErrorInterceptor extends InterceptorsWrapper {
 
-  static dynamic context;
+  static BuildContext context;
 
   @override
   Future onRequest(RequestOptions options) {
