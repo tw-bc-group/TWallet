@@ -15,7 +15,7 @@ class ApiProvider {
 
   Future<TwBalance> fetchPointV1({@required String address}) async {
     return _httpClient
-        .get('/v1/tw-points/' + address, loading: false)
+        .get('/v1/dc-ep/' + address, loading: false)
         .then((response) {
       return Future.value(
           ApiResponse.fromJson(response.data, [FullType(TwBalance)]).result);
@@ -71,13 +71,6 @@ class ApiProvider {
   Future<HealthCertification> healthCertificate(String phone, String did) {
     return _httpClient
         .post('/v1/health-certifications', {'phone': phone, 'did': did}).then(
-            (response) => Future.value(ApiResponse.fromJson(
-                response.data, [FullType(HealthCertification)]).result));
-  }
-
-  Future<HealthCertification> fetchHealthCertificate(String did) {
-    return _httpClient
-        .get('/v1/health-certifications/$did').then(
             (response) => Future.value(ApiResponse.fromJson(
                 response.data, [FullType(HealthCertification)]).result));
   }

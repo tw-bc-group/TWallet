@@ -7,7 +7,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 const IDENTITY_REGISTRY_CONTRACT_NAME = 'identity-registry';
-const TW_POINT_CONTRACT_NAME = 'tw-point';
+const TW_POINT_CONTRACT_NAME = 'dc-ep';
 
 class ContractService {
   const ContractService(this.contracts);
