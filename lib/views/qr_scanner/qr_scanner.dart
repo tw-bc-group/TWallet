@@ -16,58 +16,60 @@ class QrScannerPageState extends State<QrScannerPage>
   ScannerController _scannerController;
 
   Future<bool> checkAndRequirePermission() async {
-    if (!await Permission.camera.isGranted) {
-      return showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text("申请权限"),
-            content: Text("使用扫码功能需要授权允许使用相机权限"),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                onPressed: () async {
-                  if (Platform.isIOS) {
-                    openAppSettings();
-                  } else {
-                    if (await Permission.camera.request().isGranted) {
-                      Navigator.pop(context, true);
-                    }
-                  }
-                },
-                child: Text("授权"),
-              ),
-              CupertinoDialogAction(
-                onPressed: () {
-                  Navigator.pop(context, false);
-                },
-                child: Text("拒绝"),
-              ),
-            ],
-          );
-        },
-      );
+    PermissionStatus status = await Permission.camera.status;
+    if (!status.isGranted) {
+      if (Platform.isIOS && !status.isUndetermined) {
+        return showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              content: Text("需要去应用设置页面允许相机权限"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await openAppSettings();
+                  },
+                  child: Text("去设置"),
+                ),
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: Text("拒绝"),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        await Permission.camera.request();
+      }
     }
-    return true;
+    return await Permission.camera.isGranted;
   }
 
   @override
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      Future.delayed(Duration(milliseconds: 500)).then((_) {
+        checkAndRequirePermission().then((isGranted) {
+          if (isGranted) {
+            _scannerController.startCamera();
+            _scannerController.startCameraPreview();
+          } else {
+            Navigator.pop(context, null);
+          }
+        });
+      });
+    });
+
     WidgetsBinding.instance.addObserver(this);
     _scannerController = ScannerController(
       scannerResult: (String result) {
         Navigator.pop(context, result);
-      },
-      scannerViewCreated: () async {
-        if (!await checkAndRequirePermission()) {
-          Navigator.pop(context, null);
-        } else {
-          _scannerController.startCamera();
-          Future.delayed(Duration(milliseconds: 100)).then((_) {
-            _scannerController.startCameraPreview();
-          });
-        }
       },
     );
   }
