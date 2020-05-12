@@ -67,6 +67,15 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
     return _$fetchHealthCertAsyncAction.run(() => super.fetchHealthCert(did));
   }
 
+  final _$fetchLatestHealthCertAsyncAction =
+      AsyncAction('fetchLatestHealthCert');
+
+  @override
+  Future<dynamic> fetchLatestHealthCert(String did) {
+    return _$fetchLatestHealthCertAsyncAction
+        .run(() => super.fetchLatestHealthCert(did));
+  }
+
   @override
   String toString() {
     final string =

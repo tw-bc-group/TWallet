@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:tw_wallet_ui/global/common/http/error_interceptor.dart';
 import 'package:tw_wallet_ui/global/common/http/loading_interceptor.dart';
 import 'package:tw_wallet_ui/global/store/env_store.dart';
 
@@ -10,8 +11,10 @@ class HttpClient {
         responseType: ResponseType.json,
         validateStatus: (statusCode) {
           switch (statusCode) {
+            case 400:
             case 404:
             case 405:
+            case 500:
             case 502:
               return false;
             default:
@@ -19,6 +22,7 @@ class HttpClient {
           }
         })
     ..interceptors.add(LoadingInterceptor())
+    ..interceptors.add(ErrorInterceptor())
     ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
 
   Future<Response> get(String url, {bool loading: true}) async {
