@@ -47,21 +47,25 @@ class HealthCodeState extends State<HealthCodePage> {
 
   @override
   void dispose() {
+    resetCountTimer(dispose: true);
     super.dispose();
-    resetCountTimer();
   }
 
   refreshHealthCode() {
-    certStore.fetchLatestHealthCert(identity.did.toString()).whenComplete(() => startCount());
+    certStore
+        .fetchLatestHealthCert(identity.did.toString())
+        .whenComplete(() => startCount());
   }
 
-  resetCountTimer() {
+  resetCountTimer({bool dispose: false}) {
     if (countTimer != null) {
       countTimer.cancel();
       countTimer = null;
-      setState(() {
-        counter = 60;
-      });
+      if (!dispose) {
+        setState(() {
+          counter = 60;
+        });
+      }
     }
   }
 
