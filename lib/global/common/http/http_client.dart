@@ -8,19 +8,7 @@ class HttpClient {
     ..options = BaseOptions(
         baseUrl: globalEnv().apiGatewayBaseUrl,
         connectTimeout: globalEnv().apiGatewayConnectTimeout,
-        responseType: ResponseType.json,
-        validateStatus: (statusCode) {
-          switch (statusCode) {
-            case 400:
-            case 404:
-            case 405:
-            case 500:
-            case 502:
-              return false;
-            default:
-              return true;
-          }
-        })
+        responseType: ResponseType.json)
     ..interceptors.add(LoadingInterceptor())
     ..interceptors.add(ErrorInterceptor())
     ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));

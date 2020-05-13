@@ -3,7 +3,6 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 class ErrorInterceptor extends InterceptorsWrapper {
-
   static BuildContext context;
 
   @override
@@ -18,12 +17,38 @@ class ErrorInterceptor extends InterceptorsWrapper {
 
   @override
   Future onError(DioError err) {
-    if (err.response.statusCode == 400 && err.response.data['code'] == 40000) {
-      showErrorSnackbar(err.response.data['msg']);
+    print('111111: $err');
+
+    switch (err.type) {
+      case DioErrorType.CONNECT_TIMEOUT:
+        showErrorSnackbar('连接超时');
+        break;
+
+      case DioErrorType.SEND_TIMEOUT:
+        showErrorSnackbar('发送超时');
+        break;
+
+      case DioErrorType.RECEIVE_TIMEOUT:
+        showErrorSnackbar('接收超时');
+        break;
+
+      case DioErrorType.CANCEL:
+        showErrorSnackbar('用户取消');
+        break;
+
+      default:
+        if (err != null) {
+          if (err.response.statusCode == 400 &&
+              err.response.data['code'] == 40000) {
+            showErrorSnackbar(err.response.data['msg']);
+          }
+          if (err.response.statusCode >= 500) {
+            showErrorSnackbar('服务端错误');
+          }
+        }
+        break;
     }
-    if (err.response.statusCode >= 500) {
-      showErrorSnackbar('服务端错误');
-    }
+
     return super.onError(err);
   }
 

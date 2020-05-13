@@ -18,7 +18,7 @@ abstract class Env extends Object implements Built<Env, EnvBuilder> {
   factory Env.fromDefault() {
     return Env(((builder) => builder
       ..apiGatewayBaseUrl = 'https://dev.tw-wallet.in2e.com'
-      ..apiGatewayConnectTimeout = 10 * 1000
+      ..apiGatewayConnectTimeout = 30 * 1000
       ..web3RpcGatewayUrl = 'http://quorum.tw-wallet.in2e.com:22000'
       ..didPrefix = 'DID:TW:'
       ..tokenName = 'TW Point'
