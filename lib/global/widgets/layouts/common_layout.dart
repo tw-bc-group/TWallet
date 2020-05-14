@@ -41,23 +41,23 @@ class CommonLayout extends StatelessWidget {
       ),
       body: SafeArea(
           maintainBottomViewPadding: true,
-          child: Container(
-              decoration:
-                  BoxDecoration(color: WalletTheme.rgbColor(bodyBackColor)),
-              child: Column(
-                children: <Widget>[
-                  Expanded(child: child),
-                  withBottomBtn
-                      ? Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 16.0, horizontal: 30),
-                          width: MediaQuery.of(context).size.width - 60,
-                          child: WalletTheme.button(
-                              text: btnText, onPressed: btnOnPressed),
-                        )
-                      : Container()
-                ],
-              ))),
+          child: LayoutBuilder(
+              builder: (context, constraints) => Container(
+                  color: WalletTheme.rgbColor(bodyBackColor),
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(child: child),
+                      withBottomBtn
+                          ? Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: constraints.maxHeight / 20),
+                              width: constraints.maxWidth * 0.7,
+                              child: WalletTheme.button(
+                                  text: btnText, onPressed: btnOnPressed),
+                            )
+                          : Container()
+                    ],
+                  )))),
     );
   }
 }
