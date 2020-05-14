@@ -21,7 +21,7 @@ class TransferResultPage extends StatelessWidget {
         identityStore.fetchLatestPoint();
         Navigator.popUntil(context, ModalRoute.withName(Routes.txList));
       },
-      child: Column(children: [
+      childBuilder: (context, constraints) => Column(children: [
         ConfirmRowWidget(
           title: '金额',
           contentLeft: double.parse(amount).toStringAsFixed(2),

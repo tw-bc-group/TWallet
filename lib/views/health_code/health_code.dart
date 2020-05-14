@@ -101,53 +101,53 @@ class HealthCodeState extends State<HealthCodePage> {
   Widget build(BuildContext context) {
     return CommonLayout(
         title: '健康码',
-        child: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 49),
-            children: <Widget>[
-              Container(
-                margin: EdgeInsetsDirectional.only(top: 40),
-                child: Center(
-                  child: Text(getCounterText()),
-                ),
-              ),
-              Container(
-                margin: EdgeInsetsDirectional.only(top: 10),
-                child: Center(
-                  child: Text(identity.name,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: WalletTheme.rgbColor('#222222'),
-                          height: 1.6)),
-                ),
-              ),
-              observeQrImage(),
-              Center(
-                child: Text(
-                  '绿码：截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      letterSpacing: 1.4,
-                      color: WalletTheme.rgbColor('#888888'),
-                      height: 1.43),
-                ),
-              ),
-              Container(
-                margin: EdgeInsetsDirectional.only(top: 20),
-                child: Center(
+        childBuilder: (context, constraints) => RefreshIndicator(
+              onRefresh: onRefresh,
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 49),
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsetsDirectional.only(top: 40),
+                    child: Center(
+                      child: Text(getCounterText()),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsetsDirectional.only(top: 10),
+                    child: Center(
+                      child: Text(identity.name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: WalletTheme.rgbColor('#222222'),
+                              height: 1.6)),
+                    ),
+                  ),
+                  observeQrImage(),
+                  Center(
                     child: Text(
-                  '红码：该身份的持有者有病毒污染暴露风险。',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      letterSpacing: 1.4,
-                      color: WalletTheme.rgbColor('#888888'),
-                      height: 1.43),
-                )),
-              )
-            ],
-          ),
-        ));
+                      '绿码：截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          letterSpacing: 1.4,
+                          color: WalletTheme.rgbColor('#888888'),
+                          height: 1.43),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsetsDirectional.only(top: 20),
+                    child: Center(
+                        child: Text(
+                      '红码：该身份的持有者有病毒污染暴露风险。',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          letterSpacing: 1.4,
+                          color: WalletTheme.rgbColor('#888888'),
+                          height: 1.43),
+                    )),
+                  )
+                ],
+              ),
+            ));
   }
 
   Widget observeQrImage() {

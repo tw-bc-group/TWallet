@@ -10,7 +10,7 @@ class IdentityQRPage extends StatelessWidget {
     print(identity);
 
     return CommonLayout(
-      child: _buildMainContent(identity),
+      childBuilder: (context, constraints) => _buildMainContent(identity),
       title: '身份二维码',
     );
   }

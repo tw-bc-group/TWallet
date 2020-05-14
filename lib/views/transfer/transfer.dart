@@ -56,134 +56,138 @@ class TransferPageState extends State<TransferPage> {
             btnOnPressed:
                 _transferStore.error.hasErrors ? null : confirmTransferPage,
             title: '转账给其他人',
-            child: SingleChildScrollView(
-                child: Column(children: <Widget>[
-              TransferRowWidget(
-                title: '当前余额',
-                child: Text(
-                  '${globalEnv().tokenSymbol} ${_transferStore.balance}',
-                  style: TextStyle(
-                      fontSize: 16, color: WalletTheme.rgbColor('#888888')),
-                ),
-              ),
-              TransferRowWidget(
-                  title: '金额',
-                  errorMsg: _transferStore.error.amount,
-                  child: SizedBox(
-                      width: 230,
-                      child: TextField(
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
-                        ],
-                        decoration: InputDecoration(
-                          prefix: Text(globalEnv().tokenSymbol),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(style: BorderStyle.none),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(style: BorderStyle.none),
-                          ),
-                        ),
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: WalletTheme.rgbColor('#888888')),
-                        onChanged: (value) => _transferStore.amount =
-                            value.replaceFirst(globalEnv().tokenSymbol, ''),
-                      ))),
-              TransferRowWidget(
-                  title: '接收地址',
-                  errorMsg: _transferStore.error.payeeAddress,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 230,
-                        height: 50,
-                        child: TextField(
-                          controller: _payeeAddressController
-                            ..text = _transferStore.payeeAddress,
-                          keyboardType: TextInputType.text,
-                          maxLines: 3,
-                          inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter(
-                                RegExp(r'[a-zA-Z0-9]+')),
-                          ],
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(style: BorderStyle.none),
+            childBuilder: (context, constraints) => SingleChildScrollView(
+                    child: Column(children: <Widget>[
+                  TransferRowWidget(
+                    title: '当前余额',
+                    child: Text(
+                      '${globalEnv().tokenSymbol} ${_transferStore.balance}',
+                      style: TextStyle(
+                          fontSize: 16, color: WalletTheme.rgbColor('#888888')),
+                    ),
+                  ),
+                  TransferRowWidget(
+                      title: '金额',
+                      errorMsg: _transferStore.error.amount,
+                      child: SizedBox(
+                          width: 230,
+                          child: TextField(
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
+                            ],
+                            decoration: InputDecoration(
+                              prefix: Text(globalEnv().tokenSymbol),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(style: BorderStyle.none),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(style: BorderStyle.none),
+                              ),
                             ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(style: BorderStyle.none),
-                            ),
-                            contentPadding: EdgeInsets.all(8.0),
-                          ),
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: WalletTheme.rgbColor('#888888')),
-                          onChanged: (value) =>
-                              _transferStore.payeeAddress = value,
-                        ),
-                      ),
-                      Row(
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: WalletTheme.rgbColor('#888888')),
+                            onChanged: (value) => _transferStore.amount =
+                                value.replaceFirst(globalEnv().tokenSymbol, ''),
+                          ))),
+                  TransferRowWidget(
+                      title: '接收地址',
+                      errorMsg: _transferStore.error.payeeAddress,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: Icon(Icons.person),
+                          SizedBox(
+                            width: 230,
+                            height: 50,
+                            child: TextField(
+                              controller: _payeeAddressController
+                                ..text = _transferStore.payeeAddress,
+                              keyboardType: TextInputType.text,
+                              maxLines: 3,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter(
+                                    RegExp(r'[a-zA-Z0-9]+')),
+                              ],
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(style: BorderStyle.none),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(style: BorderStyle.none),
+                                ),
+                                contentPadding: EdgeInsets.all(8.0),
+                              ),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: WalletTheme.rgbColor('#888888')),
+                              onChanged: (value) =>
+                                  _transferStore.payeeAddress = value,
+                            ),
                           ),
-                          GestureDetector(
-                              child: Icon(Icons.crop_free),
-                              onTap: () async {
-                                String scanResult = await Application.router
-                                    .navigateTo(context, Routes.qrScanner);
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(right: 10),
+                                child: Icon(Icons.person),
+                              ),
+                              GestureDetector(
+                                  child: Icon(Icons.crop_free),
+                                  onTap: () async {
+                                    String scanResult = await Application.router
+                                        .navigateTo(context, Routes.qrScanner);
 
-                                if (null == scanResult) {
-                                  return;
-                                }
+                                    if (null == scanResult) {
+                                      return;
+                                    }
 
-                                try {
-                                  DID did = DID.parse(scanResult);
-                                  _transferStore
-                                      .updatePayeeAddress(did.eip55Address);
-                                } catch (_) {
-                                  await showDialog<String>(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        new SimpleDialog(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 50, vertical: 25),
-                                      children: <Widget>[
-                                        Center(
-                                            child: Text(
-                                          '未识别到有效的身份信息。',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            height: 1.82,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        )),
-                                        Container(
-                                            margin: EdgeInsets.only(top: 48),
-                                            child: Button(
-                                              width: 100,
-                                              height: 40,
-                                              text: '确定',
-                                              onPressed: () {
-                                                Application.router.pop(context);
-                                              },
-                                            ))
-                                      ],
-                                    ),
-                                  );
-                                }
-                              })
+                                    try {
+                                      DID did = DID.parse(scanResult);
+                                      _transferStore
+                                          .updatePayeeAddress(did.eip55Address);
+                                    } catch (_) {
+                                      await showDialog<String>(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            new SimpleDialog(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 50, vertical: 25),
+                                          children: <Widget>[
+                                            Center(
+                                                child: Text(
+                                              '未识别到有效的身份信息。',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                height: 1.82,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            )),
+                                            Container(
+                                                margin:
+                                                    EdgeInsets.only(top: 48),
+                                                child: Button(
+                                                  width: 100,
+                                                  height: 40,
+                                                  text: '确定',
+                                                  onPressed: () {
+                                                    Application.router
+                                                        .pop(context);
+                                                  },
+                                                ))
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  })
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  )),
-            ])));
+                      )),
+                ])));
       });
 }

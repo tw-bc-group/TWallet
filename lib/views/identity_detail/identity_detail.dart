@@ -46,22 +46,19 @@ class IdentityDetailPage extends StatelessWidget {
 
     return CommonLayout(
       title: '个人信息',
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-        child: ListView(children: <Widget>[
-          DetailRowWidget(
-            name: '头像',
-            value: AvatarWidget(avataaar: identity.avataaar),
-          ),
-          DetailRowWidget(name: '名称*', value: identity.name),
-          DetailRowWidget(name: '邮箱', value: identity.email),
-          DetailRowWidget(name: '电话', value: identity.phone),
-          DetailRowWidget(name: '生日', value: identity.birthday ?? ''),
-          DetailRowWidget(name: 'DID', value: identity.did.toString()),
-          DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
-          DetailRowWidget(value: buildHealthBtn(context))
-        ]),
-      ),
+      childBuilder: (context, constraints) => ListView(children: <Widget>[
+        DetailRowWidget(
+          name: '头像',
+          value: AvatarWidget(avataaar: identity.avataaar),
+        ),
+        DetailRowWidget(name: '名称*', value: identity.name),
+        DetailRowWidget(name: '邮箱', value: identity.email),
+        DetailRowWidget(name: '电话', value: identity.phone),
+        DetailRowWidget(name: '生日', value: identity.birthday ?? ''),
+        DetailRowWidget(name: 'DID', value: identity.did.toString()),
+        DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
+        DetailRowWidget(value: buildHealthBtn(context))
+      ]),
     );
   }
 

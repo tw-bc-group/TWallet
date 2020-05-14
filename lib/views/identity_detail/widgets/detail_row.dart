@@ -10,8 +10,7 @@ class DetailRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 28),
-      height: 54,
+      margin: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

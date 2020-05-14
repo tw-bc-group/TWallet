@@ -3,7 +3,7 @@ import 'package:tw_wallet_ui/global/common/theme.dart';
 import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 
 class CommonLayout extends StatelessWidget {
-  final Widget child;
+  final LayoutWidgetBuilder childBuilder;
   final bool withBottomBtn;
   final String btnText;
   final Function btnOnPressed;
@@ -12,7 +12,7 @@ class CommonLayout extends StatelessWidget {
   final BackIcon backIcon;
 
   CommonLayout({
-    this.child,
+    this.childBuilder,
     this.withBottomBtn = false,
     this.btnText = '完成',
     this.btnOnPressed,
@@ -44,19 +44,24 @@ class CommonLayout extends StatelessWidget {
           child: LayoutBuilder(
               builder: (context, constraints) => Container(
                   color: WalletTheme.rgbColor(bodyBackColor),
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(child: child),
-                      withBottomBtn
-                          ? Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: constraints.maxHeight / 20),
-                              width: constraints.maxWidth * 0.7,
-                              child: WalletTheme.button(
-                                  text: btnText, onPressed: btnOnPressed),
-                            )
-                          : Container()
-                    ],
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                            child: childBuilder(context, constraints),
+                            flex: 10),
+                        withBottomBtn
+                            ? Container(
+                                padding: EdgeInsets.only(
+                                    bottom: constraints.maxHeight / 20),
+                                width: constraints.maxWidth * 0.7,
+                                child: WalletTheme.button(
+                                    text: btnText, onPressed: btnOnPressed),
+                              )
+                            : Container()
+                      ],
+                    ),
                   )))),
     );
   }
