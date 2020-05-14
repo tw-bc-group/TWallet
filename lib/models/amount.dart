@@ -11,7 +11,7 @@ class Amount {
   Decimal get original =>
       value * Decimal.fromInt(10).pow(globalEnv().tokenPrecision);
   String get humanReadable =>
-      formatDecimal(value, globalEnv().tokenHumanReadablePrecision);
+      Util.formatDecimal(value, globalEnv().tokenHumanReadablePrecision);
 
   String get humanReadableWithSymbol => '￥$humanReadable';
 

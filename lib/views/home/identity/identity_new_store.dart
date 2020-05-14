@@ -1,6 +1,7 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/util.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
@@ -9,9 +10,6 @@ import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
 
 part 'identity_new_store.g.dart';
-
-final RegExp _regexPhone = RegExp(
-    r'^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[235-8]\d{2}|4(?:0\d|1[0-2]|9\d))|9[0135-9]\d{2}|66\d{2})\d{6}$');
 
 class IdentityNewStore = _IdentityNewStore with _$IdentityNewStore;
 
@@ -79,9 +77,8 @@ abstract class _IdentityNewStore with Store {
 
   @action
   void validatePhone(String value) {
-    error.phone = value != null
-        ? _regexPhone.stringMatch(value) != null ? null : '不是有效的手机号'
-        : null;
+    error.phone =
+        value != null ? Util.isValidPhone(phone) ? null : '不是有效的手机号' : null;
   }
 
   @action
