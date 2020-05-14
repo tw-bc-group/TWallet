@@ -17,8 +17,6 @@ class ErrorInterceptor extends InterceptorsWrapper {
 
   @override
   Future onError(DioError err) {
-    print('111111: $err');
-
     switch (err.type) {
       case DioErrorType.CONNECT_TIMEOUT:
         showErrorSnackbar('连接超时');
@@ -45,6 +43,8 @@ class ErrorInterceptor extends InterceptorsWrapper {
           if (err.response.statusCode >= 500) {
             showErrorSnackbar('服务端错误');
           }
+        } else {
+          showErrorSnackbar('未知错误');
         }
         break;
     }
