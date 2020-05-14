@@ -55,9 +55,10 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   final _$bindHealthCertAsyncAction = AsyncAction('bindHealthCert');
 
   @override
-  Future<dynamic> bindHealthCert(String did, String phone) {
-    return _$bindHealthCertAsyncAction
-        .run(() => super.bindHealthCert(did, phone));
+  Future<dynamic> bindHealthCert(String did, String phone, String temperature,
+      String contact, String symptoms) {
+    return _$bindHealthCertAsyncAction.run(
+        () => super.bindHealthCert(did, phone, temperature, contact, symptoms));
   }
 
   final _$fetchHealthCertAsyncAction = AsyncAction('fetchHealthCert');

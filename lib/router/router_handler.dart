@@ -99,7 +99,7 @@ var transferResultHandler = Handler(
 var certificateHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     var id = params['id'].first;
-    return CertificatePage(id: id);
+    return HealthCertificatePage(id: id);
   },
 );
 

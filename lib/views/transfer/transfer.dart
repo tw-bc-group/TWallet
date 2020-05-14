@@ -14,6 +14,7 @@ import 'package:tw_wallet_ui/views/transfer/transfer_store.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_row_label.dart';
 import 'package:tw_wallet_ui/widgets/button.dart';
 
+//TODO:
 const AMOUNT_ERROR = '金额不正确';
 const ADDRESS_IS_NOT_VALID = '账户地址不正确';
 

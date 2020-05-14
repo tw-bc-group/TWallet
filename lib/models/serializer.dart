@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
+import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
 
 import 'amount.dart';
 import 'identity.dart';
@@ -23,7 +24,8 @@ part 'serializer.g.dart';
   TxStatus,
   HealthCertification,
   HealthCertificationSub,
-  HealthyStatus
+  HealthyStatus,
+  SelectOption,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())

@@ -41,7 +41,7 @@ class HealthCodeState extends State<HealthCodePage> {
   @override
   void initState() {
     super.initState();
-    this.identity = identityStore.getIdentity(id);
+    this.identity = identityStore.getIdentityById(id);
     this.refreshHealthCode();
   }
 

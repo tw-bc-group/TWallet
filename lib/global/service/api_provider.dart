@@ -68,11 +68,17 @@ class ApiProvider {
     });
   }
 
-  Future<HealthCertification> healthCertificate(String phone, String did) {
-    return _httpClient
-        .post('/v1/health-certifications', {'phone': phone, 'did': did}).then(
-            (response) => Future.value(ApiResponse.fromJson(
-                response.data, [FullType(HealthCertification)]).result));
+  Future<HealthCertification> healthCertificate(String did, String phone,
+      String temperature, String contact, String symptoms) {
+    return _httpClient.post('/v1/health-certifications', {
+      'did': did,
+      'phone': phone,
+      'temperature': temperature,
+      'contact': contact,
+      "symptoms": symptoms
+    }).then((response) => Future.value(
+        ApiResponse.fromJson(response.data, [FullType(HealthCertification)])
+            .result));
   }
 
   Future<HealthCertification> fetchHealthCertificate(String did) {
