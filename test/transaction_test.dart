@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 
 void main() {
+  getItInit(isTest: true);
+
   group('Transaction', () {
     test('Transaction deserialize should be successful', () {
       Map<String, dynamic> _serialized = {

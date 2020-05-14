@@ -34,7 +34,7 @@ void main() {
   });
 
   test('Return a TwBalance Instance', () async {
-    final url = '/v1/tw-points/$address';
+    final url = '/v1/token/$address';
     when(_httpClient.get(url, loading: false))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
@@ -103,29 +103,38 @@ void main() {
       () async {
     final String phone = '13888888888';
     final String did = '123456789';
+    final String temperature = '37.1';
+    final String contact = 'Yes';
+    final String symptoms = 'No';
 
-    when(_httpClient
-            .post('/v1/health-certifications', {'phone': phone, 'did': did}))
-        .thenAnswer((_) async => Response(statusCode: 200, data: {
-              'code': 200,
-              'msg': 'SUCCESS',
-              'result': {
-                '@context': ['String'],
-                'id': 'did',
-                'ver': '0.1',
-                'iss': 'null',
-                'iat': 123,
-                'exp': 123,
-                'typ': ['HealthyStatus'],
-                'sub': {
-                  'id': 'did',
-                  'phone': 'aaa',
-                  'healthyStatus': {'typ': 'HealthyStatus', 'val': 'unhealthy'}
-                }
-              }
-            }));
+    when(_httpClient.post('/v1/health-certifications', {
+      'did': did,
+      'phone': phone,
+      'temperature': temperature,
+      'contact': contact,
+      "symptoms": symptoms
+    })).thenAnswer((_) async => Response(statusCode: 200, data: {
+          'code': 200,
+          'msg': 'SUCCESS',
+          'result': {
+            '@context': ['String'],
+            'id': 'did',
+            'ver': '0.1',
+            'iss': 'null',
+            'iat': 123,
+            'exp': 123,
+            'typ': ['HealthyStatus'],
+            'sub': {
+              'id': 'did',
+              'phone': 'aaa',
+              'healthyStatus': {'typ': 'HealthyStatus', 'val': 'unhealthy'}
+            }
+          }
+        }));
 
-    expect(await _apiProvider.healthCertificate(phone, did),
+    expect(
+        await _apiProvider.healthCertificate(
+            did, phone, temperature, contact, symptoms),
         isA<HealthCertification>());
   });
 }
