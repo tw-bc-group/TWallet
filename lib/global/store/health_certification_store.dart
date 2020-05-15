@@ -22,7 +22,7 @@ abstract class _HealthCertificationStore with Store {
   bool get isHealthy => healthCertification?.sub?.healthyStatus?.val == HEALTHY;
 
   @action
-  Future bindHealthCert(String did, String phone, String temperature,
+  Future bindHealthCert(String did, String phone, double temperature,
       String contact, String symptoms) async {
     final resp = await _apiProvider.healthCertificate(
         did, phone, temperature, contact, symptoms);

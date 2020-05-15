@@ -69,7 +69,7 @@ class ApiProvider {
   }
 
   Future<HealthCertification> healthCertificate(String did, String phone,
-      String temperature, String contact, String symptoms) {
+      double temperature, String contact, String symptoms) {
     return _httpClient.post('/v1/health-certifications', {
       'did': did,
       'phone': phone,

@@ -29,9 +29,9 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   handleConfirm() {
     getIt<HealthCertificationStore>()
         .bindHealthCert(
-            _pageStore.phone,
             getIt<IdentityStore>().getIdentityById(id).did.toString(),
-            _pageStore.temperature,
+            _pageStore.phone,
+            double.parse(_pageStore.temperature),
             _pageStore.contactOption.toString(),
             _pageStore.symptomsOption.toString())
         .then((_) => Application.router.pop(context));
@@ -83,97 +83,101 @@ class HealthCertificateState extends State<HealthCertificatePage> {
 
     final TextStyle errorStyle = TextStyle(color: Colors.red);
 
-    return CommonLayout(
-        title: '健康认证',
-        withBottomBtn: true,
-        btnText: '确定',
-        btnOnPressed: _pageStore.error.hasErrors ? null : handleConfirm,
-        bodyBackColor: '#fafafa',
-        childBuilder: (context, constraints) => Observer(
-            builder: (_) => SingleChildScrollView(
-                padding: EdgeInsets.all(25),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Observer(
+        builder: (_) => CommonLayout(
+            title: '健康认证',
+            withBottomBtn: true,
+            btnText: '确定',
+            btnOnPressed: _pageStore.error.hasErrors ? null : handleConfirm,
+            bodyBackColor: '#fafafa',
+            childBuilder: (context, constraints) => Observer(
+                builder: (_) => SingleChildScrollView(
+                    padding: EdgeInsets.all(25),
+                    child: Column(
                       children: <Widget>[
-                        Text(
-                          '* 手机号码',
-                          style: titleStyle,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              '* 手机号码',
+                              style: titleStyle,
+                            ),
+                            Text(_pageStore.error.phone ?? '',
+                                style: errorStyle),
+                          ],
                         ),
-                        Text(_pageStore.error.phone ?? '', style: errorStyle),
+                        _textFiled(TextInputType.phone,
+                            (String value) => _pageStore.phone = value),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('* 今日体温（℃）', style: titleStyle),
+                            Text(_pageStore.error.temperature ?? '',
+                                style: errorStyle),
+                          ],
+                        ),
+                        _textFiled(TextInputType.number,
+                            (String value) => _pageStore.temperature = value),
+                        Text('* 近14天内您是否接触新冠肺炎确诊患者或疑似患者？', style: titleStyle),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: SelectOption.values
+                                .map((contact) => [
+                                      Radio(
+                                        onChanged: (value) {
+                                          _pageStore.contactOption = value;
+                                        },
+                                        groupValue: _pageStore.contactOption,
+                                        value: contact,
+                                      ),
+                                      Text(contact.description())
+                                    ])
+                                .expand((list) => list)
+                                .toList()
+                                  ..addAll([
+                                    Expanded(child: Container()),
+                                    Text(_pageStore.error.contact ?? '',
+                                        style: errorStyle)
+                                  ])),
+                        Text('* 您是否有发烧、恶心呕吐、头痛、呼吸急促、心慌、胸闷、乏力、肌肉疼痛等症状？',
+                            style: titleStyle),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: SelectOption.values
+                                .map((symptoms) => [
+                                      Radio(
+                                        onChanged: (value) {
+                                          _pageStore.symptomsOption = value;
+                                        },
+                                        groupValue: _pageStore.symptomsOption,
+                                        value: symptoms,
+                                      ),
+                                      Text(symptoms.description())
+                                    ])
+                                .expand((list) => list)
+                                .toList()
+                                  ..addAll([
+                                    Expanded(child: Container()),
+                                    Text(_pageStore.error.symptoms ?? '',
+                                        style: errorStyle)
+                                  ])),
+                        Row(children: <Widget>[
+                          Checkbox(
+                            activeColor: Colors.blue,
+                            value: _pageStore.hasCommitment ?? false,
+                            onChanged: (bool value) {
+                              _pageStore.hasCommitment = value;
+                            },
+                          ),
+                          Text('本人郑重承诺'),
+                          Expanded(child: Container()),
+                          Text(_pageStore.error.commitment ?? '',
+                              style: errorStyle)
+                        ]),
+                        Text(
+                            '上述信息是我本人填写，本人对内容真实性和完整性负责，因信息填报不实导致相关后果的，本人愿意承担相应责任。',
+                            style: TextStyle(color: Colors.grey))
                       ],
-                    ),
-                    _textFiled(TextInputType.phone,
-                        (String value) => _pageStore.phone = value),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('* 今日体温（℃）', style: titleStyle),
-                        Text(_pageStore.error.temperature ?? '',
-                            style: errorStyle),
-                      ],
-                    ),
-                    _textFiled(TextInputType.number,
-                        (String value) => _pageStore.temperature = value),
-                    Text('* 近14天内您是否接触新冠肺炎确诊患者或疑似患者？', style: titleStyle),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: SelectOption.values
-                            .map((contact) => [
-                                  Radio(
-                                    onChanged: (value) {
-                                      _pageStore.contactOption = value;
-                                    },
-                                    groupValue: _pageStore.contactOption,
-                                    value: contact,
-                                  ),
-                                  Text(contact.description())
-                                ])
-                            .expand((list) => list)
-                            .toList()
-                              ..addAll([
-                                Expanded(child: Container()),
-                                Text(_pageStore.error.contact ?? '',
-                                    style: errorStyle)
-                              ])),
-                    Text('* 您是否有发烧、恶心呕吐、头痛、呼吸急促、心慌、胸闷、乏力、肌肉疼痛等症状？',
-                        style: titleStyle),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: SelectOption.values
-                            .map((symptoms) => [
-                                  Radio(
-                                    onChanged: (value) {
-                                      _pageStore.symptomsOption = value;
-                                    },
-                                    groupValue: _pageStore.symptomsOption,
-                                    value: symptoms,
-                                  ),
-                                  Text(symptoms.description())
-                                ])
-                            .expand((list) => list)
-                            .toList()
-                              ..addAll([
-                                Expanded(child: Container()),
-                                Text(_pageStore.error.symptoms ?? '',
-                                    style: errorStyle)
-                              ])),
-                    Row(children: <Widget>[
-                      Checkbox(
-                        activeColor: Colors.blue,
-                        value: _pageStore.hasCommitment ?? false,
-                        onChanged: (bool value) {
-                          _pageStore.hasCommitment = value;
-                        },
-                      ),
-                      Text('本人郑重承诺'),
-                      Expanded(child: Container()),
-                      Text(_pageStore.error.commitment ?? '', style: errorStyle)
-                    ]),
-                    Text('上述信息是我本人填写，本人对内容真实性和完整性负责，因信息填报不实导致相关后果的，本人愿意承担相应责任。',
-                        style: TextStyle(color: Colors.grey))
-                  ],
-                ))));
+                    )))));
   }
 }
