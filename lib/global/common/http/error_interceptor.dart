@@ -36,9 +36,12 @@ class ErrorInterceptor extends InterceptorsWrapper {
 
       default:
         if (err != null) {
-          if (err.response.statusCode == 400 &&
-              err.response.data['code'] == 40000) {
-            showErrorSnackbar(err.response.data['msg']);
+          if (err.response.statusCode == 400) {
+            if (err.response.data['code'] == 40000) {
+              showErrorSnackbar(err.response.data['msg']);
+            } else {
+              showErrorSnackbar('请求参数错误');
+            }
           }
           if (err.response.statusCode >= 500) {
             showErrorSnackbar('服务端错误');
