@@ -103,7 +103,7 @@ void main() {
       () async {
     final String phone = '13888888888';
     final String did = '123456789';
-    final String temperature = '37.1';
+    final double temperature = 37.1;
     final String contact = 'Yes';
     final String symptoms = 'No';
 

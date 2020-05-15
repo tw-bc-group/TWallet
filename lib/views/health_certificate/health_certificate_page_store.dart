@@ -124,7 +124,7 @@ abstract class _HealthCertificatePageStore with Store {
 
   @action
   void validateCommitment(bool value) {
-    error.commitment = (value == null || !value) ? '*必须承若' : null;
+    error.commitment = (value == null || !value) ? '*必选' : null;
   }
 
   @action
