@@ -58,6 +58,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
               store.error.hasErrors || isAdding ? null : _addOnPressed,
           childBuilder: (context, constraints) => LayoutBuilder(
                 builder: (context, constraints) => Container(
+                    padding: EdgeInsets.only(top: 15),
                     color: WalletTheme.mainBgColor,
                     child: Column(children: <Widget>[
                       Form(
