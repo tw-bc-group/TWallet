@@ -13,11 +13,12 @@ class Amount {
   String get humanReadable =>
       Util.formatDecimal(value, globalEnv().tokenHumanReadablePrecision);
 
-  String get humanReadableWithSymbol => '￥$humanReadable';
+  String get humanReadableWithSymbol =>
+      '${globalEnv().tokenSymbol}$humanReadable';
 
   String get humanReadableWithSign {
     if (!value.isNegative) {
-      return '+$humanReadableWithSymbol';
+      return '${globalEnv().tokenSymbol}+$humanReadable';
     }
     return humanReadableWithSymbol;
   }
