@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/secure_storage.dart';
-import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/common/theme/index.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 

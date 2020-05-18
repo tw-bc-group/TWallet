@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/theme.dart';
+import 'package:tw_wallet_ui/global/common/theme/index.dart';
 
 enum BackIcon { NONE, CLOSE, ARROW }
 
