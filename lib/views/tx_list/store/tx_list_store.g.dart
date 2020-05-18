@@ -12,78 +12,71 @@ mixin _$TxListStore on _TxListStore, Store {
   Computed<bool> _$loadingComputed;
 
   @override
-  bool get loading =>
-      (_$loadingComputed ??= Computed<bool>(() => super.loading)).value;
+  bool get loading => (_$loadingComputed ??=
+          Computed<bool>(() => super.loading, name: '_TxListStore.loading'))
+      .value;
 
   final _$listFutureAtom = Atom(name: '_TxListStore.listFuture');
 
   @override
   ObservableFuture<List<Transaction>> get listFuture {
-    _$listFutureAtom.context.enforceReadPolicy(_$listFutureAtom);
-    _$listFutureAtom.reportObserved();
+    _$listFutureAtom.reportRead();
     return super.listFuture;
   }
 
   @override
   set listFuture(ObservableFuture<List<Transaction>> value) {
-    _$listFutureAtom.context.conditionallyRunInAction(() {
+    _$listFutureAtom.reportWrite(value, super.listFuture, () {
       super.listFuture = value;
-      _$listFutureAtom.reportChanged();
-    }, _$listFutureAtom, name: '${_$listFutureAtom.name}_set');
+    });
   }
 
   final _$txAtom = Atom(name: '_TxListStore.tx');
 
   @override
   ObservableFuture<Transaction> get tx {
-    _$txAtom.context.enforceReadPolicy(_$txAtom);
-    _$txAtom.reportObserved();
+    _$txAtom.reportRead();
     return super.tx;
   }
 
   @override
   set tx(ObservableFuture<Transaction> value) {
-    _$txAtom.context.conditionallyRunInAction(() {
+    _$txAtom.reportWrite(value, super.tx, () {
       super.tx = value;
-      _$txAtom.reportChanged();
-    }, _$txAtom, name: '${_$txAtom.name}_set');
+    });
   }
 
   final _$listAtom = Atom(name: '_TxListStore.list');
 
   @override
   List<Transaction> get list {
-    _$listAtom.context.enforceReadPolicy(_$listAtom);
-    _$listAtom.reportObserved();
+    _$listAtom.reportRead();
     return super.list;
   }
 
   @override
   set list(List<Transaction> value) {
-    _$listAtom.context.conditionallyRunInAction(() {
+    _$listAtom.reportWrite(value, super.list, () {
       super.list = value;
-      _$listAtom.reportChanged();
-    }, _$listAtom, name: '${_$listAtom.name}_set');
+    });
   }
 
   final _$errorMessageAtom = Atom(name: '_TxListStore.errorMessage');
 
   @override
   String get errorMessage {
-    _$errorMessageAtom.context.enforceReadPolicy(_$errorMessageAtom);
-    _$errorMessageAtom.reportObserved();
+    _$errorMessageAtom.reportRead();
     return super.errorMessage;
   }
 
   @override
   set errorMessage(String value) {
-    _$errorMessageAtom.context.conditionallyRunInAction(() {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
       super.errorMessage = value;
-      _$errorMessageAtom.reportChanged();
-    }, _$errorMessageAtom, name: '${_$errorMessageAtom.name}_set');
+    });
   }
 
-  final _$fetchListAsyncAction = AsyncAction('fetchList');
+  final _$fetchListAsyncAction = AsyncAction('_TxListStore.fetchList');
 
   @override
   Future<dynamic> fetchList(String myAddress) {
@@ -94,7 +87,8 @@ mixin _$TxListStore on _TxListStore, Store {
 
   @override
   Future<dynamic> fetchDetails(String hash) {
-    final _$actionInfo = _$_TxListStoreActionController.startAction();
+    final _$actionInfo = _$_TxListStoreActionController.startAction(
+        name: '_TxListStore.fetchDetails');
     try {
       return super.fetchDetails(hash);
     } finally {
@@ -104,8 +98,12 @@ mixin _$TxListStore on _TxListStore, Store {
 
   @override
   String toString() {
-    final string =
-        'listFuture: ${listFuture.toString()},tx: ${tx.toString()},list: ${list.toString()},errorMessage: ${errorMessage.toString()},loading: ${loading.toString()}';
-    return '{$string}';
+    return '''
+listFuture: ${listFuture},
+tx: ${tx},
+list: ${list},
+errorMessage: ${errorMessage},
+loading: ${loading}
+    ''';
   }
 }

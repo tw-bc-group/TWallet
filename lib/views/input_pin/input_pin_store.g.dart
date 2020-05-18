@@ -13,48 +13,48 @@ mixin _$InputPinStore on _InputPinStore, Store {
 
   @override
   bool get isCompleted =>
-      (_$isCompletedComputed ??= Computed<bool>(() => super.isCompleted)).value;
+      (_$isCompletedComputed ??= Computed<bool>(() => super.isCompleted,
+              name: '_InputPinStore.isCompleted'))
+          .value;
   Computed<bool> _$isUnequalComputed;
 
   @override
   bool get isUnequal =>
-      (_$isUnequalComputed ??= Computed<bool>(() => super.isUnequal)).value;
+      (_$isUnequalComputed ??= Computed<bool>(() => super.isUnequal,
+              name: '_InputPinStore.isUnequal'))
+          .value;
 
   final _$pin1Atom = Atom(name: '_InputPinStore.pin1');
 
   @override
   String get pin1 {
-    _$pin1Atom.context.enforceReadPolicy(_$pin1Atom);
-    _$pin1Atom.reportObserved();
+    _$pin1Atom.reportRead();
     return super.pin1;
   }
 
   @override
   set pin1(String value) {
-    _$pin1Atom.context.conditionallyRunInAction(() {
+    _$pin1Atom.reportWrite(value, super.pin1, () {
       super.pin1 = value;
-      _$pin1Atom.reportChanged();
-    }, _$pin1Atom, name: '${_$pin1Atom.name}_set');
+    });
   }
 
   final _$pin2Atom = Atom(name: '_InputPinStore.pin2');
 
   @override
   String get pin2 {
-    _$pin2Atom.context.enforceReadPolicy(_$pin2Atom);
-    _$pin2Atom.reportObserved();
+    _$pin2Atom.reportRead();
     return super.pin2;
   }
 
   @override
   set pin2(String value) {
-    _$pin2Atom.context.conditionallyRunInAction(() {
+    _$pin2Atom.reportWrite(value, super.pin2, () {
       super.pin2 = value;
-      _$pin2Atom.reportChanged();
-    }, _$pin2Atom, name: '${_$pin2Atom.name}_set');
+    });
   }
 
-  final _$setMasterKeyAsyncAction = AsyncAction('setMasterKey');
+  final _$setMasterKeyAsyncAction = AsyncAction('_InputPinStore.setMasterKey');
 
   @override
   Future<void> setMasterKey() {
@@ -66,7 +66,8 @@ mixin _$InputPinStore on _InputPinStore, Store {
 
   @override
   dynamic updatePin1(String value) {
-    final _$actionInfo = _$_InputPinStoreActionController.startAction();
+    final _$actionInfo = _$_InputPinStoreActionController.startAction(
+        name: '_InputPinStore.updatePin1');
     try {
       return super.updatePin1(value);
     } finally {
@@ -76,7 +77,8 @@ mixin _$InputPinStore on _InputPinStore, Store {
 
   @override
   dynamic updatePin2(String value) {
-    final _$actionInfo = _$_InputPinStoreActionController.startAction();
+    final _$actionInfo = _$_InputPinStoreActionController.startAction(
+        name: '_InputPinStore.updatePin2');
     try {
       return super.updatePin2(value);
     } finally {
@@ -86,8 +88,11 @@ mixin _$InputPinStore on _InputPinStore, Store {
 
   @override
   String toString() {
-    final string =
-        'pin1: ${pin1.toString()},pin2: ${pin2.toString()},isCompleted: ${isCompleted.toString()},isUnequal: ${isUnequal.toString()}';
-    return '{$string}';
+    return '''
+pin1: ${pin1},
+pin2: ${pin2},
+isCompleted: ${isCompleted},
+isUnequal: ${isUnequal}
+    ''';
   }
 }

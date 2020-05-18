@@ -74,17 +74,15 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   String get phone {
-    _$phoneAtom.context.enforceReadPolicy(_$phoneAtom);
-    _$phoneAtom.reportObserved();
+    _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
   set phone(String value) {
-    _$phoneAtom.context.conditionallyRunInAction(() {
+    _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
-      _$phoneAtom.reportChanged();
-    }, _$phoneAtom, name: '${_$phoneAtom.name}_set');
+    });
   }
 
   final _$temperatureAtom =
@@ -92,17 +90,15 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   String get temperature {
-    _$temperatureAtom.context.enforceReadPolicy(_$temperatureAtom);
-    _$temperatureAtom.reportObserved();
+    _$temperatureAtom.reportRead();
     return super.temperature;
   }
 
   @override
   set temperature(String value) {
-    _$temperatureAtom.context.conditionallyRunInAction(() {
+    _$temperatureAtom.reportWrite(value, super.temperature, () {
       super.temperature = value;
-      _$temperatureAtom.reportChanged();
-    }, _$temperatureAtom, name: '${_$temperatureAtom.name}_set');
+    });
   }
 
   final _$contactOptionAtom =
@@ -110,17 +106,15 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   SelectOption get contactOption {
-    _$contactOptionAtom.context.enforceReadPolicy(_$contactOptionAtom);
-    _$contactOptionAtom.reportObserved();
+    _$contactOptionAtom.reportRead();
     return super.contactOption;
   }
 
   @override
   set contactOption(SelectOption value) {
-    _$contactOptionAtom.context.conditionallyRunInAction(() {
+    _$contactOptionAtom.reportWrite(value, super.contactOption, () {
       super.contactOption = value;
-      _$contactOptionAtom.reportChanged();
-    }, _$contactOptionAtom, name: '${_$contactOptionAtom.name}_set');
+    });
   }
 
   final _$symptomsOptionAtom =
@@ -128,17 +122,15 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   SelectOption get symptomsOption {
-    _$symptomsOptionAtom.context.enforceReadPolicy(_$symptomsOptionAtom);
-    _$symptomsOptionAtom.reportObserved();
+    _$symptomsOptionAtom.reportRead();
     return super.symptomsOption;
   }
 
   @override
   set symptomsOption(SelectOption value) {
-    _$symptomsOptionAtom.context.conditionallyRunInAction(() {
+    _$symptomsOptionAtom.reportWrite(value, super.symptomsOption, () {
       super.symptomsOption = value;
-      _$symptomsOptionAtom.reportChanged();
-    }, _$symptomsOptionAtom, name: '${_$symptomsOptionAtom.name}_set');
+    });
   }
 
   final _$hasCommitmentAtom =
@@ -146,17 +138,15 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   bool get hasCommitment {
-    _$hasCommitmentAtom.context.enforceReadPolicy(_$hasCommitmentAtom);
-    _$hasCommitmentAtom.reportObserved();
+    _$hasCommitmentAtom.reportRead();
     return super.hasCommitment;
   }
 
   @override
   set hasCommitment(bool value) {
-    _$hasCommitmentAtom.context.conditionallyRunInAction(() {
+    _$hasCommitmentAtom.reportWrite(value, super.hasCommitment, () {
       super.hasCommitment = value;
-      _$hasCommitmentAtom.reportChanged();
-    }, _$hasCommitmentAtom, name: '${_$hasCommitmentAtom.name}_set');
+    });
   }
 
   final _$_HealthCertificatePageStoreActionController =
@@ -164,8 +154,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   void validatePhone(String value) {
-    final _$actionInfo =
-        _$_HealthCertificatePageStoreActionController.startAction();
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.validatePhone');
     try {
       return super.validatePhone(value);
     } finally {
@@ -175,8 +165,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   void validateTemplate(String value) {
-    final _$actionInfo =
-        _$_HealthCertificatePageStoreActionController.startAction();
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.validateTemplate');
     try {
       return super.validateTemplate(value);
     } finally {
@@ -186,8 +176,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   void validateContact(SelectOption value) {
-    final _$actionInfo =
-        _$_HealthCertificatePageStoreActionController.startAction();
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.validateContact');
     try {
       return super.validateContact(value);
     } finally {
@@ -197,8 +187,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   void validateSymptoms(SelectOption value) {
-    final _$actionInfo =
-        _$_HealthCertificatePageStoreActionController.startAction();
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.validateSymptoms');
     try {
       return super.validateSymptoms(value);
     } finally {
@@ -208,8 +198,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   void validateCommitment(bool value) {
-    final _$actionInfo =
-        _$_HealthCertificatePageStoreActionController.startAction();
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.validateCommitment');
     try {
       return super.validateCommitment(value);
     } finally {
@@ -219,8 +209,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   dynamic validateAll() {
-    final _$actionInfo =
-        _$_HealthCertificatePageStoreActionController.startAction();
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.validateAll');
     try {
       return super.validateAll();
     } finally {
@@ -230,9 +220,13 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
 
   @override
   String toString() {
-    final string =
-        'phone: ${phone.toString()},temperature: ${temperature.toString()},contactOption: ${contactOption.toString()},symptomsOption: ${symptomsOption.toString()},hasCommitment: ${hasCommitment.toString()}';
-    return '{$string}';
+    return '''
+phone: ${phone},
+temperature: ${temperature},
+contactOption: ${contactOption},
+symptomsOption: ${symptomsOption},
+hasCommitment: ${hasCommitment}
+    ''';
   }
 }
 
@@ -241,97 +235,94 @@ mixin _$FormErrorState on _FormErrorState, Store {
 
   @override
   bool get hasErrors =>
-      (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors)).value;
+      (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors,
+              name: '_FormErrorState.hasErrors'))
+          .value;
 
   final _$phoneAtom = Atom(name: '_FormErrorState.phone');
 
   @override
   String get phone {
-    _$phoneAtom.context.enforceReadPolicy(_$phoneAtom);
-    _$phoneAtom.reportObserved();
+    _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
   set phone(String value) {
-    _$phoneAtom.context.conditionallyRunInAction(() {
+    _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
-      _$phoneAtom.reportChanged();
-    }, _$phoneAtom, name: '${_$phoneAtom.name}_set');
+    });
   }
 
   final _$temperatureAtom = Atom(name: '_FormErrorState.temperature');
 
   @override
   String get temperature {
-    _$temperatureAtom.context.enforceReadPolicy(_$temperatureAtom);
-    _$temperatureAtom.reportObserved();
+    _$temperatureAtom.reportRead();
     return super.temperature;
   }
 
   @override
   set temperature(String value) {
-    _$temperatureAtom.context.conditionallyRunInAction(() {
+    _$temperatureAtom.reportWrite(value, super.temperature, () {
       super.temperature = value;
-      _$temperatureAtom.reportChanged();
-    }, _$temperatureAtom, name: '${_$temperatureAtom.name}_set');
+    });
   }
 
   final _$contactAtom = Atom(name: '_FormErrorState.contact');
 
   @override
   String get contact {
-    _$contactAtom.context.enforceReadPolicy(_$contactAtom);
-    _$contactAtom.reportObserved();
+    _$contactAtom.reportRead();
     return super.contact;
   }
 
   @override
   set contact(String value) {
-    _$contactAtom.context.conditionallyRunInAction(() {
+    _$contactAtom.reportWrite(value, super.contact, () {
       super.contact = value;
-      _$contactAtom.reportChanged();
-    }, _$contactAtom, name: '${_$contactAtom.name}_set');
+    });
   }
 
   final _$symptomsAtom = Atom(name: '_FormErrorState.symptoms');
 
   @override
   String get symptoms {
-    _$symptomsAtom.context.enforceReadPolicy(_$symptomsAtom);
-    _$symptomsAtom.reportObserved();
+    _$symptomsAtom.reportRead();
     return super.symptoms;
   }
 
   @override
   set symptoms(String value) {
-    _$symptomsAtom.context.conditionallyRunInAction(() {
+    _$symptomsAtom.reportWrite(value, super.symptoms, () {
       super.symptoms = value;
-      _$symptomsAtom.reportChanged();
-    }, _$symptomsAtom, name: '${_$symptomsAtom.name}_set');
+    });
   }
 
   final _$commitmentAtom = Atom(name: '_FormErrorState.commitment');
 
   @override
   String get commitment {
-    _$commitmentAtom.context.enforceReadPolicy(_$commitmentAtom);
-    _$commitmentAtom.reportObserved();
+    _$commitmentAtom.reportRead();
     return super.commitment;
   }
 
   @override
   set commitment(String value) {
-    _$commitmentAtom.context.conditionallyRunInAction(() {
+    _$commitmentAtom.reportWrite(value, super.commitment, () {
       super.commitment = value;
-      _$commitmentAtom.reportChanged();
-    }, _$commitmentAtom, name: '${_$commitmentAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string =
-        'phone: ${phone.toString()},temperature: ${temperature.toString()},contact: ${contact.toString()},symptoms: ${symptoms.toString()},commitment: ${commitment.toString()},hasErrors: ${hasErrors.toString()}';
-    return '{$string}';
+    return '''
+phone: ${phone},
+temperature: ${temperature},
+contact: ${contact},
+symptoms: ${symptoms},
+commitment: ${commitment},
+hasErrors: ${hasErrors}
+    ''';
   }
 }

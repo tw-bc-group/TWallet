@@ -13,68 +13,60 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   String get payerAddress {
-    _$payerAddressAtom.context.enforceReadPolicy(_$payerAddressAtom);
-    _$payerAddressAtom.reportObserved();
+    _$payerAddressAtom.reportRead();
     return super.payerAddress;
   }
 
   @override
   set payerAddress(String value) {
-    _$payerAddressAtom.context.conditionallyRunInAction(() {
+    _$payerAddressAtom.reportWrite(value, super.payerAddress, () {
       super.payerAddress = value;
-      _$payerAddressAtom.reportChanged();
-    }, _$payerAddressAtom, name: '${_$payerAddressAtom.name}_set');
+    });
   }
 
   final _$balanceAtom = Atom(name: '_TransferStore.balance');
 
   @override
   String get balance {
-    _$balanceAtom.context.enforceReadPolicy(_$balanceAtom);
-    _$balanceAtom.reportObserved();
+    _$balanceAtom.reportRead();
     return super.balance;
   }
 
   @override
   set balance(String value) {
-    _$balanceAtom.context.conditionallyRunInAction(() {
+    _$balanceAtom.reportWrite(value, super.balance, () {
       super.balance = value;
-      _$balanceAtom.reportChanged();
-    }, _$balanceAtom, name: '${_$balanceAtom.name}_set');
+    });
   }
 
   final _$amountAtom = Atom(name: '_TransferStore.amount');
 
   @override
   String get amount {
-    _$amountAtom.context.enforceReadPolicy(_$amountAtom);
-    _$amountAtom.reportObserved();
+    _$amountAtom.reportRead();
     return super.amount;
   }
 
   @override
   set amount(String value) {
-    _$amountAtom.context.conditionallyRunInAction(() {
+    _$amountAtom.reportWrite(value, super.amount, () {
       super.amount = value;
-      _$amountAtom.reportChanged();
-    }, _$amountAtom, name: '${_$amountAtom.name}_set');
+    });
   }
 
   final _$payeeAddressAtom = Atom(name: '_TransferStore.payeeAddress');
 
   @override
   String get payeeAddress {
-    _$payeeAddressAtom.context.enforceReadPolicy(_$payeeAddressAtom);
-    _$payeeAddressAtom.reportObserved();
+    _$payeeAddressAtom.reportRead();
     return super.payeeAddress;
   }
 
   @override
   set payeeAddress(String value) {
-    _$payeeAddressAtom.context.conditionallyRunInAction(() {
+    _$payeeAddressAtom.reportWrite(value, super.payeeAddress, () {
       super.payeeAddress = value;
-      _$payeeAddressAtom.reportChanged();
-    }, _$payeeAddressAtom, name: '${_$payeeAddressAtom.name}_set');
+    });
   }
 
   final _$_TransferStoreActionController =
@@ -82,7 +74,8 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   void updateBalance(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction();
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.updateBalance');
     try {
       return super.updateBalance(value);
     } finally {
@@ -92,7 +85,8 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   void updatePayerAddress(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction();
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.updatePayerAddress');
     try {
       return super.updatePayerAddress(value);
     } finally {
@@ -102,7 +96,8 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   void updatePayeeAddress(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction();
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.updatePayeeAddress');
     try {
       return super.updatePayeeAddress(value);
     } finally {
@@ -112,7 +107,8 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   void validateAmount(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction();
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.validateAmount');
     try {
       return super.validateAmount(value);
     } finally {
@@ -122,7 +118,8 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   void validatePayeeAddress(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction();
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.validatePayeeAddress');
     try {
       return super.validatePayeeAddress(value);
     } finally {
@@ -132,9 +129,12 @@ mixin _$TransferStore on _TransferStore, Store {
 
   @override
   String toString() {
-    final string =
-        'payerAddress: ${payerAddress.toString()},balance: ${balance.toString()},amount: ${amount.toString()},payeeAddress: ${payeeAddress.toString()}';
-    return '{$string}';
+    return '''
+payerAddress: ${payerAddress},
+balance: ${balance},
+amount: ${amount},
+payeeAddress: ${payeeAddress}
+    ''';
   }
 }
 
@@ -143,46 +143,46 @@ mixin _$FormErrorState on _FormErrorState, Store {
 
   @override
   bool get hasErrors =>
-      (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors)).value;
+      (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors,
+              name: '_FormErrorState.hasErrors'))
+          .value;
 
   final _$amountAtom = Atom(name: '_FormErrorState.amount');
 
   @override
   String get amount {
-    _$amountAtom.context.enforceReadPolicy(_$amountAtom);
-    _$amountAtom.reportObserved();
+    _$amountAtom.reportRead();
     return super.amount;
   }
 
   @override
   set amount(String value) {
-    _$amountAtom.context.conditionallyRunInAction(() {
+    _$amountAtom.reportWrite(value, super.amount, () {
       super.amount = value;
-      _$amountAtom.reportChanged();
-    }, _$amountAtom, name: '${_$amountAtom.name}_set');
+    });
   }
 
   final _$payeeAddressAtom = Atom(name: '_FormErrorState.payeeAddress');
 
   @override
   String get payeeAddress {
-    _$payeeAddressAtom.context.enforceReadPolicy(_$payeeAddressAtom);
-    _$payeeAddressAtom.reportObserved();
+    _$payeeAddressAtom.reportRead();
     return super.payeeAddress;
   }
 
   @override
   set payeeAddress(String value) {
-    _$payeeAddressAtom.context.conditionallyRunInAction(() {
+    _$payeeAddressAtom.reportWrite(value, super.payeeAddress, () {
       super.payeeAddress = value;
-      _$payeeAddressAtom.reportChanged();
-    }, _$payeeAddressAtom, name: '${_$payeeAddressAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string =
-        'amount: ${amount.toString()},payeeAddress: ${payeeAddress.toString()},hasErrors: ${hasErrors.toString()}';
-    return '{$string}';
+    return '''
+amount: ${amount},
+payeeAddress: ${payeeAddress},
+hasErrors: ${hasErrors}
+    ''';
   }
 }

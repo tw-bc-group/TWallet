@@ -12,31 +12,34 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
   Computed<int> _$indexComputed;
 
   @override
-  int get index => (_$indexComputed ??= Computed<int>(() => super.index)).value;
+  int get index => (_$indexComputed ??=
+          Computed<int>(() => super.index, name: 'MnemonicsBase.index'))
+      .value;
   Computed<String> _$mnemonicsComputed;
 
   @override
   String get mnemonics =>
-      (_$mnemonicsComputed ??= Computed<String>(() => super.mnemonics)).value;
+      (_$mnemonicsComputed ??= Computed<String>(() => super.mnemonics,
+              name: 'MnemonicsBase.mnemonics'))
+          .value;
 
   final _$valueAtom = Atom(name: 'MnemonicsBase.value');
 
   @override
   Tuple2<int, String> get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
+    _$valueAtom.reportRead();
     return super.value;
   }
 
   @override
   set value(Tuple2<int, String> value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
+    _$valueAtom.reportWrite(value, super.value, () {
       super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+    });
   }
 
-  final _$generateIdentityKeysAsyncAction = AsyncAction('generateIdentityKeys');
+  final _$generateIdentityKeysAsyncAction =
+      AsyncAction('MnemonicsBase.generateIdentityKeys');
 
   @override
   Future<Tuple2<String, String>> generateIdentityKeys() {
@@ -44,7 +47,7 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
         .run(() => super.generateIdentityKeys());
   }
 
-  final _$saveAsyncAction = AsyncAction('save');
+  final _$saveAsyncAction = AsyncAction('MnemonicsBase.save');
 
   @override
   Future<void> save() {
@@ -56,7 +59,8 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
 
   @override
   void refresh() {
-    final _$actionInfo = _$MnemonicsBaseActionController.startAction();
+    final _$actionInfo = _$MnemonicsBaseActionController.startAction(
+        name: 'MnemonicsBase.refresh');
     try {
       return super.refresh();
     } finally {
@@ -66,8 +70,10 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
 
   @override
   String toString() {
-    final string =
-        'value: ${value.toString()},index: ${index.toString()},mnemonics: ${mnemonics.toString()}';
-    return '{$string}';
+    return '''
+value: ${value},
+index: ${index},
+mnemonics: ${mnemonics}
+    ''';
   }
 }

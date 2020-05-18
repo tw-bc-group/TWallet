@@ -82,8 +82,9 @@ class ApiProvider {
   }
 
   Future<HealthCertification> fetchHealthCertificate(String did) {
-    return _httpClient.get('/v1/health-certifications/$did').then((response) =>
-        Future.value(
+    return _httpClient
+        .get('/v1/health-certifications/$did', loading: false)
+        .then((response) => Future.value(
             ApiResponse.fromJson(response.data, [FullType(HealthCertification)])
                 .result));
   }

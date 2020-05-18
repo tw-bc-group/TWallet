@@ -13,46 +13,43 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
 
   @override
   bool get isHealthy =>
-      (_$isHealthyComputed ??= Computed<bool>(() => super.isHealthy)).value;
+      (_$isHealthyComputed ??= Computed<bool>(() => super.isHealthy,
+              name: '_HealthCertificationStore.isHealthy'))
+          .value;
 
   final _$healthCertificationAtom =
       Atom(name: '_HealthCertificationStore.healthCertification');
 
   @override
   HealthCertification get healthCertification {
-    _$healthCertificationAtom.context
-        .enforceReadPolicy(_$healthCertificationAtom);
-    _$healthCertificationAtom.reportObserved();
+    _$healthCertificationAtom.reportRead();
     return super.healthCertification;
   }
 
   @override
   set healthCertification(HealthCertification value) {
-    _$healthCertificationAtom.context.conditionallyRunInAction(() {
+    _$healthCertificationAtom.reportWrite(value, super.healthCertification, () {
       super.healthCertification = value;
-      _$healthCertificationAtom.reportChanged();
-    }, _$healthCertificationAtom,
-        name: '${_$healthCertificationAtom.name}_set');
+    });
   }
 
   final _$isBoundCertAtom = Atom(name: '_HealthCertificationStore.isBoundCert');
 
   @override
   bool get isBoundCert {
-    _$isBoundCertAtom.context.enforceReadPolicy(_$isBoundCertAtom);
-    _$isBoundCertAtom.reportObserved();
+    _$isBoundCertAtom.reportRead();
     return super.isBoundCert;
   }
 
   @override
   set isBoundCert(bool value) {
-    _$isBoundCertAtom.context.conditionallyRunInAction(() {
+    _$isBoundCertAtom.reportWrite(value, super.isBoundCert, () {
       super.isBoundCert = value;
-      _$isBoundCertAtom.reportChanged();
-    }, _$isBoundCertAtom, name: '${_$isBoundCertAtom.name}_set');
+    });
   }
 
-  final _$bindHealthCertAsyncAction = AsyncAction('bindHealthCert');
+  final _$bindHealthCertAsyncAction =
+      AsyncAction('_HealthCertificationStore.bindHealthCert');
 
   @override
   Future<dynamic> bindHealthCert(String did, String phone, double temperature,
@@ -61,7 +58,8 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
         () => super.bindHealthCert(did, phone, temperature, contact, symptoms));
   }
 
-  final _$fetchHealthCertAsyncAction = AsyncAction('fetchHealthCert');
+  final _$fetchHealthCertAsyncAction =
+      AsyncAction('_HealthCertificationStore.fetchHealthCert');
 
   @override
   Future<dynamic> fetchHealthCert(String did) {
@@ -69,7 +67,7 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   }
 
   final _$fetchLatestHealthCertAsyncAction =
-      AsyncAction('fetchLatestHealthCert');
+      AsyncAction('_HealthCertificationStore.fetchLatestHealthCert');
 
   @override
   Future<dynamic> fetchLatestHealthCert(String did) {
@@ -79,8 +77,10 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
 
   @override
   String toString() {
-    final string =
-        'healthCertification: ${healthCertification.toString()},isBoundCert: ${isBoundCert.toString()},isHealthy: ${isHealthy.toString()}';
-    return '{$string}';
+    return '''
+healthCertification: ${healthCertification},
+isBoundCert: ${isBoundCert},
+isHealthy: ${isHealthy}
+    ''';
   }
 }

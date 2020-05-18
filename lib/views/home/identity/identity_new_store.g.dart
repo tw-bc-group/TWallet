@@ -13,88 +13,78 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   Avataaar get avatar {
-    _$avatarAtom.context.enforceReadPolicy(_$avatarAtom);
-    _$avatarAtom.reportObserved();
+    _$avatarAtom.reportRead();
     return super.avatar;
   }
 
   @override
   set avatar(Avataaar value) {
-    _$avatarAtom.context.conditionallyRunInAction(() {
+    _$avatarAtom.reportWrite(value, super.avatar, () {
       super.avatar = value;
-      _$avatarAtom.reportChanged();
-    }, _$avatarAtom, name: '${_$avatarAtom.name}_set');
+    });
   }
 
   final _$nameAtom = Atom(name: '_IdentityNewStore.name');
 
   @override
   String get name {
-    _$nameAtom.context.enforceReadPolicy(_$nameAtom);
-    _$nameAtom.reportObserved();
+    _$nameAtom.reportRead();
     return super.name;
   }
 
   @override
   set name(String value) {
-    _$nameAtom.context.conditionallyRunInAction(() {
+    _$nameAtom.reportWrite(value, super.name, () {
       super.name = value;
-      _$nameAtom.reportChanged();
-    }, _$nameAtom, name: '${_$nameAtom.name}_set');
+    });
   }
 
   final _$phoneAtom = Atom(name: '_IdentityNewStore.phone');
 
   @override
   String get phone {
-    _$phoneAtom.context.enforceReadPolicy(_$phoneAtom);
-    _$phoneAtom.reportObserved();
+    _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
   set phone(String value) {
-    _$phoneAtom.context.conditionallyRunInAction(() {
+    _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
-      _$phoneAtom.reportChanged();
-    }, _$phoneAtom, name: '${_$phoneAtom.name}_set');
+    });
   }
 
   final _$emailAtom = Atom(name: '_IdentityNewStore.email');
 
   @override
   String get email {
-    _$emailAtom.context.enforceReadPolicy(_$emailAtom);
-    _$emailAtom.reportObserved();
+    _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
   set email(String value) {
-    _$emailAtom.context.conditionallyRunInAction(() {
+    _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
-      _$emailAtom.reportChanged();
-    }, _$emailAtom, name: '${_$emailAtom.name}_set');
+    });
   }
 
   final _$birthdayAtom = Atom(name: '_IdentityNewStore.birthday');
 
   @override
   String get birthday {
-    _$birthdayAtom.context.enforceReadPolicy(_$birthdayAtom);
-    _$birthdayAtom.reportObserved();
+    _$birthdayAtom.reportRead();
     return super.birthday;
   }
 
   @override
   set birthday(String value) {
-    _$birthdayAtom.context.conditionallyRunInAction(() {
+    _$birthdayAtom.reportWrite(value, super.birthday, () {
       super.birthday = value;
-      _$birthdayAtom.reportChanged();
-    }, _$birthdayAtom, name: '${_$birthdayAtom.name}_set');
+    });
   }
 
-  final _$addIdentityAsyncAction = AsyncAction('addIdentity');
+  final _$addIdentityAsyncAction = AsyncAction('_IdentityNewStore.addIdentity');
 
   @override
   Future<bool> addIdentity() {
@@ -106,7 +96,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   void refreshAvatar() {
-    final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
+        name: '_IdentityNewStore.refreshAvatar');
     try {
       return super.refreshAvatar();
     } finally {
@@ -116,7 +107,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   void validateUsername(String value) {
-    final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
+        name: '_IdentityNewStore.validateUsername');
     try {
       return super.validateUsername(value);
     } finally {
@@ -126,7 +118,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   void validatePhone(String value) {
-    final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
+        name: '_IdentityNewStore.validatePhone');
     try {
       return super.validatePhone(value);
     } finally {
@@ -136,7 +129,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   void validateEmail(String value) {
-    final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
+        name: '_IdentityNewStore.validateEmail');
     try {
       return super.validateEmail(value);
     } finally {
@@ -146,7 +140,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   void validateBirthday(String value) {
-    final _$actionInfo = _$_IdentityNewStoreActionController.startAction();
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
+        name: '_IdentityNewStore.validateBirthday');
     try {
       return super.validateBirthday(value);
     } finally {
@@ -156,9 +151,13 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
 
   @override
   String toString() {
-    final string =
-        'avatar: ${avatar.toString()},name: ${name.toString()},phone: ${phone.toString()},email: ${email.toString()},birthday: ${birthday.toString()}';
-    return '{$string}';
+    return '''
+avatar: ${avatar},
+name: ${name},
+phone: ${phone},
+email: ${email},
+birthday: ${birthday}
+    ''';
   }
 }
 
@@ -167,80 +166,78 @@ mixin _$FormErrorState on _FormErrorState, Store {
 
   @override
   bool get hasErrors =>
-      (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors)).value;
+      (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors,
+              name: '_FormErrorState.hasErrors'))
+          .value;
 
   final _$usernameAtom = Atom(name: '_FormErrorState.username');
 
   @override
   String get username {
-    _$usernameAtom.context.enforceReadPolicy(_$usernameAtom);
-    _$usernameAtom.reportObserved();
+    _$usernameAtom.reportRead();
     return super.username;
   }
 
   @override
   set username(String value) {
-    _$usernameAtom.context.conditionallyRunInAction(() {
+    _$usernameAtom.reportWrite(value, super.username, () {
       super.username = value;
-      _$usernameAtom.reportChanged();
-    }, _$usernameAtom, name: '${_$usernameAtom.name}_set');
+    });
   }
 
   final _$phoneAtom = Atom(name: '_FormErrorState.phone');
 
   @override
   String get phone {
-    _$phoneAtom.context.enforceReadPolicy(_$phoneAtom);
-    _$phoneAtom.reportObserved();
+    _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
   set phone(String value) {
-    _$phoneAtom.context.conditionallyRunInAction(() {
+    _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
-      _$phoneAtom.reportChanged();
-    }, _$phoneAtom, name: '${_$phoneAtom.name}_set');
+    });
   }
 
   final _$emailAtom = Atom(name: '_FormErrorState.email');
 
   @override
   String get email {
-    _$emailAtom.context.enforceReadPolicy(_$emailAtom);
-    _$emailAtom.reportObserved();
+    _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
   set email(String value) {
-    _$emailAtom.context.conditionallyRunInAction(() {
+    _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
-      _$emailAtom.reportChanged();
-    }, _$emailAtom, name: '${_$emailAtom.name}_set');
+    });
   }
 
   final _$birthdayAtom = Atom(name: '_FormErrorState.birthday');
 
   @override
   String get birthday {
-    _$birthdayAtom.context.enforceReadPolicy(_$birthdayAtom);
-    _$birthdayAtom.reportObserved();
+    _$birthdayAtom.reportRead();
     return super.birthday;
   }
 
   @override
   set birthday(String value) {
-    _$birthdayAtom.context.conditionallyRunInAction(() {
+    _$birthdayAtom.reportWrite(value, super.birthday, () {
       super.birthday = value;
-      _$birthdayAtom.reportChanged();
-    }, _$birthdayAtom, name: '${_$birthdayAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string =
-        'username: ${username.toString()},phone: ${phone.toString()},email: ${email.toString()},birthday: ${birthday.toString()},hasErrors: ${hasErrors.toString()}';
-    return '{$string}';
+    return '''
+username: ${username},
+phone: ${phone},
+email: ${email},
+birthday: ${birthday},
+hasErrors: ${hasErrors}
+    ''';
   }
 }

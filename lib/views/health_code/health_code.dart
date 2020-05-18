@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
@@ -11,6 +12,8 @@ import 'package:tw_wallet_ui/global/store/identity_store.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+
+import 'health_code_store.dart';
 
 class HealthCodePage extends StatefulWidget {
   final String id;
@@ -24,135 +27,123 @@ class HealthCodePage extends StatefulWidget {
 }
 
 class HealthCodeState extends State<HealthCodePage> {
-  final identityStore = getIt<IdentityStore>();
   final certStore = getIt<HealthCertificationStore>();
+  HealthCodeStore _certStore;
 
   final String id;
-  int counter = 60;
   Identity identity;
-  Timer countTimer;
 
   HealthCodeState({this.id});
 
   Future onRefresh() async {
-    return this.refreshHealthCode();
+    return _certStore.fetchLatestHealthCode();
   }
 
   @override
   void initState() {
     super.initState();
-    this.identity = identityStore.getIdentityById(id);
-    this.refreshHealthCode();
+    identity = getIt<IdentityStore>().getIdentityById(id);
+    _certStore = HealthCodeStore(identity.did, 60);
   }
 
   @override
   void dispose() {
-    resetCountTimer(dispose: true);
+    _certStore.dispose();
     super.dispose();
   }
 
-  refreshHealthCode() {
-    certStore
-        .fetchLatestHealthCert(identity.did.toString())
-        .whenComplete(() => startCount());
-  }
-
-  resetCountTimer({bool dispose: false}) {
-    if (countTimer != null) {
-      countTimer.cancel();
-      countTimer = null;
-      if (!dispose) {
-        setState(() {
-          counter = 60;
-        });
-      }
-    }
-  }
-
-  startCount() {
-    resetCountTimer();
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      if (countTimer == null) {
-        countTimer = timer;
-      }
-      setState(() {
-        counter--;
-        if (counter == 0) {
-          resetCountTimer();
-          refreshHealthCode();
-        }
-      });
-    });
-  }
-
-  getCounterText() {
-    if (counter >= 60 || counter < 0) {
-      return '';
-    }
-
-    if (counter > 0 && counter < 10) {
-      return '00:0$counter';
-    }
-
-    return '00:$counter';
-  }
-
   @override
-  Widget build(BuildContext context) {
-    return CommonLayout(
-        title: '健康码',
-        childBuilder: (context, constraints) => RefreshIndicator(
-              onRefresh: onRefresh,
-              child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 49),
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsetsDirectional.only(top: 40),
-                    child: Center(
-                      child: Text(getCounterText()),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsetsDirectional.only(top: 10),
-                    child: Center(
-                      child: Text(identity.name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: WalletTheme.rgbColor('#222222'),
-                              height: 1.6)),
-                    ),
-                  ),
-                  observeQrImage(),
-                  Center(
-                    child: Text(
-                      '绿码：截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          letterSpacing: 1.4,
-                          color: WalletTheme.rgbColor('#888888'),
-                          height: 1.43),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsetsDirectional.only(top: 20),
-                    child: Center(
+  Widget build(BuildContext context) => Observer(builder: (_) {
+        final ObservableFuture<void> future =
+            _certStore.fetchHealthCodeStream.value;
+
+        print('future status: ${future.status}');
+
+        return CommonLayout(
+          title: '健康码',
+          // ignore: missing_return
+          childBuilder: (context, constraints) {
+            switch (future.status) {
+              case FutureStatus.pending:
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Text('加载健康码...')
+                  ],
+                );
+              case FutureStatus.rejected:
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '加载健康码失败',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      RaisedButton(
+                        child: const Text('点击重试'),
+                        onPressed: onRefresh,
+                      )
+                    ]);
+              case FutureStatus.fulfilled:
+                return RefreshIndicator(
+                  onRefresh: onRefresh,
+                  child: ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 49),
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsetsDirectional.only(top: 40),
+                        child: Center(
+                          child: Observer(
+                            builder: (_) => Text(_certStore.currentCountDown
+                                .map((countDown) => '${countDown}s')
+                                .orElse('')),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsetsDirectional.only(top: 10),
+                        child: Center(
+                          child: Text(identity.name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: WalletTheme.rgbColor('#222222'),
+                                  height: 1.6)),
+                        ),
+                      ),
+                      observeQrImage(),
+                      Center(
                         child: Text(
-                      '红码：该身份的持有者有病毒污染暴露风险。',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          letterSpacing: 1.4,
-                          color: WalletTheme.rgbColor('#888888'),
-                          height: 1.43),
-                    )),
-                  )
-                ],
-              ),
-            ));
-  }
+                          '绿码：截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              letterSpacing: 1.4,
+                              color: WalletTheme.rgbColor('#888888'),
+                              height: 1.43),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsetsDirectional.only(top: 20),
+                        child: Center(
+                            child: Text(
+                          '红码：该身份的持有者有病毒污染暴露风险。',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              letterSpacing: 1.4,
+                              color: WalletTheme.rgbColor('#888888'),
+                              height: 1.43),
+                        )),
+                      )
+                    ],
+                  ),
+                );
+            }
+          },
+        );
+      });
 
   Widget observeQrImage() {
     return Observer(builder: (BuildContext context) {
-      print(certStore.healthCertification);
       if (certStore.healthCertification == null) return Container();
       return _buildQrImage(
           encodeQRData(certStore.healthCertification), certStore.isHealthy);

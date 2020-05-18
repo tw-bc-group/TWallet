@@ -13,83 +13,85 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 
   @override
   Optional<Identity> get selectedIdentity => (_$selectedIdentityComputed ??=
-          Computed<Optional<Identity>>(() => super.selectedIdentity))
+          Computed<Optional<Identity>>(() => super.selectedIdentity,
+              name: 'IdentityStoreBase.selectedIdentity'))
       .value;
   Computed<String> _$myNameComputed;
 
   @override
   String get myName =>
-      (_$myNameComputed ??= Computed<String>(() => super.myName)).value;
+      (_$myNameComputed ??= Computed<String>(() => super.myName,
+              name: 'IdentityStoreBase.myName'))
+          .value;
   Computed<String> _$myAddressComputed;
 
   @override
   String get myAddress =>
-      (_$myAddressComputed ??= Computed<String>(() => super.myAddress)).value;
+      (_$myAddressComputed ??= Computed<String>(() => super.myAddress,
+              name: 'IdentityStoreBase.myAddress'))
+          .value;
   Computed<Amount> _$myBalanceComputed;
 
   @override
   Amount get myBalance =>
-      (_$myBalanceComputed ??= Computed<Amount>(() => super.myBalance)).value;
+      (_$myBalanceComputed ??= Computed<Amount>(() => super.myBalance,
+              name: 'IdentityStoreBase.myBalance'))
+          .value;
 
   final _$selectedIndexAtom = Atom(name: 'IdentityStoreBase.selectedIndex');
 
   @override
   int get selectedIndex {
-    _$selectedIndexAtom.context.enforceReadPolicy(_$selectedIndexAtom);
-    _$selectedIndexAtom.reportObserved();
+    _$selectedIndexAtom.reportRead();
     return super.selectedIndex;
   }
 
   @override
   set selectedIndex(int value) {
-    _$selectedIndexAtom.context.conditionallyRunInAction(() {
+    _$selectedIndexAtom.reportWrite(value, super.selectedIndex, () {
       super.selectedIndex = value;
-      _$selectedIndexAtom.reportChanged();
-    }, _$selectedIndexAtom, name: '${_$selectedIndexAtom.name}_set');
+    });
   }
 
   final _$identitiesAtom = Atom(name: 'IdentityStoreBase.identities');
 
   @override
   ObservableList<Identity> get identities {
-    _$identitiesAtom.context.enforceReadPolicy(_$identitiesAtom);
-    _$identitiesAtom.reportObserved();
+    _$identitiesAtom.reportRead();
     return super.identities;
   }
 
   @override
   set identities(ObservableList<Identity> value) {
-    _$identitiesAtom.context.conditionallyRunInAction(() {
+    _$identitiesAtom.reportWrite(value, super.identities, () {
       super.identities = value;
-      _$identitiesAtom.reportChanged();
-    }, _$identitiesAtom, name: '${_$identitiesAtom.name}_set');
+    });
   }
 
   final _$searchNameAtom = Atom(name: 'IdentityStoreBase.searchName');
 
   @override
   String get searchName {
-    _$searchNameAtom.context.enforceReadPolicy(_$searchNameAtom);
-    _$searchNameAtom.reportObserved();
+    _$searchNameAtom.reportRead();
     return super.searchName;
   }
 
   @override
   set searchName(String value) {
-    _$searchNameAtom.context.conditionallyRunInAction(() {
+    _$searchNameAtom.reportWrite(value, super.searchName, () {
       super.searchName = value;
-      _$searchNameAtom.reportChanged();
-    }, _$searchNameAtom, name: '${_$searchNameAtom.name}_set');
+    });
   }
 
-  final _$clearAsyncAction = AsyncAction('clear');
+  final _$clearAsyncAction = AsyncAction('IdentityStoreBase.clear');
 
   @override
   Future<void> clear() {
     return _$clearAsyncAction.run(() => super.clear());
   }
 
-  final _$selectIdentityAsyncAction = AsyncAction('selectIdentity');
+  final _$selectIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.selectIdentity');
 
   @override
   Future<void> selectIdentity({@required int index}) {
@@ -97,7 +99,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.selectIdentity(index: index));
   }
 
-  final _$addIdentityAsyncAction = AsyncAction('addIdentity');
+  final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
 
   @override
   Future<void> addIdentity({@required Identity identity}) {
@@ -105,7 +107,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.addIdentity(identity: identity));
   }
 
-  final _$updateIdentityAsyncAction = AsyncAction('updateIdentity');
+  final _$updateIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.updateIdentity');
 
   @override
   Future<void> updateIdentity(Identity identity) {
@@ -113,7 +116,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.updateIdentity(identity));
   }
 
-  final _$deleteIdentityAsyncAction = AsyncAction('deleteIdentity');
+  final _$deleteIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.deleteIdentity');
 
   @override
   Future<void> deleteIdentity({@required int index}) {
@@ -126,7 +130,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 
   @override
   void updateSearchName(String name) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction();
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
+        name: 'IdentityStoreBase.updateSearchName');
     try {
       return super.updateSearchName(name);
     } finally {
@@ -136,7 +141,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 
   @override
   void updateSelectedIdentity(Identity identity) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction();
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
+        name: 'IdentityStoreBase.updateSelectedIdentity');
     try {
       return super.updateSelectedIdentity(identity);
     } finally {
@@ -146,7 +152,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 
   @override
   void fetchLatestPoint() {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction();
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
+        name: 'IdentityStoreBase.fetchLatestPoint');
     try {
       return super.fetchLatestPoint();
     } finally {
@@ -156,8 +163,14 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 
   @override
   String toString() {
-    final string =
-        'selectedIndex: ${selectedIndex.toString()},identities: ${identities.toString()},searchName: ${searchName.toString()},selectedIdentity: ${selectedIdentity.toString()},myName: ${myName.toString()},myAddress: ${myAddress.toString()},myBalance: ${myBalance.toString()}';
-    return '{$string}';
+    return '''
+selectedIndex: ${selectedIndex},
+identities: ${identities},
+searchName: ${searchName},
+selectedIdentity: ${selectedIdentity},
+myName: ${myName},
+myAddress: ${myAddress},
+myBalance: ${myBalance}
+    ''';
   }
 }

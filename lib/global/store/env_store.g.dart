@@ -13,24 +13,23 @@ mixin _$EnvStore on _EnvStore, Store {
 
   @override
   Env get env {
-    _$envAtom.context.enforceReadPolicy(_$envAtom);
-    _$envAtom.reportObserved();
+    _$envAtom.reportRead();
     return super.env;
   }
 
   @override
   set env(Env value) {
-    _$envAtom.context.conditionallyRunInAction(() {
+    _$envAtom.reportWrite(value, super.env, () {
       super.env = value;
-      _$envAtom.reportChanged();
-    }, _$envAtom, name: '${_$envAtom.name}_set');
+    });
   }
 
   final _$_EnvStoreActionController = ActionController(name: '_EnvStore');
 
   @override
   void updateEnv(Env newEnv) {
-    final _$actionInfo = _$_EnvStoreActionController.startAction();
+    final _$actionInfo =
+        _$_EnvStoreActionController.startAction(name: '_EnvStore.updateEnv');
     try {
       return super.updateEnv(newEnv);
     } finally {
@@ -40,7 +39,8 @@ mixin _$EnvStore on _EnvStore, Store {
 
   @override
   String toString() {
-    final string = 'env: ${env.toString()}';
-    return '{$string}';
+    return '''
+env: ${env}
+    ''';
   }
 }
