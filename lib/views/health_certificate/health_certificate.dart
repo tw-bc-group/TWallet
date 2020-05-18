@@ -27,21 +27,23 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   HealthCertificateState({this.id});
 
   handleConfirm() {
-    getIt<HealthCertificationStore>()
-        .bindHealthCert(
-            getIt<IdentityStore>().getIdentityById(id).did.toString(),
-            _pageStore.phone,
-            double.parse(_pageStore.temperature),
-            _pageStore.contactOption.toString(),
-            _pageStore.symptomsOption.toString())
-        .then((_) => Application.router.pop(context));
+    _pageStore.validateAll();
+    if (!_pageStore.error.hasErrors) {
+      getIt<HealthCertificationStore>()
+          .bindHealthCert(
+              getIt<IdentityStore>().getIdentityById(id).did.toString(),
+              _pageStore.phone,
+              double.parse(_pageStore.temperature),
+              _pageStore.contactOption.toString(),
+              _pageStore.symptomsOption.toString())
+          .then((_) => Application.router.pop(context));
+    }
   }
 
   @override
   void initState() {
     super.initState();
     _pageStore.setupDisposers();
-    _pageStore.validateAll();
   }
 
   @override
