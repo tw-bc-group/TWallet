@@ -35,7 +35,7 @@ class ErrorInterceptor extends InterceptorsWrapper {
         break;
 
       default:
-        if (err != null) {
+        if (err.response != null) {
           if (err.response.statusCode == 400) {
             if (err.response.data['code'] == 40000) {
               showErrorSnackbar(err.response.data['msg']);
