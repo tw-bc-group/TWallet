@@ -116,7 +116,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                                 style: errorStyle),
                           ],
                         ),
-                        _textFiled(TextInputType.number,
+                        _textFiled(
+                            TextInputType.numberWithOptions(decimal: true),
                             (String value) => _pageStore.temperature = value),
                         Text('* 近14天内您是否接触新冠肺炎确诊患者或疑似患者？', style: titleStyle),
                         Row(
