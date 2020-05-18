@@ -100,15 +100,15 @@ abstract class _HealthCertificatePageStore with Store {
     try {
       double res = double.parse(value);
       int indexOfDot = value.indexOf('.');
-      if (res <= 0) {
-        error.temperature = '请输入大于 0 体温';
+      if (res < 36 || res > 42) {
+        error.temperature = '请输入 36 ~ 42℃ 范围内体温';
       } else if (indexOfDot >= 0 && value.length - indexOfDot > 2) {
         error.temperature = '体温仅支持 1 位小数';
       } else {
         error.temperature = null;
       }
     } catch (_) {
-      error.temperature = '请输入有效的体温';
+      error.temperature = '请输入有效的体温值';
     }
   }
 

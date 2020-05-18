@@ -40,7 +40,7 @@ class ErrorInterceptor extends InterceptorsWrapper {
             if (err.response.data['code'] == 40000) {
               showErrorSnackbar(err.response.data['msg']);
             } else {
-              showErrorSnackbar('请求参数错误');
+              showErrorSnackbar('请求失败，请稍后再试..');
             }
           }
           if (err.response.statusCode >= 500) {
