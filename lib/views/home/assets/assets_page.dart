@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
-import 'package:tw_wallet_ui/widgets/button.dart';
+import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage(this.homeStore);
@@ -41,42 +41,12 @@ class _AssetsPageState extends State<AssetsPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
-    if (_identityStore.identities.isEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await _showAddIdentityDialog();
-      });
-    }
-  }
-
-  _showAddIdentityDialog() async {
-    await showDialog<String>(
-      barrierDismissible: false,
+    showDialogIfNoIdentity(
       context: context,
-      builder: (BuildContext context) => new SimpleDialog(
-        contentPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-        children: <Widget>[
-          Center(
-              child: Text(
-            '您还没有添加身份，请前往\"身份\"页面添加身份',
-            style: TextStyle(
-              fontSize: 15,
-              height: 1.82,
-            ),
-            textAlign: TextAlign.center,
-          )),
-          Container(
-              margin: EdgeInsets.only(top: 48),
-              child: Button(
-                width: 100,
-                height: 40,
-                text: '确定',
-                onPressed: () {
-                  Application.router.pop(context);
-                  homeStore.changePage(HomeState.identityIndex);
-                },
-              ))
-        ],
-      ),
+      onPressed: () {
+        Application.router.pop(context);
+        homeStore.changePage(HomeState.identityIndex);
+      },
     );
   }
 
