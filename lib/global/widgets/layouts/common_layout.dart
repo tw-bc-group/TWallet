@@ -39,30 +39,38 @@ class CommonLayout extends StatelessWidget {
         centerTitle: true,
         titleSpacing: 0.0,
       ),
-      body: SafeArea(
-          maintainBottomViewPadding: true,
-          child: LayoutBuilder(
-              builder: (context, constraints) => Container(
-                  color: WalletTheme.rgbColor(bodyBackColor),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                            child: childBuilder(context, constraints),
-                            flex: 10),
-                        withBottomBtn
-                            ? Container(
-                                padding: EdgeInsets.only(
-                                    bottom: constraints.maxHeight / 20),
-                                width: constraints.maxWidth * 0.7,
-                                child: WalletTheme.button(
-                                    text: btnText, onPressed: btnOnPressed),
-                              )
-                            : Container()
-                      ],
-                    ),
-                  )))),
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: SafeArea(
+            maintainBottomViewPadding: true,
+            child: LayoutBuilder(
+                builder: (context, constraints) => Container(
+                    color: WalletTheme.rgbColor(bodyBackColor),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                              child: childBuilder(context, constraints),
+                              flex: 10),
+                          withBottomBtn
+                              ? Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: constraints.maxHeight / 20),
+                                  width: constraints.maxWidth * 0.7,
+                                  child: WalletTheme.button(
+                                      text: btnText, onPressed: btnOnPressed),
+                                )
+                              : Container()
+                        ],
+                      ),
+                    )))),
+      ),
     );
   }
 }
