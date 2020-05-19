@@ -42,7 +42,7 @@ class IdentityDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var identity = getIdentity();
-    certStore.fetchHealthCert(identity.did.toString());
+    certStore.fetchHealthCertByDID(identity.did.toString());
 
     return CommonLayout(
       title: '个人信息',

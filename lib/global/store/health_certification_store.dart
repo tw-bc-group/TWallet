@@ -33,7 +33,7 @@ abstract class _HealthCertificationStore with Store {
   }
 
   @action
-  Future fetchHealthCert(String did) async {
+  Future fetchHealthCertByDID(String did) async {
     final cert = await _db.getItem(did);
     this.isBoundCert = cert != null ? true : false;
     if (this.isBoundCert) {

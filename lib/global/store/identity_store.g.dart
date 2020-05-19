@@ -53,6 +53,23 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     });
   }
 
+  final _$healthCertLastSelectIndexAtom =
+      Atom(name: 'IdentityStoreBase.healthCertLastSelectIndex');
+
+  @override
+  int get healthCertLastSelectIndex {
+    _$healthCertLastSelectIndexAtom.reportRead();
+    return super.healthCertLastSelectIndex;
+  }
+
+  @override
+  set healthCertLastSelectIndex(int value) {
+    _$healthCertLastSelectIndexAtom
+        .reportWrite(value, super.healthCertLastSelectIndex, () {
+      super.healthCertLastSelectIndex = value;
+    });
+  }
+
   final _$identitiesAtom = Atom(name: 'IdentityStoreBase.identities');
 
   @override
@@ -125,6 +142,15 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.deleteIdentity(index: index));
   }
 
+  final _$updateHealthCertLastSelectedAsyncAction =
+      AsyncAction('IdentityStoreBase.updateHealthCertLastSelected');
+
+  @override
+  Future<dynamic> updateHealthCertLastSelected(Identity identity) {
+    return _$updateHealthCertLastSelectedAsyncAction
+        .run(() => super.updateHealthCertLastSelected(identity));
+  }
+
   final _$IdentityStoreBaseActionController =
       ActionController(name: 'IdentityStoreBase');
 
@@ -165,6 +191,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   String toString() {
     return '''
 selectedIndex: ${selectedIndex},
+healthCertLastSelectIndex: ${healthCertLastSelectIndex},
 identities: ${identities},
 searchName: ${searchName},
 selectedIdentity: ${selectedIdentity},

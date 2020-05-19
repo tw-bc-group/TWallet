@@ -13,6 +13,7 @@ part 'identity_store.g.dart';
 const IDENTITIES_STORAGE_NAME = 'identities';
 const IDENTITIES_NAME_KEY = 'name';
 const SELECTED_INDEX_KEY = 'selected_index';
+const DID_HEALTH_CERT_SELECT_INDEX_KEY = 'did_health_cert_select_index';
 
 enum AssetsType { point, token }
 
@@ -25,18 +26,27 @@ String _itemKey(String name) {
 abstract class IdentityStoreBase with Store {
   static final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
 
-  IdentityStoreBase(this.identities, int selectedIndex) {
+  IdentityStoreBase(
+      this.identities, int selectedIndex, int didHealthSelectIndex) {
     searchName = '';
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
     selectIdentity(index: selectedIndex);
+    healthCertLastSelectIndex = didHealthSelectIndex;
   }
 
   static Future<IdentityStore> fromJsonStore() async {
     int selectedIndex = await _db.getItem(SELECTED_INDEX_KEY).then((savedItem) {
       return savedItem != null ? savedItem[SELECTED_INDEX_KEY] : 0;
+    });
+
+    int didHealthSelectIndex =
+        await _db.getItem(DID_HEALTH_CERT_SELECT_INDEX_KEY).then((savedItem) {
+      return savedItem != null
+          ? savedItem[DID_HEALTH_CERT_SELECT_INDEX_KEY]
+          : 0;
     });
 
     List<Identity> identities =
@@ -45,7 +55,8 @@ abstract class IdentityStoreBase with Store {
                 listItems.map((item) => Identity.fromJson(item)).toList())
             .orElse([]);
 
-    return IdentityStore(ObservableList.of(identities), selectedIndex);
+    return IdentityStore(
+        ObservableList.of(identities), selectedIndex, didHealthSelectIndex);
   }
 
   Identity getIdentityById(String id) {
@@ -54,6 +65,9 @@ abstract class IdentityStoreBase with Store {
 
   @observable
   int selectedIndex;
+
+  @observable
+  int healthCertLastSelectIndex;
 
   @observable
   ObservableList<Identity> identities = ObservableList<Identity>();
@@ -169,5 +183,18 @@ abstract class IdentityStoreBase with Store {
       }
       return null;
     })));
+  }
+
+  @action
+  Future updateHealthCertLastSelected(Identity identity) async {
+    int index = identities.indexWhere((e) => e.id == identity.id);
+    if (index >= 0) {
+      healthCertLastSelectIndex = index;
+    } else {
+      throw Exception('Identity updateHealthCertSelectedIdentity not exist.');
+    }
+
+    final key = DID_HEALTH_CERT_SELECT_INDEX_KEY;
+    await _db.setItem(key, {key: index});
   }
 }
