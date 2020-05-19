@@ -21,6 +21,7 @@ class PinInputWidget extends StatelessWidget {
     return PinCodeTextField(
       activeColor: WalletTheme.rgbColor(WalletColor.black),
       inactiveColor: WalletTheme.rgbColor(WalletColor.black),
+      selectedFillColor: WalletTheme.rgbColor(WalletColor.primary),
       borderWidth: 1,
       length: 6,
       obsecureText: true,
