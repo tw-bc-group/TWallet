@@ -10,7 +10,6 @@ import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 
 import '../home.dart';
 
-
 class DiscoveryPage extends StatelessWidget {
   final HomeStore homeStore;
 
@@ -40,7 +39,7 @@ class DiscoveryPage extends StatelessWidget {
 
   Widget _healthItem({BuildContext context}) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.healthCode),
+      onTap: () => Navigator.pushNamed(context, Routes.healthCertPage),
       child: Container(
         height: 80,
         decoration: BoxDecoration(
@@ -59,5 +58,4 @@ class DiscoveryPage extends StatelessWidget {
       ),
     );
   }
-
 }
