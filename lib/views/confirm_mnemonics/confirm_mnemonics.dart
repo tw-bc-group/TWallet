@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
+import 'package:tw_wallet_ui/global/common/theme/font.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
+import 'package:tw_wallet_ui/global/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
@@ -30,10 +34,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
           padding: EdgeInsets.all(10),
           child: Text(
             tag.second,
-            style: TextStyle(
-              fontSize: 20,
-              color: WalletTheme.rgbColor('#38508c'),
-            ),
+            style: WalletFont.font_16()
           )));
     }
     return Wrap(children: wordWidgets);
@@ -71,57 +72,82 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
         selectedWords.map((tuple) => tuple.second).toList().join(' ') !=
             store.mnemonics;
 
-    return Scaffold(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-        body: Stack(
-          children: [
-            OverflowBox(
-                child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(bottom: 110),
-              child: ListView(
-                children: <Widget>[
-                  IconBackButton(),
-                  PageTitle(title: '确认助记词', desc: '请按顺序点击下方助记词，确认您的正确备份'),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: 200),
-                    child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                        margin: EdgeInsets.only(top: 48, left: 30, right: 30),
-                        decoration: BoxDecoration(
-                            color: WalletTheme.rgbColor('#f6f8f9')),
-                        child: buildWords()),
-                  ),
-                  Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                      margin: EdgeInsets.only(top: 30),
-                      child: buildWordButtons(store))
-                ],
+    return NewCommonLayout(
+      backIcon: BackIcon.ARROW,
+      withBottomBtn: true,
+      btnText: '完成',
+      btnOnPressed: buttonDisabled
+        ? null
+        : () async {
+            store.save().then((_) => Application.router
+                .navigateTo(context,
+                    '/home?index=${HomeState.identityIndex}',
+                    transition: TransitionType.native));
+          },
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12), topRight: Radius.circular(12)
+          ),
+          color: WalletTheme.rgbColor(WalletColor.white)
+        ),
+        child: ListView(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child: Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        '确认助记词',
+                        style: WalletFont.font_20(),
+                      ),
+                    ),
+                    Positioned(
+                      child: Image(
+                        image: AssetImage('assets/images/info-black.png')
+                      ),
+                      top: -6,
+                      right: 0,
+                    )
+                  ]
+                )
               ),
-            )),
-            Positioned(
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child: Text(
+                '-请按顺序点击下方助记词，确认您的正确备份-',
+                style: WalletFont.font_14(),
+                textAlign: TextAlign.center,
+              )
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(minHeight: 200),
               child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                width: MediaQuery.of(context).size.width - 60,
-                child: WalletTheme.button(
-                    text: '完成',
-                    onPressed: buttonDisabled
-                        ? null
-                        : () async {
-                            store.save().then((_) => Application.router
-                                .navigateTo(context,
-                                    '/home?index=${HomeState.identityIndex}',
-                                    transition: TransitionType.native));
-                          }),
-              ),
-              bottom: 30,
-              left: 0,
-            )
+                margin: EdgeInsets.only(top: 24),
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  color: WalletTheme.rgbColor(WalletColor.light_grey)
+                ),
+                child: buildWords()),
+            ),
+            Container(
+              height: 1,
+              margin: EdgeInsets.only(top: 24),
+              color: WalletTheme.rgbColor('#e0e1e9'),
+            ),
+            Container(
+                margin: EdgeInsets.only(top: 14),
+                child: buildWordButtons(store))
           ],
-        ));
+        ),
+      ));
   }
 }

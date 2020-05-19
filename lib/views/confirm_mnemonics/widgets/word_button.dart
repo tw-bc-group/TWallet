@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
 
 class WordButton extends StatefulWidget {
@@ -17,10 +18,10 @@ class WordButtonState extends State<WordButton> {
   final String text;
   final Function onPressed;
   var selected = false;
-  final defaultBackColor = WalletTheme.rgbColor('#f6f8f9');
-  final selectedBackColor = WalletTheme.rgbColor('#38508c');
-  final defaultFontColor = WalletTheme.rgbColor('#38508c');
-  final selectedFontColor = WalletTheme.rgbColor('#ffffff');
+  final defaultBackColor = WalletTheme.rgbColor(WalletColor.white);
+  final selectedBackColor = WalletTheme.rgbColor(WalletColor.primary);
+  final defaultFontColor = WalletTheme.rgbColor(WalletColor.primary);
+  final selectedFontColor = WalletTheme.rgbColor(WalletColor.white);
 
   WordButtonState({this.text, this.onPressed});
 
@@ -38,13 +39,14 @@ class WordButtonState extends State<WordButton> {
           select();
         },
         child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            margin: EdgeInsets.only(top: 10, right: 16),
+            padding: EdgeInsets.symmetric(horizontal: 17, vertical: 12),
+            margin: EdgeInsets.only(top: 10, right: 12),
             decoration: BoxDecoration(
               color: selected ? selectedBackColor : defaultBackColor,
               borderRadius: BorderRadius.all(
-                const Radius.circular(17),
+                const Radius.circular(22),
               ),
+              border: Border.all(color: WalletTheme.rgbColor(WalletColor.primary).withOpacity(0.15))
             ),
             child: Text(
               text,
