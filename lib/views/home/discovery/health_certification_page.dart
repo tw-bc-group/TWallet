@@ -56,7 +56,7 @@ class HealthCertificationPage extends StatelessWidget {
             child: ListTile(
               leading: AvatarWidget(avataaar: e.avataaar),
               title: Text(e.name),
-              subtitle: Text(e.address),
+              subtitle: Text(e.did.toString()),
               onTap: () => onIdentityTap(context, e),
               selected: false,
             )))
