@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'TW Wallet',
               theme: ThemeData(
-                primaryColor: WalletColor.primary,
+                primaryColor: WalletTheme.rgbColor(WalletColor.primary),
                 disabledColor: Colors.grey,
                 fontFamily: 'PingFangHK'
               ),

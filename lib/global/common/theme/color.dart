@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-
 class WalletColor {
-  static final Color primary = WalletTheme.rgbColor('#4200d4');
-  static final Color accent = WalletTheme.rgbColor('#ff5164');
-  static final Color black = WalletTheme.rgbColor('#111111');
+  static const String primary = '#4200d4';
+  static const String accent = '#ff5164';
+  static const String black = '#111111';
+  static const String white = '#ffffff';
+  static const String grey = '#999aaa';
+  static const String light_grey = '#f2f4fa';
+  static const String yellow_white = '#fef8e4';
 }

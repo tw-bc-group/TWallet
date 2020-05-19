@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
 
 class WalletFont {
@@ -19,6 +20,8 @@ class WalletFont {
         TextStyle(
         fontSize: 10,
         height: 1.6,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -28,6 +31,8 @@ class WalletFont {
         TextStyle(
         fontSize: 12,
         height: 1.5,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -37,6 +42,9 @@ class WalletFont {
         TextStyle(
         fontSize: 14,
         height: 1.43,
+        fontFamily: 'PingFangHK',
+        fontWeight: FontWeight.normal,
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -46,6 +54,8 @@ class WalletFont {
         TextStyle(
         fontSize: 16,
         height: 1.38,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -55,6 +65,8 @@ class WalletFont {
         TextStyle(
         fontSize: 18,
         height: 1.33,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -64,6 +76,8 @@ class WalletFont {
         TextStyle(
         fontSize: 20,
         height: 1.3,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -73,6 +87,8 @@ class WalletFont {
         TextStyle(
         fontSize: 22,
         height: 1.27,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }
@@ -81,7 +97,9 @@ class WalletFont {
     return defaultFontStyle(
       TextStyle(
         fontSize: 24,
-        height: 1.25
+        height: 1.25,
+        fontFamily: 'PingFangHK',
+        color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);
   }

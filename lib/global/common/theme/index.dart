@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
+import 'package:tw_wallet_ui/global/common/theme/font.dart';
 
 class WalletTheme {
   static Color get titleBgColor => rgbColor('0xfafafa');
@@ -14,14 +16,21 @@ class WalletTheme {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(circular)),
         child: RaisedButton(
-          color: Colors.blue,
-          disabledColor: Colors.grey,
+          color: WalletTheme.rgbColor(WalletColor.primary),
+          disabledColor: WalletTheme.rgbColor(WalletColor.grey),
+          elevation: 0,
           onPressed: onPressed,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22)
+          ),
           child: Center(
               child: Text(
             text,
-            style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            style: WalletFont.font_16(
+              textStyle: TextStyle(
+                color: WalletTheme.rgbColor(WalletColor.white)
+              )
+            )
           )),
         ),
       ),
