@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
 
 enum BackIcon { NONE, CLOSE, ARROW }
@@ -27,7 +28,7 @@ class PageTitleWidget extends StatelessWidget {
             SizedBox(
               height: 48,
             ),
-            Text(
+            if (title != null) Text(
               title,
               style: TextStyle(
                 fontSize: 16,
@@ -38,12 +39,12 @@ class PageTitleWidget extends StatelessWidget {
         ),
         if (backIcon != BackIcon.NONE)
           Positioned(
-            left: 17,
+            left: 10,
             top: 0,
             child: IconButton(
               icon: Icon(BackIconMap[backIcon]),
-              iconSize: 30,
-              color: WalletTheme.rgbColor('#aaaaaa'),
+              iconSize: 40,
+              color: WalletTheme.rgbColor(WalletColor.white),
               onPressed: () {
                 Application.router.pop(context);
               },

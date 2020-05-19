@@ -33,7 +33,7 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.button(
                       text: '清除数据',
                       onPressed: () async {
-                        await _clearPrivateData().then((_) => exit(0));
+                        await _clearPrivateData();
                       }))
             ]));
   }
