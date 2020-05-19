@@ -44,7 +44,7 @@ class PageTitleWidget extends StatelessWidget {
             child: IconButton(
               icon: Icon(BackIconMap[backIcon]),
               iconSize: 40,
-              color: WalletTheme.rgbColor(WalletColor.white),
+              color: WalletTheme.rgbColor(WalletColor.black),
               onPressed: () {
                 Application.router.pop(context);
               },
