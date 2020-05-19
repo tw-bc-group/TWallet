@@ -32,6 +32,7 @@ class WalletFont {
         fontSize: 12,
         height: 1.5,
         fontFamily: 'PingFangHK',
+        fontWeight: FontWeight.normal,
         color: WalletTheme.rgbColor(WalletColor.black)
       )
     ).merge(textStyle);

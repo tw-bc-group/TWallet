@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
+import 'package:tw_wallet_ui/global/common/theme/font.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
+import 'package:tw_wallet_ui/global/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
-
-import './widgets/page_title.dart';
 
 class BackupMnemonicsPage extends StatefulWidget {
   @override
@@ -28,13 +29,10 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
     List<Widget> wordWidgets = [];
     for (var word in words) {
       wordWidgets.add(Container(
-          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.all(12),
           child: Text(
             word,
-            style: TextStyle(
-              fontSize: 20,
-              color: WalletTheme.rgbColor('#38508c'),
-            ),
+            style: WalletFont.font_16()
           )));
     }
     return Wrap(children: wordWidgets);
@@ -42,41 +40,79 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-        body: Container(
+    return NewCommonLayout(
+        backIcon: BackIcon.ARROW,
+        withBottomBtn: true,
+        btnOnPressed: () => Application.router.navigateTo(context, Routes.confirmMnemonics),
+        btnText: '下一步',
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12), topRight: Radius.circular(12)
+              ),
+              color: WalletTheme.rgbColor(WalletColor.white)
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 24),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
                 ListView(
                   children: <Widget>[
-                    IconBackButton(),
-                    PageTitle(title: '备份助记词', desc: '请用纸笔抄写下助记词，我们将在下一步验证'),
                     Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                      margin: EdgeInsets.only(top: 40),
+                      child: Center(
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: Text(
+                                '备份助记词',
+                                style: WalletFont.font_20(),
+                              ),
+                            ),
+                            Positioned(
+                              child: Image(
+                                image: AssetImage('assets/images/info-black.png')
+                              ),
+                              top: -6,
+                              right: 0,
+                            )
+                          ]
+                        )
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 40),
+                      child: Center(
+                        child: Image(
+                          image: AssetImage('assets/images/edit.png')
+                        )
+                      )
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 24),
+                      child: Text(
+                        '请用纸笔抄写下方助记词',
+                        style: WalletFont.font_14(),
+                        textAlign: TextAlign.center
+                      ),
+                    ),
+                    Text(
+                      '我们将在下一步验证',
+                      style: WalletFont.font_14(),
+                      textAlign: TextAlign.center
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
                         margin: EdgeInsets.only(top: 48),
                         decoration: BoxDecoration(
-                            color: WalletTheme.rgbColor('#f6f8f9')),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            color: WalletTheme.rgbColor(WalletColor.light_grey)),
                         child: buildWords(store)),
                     Tips(),
                   ],
                 ),
-                Positioned(
-                  child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 30),
-                      width: MediaQuery.of(context).size.width - 60,
-                      child: WalletTheme.button(
-                          text: '下一步',
-                          onPressed: () {
-                            Application.router
-                                .navigateTo(context, Routes.confirmMnemonics);
-                          })),
-                  bottom: 30,
-                  left: 0,
-                )
               ],
             )));
   }

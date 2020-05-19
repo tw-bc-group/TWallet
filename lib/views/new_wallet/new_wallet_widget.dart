@@ -18,7 +18,7 @@ class NewWalletWidget extends StatelessWidget {
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12), topRight: Radius.circular(12)
           ),
-          color: Colors.white
+          color: WalletTheme.rgbColor(WalletColor.white)
         ),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

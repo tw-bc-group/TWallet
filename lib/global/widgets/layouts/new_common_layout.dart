@@ -60,8 +60,8 @@ class NewCommonLayout extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: child),
                 if (withBottomBtn) Container(
-                  margin: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-                  width: MediaQuery.of(context).size.width - 60,
+                  color: WalletTheme.rgbColor(WalletColor.white),
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
                   child: WalletTheme.button(
                     text: btnText, onPressed: btnOnPressed
                   )
