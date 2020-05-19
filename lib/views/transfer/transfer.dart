@@ -34,7 +34,6 @@ class TransferPageState extends State<TransferPage> {
     var identity = getIt<IdentityStore>().selectedIdentity.value;
     _transferStore.updateBalance(identity.balance.humanReadable);
     _transferStore.updatePayerAddress(identity.address);
-    _transferStore.validateAll();
   }
 
   @override
@@ -44,8 +43,11 @@ class TransferPageState extends State<TransferPage> {
   }
 
   void confirmTransferPage() {
-    Application.router.navigateTo(context,
-        '${Routes.transferConfirm}?currency=${Uri.encodeQueryComponent(globalEnv().tokenName)}&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
+    _transferStore.validateAll();
+    if (!_transferStore.error.hasErrors) {
+      Application.router.navigateTo(context,
+          '${Routes.transferConfirm}?currency=${Uri.encodeQueryComponent(globalEnv().tokenName)}&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
+    }
   }
 
   @override

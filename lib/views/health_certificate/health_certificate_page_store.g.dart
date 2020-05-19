@@ -175,28 +175,6 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
   }
 
   @override
-  void validateContact(SelectOption value) {
-    final _$actionInfo = _$_HealthCertificatePageStoreActionController
-        .startAction(name: '_HealthCertificatePageStore.validateContact');
-    try {
-      return super.validateContact(value);
-    } finally {
-      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void validateSymptoms(SelectOption value) {
-    final _$actionInfo = _$_HealthCertificatePageStoreActionController
-        .startAction(name: '_HealthCertificatePageStore.validateSymptoms');
-    try {
-      return super.validateSymptoms(value);
-    } finally {
-      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void validateCommitment(bool value) {
     final _$actionInfo = _$_HealthCertificatePageStoreActionController
         .startAction(name: '_HealthCertificatePageStore.validateCommitment');
@@ -269,36 +247,6 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$contactAtom = Atom(name: '_FormErrorState.contact');
-
-  @override
-  String get contact {
-    _$contactAtom.reportRead();
-    return super.contact;
-  }
-
-  @override
-  set contact(String value) {
-    _$contactAtom.reportWrite(value, super.contact, () {
-      super.contact = value;
-    });
-  }
-
-  final _$symptomsAtom = Atom(name: '_FormErrorState.symptoms');
-
-  @override
-  String get symptoms {
-    _$symptomsAtom.reportRead();
-    return super.symptoms;
-  }
-
-  @override
-  set symptoms(String value) {
-    _$symptomsAtom.reportWrite(value, super.symptoms, () {
-      super.symptoms = value;
-    });
-  }
-
   final _$commitmentAtom = Atom(name: '_FormErrorState.commitment');
 
   @override
@@ -319,8 +267,6 @@ mixin _$FormErrorState on _FormErrorState, Store {
     return '''
 phone: ${phone},
 temperature: ${temperature},
-contact: ${contact},
-symptoms: ${symptoms},
 commitment: ${commitment},
 hasErrors: ${hasErrors}
     ''';

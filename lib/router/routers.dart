@@ -39,9 +39,8 @@ class Routes {
     qrPage: qrPageHandler,
     qrScanner: qrScannerHandler,
     healthCode: healthCodeHandler,
-    healthCertPage: HealthCertificationPageHandler,
+    healthCertPage: healthCertificationPageHandler,
   };
-
 
   static void configureRoutes(Router router) {
     TransitionType transitionType =

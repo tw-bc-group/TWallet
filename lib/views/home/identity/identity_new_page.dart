@@ -20,7 +20,6 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   void initState() {
     super.initState();
     store.setupAvatarAndValidators();
-    store.validateAll();
   }
 
   @override
@@ -30,7 +29,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   }
 
   Future<void> _addOnPressed() async {
-    if (!isAdding) {
+    store.validateAll();
+    if (!store.error.hasErrors && !isAdding) {
       isAdding = true;
       Future.microtask(() {
         store.validateAll();

@@ -59,13 +59,13 @@ abstract class _HealthCertificatePageStore with Store {
   String temperature;
 
   @observable
-  SelectOption contactOption;
+  SelectOption contactOption = SelectOption.no;
 
   @observable
-  SelectOption symptomsOption;
+  SelectOption symptomsOption = SelectOption.no;
 
   @observable
-  bool hasCommitment;
+  bool hasCommitment = false;
 
   List<ReactionDisposer> _disposers;
 
@@ -73,8 +73,6 @@ abstract class _HealthCertificatePageStore with Store {
     _disposers = [
       reaction((_) => phone, validatePhone),
       reaction((_) => temperature, validateTemplate),
-      reaction((_) => contactOption, validateContact),
-      reaction((_) => symptomsOption, validateSymptoms),
       reaction((_) => hasCommitment, validateCommitment),
     ];
   }
@@ -113,16 +111,6 @@ abstract class _HealthCertificatePageStore with Store {
   }
 
   @action
-  void validateContact(SelectOption value) {
-    error.contact = value == null ? '*必选' : null;
-  }
-
-  @action
-  void validateSymptoms(SelectOption value) {
-    error.symptoms = value == null ? '*必选' : null;
-  }
-
-  @action
   void validateCommitment(bool value) {
     error.commitment = (value == null || !value) ? '*必选' : null;
   }
@@ -131,8 +119,6 @@ abstract class _HealthCertificatePageStore with Store {
   validateAll() {
     validatePhone(phone);
     validateTemplate(temperature);
-    validateContact(contactOption);
-    validateSymptoms(symptomsOption);
     validateCommitment(hasCommitment);
   }
 }
@@ -147,19 +133,9 @@ abstract class _FormErrorState with Store {
   String temperature;
 
   @observable
-  String contact;
-
-  @observable
-  String symptoms;
-
-  @observable
   String commitment;
 
   @computed
   bool get hasErrors =>
-      phone != null ||
-      temperature != null ||
-      contact != null ||
-      symptoms != null ||
-      commitment != null;
+      phone != null || temperature != null || commitment != null;
 }

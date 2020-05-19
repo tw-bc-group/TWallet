@@ -136,12 +136,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                                       Text(contact.description())
                                     ])
                                 .expand((list) => list)
-                                .toList()
-                                  ..addAll([
-                                    Expanded(child: Container()),
-                                    Text(_pageStore.error.contact ?? '',
-                                        style: errorStyle)
-                                  ])),
+                                .toList()),
                         Text('* 您是否有发烧、恶心呕吐、头痛、呼吸急促、心慌、胸闷、乏力、肌肉疼痛等症状？',
                             style: titleStyle),
                         Row(
@@ -158,16 +153,11 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                                       Text(symptoms.description())
                                     ])
                                 .expand((list) => list)
-                                .toList()
-                                  ..addAll([
-                                    Expanded(child: Container()),
-                                    Text(_pageStore.error.symptoms ?? '',
-                                        style: errorStyle)
-                                  ])),
+                                .toList()),
                         Row(children: <Widget>[
                           Checkbox(
                             activeColor: Colors.blue,
-                            value: _pageStore.hasCommitment ?? false,
+                            value: _pageStore.hasCommitment,
                             onChanged: (bool value) {
                               _pageStore.hasCommitment = value;
                             },

@@ -9,8 +9,6 @@ import 'package:tw_wallet_ui/global/common/theme/index.dart';
 import 'package:tw_wallet_ui/global/store/mnemonics.dart';
 import 'package:tw_wallet_ui/global/widgets/layouts/new_common_layout.dart';
 import 'package:tw_wallet_ui/global/widgets/page_title.dart';
-import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/icon_back_button.dart';
-import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 
@@ -32,10 +30,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
     for (var tag in selectedWords) {
       wordWidgets.add(Container(
           padding: EdgeInsets.all(10),
-          child: Text(
-            tag.second,
-            style: WalletFont.font_16()
-          )));
+          child: Text(tag.second, style: WalletFont.font_16())));
     }
     return Wrap(children: wordWidgets);
   }
@@ -73,81 +68,72 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
             store.mnemonics;
 
     return NewCommonLayout(
-      backIcon: BackIcon.ARROW,
-      withBottomBtn: true,
-      btnText: '完成',
-      btnOnPressed: buttonDisabled
-        ? null
-        : () async {
-            store.save().then((_) => Application.router
-                .navigateTo(context,
-                    '/home?index=${HomeState.identityIndex}',
+        backIcon: BackIcon.ARROW,
+        withBottomBtn: true,
+        btnText: '完成',
+        btnOnPressed: buttonDisabled
+            ? null
+            : () async {
+                store.save().then((_) => Application.router.navigateTo(
+                    context, '/home?index=${HomeState.identityIndex}',
                     transition: TransitionType.native));
-          },
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12), topRight: Radius.circular(12)
-          ),
-          color: WalletTheme.rgbColor(WalletColor.white)
-        ),
-        child: ListView(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 40),
-              child: Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text(
-                        '确认助记词',
-                        style: WalletFont.font_20(),
-                      ),
+              },
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+              color: WalletTheme.rgbColor(WalletColor.white)),
+          child: ListView(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 40),
+                child: Center(
+                    child: Stack(children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Text(
+                      '确认助记词',
+                      style: WalletFont.font_20(),
                     ),
-                    Positioned(
-                      child: Image(
-                        image: AssetImage('assets/images/info-black.png')
-                      ),
-                      top: -6,
-                      right: 0,
-                    )
-                  ]
-                )
+                  ),
+                  Positioned(
+                    child: Image(
+                        image: AssetImage('assets/images/info-black.png')),
+                    top: -6,
+                    right: 0,
+                  )
+                ])),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 40),
-              child: Text(
-                '-请按顺序点击下方助记词，确认您的正确备份-',
-                style: WalletFont.font_14(),
-                textAlign: TextAlign.center,
-              )
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints(minHeight: 200),
-              child: Container(
+              Container(
+                  margin: EdgeInsets.only(top: 40),
+                  child: Text(
+                    '-请按顺序点击下方助记词，确认您的正确备份-',
+                    style: WalletFont.font_14(),
+                    textAlign: TextAlign.center,
+                  )),
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: 200),
+                child: Container(
+                    margin: EdgeInsets.only(top: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        color: WalletTheme.rgbColor(WalletColor.light_grey)),
+                    child: buildWords()),
+              ),
+              Container(
+                height: 1,
                 margin: EdgeInsets.only(top: 24),
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                  color: WalletTheme.rgbColor(WalletColor.light_grey)
-                ),
-                child: buildWords()),
-            ),
-            Container(
-              height: 1,
-              margin: EdgeInsets.only(top: 24),
-              color: WalletTheme.rgbColor('#e0e1e9'),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 14),
-                child: buildWordButtons(store))
-          ],
-        ),
-      ));
+                color: WalletTheme.rgbColor('#e0e1e9'),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 14),
+                  child: buildWordButtons(store))
+            ],
+          ),
+        ));
   }
 }

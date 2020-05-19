@@ -122,9 +122,8 @@ var healthCodeHandler = Handler(
   },
 );
 
-var HealthCertificationPageHandler = Handler(
+var healthCertificationPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return HealthCertificationPage();
   },
 );
-
