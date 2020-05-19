@@ -20,6 +20,7 @@ class Routes {
   static final String qrPage = '/identity/qr';
   static final String qrScanner = '/qr_scanner';
   static final String healthCode = '/health_code';
+  static final String healthCertPage = '/dapp/health_cert';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -38,7 +39,9 @@ class Routes {
     qrPage: qrPageHandler,
     qrScanner: qrScannerHandler,
     healthCode: healthCodeHandler,
+    healthCertPage: HealthCertificationPageHandler,
   };
+
 
   static void configureRoutes(Router router) {
     TransitionType transitionType =
