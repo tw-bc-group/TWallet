@@ -50,11 +50,13 @@ class _IdentityPageState extends State<IdentityPage> {
                     width: 32,
                     height: 32,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 12),
-                    child: Text(
-                      identity.name,
-                      style: WalletFont.font_18(),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 12),
+                      child: Text(
+                        identity.name,
+                        style: WalletFont.font_18(),
+                      )
                     )
                   )
                 ]),
@@ -68,8 +70,9 @@ class _IdentityPageState extends State<IdentityPage> {
                   style: WalletFont.font_12(
                     textStyle: TextStyle(
                       color: WalletColor.grey
-                    )
+                    ),
                   ),
+                  textAlign: TextAlign.center,
                 )
               ])
               // child: Container(

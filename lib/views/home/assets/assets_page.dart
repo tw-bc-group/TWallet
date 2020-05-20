@@ -71,8 +71,7 @@ class _AssetsPageState extends State<AssetsPage>
         },
       ),
       SizedBox(width: 10),
-      Text(selectedIdentity.map((identity) => identity.name).orElse('')),
-      Expanded(child: Container()),
+      Expanded(child: Text(selectedIdentity.map((identity) => identity.name).orElse(''))),
     ];
 
     if (identities.length > 1) {
