@@ -24,33 +24,69 @@ class _IdentityPageState extends State<IdentityPage> {
   TextEditingController _filter;
 
   Widget _listItem(Identity identity) {
-    return Padding(
-        padding: EdgeInsets.all(10),
+    return Container(
+      margin: EdgeInsets.only(bottom: 24),
         child: GestureDetector(
           onTap: () {
             Application.router.navigateTo(
                 context, '${Routes.identityDetail}?id=${identity.id}');
           },
           child: Container(
+              padding: EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: WalletTheme.listItemBgColor,
-                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
-                borderRadius: BorderRadius.circular(10.0),
+                color: WalletColor.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [BoxShadow(
+                  color: Color(0x0f000000),
+                  offset: Offset(0,4),
+                  blurRadius: 12,
+                  spreadRadius: 0
+                )]
               ),
-              child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: ListTile(
-                    leading: AvatarWidget(avataaar: identity.avataaar),
-                    title: Text(identity.name),
-                    subtitle: GestureDetector(
-                        child: Text(identity.did.toString()),
-                        onLongPress: () {
-                          Clipboard.setData(
-                              ClipboardData(text: identity.address));
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                              content: new Text('"${identity.name}"地址已复制')));
-                        }),
-                  ))),
+              child: Column(children: <Widget>[
+                Row(children: <Widget>[
+                  Image(
+                    image: AssetImage('assets/images/avatar.png'),
+                    width: 32,
+                    height: 32,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 12),
+                    child: Text(
+                      identity.name,
+                      style: WalletFont.font_18(),
+                    )
+                  )
+                ]),
+                Container(
+                  margin: EdgeInsets.only(top: 16, bottom: 16),
+                  height: 1,
+                  color: WalletColor.middleGrey
+                ),
+                Text(
+                  identity.did.toString(),
+                  style: WalletFont.font_12(
+                    textStyle: TextStyle(
+                      color: WalletColor.grey
+                    )
+                  ),
+                )
+              ])
+              // child: Container(
+              //     padding: EdgeInsets.all(10),
+              //     child: ListTile(
+              //       leading: AvatarWidget(avataaar: identity.avataaar),
+              //       title: Text(identity.name),
+              //       subtitle: GestureDetector(
+              //           child: Text(identity.did.toString()),
+              //           onLongPress: () {
+              //             Clipboard.setData(
+              //                 ClipboardData(text: identity.address));
+              //             Scaffold.of(context).showSnackBar(SnackBar(
+              //                 content: new Text('"${identity.name}"地址已复制')));
+              //           }),
+              //     ))),
+          )
         ));
   }
 
@@ -71,14 +107,14 @@ class _IdentityPageState extends State<IdentityPage> {
               '身份',
               style: WalletFont.font_18(
                 textStyle: TextStyle(
-                  color: WalletTheme.rgbColor(WalletColor.white)
+                  color: WalletColor.white
                 )
               )
             )),
             Positioned(
               child: SvgPicture.asset(
                 'assets/images/scan.svg',
-                color: WalletTheme.rgbColor(WalletColor.white),
+                color: WalletColor.white,
                 width: 40,
                 height: 40
               ),
@@ -111,7 +147,7 @@ class _IdentityPageState extends State<IdentityPage> {
               spreadRadius: 0
             )
           ],
-          color: WalletTheme.rgbColor(WalletColor.white),
+          color: WalletColor.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,14 +164,31 @@ class _IdentityPageState extends State<IdentityPage> {
       );
     }
 
-    return Container();
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 64, vertical: 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0f000000),
+            offset: Offset(0,4),
+            blurRadius: 12,
+            spreadRadius: 0
+          )
+        ],
+        color: WalletColor.white,
+      ),
+      child: WalletTheme.button(
+        text: '新增身份', onPressed: () => Application.router.navigateTo(context, Routes.newIdentity)
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          color: WalletTheme.rgbColor(WalletColor.primary),
+          color: WalletColor.primary,
           image: DecorationImage(
             image: AssetImage('assets/images/background.png'),
             alignment: Alignment.bottomCenter

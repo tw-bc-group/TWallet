@@ -16,8 +16,8 @@ class WalletTheme {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(circular)),
         child: RaisedButton(
-          color: WalletTheme.rgbColor(WalletColor.primary),
-          disabledColor: WalletTheme.rgbColor(WalletColor.middle_grey),
+          color: WalletColor.primary,
+          disabledColor: WalletColor.middleGrey,
           elevation: 0,
           onPressed: onPressed,
           shape: RoundedRectangleBorder(
@@ -28,7 +28,7 @@ class WalletTheme {
             text,
             style: WalletFont.font_16(
               textStyle: TextStyle(
-                color: WalletTheme.rgbColor(WalletColor.white)
+                color: WalletColor.white
               )
             )
           )),

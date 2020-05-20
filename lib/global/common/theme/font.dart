@@ -5,7 +5,7 @@ import 'package:tw_wallet_ui/global/common/theme/index.dart';
 class WalletFont {
   static final FontWeight defaultFontWeight = FontWeight.w600;
   static final double defaultLetterSpacing = 1;
-  static final Color defaultTextColor = WalletTheme.rgbColor('#111111');
+  static final Color defaultTextColor = WalletColor.black;
 
   static TextStyle defaultFontStyle(TextStyle textStyle) {
     return TextStyle(
@@ -21,7 +21,7 @@ class WalletFont {
         fontSize: 10,
         height: 1.6,
         fontFamily: 'PingFangHK',
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -33,7 +33,7 @@ class WalletFont {
         height: 1.5,
         fontFamily: 'PingFangHK',
         fontWeight: FontWeight.normal,
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -45,7 +45,7 @@ class WalletFont {
         height: 1.43,
         fontFamily: 'PingFangHK',
         fontWeight: FontWeight.normal,
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -56,7 +56,7 @@ class WalletFont {
         fontSize: 16,
         height: 1.38,
         fontFamily: 'PingFangHK',
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -67,7 +67,7 @@ class WalletFont {
         fontSize: 18,
         height: 1.33,
         fontFamily: 'PingFangHK',
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -78,7 +78,7 @@ class WalletFont {
         fontSize: 20,
         height: 1.3,
         fontFamily: 'PingFangHK',
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -89,7 +89,7 @@ class WalletFont {
         fontSize: 22,
         height: 1.27,
         fontFamily: 'PingFangHK',
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -100,7 +100,7 @@ class WalletFont {
         fontSize: 24,
         height: 1.25,
         fontFamily: 'PingFangHK',
-        color: WalletTheme.rgbColor(WalletColor.black)
+        color: WalletColor.black
       )
     ).merge(textStyle);
   }

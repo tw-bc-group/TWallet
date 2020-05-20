@@ -18,7 +18,7 @@ class NewCommonLayout extends StatelessWidget {
     this.btnText = '完成',
     this.btnOnPressed,
     this.title,
-    this.bodyBackColor = WalletColor.primary,
+    this.bodyBackColor = WalletColor.PRIMARY,
     this.backIcon = BackIcon.CLOSE,
   });
 
@@ -28,7 +28,7 @@ class NewCommonLayout extends StatelessWidget {
       resizeToAvoidBottomPadding: false,
       backgroundColor: WalletTheme.rgbColor(bodyBackColor),
       appBar: AppBar(
-        backgroundColor: WalletTheme.rgbColor(WalletColor.primary),
+        backgroundColor: WalletColor.primary,
         brightness: Brightness.dark,
         title: PageTitleWidget(title: title, backIcon: backIcon),
         textTheme: Theme.of(context).textTheme.apply(
@@ -43,7 +43,7 @@ class NewCommonLayout extends StatelessWidget {
       bottomNavigationBar: Theme(
         data: Theme.of(context),
         child: Container(
-          color: WalletTheme.rgbColor(WalletColor.white),
+          color: WalletColor.white,
           height: 30
         )
       ),
@@ -60,7 +60,7 @@ class NewCommonLayout extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: child),
                 if (withBottomBtn) Container(
-                  color: WalletTheme.rgbColor(WalletColor.white),
+                  color: WalletColor.white,
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
                   child: WalletTheme.button(
                     text: btnText, onPressed: btnOnPressed

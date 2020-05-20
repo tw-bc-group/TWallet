@@ -18,10 +18,10 @@ class WordButtonState extends State<WordButton> {
   final String text;
   final Function onPressed;
   var selected = false;
-  final defaultBackColor = WalletTheme.rgbColor(WalletColor.white);
-  final selectedBackColor = WalletTheme.rgbColor(WalletColor.primary);
-  final defaultFontColor = WalletTheme.rgbColor(WalletColor.primary);
-  final selectedFontColor = WalletTheme.rgbColor(WalletColor.white);
+  final defaultBackColor = WalletColor.white;
+  final selectedBackColor = WalletColor.primary;
+  final defaultFontColor = WalletColor.primary;
+  final selectedFontColor = WalletColor.white;
 
   WordButtonState({this.text, this.onPressed});
 
@@ -46,7 +46,7 @@ class WordButtonState extends State<WordButton> {
               borderRadius: BorderRadius.all(
                 const Radius.circular(22),
               ),
-              border: Border.all(color: WalletTheme.rgbColor(WalletColor.primary).withOpacity(0.15))
+              border: Border.all(color: WalletColor.primary.withOpacity(0.15))
             ),
             child: Text(
               text,

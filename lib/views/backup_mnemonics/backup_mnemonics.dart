@@ -50,7 +50,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12), topRight: Radius.circular(12)
               ),
-              color: WalletTheme.rgbColor(WalletColor.white)
+              color: WalletColor.white
             ),
             padding: EdgeInsets.symmetric(horizontal: 24),
             height: MediaQuery.of(context).size.height,
@@ -108,7 +108,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                         margin: EdgeInsets.only(top: 48),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
-                            color: WalletTheme.rgbColor(WalletColor.light_grey)),
+                            color: WalletColor.lightGrey),
                         child: buildWords(store)),
                     Tips(),
                   ],

@@ -11,7 +11,7 @@ class Tips extends StatelessWidget {
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: WalletTheme.rgbColor(WalletColor.accent).withOpacity(0.1),
+          color: WalletColor.accent.withOpacity(0.1),
         ),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -19,14 +19,14 @@ class Tips extends StatelessWidget {
             margin: EdgeInsets.only(right: 7),
             child: Icon(
               Icons.info,
-              color: WalletTheme.rgbColor(WalletColor.accent),
+              color: WalletColor.accent,
             ),
           ),
           Text(
             '助记词为账户凭证，为了避免账户被盗，请勿截图',
             style: WalletFont.font_12(
               textStyle: TextStyle(
-                color: WalletTheme.rgbColor(WalletColor.accent),
+                color: WalletColor.accent,
               )
             )
           ),

@@ -85,7 +85,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              color: WalletTheme.rgbColor(WalletColor.white)),
+              color: WalletColor.white),
           child: ListView(
             children: <Widget>[
               Container(
@@ -121,13 +121,13 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
-                        color: WalletTheme.rgbColor(WalletColor.light_grey)),
+                        color: WalletColor.lightGrey),
                     child: buildWords()),
               ),
               Container(
                 height: 1,
                 margin: EdgeInsets.only(top: 24),
-                color: WalletTheme.rgbColor(WalletColor.middle_grey),
+                color: WalletColor.middleGrey,
               ),
               Container(
                   margin: EdgeInsets.only(top: 14),

@@ -18,7 +18,7 @@ class NewWalletWidget extends StatelessWidget {
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12), topRight: Radius.circular(12)
           ),
-          color: WalletTheme.rgbColor(WalletColor.white)
+          color: WalletColor.white
         ),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -41,7 +41,7 @@ class NewWalletWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 46, vertical: 70),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
-                    color: WalletTheme.rgbColor(WalletColor.light_grey),
+                    color: WalletColor.lightGrey,
                   ),
                   child: Row(
                     children: <Widget>[
@@ -64,7 +64,7 @@ class NewWalletWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 46, vertical: 70),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
-                    color: WalletTheme.rgbColor(WalletColor.light_grey),
+                    color: WalletColor.lightGrey,
                   ),
                   child: Row(
                     children: <Widget>[
@@ -75,7 +75,7 @@ class NewWalletWidget extends StatelessWidget {
                           '恢复钱包',
                           style: WalletFont.font_24(
                             textStyle: TextStyle(
-                              color: WalletTheme.rgbColor(WalletColor.grey),
+                              color: WalletColor.grey,
                             )
                           )
                         )

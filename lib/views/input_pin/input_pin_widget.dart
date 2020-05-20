@@ -19,9 +19,9 @@ class PinInputWidget extends StatelessWidget {
   Widget _inputPinField(
       TextEditingController textEditingController, Function onChanged) {
     return PinCodeTextField(
-      activeColor: WalletTheme.rgbColor(WalletColor.black),
-      inactiveColor: WalletTheme.rgbColor(WalletColor.black),
-      selectedFillColor: WalletTheme.rgbColor(WalletColor.primary),
+      activeColor: WalletColor.black,
+      inactiveColor: WalletColor.black,
+      selectedFillColor: WalletColor.primary,
       borderWidth: 1,
       length: 6,
       obsecureText: true,
@@ -45,11 +45,11 @@ class PinInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: WalletTheme.rgbColor(WalletColor.primary),
+      backgroundColor: WalletColor.primary,
       bottomNavigationBar: Theme(
         data: Theme.of(context),
         child: Container(
-          color: WalletTheme.rgbColor(WalletColor.white),
+          color: WalletColor.white,
           height: 30
         )
       ),
@@ -80,7 +80,7 @@ class PinInputWidget extends StatelessWidget {
                   "欢迎来到 TW Wallet",
                   style: WalletFont.font_22(
                     textStyle: TextStyle(
-                      color: WalletTheme.rgbColor(WalletColor.white)
+                      color: WalletColor.white
                     )
                   ),
                   textAlign: TextAlign.center,
@@ -90,7 +90,7 @@ class PinInputWidget extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-                    color: WalletTheme.rgbColor(WalletColor.white)),
+                    color: WalletColor.white),
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: ListView(
                     children: <Widget>[
@@ -100,7 +100,7 @@ class PinInputWidget extends StatelessWidget {
                           "请创建您的 PIN 码",
                           style: WalletFont.font_18(
                             textStyle: TextStyle(
-                              color: WalletTheme.rgbColor(WalletColor.black),
+                              color: WalletColor.black,
                             )
                           ),
                           textAlign: TextAlign.center,
@@ -128,7 +128,7 @@ class PinInputWidget extends StatelessWidget {
                                       "解锁钱包",
                                       style: WalletFont.font_14(
                                         textStyle: TextStyle(
-                                          color: WalletTheme.rgbColor(WalletColor.primary)
+                                          color: WalletColor.primary
                                         )
                                       ),
                                     )
@@ -145,7 +145,7 @@ class PinInputWidget extends StatelessWidget {
                                       "确认交易",
                                       style: WalletFont.font_14(
                                         textStyle: TextStyle(
-                                          color: WalletTheme.rgbColor(WalletColor.primary)
+                                          color: WalletColor.primary
                                         )
                                       ),
                                     )
@@ -162,7 +162,7 @@ class PinInputWidget extends StatelessWidget {
                                       "更多设置",
                                       style: WalletFont.font_14(
                                         textStyle: TextStyle(
-                                          color: WalletTheme.rgbColor(WalletColor.primary)
+                                          color: WalletColor.primary
                                         )
                                       ),
                                     )
@@ -175,7 +175,7 @@ class PinInputWidget extends StatelessWidget {
                       Container(
                         height: 1,
                         margin: EdgeInsets.only(top: 23),
-                        color: WalletTheme.rgbColor(WalletColor.middle_grey),
+                        color: WalletColor.middleGrey,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),

@@ -50,7 +50,7 @@ class HomeState extends State<Home> {
     YYDialog.init(context);
     ErrorInterceptor.context = context;
     return Scaffold(
-      backgroundColor: WalletTheme.rgbColor(WalletColor.primary),
+      backgroundColor: WalletColor.primary,
       body: Observer(
           builder: (_) => SafeArea(child: _pages[homeStore.currentPage])),
       bottomNavigationBar: Observer(
@@ -58,7 +58,7 @@ class HomeState extends State<Home> {
                 items: _barItems,
                 currentIndex: homeStore.currentPage,
                 type: BottomNavigationBarType.fixed,
-                fixedColor: WalletTheme.rgbColor(WalletColor.primary),
+                fixedColor: WalletColor.primary,
                 selectedFontSize: 12,
                 onTap: (index) {
                   homeStore.changePage(index);
