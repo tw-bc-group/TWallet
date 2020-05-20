@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/store/health_certification_store.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/did.dart';
+import 'package:tw_wallet_ui/store/health_certification_store.dart';
 
 part 'health_code_store.g.dart';
 

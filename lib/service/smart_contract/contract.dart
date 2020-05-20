@@ -1,7 +1,7 @@
 import 'package:http/http.dart' show Client;
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/service/api_provider.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:web3dart/contracts.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';

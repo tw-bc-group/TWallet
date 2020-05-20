@@ -1,7 +1,7 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:mobx/mobx.dart';
 import 'package:random_string/random_string.dart';
-import 'package:tw_wallet_ui/global/common/secure_storage.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
 
 part 'input_pin_store.g.dart';
 

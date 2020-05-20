@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/button.dart';
 
 

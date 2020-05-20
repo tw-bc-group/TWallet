@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/global/common/util.dart';
+import 'package:tw_wallet_ui/common/util.dart';
 import 'package:validators/validators.dart';
 
 part 'health_certificate_page_store.g.dart';

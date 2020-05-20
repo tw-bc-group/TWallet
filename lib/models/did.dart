@@ -1,4 +1,4 @@
-import 'package:tw_wallet_ui/global/store/env_store.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:web3dart/credentials.dart';
 
 class DID extends Object {

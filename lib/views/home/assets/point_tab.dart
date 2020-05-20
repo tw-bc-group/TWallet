@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 
 Widget _pointItem({@required String point, BuildContext context}) {
   return GestureDetector(

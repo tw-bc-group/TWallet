@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/widgets/page_title.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class CommonLayout extends StatelessWidget {
   final LayoutWidgetBuilder childBuilder;

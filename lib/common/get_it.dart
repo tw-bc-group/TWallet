@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tw_wallet_ui/global/common/http/http_client.dart';
-import 'package:tw_wallet_ui/global/service/api_provider.dart';
-import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
-import 'package:tw_wallet_ui/global/store/health_certification_store.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/store/mnemonics.dart';
+import 'package:tw_wallet_ui/common/http/http_client.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/store/health_certification_store.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/store/mnemonics.dart';
 
 GetIt getIt = GetIt.instance;
 

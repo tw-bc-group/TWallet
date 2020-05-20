@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/global/widgets/page_title.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 import '../home.dart';
 

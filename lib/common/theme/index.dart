@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/font.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
 
 enum ButtonType {
   DEFAULT,

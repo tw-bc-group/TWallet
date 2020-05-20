@@ -1,10 +1,10 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/util.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/store/mnemonics.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/home/identity/date_validator.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';

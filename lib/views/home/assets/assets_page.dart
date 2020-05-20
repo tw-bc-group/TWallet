@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:optional/optional_internal.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/widgets/avatar.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
+import 'package:tw_wallet_ui/widgets/avatar.dart';
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage(this.homeStore);

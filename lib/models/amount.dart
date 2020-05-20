@@ -1,8 +1,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
-import 'package:tw_wallet_ui/global/common/util.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
+import 'package:tw_wallet_ui/common/util.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 
 class Amount {
   const Amount(this.value);

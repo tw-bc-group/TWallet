@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:web3dart/credentials.dart';
 
 part 'transfer_store.g.dart';

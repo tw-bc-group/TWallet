@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tw_wallet_ui/global/common/http/error_interceptor.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/http/error_interceptor.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/assets_page.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/font.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
 
 class Tips extends StatelessWidget {
   @override

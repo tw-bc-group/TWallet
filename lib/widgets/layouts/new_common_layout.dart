@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/widgets/page_title.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class NewCommonLayout extends StatelessWidget {
   final Widget child;

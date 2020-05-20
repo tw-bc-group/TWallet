@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 
 class IconBackButton extends StatelessWidget {
   @override

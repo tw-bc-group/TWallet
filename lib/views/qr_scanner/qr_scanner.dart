@@ -2,7 +2,7 @@ import 'package:ai_barcode/ai_barcode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 
 class QrScannerPage extends StatefulWidget {
   @override

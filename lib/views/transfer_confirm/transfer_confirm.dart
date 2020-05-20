@@ -1,17 +1,17 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/confirm_row.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/input_pin.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class TransferConfirmPage extends StatefulWidget {
   final String currency;

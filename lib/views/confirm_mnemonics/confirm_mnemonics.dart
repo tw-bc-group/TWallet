@@ -1,16 +1,15 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:more/tuple.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/font.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/store/mnemonics.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/new_common_layout.dart';
-import 'package:tw_wallet_ui/global/widgets/page_title.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
+import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class ConfirmMnemonicsPage extends StatefulWidget {
   @override

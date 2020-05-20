@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/store/health_certification_store.dart';
-import 'package:tw_wallet_ui/global/widgets/avatar.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/health_certification_store.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/detail_row.dart';
+import 'package:tw_wallet_ui/widgets/avatar.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-import '../../global/common/get_it.dart';
-import '../../global/store/identity_store.dart';
 import '../../models/identity.dart';
 
 class IdentityDetailPage extends StatelessWidget {

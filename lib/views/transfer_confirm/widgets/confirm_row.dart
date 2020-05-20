@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 
 class ConfirmRowWidget extends StatelessWidget {
   final String title;

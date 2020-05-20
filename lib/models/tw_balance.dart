@@ -1,10 +1,10 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/service/api_provider.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 
 part 'tw_balance.g.dart';
 

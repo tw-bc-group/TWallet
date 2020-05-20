@@ -2,11 +2,11 @@ import 'package:avataaar_image/avataaar_image.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:optional/optional_internal.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/service/api_provider.dart';
-import 'package:tw_wallet_ui/global/service/blockchain.dart';
-import 'package:tw_wallet_ui/global/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/service/blockchain.dart';
+import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
 import 'package:web3dart/credentials.dart';
 
 import 'amount.dart';

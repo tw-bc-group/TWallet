@@ -1,12 +1,11 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-
-import 'global/common/application.dart';
-import 'global/common/get_it.dart';
-import 'global/common/secure_storage.dart';
 
 Future<String> _initialRoute() async {
   bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;

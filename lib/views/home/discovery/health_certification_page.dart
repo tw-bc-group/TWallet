@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/store/health_certification_store.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/widgets/avatar.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/global/widgets/page_title.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/health_certification_store.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/widgets/avatar.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 
 class HealthCertificationPage extends StatelessWidget {

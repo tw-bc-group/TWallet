@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 
 class WalletFont {
   static final FontWeight defaultFontWeight = FontWeight.w600;

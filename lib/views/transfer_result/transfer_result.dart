@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tw_wallet_ui/global/common/get_it.dart';
-import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/confirm_row.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class TransferResultPage extends StatelessWidget {
   final IdentityStore identityStore = getIt<IdentityStore>();

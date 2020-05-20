@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:tw_wallet_ui/global/common/http/error_interceptor.dart';
-import 'package:tw_wallet_ui/global/common/http/loading_interceptor.dart';
-import 'package:tw_wallet_ui/global/store/env_store.dart';
+import 'package:tw_wallet_ui/common/http/error_interceptor.dart';
+import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 
 class HttpClient {
   final Dio _dio = Dio()

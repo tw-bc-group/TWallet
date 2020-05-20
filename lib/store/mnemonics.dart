@@ -1,8 +1,8 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
-import 'package:tw_wallet_ui/global/common/secure_storage.dart';
-import 'package:tw_wallet_ui/global/service/blockchain.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/service/blockchain.dart';
 
 part 'mnemonics.g.dart';
 
