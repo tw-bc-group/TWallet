@@ -6,4 +6,5 @@ class WalletColor {
   static const String grey = '#999aaa';
   static const String light_grey = '#f2f4fa';
   static const String yellow_white = '#fef8e4';
+  static const String middle_grey = '#e0e1e9';
 }

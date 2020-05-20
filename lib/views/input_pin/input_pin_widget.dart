@@ -66,7 +66,14 @@ class PinInputWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: <Widget>[
-              Padding(
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    alignment: Alignment.bottomCenter,
+                    fit: BoxFit.fitWidth,
+                  )
+                ),
                 padding:
                     const EdgeInsets.only(top: 94, bottom: 85),
                 child: Text(
@@ -168,7 +175,7 @@ class PinInputWidget extends StatelessWidget {
                       Container(
                         height: 1,
                         margin: EdgeInsets.only(top: 23),
-                        color: WalletTheme.rgbColor('#e0e1e9'),
+                        color: WalletTheme.rgbColor(WalletColor.middle_grey),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),

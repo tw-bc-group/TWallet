@@ -127,7 +127,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
               Container(
                 height: 1,
                 margin: EdgeInsets.only(top: 24),
-                color: WalletTheme.rgbColor('#e0e1e9'),
+                color: WalletTheme.rgbColor(WalletColor.middle_grey),
               ),
               Container(
                   margin: EdgeInsets.only(top: 14),

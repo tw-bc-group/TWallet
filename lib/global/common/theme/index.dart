@@ -17,7 +17,7 @@ class WalletTheme {
             borderRadius: BorderRadius.circular(circular)),
         child: RaisedButton(
           color: WalletTheme.rgbColor(WalletColor.primary),
-          disabledColor: WalletTheme.rgbColor(WalletColor.grey),
+          disabledColor: WalletTheme.rgbColor(WalletColor.middle_grey),
           elevation: 0,
           onPressed: onPressed,
           shape: RoundedRectangleBorder(
