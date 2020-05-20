@@ -18,7 +18,7 @@ class CommonLayout extends StatelessWidget {
     this.btnOnPressed,
     this.title,
     this.bodyBackColor = '#f2f2f2',
-    this.backIcon = BackIcon.CLOSE,
+    this.backIcon = BackIcon.ARROW,
   });
 
   @override

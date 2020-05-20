@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/global/common/get_it.dart';
@@ -8,7 +7,6 @@ import 'package:tw_wallet_ui/global/common/theme/color.dart';
 import 'package:tw_wallet_ui/global/common/theme/font.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
 import 'package:tw_wallet_ui/global/store/identity_store.dart';
-import 'package:tw_wallet_ui/global/widgets/avatar.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 
 import '../../../global/common/application.dart';
@@ -116,7 +114,7 @@ class _IdentityPageState extends State<IdentityPage> {
             )),
             Positioned(
               child: SvgPicture.asset(
-                'assets/images/scan.svg',
+                'assets/icons/scan.svg',
                 color: WalletColor.white,
                 width: 40,
                 height: 40

@@ -19,7 +19,7 @@ class NewCommonLayout extends StatelessWidget {
     this.btnOnPressed,
     this.title,
     this.bodyBackColor = WalletColor.PRIMARY,
-    this.backIcon = BackIcon.CLOSE,
+    this.backIcon = BackIcon.ARROW,
   });
 
   @override

@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/theme/color.dart';
-import 'package:tw_wallet_ui/global/common/theme/index.dart';
+import 'package:tw_wallet_ui/global/common/theme/font.dart';
 
-enum BackIcon { NONE, CLOSE, ARROW }
-
-const Map<BackIcon, IconData> BackIconMap = {
-  BackIcon.CLOSE: Icons.close,
-  BackIcon.ARROW: Icons.chevron_left
-};
+enum BackIcon { NONE, ARROW }
 
 class PageTitleWidget extends StatelessWidget {
   final String title;
   final BackIcon backIcon;
 
-  PageTitleWidget({this.title, this.backIcon = BackIcon.CLOSE});
+  PageTitleWidget({this.title, this.backIcon = BackIcon.ARROW});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +26,11 @@ class PageTitleWidget extends StatelessWidget {
             ),
             if (title != null) Text(
               title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: WalletFont.font_18(
+                textStyle: TextStyle(
+                  color: WalletColor.white
+                )
+              )
             ),
           ],
         ),
@@ -42,8 +39,11 @@ class PageTitleWidget extends StatelessWidget {
             left: 10,
             top: 0,
             child: IconButton(
-              icon: Icon(BackIconMap[backIcon]),
-              iconSize: 40,
+              icon: SvgPicture.asset(
+                'assets/icons/back-arrow.svg',
+                // color: WalletColor.white
+              ),
+              iconSize: 30,
               color: WalletColor.white,
               onPressed: () {
                 Application.router.pop(context);

@@ -1,10 +1,13 @@
-import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/global/common/application.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
+import 'package:tw_wallet_ui/global/common/theme/font.dart';
 import 'package:tw_wallet_ui/global/common/theme/index.dart';
-import 'package:tw_wallet_ui/global/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/global/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/global/widgets/page_title.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 
 class IdentityNewPage extends StatefulWidget {
@@ -47,92 +50,160 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     }
   }
 
+  InputDecoration buildInputDecoration({String assetIcon, String labelText, String hintText}) {
+    return InputDecoration(
+      icon: SvgPicture.asset(assetIcon),
+      labelText: labelText,
+      labelStyle: WalletFont.font_14(
+        textStyle: TextStyle(
+          color: WalletColor.grey
+        )
+      ),
+      hintText: hintText,
+      border: InputBorder.none,
+    );
+  }
+
+  Widget buildInputField({Widget textFieldChild, String errorText}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        children: <Widget>[
+          Stack(children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(child: textFieldChild),
+                Text(
+                  '点击输入',
+                  style: WalletFont.font_14(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600
+                    )
+                  )
+                )
+              ],
+            ),
+            if (errorText != null) Positioned(
+              child: Text(
+                errorText,
+                style: WalletFont.font_12(
+                  textStyle: TextStyle(
+                    color: WalletColor.accent,
+                  )
+                ),
+                textAlign: TextAlign.left
+              ),
+              left: 0,
+              bottom: 0
+            ),
+          ]),
+          Container(
+            height: 1,
+            color: WalletColor.middleGrey,
+            margin: EdgeInsets.only(top: 6),
+          ),
+        ],
+      ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => CommonLayout(
-          title: '新建个人信息',
-          withBottomBtn: true,
-          btnText: '添加',
-          btnOnPressed:
-              store.error.hasErrors || isAdding ? null : _addOnPressed,
-          childBuilder: (context, constraints) => LayoutBuilder(
-                builder: (context, constraints) => Container(
-                    padding: EdgeInsets.only(top: 15),
-                    color: WalletTheme.mainBgColor,
-                    child: Column(children: <Widget>[
-                      Form(
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
-                            child: Column(
-                              children: <Widget>[
-                                Observer(
-                                    builder: (_) => Stack(
-                                            alignment:
-                                                const Alignment(0.0, 2.0),
-                                            children: <Widget>[
-                                              AvataaarImage(
-                                                avatar: store.avatar,
-                                                errorImage: Icon(Icons.error),
-                                                placeholder:
-                                                    CircularProgressIndicator(),
-                                                width: 65,
-                                              ),
-                                              IconButton(
-                                                  icon: Icon(Icons.refresh),
-                                                  onPressed:
-                                                      store.refreshAvatar)
-                                            ])),
-                                Padding(
-                                    padding: EdgeInsets.only(top: 15),
-                                    child: Text('以下带 * 的为必填项',
-                                        style: TextStyle(color: Colors.grey))),
-                                Observer(
-                                    builder: (_) => TextField(
-                                        keyboardType: TextInputType.text,
-                                        onChanged: (String value) =>
-                                            store.name = value.trim(),
-                                        decoration: InputDecoration(
-                                          labelText: '名称*',
-                                          hintText: '输入名称',
-                                          errorText: store.error.username,
-                                        ))),
-                                Observer(
-                                    builder: (_) => TextField(
-                                        onChanged: (value) =>
-                                            store.email = value,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        decoration: InputDecoration(
-                                          labelText: '邮箱',
-                                          hintText: '输入邮箱',
-                                          errorText: store.error.email,
-                                        ))),
-                                Observer(
-                                    builder: (_) => TextField(
-                                        onChanged: (value) =>
-                                            store.phone = value,
-                                        keyboardType: TextInputType.phone,
-                                        decoration: InputDecoration(
-                                          labelText: '手机',
-                                          hintText: '输入手机号',
-                                          errorText: store.error.phone,
-                                        ))),
-                                Observer(
-                                    builder: (_) => TextField(
-                                        onChanged: (value) =>
-                                            store.birthday = value,
-                                        keyboardType: TextInputType.datetime,
-                                        decoration: InputDecoration(
-                                          labelText: '生日',
-                                          hintText: 'YYYY-MM-DD',
-                                          errorText: store.error.birthday,
-                                        ))),
-                              ],
+      builder: (_) => NewCommonLayout(
+        backIcon: BackIcon.ARROW,
+        title: '个人信息',
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(40),
+              alignment: Alignment.center,
+              child: Image(image: AssetImage('assets/images/avatar.png')),
+            ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12), topRight: Radius.circular(12)
+                  ),
+                  color: WalletColor.white
+                ),
+                child: Column(children: <Widget>[
+                  Expanded(
+                    child: Form(
+                      child: Column(
+                        children: <Widget>[
+                          Observer(
+                            builder: (_) => buildInputField(
+                              textFieldChild: TextField(
+                                keyboardType: TextInputType.text,
+                                onChanged: (String value) =>
+                                    store.name = value.trim(),
+                                decoration: buildInputDecoration(
+                                  assetIcon: 'assets/icons/name.svg',
+                                  labelText: '名称*',
+                                  hintText: '输入名称',
+                                )
+                              ),
+                              errorText: store.error.username
                             )),
-                      )
-                    ])),
-              )),
+                          Observer(
+                            builder: (_) => buildInputField(
+                              textFieldChild: TextField(
+                                onChanged: (value) =>
+                                    store.email = value,
+                                keyboardType:
+                                    TextInputType.emailAddress,
+                                decoration: buildInputDecoration(
+                                  assetIcon: 'assets/icons/email.svg',
+                                  labelText: '邮箱',
+                                  hintText: '输入邮箱',
+                                )
+                              ),
+                              errorText: store.error.email
+                            )),
+                          Observer(
+                            builder: (_) => buildInputField(
+                              textFieldChild: TextField(
+                                onChanged: (value) =>
+                                    store.phone = value,
+                                keyboardType: TextInputType.phone,
+                                decoration: buildInputDecoration(
+                                  assetIcon: 'assets/icons/phone.svg',
+                                  labelText: '手机',
+                                  hintText: '输入手机号',
+                                )
+                              ),
+                              errorText: store.error.phone
+                            )),
+                          Observer(
+                            builder: (_) => buildInputField(
+                              textFieldChild: TextField(
+                                onChanged: (value) =>
+                                    store.birthday = value,
+                                keyboardType: TextInputType.datetime,
+                                decoration: buildInputDecoration(
+                                  assetIcon: 'assets/icons/birth.svg',
+                                  labelText: '生日',
+                                  hintText: 'YYYY-MM-DD',
+                                )
+                              ),
+                              errorText: store.error.birthday
+                            )),
+                        ],
+                      ),
+                    )
+                  ),
+                  WalletTheme.button(
+                    text: '确定创建身份',
+                    onPressed: store.error.hasErrors || isAdding ? null : _addOnPressed,
+                    buttonType: ButtonType.OUTLINE
+                  )
+                ]))
+            )
+          ],
+        ),
+      ),
     );
   }
 }
