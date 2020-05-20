@@ -12,7 +12,7 @@ class NewWalletWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NewCommonLayout(
-      backIcon: BackIcon.ARROW,
+      backIcon: BackIcon.NONE,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -45,11 +45,7 @@ class NewWalletWidget extends StatelessWidget {
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.branding_watermark,
-                        color: WalletTheme.rgbColor(WalletColor.primary),
-                        size: 40,
-                      ),
+                      Image(image: AssetImage('assets/images/new-wallet.png')),
                       Container(
                         margin: EdgeInsets.only(left: 40),
                         child: Text(
@@ -72,11 +68,7 @@ class NewWalletWidget extends StatelessWidget {
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.branding_watermark,
-                        color: WalletTheme.rgbColor(WalletColor.grey),
-                        size: 40,
-                      ),
+                      Image(image: AssetImage('assets/images/new-wallet.png')),
                       Container(
                         margin: EdgeInsets.only(left: 40),
                         child: Text(

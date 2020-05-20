@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tw_wallet_ui/global/common/application.dart';
 import 'package:tw_wallet_ui/global/common/http/error_interceptor.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/global/common/theme/color.dart';
+import 'package:tw_wallet_ui/global/common/theme/index.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/assets_page.dart';
@@ -50,6 +50,7 @@ class HomeState extends State<Home> {
     YYDialog.init(context);
     ErrorInterceptor.context = context;
     return Scaffold(
+      backgroundColor: WalletTheme.rgbColor(WalletColor.primary),
       body: Observer(
           builder: (_) => SafeArea(child: _pages[homeStore.currentPage])),
       bottomNavigationBar: Observer(
@@ -57,19 +58,12 @@ class HomeState extends State<Home> {
                 items: _barItems,
                 currentIndex: homeStore.currentPage,
                 type: BottomNavigationBarType.fixed,
-                fixedColor: Colors.blue,
+                fixedColor: WalletTheme.rgbColor(WalletColor.primary),
                 selectedFontSize: 12,
                 onTap: (index) {
                   homeStore.changePage(index);
                 },
               )),
-      floatingActionButton: Observer(
-          builder: (_) => homeStore.currentPage == HomeState.identityIndex
-              ? FloatingActionButton(
-                  child: Icon(Icons.add),
-                  onPressed: () => Application.router
-                      .navigateTo(context, Routes.newIdentity))
-              : Container()),
     );
   }
 }

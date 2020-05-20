@@ -115,8 +115,8 @@ class PinInputWidget extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Icon(Icons.lock_open, color: WalletTheme.rgbColor(WalletColor.primary), size: 30),
-                                    SizedBox(height: 10),
+                                    Image(image: AssetImage('assets/images/wallet.png')),
+                                    SizedBox(height: 5),
                                     Text(
                                       "解锁钱包",
                                       style: WalletFont.font_14(
@@ -132,8 +132,8 @@ class PinInputWidget extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Icon(Icons.payment, color: WalletTheme.rgbColor(WalletColor.primary), size: 30),
-                                    SizedBox(height: 10),
+                                    Image(image: AssetImage('assets/images/transaction.png')),
+                                    SizedBox(height: 5),
                                     Text(
                                       "确认交易",
                                       style: WalletFont.font_14(
@@ -149,8 +149,8 @@ class PinInputWidget extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Icon(Icons.settings, color: WalletTheme.rgbColor(WalletColor.primary), size: 30),
-                                    SizedBox(height: 10),
+                                    Image(image: AssetImage('assets/images/setting.png')),
+                                    SizedBox(height: 5),
                                     Text(
                                       "更多设置",
                                       style: WalletFont.font_14(
