@@ -11,7 +11,7 @@ import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer_store.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_row_label.dart';
-import 'package:tw_wallet_ui/widgets/button.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 //TODO:
@@ -152,38 +152,8 @@ class TransferPageState extends State<TransferPage> {
                                       _transferStore
                                           .updatePayeeAddress(did.eip55Address);
                                     } catch (_) {
-                                      await showDialog<String>(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            new SimpleDialog(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 50, vertical: 25),
-                                          children: <Widget>[
-                                            Center(
-                                                child: Text(
-                                              '未识别到有效的身份信息。',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                height: 1.82,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            )),
-                                            Container(
-                                                margin:
-                                                    EdgeInsets.only(top: 48),
-                                                child: Button(
-                                                  width: 100,
-                                                  height: 40,
-                                                  text: '确定',
-                                                  onPressed: () {
-                                                    Application.router
-                                                        .pop(context);
-                                                  },
-                                                ))
-                                          ],
-                                        ),
-                                      );
+                                      await hintDialog(context,
+                                          HintType.warning, '未识别到有效的身份信息。');
                                     }
                                   })
                             ],
