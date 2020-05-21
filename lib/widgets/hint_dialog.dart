@@ -44,12 +44,15 @@ Future<void> hintDialogFull(
 
   List<Widget> children = [
     Padding(
-      padding: EdgeInsets.symmetric(vertical: height * 0.02),
+      padding: EdgeInsets.only(top: height * 0.02),
       child: _hintTypeToSvg(type),
     ),
     Padding(
       padding: EdgeInsets.only(
-          bottom: height * 0.04, left: width * 0.02, right: width * 0.02),
+          top: height * 0.04,
+          bottom: height * 0.04,
+          left: width * 0.02,
+          right: width * 0.02),
       child: Text(hintText,
           textAlign: TextAlign.center,
           style: WalletFont.font_14(
@@ -103,7 +106,10 @@ Future<void> hintDialogFull(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return SimpleDialog(children: children);
+        return SimpleDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            children: children);
       });
 }
 
