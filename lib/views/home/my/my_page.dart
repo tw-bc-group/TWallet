@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -7,7 +9,10 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
 Future<void> _clearPrivateData() async {
-  await getIt<IdentityStore>().clear().then((_) => SecureStorage.clearAll());
+  await getIt<IdentityStore>()
+      .clear()
+      .then((_) => SecureStorage.clearAll())
+      .then((_) => exit(0));
 }
 
 class MyPage extends StatelessWidget {
