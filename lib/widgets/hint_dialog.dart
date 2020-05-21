@@ -85,12 +85,12 @@ Future<void> hintDialogFull(
         ));
   }
 
-  if (buttonText.isNotEmpty && duration != null) {
+  if (buttonText.isNotEmpty || duration == null) {
     children.add(Padding(
       padding: EdgeInsets.symmetric(
           horizontal: width * 0.05, vertical: height * 0.02),
       child: WalletTheme.button(
-          text: '知道了',
+          text: buttonText.isEmpty ? '知道了' : buttonText,
           onPressed: () {
             Navigator.pop(context);
           }),

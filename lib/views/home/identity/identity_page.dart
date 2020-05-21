@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -7,8 +9,11 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 import '../../../router/routers.dart';
 
@@ -101,8 +106,48 @@ class _IdentityPageState extends State<IdentityPage> {
                     style: WalletFont.font_18(
                         textStyle: TextStyle(color: WalletColor.white)))),
             Positioned(
-              child: SvgPicture.asset('assets/icons/scan.svg',
-                  color: WalletColor.white, width: 40, height: 40),
+              child: GestureDetector(
+                onTap: () async {
+                  String scanResult = await Application.router
+                      .navigateTo(context, Routes.qrScanner);
+
+                  if (null == scanResult) {
+                    return;
+                  }
+
+                  Future.delayed(Duration(milliseconds: 500)).then((_) async {
+                    try {
+                      HealthCertificationToken token =
+                          HealthCertificationToken.fromJson(
+                              json.decode(scanResult));
+                      if (await token.verify()) {
+                        HintType _hintType = HintType.success;
+                        String _hintText = '无健康风险';
+
+                        if (token.healthCertification.sub.healthyStatus.val ==
+                            UNHEALTHY) {
+                          _hintType = HintType.error;
+                          _hintText = '存在健康风险';
+                        }
+
+                        final String _subHintText =
+                            '该健康码和持有人身份相符。\n\n身份信息：${token.healthCertification.sub.id}\n\n该健康认证结果由防疫中心（${token.healthCertification.iss}）提供。';
+
+                        await hintDialog(context, _hintType, _hintText,
+                            subHintText: _subHintText);
+                      } else {
+                        await hintDialog(
+                            context, HintType.warning, '该健康码与持有人身份不符');
+                      }
+                    } catch (_) {
+                      await hintDialog(
+                          context, HintType.warning, '未识别到有效的身份信息');
+                    }
+                  });
+                },
+                child: SvgPicture.asset('assets/icons/scan.svg',
+                    color: WalletColor.white, width: 40, height: 40),
+              ),
               top: -10,
               right: 0,
             )

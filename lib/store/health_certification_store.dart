@@ -49,7 +49,7 @@ abstract class _HealthCertificationStore with Store {
   @action
   Future<HealthCertificationToken> fetchLatestHealthCert(String did) async {
     return _apiProvider.fetchHealthCertificate(did).then((token) {
-      return _db.setItem(did, token.healthCertification.toJson()).then((_) {
+      return _db.setItem(did, token.toJson()).then((_) {
         this.token = token;
         return Future.value(token);
       });

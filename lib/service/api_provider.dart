@@ -86,4 +86,9 @@ class ApiProvider {
         .then((response) => Future.value(ApiResponse.fromJson(
             response.data, [FullType(HealthCertificationToken)]).result));
   }
+
+  Future<Response> verifyHealthCertificationToken(String token) {
+    return _httpClient
+        .post('/v1/health-certifications/verify', {'token': token});
+  }
 }

@@ -72,7 +72,7 @@ abstract class Identity extends Object
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
           .transferPoint(address, pubKey, signedRawTx)
-          .then((response) => response.statusCode == 201);
+          .then((response) => response.statusCode == 200);
     });
   }
 

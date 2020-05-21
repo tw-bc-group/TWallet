@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 
 import 'health_certification.dart';
 
@@ -26,6 +28,12 @@ abstract class HealthCertificationToken extends Object
     return serializers.serialize(this);
   }
 
+  Future<bool> verify() {
+    return getIt<ApiProvider>()
+        .verifyHealthCertificationToken(token)
+        .then((response) => response.statusCode == 200);
+  }
+
   factory HealthCertificationToken.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
         specifiedType: const FullType(HealthCertificationToken));
@@ -35,4 +43,9 @@ abstract class HealthCertificationToken extends Object
           [void Function(HealthCertificationTokenBuilder) updates]) =
       _$HealthCertificationToken;
   HealthCertificationToken._();
+
+  @override
+  String toString() {
+    return token;
+  }
 }
