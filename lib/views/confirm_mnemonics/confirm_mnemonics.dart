@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/service/dialog.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
@@ -56,6 +57,42 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
     return Wrap(children: wordButtons);
   }
 
+  Widget buildInfoTipButton() {
+    return Positioned(
+      child: GestureDetector(
+        onTap: () => DialogService.showDialog(
+          title: '备份提示',
+          btnText: '知道了',
+          body: Column(
+            children: <Widget>[
+              Text(
+                '使用纸和笔正确抄写助记词。',
+                style: WalletFont.font_14(),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                '请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。',
+                style: WalletFont.font_14(),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                '如果你的手机丢失、被盗、损坏，助记词可以恢复你的资产。',
+                style: WalletFont.font_14(),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          onPressed: () => DialogService.discardDialog()
+        ),
+        child: Image(
+          image: AssetImage('assets/images/info-black.png')
+        ),
+      ),
+      top: -6,
+      right: 0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (words.length == 0) {
@@ -98,12 +135,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                       style: WalletFont.font_20(),
                     ),
                   ),
-                  Positioned(
-                    child: Image(
-                        image: AssetImage('assets/images/info-black.png')),
-                    top: -6,
-                    right: 0,
-                  )
+                  buildInfoTipButton()
                 ])),
               ),
               Container(
