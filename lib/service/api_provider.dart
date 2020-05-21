@@ -6,7 +6,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
-import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
@@ -68,7 +68,7 @@ class ApiProvider {
     });
   }
 
-  Future<HealthCertification> healthCertificate(String did, String phone,
+  Future<HealthCertificationToken> healthCertificate(String did, String phone,
       double temperature, String contact, String symptoms) {
     return _httpClient.post('/v1/health-certifications', {
       'did': did,
@@ -76,16 +76,14 @@ class ApiProvider {
       'temperature': temperature,
       'contact': contact,
       "symptoms": symptoms
-    }).then((response) => Future.value(
-        ApiResponse.fromJson(response.data, [FullType(HealthCertification)])
-            .result));
+    }).then((response) => Future.value(ApiResponse.fromJson(
+        response.data, [FullType(HealthCertificationToken)]).result));
   }
 
-  Future<HealthCertification> fetchHealthCertificate(String did) {
+  Future<HealthCertificationToken> fetchHealthCertificate(String did) {
     return _httpClient
         .get('/v1/health-certifications/$did', loading: false)
-        .then((response) => Future.value(
-            ApiResponse.fromJson(response.data, [FullType(HealthCertification)])
-                .result));
+        .then((response) => Future.value(ApiResponse.fromJson(
+            response.data, [FullType(HealthCertificationToken)]).result));
   }
 }

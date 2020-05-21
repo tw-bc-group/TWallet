@@ -27,9 +27,7 @@ abstract class TwBalance extends Object
   }
 
   static Future<TwBalance> fetchBalance({String address}) async {
-    ApiProvider apiProvider = getIt<ApiProvider>();
-    print('fetchPoint, address: $address');
-    return apiProvider.fetchPointV1(address: address);
+    return getIt<ApiProvider>().fetchPointV1(address: address);
   }
 
   static TwBalance zero = TwBalance((builder) => builder.amount = Amount.zero);

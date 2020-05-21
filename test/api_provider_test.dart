@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
-import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -117,24 +117,14 @@ void main() {
           'code': 200,
           'msg': 'SUCCESS',
           'result': {
-            '@context': ['String'],
-            'id': 'did',
-            'ver': '0.1',
-            'iss': 'null',
-            'iat': 123,
-            'exp': 123,
-            'typ': ['HealthyStatus'],
-            'sub': {
-              'id': 'did',
-              'phone': 'aaa',
-              'healthyStatus': {'typ': 'HealthyStatus', 'val': 'unhealthy'}
-            }
+            'token':
+                'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkRJRDpUVzoybVBYaFAyQVY3MkM0NE1jcUN6djg1R05HTnJFUXVDc0F5a3pkRHZTIiwidmVyIjoiMC4xIiwiaXNzIjoiRElEOlRXOmNBODQzNTY5ZTM0MjcxNDRjRWFkNWU0ZDU5OTlhM0QwY0NGOTJCOGUiLCJpYXQiOjE1OTAwNDU4NjksImV4cCI6MTU5MDA0NjE2OSwidHlwIjpbIkhlYWx0aHlDcmVkZW50aWFsIl0sInN1YiI6eyJpZCI6IkRJRDpUVzo3MjY3NjJlNTM5OGJjOTgzMjYzYTQ5RUNkMTM4MjI1RjIyOTFjNTBDIiwicGhvbmUiOiIxMzgwMDAwMDAwMSIsInRlbXBlcmF0dXJlIjozNy4wLCJjb250YWN0IjoiTk8iLCJzeW1wdG9tcyI6Ik5PIiwiaGVhbHRoeVN0YXR1cyI6eyJ0eXAiOiJIZWFsdGh5U3RhdHVzIiwidmFsIjoiaGVhbHRoeSJ9fSwiQGNvbnRleHQiOlsiaHR0cHM6Ly9ibG9ja2NoYWluLnRob3VnaHR3b3Jrcy5jbi9jcmVkZW50aWFscy92MS8iXX0=.MDFjNTE0MTBhMWRhMTViNTM1ZDE2ZGY3NDEzZDJlMjY5ODM5N2VlN2Q5NTcxNjBjYTk1MGZjMjY4YTkwYzgxNzI3MmE4MDUyN2Y5YTc2Yjg1OTY3ZDM4ZjYzY2Y3ZGNmYjExNmQyOTdjNjc5Yzk2MGRhMjRiYWZlYmQ5YTBkOWVlYQ=='
           }
         }));
 
     expect(
         await _apiProvider.healthCertificate(
             did, phone, temperature, contact, symptoms),
-        isA<HealthCertification>());
+        isA<HealthCertificationToken>());
   });
 }

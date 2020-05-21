@@ -1,6 +1,7 @@
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 
 part 'health_certification_store.g.dart';
@@ -10,42 +11,48 @@ class HealthCertificationStore = _HealthCertificationStore
 
 abstract class _HealthCertificationStore with Store {
   final _apiProvider = ApiProvider();
-  final _db = JsonStore(dbName: "HealthCertification");
+  final _db = JsonStore(dbName: "HealthCertificationToken");
 
   @observable
-  HealthCertification healthCertification;
+  HealthCertificationToken token;
 
   @observable
   bool isBoundCert = false;
 
   @computed
-  bool get isHealthy => healthCertification?.sub?.healthyStatus?.val == HEALTHY;
+  bool get isHealthy =>
+      token?.healthCertification?.sub?.healthyStatus?.val == HEALTHY;
 
   @action
-  Future bindHealthCert(String did, String phone, double temperature,
-      String contact, String symptoms) async {
-    final resp = await _apiProvider.healthCertificate(
-        did, phone, temperature, contact, symptoms);
-    await _db.setItem(did, resp.toJson());
-    this.isBoundCert = true;
-    this.healthCertification = resp;
-    return Future.value(resp);
+  Future<HealthCertificationToken> bindHealthCert(String did, String phone,
+      double temperature, String contact, String symptoms) async {
+    return _apiProvider
+        .healthCertificate(did, phone, temperature, contact, symptoms)
+        .then((token) {
+      return _db.setItem(did, token.toJson()).then((_) {
+        this.isBoundCert = true;
+        this.token = token;
+        return Future.value(token);
+      });
+    });
   }
 
   @action
   Future fetchHealthCertByDID(String did) async {
-    final cert = await _db.getItem(did);
-    this.isBoundCert = cert != null ? true : false;
+    final token = await _db.getItem(did);
+    this.isBoundCert = token != null ? true : false;
     if (this.isBoundCert) {
-      this.healthCertification = HealthCertification.fromJson(cert);
+      this.token = HealthCertificationToken.fromJson(token);
     }
   }
 
   @action
-  Future fetchLatestHealthCert(String did) async {
-    var latestHealthCert = await _apiProvider.fetchHealthCertificate(did);
-    await _db.setItem(did, latestHealthCert.toJson());
-    this.healthCertification = latestHealthCert;
-    return Future.value(latestHealthCert);
+  Future<HealthCertificationToken> fetchLatestHealthCert(String did) async {
+    return _apiProvider.fetchHealthCertificate(did).then((token) {
+      return _db.setItem(did, token.healthCertification.toJson()).then((_) {
+        this.token = token;
+        return Future.value(token);
+      });
+    });
   }
 }

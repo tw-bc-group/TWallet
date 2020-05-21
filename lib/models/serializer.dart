@@ -11,6 +11,7 @@ import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
 
 import 'amount.dart';
+import 'health_certification_token.dart';
 import 'identity.dart';
 
 part 'serializer.g.dart';
@@ -24,6 +25,7 @@ part 'serializer.g.dart';
   TxStatus,
   HealthCertification,
   HealthCertificationSub,
+  HealthCertificationToken,
   HealthyStatus,
   SelectOption,
 ])
@@ -44,7 +46,7 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(FullType(ApiResponse, [FullType(TwBalance)]),
           () => ApiResponseBuilder<TwBalance>())
       ..addBuilderFactory(
-          FullType(ApiResponse, [FullType(HealthCertification)]),
-          () => ApiResponseBuilder<HealthCertification>())
+          FullType(ApiResponse, [FullType(HealthCertificationToken)]),
+          () => ApiResponseBuilder<HealthCertificationToken>())
       ..addPlugin(StandardJsonPlugin()))
     .build();

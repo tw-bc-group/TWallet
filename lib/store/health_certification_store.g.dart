@@ -17,19 +17,18 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
               name: '_HealthCertificationStore.isHealthy'))
           .value;
 
-  final _$healthCertificationAtom =
-      Atom(name: '_HealthCertificationStore.healthCertification');
+  final _$tokenAtom = Atom(name: '_HealthCertificationStore.token');
 
   @override
-  HealthCertification get healthCertification {
-    _$healthCertificationAtom.reportRead();
-    return super.healthCertification;
+  HealthCertificationToken get token {
+    _$tokenAtom.reportRead();
+    return super.token;
   }
 
   @override
-  set healthCertification(HealthCertification value) {
-    _$healthCertificationAtom.reportWrite(value, super.healthCertification, () {
-      super.healthCertification = value;
+  set token(HealthCertificationToken value) {
+    _$tokenAtom.reportWrite(value, super.token, () {
+      super.token = value;
     });
   }
 
@@ -52,8 +51,8 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
       AsyncAction('_HealthCertificationStore.bindHealthCert');
 
   @override
-  Future<dynamic> bindHealthCert(String did, String phone, double temperature,
-      String contact, String symptoms) {
+  Future<HealthCertificationToken> bindHealthCert(String did, String phone,
+      double temperature, String contact, String symptoms) {
     return _$bindHealthCertAsyncAction.run(
         () => super.bindHealthCert(did, phone, temperature, contact, symptoms));
   }
@@ -71,7 +70,7 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
       AsyncAction('_HealthCertificationStore.fetchLatestHealthCert');
 
   @override
-  Future<dynamic> fetchLatestHealthCert(String did) {
+  Future<HealthCertificationToken> fetchLatestHealthCert(String did) {
     return _$fetchLatestHealthCertAsyncAction
         .run(() => super.fetchLatestHealthCert(did));
   }
@@ -79,7 +78,7 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   @override
   String toString() {
     return '''
-healthCertification: ${healthCertification},
+token: ${token},
 isBoundCert: ${isBoundCert},
 isHealthy: ${isHealthy}
     ''';

@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
-import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -144,14 +144,13 @@ class HealthCodeState extends State<HealthCodePage> {
 
   Widget observeQrImage() {
     return Observer(builder: (BuildContext context) {
-      if (certStore.healthCertification == null) return Container();
-      return _buildQrImage(
-          encodeQRData(certStore.healthCertification), certStore.isHealthy);
+      if (certStore.token == null) return Container();
+      return _buildQrImage(encodeQRData(certStore.token), certStore.isHealthy);
     });
   }
 
-  String encodeQRData(HealthCertification cert) {
-    return json.encode(cert.toJson());
+  String encodeQRData(HealthCertificationToken token) {
+    return json.encode(token.toJson());
   }
 
   Widget _buildQrImage(String data, bool isHealth) {
