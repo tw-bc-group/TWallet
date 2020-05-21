@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="115" viewBox="0 0 118 115">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#C9CCE5" d="M52.444 35.027L104 47.456 63.82 64.36 52.444 61.495z"/>
+        <path fill="#D9DBF1" d="M15.111 47.623L53.333 35.027 53.333 60.805z"/>
+        <g transform="rotate(-45 75.135 -9.542)">
+            <rect width="70.4" height="44" fill="#FEE7B9" rx="8"/>
+            <rect width="22.88" height="4.4" x="35.2" y="11.44" fill="#FFF" rx="2.2"/>
+            <rect width="22.88" height="4.4" x="35.2" y="20.24" fill="#FFF" rx="2.2"/>
+            <rect width="14.52" height="4.4" x="35.2" y="29.04" fill="#FFF" rx="2.2"/>
+            <circle cx="18.04" cy="16.72" r="5.72" fill="#FFF"/>
+            <path fill="#FFF" d="M9.24 24.2H26.840000000000003V33H9.24z"/>
+        </g>
+        <path fill="#DADBEC" d="M65.778 61.189L65.778 114.138 15.111 99.271 15.111 48.36z"/>
+        <path fill="#E6E7F3" d="M65.778 61.221L65.778 114.138 104.889 97.807 104.889 47.471z"/>
+        <path fill="#D9DBF1" d="M65.778 60.973L105.136 47.471 117.333 65.602 78.984 83.027z"/>
+        <path fill="#E6E7F3" d="M65.778 61.081L51.181 83.027 0 68.402 15.111 47.623z"/>
+    </g>
+</svg>

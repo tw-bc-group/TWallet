@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <g fill="none">
+        <rect width="44" height="44" fill="#FAAD14" fill-opacity=".298" rx="22"/>
+        <path stroke="#FAAD14" stroke-width="2" d="M22 10c6.075 0 11 4.925 11 11v9h0-22v-9c0-6.075 4.925-11 11-11zM19 31c0 1.657 1.343 3 3 3s3-1.343 3-3"/>
+    </g>
+</svg>
