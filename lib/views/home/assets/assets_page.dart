@@ -110,7 +110,7 @@ class _AssetsPageState extends State<AssetsPage>
   Widget build(BuildContext context) => Observer(builder: (context) {
         final avatar = _identityStore.selectedIdentity
             .map<Widget>((identity) =>
-                AvatarWidget(width: 80, avataaar: identity.avataaar))
+                AvatarWidget(width: 80, avataaar: identity.avataaar, hasBoarder: true))
             .orElse(Container());
 
         final name = _identityStore.selectedIdentity
@@ -123,7 +123,7 @@ class _AssetsPageState extends State<AssetsPage>
             name: _buildName(name),
             avatar: avatar,
             tabBar: TabBar(
-                labelColor: Colors.blue,
+                labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
                 controller: _tabController,
                 tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
