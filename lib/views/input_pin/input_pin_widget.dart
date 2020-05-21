@@ -67,11 +67,11 @@ class PinInputWidget extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/background.png'),
                     alignment: Alignment.bottomCenter,
-                    fit: BoxFit.fitWidth,
                   )
                 ),
                 padding:
