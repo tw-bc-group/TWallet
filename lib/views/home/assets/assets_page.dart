@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
-import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
+import 'package:tw_wallet_ui/widgets/empty_page.dart';
 
 import 'home_page_header.dart';
+import 'home_page_tab.dart';
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage(this.homeStore);
@@ -22,19 +21,31 @@ class AssetsPage extends StatefulWidget {
   final HomeStore homeStore;
 
   @override
-  State<StatefulWidget> createState() => _AssetsPageState(homeStore);
+  State<StatefulWidget> createState() => _AssetsPageState();
 }
 
 class _AssetsPageState extends State<AssetsPage>
     with SingleTickerProviderStateMixin {
-  _AssetsPageState(this.homeStore);
+  _AssetsPageState();
 
-  final HomeStore homeStore;
   final IdentityStore _identityStore = getIt<IdentityStore>();
-  final Map<AssetsType, String> _tabs = {
-    AssetsType.point: '积分',
-    AssetsType.token: '资产'
-  };
+
+  static const _tabs = [
+    HomePageTab(
+        text: '资产',
+        icon: ImageIcon(AssetImage('assets/icons/tab-assets.png'), size: 32)),
+    HomePageTab(
+        text: '票券',
+        icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
+    HomePageTab(
+        text: '证书',
+        icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
+    HomePageTab(
+        text: '收藏',
+        icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
+  ];
+
+  static var _tabViews = [PointTab(), EmptyPage(), EmptyPage(), EmptyPage()];
 
   TabController _tabController;
 
@@ -44,112 +55,66 @@ class _AssetsPageState extends State<AssetsPage>
     _tabController = TabController(length: _tabs.length, vsync: this);
     showDialogIfNoIdentity(
       context,
-      homeStore,
-    );
-  }
-
-  Widget buildHeader(
-      {@required Optional<Identity> selectedIdentity,
-      @required List<Identity> identities}) {
-    List<Widget> children = <Widget>[
-      GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        child: Container(
-          padding: EdgeInsets.all(15),
-          child: selectedIdentity
-              .map<Widget>(
-                  (identity) => AvatarWidget(avataaar: identity.avataaar))
-              .orElse(Container()),
-        ),
-        onTap: () {
-          selectedIdentity.ifPresent((identity) {
-            Application.router.navigateTo(
-                context, '${Routes.identityDetail}?id=${identity.id}');
-          });
-        },
-      ),
-      SizedBox(width: 10),
-      Expanded(
-          child: Text(
-              selectedIdentity.map((identity) => identity.name).orElse(''))),
-    ];
-
-    if (identities.length > 1) {
-      children.add(
-        PopupMenuButton(
-          icon: Icon(Icons.apps),
-          initialValue: _identityStore.selectedIndex,
-          itemBuilder: (BuildContext context) {
-            return identities
-                .asMap()
-                .map((index, identity) => MapEntry(
-                    index,
-                    PopupMenuItem(
-                      child: Text(identity.name,
-                          style: TextStyle(fontWeight: FontWeight.w700)),
-                      value: index,
-                      enabled: _identityStore.selectedIndex != index,
-                    )))
-                .values
-                .toList();
-          },
-          onSelected: (int index) {
-            _identityStore.selectIdentity(index: index);
-          },
-        ),
-      );
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: children,
+      widget.homeStore,
     );
   }
 
   @override
-  Widget build(BuildContext context) => Observer(builder: (context) {
-        final avatar = _identityStore.selectedIdentity
-            .map<Widget>((identity) =>
-                AvatarWidget(width: 80, avataaar: identity.avataaar, hasBoarder: true))
-            .orElse(Container());
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (context) => Container(
+        child: Column(
+          children: <Widget>[
+            HomePageHeader(
+              name: _name,
+              avatar: _avatar,
+              tabBar: _buildTabBar,
+              onAvatarTap: () => _onAvatarTap(context),
+            ),
+            _mainContent,
+          ],
+        ),
+      ),
+    );
+  }
 
-        final name = _identityStore.selectedIdentity
-            .map((identity) => identity.name)
-            .orElse('');
-
-        return Container(
-            child: Column(children: <Widget>[
-          HomePageHeader(
-            name: _buildName(name),
-            avatar: avatar,
-            tabBar: TabBar(
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.grey,
-                controller: _tabController,
-                tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
+  Widget get _mainContent => Expanded(
+        child: Container(
+          color: WalletColor.backgroundWhite,
+          child: TabBarView(
+            controller: _tabController,
+            children: _tabViews,
           ),
-//              buildHeader(
-//                  selectedIdentity: _identityStore.selectedIdentity,
-//                  identities: _identityStore.identities),
-          Expanded(
-              child: Container(
-                  color: WalletTheme.mainBgColor,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [PointTab(), TokenTab()],
-                  ))),
-        ]));
-      });
-
-  _buildName(String name) => Text(
-        name,
-        style: TextStyle(
-          fontFamily: 'PingFangHK',
-          color: Color(0xffffffff),
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-          fontStyle: FontStyle.normal,
-          letterSpacing: 1.2,
         ),
       );
+
+  String get _name => _identityStore.selectedIdentity
+      .map((identity) => identity.name)
+      .orElse('');
+
+  Widget get _avatar => _identityStore.selectedIdentity
+      .map<Widget>((identity) => AvatarWidget(
+            width: 80,
+            avataaar: identity.avataaar,
+            hasBoarder: true,
+          ))
+      .orElse(Container());
+
+  TabBar get _buildTabBar => TabBar(
+        isScrollable: true,
+        indicatorSize: TabBarIndicatorSize.label,
+        indicator: BoxDecoration(
+            borderRadius: BorderRadius.circular(22), color: Colors.white),
+        labelColor: WalletColor.primary,
+        unselectedLabelColor: Colors.white,
+        controller: _tabController,
+        tabs: _tabs,
+      );
+
+  _onAvatarTap(BuildContext context) {
+    _identityStore.selectedIdentity.ifPresent((identity) {
+      final path = '${Routes.identityDetail}?id=${identity.id}';
+      Application.router.navigateTo(context, path);
+    });
+  }
 }

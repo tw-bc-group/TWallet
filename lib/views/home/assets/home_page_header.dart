@@ -4,13 +4,20 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 
 class HomePageHeader extends StatelessWidget {
   final Widget avatar;
-  final Widget name;
+  final String name;
   final TabBar tabBar;
+  final GestureTapCallback onAvatarTap;
+  final GestureTapCallback onChangeIdentityTap;
   final ImageProvider bgImage = AssetImage('assets/images/background.png');
   final SvgPicture changeImg =
       SvgPicture.asset('assets/icons/change-identity.svg');
 
-  HomePageHeader({@required this.avatar, @required this.name, @required this.tabBar});
+  HomePageHeader(
+      {@required this.avatar,
+      @required this.name,
+      @required this.tabBar,
+      this.onAvatarTap,
+      this.onChangeIdentityTap});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +33,12 @@ class HomePageHeader extends StatelessWidget {
           )),
       child: Column(
         children: <Widget>[
-          Container(margin: EdgeInsets.only(bottom: 34), child: avatar),
-          Container(margin: EdgeInsets.only(bottom: 24), child: name),
+          GestureDetector(
+              onTap: onAvatarTap,
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 34), child: avatar)),
+          Container(
+              margin: EdgeInsets.only(bottom: 24), child: _buildName(name)),
           _buildChangeIdentityButton(),
           tabBar,
         ],
@@ -46,7 +57,7 @@ class HomePageHeader extends StatelessWidget {
           Text(
             '切换账号',
             style: TextStyle(
-              color: Color(0xffffffff),
+              color: WalletColor.white,
               fontSize: 16,
               fontWeight: FontWeight.w400,
               fontStyle: FontStyle.normal,
@@ -57,4 +68,15 @@ class HomePageHeader extends StatelessWidget {
       ),
     );
   }
+
+  _buildName(String name) => Text(
+        name,
+        style: TextStyle(
+          color: WalletColor.white,
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          fontStyle: FontStyle.normal,
+          letterSpacing: 1.2,
+        ),
+      );
 }
