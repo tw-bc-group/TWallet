@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
-
-import '../home.dart';
 
 class DiscoveryPage extends StatelessWidget {
   final HomeStore homeStore;
@@ -18,11 +15,8 @@ class DiscoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     showDialogIfNoIdentity(
-      context: context,
-      onPressed: () {
-        Application.router.pop(context);
-        homeStore.changePage(HomeState.identityIndex);
-      },
+      context,
+      homeStore,
     );
 
     return CommonLayout(

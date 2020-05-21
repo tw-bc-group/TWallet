@@ -40,7 +40,12 @@ class HomeState extends State<Home> {
   @override
   void initState() {
     homeStore.changePage(defaultIndex);
-    _pages = [AssetsPage(homeStore), DiscoveryPage(homeStore), IdentityPage(), MyPage()];
+    _pages = [
+      AssetsPage(homeStore),
+      DiscoveryPage(homeStore),
+      IdentityPage(),
+      MyPage()
+    ];
     super.initState();
   }
 

@@ -10,7 +10,6 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/token_tab.dart';
-import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
@@ -42,11 +41,8 @@ class _AssetsPageState extends State<AssetsPage>
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
     showDialogIfNoIdentity(
-      context: context,
-      onPressed: () {
-        Application.router.pop(context);
-        homeStore.changePage(HomeState.identityIndex);
-      },
+      context,
+      homeStore,
     );
   }
 
@@ -71,7 +67,9 @@ class _AssetsPageState extends State<AssetsPage>
         },
       ),
       SizedBox(width: 10),
-      Expanded(child: Text(selectedIdentity.map((identity) => identity.name).orElse(''))),
+      Expanded(
+          child: Text(
+              selectedIdentity.map((identity) => identity.name).orElse(''))),
     ];
 
     if (identities.length > 1) {

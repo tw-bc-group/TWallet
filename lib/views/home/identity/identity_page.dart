@@ -19,81 +19,73 @@ class IdentityPage extends StatefulWidget {
 
 class _IdentityPageState extends State<IdentityPage> {
   final IdentityStore _store = getIt<IdentityStore>();
-  TextEditingController _filter;
 
   Widget _listItem(Identity identity) {
     return Container(
-      margin: EdgeInsets.only(bottom: 24),
+        margin: EdgeInsets.only(bottom: 24),
         child: GestureDetector(
-          onTap: () {
-            Application.router.navigateTo(
-                context, '${Routes.identityDetail}?id=${identity.id}');
-          },
-          child: Container(
-              padding: EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: WalletColor.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [BoxShadow(
-                  color: Color(0x0f000000),
-                  offset: Offset(0,4),
-                  blurRadius: 12,
-                  spreadRadius: 0
-                )]
-              ),
-              child: Column(children: <Widget>[
-                Row(children: <Widget>[
-                  Image(
-                    image: AssetImage('assets/images/avatar.png'),
-                    width: 32,
-                    height: 32,
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 12),
-                      child: Text(
-                        identity.name,
-                        style: WalletFont.font_18(),
-                      )
-                    )
-                  )
-                ]),
-                Container(
-                  margin: EdgeInsets.only(top: 16, bottom: 16),
-                  height: 1,
-                  color: WalletColor.middleGrey
-                ),
-                Text(
-                  identity.did.toString(),
-                  style: WalletFont.font_12(
-                    textStyle: TextStyle(
-                      color: WalletColor.grey
+            onTap: () {
+              Application.router.navigateTo(
+                  context, '${Routes.identityDetail}?id=${identity.id}');
+            },
+            child: Container(
+                padding: EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                    color: WalletColor.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color(0x0f000000),
+                          offset: Offset(0, 4),
+                          blurRadius: 12,
+                          spreadRadius: 0)
+                    ]),
+                child: Column(children: <Widget>[
+                  Row(children: <Widget>[
+                    Image(
+                      image: AssetImage('assets/images/avatar.png'),
+                      width: 32,
+                      height: 32,
                     ),
-                  ),
-                  textAlign: TextAlign.center,
-                )
-              ])
-              // child: Container(
-              //     padding: EdgeInsets.all(10),
-              //     child: ListTile(
-              //       leading: AvatarWidget(avataaar: identity.avataaar),
-              //       title: Text(identity.name),
-              //       subtitle: GestureDetector(
-              //           child: Text(identity.did.toString()),
-              //           onLongPress: () {
-              //             Clipboard.setData(
-              //                 ClipboardData(text: identity.address));
-              //             Scaffold.of(context).showSnackBar(SnackBar(
-              //                 content: new Text('"${identity.name}"地址已复制')));
-              //           }),
-              //     ))),
-          )
-        ));
+                    Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(left: 12),
+                            child: Text(
+                              identity.name,
+                              style: WalletFont.font_18(),
+                            )))
+                  ]),
+                  Container(
+                      margin: EdgeInsets.only(top: 16, bottom: 16),
+                      height: 1,
+                      color: WalletColor.middleGrey),
+                  Text(
+                    identity.did.toString(),
+                    style: WalletFont.font_12(
+                      textStyle: TextStyle(color: WalletColor.grey),
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                ])
+                // child: Container(
+                //     padding: EdgeInsets.all(10),
+                //     child: ListTile(
+                //       leading: AvatarWidget(avataaar: identity.avataaar),
+                //       title: Text(identity.name),
+                //       subtitle: GestureDetector(
+                //           child: Text(identity.did.toString()),
+                //           onLongPress: () {
+                //             Clipboard.setData(
+                //                 ClipboardData(text: identity.address));
+                //             Scaffold.of(context).showSnackBar(SnackBar(
+                //                 content: new Text('"${identity.name}"地址已复制')));
+                //           }),
+                //     ))),
+                )));
   }
 
   @override
   void initState() {
-    _filter = TextEditingController();
     super.initState();
   }
 
@@ -104,21 +96,13 @@ class _IdentityPageState extends State<IdentityPage> {
         Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-            Center(child: Text(
-              '身份',
-              style: WalletFont.font_18(
-                textStyle: TextStyle(
-                  color: WalletColor.white
-                )
-              )
-            )),
+            Center(
+                child: Text('身份',
+                    style: WalletFont.font_18(
+                        textStyle: TextStyle(color: WalletColor.white)))),
             Positioned(
-              child: SvgPicture.asset(
-                'assets/icons/scan.svg',
-                color: WalletColor.white,
-                width: 40,
-                height: 40
-              ),
+              child: SvgPicture.asset('assets/icons/scan.svg',
+                  color: WalletColor.white, width: 40, height: 40),
               top: -10,
               right: 0,
             )
@@ -142,11 +126,10 @@ class _IdentityPageState extends State<IdentityPage> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Color(0x0f000000),
-              offset: Offset(0,4),
-              blurRadius: 12,
-              spreadRadius: 0
-            )
+                color: Color(0x0f000000),
+                offset: Offset(0, 4),
+                blurRadius: 12,
+                spreadRadius: 0)
           ],
           color: WalletColor.white,
         ),
@@ -157,8 +140,9 @@ class _IdentityPageState extends State<IdentityPage> {
             Container(
               margin: EdgeInsets.only(top: 56),
               child: WalletTheme.button(
-                text: '新增身份', onPressed: () => Application.router.navigateTo(context, Routes.newIdentity)
-              ),
+                  text: '新增身份',
+                  onPressed: () => Application.router
+                      .navigateTo(context, Routes.newIdentity)),
             )
           ],
         ),
@@ -171,17 +155,17 @@ class _IdentityPageState extends State<IdentityPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Color(0x0f000000),
-            offset: Offset(0,4),
-            blurRadius: 12,
-            spreadRadius: 0
-          )
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 12,
+              spreadRadius: 0)
         ],
         color: WalletColor.white,
       ),
       child: WalletTheme.button(
-        text: '新增身份', onPressed: () => Application.router.navigateTo(context, Routes.newIdentity)
-      ),
+          text: '新增身份',
+          onPressed: () =>
+              Application.router.navigateTo(context, Routes.newIdentity)),
     );
   }
 
@@ -191,24 +175,21 @@ class _IdentityPageState extends State<IdentityPage> {
         decoration: BoxDecoration(
           color: WalletColor.primary,
           image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            alignment: Alignment.bottomCenter
-          ),
+              image: AssetImage('assets/images/background.png'),
+              alignment: Alignment.bottomCenter),
         ),
         child: Column(children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            child: buildHeader()
-          ),
+          Container(padding: EdgeInsets.all(10), child: buildHeader()),
           Expanded(child: Observer(builder: (_) {
             return Container(
                 padding: EdgeInsets.all(24),
                 child: ListView(
                   children: _store.identities
-                      .where((identity) =>
-                          identity.name.contains(_store.searchName))
-                      .map((identity) => _listItem(identity))
-                      .toList() + [buildNewIdentityCard()],
+                          .where((identity) =>
+                              identity.name.contains(_store.searchName))
+                          .map((identity) => _listItem(identity))
+                          .toList() +
+                      [buildNewIdentityCard()],
                 ));
           }))
         ]));
