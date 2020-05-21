@@ -14,6 +14,8 @@ import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 
+import 'home_page_header.dart';
+
 class AssetsPage extends StatefulWidget {
   const AssetsPage(this.homeStore);
 
@@ -106,24 +108,48 @@ class _AssetsPageState extends State<AssetsPage>
 
   @override
   Widget build(BuildContext context) => Observer(builder: (context) {
+        final avatar = _identityStore.selectedIdentity
+            .map<Widget>((identity) =>
+                AvatarWidget(width: 80, avataaar: identity.avataaar))
+            .orElse(Container());
+
+        final name = _identityStore.selectedIdentity
+            .map((identity) => identity.name)
+            .orElse('');
+
         return Container(
-            color: WalletTheme.titleBgColor,
             child: Column(children: <Widget>[
-              buildHeader(
-                  selectedIdentity: _identityStore.selectedIdentity,
-                  identities: _identityStore.identities),
-              TabBar(
-                  labelColor: Colors.blue,
-                  unselectedLabelColor: Colors.grey,
-                  controller: _tabController,
-                  tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
-              Expanded(
-                  child: Container(
-                      color: WalletTheme.mainBgColor,
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [PointTab(), TokenTab()],
-                      ))),
-            ]));
+          HomePageHeader(
+            name: _buildName(name),
+            avatar: avatar,
+            tabBar: TabBar(
+                labelColor: Colors.blue,
+                unselectedLabelColor: Colors.grey,
+                controller: _tabController,
+                tabs: _tabs.values.map((t) => Tab(text: t)).toList()),
+          ),
+//              buildHeader(
+//                  selectedIdentity: _identityStore.selectedIdentity,
+//                  identities: _identityStore.identities),
+          Expanded(
+              child: Container(
+                  color: WalletTheme.mainBgColor,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [PointTab(), TokenTab()],
+                  ))),
+        ]));
       });
+
+  _buildName(String name) => Text(
+        name,
+        style: TextStyle(
+          fontFamily: 'PingFangHK',
+          color: Color(0xffffffff),
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          fontStyle: FontStyle.normal,
+          letterSpacing: 1.2,
+        ),
+      );
 }

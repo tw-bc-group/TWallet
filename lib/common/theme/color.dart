@@ -19,4 +19,5 @@ class WalletColor {
   static final Color middleGrey = WalletTheme.rgbColor(MIDDLE_GREY);
   static final Color lightGrey = WalletTheme.rgbColor(LIGHT_GREY);
   static final Color yellowWhite = WalletTheme.rgbColor(YELLOW_WHITE);
+  static final Color backgroundWhite = WalletTheme.rgbColor('#f0f2f9');
 }

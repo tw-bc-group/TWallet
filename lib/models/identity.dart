@@ -20,21 +20,31 @@ abstract class Identity extends Object
 
   @nullable
   String get id;
+
   @nullable
   String get avatar;
+
   String get name;
+
   String get pubKey;
+
   String get priKey;
+
   @nullable
   String get phone;
+
   @nullable
   String get email;
+
   @nullable
   String get birthday;
+
   @nullable
   Amount get balance;
+
   @nullable
   String get healthCertificateStatus;
+
   @nullable
   String get healthStatus;
 
@@ -59,7 +69,8 @@ abstract class Identity extends Object
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
           .identityRegister(name, pubKey, address, did.toString(), signedRawTx)
-          .then((response) => response.statusCode == 201);
+          .then((response) =>
+              response.statusCode >= 200 && response.statusCode < 300);
     });
   }
 
@@ -86,5 +97,6 @@ abstract class Identity extends Object
   }
 
   factory Identity([void Function(IdentityBuilder) updates]) = _$Identity;
+
   Identity._();
 }

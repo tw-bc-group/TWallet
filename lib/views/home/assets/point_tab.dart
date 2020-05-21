@@ -3,29 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
+import 'home_list_item.dart';
+import 'home_list_view.dart';
+
 Widget _pointItem({@required String point, BuildContext context}) {
   return GestureDetector(
       onTap: () => Navigator.pushNamed(context, Routes.txList),
-      child: Container(
-          height: 80,
-          decoration: BoxDecoration(
-            color: WalletTheme.listItemBgColor,
-            boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
-            borderRadius: BorderRadius.circular(10.0),
+      child: HomeListItem(
+        leading: Text(
+          globalEnv().tokenName,
+          style: TextStyle(
+            fontFamily: 'OpenSans',
+            color: Color(0xff111111),
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+            fontStyle: FontStyle.normal,
+            letterSpacing: 0,
           ),
-          child: Container(
-              padding: EdgeInsets.all(10),
-              child: Row(children: <Widget>[
-                Text(globalEnv().tokenName),
-                Expanded(child: Container()),
-                Text(point),
-              ]))));
+        ),
+        trailing: Text(
+          point,
+          style: TextStyle(
+            fontFamily: 'PingFangSC',
+            color: Color(0xff4200d4),
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.normal,
+            letterSpacing: 0,
+          ),
+        ),
+      ));
 }
 
 class PointTab extends StatelessWidget {
@@ -64,18 +76,14 @@ class PointTab extends StatelessWidget {
             TwBalance balance = future.result;
             return balance == null
                 ? Container()
-                : RefreshIndicator(
+                : HomeListView(
                     onRefresh: _refresh,
-                    child: Container(
-                      padding: EdgeInsets.all(18),
-                      child: ListView(
-                        children: [
-                          _pointItem(
-                              point: balance.amount.humanReadableWithSymbol,
-                              context: context)
-                        ],
-                      ),
-                    ));
+                    children: [
+                      _pointItem(
+                          point: balance.amount.humanReadableWithSymbol,
+                          context: context)
+                    ],
+                  );
         }
       });
 }
