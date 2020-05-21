@@ -7,7 +7,7 @@ import 'package:tw_wallet_ui/common/http/error_interceptor.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
-import 'assets/assets_page.dart';
+import 'assets/home_page.dart';
 import 'discovery/discovery.dart';
 import 'identity/identity_page.dart';
 import 'my/my_page.dart';
@@ -77,7 +77,7 @@ class HomeState extends State<Home> {
   void initState() {
     homeStore.changePage(defaultIndex);
     _pages = [
-      AssetsPage(homeStore),
+      HomePage(homeStore),
       DiscoveryPage(homeStore),
       IdentityPage(),
       MyPage()
