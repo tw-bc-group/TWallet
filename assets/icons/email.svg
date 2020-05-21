@@ -1,9 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-    <g fill="none" fill-rule="evenodd">
-        <path fill="#EBEBEB" d="M0 0H2552V1420H0z" transform="translate(-1659 -511)"/>
-        <g fill-rule="nonzero">
-            <path stroke="#999AAA" stroke-width="1.4" d="M5.455 6.545L18.545 6.545 18.545 17.455 5.455 17.455z" transform="translate(-1659 -511) translate(1659 511)"/>
-            <path stroke="#999AAA" stroke-width="1.4" d="M5.455 6.545L12 12.545 18.545 6.545" transform="translate(-1659 -511) translate(1659 511)"/>
-        </g>
+    <g fill="none">
+        <path stroke="#999AAA" stroke-width="1.4" d="M5.455 6.545L18.545 6.545 18.545 17.455 5.455 17.455z"/>
+        <path stroke="#999AAA" stroke-width="1.4" d="M5.455 6.545L12 12.545 18.545 6.545"/>
     </g>
 </svg>

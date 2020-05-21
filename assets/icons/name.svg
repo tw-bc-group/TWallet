@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
     <g fill="none" fill-rule="evenodd">
-        <path fill="#EBEBEB" d="M0 0H2552V1420H0z" transform="translate(-1607 -511)"/>
-        <g>
-            <g stroke="#999AAA" stroke-width="1.4" transform="translate(-1607 -511) translate(1607 511) translate(6 5)">
-                <circle cx="5.455" cy="3.409" r="3.409" fill-rule="nonzero"/>
-                <path fill-rule="nonzero" d="M0 15L0.727 9.545 10.182 9.545 10.909 15z" transform="matrix(1 0 0 -1 0 24.545)"/>
-                <path d="M5.455 9.545L5.455 12.968"/>
-            </g>
+        <g stroke="#999AAA" stroke-width="1.4" transform="translate(6 5)">
+            <circle cx="5.455" cy="3.409" r="3.409" fill-rule="nonzero"/>
+            <path fill-rule="nonzero" d="M0 15L0.727 9.545 10.182 9.545 10.909 15z" transform="matrix(1 0 0 -1 0 24.545)"/>
+            <path d="M5.455 9.545L5.455 12.968"/>
         </g>
     </g>
 </svg>
