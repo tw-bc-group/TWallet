@@ -15,18 +15,18 @@ import 'package:tw_wallet_ui/widgets/empty_page.dart';
 import 'home_page_header.dart';
 import 'home_page_tab.dart';
 
-class AssetsPage extends StatefulWidget {
-  const AssetsPage(this.homeStore);
+class HomePage extends StatefulWidget {
+  const HomePage(this.homeStore);
 
   final HomeStore homeStore;
 
   @override
-  State<StatefulWidget> createState() => _AssetsPageState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _AssetsPageState extends State<AssetsPage>
+class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  _AssetsPageState();
+  _HomePageState();
 
   final IdentityStore _identityStore = getIt<IdentityStore>();
 
