@@ -32,7 +32,7 @@ class WalletTheme {
       )),
     );
     var outlineButton = OutlineButton(
-      color: WalletColor.primary,
+      textColor: WalletColor.primary,
       disabledTextColor: WalletColor.middleGrey,
       disabledBorderColor: WalletColor.middleGrey,
       borderSide: BorderSide(
@@ -46,10 +46,12 @@ class WalletTheme {
       child: Center(
           child: Text(
         text,
-        style: WalletFont.font_16(
-          textStyle: TextStyle(
-            color: WalletColor.primary
-          )
+        style: TextStyle(
+          fontSize: 16,
+          height: 1.38,
+          fontFamily: 'PingFangHK',
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1
         )
       )),
     );

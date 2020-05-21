@@ -20,7 +20,7 @@ class WalletFont {
         fontSize: 10,
         height: 1.6,
         fontFamily: 'PingFangHK',
-        color: WalletColor.black
+        fontWeight: FontWeight.normal
       )
     ).merge(textStyle);
   }
@@ -31,8 +31,7 @@ class WalletFont {
         fontSize: 12,
         height: 1.5,
         fontFamily: 'PingFangHK',
-        fontWeight: FontWeight.normal,
-        color: WalletColor.black
+        fontWeight: FontWeight.normal
       )
     ).merge(textStyle);
   }
@@ -44,7 +43,6 @@ class WalletFont {
         height: 1.43,
         fontFamily: 'PingFangHK',
         fontWeight: FontWeight.normal,
-        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -55,7 +53,6 @@ class WalletFont {
         fontSize: 16,
         height: 1.38,
         fontFamily: 'PingFangHK',
-        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -66,7 +63,6 @@ class WalletFont {
         fontSize: 18,
         height: 1.33,
         fontFamily: 'PingFangHK',
-        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -77,7 +73,6 @@ class WalletFont {
         fontSize: 20,
         height: 1.3,
         fontFamily: 'PingFangHK',
-        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -88,7 +83,6 @@ class WalletFont {
         fontSize: 22,
         height: 1.27,
         fontFamily: 'PingFangHK',
-        color: WalletColor.black
       )
     ).merge(textStyle);
   }
@@ -99,7 +93,6 @@ class WalletFont {
         fontSize: 24,
         height: 1.25,
         fontFamily: 'PingFangHK',
-        color: WalletColor.black
       )
     ).merge(textStyle);
   }
