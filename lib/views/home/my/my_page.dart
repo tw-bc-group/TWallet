@@ -10,10 +10,10 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 Future<void> _clearPrivateData() async {
-  await getIt<IdentityStore>()
+  return getIt<IdentityStore>()
       .clear()
       .then((_) => SecureStorage.clearAll())
-      .then((_) => exit(0));
+      .then((_) => Future.delayed(Duration(seconds: 2)).then((_) => exit(0)));
 }
 
 class MyPage extends StatelessWidget {
