@@ -44,7 +44,7 @@ class PinInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       backgroundColor: WalletColor.primary,
       bottomNavigationBar: Theme(
         data: Theme.of(context),

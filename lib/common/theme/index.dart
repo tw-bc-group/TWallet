@@ -56,8 +56,8 @@ class WalletTheme {
       )),
     );
     return Container(
+      height: 45,
       child: ButtonTheme(
-        height: 45,
         child: buttonType == ButtonType.DEFAULT ? raisedButton : outlineButton,
       ),
     );
