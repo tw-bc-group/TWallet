@@ -28,6 +28,7 @@ abstract class HealthCodeStoreBase with Store {
         _fetchHealthCodeStreamController.stream,
         initialValue: ObservableFuture(Future.value()));
 
+    _stopwatch = Stopwatch();
     _timer = Timer.periodic(Duration(milliseconds: 200), (timer) {
       if (_stopwatch.isRunning) {
         updateElapsedSeconds();
@@ -37,8 +38,7 @@ abstract class HealthCodeStoreBase with Store {
         fetchLatestHealthCode();
       }
     });
-
-    _stopwatch = Stopwatch()..start();
+    fetchLatestHealthCode();
   }
 
   void dispose() {
