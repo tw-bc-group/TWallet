@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -64,29 +65,23 @@ class _IdentityPageState extends State<IdentityPage> {
                       margin: EdgeInsets.only(top: 16, bottom: 16),
                       height: 1,
                       color: WalletColor.middleGrey),
-                  Text(
-                    identity.did.toString(),
-                    style: WalletFont.font_12(
-                      textStyle: TextStyle(color: WalletColor.grey),
+                  GestureDetector(
+                    child: Text(
+                      identity.did.toString(),
+                      style: WalletFont.font_12(
+                        textStyle: TextStyle(color: WalletColor.grey),
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
+                    onLongPress: () {
+                      Clipboard.setData(
+                          ClipboardData(text: identity.address));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          content: new Text('"${identity.name}"地址已复制')));
+                    },
                   )
                 ])
-                // child: Container(
-                //     padding: EdgeInsets.all(10),
-                //     child: ListTile(
-                //       leading: AvatarWidget(avataaar: identity.avataaar),
-                //       title: Text(identity.name),
-                //       subtitle: GestureDetector(
-                //           child: Text(identity.did.toString()),
-                //           onLongPress: () {
-                //             Clipboard.setData(
-                //                 ClipboardData(text: identity.address));
-                //             Scaffold.of(context).showSnackBar(SnackBar(
-                //                 content: new Text('"${identity.name}"地址已复制')));
-                //           }),
-                //     ))),
-                )));
+              )));
   }
 
   @override
