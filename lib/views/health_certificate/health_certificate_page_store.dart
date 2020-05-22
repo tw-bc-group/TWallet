@@ -14,7 +14,7 @@ class SelectOption extends EnumClass {
   static const SelectOption yes = _$yes;
   @BuiltValueEnumConst(wireName: 'No')
   static const SelectOption no = _$no;
-  @BuiltValueEnumConst(wireName: 'NotSure')
+  @BuiltValueEnumConst(wireName: 'NOT_SURE')
   static const SelectOption notSure = _$notSure;
 
   const SelectOption._(String name) : super(name);
@@ -30,7 +30,7 @@ class SelectOption extends EnumClass {
       case SelectOption.no:
         return 'No';
       default:
-        return 'NotSure';
+        return 'NOT_SURE';
     }
   }
 
