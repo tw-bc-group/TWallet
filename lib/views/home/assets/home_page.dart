@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage>
 
   TabBar get _buildTabBar => TabBar(
         isScrollable: true,
-        labelPadding: EdgeInsets.symmetric(horizontal: 6),
         indicatorSize: TabBarIndicatorSize.label,
         indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(22), color: Colors.white),
