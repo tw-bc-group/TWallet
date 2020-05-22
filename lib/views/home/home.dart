@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/http/error_interceptor.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -88,7 +89,9 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     YYDialog.init(context);
+    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: true);
     ErrorInterceptor.context = context;
+
     return Scaffold(
       backgroundColor: WalletColor.primary,
       body: Observer(

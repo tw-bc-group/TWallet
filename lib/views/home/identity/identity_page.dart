@@ -30,8 +30,8 @@ class _IdentityPageState extends State<IdentityPage> {
         margin: EdgeInsets.only(bottom: 24),
         child: GestureDetector(
             onTap: () {
-              Application.router.navigateTo(
-                  context, '${Routes.profile}?id=${identity.id}');
+              Application.router
+                  .navigateTo(context, '${Routes.profile}?id=${identity.id}');
             },
             child: Container(
                 padding: EdgeInsets.all(24),
@@ -133,14 +133,14 @@ class _IdentityPageState extends State<IdentityPage> {
                         final String _subHintText =
                             '该健康码和持有人身份相符。\n\n身份信息：${token.healthCertification.sub.id}\n\n该健康认证结果由防疫中心（${token.healthCertification.iss}）提供。';
 
-                        await hintDialog(context, _hintType, _hintText,
-                            subHintText: _subHintText);
+                        await hintDialogHelper(context, _hintType, _hintText,
+                            subText: _subHintText);
                       } else {
-                        await hintDialog(
+                        await hintDialogHelper(
                             context, HintType.warning, '该健康码与持有人身份不符');
                       }
                     } catch (_) {
-                      await hintDialog(
+                      await hintDialogHelper(
                           context, HintType.warning, '未识别到有效的身份信息');
                     }
                   });

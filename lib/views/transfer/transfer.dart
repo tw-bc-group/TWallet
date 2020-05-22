@@ -152,7 +152,7 @@ class TransferPageState extends State<TransferPage> {
                                       _transferStore
                                           .updatePayeeAddress(did.eip55Address);
                                     } catch (_) {
-                                      await hintDialog(context,
+                                      await hintDialogHelper(context,
                                           HintType.warning, '未识别到有效的身份信息');
                                     }
                                   })

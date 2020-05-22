@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -29,12 +30,8 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.button(
                       text: '调试对话框',
                       onPressed: () async {
-                        await hintDialogSimple(
-                          context,
-                          HintType.success,
-                          '修改成功',
-                          Duration(seconds: 2),
-                        );
+                        await hintDialogHelper(context, HintType.success, '你好',
+                            subText: '测试');
                       })),
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
