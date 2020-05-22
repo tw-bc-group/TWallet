@@ -12,8 +12,9 @@ Future<void> _clearPrivateData(BuildContext context) async {
   return getIt<IdentityStore>()
       .clear()
       .then((_) => SecureStorage.clearAll())
-      .then((_) => Future.delayed(Duration(seconds: 1)).then(
-          (_) => Application.router.navigateTo(context, Routes.inputPin)));
+      .then((_) => Future.delayed(Duration(seconds: 1)).then((_) => Application
+          .router
+          .navigateTo(context, Routes.inputPin, clearStack: true)));
 }
 
 class MyPage extends StatelessWidget {
