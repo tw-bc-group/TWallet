@@ -9,7 +9,6 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
-import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/empty_page.dart';
 
 import 'home_page_header.dart';
@@ -29,6 +28,7 @@ class _HomePageState extends State<HomePage>
   _HomePageState();
 
   final IdentityStore _identityStore = getIt<IdentityStore>();
+  final ImageProvider avatarImage = AssetImage('assets/images/avatar.png');
 
   static const _tabs = [
     HomePageTab(
@@ -92,16 +92,11 @@ class _HomePageState extends State<HomePage>
       .map((identity) => identity.name)
       .orElse('');
 
-  Widget get _avatar => _identityStore.selectedIdentity
-      .map<Widget>((identity) => AvatarWidget(
-            width: 80,
-            avataaar: identity.avataaar,
-            hasBoarder: true,
-          ))
-      .orElse(Container());
+  Widget get _avatar => Image(width: 80, height: 80, image: avatarImage);
 
   TabBar get _buildTabBar => TabBar(
         isScrollable: true,
+        labelPadding: EdgeInsets.symmetric(horizontal: 6),
         indicatorSize: TabBarIndicatorSize.label,
         indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(22), color: Colors.white),

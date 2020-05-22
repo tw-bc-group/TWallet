@@ -24,7 +24,7 @@ class HomePageTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 14, right: 20, top: 5, bottom: 5),
+      padding: EdgeInsets.only(left: 14, right: 20, top: 2, bottom: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
           border: Border.all(color: Colors.white, width: 2)),
