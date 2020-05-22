@@ -5,18 +5,18 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
-import 'package:tw_wallet_ui/views/identity_detail/widgets/detail_row.dart';
+import 'package:tw_wallet_ui/views/identity_detail/widgets/profile_row.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import '../../models/identity.dart';
 
-class IdentityDetailPage extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
   final String id;
   final IdentityStore identityStore = getIt<IdentityStore>();
   final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
 
-  IdentityDetailPage({this.id});
+  ProfilePage({this.id});
 
   Identity getIdentity() {
     var identityResult;
@@ -47,17 +47,17 @@ class IdentityDetailPage extends StatelessWidget {
     return CommonLayout(
       title: '个人信息',
       childBuilder: (context, constraints) => ListView(children: <Widget>[
-        DetailRowWidget(
+        ProfileRowWidget(
           name: '头像',
           value: AvatarWidget(avataaar: identity.avataaar),
         ),
-        DetailRowWidget(name: '名称*', value: identity.name),
-        DetailRowWidget(name: '邮箱', value: identity.email),
-        DetailRowWidget(name: '电话', value: identity.phone),
-        DetailRowWidget(name: '生日', value: identity.birthday ?? ''),
-        DetailRowWidget(name: 'DID', value: identity.did.toString()),
-        DetailRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
-        DetailRowWidget(value: buildHealthBtn(context))
+        ProfileRowWidget(name: '名称*', value: identity.name),
+        ProfileRowWidget(name: '邮箱', value: identity.email),
+        ProfileRowWidget(name: '电话', value: identity.phone),
+        ProfileRowWidget(name: '生日', value: identity.birthday ?? ''),
+        ProfileRowWidget(name: 'DID', value: identity.did.toString()),
+        ProfileRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
+        ProfileRowWidget(value: buildHealthBtn(context))
       ]),
     );
   }

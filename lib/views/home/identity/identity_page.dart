@@ -31,7 +31,7 @@ class _IdentityPageState extends State<IdentityPage> {
         child: GestureDetector(
             onTap: () {
               Application.router.navigateTo(
-                  context, '${Routes.identityDetail}?id=${identity.id}');
+                  context, '${Routes.profile}?id=${identity.id}');
             },
             child: Container(
                 padding: EdgeInsets.all(24),

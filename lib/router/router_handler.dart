@@ -8,7 +8,7 @@ import 'package:tw_wallet_ui/views/health_code/health_code.dart';
 import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
-import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
+import 'package:tw_wallet_ui/views/identity_detail/profile.dart';
 import 'package:tw_wallet_ui/views/identity_qr/identity_qr_code.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
@@ -56,10 +56,10 @@ var confirmMnemonicsHandler = Handler(
   },
 );
 
-var identityDetailHandler = Handler(
+var profileHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   var id = params['id'].first;
-  return IdentityDetailPage(id: id);
+  return ProfilePage(id: id);
 });
 
 var transferTwPointsHandler = Handler(

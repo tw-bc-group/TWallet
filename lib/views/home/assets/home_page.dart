@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage>
 
   _onAvatarTap(BuildContext context) {
     _identityStore.selectedIdentity.ifPresent((identity) {
-      final path = '${Routes.identityDetail}?id=${identity.id}';
+      final path = '${Routes.profile}?id=${identity.id}';
       Application.router.navigateTo(context, path);
     });
   }

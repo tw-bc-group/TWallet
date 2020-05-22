@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 
-class DetailRowWidget extends StatelessWidget {
+class ProfileRowWidget extends StatelessWidget {
   final String name;
   final dynamic value;
 
-  DetailRowWidget({this.name, this.value});
+  ProfileRowWidget({this.name, this.value});
 
   @override
   Widget build(BuildContext context) {

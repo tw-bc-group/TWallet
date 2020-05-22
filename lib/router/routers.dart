@@ -10,7 +10,7 @@ class Routes {
   static final String newIdentity = "/new_identity";
   static final String backupMnemonics = "/backup_mnemonics";
   static final String confirmMnemonics = "/confirm_mnemonics";
-  static final String identityDetail = "/identity";
+  static final String profile = "/profile";
   static final String transferTwPoints = '/transfer_tw_points';
   static final String txList = "/tx_list";
   static final String txListDetails = "/tx_list_details";
@@ -29,7 +29,7 @@ class Routes {
     newIdentity: newIdentityHandler,
     backupMnemonics: backupMnemonicsHandler,
     confirmMnemonics: confirmMnemonicsHandler,
-    identityDetail: identityDetailHandler,
+    profile: profileHandler,
     transferTwPoints: transferTwPointsHandler,
     txList: txListHandler,
     txListDetails: txListDetailsHandler,
