@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -10,11 +8,12 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
-Future<void> _clearPrivateData() async {
+Future<void> _clearPrivateData(BuildContext context) async {
   return getIt<IdentityStore>()
       .clear()
       .then((_) => SecureStorage.clearAll())
-      .then((_) => Future.delayed(Duration(seconds: 2)).then((_) => exit(0)));
+      .then((_) => Future.delayed(Duration(seconds: 1)).then(
+          (_) => Application.router.navigateTo(context, Routes.inputPin)));
 }
 
 class MyPage extends StatelessWidget {
@@ -46,7 +45,7 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.button(
                       text: '清除数据',
                       onPressed: () async {
-                        await _clearPrivateData();
+                        await _clearPrivateData(context);
                       }))
             ]));
   }
