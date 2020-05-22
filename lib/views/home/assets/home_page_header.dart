@@ -55,7 +55,7 @@ class HomePageHeader extends StatelessWidget {
           changeImg,
           SizedBox(width: 4),
           Text(
-            '切换账号',
+            '切换身份',
             style: TextStyle(
               color: WalletColor.white,
               fontSize: 16,
