@@ -98,7 +98,9 @@ class _HomePageState extends State<HomePage>
         isScrollable: true,
         indicatorSize: TabBarIndicatorSize.label,
         indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(22), color: Colors.white),
+          borderRadius: BorderRadius.circular(22),
+          color: Colors.white,
+        ),
         labelColor: WalletColor.primary,
         unselectedLabelColor: Colors.white,
         controller: _tabController,
