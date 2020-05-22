@@ -67,7 +67,9 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
           onPressed: () => DialogService.discardDialog()
         ),
         child: Image(
-          image: AssetImage('assets/images/info-black.png')
+          image: AssetImage('assets/images/info-black.png'),
+          width: 40,
+          height: 40
         ),
       ),
       top: -6,
