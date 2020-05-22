@@ -79,12 +79,14 @@ Future<void> hintDialogFull(
     children.insert(
         4,
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
           child: Text(subHintText,
               textAlign: TextAlign.center,
               style: WalletFont.font_10(
                   textStyle: TextStyle(
-                      fontWeight: FontWeight.w400, letterSpacing: 0.7))),
+                      color: WalletColor.grey,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.7))),
         ));
   }
 
