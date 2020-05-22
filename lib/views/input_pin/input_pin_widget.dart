@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -122,7 +123,7 @@ class PinInputWidget extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Image(image: AssetImage('assets/images/wallet.png')),
+                                    SvgPicture.asset('assets/icons/wallet.svg'),
                                     SizedBox(height: 5),
                                     Text(
                                       "解锁钱包",
@@ -139,7 +140,7 @@ class PinInputWidget extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Image(image: AssetImage('assets/images/transaction.png')),
+                                    SvgPicture.asset('assets/icons/transaction.svg'),
                                     SizedBox(height: 5),
                                     Text(
                                       "确认交易",
@@ -156,7 +157,7 @@ class PinInputWidget extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Image(image: AssetImage('assets/images/setting.png')),
+                                    SvgPicture.asset('assets/icons/setting.svg'),
                                     SizedBox(height: 5),
                                     Text(
                                       "更多设置",
