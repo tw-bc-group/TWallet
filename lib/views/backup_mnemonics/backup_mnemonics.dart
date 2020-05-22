@@ -120,7 +120,9 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                       margin: EdgeInsets.only(top: 40),
                       child: Center(
                         child: Image(
-                          image: AssetImage('assets/images/edit.png')
+                          image: AssetImage('assets/images/edit.png'),
+                          width: 44,
+                          height: 44
                         )
                       )
                     ),
