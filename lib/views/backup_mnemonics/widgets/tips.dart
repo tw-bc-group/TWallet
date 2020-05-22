@@ -12,23 +12,27 @@ class Tips extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8)),
           color: WalletColor.accent.withOpacity(0.1),
         ),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 7),
-            child: Icon(
-              Icons.info,
-              color: WalletColor.accent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(right: 7),
+              child: Image(image: AssetImage('assets/icons/tips.png')),
             ),
-          ),
-          Text(
-            '助记词为账户凭证，为了避免账户被盗，请勿截图',
-            style: WalletFont.font_12(
-              textStyle: TextStyle(
-                color: WalletColor.accent,
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(top: 4),
+                child: Text(
+                  '助记词为账户凭证，为了避免账户被盗，请勿截图',
+                  style: WalletFont.font_12(
+                    textStyle: TextStyle(
+                      color: WalletColor.accent,
+                    )
+                  )
+                ),
               )
-            )
-          ),
-        ]));
+            ),
+          ]));
   }
 }

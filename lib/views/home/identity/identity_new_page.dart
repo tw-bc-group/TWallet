@@ -131,7 +131,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                 child: Column(children: <Widget>[
                   Expanded(
                     child: Form(
-                      child: Column(
+                      child: ListView(
                         children: <Widget>[
                           Observer(
                             builder: (_) => buildInputField(
