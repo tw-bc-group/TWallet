@@ -21,16 +21,16 @@ abstract class _IdentityNewStore with Store {
   Avataaar avatar;
 
   @observable
-  String name;
+  String name = '';
 
   @observable
-  String phone;
+  String phone = '';
 
   @observable
-  String email;
+  String email = '';
 
   @observable
-  String birthday;
+  String birthday = '';
 
   List<ReactionDisposer> _disposers;
 
@@ -45,7 +45,6 @@ abstract class _IdentityNewStore with Store {
     ];
   }
 
-  //TODO:
   void dispose() {
     for (final d in _disposers) {
       d();
@@ -79,18 +78,18 @@ abstract class _IdentityNewStore with Store {
   @action
   void validatePhone(String value) {
     error.phone =
-        value != null ? Util.isValidPhone(phone) ? null : '不是有效的手机号' : null;
+        value.isNotEmpty ? Util.isValidPhone(phone) ? null : '不是有效的手机号' : null;
   }
 
   @action
   void validateEmail(String value) {
-    error.email = value != null ? isEmail(value) ? null : '不是有效的电子邮件' : null;
+    error.email = value.isNotEmpty ? isEmail(value) ? null : '不是有效的电子邮件' : null;
   }
 
   @action
   void validateBirthday(String value) {
     error.birthday =
-        value != null ? isValidDate(value) ? null : '不是有效的日期' : null;
+        value.isNotEmpty ? isValidDate(value) ? null : '不是有效的日期' : null;
   }
 
   @action
