@@ -37,12 +37,12 @@ class _$SelectOptionSerializer implements PrimitiveSerializer<SelectOption> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'yes': 'Yes',
     'no': 'No',
-    'notSure': 'NotSure',
+    'notSure': 'NOT_SURE',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'Yes': 'yes',
     'No': 'no',
-    'NotSure': 'notSure',
+    'NOT_SURE': 'notSure',
   };
 
   @override

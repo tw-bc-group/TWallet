@@ -93,13 +93,6 @@ class _$HealthCertificationToken extends HealthCertificationToken {
   int get hashCode {
     return $jf($jc(0, token.hashCode));
   }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('HealthCertificationToken')
-          ..add('token', token))
-        .toString();
-  }
 }
 
 class HealthCertificationTokenBuilder
