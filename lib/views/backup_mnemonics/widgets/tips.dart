@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 
@@ -18,7 +19,7 @@ class Tips extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(right: 7),
-              child: Image(image: AssetImage('assets/icons/tips.png')),
+              child: SvgPicture.asset('assets/icons/tips.svg'),
             ),
             Expanded(
               child: Container(
