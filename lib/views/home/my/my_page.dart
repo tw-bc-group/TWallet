@@ -30,7 +30,7 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.button(
                       text: '调试对话框',
                       onPressed: () async {
-                        await hintDialogHelper(context, HintType.success, '你好',
+                        await hintDialogHelper(context, HintType.success, '您好',
                             subText: '测试');
                       })),
               Container(

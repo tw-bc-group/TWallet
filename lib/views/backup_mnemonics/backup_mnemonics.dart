@@ -31,10 +31,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
     for (var word in words) {
       wordWidgets.add(Container(
           margin: EdgeInsets.all(12),
-          child: Text(
-            word,
-            style: WalletFont.font_16()
-          )));
+          child: Text(word, style: WalletFont.font_16())));
     }
     return Wrap(children: wordWidgets);
   }
@@ -43,34 +40,32 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
     return Positioned(
       child: GestureDetector(
         onTap: () => DialogService.showDialog(
-          title: '备份提示',
-          btnText: '知道了',
-          body: Column(
-            children: <Widget>[
-              Text(
-                '使用纸和笔正确抄写助记词。',
-                style: WalletFont.font_14(),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                '请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。',
-                style: WalletFont.font_14(),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                '如果你的手机丢失、被盗、损坏，助记词可以恢复你的资产。',
-                style: WalletFont.font_14(),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-          onPressed: () => DialogService.discardDialog()
-        ),
+            title: '备份提示',
+            btnText: '知道了',
+            body: Column(
+              children: <Widget>[
+                Text(
+                  '使用纸和笔正确抄写助记词。',
+                  style: WalletFont.font_14(),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  '请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。',
+                  style: WalletFont.font_14(),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  '如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。',
+                  style: WalletFont.font_14(),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            onPressed: () => DialogService.discardDialog()),
         child: Image(
-          image: AssetImage('assets/images/info-black.png'),
-          width: 40,
-          height: 40
-        ),
+            image: AssetImage('assets/images/info-black.png'),
+            width: 40,
+            height: 40),
       ),
       top: -6,
       right: 0,
@@ -83,15 +78,15 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
     return NewCommonLayout(
         backIcon: BackIcon.ARROW,
         withBottomBtn: true,
-        btnOnPressed: () => Application.router.navigateTo(context, Routes.confirmMnemonics),
+        btnOnPressed: () =>
+            Application.router.navigateTo(context, Routes.confirmMnemonics),
         btnText: '下一步',
         child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12), topRight: Radius.circular(12)
-              ),
-              color: WalletColor.white
-            ),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12)),
+                color: WalletColor.white),
             padding: EdgeInsets.symmetric(horizontal: 24),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -102,45 +97,36 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                     Container(
                       margin: EdgeInsets.only(top: 40),
                       child: Center(
-                        child: Stack(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 40),
-                              child: Text(
-                                '备份助记词',
-                                style: WalletFont.font_20(),
-                              ),
-                            ),
-                            buildInfoTipButton()
-                          ]
-                        )
-                      ),
+                          child: Stack(children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: Text(
+                            '备份助记词',
+                            style: WalletFont.font_20(),
+                          ),
+                        ),
+                        buildInfoTipButton()
+                      ])),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 40),
-                      child: Center(
-                        child: Image(
-                          image: AssetImage('assets/images/edit.png'),
-                          width: 44,
-                          height: 44
-                        )
-                      )
-                    ),
+                        margin: EdgeInsets.only(top: 40),
+                        child: Center(
+                            child: Image(
+                                image: AssetImage('assets/images/edit.png'),
+                                width: 44,
+                                height: 44))),
                     Container(
                       margin: EdgeInsets.only(top: 24),
-                      child: Text(
-                        '请用纸笔抄写下方助记词',
+                      child: Text('请用纸笔抄写下方助记词',
+                          style: WalletFont.font_14(),
+                          textAlign: TextAlign.center),
+                    ),
+                    Text('我们将在下一步验证',
                         style: WalletFont.font_14(),
-                        textAlign: TextAlign.center
-                      ),
-                    ),
-                    Text(
-                      '我们将在下一步验证',
-                      style: WalletFont.font_14(),
-                      textAlign: TextAlign.center
-                    ),
+                        textAlign: TextAlign.center),
                     Container(
-                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 24),
                         margin: EdgeInsets.only(top: 48),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
