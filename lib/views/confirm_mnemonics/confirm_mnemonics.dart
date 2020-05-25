@@ -112,7 +112,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
             : () async {
                 store.save().then((_) => Application.router.navigateTo(
                     context, '/home?index=${HomeState.identityIndex}',
-                    transition: TransitionType.native));
+                    transition: TransitionType.native, clearStack: true));
               },
         child: Container(
           height: MediaQuery.of(context).size.height,
