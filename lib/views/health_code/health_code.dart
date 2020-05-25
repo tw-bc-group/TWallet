@@ -74,7 +74,8 @@ class HealthCodeState extends State<HealthCodePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircularProgressIndicator(),
-                      Text('加载健康码...')
+                      Text('加载健康码...',
+                          style: TextStyle(color: WalletColor.white))
                     ],
                   ),
                 );
@@ -95,7 +96,7 @@ class HealthCodeState extends State<HealthCodePage> {
                 return RefreshIndicator(
                   onRefresh: onRefresh,
                   child: Container(
-                    height: _screenUtil.setHeight(575) + _avatarWidth / 2,
+                    height: _screenUtil.setHeight(600) + _avatarWidth / 2,
                     padding: EdgeInsets.only(
                       left: _screenUtil.setWidth(24),
                       right: _screenUtil.setWidth(24),
@@ -134,7 +135,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                           top: _screenUtil.setHeight(28)),
                                       child: Center(
                                         child: observeQrImage(
-                                            _screenUtil.setWidth(164)),
+                                            _screenUtil.setWidth(200)),
                                       ),
                                     ),
                                     Padding(
@@ -216,8 +217,7 @@ class HealthCodeState extends State<HealthCodePage> {
       width: width,
       height: width,
       decoration: BoxDecoration(border: Border.all(color: color, width: 1)),
-      child: QrImage(
-          padding: EdgeInsets.all(1), data: data, foregroundColor: color),
+      child: QrImage(data: data, foregroundColor: color),
     );
   }
 }
