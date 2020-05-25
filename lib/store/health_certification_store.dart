@@ -40,7 +40,9 @@ abstract class _HealthCertificationStore with Store {
   @action
   Future fetchHealthCertByDID(String did) async {
     final token = await _db.getItem(did);
+    print(this.isBoundCert);
     this.isBoundCert = token != null ? true : false;
+    print(this.isBoundCert);
     if (this.isBoundCert) {
       this.token = HealthCertificationToken.fromJson(token);
     }

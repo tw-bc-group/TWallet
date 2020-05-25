@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
 
 class CertificateCardWidget extends StatelessWidget {
   final String title;
-  final String route;
+  final Function onTap;
+  final String routeTitle;
 
-  CertificateCardWidget({this.title, this.route});
+  CertificateCardWidget({this.title, this.onTap, this.routeTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +27,12 @@ class CertificateCardWidget extends StatelessWidget {
             style: WalletFont.font_18()
           ),
           GestureDetector(
-            onTap: () => Application.router.navigateTo(context, route),
+            onTap: onTap,
             child: Container(
               child: Row(
                 children: <Widget>[
                   Text(
-                    '去认证',
+                    routeTitle != null ? routeTitle : '去认证',
                     style: WalletFont.font_14(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w600,

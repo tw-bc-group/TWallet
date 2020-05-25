@@ -58,18 +58,21 @@ class NewCommonLayout extends StatelessWidget {
           },
           child: SafeArea(
             maintainBottomViewPadding: true,
-            child: Column(
-              children: <Widget>[
-                Expanded(child: child),
-                if (withBottomBtn)
-                  Container(
-                      color: WalletColor.white,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-                      child: WalletTheme.button(
-                          text: btnText, onPressed: btnOnPressed))
-              ],
-            ),
+            child: Container(
+              padding: withBottomNavigationBar ? null : EdgeInsets.only(bottom: 30),
+              child: Column(
+                children: <Widget>[
+                  Expanded(child: child),
+                  if (withBottomBtn)
+                    Container(
+                        color: WalletColor.white,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 30),
+                        child: WalletTheme.button(
+                            text: btnText, onPressed: btnOnPressed))
+                ],
+              ),
+            )
           )),
     );
   }
