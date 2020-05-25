@@ -35,12 +35,7 @@ class WalletTheme {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Center(
           child: Text(text,
-              style: TextStyle(
-                  fontSize: 16,
-                  height: 1.38,
-                  fontFamily: 'PingFangHK',
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1))),
+              style: WalletFont.font_16())),
     );
     return Container(
       child: ButtonTheme(
