@@ -50,28 +50,27 @@ class NewCommonLayout extends StatelessWidget {
         )
       ),
       body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: SafeArea(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: SafeArea(
             maintainBottomViewPadding: true,
             child: Column(
               children: <Widget>[
                 Expanded(child: child),
-                if (withBottomBtn) Container(
-                  color: WalletColor.white,
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-                  child: WalletTheme.button(
-                    text: btnText, onPressed: btnOnPressed
-                  )
-                )
+                if (withBottomBtn)
+                  Container(
+                      color: WalletColor.white,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 30),
+                      child: WalletTheme.button(
+                          text: btnText, onPressed: btnOnPressed))
               ],
             ),
-        )
-      ),
+          )),
     );
   }
 }

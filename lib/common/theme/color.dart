@@ -10,6 +10,8 @@ class WalletColor {
   static const String MIDDLE_GREY = '#e0e1e9';
   static const String LIGHT_GREY = '#f2f4fa';
   static const String YELLOW_WHITE = '#fef8e4';
+  static const String GREEN = '#3abfbc';
+  static const String RED = '#ff5164';
 
   static final Color primary = WalletTheme.rgbColor(PRIMARY);
   static final Color accent = WalletTheme.rgbColor(ACCENT);
@@ -20,4 +22,6 @@ class WalletColor {
   static final Color lightGrey = WalletTheme.rgbColor(LIGHT_GREY);
   static final Color yellowWhite = WalletTheme.rgbColor(YELLOW_WHITE);
   static final Color backgroundWhite = WalletTheme.rgbColor('#f0f2f9');
+  static final Color green = WalletTheme.rgbColor(GREEN);
+  static final Color red = WalletTheme.rgbColor(RED);
 }

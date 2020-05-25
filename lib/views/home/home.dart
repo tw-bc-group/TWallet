@@ -77,7 +77,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     YYDialog.init(context);
-    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: true);
+    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
     ErrorInterceptor.context = context;
 
     return Scaffold(
