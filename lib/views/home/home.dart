@@ -11,7 +11,6 @@ import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'assets/home_page.dart';
 import 'discovery/discovery.dart';
 import 'identity/identity_page.dart';
-import 'my/my_page.dart';
 
 class Home extends StatefulWidget {
   Home({this.defaultIndex = 0});
@@ -40,10 +39,6 @@ class HomeState extends State<Home> {
       'unselected': 'assets/icons/bottom_bar/identity.svg',
       'selected': 'assets/icons/bottom_bar/identity_selected.svg',
     },
-    'me': {
-      'unselected': 'assets/icons/bottom_bar/me.svg',
-      'selected': 'assets/icons/bottom_bar/me_selected.svg',
-    }
   };
 
   static svgIcon(path) => SvgPicture.asset(path);
@@ -61,15 +56,9 @@ class HomeState extends State<Home> {
         icon: svgIcon(iconPaths['identity']['unselected']),
         activeIcon: svgIcon(iconPaths['identity']['selected']),
         title: Text('身份')),
-    BottomNavigationBarItem(
-        icon: svgIcon(iconPaths['me']['unselected']),
-        activeIcon: svgIcon(iconPaths['me']['selected']),
-        title: Text('我')),
   ];
 
   static int get identityIndex => 2;
-
-  // _barItems.indexWhere((item) => (item.title as Text).data == '');
 
   int defaultIndex;
   List<Widget> _pages;
@@ -81,7 +70,6 @@ class HomeState extends State<Home> {
       HomePage(homeStore),
       DiscoveryPage(homeStore),
       IdentityPage(),
-      MyPage()
     ];
     super.initState();
   }
