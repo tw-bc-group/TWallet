@@ -11,6 +11,7 @@ class NewCommonLayout extends StatelessWidget {
   final String title;
   final String bodyBackColor;
   final BackIcon backIcon;
+  final bool withBottomNavigationBar;
 
   NewCommonLayout({
     this.child,
@@ -20,6 +21,7 @@ class NewCommonLayout extends StatelessWidget {
     this.title,
     this.bodyBackColor = WalletColor.PRIMARY,
     this.backIcon = BackIcon.ARROW,
+    this.withBottomNavigationBar = true
   });
 
   @override
@@ -44,7 +46,7 @@ class NewCommonLayout extends StatelessWidget {
         data: Theme.of(context),
         child: Container(
           color: WalletColor.white,
-          height: 30
+          height: withBottomNavigationBar ? 30 : 0
         )
       ),
       body: GestureDetector(

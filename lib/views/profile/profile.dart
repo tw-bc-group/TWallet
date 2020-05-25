@@ -6,7 +6,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
-import 'package:tw_wallet_ui/views/identity_detail/widgets/profile_row.dart';
+import 'package:tw_wallet_ui/views/profile/widgets/profile_row.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';

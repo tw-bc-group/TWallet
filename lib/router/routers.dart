@@ -17,6 +17,7 @@ class Routes {
   static final String transferConfirm = '/transfer_confirm';
   static final String transferResult = '/transfer_result';
   static final String certificate = '/certificate';
+  static final String identityDetail = '/identity';
   static final String qrPage = '/identity/qr';
   static final String qrScanner = '/qr_scanner';
   static final String healthCode = '/health_code';
@@ -40,6 +41,7 @@ class Routes {
     qrScanner: qrScannerHandler,
     healthCode: healthCodeHandler,
     healthCertPage: healthCertificationPageHandler,
+    identityDetail: identityDetailHandler,
   };
 
   static void configureRoutes(Router router) {

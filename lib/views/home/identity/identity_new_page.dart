@@ -165,7 +165,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                       )),
                                   errorText: store.error.birthday)),
                           Container(
-                              margin: EdgeInsets.only(top: 200),
+                              margin: EdgeInsets.only(top: 100),
                               child: WalletTheme.button(
                                   text: '确定创建身份',
                                   onPressed: store.error.hasErrors || isAdding
