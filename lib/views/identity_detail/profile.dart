@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -7,6 +8,7 @@ import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/profile_row.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import '../../models/identity.dart';
@@ -55,7 +57,13 @@ class ProfilePage extends StatelessWidget {
         ProfileRowWidget(name: '邮箱', value: identity.email),
         ProfileRowWidget(name: '电话', value: identity.phone),
         ProfileRowWidget(name: '生日', value: identity.birthday ?? ''),
-        ProfileRowWidget(name: 'DID', value: identity.did.toString()),
+        GestureDetector(
+          child: ProfileRowWidget(name: 'DID', value: identity.did.toString()),
+          onLongPress: () async {
+            Clipboard.setData(ClipboardData(text: identity.did.toString()));
+            await showDialogSample(context, DialogType.none, '复制成功');
+          },
+        ),
         ProfileRowWidget(name: '二维码名片', value: _buildQR(context, identity)),
         ProfileRowWidget(value: buildHealthBtn(context))
       ]),

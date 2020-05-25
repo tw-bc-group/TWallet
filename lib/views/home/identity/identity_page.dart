@@ -70,10 +70,10 @@ class _IdentityPageState extends State<IdentityPage> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    onLongPress: () {
-                      Clipboard.setData(ClipboardData(text: identity.address));
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                          content: new Text('"${identity.name}"地址已复制')));
+                    onLongPress: () async {
+                      Clipboard.setData(
+                          ClipboardData(text: identity.did.toString()));
+                      await showDialogSample(context, DialogType.none, '复制成功');
                     },
                   )
                 ]))));
