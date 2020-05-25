@@ -30,8 +30,7 @@ class MyPage extends StatelessWidget {
                   child: WalletTheme.button(
                       text: '调试对话框',
                       onPressed: () async {
-                        await hintDialogHelper(context, HintType.success, '您好',
-                            subText: '测试');
+                        await showDialogSample(context, DialogType.none, '您好');
                       })),
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),

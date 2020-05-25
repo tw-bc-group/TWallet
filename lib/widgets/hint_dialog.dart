@@ -4,37 +4,45 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 
-enum HintType {
+enum DialogType {
   success,
   warning,
   error,
+  hint,
   none,
 }
 
-SvgPicture _hintTypeToSvg(HintType type, {num width}) {
-  String asset = 'assets/icons/hint.svg';
+Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {num width}) {
+  String asset;
 
   switch (type) {
-    case HintType.success:
+    case DialogType.success:
       asset = 'assets/icons/hint-success.svg';
       break;
-    case HintType.warning:
+    case DialogType.warning:
       asset = 'assets/icons/hint-warning.svg';
       break;
-    case HintType.error:
+    case DialogType.error:
       asset = 'assets/icons/hint-error.svg';
+      break;
+    case DialogType.hint:
+      asset = 'assets/icons/hint.svg';
       break;
     default:
       break;
   }
-  return SvgPicture.asset(asset, width: width, height: width);
+
+  return Optional.ofNullable(asset)
+      .map((asset) => SvgPicture.asset(asset, width: width, height: width));
 }
 
-Future<void> hintDialogHelper(BuildContext context, HintType type, String text,
+Future<void> hintDialogHelper(
+    BuildContext context, DialogType type, String text,
     {String subText = ''}) async {
   return hintDialogFull(context, type, text,
       subText: subText, buttonText: '知道了');
@@ -42,7 +50,7 @@ Future<void> hintDialogHelper(BuildContext context, HintType type, String text,
 
 Future<void> hintDialogFull(
   BuildContext context,
-  HintType type,
+  DialogType type,
   String text, {
   String subText = '',
   String buttonText = '',
@@ -58,7 +66,7 @@ class HintDialog extends Dialog {
   final String text;
   final String subText;
   final String buttonText;
-  final HintType type;
+  final DialogType type;
 
   const HintDialog(this.text, this.subText, this.buttonText, this.type);
 
@@ -76,10 +84,6 @@ class HintDialog extends Dialog {
       Padding(
         padding: EdgeInsets.only(top: screenUtil.setHeight(16)),
         child: Divider(color: WalletColor.grey),
-      ),
-      Padding(
-        padding: EdgeInsets.only(top: screenUtil.setHeight(20)),
-        child: _hintTypeToSvg(type, width: screenUtil.setWidth(44)),
       ),
       Padding(
         padding: EdgeInsets.only(
@@ -103,6 +107,14 @@ class HintDialog extends Dialog {
             }),
       )
     ];
+
+    _dialogTypeToSvg(type, width: screenUtil.setWidth(44))
+        .ifPresent((svgPicture) => children.insert(
+            2,
+            Padding(
+              padding: EdgeInsets.only(top: screenUtil.setHeight(20)),
+              child: svgPicture,
+            )));
 
     if (subText.isNotEmpty) {
       children.insert(
@@ -139,11 +151,18 @@ class HintDialog extends Dialog {
   }
 }
 
+Future<void> showDialogSample(
+    BuildContext context, DialogType type, String text) {
+  return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) => HintDialogSample(type, text));
+}
+
 class HintDialogSample extends Dialog {
   final String text;
-  final HintType type;
+  final DialogType type;
 
-  const HintDialogSample(this.text, this.type);
+  const HintDialogSample(this.type, this.text);
 
   @override
   Widget build(BuildContext context) {
@@ -153,40 +172,47 @@ class HintDialogSample extends Dialog {
     });
 
     ScreenUtil screenUtil = ScreenUtil();
+    int textVerticalPadding = type == DialogType.none ? 15 : 32;
+
+    List<Widget> children =
+        _dialogTypeToSvg(type, width: screenUtil.setWidth(44))
+            .map((svgPicture) {
+      return [
+        Padding(
+            padding: EdgeInsets.only(top: screenUtil.setHeight(32)),
+            child: svgPicture)
+      ];
+    }).orElse(List());
+
+    children.add(Padding(
+        padding: EdgeInsets.symmetric(
+            vertical: screenUtil.setHeight(textVerticalPadding)),
+        child: Text(text,
+            style: WalletFont.font_14(
+                textStyle: TextStyle(fontWeight: FontWeight.w600)))));
 
     return Material(
-      type: MaterialType.transparency,
-      child: Center(
-        child: Container(
-          width: screenUtil.setWidth(160),
-          height: screenUtil.setWidth(160),
-          decoration: new BoxDecoration(
-              color: WalletColor.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                    color: Color(0x0f000000),
-                    offset: Offset(0, 4),
-                    blurRadius: 12,
-                    spreadRadius: 0)
-              ]),
-          child: Column(
+        type: MaterialType.transparency,
+        child: Center(
+          child: Container(
+            width: screenUtil.setWidth(type == DialogType.none ? 120 : 160),
+            decoration: new BoxDecoration(
+                color: WalletColor.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color(0x0f000000),
+                      offset: Offset(0, 4),
+                      blurRadius: 12,
+                      spreadRadius: 0)
+                ]),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(top: screenUtil.setHeight(32)),
-                    child:
-                        _hintTypeToSvg(type, width: screenUtil.setWidth(44))),
-                Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: screenUtil.setHeight(32)),
-                    child: Text(text,
-                        style: WalletFont.font_14(
-                            textStyle: TextStyle(fontWeight: FontWeight.w600))))
-              ]),
-        ),
-      ),
-    );
+              children: children,
+            ),
+          ),
+        ));
   }
 }

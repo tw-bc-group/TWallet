@@ -111,12 +111,12 @@ class _IdentityPageState extends State<IdentityPage> {
                           HealthCertificationToken.fromJson(
                               json.decode(scanResult));
                       if (await token.verify()) {
-                        HintType _hintType = HintType.success;
+                        DialogType _hintType = DialogType.success;
                         String _hintText = '无健康风险';
 
                         if (token.healthCertification.sub.healthyStatus.val ==
                             UNHEALTHY) {
-                          _hintType = HintType.error;
+                          _hintType = DialogType.error;
                           _hintText = '存在健康风险';
                         }
 
@@ -127,11 +127,11 @@ class _IdentityPageState extends State<IdentityPage> {
                             subText: _subHintText);
                       } else {
                         await hintDialogHelper(
-                            context, HintType.warning, '该健康码与持有人身份不符');
+                            context, DialogType.warning, '该健康码与持有人身份不符');
                       }
                     } catch (_) {
                       await hintDialogHelper(
-                          context, HintType.warning, '未识别到有效的身份信息');
+                          context, DialogType.warning, '未识别到有效的身份信息');
                     }
                   });
                 },

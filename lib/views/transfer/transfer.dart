@@ -153,7 +153,7 @@ class TransferPageState extends State<TransferPage> {
                                           .updatePayeeAddress(did.eip55Address);
                                     } catch (_) {
                                       await hintDialogHelper(context,
-                                          HintType.warning, '未识别到有效的身份信息');
+                                          DialogType.warning, '未识别到有效的身份信息');
                                     }
                                   })
                             ],
