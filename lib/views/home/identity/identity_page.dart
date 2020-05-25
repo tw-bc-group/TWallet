@@ -14,6 +14,7 @@ import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 import '../../../router/routers.dart';
@@ -48,11 +49,7 @@ class _IdentityPageState extends State<IdentityPage> {
                     ]),
                 child: Column(children: <Widget>[
                   Row(children: <Widget>[
-                    Image(
-                      image: AssetImage('assets/images/avatar.png'),
-                      width: 32,
-                      height: 32,
-                    ),
+                    AvatarWidget(width: 32),
                     Expanded(
                         child: Container(
                             margin: EdgeInsets.only(left: 12),
@@ -74,14 +71,12 @@ class _IdentityPageState extends State<IdentityPage> {
                       textAlign: TextAlign.center,
                     ),
                     onLongPress: () {
-                      Clipboard.setData(
-                          ClipboardData(text: identity.address));
+                      Clipboard.setData(ClipboardData(text: identity.address));
                       Scaffold.of(context).showSnackBar(SnackBar(
                           content: new Text('"${identity.name}"地址已复制')));
                     },
                   )
-                ])
-              )));
+                ]))));
   }
 
   @override

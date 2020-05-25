@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
       childBuilder: (context, constraints) => ListView(children: <Widget>[
         ProfileRowWidget(
           name: '头像',
-          value: AvatarWidget(avataaar: identity.avataaar),
+          value: AvatarWidget(),
         ),
         ProfileRowWidget(name: '名称*', value: identity.name),
         ProfileRowWidget(name: '邮箱', value: identity.email),

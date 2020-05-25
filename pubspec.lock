@@ -50,13 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.1"
-  avataaar_image:
-    dependency: "direct main"
-    description:
-      name: avataaar_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.8"
   bip32:
     dependency: "direct main"
     description:

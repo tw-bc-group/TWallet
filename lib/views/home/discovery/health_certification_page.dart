@@ -11,7 +11,6 @@ import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
-
 class HealthCertificationPage extends StatelessWidget {
   final IdentityStore _identityStore = getIt<IdentityStore>();
   final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
@@ -54,7 +53,7 @@ class HealthCertificationPage extends StatelessWidget {
         .map((e) => Card(
             color: WalletTheme.rgbColor('#f2f2f2'),
             child: ListTile(
-              leading: AvatarWidget(avataaar: e.avataaar),
+              leading: AvatarWidget(),
               title: Text(e.name),
               subtitle: Text(e.did.toString()),
               onTap: () => onIdentityTap(context, e),
@@ -81,7 +80,8 @@ class HealthCertificationPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 shrinkWrap: true,
-                children: _buildDataSource(context, _identityStore.identities.toList()),
+                children: _buildDataSource(
+                    context, _identityStore.identities.toList()),
               ),
             )
           ],

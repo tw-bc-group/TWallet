@@ -1,4 +1,3 @@
-import 'package:avataaar_image/avataaar_image.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/util.dart';
@@ -18,9 +17,6 @@ abstract class _IdentityNewStore with Store {
   final _identityStore = getIt<IdentityStore>();
 
   @observable
-  Avataaar avatar;
-
-  @observable
   String name = '';
 
   @observable
@@ -35,8 +31,6 @@ abstract class _IdentityNewStore with Store {
   List<ReactionDisposer> _disposers;
 
   void setupAvatarAndValidators() {
-    refreshAvatar();
-
     _disposers = [
       reaction((_) => name, validateUsername),
       reaction((_) => phone, validatePhone),
@@ -56,11 +50,6 @@ abstract class _IdentityNewStore with Store {
     validatePhone(phone);
     validateEmail(email);
     validateBirthday(birthday);
-  }
-
-  @action
-  void refreshAvatar() {
-    avatar = Avataaar.random(style: Style.circle);
   }
 
   @action
@@ -100,7 +89,6 @@ abstract class _IdentityNewStore with Store {
       return store.generateIdentityKeys().then((keys) {
         return Future.value(Identity((identity) => identity
           ..id = Uuid().v1()
-          ..avatar = avatar.toJson()
           ..name = name
           ..pubKey = keys.first
           ..priKey = keys.second

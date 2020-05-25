@@ -1,7 +1,5 @@
-import 'package:avataaar_image/avataaar_image.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -20,9 +18,6 @@ abstract class Identity extends Object
 
   @nullable
   String get id;
-
-  @nullable
-  String get avatar;
 
   String get name;
 
@@ -54,10 +49,6 @@ abstract class Identity extends Object
 
   @memoized
   DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
-
-  @memoized
-  Optional<Avataaar> get avataaar =>
-      Optional.ofNullable(avatar).map((avatar) => Avataaar.fromJson(avatar));
 
   Future<bool> register() async {
     return getIt<ContractService>().identityRegistryContract.signContractCall(

@@ -33,12 +33,6 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(String)));
     }
-    if (object.avatar != null) {
-      result
-        ..add('avatar')
-        ..add(serializers.serialize(object.avatar,
-            specifiedType: const FullType(String)));
-    }
     if (object.phone != null) {
       result
         ..add('phone')
@@ -93,10 +87,6 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'avatar':
-          result.avatar = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'name':
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -144,8 +134,6 @@ class _$Identity extends Identity {
   @override
   final String id;
   @override
-  final String avatar;
-  @override
   final String name;
   @override
   final String pubKey;
@@ -165,14 +153,12 @@ class _$Identity extends Identity {
   final String healthStatus;
   String __address;
   DID __did;
-  Optional<Avataaar> __avataaar;
 
   factory _$Identity([void Function(IdentityBuilder) updates]) =>
       (new IdentityBuilder()..update(updates)).build();
 
   _$Identity._(
       {this.id,
-      this.avatar,
       this.name,
       this.pubKey,
       this.priKey,
@@ -201,9 +187,6 @@ class _$Identity extends Identity {
   DID get did => __did ??= super.did;
 
   @override
-  Optional<Avataaar> get avataaar => __avataaar ??= super.avataaar;
-
-  @override
   Identity rebuild(void Function(IdentityBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
@@ -215,7 +198,6 @@ class _$Identity extends Identity {
     if (identical(other, this)) return true;
     return other is Identity &&
         id == other.id &&
-        avatar == other.avatar &&
         name == other.name &&
         pubKey == other.pubKey &&
         priKey == other.priKey &&
@@ -236,11 +218,7 @@ class _$Identity extends Identity {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc(
-                                        $jc($jc(0, id.hashCode),
-                                            avatar.hashCode),
-                                        name.hashCode),
+                                $jc($jc($jc(0, id.hashCode), name.hashCode),
                                     pubKey.hashCode),
                                 priKey.hashCode),
                             phone.hashCode),
@@ -255,7 +233,6 @@ class _$Identity extends Identity {
   String toString() {
     return (newBuiltValueToStringHelper('Identity')
           ..add('id', id)
-          ..add('avatar', avatar)
           ..add('name', name)
           ..add('pubKey', pubKey)
           ..add('priKey', priKey)
@@ -275,10 +252,6 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
-
-  String _avatar;
-  String get avatar => _$this._avatar;
-  set avatar(String avatar) => _$this._avatar = avatar;
 
   String _name;
   String get name => _$this._name;
@@ -322,7 +295,6 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   IdentityBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _avatar = _$v.avatar;
       _name = _$v.name;
       _pubKey = _$v.pubKey;
       _priKey = _$v.priKey;
@@ -355,7 +327,6 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
     final _$result = _$v ??
         new _$Identity._(
             id: id,
-            avatar: avatar,
             name: name,
             pubKey: pubKey,
             priKey: priKey,

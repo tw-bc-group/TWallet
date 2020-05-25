@@ -39,7 +39,6 @@ dependencies:
   ethereum_address: ^1.0.1
   validators: ^2.0.0+1
   cached_network_image: ^2.0.0
-  avataaar_image: ^1.0.8
   optional: ^4.1.0
   json_store: ^1.0.3
   more: ^2.2.0

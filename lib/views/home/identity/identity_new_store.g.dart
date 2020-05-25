@@ -9,21 +9,6 @@ part of 'identity_new_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$IdentityNewStore on _IdentityNewStore, Store {
-  final _$avatarAtom = Atom(name: '_IdentityNewStore.avatar');
-
-  @override
-  Avataaar get avatar {
-    _$avatarAtom.reportRead();
-    return super.avatar;
-  }
-
-  @override
-  set avatar(Avataaar value) {
-    _$avatarAtom.reportWrite(value, super.avatar, () {
-      super.avatar = value;
-    });
-  }
-
   final _$nameAtom = Atom(name: '_IdentityNewStore.name');
 
   @override
@@ -95,17 +80,6 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
       ActionController(name: '_IdentityNewStore');
 
   @override
-  void refreshAvatar() {
-    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
-        name: '_IdentityNewStore.refreshAvatar');
-    try {
-      return super.refreshAvatar();
-    } finally {
-      _$_IdentityNewStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void validateUsername(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
         name: '_IdentityNewStore.validateUsername');
@@ -152,7 +126,6 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
   @override
   String toString() {
     return '''
-avatar: ${avatar},
 name: ${name},
 phone: ${phone},
 email: ${email},
