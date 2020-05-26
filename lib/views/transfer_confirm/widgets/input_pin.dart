@@ -1,6 +1,7 @@
 import 'package:encrypt/encrypt.dart' as Encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -48,6 +49,8 @@ class InputPinWidgetState extends State<InputPinWidget> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
+
     return Container(
         margin: EdgeInsets.only(top: 66),
         padding: EdgeInsets.symmetric(horizontal: 43),

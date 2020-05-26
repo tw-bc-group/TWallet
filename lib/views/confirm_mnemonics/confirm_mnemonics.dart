@@ -5,10 +5,10 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/service/dialog.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
@@ -60,33 +60,13 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
   Widget buildInfoTipButton() {
     return Positioned(
       child: GestureDetector(
-        onTap: () => DialogService.showDialog(
-            title: '备份提示',
-            btnText: '知道了',
-            body: Column(
-              children: <Widget>[
-                Text(
-                  '使用纸和笔正确抄写助记词。',
-                  style: WalletFont.font_14(),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  '请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。',
-                  style: WalletFont.font_14(),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  '如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。',
-                  style: WalletFont.font_14(),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            onPressed: () => DialogService.discardDialog()),
         child: Image(
             image: AssetImage('assets/images/info-black.png'),
             width: 40,
             height: 40),
+        onTap: () => hintDialogHelper(context, DialogType.none,
+            '使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。',
+            title: '备份提示'),
       ),
       top: -6,
       right: 0,

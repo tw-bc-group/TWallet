@@ -43,14 +43,15 @@ Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {num width}) {
 
 Future<void> hintDialogHelper(
     BuildContext context, DialogType type, String text,
-    {String subText = ''}) async {
-  return hintDialogFull(context, type, text,
+    {String title = '', String subText = ''}) async {
+  return hintDialogFull(context, type, title, text,
       subText: subText, buttonText: '知道了');
 }
 
 Future<void> hintDialogFull(
   BuildContext context,
   DialogType type,
+  String title,
   String text, {
   String subText = '',
   String buttonText = '',
@@ -59,16 +60,18 @@ Future<void> hintDialogFull(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) =>
-          HintDialog(text, subText, buttonText, type));
+          HintDialog(title, text, subText, buttonText, type));
 }
 
 class HintDialog extends Dialog {
   final String text;
+  final String title;
   final String subText;
   final String buttonText;
   final DialogType type;
 
-  const HintDialog(this.text, this.subText, this.buttonText, this.type);
+  const HintDialog(
+      this.title, this.text, this.subText, this.buttonText, this.type);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +80,7 @@ class HintDialog extends Dialog {
     List<Widget> children = [
       Padding(
           padding: EdgeInsets.only(top: screenUtil.setHeight(16)),
-          child: Text('提示',
+          child: Text(title.isEmpty ? '提示' : title,
               textAlign: TextAlign.center,
               style: WalletFont.font_18(
                   textStyle: TextStyle(fontWeight: FontWeight.w600)))),
