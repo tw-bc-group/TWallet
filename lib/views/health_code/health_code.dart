@@ -80,118 +80,163 @@ class HealthCodeState extends State<HealthCodePage> {
                   ),
                 );
               case FutureStatus.rejected:
-                return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '加载健康码失败',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      RaisedButton(
-                        child: const Text('点击重试'),
-                        onPressed: onRefresh,
-                      )
-                    ]);
+                return Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          '加载健康码失败',
+                          style: TextStyle(color: WalletColor.white),
+                        ),
+                        RaisedButton(
+                          child: const Text('点击重试'),
+                          onPressed: onRefresh,
+                        )
+                      ]),
+                );
               case FutureStatus.fulfilled:
                 return RefreshIndicator(
                   onRefresh: onRefresh,
-                  child: Container(
-                    height: _screenUtil.setHeight(600) + _avatarWidth / 2,
-                    padding: EdgeInsets.only(
-                      left: _screenUtil.setWidth(24),
-                      right: _screenUtil.setWidth(24),
-                      top: _screenUtil.setHeight(20),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(),
-                        Padding(
-                          padding: EdgeInsets.only(top: _avatarWidth / 2),
-                          child: Container(
-                              decoration: new BoxDecoration(
-                                  color: WalletColor.white,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: _screenUtil.setWidth(20)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.only(
-                                            top: _avatarWidth / 2 +
-                                                _screenUtil.setHeight(20)),
-                                        child: Center(
-                                          child: Text(identity.name,
-                                              style: WalletFont.font_18(
-                                                  textStyle: TextStyle(
-                                                      letterSpacing: 0,
-                                                      fontWeight:
-                                                          FontWeight.w600))),
-                                        )),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: _screenUtil.setHeight(28)),
-                                      child: Center(
-                                        child: observeQrImage(
-                                            _screenUtil.setWidth(200)),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: _screenUtil.setHeight(28)),
-                                      child: Center(
-                                        child: Text(
-                                            _certStore.currentCountDown
-                                                .map((countDown) =>
-                                                    '$countDown s')
-                                                .orElse(''),
-                                            style: WalletFont.font_14(
-                                                textStyle: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600))),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: _screenUtil.setHeight(28)),
-                                      child: Divider(
-                                          color: WalletColor.grey, height: 1),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: _screenUtil.setHeight(32)),
-                                      child: Text(
-                                          '绿码：截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
-                                          textAlign: TextAlign.left,
-                                          style: WalletFont.font_14(
-                                              textStyle: TextStyle(
-                                                  color: WalletColor.green,
-                                                  letterSpacing: 0,
-                                                  fontWeight:
-                                                      FontWeight.w400))),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: _screenUtil.setHeight(20)),
-                                      child: Text('红码：该身份的持有者有病毒污染暴露风险。',
-                                          textAlign: TextAlign.left,
-                                          style: WalletFont.font_14(
-                                              textStyle: TextStyle(
-                                                  color: WalletColor.red,
-                                                  letterSpacing: 0,
-                                                  fontWeight:
-                                                      FontWeight.w400))),
-                                    ),
-                                  ],
-                                ),
-                              )),
+                  child: ListView(
+                    children: [
+                      Container(
+                        height: _screenUtil.setHeight(600) + _avatarWidth / 2,
+                        padding: EdgeInsets.only(
+                          left: _screenUtil.setWidth(24),
+                          right: _screenUtil.setWidth(24),
+                          top: _screenUtil.setHeight(20),
                         ),
-                        Positioned(
-                            top: 0, child: AvatarWidget(width: _avatarWidth)),
-                      ],
-                    ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(),
+                            Padding(
+                              padding: EdgeInsets.only(top: _avatarWidth / 2),
+                              child: Container(
+                                  decoration: new BoxDecoration(
+                                      color: WalletColor.white,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: _screenUtil.setWidth(20)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                top: _avatarWidth / 2 +
+                                                    _screenUtil.setHeight(20)),
+                                            child: Center(
+                                              child: Text(identity.name,
+                                                  style: WalletFont.font_18(
+                                                      textStyle: TextStyle(
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight
+                                                              .w600))),
+                                            )),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: _screenUtil.setHeight(28)),
+                                          child: Center(
+                                            child: observeQrImage(
+                                                _screenUtil.setWidth(200)),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: _screenUtil.setHeight(28)),
+                                          child: Center(
+                                            child: Text(
+                                                _certStore.currentCountDown
+                                                    .map((countDown) =>
+                                                        '$countDown s')
+                                                    .orElse(''),
+                                                style: WalletFont.font_14(
+                                                    textStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600))),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: _screenUtil.setHeight(28)),
+                                          child: Divider(
+                                              color: WalletColor.grey,
+                                              height: 1),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: _screenUtil.setHeight(32)),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text('绿码：',
+                                                  textAlign: TextAlign.left,
+                                                  style: WalletFont.font_14(
+                                                      textStyle: TextStyle(
+                                                          color:
+                                                              WalletColor.green,
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight
+                                                              .w400))),
+                                              Expanded(
+                                                child: Text(
+                                                    '截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
+                                                    textAlign: TextAlign.left,
+                                                    style: WalletFont.font_14(
+                                                        textStyle: TextStyle(
+                                                            color: WalletColor
+                                                                .green,
+                                                            letterSpacing: 0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: _screenUtil.setHeight(20)),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text('红码：',
+                                                  textAlign: TextAlign.left,
+                                                  style: WalletFont.font_14(
+                                                      textStyle: TextStyle(
+                                                          color:
+                                                              WalletColor.red,
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight
+                                                              .w400))),
+                                              Expanded(
+                                                child: Text('该身份的持有者有病毒污染暴露风险。',
+                                                    textAlign: TextAlign.left,
+                                                    style: WalletFont.font_14(
+                                                        textStyle: TextStyle(
+                                                            color:
+                                                                WalletColor.red,
+                                                            letterSpacing: 0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            Positioned(
+                                top: 0,
+                                child: AvatarWidget(width: _avatarWidth)),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 );
             }

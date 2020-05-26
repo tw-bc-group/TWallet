@@ -7,7 +7,7 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 
 class HealthCertificatePage extends StatefulWidget {
   final String id;
@@ -77,6 +77,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
 
   @override
   Widget build(BuildContext context) {
+    // final screenUtil = ScreenUtil
     final TextStyle titleStyle = TextStyle(
         fontWeight: FontWeight.w600,
         color: WalletTheme.rgbColor('#222222'),
@@ -86,17 +87,18 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     final TextStyle errorStyle = TextStyle(color: Colors.red);
 
     return Observer(
-        builder: (_) => CommonLayout(
+        builder: (_) => NewCommonLayout(
             title: '健康认证',
             withBottomBtn: true,
             btnText: '确定',
             btnOnPressed: _pageStore.error.hasErrors ? null : handleConfirm,
             bodyBackColor: '#fafafa',
-            childBuilder: (context, constraints) => Observer(
+            child: Observer(
                 builder: (_) => SingleChildScrollView(
                     padding: EdgeInsets.all(25),
                     child: Column(
                       children: <Widget>[
+                        Padding(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
