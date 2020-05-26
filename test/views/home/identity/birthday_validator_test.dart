@@ -13,6 +13,8 @@ void main() {
     "2020-00-00": false,
     "2020-00-01": false,
     "2020-02-12": true,
+    "1899-12-31": false,
+    "2100-01-01": false,
   };
 
   test('should return true/false when inputting various format', () {

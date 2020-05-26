@@ -30,12 +30,12 @@ abstract class _IdentityNewStore with Store {
 
   List<ReactionDisposer> _disposers;
 
-  void setupAvatarAndValidators() {
+  void setErrorResetDispatchers() {
     _disposers = [
-      reaction((_) => name, validateUsername),
-      reaction((_) => phone, validatePhone),
-      reaction((_) => email, validateEmail),
-      reaction((_) => birthday, validateBirthday),
+      reaction((_) => name, resetNameError),
+      reaction((_) => phone, resetPhoneError),
+      reaction((_) => email, resetEmailError),
+      reaction((_) => birthday, resetBirthdayError),
     ];
   }
 
@@ -53,6 +53,25 @@ abstract class _IdentityNewStore with Store {
   }
 
   @action
+  void resetNameError(String value) {
+    error.username = null;
+  }
+  
+  @action
+  void resetPhoneError(String value) {
+    error.phone = null;
+  }
+  
+  @action
+  void resetEmailError(String value) {
+    error.email = null;
+  }
+  
+  @action
+  void resetBirthdayError(String value) {
+    error.birthday = null;
+  }
+
   void validateUsername(String value) {
     if (isNull(value) || value.isEmpty) {
       error.username = '不能为空';
@@ -64,18 +83,15 @@ abstract class _IdentityNewStore with Store {
     }
   }
 
-  @action
   void validatePhone(String value) {
     error.phone =
         value.isNotEmpty ? Util.isValidPhone(phone) ? null : '不是有效的手机号' : null;
   }
 
-  @action
   void validateEmail(String value) {
     error.email = value.isNotEmpty ? isEmail(value) ? null : '不是有效的电子邮件' : null;
   }
 
-  @action
   void validateBirthday(String value) {
     error.birthday =
         value.isNotEmpty ? isValidDate(value) ? null : '不是有效的日期' : null;

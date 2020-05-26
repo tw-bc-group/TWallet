@@ -80,44 +80,44 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
       ActionController(name: '_IdentityNewStore');
 
   @override
-  void validateUsername(String value) {
+  void resetNameError(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
-        name: '_IdentityNewStore.validateUsername');
+        name: '_IdentityNewStore.resetNameError');
     try {
-      return super.validateUsername(value);
+      return super.resetNameError(value);
     } finally {
       _$_IdentityNewStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void validatePhone(String value) {
+  void resetPhoneError(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
-        name: '_IdentityNewStore.validatePhone');
+        name: '_IdentityNewStore.resetPhoneError');
     try {
-      return super.validatePhone(value);
+      return super.resetPhoneError(value);
     } finally {
       _$_IdentityNewStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void validateEmail(String value) {
+  void resetEmailError(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
-        name: '_IdentityNewStore.validateEmail');
+        name: '_IdentityNewStore.resetEmailError');
     try {
-      return super.validateEmail(value);
+      return super.resetEmailError(value);
     } finally {
       _$_IdentityNewStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void validateBirthday(String value) {
+  void resetBirthdayError(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
-        name: '_IdentityNewStore.validateBirthday');
+        name: '_IdentityNewStore.resetBirthdayError');
     try {
-      return super.validateBirthday(value);
+      return super.resetBirthdayError(value);
     } finally {
       _$_IdentityNewStoreActionController.endAction(_$actionInfo);
     }

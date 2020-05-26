@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 
 class LoadingInterceptor extends InterceptorsWrapper {
   static int requestNum = 0;
@@ -41,20 +42,20 @@ class LoadingInterceptor extends InterceptorsWrapper {
 
   showLoading() {
     dialogInstance = YYDialog().build()
-      ..barrierColor = Color.fromRGBO(60, 60, 60, 0.1)
-      ..backgroundColor = Colors.transparent
-      ..width = 60
-      ..height = 60
-      ..widget(Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircularProgressIndicator(),
-              ],
-            ),
-          )))
+      ..borderRadius = 12
+      ..barrierColor = Colors.transparent
+      ..backgroundColor = WalletColor.white
+      ..width = 160
+      ..height = 160
+      ..widget(Container(
+        width: 60,
+        height: 60,
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(top: 50),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)
+        ),
+      ))
       ..show();
   }
 

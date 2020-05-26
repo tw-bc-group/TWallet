@@ -72,7 +72,7 @@ flutter:
   fonts:
     - family: PingFangHK
       fonts:
-        - asset: assets/fonts/PingFangHK.otf
+        - asset: assets/fonts/PingFang.ttc
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
