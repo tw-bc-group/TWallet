@@ -8,12 +8,11 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 Future<String> _initialRoute() async {
-  bool hasPin = await SecureStorage.get(SecureStorageItem.MasterKey) != null;
-  String mnemonics = await SecureStorage.get(SecureStorageItem.Mnemonics);
-
-  return !hasPin
-      ? Routes.inputPin
-      : mnemonics == null ? Routes.newWallet : Routes.home;
+  if (await SecureStorage.hasMnemonics()) {
+    return Routes.home;
+  } else {
+    return Routes.inputPin;
+  }
 }
 
 Future<void> main() async {
@@ -41,10 +40,9 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'TW Wallet',
               theme: ThemeData(
-                primaryColor: WalletColor.primary,
-                disabledColor: Colors.grey,
-                fontFamily: 'PingFangHK'
-              ),
+                  primaryColor: WalletColor.primary,
+                  disabledColor: Colors.grey,
+                  fontFamily: 'PingFangHK'),
               initialRoute: initialRoute,
               onGenerateRoute: Application.router.generator,
             );

@@ -30,4 +30,9 @@ class SecureStorage {
     return SecureStorageItem.values
         .forEach((item) async => await _storage.delete(key: item.asKey()));
   }
+
+  static Future<bool> hasMnemonics() {
+    return SecureStorage.get(SecureStorageItem.Mnemonics)
+        .then((res) => res != null);
+  }
 }
