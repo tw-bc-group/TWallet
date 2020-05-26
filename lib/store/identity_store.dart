@@ -27,13 +27,13 @@ abstract class IdentityStoreBase with Store {
   static final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
 
   IdentityStoreBase(
-      this.identities, int selectedIndex, int didHealthSelectIndex) {
+      this.identities, int _selectedIndex, int didHealthSelectIndex) {
     searchName = '';
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
-    selectIdentity(index: selectedIndex);
+    selectIdentity(index: _selectedIndex);
     healthCertLastSelectIndex = didHealthSelectIndex;
   }
 
@@ -51,8 +51,10 @@ abstract class IdentityStoreBase with Store {
 
     List<Identity> identities =
         Optional.ofNullable(await _db.getListLike('$IDENTITIES_NAME_KEY: %'))
-            .map((listItems) =>
-                listItems.map((item) => Identity.fromJson(item)).toList())
+            .map((listItems) => listItems.map((item) {
+                  var identity = Identity.fromJson(item);
+                  return identity.setSelected(false);
+                }).toList())
             .orElse([]);
 
     return IdentityStore(
@@ -97,6 +99,13 @@ abstract class IdentityStoreBase with Store {
   Amount get myBalance =>
       selectedIdentity.map((identity) => identity.balance).orElse(Amount.zero);
 
+  @computed
+  List<Identity> get selectedFirstIdentities {
+    var ids = identities.toList();
+    Identity selectedIdentity = ids.removeAt(selectedIndex ?? 0);
+    return [selectedIdentity] + ids;
+  }
+
   void _identitiesSort() {
     identities.sort(
         (identity1, identity2) => identity1.name.compareTo(identity2.name));
@@ -121,10 +130,24 @@ abstract class IdentityStoreBase with Store {
     if (index >= 0 && index < identities.length) {
       await _db
           .setItem(SELECTED_INDEX_KEY, {SELECTED_INDEX_KEY: index}).then((_) {
-        selectedIndex = index;
+        updateIdentityIsSelected(index);
         return fetchLatestPoint();
       });
     }
+  }
+
+  @action
+  void setIdentityIsSelected(int index, bool value) {
+    identities[index] =
+        identities[index].rebuild((id) => id..isSelected = value);
+  }
+
+  @action
+  void updateIdentityIsSelected(int nexIndex) {
+    var _lastSelectedIndex = selectedIndex ?? nexIndex;
+    setIdentityIsSelected(_lastSelectedIndex, false);
+    setIdentityIsSelected(nexIndex, true);
+    selectedIndex = nexIndex;
   }
 
   @action
@@ -143,7 +166,7 @@ abstract class IdentityStoreBase with Store {
     int index = identities.indexWhere((other) => other.name == identity.name);
     if (index >= 0) {
       identities[index] = identity;
-      selectedIndex = index;
+      updateIdentityIsSelected(index);
     } else {
       throw Exception('Identity updated not exist.');
     }

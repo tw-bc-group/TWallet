@@ -39,7 +39,10 @@ class HomePageHeader extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 34), child: avatar)),
           Container(
               margin: EdgeInsets.only(bottom: 24), child: _buildName(name)),
-          _buildChangeIdentityButton(),
+          GestureDetector(
+            onTap: onChangeIdentityTap,
+            child: _buildChangeIdentityButton(),
+          ),
           tabBar,
         ],
       ),

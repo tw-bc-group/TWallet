@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
@@ -11,6 +12,7 @@ import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/empty_page.dart';
+import 'package:tw_wallet_ui/widgets/identity_selection_sheet.dart';
 
 import 'home_page_header.dart';
 import 'home_page_tab.dart';
@@ -70,6 +72,7 @@ class _HomePageState extends State<HomePage>
               avatar: _avatar,
               tabBar: _buildTabBar,
               onAvatarTap: () => _onAvatarTap(context),
+              onChangeIdentityTap: () => _onChangeIdentityTap(context),
             ),
             _mainContent,
           ],
@@ -112,5 +115,26 @@ class _HomePageState extends State<HomePage>
       final path = '${Routes.identityDetail}?id=${identity.id}';
       Application.router.navigateTo(context, path);
     });
+  }
+
+  _onChangeIdentityTap(BuildContext context) {
+    final ids = _identityStore.selectedFirstIdentities;
+
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return IdentitySelectionSheet(
+          identities: ids,
+          onSheetItemTap: (index) => _onIdentityCardTap(context, ids[index]),
+        );
+      },
+    );
+  }
+
+  _onIdentityCardTap(BuildContext context, Identity selectedId) {
+    _identityStore.updateSelectedIdentity(selectedId);
+    Navigator.pop(context);
   }
 }

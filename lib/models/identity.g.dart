@@ -69,6 +69,12 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add(serializers.serialize(object.healthStatus,
             specifiedType: const FullType(String)));
     }
+    if (object.isSelected != null) {
+      result
+        ..add('isSelected')
+        ..add(serializers.serialize(object.isSelected,
+            specifiedType: const FullType(bool)));
+    }
     return result;
   }
 
@@ -123,6 +129,10 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.healthStatus = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'isSelected':
+          result.isSelected = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
       }
     }
 
@@ -151,6 +161,8 @@ class _$Identity extends Identity {
   final String healthCertificateStatus;
   @override
   final String healthStatus;
+  @override
+  final bool isSelected;
   String __address;
   DID __did;
 
@@ -167,7 +179,8 @@ class _$Identity extends Identity {
       this.birthday,
       this.balance,
       this.healthCertificateStatus,
-      this.healthStatus})
+      this.healthStatus,
+      this.isSelected})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
@@ -206,7 +219,8 @@ class _$Identity extends Identity {
         birthday == other.birthday &&
         balance == other.balance &&
         healthCertificateStatus == other.healthCertificateStatus &&
-        healthStatus == other.healthStatus;
+        healthStatus == other.healthStatus &&
+        isSelected == other.isSelected;
   }
 
   @override
@@ -218,15 +232,17 @@ class _$Identity extends Identity {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                    pubKey.hashCode),
-                                priKey.hashCode),
-                            phone.hashCode),
-                        email.hashCode),
-                    birthday.hashCode),
-                balance.hashCode),
-            healthCertificateStatus.hashCode),
-        healthStatus.hashCode));
+                                $jc(
+                                    $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                        pubKey.hashCode),
+                                    priKey.hashCode),
+                                phone.hashCode),
+                            email.hashCode),
+                        birthday.hashCode),
+                    balance.hashCode),
+                healthCertificateStatus.hashCode),
+            healthStatus.hashCode),
+        isSelected.hashCode));
   }
 
   @override
@@ -241,7 +257,8 @@ class _$Identity extends Identity {
           ..add('birthday', birthday)
           ..add('balance', balance)
           ..add('healthCertificateStatus', healthCertificateStatus)
-          ..add('healthStatus', healthStatus))
+          ..add('healthStatus', healthStatus)
+          ..add('isSelected', isSelected))
         .toString();
   }
 }
@@ -290,6 +307,10 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String get healthStatus => _$this._healthStatus;
   set healthStatus(String healthStatus) => _$this._healthStatus = healthStatus;
 
+  bool _isSelected;
+  bool get isSelected => _$this._isSelected;
+  set isSelected(bool isSelected) => _$this._isSelected = isSelected;
+
   IdentityBuilder();
 
   IdentityBuilder get _$this {
@@ -304,6 +325,7 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
       _balance = _$v.balance;
       _healthCertificateStatus = _$v.healthCertificateStatus;
       _healthStatus = _$v.healthStatus;
+      _isSelected = _$v.isSelected;
       _$v = null;
     }
     return this;
@@ -335,7 +357,8 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
             birthday: birthday,
             balance: balance,
             healthCertificateStatus: healthCertificateStatus,
-            healthStatus: healthStatus);
+            healthStatus: healthStatus,
+            isSelected: isSelected);
     replace(_$result);
     return _$result;
   }

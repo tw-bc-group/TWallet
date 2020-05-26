@@ -37,6 +37,14 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       (_$myBalanceComputed ??= Computed<Amount>(() => super.myBalance,
               name: 'IdentityStoreBase.myBalance'))
           .value;
+  Computed<List<Identity>> _$selectedFirstIdentitiesComputed;
+
+  @override
+  List<Identity> get selectedFirstIdentities =>
+      (_$selectedFirstIdentitiesComputed ??= Computed<List<Identity>>(
+              () => super.selectedFirstIdentities,
+              name: 'IdentityStoreBase.selectedFirstIdentities'))
+          .value;
 
   final _$selectedIndexAtom = Atom(name: 'IdentityStoreBase.selectedIndex');
 
@@ -166,6 +174,28 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   }
 
   @override
+  void setIdentityIsSelected(int index, bool value) {
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
+        name: 'IdentityStoreBase.setIdentityIsSelected');
+    try {
+      return super.setIdentityIsSelected(index, value);
+    } finally {
+      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateIdentityIsSelected(int nexIndex) {
+    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
+        name: 'IdentityStoreBase.updateIdentityIsSelected');
+    try {
+      return super.updateIdentityIsSelected(nexIndex);
+    } finally {
+      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void updateSelectedIdentity(Identity identity) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.updateSelectedIdentity');
@@ -197,7 +227,8 @@ searchName: ${searchName},
 selectedIdentity: ${selectedIdentity},
 myName: ${myName},
 myAddress: ${myAddress},
-myBalance: ${myBalance}
+myBalance: ${myBalance},
+selectedFirstIdentities: ${selectedFirstIdentities}
     ''';
   }
 }

@@ -27,7 +27,7 @@ class AvatarWidget extends StatelessWidget {
           height: _width,
           child: CircleAvatar(
               backgroundColor: WalletColor.grey,
-              child: SvgPicture.asset('assets/icons/avatar.svg'))),
+              child: SvgPicture.asset('assets/icons/avatar.svg',width: _width,height: _width,))),
     );
   }
 }

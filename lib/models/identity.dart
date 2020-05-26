@@ -50,6 +50,12 @@ abstract class Identity extends Object
   @memoized
   DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
 
+  @memoized
+  @nullable
+  bool get isSelected;
+
+  Identity setSelected(value) => rebuild((id) => id..isSelected = value);
+
   Future<bool> register() async {
     return getIt<ContractService>().identityRegistryContract.signContractCall(
         priKey, 'createIdentity', [
