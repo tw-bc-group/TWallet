@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/store/tx_list_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
-import 'package:tw_wallet_ui/views/tx_list/widgets/base_app_bar.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tool_bar_panel.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_list_item.dart';
+import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 
 class TxListPage extends StatefulWidget {
   const TxListPage();
@@ -51,12 +53,80 @@ class _TxListPageState extends State<TxListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _buildAppBar(), body: _buildMainContent());
+    return NewCommonLayout(
+      title: 'DC/EP',
+      withBottomNavigationBar: false,
+      child: Observer(
+        builder: (context) => Column(
+          children: <Widget>[
+            buildHeader(),
+            buildBody(),
+            buildFooter()
+          ],
+        )
+      )
+    );
   }
 
-  Widget _buildAppBar() {
-    return baseAppBar(
-        title: globalEnv().tokenName, bottom: _buildToolBarPanel());
+  Widget buildHeader() {
+    return Container(
+      margin: EdgeInsets.only(top: 34),
+      alignment: Alignment.center,
+      child: Text(
+        '￥50.00',
+        style: WalletFont.font_24(
+          textStyle: TextStyle(
+            color: WalletColor.white
+          )
+        ),
+      ),
+    );
+  }
+
+  Widget buildBody() {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.only(top: 34),
+        padding: EdgeInsets.only(left: 24, right: 24, top: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12)),
+          color: WalletColor.white
+        ),
+        child: buildListView()
+      ),
+    );
+  }
+
+  Widget buildFooter() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: WalletTheme.button(
+              text: '转账',
+              onPressed: () {},
+              buttonType: ButtonType.OUTLINE,
+              outlineColor: WalletColor.white
+            )
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            child: WalletTheme.button(
+              text: '收款',
+              onPressed: () {},
+              buttonType: ButtonType.OUTLINE,
+              outlineColor: WalletColor.white
+            )
+          )
+        ],
+      ),
+    );
   }
 
   Widget _buildAppBarTrailing() {
@@ -85,7 +155,7 @@ class _TxListPageState extends State<TxListPage> {
 
   Widget _buildMainContent() {
     return Observer(builder: (context) {
-      return Material(child: _buildListView());
+      return Material(child: buildListView());
     });
   }
 
@@ -93,32 +163,35 @@ class _TxListPageState extends State<TxListPage> {
     return fromAddress.toLowerCase() == iStore.myAddress.toLowerCase();
   }
 
-  Widget _buildListView() {
+  Widget buildListView() {
     final txList = store.list;
-    return txList == null || txList.length == 0
-        ? Center(child: Text("no content"))
-        : ListView.separated(
-            padding: const EdgeInsets.all(8),
-            itemCount: txList?.length == null ? 0 : txList?.length,
-            itemBuilder: (BuildContext context, int index) {
-              final item = txList[index];
-              return Container(
-                height: 70,
-                child: TxListItem(
-                    _isExpense(item.fromAddress)
-                        ? item.toAddress
-                        : item.fromAddress,
-                    item.txType,
-                    _amountWithSignal(
-                        _isExpense(item.fromAddress), item.amount.value),
-                    item.createTime,
-                    () => _onTap(item),
-                    _isExpense(item.fromAddress)),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
-          );
+    
+    if (txList == null || txList.length == 0) {
+      return Center(child: Text("no content"));
+    }
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: txList?.length == null ? 0 : txList?.length,
+      itemBuilder: (BuildContext context, int index) {
+        final item = txList[index];
+        return Container(
+          height: 70,
+          child: TxListItem(
+              _isExpense(item.fromAddress)
+                  ? item.toAddress
+                  : item.fromAddress,
+              item.txType,
+              _amountWithSignal(
+                  _isExpense(item.fromAddress), item.amount.value),
+              item.createTime,
+              () => _onTap(item),
+              _isExpense(item.fromAddress)),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) =>
+          const Divider(),
+    );
   }
 
   Amount _amountWithSignal(bool isExpense, Decimal decimal) {

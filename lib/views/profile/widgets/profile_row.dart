@@ -22,7 +22,7 @@ class ProfileRowWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(right: 66),
+            margin: EdgeInsets.only(right: 50),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[

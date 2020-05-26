@@ -13,7 +13,8 @@ class WalletTheme {
       {String text,
       Function onPressed,
       ButtonType buttonType = ButtonType.DEFAULT,
-      double height = 45}) {
+      double height = 45,
+      Color outlineColor}) {
     var raisedButton = RaisedButton(
       color: WalletColor.primary,
       disabledColor: WalletColor.middleGrey,
@@ -26,11 +27,11 @@ class WalletTheme {
                   textStyle: TextStyle(color: WalletColor.white)))),
     );
     var outlineButton = OutlineButton(
-      textColor: WalletColor.primary,
+      textColor: outlineColor != null ? outlineColor : WalletColor.primary,
       disabledTextColor: WalletColor.middleGrey,
       disabledBorderColor: WalletColor.middleGrey,
-      borderSide: BorderSide(color: WalletColor.primary),
-      highlightedBorderColor: WalletColor.primary,
+      borderSide: BorderSide(color: outlineColor != null ? outlineColor : WalletColor.primary),
+      highlightedBorderColor: outlineColor != null ? outlineColor : WalletColor.primary,
       onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Center(

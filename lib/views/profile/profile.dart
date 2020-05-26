@@ -79,7 +79,6 @@ class ProfilePage extends StatelessWidget {
                     },
                   ),
                   ProfileRowWidget(assetIcon: 'assets/icons/qrcode.svg', name: '二维码名片', value: _buildQR(context, identity), withoutBottomBorder: true),
-                  // ProfileRowWidget(value: buildHealthBtn(context))
                 ],
               ),
             )
@@ -88,29 +87,6 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-
-  // Widget buildHealthBtn(BuildContext context) {
-  //   return Observer(builder: (BuildContext context) {
-  //     return GestureDetector(
-  //       onTap: () => onHealthBtnTap(context),
-  //       child: Container(
-  //         width: 70,
-  //         height: 30,
-  //         decoration: BoxDecoration(
-  //           border: Border.all(width: 2, color: Theme.of(context).primaryColor),
-  //           borderRadius: BorderRadius.all(Radius.circular(8)),
-  //         ),
-  //         child: Center(
-  //           child: Text(
-  //             certTitle(),
-  //             style: TextStyle(
-  //                 fontSize: 12, color: Theme.of(context).primaryColor),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
 
   Widget _buildQR(BuildContext context, Identity id) {
     return GestureDetector(
