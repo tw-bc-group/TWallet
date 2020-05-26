@@ -4,6 +4,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
@@ -41,6 +42,11 @@ class MyApp extends StatelessWidget {
               title: 'TW Wallet',
               theme: ThemeData(
                   primaryColor: WalletColor.primary,
+                  textTheme: TextTheme(
+                      bodyText2: WalletFont.font_14(
+                          textStyle: TextStyle(
+                              color: WalletColor.primary,
+                              fontWeight: FontWeight.w400))),
                   disabledColor: Colors.grey,
                   fontFamily: 'PingFangHK'),
               initialRoute: initialRoute,

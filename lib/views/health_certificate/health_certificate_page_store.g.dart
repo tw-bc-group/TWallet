@@ -6,16 +6,16 @@ part of 'health_certificate_page_store.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const SelectOption _$yes = const SelectOption._('yes');
 const SelectOption _$no = const SelectOption._('no');
+const SelectOption _$yes = const SelectOption._('yes');
 const SelectOption _$notSure = const SelectOption._('notSure');
 
 SelectOption _$valueOf(String name) {
   switch (name) {
-    case 'yes':
-      return _$yes;
     case 'no':
       return _$no;
+    case 'yes':
+      return _$yes;
     case 'notSure':
       return _$notSure;
     default:
@@ -25,8 +25,8 @@ SelectOption _$valueOf(String name) {
 
 final BuiltSet<SelectOption> _$values =
     new BuiltSet<SelectOption>(const <SelectOption>[
-  _$yes,
   _$no,
+  _$yes,
   _$notSure,
 ]);
 
@@ -35,13 +35,13 @@ Serializer<SelectOption> _$selectOptionSerializer =
 
 class _$SelectOptionSerializer implements PrimitiveSerializer<SelectOption> {
   static const Map<String, Object> _toWire = const <String, Object>{
-    'yes': 'Yes',
     'no': 'No',
+    'yes': 'Yes',
     'notSure': 'NOT_SURE',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
-    'Yes': 'yes',
     'No': 'no',
+    'Yes': 'yes',
     'NOT_SURE': 'notSure',
   };
 
@@ -70,6 +70,14 @@ class _$SelectOptionSerializer implements PrimitiveSerializer<SelectOption> {
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
+  Computed<bool> _$hasEmptyComputed;
+
+  @override
+  bool get hasEmpty =>
+      (_$hasEmptyComputed ??= Computed<bool>(() => super.hasEmpty,
+              name: '_HealthCertificatePageStore.hasEmpty'))
+          .value;
+
   final _$phoneAtom = Atom(name: '_HealthCertificatePageStore.phone');
 
   @override
@@ -153,33 +161,66 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
       ActionController(name: '_HealthCertificatePageStore');
 
   @override
-  void validatePhone(String value) {
+  void validatePhone() {
     final _$actionInfo = _$_HealthCertificatePageStoreActionController
         .startAction(name: '_HealthCertificatePageStore.validatePhone');
     try {
-      return super.validatePhone(value);
+      return super.validatePhone();
     } finally {
       _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void validateTemplate(String value) {
+  void validateTemplate() {
     final _$actionInfo = _$_HealthCertificatePageStoreActionController
         .startAction(name: '_HealthCertificatePageStore.validateTemplate');
     try {
-      return super.validateTemplate(value);
+      return super.validateTemplate();
     } finally {
       _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void validateCommitment(bool value) {
+  void updatePhone(String value) {
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.updatePhone');
+    try {
+      return super.updatePhone(value);
+    } finally {
+      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateTemperature(String value) {
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.updateTemperature');
+    try {
+      return super.updateTemperature(value);
+    } finally {
+      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateCommitment(bool value) {
+    final _$actionInfo = _$_HealthCertificatePageStoreActionController
+        .startAction(name: '_HealthCertificatePageStore.updateCommitment');
+    try {
+      return super.updateCommitment(value);
+    } finally {
+      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void validateCommitment() {
     final _$actionInfo = _$_HealthCertificatePageStoreActionController
         .startAction(name: '_HealthCertificatePageStore.validateCommitment');
     try {
-      return super.validateCommitment(value);
+      return super.validateCommitment();
     } finally {
       _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
     }
@@ -203,7 +244,8 @@ phone: ${phone},
 temperature: ${temperature},
 contactOption: ${contactOption},
 symptomsOption: ${symptomsOption},
-hasCommitment: ${hasCommitment}
+hasCommitment: ${hasCommitment},
+hasEmpty: ${hasEmpty}
     ''';
   }
 }

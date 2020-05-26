@@ -3,17 +3,16 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/util.dart';
-import 'package:validators/validators.dart';
 
 part 'health_certificate_page_store.g.dart';
 
 class SelectOption extends EnumClass {
   static Serializer<SelectOption> get serializer => _$selectOptionSerializer;
 
-  @BuiltValueEnumConst(wireName: 'Yes')
-  static const SelectOption yes = _$yes;
   @BuiltValueEnumConst(wireName: 'No')
   static const SelectOption no = _$no;
+  @BuiltValueEnumConst(wireName: 'Yes')
+  static const SelectOption yes = _$yes;
   @BuiltValueEnumConst(wireName: 'NOT_SURE')
   static const SelectOption notSure = _$notSure;
 
@@ -53,10 +52,10 @@ abstract class _HealthCertificatePageStore with Store {
   final FormErrorState error = FormErrorState();
 
   @observable
-  String phone;
+  String phone = '';
 
   @observable
-  String temperature;
+  String temperature = '';
 
   @observable
   SelectOption contactOption = SelectOption.no;
@@ -67,40 +66,29 @@ abstract class _HealthCertificatePageStore with Store {
   @observable
   bool hasCommitment = false;
 
-  List<ReactionDisposer> _disposers;
+  @computed
+  bool get hasEmpty => phone.isEmpty || temperature.isEmpty || !hasCommitment;
 
-  void setupDisposers() {
-    _disposers = [
-      reaction((_) => phone, validatePhone),
-      reaction((_) => temperature, validateTemplate),
-      reaction((_) => hasCommitment, validateCommitment),
-    ];
-  }
-
-  void dispose() {
-    _disposers.forEach((dispose) => dispose());
+  @action
+  void validatePhone() {
+    error.phone = phone.isEmpty
+        ? '手机号码不能为空'
+        : Util.isValidPhone(phone) ? null : '不是有效的手机号';
   }
 
   @action
-  void validatePhone(String value) {
-    error.phone = isNull(value)
-        ? '*手机号码不能为空'
-        : Util.isValidPhone(phone) ? null : '*不是有效的手机号';
-  }
-
-  @action
-  void validateTemplate(String value) {
-    if (isNull(value)) {
-      error.temperature = '*体温不能为空';
+  void validateTemplate() {
+    if (temperature.isEmpty) {
+      error.temperature = '体温不能为空';
       return;
     }
 
     try {
-      double res = double.parse(value);
-      int indexOfDot = value.indexOf('.');
+      double res = double.parse(temperature);
+      int indexOfDot = temperature.indexOf('.');
       if (res < 36 || res > 42) {
         error.temperature = '请输入 35 ~ 42℃ 范围内体温';
-      } else if (indexOfDot >= 0 && value.length - indexOfDot > 2) {
+      } else if (indexOfDot >= 0 && temperature.length - indexOfDot > 2) {
         error.temperature = '体温仅支持 1 位小数';
       } else {
         error.temperature = null;
@@ -111,15 +99,33 @@ abstract class _HealthCertificatePageStore with Store {
   }
 
   @action
-  void validateCommitment(bool value) {
-    error.commitment = (value == null || !value) ? '*必选' : null;
+  void updatePhone(String value) {
+    phone = value;
+    error.phone = null;
+  }
+
+  @action
+  void updateTemperature(String value) {
+    temperature = value;
+    error.temperature = null;
+  }
+
+  @action
+  void updateCommitment(bool value) {
+    hasCommitment = value;
+    error.commitment = null;
+  }
+
+  @action
+  void validateCommitment() {
+    error.commitment = hasCommitment ? null : '必选';
   }
 
   @action
   validateAll() {
-    validatePhone(phone);
-    validateTemplate(temperature);
-    validateCommitment(hasCommitment);
+    validatePhone();
+    validateTemplate();
+    validateCommitment();
   }
 }
 

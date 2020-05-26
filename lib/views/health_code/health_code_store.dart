@@ -22,7 +22,7 @@ abstract class HealthCodeStoreBase with Store {
   StreamController<ObservableFuture<void>> _fetchHealthCodeStreamController;
   ObservableStream<ObservableFuture<void>> fetchHealthCodeStream;
 
-  HealthCodeStoreBase(this.did, this.initialCountDown) {
+  HealthCodeStoreBase(this.did, this.initialCountDown, bool notRefresh) {
     _fetchHealthCodeStreamController = StreamController();
     fetchHealthCodeStream = ObservableStream(
         _fetchHealthCodeStreamController.stream,
@@ -38,7 +38,10 @@ abstract class HealthCodeStoreBase with Store {
         fetchLatestHealthCode();
       }
     });
-    fetchLatestHealthCode();
+
+    if (!notRefresh) {
+      fetchLatestHealthCode();
+    }
   }
 
   void dispose() {

@@ -13,16 +13,15 @@ class NewCommonLayout extends StatelessWidget {
   final BackIcon backIcon;
   final bool withBottomNavigationBar;
 
-  NewCommonLayout({
-    this.child,
-    this.withBottomBtn = false,
-    this.btnText = '完成',
-    this.btnOnPressed,
-    this.title,
-    this.bodyBackColor = WalletColor.PRIMARY,
-    this.backIcon = BackIcon.ARROW,
-    this.withBottomNavigationBar = true
-  });
+  NewCommonLayout(
+      {this.child,
+      this.withBottomBtn = false,
+      this.btnText = '完成',
+      this.btnOnPressed,
+      this.title,
+      this.bodyBackColor = WalletColor.PRIMARY,
+      this.backIcon = BackIcon.ARROW,
+      this.withBottomNavigationBar = true});
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +42,10 @@ class NewCommonLayout extends StatelessWidget {
         titleSpacing: 0.0,
       ),
       bottomNavigationBar: Theme(
-        data: Theme.of(context),
-        child: Container(
-          color: WalletColor.white,
-          height: withBottomNavigationBar ? 30 : 0
-        )
-      ),
+          data: Theme.of(context),
+          child: Container(
+              color: WalletColor.white,
+              height: withBottomNavigationBar ? 30 : 0)),
       body: GestureDetector(
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);
@@ -57,23 +54,24 @@ class NewCommonLayout extends StatelessWidget {
             }
           },
           child: SafeArea(
-            maintainBottomViewPadding: true,
-            child: Container(
-              padding: withBottomNavigationBar ? null : EdgeInsets.only(bottom: 30),
-              child: Column(
-                children: <Widget>[
-                  Expanded(child: child),
-                  if (withBottomBtn)
-                    Container(
-                        color: WalletColor.white,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-                        child: WalletTheme.button(
-                            text: btnText, onPressed: btnOnPressed))
-                ],
-              ),
-            )
-          )),
+              maintainBottomViewPadding: true,
+              child: Container(
+                padding: withBottomNavigationBar
+                    ? null
+                    : EdgeInsets.only(bottom: 30),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(child: child),
+                    if (withBottomBtn)
+                      Container(
+                          color: WalletColor.white,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16, horizontal: 30),
+                          child: WalletTheme.button(
+                              text: btnText, onPressed: btnOnPressed))
+                  ],
+                ),
+              ))),
     );
   }
 }

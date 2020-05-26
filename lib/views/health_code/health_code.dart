@@ -20,23 +20,21 @@ import 'health_code_store.dart';
 
 class HealthCodePage extends StatefulWidget {
   final String id;
+  final bool notRefresh;
 
   @override
-  State<StatefulWidget> createState() {
-    return HealthCodeState(id: id);
-  }
+  State<StatefulWidget> createState() => HealthCodeState();
 
-  HealthCodePage({this.id});
+  HealthCodePage(this.id, this.notRefresh);
 }
 
 class HealthCodeState extends State<HealthCodePage> {
   final certStore = getIt<HealthCertificationStore>();
   HealthCodeStore _certStore;
 
-  final String id;
   Identity identity;
 
-  HealthCodeState({this.id});
+  HealthCodeState();
 
   Future onRefresh() async {
     return _certStore.fetchLatestHealthCode();
@@ -45,8 +43,8 @@ class HealthCodeState extends State<HealthCodePage> {
   @override
   void initState() {
     super.initState();
-    identity = getIt<IdentityStore>().getIdentityById(id);
-    _certStore = HealthCodeStore(identity.did, 60);
+    identity = getIt<IdentityStore>().getIdentityById(widget.id);
+    _certStore = HealthCodeStore(identity.did, 60, widget.notRefresh);
   }
 
   @override

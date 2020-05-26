@@ -9,10 +9,10 @@ import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
 import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
-import 'package:tw_wallet_ui/views/profile/profile.dart';
 import 'package:tw_wallet_ui/views/identity_qr/identity_qr_code.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
+import 'package:tw_wallet_ui/views/profile/profile.dart';
 import 'package:tw_wallet_ui/views/qr_scanner/qr_scanner.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
@@ -119,7 +119,12 @@ var qrScannerHandler = Handler(
 
 var healthCodeHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return HealthCodePage(id: params['id'].first);
+    return HealthCodePage(
+        params['id'].first,
+        Optional.ofNullable(params['notRefresh'])
+            .flatMap((v) => Optional.ofNullable(v[0]))
+            .map((v) => v.toLowerCase() == 'true')
+            .orElse(false));
   },
 );
 
