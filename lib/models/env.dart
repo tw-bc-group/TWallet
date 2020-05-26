@@ -20,7 +20,7 @@ abstract class Env extends Object implements Built<Env, EnvBuilder> {
       ..apiGatewayBaseUrl = 'https://dev.tw-wallet.in2e.com'
       ..apiGatewayConnectTimeout = 30 * 1000
       ..web3RpcGatewayUrl = 'http://quorum.tw-wallet.in2e.com:22000'
-      ..didPrefix = 'DID:TW:'
+      ..didPrefix = 'did:tw:'
       ..tokenName = 'TW Point'
       ..tokenSymbol = '￥'
       ..tokenPrecision = 2

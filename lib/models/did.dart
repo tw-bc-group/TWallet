@@ -1,11 +1,13 @@
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:web3dart/credentials.dart';
 
-class DID extends Object {
+class DID {
   final EthereumAddress ethAddress;
-  const DID(this.ethAddress);
+  DID(this.ethAddress);
 
   String get eip55Address => ethAddress.hexEip55;
+
+  String get shorthandValue => '${this.toString().substring(0, 10)}*${this.toString().substring(44)}';
 
   static String _withoutPrefixTag(String original) {
     return original.substring(globalEnv().didPrefix.length);

@@ -170,8 +170,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                   text: '确定创建身份',
                                   onPressed: store.error.hasErrors || isAdding
                                       ? null
-                                      : _addOnPressed,
-                                  buttonType: ButtonType.OUTLINE))
+                                      : _addOnPressed))
                         ],
                       ),
                     )))

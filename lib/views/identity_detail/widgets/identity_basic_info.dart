@@ -89,14 +89,17 @@ class IdentityBasicInfoWidget extends StatelessWidget {
                       )
                     ),
                     Expanded(
-                      child: Text(
-                        identity.did.toString(),
-                        style: WalletFont.font_14(
-                          textStyle: TextStyle(
-                            fontWeight: FontWeight.w600
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          identity.did.shorthandValue,
+                          style: WalletFont.font_14(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w600
+                            )
                           )
-                        )
-                      ),
+                        ),
+                      )
                     )
                   ],
                 ),
