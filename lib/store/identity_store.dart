@@ -156,7 +156,7 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> addIdentity({@required Identity identity}) async {
     _db.setItem(_itemKey(identity.name), identity.toJson()).then((_) {
-      identities.add(identity);
+      identities.add(identity.setSelected(false));
       _identitiesSort();
       if (identities.length == 1) {
         selectIdentity(index: 0);

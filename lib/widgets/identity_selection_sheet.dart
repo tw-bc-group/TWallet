@@ -40,7 +40,7 @@ class IdentitySelectionSheet extends StatelessWidget {
                         name: e.name,
                         did: e.did.toString(),
                         bgColor: WalletColor.identityCardBg,
-                        isSelected: e.isSelected,
+                        isSelected: e.isSelected ?? false,
                       ),
                     )
                   ),

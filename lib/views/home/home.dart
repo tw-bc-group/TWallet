@@ -9,7 +9,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/home_page.dart';
-import 'discovery/discovery.dart';
+import 'discovery/discovery_page.dart';
 import 'identity/identity_page.dart';
 import 'my/my_page.dart';
 
