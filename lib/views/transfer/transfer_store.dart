@@ -23,10 +23,10 @@ abstract class _TransferStore with Store {
 
   List<ReactionDisposer> _disposers;
 
-  void setupValidators() {
+  void setupErrorReseters() {
     _disposers = [
-      reaction((_) => amount, validateAmount),
-      reaction((_) => payeeAddress, validatePayeeAddress),
+      reaction((_) => amount, resetAmountError),
+      reaction((_) => payeeAddress, resetAddressError),
     ];
   }
 
@@ -39,6 +39,16 @@ abstract class _TransferStore with Store {
   void validateAll() {
     validateAmount(amount);
     validatePayeeAddress(payeeAddress);
+  }
+
+  @action
+  void resetAmountError(String value) {
+    error.amount = null;
+  }
+  
+  @action
+  void resetAddressError(String value) {
+    error.payeeAddress = null;
   }
 
   @action
@@ -79,7 +89,14 @@ abstract class _TransferStore with Store {
 
   @action
   void validatePayeeAddress(String value) {
-    String address = (value ?? '').startsWith('0x') ? value : '0x$value';
+    if (!value.startsWith(globalEnv().didPrefix)) {
+      error.payeeAddress = '请输入有效的收款人地址';
+      return;
+    }
+
+    String address = value.substring(7);
+    print(address);
+
     try {
       EthereumAddress.fromHex(address);
       if (address == payerAddress) {

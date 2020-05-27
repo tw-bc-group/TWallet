@@ -85,7 +85,7 @@ class _TxListPageState extends State<TxListPage> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.only(top: 34),
-        padding: EdgeInsets.only(left: 24, right: 24, top: 20),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12),
