@@ -112,7 +112,10 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             color: WalletColor.lightGrey),
                         child: buildWords(store)),
-                    Tips(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: Tips('助记词为账户凭证，为了避免账户被盗，请勿截图'),
+                    ),
                   ],
                 ),
               ],

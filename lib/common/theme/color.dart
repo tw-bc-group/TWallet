@@ -26,5 +26,6 @@ class WalletColor {
   static final Color green = WalletTheme.rgbColor(GREEN);
   static final Color red = WalletTheme.rgbColor(RED);
   static final Color identityCardBg = WalletTheme.rgbColor("#f2f4fa");
+  static final Color boxShadow = WalletTheme.rgbColor("#0f0000");
   static final Color blue = WalletTheme.rgbColor(BLUE);
 }
