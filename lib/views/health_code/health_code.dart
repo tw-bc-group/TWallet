@@ -20,12 +20,12 @@ import 'health_code_store.dart';
 
 class HealthCodePage extends StatefulWidget {
   final String id;
-  final bool notRefresh;
+  final bool firstRefresh;
 
   @override
   State<StatefulWidget> createState() => HealthCodeState();
 
-  HealthCodePage(this.id, this.notRefresh);
+  HealthCodePage(this.id, this.firstRefresh);
 }
 
 class HealthCodeState extends State<HealthCodePage> {
@@ -44,7 +44,7 @@ class HealthCodeState extends State<HealthCodePage> {
   void initState() {
     super.initState();
     identity = getIt<IdentityStore>().getIdentityById(widget.id);
-    _certStore = HealthCodeStore(identity.did, 60, widget.notRefresh);
+    _certStore = HealthCodeStore(identity.did, 60, widget.firstRefresh);
   }
 
   @override

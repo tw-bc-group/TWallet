@@ -216,17 +216,6 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
   }
 
   @override
-  void validateCommitment() {
-    final _$actionInfo = _$_HealthCertificatePageStoreActionController
-        .startAction(name: '_HealthCertificatePageStore.validateCommitment');
-    try {
-      return super.validateCommitment();
-    } finally {
-      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic validateAll() {
     final _$actionInfo = _$_HealthCertificatePageStoreActionController
         .startAction(name: '_HealthCertificatePageStore.validateAll');
@@ -289,27 +278,11 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$commitmentAtom = Atom(name: '_FormErrorState.commitment');
-
-  @override
-  String get commitment {
-    _$commitmentAtom.reportRead();
-    return super.commitment;
-  }
-
-  @override
-  set commitment(String value) {
-    _$commitmentAtom.reportWrite(value, super.commitment, () {
-      super.commitment = value;
-    });
-  }
-
   @override
   String toString() {
     return '''
 phone: ${phone},
 temperature: ${temperature},
-commitment: ${commitment},
 hasErrors: ${hasErrors}
     ''';
   }

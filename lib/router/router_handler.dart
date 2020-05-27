@@ -121,10 +121,10 @@ var healthCodeHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return HealthCodePage(
         params['id'].first,
-        Optional.ofNullable(params['notRefresh'])
+        Optional.ofNullable(params['firstRefresh'])
             .flatMap((v) => Optional.ofNullable(v[0]))
             .map((v) => v.toLowerCase() == 'true')
-            .orElse(false));
+            .orElse(true));
   },
 );
 

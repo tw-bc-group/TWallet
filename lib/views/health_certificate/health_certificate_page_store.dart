@@ -73,7 +73,7 @@ abstract class _HealthCertificatePageStore with Store {
   void validatePhone() {
     error.phone = phone.isEmpty
         ? '手机号码不能为空'
-        : Util.isValidPhone(phone) ? null : '不是有效的手机号';
+        : Util.isValidPhone(phone) ? null : '请输入有效的手机号';
   }
 
   @action
@@ -113,19 +113,12 @@ abstract class _HealthCertificatePageStore with Store {
   @action
   void updateCommitment(bool value) {
     hasCommitment = value;
-    error.commitment = null;
-  }
-
-  @action
-  void validateCommitment() {
-    error.commitment = hasCommitment ? null : '必选';
   }
 
   @action
   validateAll() {
     validatePhone();
     validateTemplate();
-    validateCommitment();
   }
 }
 
@@ -138,10 +131,6 @@ abstract class _FormErrorState with Store {
   @observable
   String temperature;
 
-  @observable
-  String commitment;
-
   @computed
-  bool get hasErrors =>
-      phone != null || temperature != null || commitment != null;
+  bool get hasErrors => phone != null || temperature != null;
 }
