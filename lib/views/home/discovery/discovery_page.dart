@@ -5,7 +5,6 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/discovery/discovery_item.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
-import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 
 class DiscoveryPage extends StatelessWidget {
   final HomeStore homeStore;
@@ -14,11 +13,6 @@ class DiscoveryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    showDialogIfNoIdentity(
-      context,
-      homeStore,
-    );
-
     return Stack(
       children: <Widget>[
         Column(
@@ -39,7 +33,7 @@ class DiscoveryPage extends StatelessWidget {
 
   Widget _healthItem({BuildContext context}) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.healthCertPage),
+      onTap: () => Navigator.pushNamed(context, Routes.healthCertPage, arguments: homeStore),
       child: DiscoveryItem(text: "健康认证"),
     );
   }

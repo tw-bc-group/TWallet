@@ -7,23 +7,31 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/identity_card.dart';
 import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
+import '../home.dart';
+
 class HealthCertificationPage extends StatelessWidget {
   final IdentityStore _identityStore = getIt<IdentityStore>();
   final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
 
+  HealthCertificationPage();
+
   @override
   Widget build(BuildContext context) {
+    final homeStore = ModalRoute.of(context).settings.arguments;
+
     return NewCommonLayout(
       appBarActions: <Widget>[
         _buildScanIcon(context),
@@ -32,7 +40,13 @@ class HealthCertificationPage extends StatelessWidget {
       backIcon: BackIcon.ARROW,
       title: "健康认证",
       child: Column(
-        children: [_tips, _buildIdList(context)],
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _tips,
+          _identityStore.identities.length > 0
+              ? _buildIdList(context)
+              : _buildIdentityEmpty(context,homeStore),
+        ],
       ),
     );
   }
@@ -77,6 +91,60 @@ class HealthCertificationPage extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Widget _buildIdentityEmpty(BuildContext context, HomeStore homeStore) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.only(left: 24, right: 24, top: 10, bottom: 147),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 90, bottom: 46),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            SvgPicture.asset(
+              'assets/icons/new-identity.svg',
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Text("您还没有添加身份",
+                      style: TextStyle(
+                        color: Color(0xff111111),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: 0,
+                      )),
+                  Text("请前往“身份”页面添加身份。",
+                      style: TextStyle(
+                        color: Color(0xff111111),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: 0,
+                      )),
+                ],
+              ),
+            ),
+            WalletTheme.button(
+              text: '立即前往',
+              height: 44,
+              onPressed: () {
+                Navigator.pop(context);
+                homeStore.changePage(
+                  HomeState.identityIndex,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildIdList(BuildContext context) {
