@@ -233,6 +233,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                             Row(
                               children: <Widget>[
                                 Checkbox(
+                                    checkColor: WalletColor.white,
+                                    activeColor: WalletColor.primary,
                                     value: _pageStore.hasCommitment,
                                     onChanged: (value) =>
                                         _pageStore.updateCommitment(value)),
