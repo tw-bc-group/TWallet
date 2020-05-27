@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:flutter/painting.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/views/home/discovery/discovery_item.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class DiscoveryPage extends StatelessWidget {
   final HomeStore homeStore;
@@ -19,36 +19,57 @@ class DiscoveryPage extends StatelessWidget {
       homeStore,
     );
 
-    return CommonLayout(
-      backIcon: BackIcon.NONE,
-      title: '发现',
-      childBuilder: (context, constraints) => Container(
-        padding: EdgeInsets.all(18),
-        child: ListView(
-          children: [_healthItem(context: context)],
+    return Stack(
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _header,
+            _mainContent,
+          ],
         ),
-      ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          margin: EdgeInsets.only(top: 68),
+          child: _healthItem(context: context),
+        ),
+      ],
     );
   }
 
   Widget _healthItem({BuildContext context}) {
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, Routes.healthCertPage),
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(
-          color: WalletTheme.listItemBgColor,
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Row(
-            children: <Widget>[
-              Text("健康认证"),
-            ],
+      child: DiscoveryItem(text: "健康认证"),
+    );
+  }
+
+  Widget get _header {
+    return Container(
+      height: 138,
+      color: WalletColor.primary,
+      padding: EdgeInsets.only(top: 10),
+      child: Column(
+        children: <Widget>[
+          Center(
+            child: Text("发现",
+                style: TextStyle(
+                  color: Color(0xffffffff),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: 1,
+                )),
           ),
-        ),
+        ],
+      ),
+    );
+  }
+
+  get _mainContent {
+    return Expanded(
+      child: Container(
+        color: WalletColor.backgroundWhite,
       ),
     );
   }
