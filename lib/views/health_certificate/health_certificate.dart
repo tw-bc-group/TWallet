@@ -87,7 +87,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       _formTitle(title),
       Container(
           padding: EdgeInsets.symmetric(horizontal: _screenUtil.setWidth(16)),
-          margin: EdgeInsets.only(top: 16),
+          margin: EdgeInsets.symmetric(vertical: 13),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: WalletColor.grey, width: 1),
@@ -167,8 +167,10 @@ class HealthCertificateState extends State<HealthCertificatePage> {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12), topRight: Radius.circular(12))),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: _screenUtil.setWidth(24), vertical: 24),
+          padding: EdgeInsets.only(
+              left: _screenUtil.setWidth(24),
+              right: _screenUtil.setWidth(24),
+              top: 24),
           child: ListView(
             controller: _scrollController,
             children: <Widget>[
@@ -187,7 +189,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                     (String value) => _pageStore.updatePhone(value)),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 26),
+                padding: EdgeInsets.only(top: 16),
                 child: _inputFiled(
                     _screenUtil,
                     '今日体温（℃）',
@@ -277,6 +279,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     return Observer(
         builder: (_) => NewCommonLayout(
             title: '健康认证',
+            withBottomBtn: false,
             child: Column(
               children: <Widget>[
                 SvgPicture.asset(
