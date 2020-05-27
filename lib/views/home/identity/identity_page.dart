@@ -156,6 +156,7 @@ class _IdentityPageState extends State<IdentityPage> {
   Widget buildNewIdentityCard() {
     if (_store.identities.length == 0) {
       return Container(
+        margin: EdgeInsets.only(bottom: 24),
         padding: EdgeInsets.only(top: 68, bottom: 78, left: 84, right: 84),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -185,6 +186,7 @@ class _IdentityPageState extends State<IdentityPage> {
     }
 
     return Container(
+      margin: EdgeInsets.only(bottom: 24),
       padding: EdgeInsets.symmetric(horizontal: 64, vertical: 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -217,7 +219,7 @@ class _IdentityPageState extends State<IdentityPage> {
           Container(padding: EdgeInsets.all(10), child: buildHeader()),
           Expanded(child: Observer(builder: (_) {
             return Container(
-                padding: EdgeInsets.all(24),
+                padding: EdgeInsets.only(top: 24, left: 24, right: 24),
                 child: ListView(
                   children: _store.identities
                           .where((identity) =>

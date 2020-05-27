@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 
 class ColorMoneyText extends StatelessWidget {
-  static const FONT_SIZE = 14.7;
-
   final Amount amount;
   final TxStatus status;
   final bool isExpense;
@@ -16,13 +16,17 @@ class ColorMoneyText extends StatelessWidget {
     return Text.rich(
       TextSpan(
           text: amount.humanReadableWithSign,
-          style: TextStyle(color: _toColor(status), fontSize: FONT_SIZE)),
+          style: WalletFont.font_18(
+            textStyle: TextStyle(
+              color: _toColor(status)
+            )
+          )),
     );
   }
 
   Color _parseSucceededColor(TxStatus s) {
     // expense -> red, or blue
-    return isExpense ? Color(0XFFDD5757) : Color(0XFF3E71C0);
+    return isExpense ? WalletColor.accent : WalletColor.blue;
   }
 
   Color _toColor(TxStatus status) {

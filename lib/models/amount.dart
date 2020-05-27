@@ -18,7 +18,7 @@ class Amount {
 
   String get humanReadableWithSign {
     if (!value.isNegative) {
-      return '${globalEnv().tokenSymbol}+$humanReadable';
+      return '+${globalEnv().tokenSymbol}$humanReadable';
     }
     return humanReadableWithSymbol;
   }
