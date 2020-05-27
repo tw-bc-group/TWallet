@@ -45,7 +45,7 @@ class HealthCertificationPage extends StatelessWidget {
           _tips,
           _identityStore.identities.length > 0
               ? _buildIdList(context)
-              : _buildIdentityEmpty(context,homeStore),
+              : _buildIdentityEmpty(context, homeStore),
         ],
       ),
     );
@@ -71,15 +71,7 @@ class HealthCertificationPage extends StatelessWidget {
                 width: 167,
                 height: 1,
                 decoration: BoxDecoration(color: Color(0xffffffff))),
-            Text(
-              "选择使用下方身份",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0,
-              ),
-            ),
+            _hint,
             Text(
               "进行健康认证或查看健康码",
               style: TextStyle(
@@ -91,6 +83,19 @@ class HealthCertificationPage extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Text get _hint {
+    final text = _identityStore.identities.length > 0 ? "选择使用下方身份" : "添加身份";
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+    );
   }
 
   Widget _buildIdentityEmpty(BuildContext context, HomeStore homeStore) {
