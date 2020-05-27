@@ -9,35 +9,40 @@ class IdentityCard extends StatelessWidget {
   final String did;
   final Color bgColor;
   final bool isSelected;
+  final GestureTapCallback onTap;
 
   const IdentityCard({
     @required this.name,
     @required this.did,
     this.bgColor = Colors.white,
     this.isSelected = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      overflow: Overflow.visible,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(bottom: 20),
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(8),
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: <Widget>[
+                AvatarWidget(width: 70),
+                _buildIdentityInfo(),
+              ],
+            ),
           ),
-          child: Row(
-            children: <Widget>[
-              AvatarWidget(width: 70),
-              _buildIdentityInfo(),
-            ],
-          ),
-        ),
-        if (isSelected) _buildSelectedIcon(),
-      ],
+          if (isSelected) _buildSelectedIcon(),
+        ],
+      ),
     );
   }
 

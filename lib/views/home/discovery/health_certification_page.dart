@@ -1,14 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
-import 'package:tw_wallet_ui/widgets/avatar.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
+import 'package:tw_wallet_ui/widgets/identity_card.dart';
+import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class HealthCertificationPage extends StatelessWidget {
@@ -17,80 +23,85 @@ class HealthCertificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonLayout(
+    return NewCommonLayout(
+      appBarActions: <Widget>[
+        _buildScanIcon(context),
+      ],
+      withBottomNavigationBar: false,
       backIcon: BackIcon.ARROW,
       title: "健康认证",
-      childBuilder: (context, constraints) => Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [_buildTips(context), _buildIdList(context)],
+      child: Column(
+        children: [_tips, _buildIdList(context)],
       ),
     );
   }
 
-  Widget _buildTips(BuildContext context) {
+  Widget get _tips {
     return Container(
-        padding: EdgeInsets.all(40),
+        padding: EdgeInsets.only(top: 10, bottom: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              "使用TW Wallet的身份登录健康认证",
-              style: TextStyle(fontSize: 18),
+              "选择右上角进行健康码扫码验证",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0,
+              ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text("选择您想使用的身份",
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
-            )
+                margin: EdgeInsets.only(top: 20, bottom: 15),
+                width: 167,
+                height: 1,
+                decoration: BoxDecoration(color: Color(0xffffffff))),
+            Text(
+              "选择使用下方身份",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0,
+              ),
+            ),
+            Text(
+              "进行健康认证或查看健康码",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0,
+              ),
+            ),
           ],
         ));
   }
 
-  List<Widget> _buildDataSource(BuildContext context, List<Identity> ids) {
-    final index = _identityStore.healthCertLastSelectIndex;
-    ids.insert(0, ids.removeAt(index));
-    return ids
-        .map((e) => Card(
-            color: WalletTheme.rgbColor('#f2f2f2'),
-            child: ListTile(
-              leading: AvatarWidget(),
-              title: Text(e.name),
-              subtitle: Text(e.did.toString()),
-              onTap: () => onIdentityTap(context, e),
-              selected: false,
-            )))
-        .toList();
-  }
+  List<Identity> get _dataSource => _identityStore.selectedFirstIdentities;
 
   Widget _buildIdList(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.grey, blurRadius: 7.0, offset: Offset(0.0, -10))
-        ],
-      ),
+    final ids = _dataSource;
+
+    return Expanded(
       child: Container(
-        padding: EdgeInsets.all(15),
-        height: MediaQuery.of(context).size.height / 2,
-        color: WalletTheme.rgbColor('#f2f2f2'),
-        child: Column(
-          children: <Widget>[
-            Divider(),
-            Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                children: _buildDataSource(
-                    context, _identityStore.identities.toList()),
-              ),
-            )
-          ],
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: ListView.builder(
+            padding: EdgeInsets.only(top: 10),
+            itemCount: ids.length,
+            itemBuilder: (BuildContext context, int index) {
+              final ele = ids[index];
+              return IdentityCard(
+                name: ele.name,
+                did: ele.did.toString(),
+                onTap: () => _onIdentityTap(context, ele),
+              );
+            }),
       ),
     );
   }
 
-  Future onIdentityTap(BuildContext context, Identity identity) async {
+  Future _onIdentityTap(BuildContext context, Identity identity) async {
     await certStore.fetchHealthCertByDID(identity.did.toString());
     _identityStore.updateHealthCertLastSelected(identity);
 
@@ -98,5 +109,55 @@ class HealthCertificationPage extends StatelessWidget {
         ? '${Routes.healthCode}?id=${identity.id}'
         : '${Routes.certificate}?id=${identity.id}';
     Application.router.navigateTo(context, path);
+  }
+
+  Widget _buildScanIcon(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 24, top: 6),
+      child: GestureDetector(
+        onTap: () => _handleScan(context),
+        child: SvgPicture.asset(
+          'assets/icons/scan.svg',
+          color: WalletColor.white,
+          width: 32,
+          height: 32,
+        ),
+      ),
+    );
+  }
+
+  _handleScan(BuildContext context) async {
+    String scanResult =
+        await Application.router.navigateTo(context, Routes.qrScanner);
+
+    if (null == scanResult) {
+      return;
+    }
+
+    Future.delayed(Duration(milliseconds: 500)).then((_) async {
+      try {
+        HealthCertificationToken token =
+            HealthCertificationToken.fromJson(json.decode(scanResult));
+        if (await token.verify()) {
+          DialogType _hintType = DialogType.success;
+          String _hintText = '无健康风险';
+
+          if (token.healthCertification.sub.healthyStatus.val == UNHEALTHY) {
+            _hintType = DialogType.error;
+            _hintText = '存在健康风险';
+          }
+
+          final String _subHintText =
+              '该健康码和持有人身份相符。\n\n身份信息：${token.healthCertification.sub.id}\n\n该健康认证结果由防疫中心（${token.healthCertification.iss}）提供。';
+
+          await hintDialogHelper(context, _hintType, _hintText,
+              subText: _subHintText);
+        } else {
+          await hintDialogHelper(context, DialogType.warning, '该健康码与持有人身份不符');
+        }
+      } catch (_) {
+        await hintDialogHelper(context, DialogType.warning, '未识别到有效的身份信息');
+      }
+    });
   }
 }

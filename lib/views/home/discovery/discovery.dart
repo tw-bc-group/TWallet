@@ -57,7 +57,6 @@ class DiscoveryPage extends StatelessWidget {
                   color: Color(0xffffffff),
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
                   letterSpacing: 1,
                 )),
           ),

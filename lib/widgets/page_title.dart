@@ -9,8 +9,13 @@ enum BackIcon { NONE, ARROW }
 class PageTitleWidget extends StatelessWidget {
   final String title;
   final BackIcon backIcon;
+  final List<Widget> appBarActions;
 
-  PageTitleWidget({this.title, this.backIcon = BackIcon.ARROW});
+  PageTitleWidget({
+    this.title,
+    this.backIcon = BackIcon.ARROW,
+    this.appBarActions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,14 @@ class PageTitleWidget extends StatelessWidget {
               onPressed: () {
                 Application.router.pop(context);
               },
+            ),
+          ),
+        if ((appBarActions?.length ?? 0) > 0)
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Row(
+              children: appBarActions,
             ),
           ),
       ],

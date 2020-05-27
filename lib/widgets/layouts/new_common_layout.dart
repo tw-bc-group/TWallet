@@ -12,6 +12,7 @@ class NewCommonLayout extends StatelessWidget {
   final String bodyBackColor;
   final BackIcon backIcon;
   final bool withBottomNavigationBar;
+  final List<Widget> appBarActions;
 
   NewCommonLayout(
       {this.child,
@@ -21,7 +22,8 @@ class NewCommonLayout extends StatelessWidget {
       this.title,
       this.bodyBackColor = WalletColor.PRIMARY,
       this.backIcon = BackIcon.ARROW,
-      this.withBottomNavigationBar = true});
+      this.withBottomNavigationBar = true,
+      this.appBarActions});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,11 @@ class NewCommonLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
         brightness: Brightness.dark,
-        title: PageTitleWidget(title: title, backIcon: backIcon),
+        title: PageTitleWidget(
+          title: title,
+          backIcon: backIcon,
+          appBarActions: appBarActions,
+        ),
         textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.black,
             displayColor: Colors.black,
