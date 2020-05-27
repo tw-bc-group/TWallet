@@ -144,7 +144,6 @@ class _TxListPageState extends State<TxListPage> {
       itemBuilder: (BuildContext context, int index) {
         final item = txList[index];
         return Container(
-          // height: 70,
           child: TxListItem(
               _isExpense(item.fromAddress)
                 ? item.toAddress

@@ -24,14 +24,14 @@ class ColorMoneyText extends StatelessWidget {
     );
   }
 
-  Color _parseSucceededColor(TxStatus s) {
+  Color _parseSucceededColor() {
     // expense -> red, or blue
     return isExpense ? WalletColor.accent : WalletColor.blue;
   }
 
   Color _toColor(TxStatus status) {
     final _statusColorMap = {
-      TxStatus.succeeded: _parseSucceededColor(status),
+      TxStatus.succeeded: _parseSucceededColor(),
       TxStatus.transferring: Color(0xFF888888),
       TxStatus.failed: Color(0xFF888888),
     };

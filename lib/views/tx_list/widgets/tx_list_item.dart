@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
+import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
+import 'package:web3dart/credentials.dart';
 
 import 'color_money_text.dart';
 
@@ -28,11 +29,8 @@ class TxListItem extends StatelessWidget {
 
   Widget _renderAddress() => Text(addressToShorthandDID(_address), style: WalletFont.font_16());
 
-  // Widget _renderStatus(TxStatus status) =>
-  //     Text(status.toString(), style: TextStyle(color: Color(_greyColor)));
-
   String addressToShorthandDID(String address) {
-    return '${globalEnv().didPrefix}${address.substring(2, 5)}*${address.substring(39)}';
+    return DID.fromEthAddress(EthereumAddress.fromHex(address)).shorthandValue;
   }
 
   @override
