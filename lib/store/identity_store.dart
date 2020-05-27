@@ -106,6 +106,13 @@ abstract class IdentityStoreBase with Store {
     return [selectedIdentity] + ids;
   }
 
+  @computed
+  List<Identity> get selectedFirstIdentitiesInHealthDApp {
+    var ids = identities.toList();
+    Identity selectedIdentity = ids.removeAt(healthCertLastSelectIndex ?? 0);
+    return [selectedIdentity] + ids;
+  }
+
   void _identitiesSort() {
     identities.sort(
         (identity1, identity2) => identity1.name.compareTo(identity2.name));

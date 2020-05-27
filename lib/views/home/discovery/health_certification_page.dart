@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -78,25 +79,27 @@ class HealthCertificationPage extends StatelessWidget {
         ));
   }
 
-  List<Identity> get _dataSource => _identityStore.selectedFirstIdentities;
-
   Widget _buildIdList(BuildContext context) {
-    final ids = _dataSource;
-
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
-        child: ListView.builder(
-            padding: EdgeInsets.only(top: 10),
-            itemCount: ids.length,
-            itemBuilder: (BuildContext context, int index) {
-              final ele = ids[index];
-              return IdentityCard(
-                name: ele.name,
-                did: ele.did.toString(),
-                onTap: () => _onIdentityTap(context, ele),
-              );
-            }),
+        child: Observer(
+          builder: (BuildContext context) {
+            final ids = _identityStore.selectedFirstIdentitiesInHealthDApp;
+            return ListView.builder(
+              padding: EdgeInsets.only(top: 10),
+              itemCount: ids.length,
+              itemBuilder: (BuildContext context, int index) {
+                final ele = ids[index];
+                return IdentityCard(
+                  name: ele.name,
+                  did: ele.did.toString(),
+                  onTap: () => _onIdentityTap(context, ele),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

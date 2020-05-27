@@ -45,6 +45,16 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
               () => super.selectedFirstIdentities,
               name: 'IdentityStoreBase.selectedFirstIdentities'))
           .value;
+  Computed<List<Identity>> _$selectedFirstIdentitiesInHealthDAppComputed;
+
+  @override
+  List<Identity> get selectedFirstIdentitiesInHealthDApp =>
+      (_$selectedFirstIdentitiesInHealthDAppComputed ??=
+              Computed<List<Identity>>(
+                  () => super.selectedFirstIdentitiesInHealthDApp,
+                  name:
+                      'IdentityStoreBase.selectedFirstIdentitiesInHealthDApp'))
+          .value;
 
   final _$selectedIndexAtom = Atom(name: 'IdentityStoreBase.selectedIndex');
 
@@ -228,7 +238,8 @@ selectedIdentity: ${selectedIdentity},
 myName: ${myName},
 myAddress: ${myAddress},
 myBalance: ${myBalance},
-selectedFirstIdentities: ${selectedFirstIdentities}
+selectedFirstIdentities: ${selectedFirstIdentities},
+selectedFirstIdentitiesInHealthDApp: ${selectedFirstIdentitiesInHealthDApp}
     ''';
   }
 }
