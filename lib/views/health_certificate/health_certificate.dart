@@ -87,7 +87,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       _formTitle(title),
       Container(
           padding: EdgeInsets.symmetric(horizontal: _screenUtil.setWidth(16)),
-          margin: EdgeInsets.symmetric(vertical: 13),
+          margin: EdgeInsets.only(top: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: WalletColor.grey, width: 1),
@@ -187,7 +187,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                     (String value) => _pageStore.updatePhone(value)),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16),
+                padding: EdgeInsets.only(top: 26),
                 child: _inputFiled(
                     _screenUtil,
                     '今日体温（℃）',
