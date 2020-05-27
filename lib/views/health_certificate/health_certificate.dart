@@ -44,9 +44,6 @@ class HealthCertificateState extends State<HealthCertificatePage> {
           color: WalletColor.black,
           letterSpacing: 0));
 
-  static TextStyle _errorStyle =
-      _titleStyle.merge(TextStyle(color: WalletColor.red));
-
   @override
   void initState() {
     super.initState();

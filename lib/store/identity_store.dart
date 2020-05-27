@@ -123,6 +123,9 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> clear() async {
     await _db.clearDataBase();
+    selectedIndex = 0;
+    healthCertLastSelectIndex = 0;
+    identities.clear();
   }
 
   @action
