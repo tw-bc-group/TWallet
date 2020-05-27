@@ -101,12 +101,7 @@ class MyPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: _screenUtil.setWidth(24)),
-                      child: Container(
-                          height: _screenUtil.setWidth(44),
-                          decoration: BoxDecoration(
-                              color: Color(0x19ff5164),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作')),
+                      child: Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
                     )
                   ],
                 ),
