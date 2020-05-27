@@ -46,7 +46,6 @@ class _TxListPageState extends State<TxListPage> {
 
   @override
   void initState() {
-    print(iStore.myAddress);
     store.fetchList(iStore.myAddress);
     super.initState();
   }
@@ -73,7 +72,7 @@ class _TxListPageState extends State<TxListPage> {
       margin: EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        '￥50.00',
+        '${iStore.myBalance.humanReadableWithSymbol}',
         style: WalletFont.font_24(
           textStyle: TextStyle(
             color: WalletColor.white
