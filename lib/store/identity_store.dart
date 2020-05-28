@@ -26,8 +26,7 @@ String _itemKey(String name) {
 abstract class IdentityStoreBase with Store {
   static final _db = JsonStore(dbName: identityStorageName);
 
-  IdentityStoreBase(
-      this.identities, this.healthCertLastSelectIndex) {
+  IdentityStoreBase(this.identities, this.healthCertLastSelectIndex) {
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
@@ -50,8 +49,7 @@ abstract class IdentityStoreBase with Store {
                 }).toList())
             .orElse([]);
 
-    return IdentityStore(
-        ObservableList.of(identities), didHealthSelectIndex);
+    return IdentityStore(ObservableList.of(identities), didHealthSelectIndex);
   }
 
   Identity getIdentityById(String id) {
@@ -137,16 +135,16 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  void setIdentityIsSelected(int index, {bool isSelected}) {
+  void setIdentityIsSelected(int index) {
     identities[index] =
-        identities[index].rebuild((id) => id..isSelected = isSelected);
+        identities[index].rebuild((id) => id..isSelected = true);
   }
 
   @action
   void updateIdentityIsSelected(int nexIndex) {
     identities = ObservableList.of(
         identities.map((element) => element.setUnSelected()).toList());
-    setIdentityIsSelected(nexIndex, isSelected: true);
+    setIdentityIsSelected(nexIndex);
   }
 
   @action
