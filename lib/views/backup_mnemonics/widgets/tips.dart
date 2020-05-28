@@ -21,7 +21,7 @@ class Tips extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(right: 7),
+                margin: EdgeInsets.only(right: 2),
                 child: SvgPicture.asset('assets/icons/tips.svg'),
               ),
               Expanded(
