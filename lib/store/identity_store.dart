@@ -66,9 +66,6 @@ abstract class IdentityStoreBase with Store {
   }
 
   @observable
-  int selectedIndex;
-
-  @observable
   int healthCertLastSelectIndex;
 
   @observable
@@ -82,10 +79,10 @@ abstract class IdentityStoreBase with Store {
   ObservableStream<ObservableFuture<TwBalance>> fetchBalanceFutureStream;
 
   @computed
-  Optional<Identity> get selectedIdentity => Optional.of(identities.toList())
-      .flatMap((identities) => identities.isEmpty
-          ? Optional.empty()
-          : Optional.of(identities[selectedIndex ?? 0]));
+  Optional<Identity> get selectedIdentity {
+    final found = identities.firstWhere((element) => element.isSelected == true, orElse: null);
+    return found == null ? Optional.empty() : Optional.of(found);
+  }
 
   @computed
   String get myName =>
@@ -102,8 +99,11 @@ abstract class IdentityStoreBase with Store {
   @computed
   List<Identity> get selectedFirstIdentities {
     var ids = identities.toList();
-    Identity selectedIdentity = ids.removeAt(selectedIndex ?? 0);
-    return [selectedIdentity] + ids;
+    if (selectedIdentity.isPresent) {
+      ids.removeWhere((ele) => ele.id == selectedIdentity.first.id);
+      return [selectedIdentity.first] + ids;
+    }
+    return ids;
   }
 
   @computed
@@ -130,7 +130,6 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> clear() async {
     await _db.clearDataBase();
-    selectedIndex = 0;
     healthCertLastSelectIndex = 0;
     identities.clear();
   }
@@ -154,10 +153,9 @@ abstract class IdentityStoreBase with Store {
 
   @action
   void updateIdentityIsSelected(int nexIndex) {
-    var _lastSelectedIndex = selectedIndex ?? nexIndex;
-    setIdentityIsSelected(_lastSelectedIndex, false);
+    identities = ObservableList.of(
+        identities.map((element) => element.setSelected(false)).toList());
     setIdentityIsSelected(nexIndex, true);
-    selectedIndex = nexIndex;
   }
 
   @action
@@ -190,14 +188,6 @@ abstract class IdentityStoreBase with Store {
       await _db.setItem(_itemKey(identities[index].name), identity.toJson());
     } else {
       throw Exception('Identity updated not exist.');
-    }
-  }
-
-  @action
-  Future<void> deleteIdentity({@required int index}) async {
-    if (index != selectedIndex) {
-      assert(index >= 0 && index < identities.length);
-      await _db.deleteItem(_itemKey(identities[index].name));
     }
   }
 

@@ -56,21 +56,6 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
                       'IdentityStoreBase.selectedFirstIdentitiesInHealthDApp'))
           .value;
 
-  final _$selectedIndexAtom = Atom(name: 'IdentityStoreBase.selectedIndex');
-
-  @override
-  int get selectedIndex {
-    _$selectedIndexAtom.reportRead();
-    return super.selectedIndex;
-  }
-
-  @override
-  set selectedIndex(int value) {
-    _$selectedIndexAtom.reportWrite(value, super.selectedIndex, () {
-      super.selectedIndex = value;
-    });
-  }
-
   final _$healthCertLastSelectIndexAtom =
       Atom(name: 'IdentityStoreBase.healthCertLastSelectIndex');
 
@@ -151,15 +136,6 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.updateIdentity(identity));
   }
 
-  final _$deleteIdentityAsyncAction =
-      AsyncAction('IdentityStoreBase.deleteIdentity');
-
-  @override
-  Future<void> deleteIdentity({@required int index}) {
-    return _$deleteIdentityAsyncAction
-        .run(() => super.deleteIdentity(index: index));
-  }
-
   final _$updateHealthCertLastSelectedAsyncAction =
       AsyncAction('IdentityStoreBase.updateHealthCertLastSelected');
 
@@ -230,7 +206,6 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   @override
   String toString() {
     return '''
-selectedIndex: ${selectedIndex},
 healthCertLastSelectIndex: ${healthCertLastSelectIndex},
 identities: ${identities},
 searchName: ${searchName},

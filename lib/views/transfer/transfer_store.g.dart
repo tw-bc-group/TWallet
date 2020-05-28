@@ -73,6 +73,28 @@ mixin _$TransferStore on _TransferStore, Store {
       ActionController(name: '_TransferStore');
 
   @override
+  void resetAmountError(String value) {
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.resetAmountError');
+    try {
+      return super.resetAmountError(value);
+    } finally {
+      _$_TransferStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void resetAddressError(String value) {
+    final _$actionInfo = _$_TransferStoreActionController.startAction(
+        name: '_TransferStore.resetAddressError');
+    try {
+      return super.resetAddressError(value);
+    } finally {
+      _$_TransferStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void updateBalance(String value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
         name: '_TransferStore.updateBalance');
