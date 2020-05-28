@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
@@ -54,11 +55,6 @@ class PointTab extends StatelessWidget {
             _store.fetchBalanceFutureStream.value;
 
         switch (future.status) {
-          case FutureStatus.pending:
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[CircularProgressIndicator(), Text('加载积分...')],
-            );
           case FutureStatus.rejected:
             return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -72,6 +68,7 @@ class PointTab extends StatelessWidget {
                     onPressed: _refresh,
                   )
                 ]);
+          case FutureStatus.pending:
           case FutureStatus.fulfilled:
             TwBalance balance = future.result;
             return balance == null

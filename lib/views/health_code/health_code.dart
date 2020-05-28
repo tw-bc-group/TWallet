@@ -66,17 +66,6 @@ class HealthCodeState extends State<HealthCodePage> {
           // ignore: missing_return
           child: Observer(builder: (_) {
             switch (_future.status) {
-              case FutureStatus.pending:
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CircularProgressIndicator(),
-                      Text('加载健康码...',
-                          style: TextStyle(color: WalletColor.white))
-                    ],
-                  ),
-                );
               case FutureStatus.rejected:
                 return Center(
                   child: Column(
@@ -92,8 +81,10 @@ class HealthCodeState extends State<HealthCodePage> {
                         )
                       ]),
                 );
+              case FutureStatus.pending:
               case FutureStatus.fulfilled:
                 return RefreshIndicator(
+                  color: WalletColor.primary,
                   onRefresh: onRefresh,
                   child: ListView(
                     children: [

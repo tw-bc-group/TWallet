@@ -10,6 +10,7 @@ class HomeListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      color: WalletColor.primary,
       onRefresh: onRefresh,
       child: Container(
         color: WalletColor.backgroundWhite,
