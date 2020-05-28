@@ -98,7 +98,6 @@ class HealthCodeState extends State<HealthCodePage> {
                   child: ListView(
                     children: [
                       Container(
-                        height: _screenUtil.setHeight(600) + _avatarWidth / 2,
                         padding: EdgeInsets.only(
                           left: _screenUtil.setWidth(24),
                           right: _screenUtil.setWidth(24),
@@ -107,10 +106,10 @@ class HealthCodeState extends State<HealthCodePage> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Container(),
                             Padding(
                               padding: EdgeInsets.only(top: _avatarWidth / 2),
                               child: Container(
+                                  padding: EdgeInsets.only(bottom: _screenUtil.setHeight(91)),
                                   decoration: new BoxDecoration(
                                       color: WalletColor.white,
                                       borderRadius: BorderRadius.circular(12)),
