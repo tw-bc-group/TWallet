@@ -15,7 +15,6 @@ class Routes {
   static final String txList = "/tx_list";
   static final String txListDetails = "/tx_list_details";
   static final String transferConfirm = '/transfer_confirm';
-  static final String transferResult = '/transfer_result';
   static final String certificate = '/certificate';
   static final String identityDetail = '/identity';
   static final String qrPage = '/identity/qr';
@@ -35,7 +34,6 @@ class Routes {
     txList: txListHandler,
     txListDetails: txListDetailsHandler,
     transferConfirm: transferConfirmHandler,
-    transferResult: transferResultHandler,
     certificate: certificateHandler,
     qrPage: qrPageHandler,
     qrScanner: qrScannerHandler,

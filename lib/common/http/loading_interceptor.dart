@@ -42,6 +42,7 @@ class LoadingInterceptor extends InterceptorsWrapper {
 
   showLoading() {
     dialogInstance = YYDialog().build()
+      ..barrierDismissible = false
       ..borderRadius = 12
       ..barrierColor = Colors.transparent
       ..backgroundColor = WalletColor.white

@@ -16,7 +16,6 @@ import 'package:tw_wallet_ui/views/profile/profile.dart';
 import 'package:tw_wallet_ui/views/qr_scanner/qr_scanner.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
-import 'package:tw_wallet_ui/views/transfer_result/transfer_result.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
@@ -87,14 +86,6 @@ var transferConfirmHandler = Handler(
     var currency = params['currency'].first;
     return TransferConfirmPage(
         currency: currency, amount: amount, toAddress: toAddress);
-  },
-);
-
-var transferResultHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    var amount = params['amount'].first;
-    var toAddress = params['toAddress'].first;
-    return TransferResultPage(amount: amount, toAddress: toAddress);
   },
 );
 

@@ -16,7 +16,6 @@ import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/dialog.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer_store.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_input.dart';
@@ -187,13 +186,14 @@ class TransferPageState extends State<TransferPage> {
                 onPressed: () {
                   iStore.fetchLatestPoint();
                   Navigator.popUntil(context, ModalRoute.withName(Routes.home));
-                }));
+                },
+                shouldBackToHome: true));
       }
     }
   }
 
   bool btnDisabled() {
-    return _transferStore.amount == null || _transferStore.payeeAddress == null;
+    return _transferStore.amount.isEmpty || _transferStore.payeeAddress.isEmpty;
   }
 
   @override
@@ -294,7 +294,7 @@ class TransferPageState extends State<TransferPage> {
                     try {
                       DID did = DID.parse(scanResult);
                       _transferStore
-                          .updatePayeeAddress(did.eip55Address);
+                          .updatePayeeAddress(did.toString());
                     } catch (_) {
                       await hintDialogHelper(context,
                           DialogType.warning, '未识别到有效的身份信息');
