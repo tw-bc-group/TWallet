@@ -31,6 +31,7 @@ abstract class IdentityStoreBase with Store {
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
+    fetchLatestPoint();
   }
 
   static Future<IdentityStore> fromJsonStore() async {
@@ -44,8 +45,7 @@ abstract class IdentityStoreBase with Store {
     final List<Identity> identities =
         Optional.ofNullable(await _db.getListLike('$identityNameKey: %'))
             .map((listItems) => listItems.map((item) {
-                  final Identity identity = Identity.fromJson(item);
-                  return identity.setUnSelected();
+                  return Identity.fromJson(item);
                 }).toList())
             .orElse([]);
 
@@ -71,11 +71,8 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   Optional<Identity> get selectedIdentity {
-    try {
-      return Optional.of(identities.firstWhere((e) => e.isSelected == true));
-    } catch (StateError) {
-      return const Optional.empty();
-    }
+    return Optional.ofNullable(
+        identities.firstWhere((e) => e.isSelected == true, orElse: () => null));
   }
 
   @computed
@@ -125,46 +122,45 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  Future<void> selectIdentity({@required int index}) async {
-    if (index >= 0 && index < identities.length) {
-      await _db.setItem(selectedIndexKey, {selectedIndexKey: index}).then((_) {
-        updateIdentityIsSelected(index);
-        fetchLatestPoint();
-      });
+  Future<void> updateIdentityIsSelected(int selectedIndex) async {
+    Identity selectedIdentity;
+    final List<Identity> newIdentities = identities
+        .asMap()
+        .map((index, identity) {
+          if (selectedIndex == index) {
+            selectedIdentity = identity.setSelected();
+            return MapEntry(index, selectedIdentity);
+          } else {
+            return MapEntry(index, identity.setUnSelected());
+          }
+        })
+        .values
+        .toList();
+
+    if (null != selectedIdentity) {
+      await _db
+          .setItem(_itemKey(selectedIdentity.name), selectedIdentity.toJson())
+          .then((_) => identities = ObservableList.of(newIdentities));
     }
   }
 
   @action
-  void setIdentityIsSelected(int index) {
-    identities[index] =
-        identities[index].rebuild((id) => id..isSelected = true);
-  }
-
-  @action
-  void updateIdentityIsSelected(int nexIndex) {
-    identities = ObservableList.of(
-        identities.map((element) => element.setUnSelected()).toList());
-    setIdentityIsSelected(nexIndex);
-  }
-
-  @action
   Future<void> addIdentity({@required Identity identity}) async {
-    _db.setItem(_itemKey(identity.name), identity.toJson()).then((_) {
-      identities.add(identity.setUnSelected());
+    final Identity newIdentity =
+        identities.isEmpty ? identity.setSelected() : identity.setUnSelected();
+
+    _db.setItem(_itemKey(newIdentity.name), newIdentity.toJson()).then((_) {
+      identities.add(newIdentity);
       _identitiesSort();
-      if (identities.length == 1) {
-        selectIdentity(index: 0);
-      }
     });
   }
 
   @action
   void updateSelectedIdentity(Identity identity) {
-    final int index =
-        identities.indexWhere((other) => other.name == identity.name);
+    final int index = identities.indexWhere((identity) => identity.isSelected);
     if (index >= 0) {
       identities[index] = identity;
-      updateIdentityIsSelected(index);
+      //updateIdentityIsSelected(index);
     } else {
       throw Exception('Identity updated not exist.');
     }
@@ -175,8 +171,9 @@ abstract class IdentityStoreBase with Store {
     final int index =
         identities.indexWhere((other) => other.name == identity.name);
     if (index >= 0) {
-      identities[index] = identity;
-      await _db.setItem(_itemKey(identities[index].name), identity.toJson());
+      await _db
+          .setItem(_itemKey(identities[index].name), identity.toJson())
+          .then((_) => identities[index] = identity);
     } else {
       throw Exception('Identity updated not exist.');
     }

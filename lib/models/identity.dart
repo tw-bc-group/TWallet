@@ -50,8 +50,6 @@ abstract class Identity extends Object
   @memoized
   DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
 
-  @memoized
-  @nullable
   bool get isSelected;
 
   Identity setSelected() => rebuild((id) => id..isSelected = true);
@@ -89,7 +87,10 @@ abstract class Identity extends Object
     return serializers.serialize(this) as Map<String, dynamic>;
   }
 
-  factory Identity([void Function(IdentityBuilder) updates]) = _$Identity;
+  factory Identity([void Function(IdentityBuilder) updates]) =>
+      _$Identity((builder) => builder
+        ..isSelected = false
+        ..update(updates));
 
   factory Identity.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,

@@ -26,6 +26,9 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
       'priKey',
       serializers.serialize(object.priKey,
           specifiedType: const FullType(String)),
+      'isSelected',
+      serializers.serialize(object.isSelected,
+          specifiedType: const FullType(bool)),
     ];
     if (object.id != null) {
       result
@@ -68,12 +71,6 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add('healthStatus')
         ..add(serializers.serialize(object.healthStatus,
             specifiedType: const FullType(String)));
-    }
-    if (object.isSelected != null) {
-      result
-        ..add('isSelected')
-        ..add(serializers.serialize(object.isSelected,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -190,6 +187,9 @@ class _$Identity extends Identity {
     }
     if (priKey == null) {
       throw new BuiltValueNullFieldError('Identity', 'priKey');
+    }
+    if (isSelected == null) {
+      throw new BuiltValueNullFieldError('Identity', 'isSelected');
     }
   }
 

@@ -110,13 +110,13 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     return _$clearAsyncAction.run(() => super.clear());
   }
 
-  final _$selectIdentityAsyncAction =
-      AsyncAction('IdentityStoreBase.selectIdentity');
+  final _$updateIdentityIsSelectedAsyncAction =
+      AsyncAction('IdentityStoreBase.updateIdentityIsSelected');
 
   @override
-  Future<void> selectIdentity({@required int index}) {
-    return _$selectIdentityAsyncAction
-        .run(() => super.selectIdentity(index: index));
+  Future<void> updateIdentityIsSelected(int selectedIndex) {
+    return _$updateIdentityIsSelectedAsyncAction
+        .run(() => super.updateIdentityIsSelected(selectedIndex));
   }
 
   final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
@@ -147,28 +147,6 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 
   final _$IdentityStoreBaseActionController =
       ActionController(name: 'IdentityStoreBase');
-
-  @override
-  void setIdentityIsSelected(int index) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
-        name: 'IdentityStoreBase.setIdentityIsSelected');
-    try {
-      return super.setIdentityIsSelected(index);
-    } finally {
-      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void updateIdentityIsSelected(int nexIndex) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
-        name: 'IdentityStoreBase.updateIdentityIsSelected');
-    try {
-      return super.updateIdentityIsSelected(nexIndex);
-    } finally {
-      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void updateSelectedIdentity(Identity identity) {
