@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/widgets/error_row.dart';
 
 class InputPinWidget extends StatefulWidget {
   InputPinWidget({Key key}) : super(key: key);
@@ -49,48 +51,42 @@ class InputPinWidgetState extends State<InputPinWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 66),
-        padding: EdgeInsets.symmetric(horizontal: 43),
+        margin: EdgeInsets.only(top: 32),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              '请输入PIN码',
-              style: TextStyle(
-                fontSize: 14,
-                color: WalletTheme.rgbColor('#534f4f'),
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Text(
+              '输入PIN码',
+                style: WalletFont.font_16(),
               ),
-              textAlign: TextAlign.left,
             ),
-            showErrorMsg
-                ? Text(
-                    '*PIN码错误，请重新输入',
-                    style: TextStyle(
-                        fontSize: 10,
-                        height: 2,
-                        letterSpacing: 2.5,
-                        color: WalletTheme.rgbColor('#dd5757')),
-                  )
-                : Container(),
-            PinCodeTextField(
-              length: 6,
-              obsecureText: true,
-              animationType: AnimationType.fade,
-              shape: PinCodeFieldShape.box,
-              animationDuration: Duration(milliseconds: 300),
-              borderWidth: 2.7,
-              fieldHeight: 43,
-              backgroundColor: WalletTheme.mainBgColor,
-              fieldWidth: 43,
-              activeColor: WalletTheme.rgbColor('#dddddd'),
-              inactiveColor: WalletTheme.rgbColor('#dddddd'),
-              inactiveFillColor: Colors.white,
-              activeFillColor: Colors.white,
-              enableActiveFill: true,
-              textInputType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              onChanged: onChanged,
-            )
+            Container(
+              width: double.infinity,
+              child: PinCodeTextField(
+                length: 6,
+                obsecureText: true,
+                animationType: AnimationType.fade,
+                shape: PinCodeFieldShape.box,
+                animationDuration: Duration(milliseconds: 300),
+                borderWidth: 1,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                fieldHeight: 40,
+                fieldWidth: 40,
+                activeColor: WalletColor.primary,
+                inactiveColor: WalletColor.black,
+                inactiveFillColor: WalletColor.white,
+                activeFillColor: WalletColor.white,
+                selectedFillColor: WalletColor.primary,
+                textStyle: WalletFont.font_16(),
+                enableActiveFill: true,
+                textInputType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                onChanged: onChanged,
+              ),
+            ),
+            if (showErrorMsg) ErrorRowWidget('*PIN码错误，请重新输入')
           ],
         ));
   }

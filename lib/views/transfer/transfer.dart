@@ -1,18 +1,28 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/did.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/dialog.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer_store.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_input.dart';
+import 'package:tw_wallet_ui/views/transfer_confirm/widgets/input_pin.dart';
+import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
+import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 
@@ -22,15 +32,18 @@ class TransferPage extends StatefulWidget {
 }
 
 class TransferPageState extends State<TransferPage> {
+  final inputPinWidgetKey = GlobalKey<InputPinWidgetState>();
   final TransferStore _transferStore = TransferStore();
   final IdentityStore iStore = getIt<IdentityStore>();
   TextEditingController _payeeAddressController = TextEditingController();
+  YYDialog confirmDialogInstance;
+  Identity identity;
 
   @override
   void initState() {
     super.initState();
     _transferStore.setupErrorReseters();
-    var identity = getIt<IdentityStore>().selectedIdentity.value;
+    identity = getIt<IdentityStore>().selectedIdentity.value;
     _transferStore.updateBalance(identity.balance.humanReadable);
     _transferStore.updatePayerAddress(identity.address);
   }
@@ -41,11 +54,142 @@ class TransferPageState extends State<TransferPage> {
     super.dispose();
   }
 
-  void confirmTransferPage() {
+  void onNext() {
     _transferStore.validateAll();
     if (!_transferStore.error.hasErrors) {
-      Application.router.navigateTo(context,
-          '${Routes.transferConfirm}?currency=${Uri.encodeQueryComponent(globalEnv().tokenName)}&amount=${_transferStore.amount}&toAddress=${_transferStore.payeeAddress}');
+      showConfirmDialog();
+    }
+  }
+
+  showConfirmDialog() {
+    confirmDialogInstance = YYDialog().build()
+      ..backgroundColor = WalletColor.white
+      ..borderRadius = 12.0
+      ..width = FULL_SCREEN_WIDTH
+      ..margin = EdgeInsets.symmetric(horizontal: 24)
+      ..widget(Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              '请核对转账信息',
+              style: WalletFont.font_14(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.w600
+                )
+              ),
+              textAlign: TextAlign.center,
+            )
+          ),
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: WalletColor.lightGrey,
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '金额',
+                    style: WalletFont.font_14(
+                      textStyle: TextStyle(
+                        color: WalletColor.grey
+                      )
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 8),
+                  alignment: Alignment.centerLeft,
+                  child: Text('￥${_transferStore.amount}', style: WalletFont.font_16()),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '接收账户',
+                    style: WalletFont.font_14(
+                      textStyle: TextStyle(
+                        color: WalletColor.grey
+                      )
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(top: 8),
+                  child: Text(identity.did.toString(), style: WalletFont.font_16()),
+                )
+              ],
+            ),
+          ),
+          InputPinWidget(key: inputPinWidgetKey),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 34),
+                  child: WalletTheme.button(
+                    text: '确定',
+                    onPressed: onConfirm
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, bottom: 20),
+                  child: WalletTheme.button(
+                    text: '取消',
+                    onPressed: () {
+                      confirmDialogInstance.dismiss();
+                      confirmDialogInstance = null;
+                    },
+                    buttonType: ButtonType.OUTLINE,
+                  ),
+                )
+              ],
+            )
+          )
+        ], 
+      ))
+      ..animatedFunc = (child, animation) {
+        return FadeTransition(
+          child: child,
+          opacity: Tween(begin: 0.0, end: 1.0).animate(animation),
+        );
+      }
+      ..show();
+  }
+
+  onConfirm() async {
+    var pinValidation = await inputPinWidgetKey.currentState.validatePin();
+    var payeeAddress = '0x${_transferStore.payeeAddress.substring(7)}';
+    var amount = _transferStore.amount;
+    if (pinValidation) {
+      var transferSuccess = await iStore.selectedIdentity.value
+          .transferPoint(
+              toAddress: payeeAddress,
+              amount: Amount(Decimal.parse(amount.toString())));
+      if (transferSuccess) {
+        // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
+        Navigator.pushNamed(context, Routes.txListDetails,
+            arguments: TxListDetailsPageArgs(
+                amount: '${globalEnv().tokenSymbol}$amount',
+                time: parseDate(DateTime.now()),
+                status: TxStatus.transferring.toString(),
+                fromAddress: iStore.selectedIdentity.value.address,
+                toAddress: payeeAddress,
+                fromAddressName: iStore.myName,
+                isExpense: true,
+                onPressed: () {
+                  iStore.fetchLatestPoint();
+                  Navigator.popUntil(context, ModalRoute.withName(Routes.home));
+                }));
+      }
     }
   }
 
@@ -59,7 +203,7 @@ class TransferPageState extends State<TransferPage> {
       builder: (context) => NewCommonLayout(
         withBottomBtn: true,
         btnText: '下一步',
-        btnOnPressed: btnDisabled() ? null : confirmTransferPage,
+        btnOnPressed: btnDisabled() ? null : onNext,
         title: 'DC/EP',
         child: Observer(
           builder: (context) => Column(
@@ -121,7 +265,7 @@ class TransferPageState extends State<TransferPage> {
             Container(
               margin: EdgeInsets.only(top: 40, bottom: 16),
               child: Text(
-                '接收地址',
+                '接收账户',
                 style: WalletFont.font_14(
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w600

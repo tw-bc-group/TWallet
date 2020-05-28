@@ -44,7 +44,7 @@ class ApiProvider {
 
   Future<Response> transferPoint(
       String fromAddress, String publicKey, String signedRawTx) {
-    return _httpClient.post('/v1/tw-points/transfer', {
+    return _httpClient.post('/v1/token/transfer', {
       'fromAddress': fromAddress,
       'fromPublicKey': publicKey,
       'signedTransactionRawData': signedRawTx
