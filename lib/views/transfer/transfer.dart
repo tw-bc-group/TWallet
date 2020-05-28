@@ -193,7 +193,10 @@ class TransferPageState extends State<TransferPage> {
   }
 
   bool btnDisabled() {
-    return _transferStore.amount.isEmpty || _transferStore.payeeAddress.isEmpty;
+    return _transferStore.amount == null
+      || _transferStore.amount.isEmpty
+      || _transferStore.payeeAddress == null
+      || _transferStore.payeeAddress.isEmpty;
   }
 
   @override
@@ -204,15 +207,13 @@ class TransferPageState extends State<TransferPage> {
         btnText: '下一步',
         btnOnPressed: btnDisabled() ? null : onNext,
         title: 'DC/EP',
-        child: Observer(
-          builder: (context) => Column(
-            children: <Widget>[
-              buildHeader(),
-              buildBody(),
-            ],
-          )
-        ),
-      )
+        child: Column(
+          children: <Widget>[
+            buildHeader(),
+            buildBody(),
+          ],
+        )
+      ),
     );
   }
   
