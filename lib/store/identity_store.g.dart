@@ -56,6 +56,21 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
                       'IdentityStoreBase.selectedFirstIdentitiesInHealthDApp'))
           .value;
 
+  final _$currentIdentityAtom = Atom(name: 'IdentityStoreBase.currentIdentity');
+
+  @override
+  Identity get currentIdentity {
+    _$currentIdentityAtom.reportRead();
+    return super.currentIdentity;
+  }
+
+  @override
+  set currentIdentity(Identity value) {
+    _$currentIdentityAtom.reportWrite(value, super.currentIdentity, () {
+      super.currentIdentity = value;
+    });
+  }
+
   final _$healthCertLastSelectIndexAtom =
       Atom(name: 'IdentityStoreBase.healthCertLastSelectIndex');
 
@@ -195,6 +210,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   @override
   String toString() {
     return '''
+currentIdentity: ${currentIdentity},
 healthCertLastSelectIndex: ${healthCertLastSelectIndex},
 identities: ${identities},
 searchName: ${searchName},

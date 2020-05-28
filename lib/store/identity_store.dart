@@ -145,8 +145,8 @@ abstract class IdentityStoreBase with Store {
   @action
   void updateIdentityIsSelected(int nexIndex) {
     identities = ObservableList.of(
-        identities.map((element) => element.setSelected()).toList());
-    setIdentityIsSelected(nexIndex);
+        identities.map((element) => element.setUnSelected()).toList());
+    setIdentityIsSelected(nexIndex, isSelected: true);
   }
 
   @action
