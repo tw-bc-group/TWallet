@@ -32,7 +32,7 @@ abstract class IdentityStoreBase with Store {
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
-    selectIdentity(index: _selectedIndex);
+    healthCertLastSelectIndex = didHealthSelectIndex;
   }
 
   static Future<IdentityStore> fromJsonStore() async {
@@ -79,9 +79,11 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   Optional<Identity> get selectedIdentity {
-    final found = identities.firstWhere((element) => element.isSelected == true,
-        orElse: () => null);
-    return found == null ? const Optional.empty() : Optional.of(found);
+    try {
+      return Optional.of(identities.firstWhere((e) => e.isSelected == true));
+    } catch (StateError) {
+      return Optional.empty();
+    }
   }
 
   @computed
