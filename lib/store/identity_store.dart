@@ -27,20 +27,14 @@ abstract class IdentityStoreBase with Store {
   static final _db = JsonStore(dbName: identityStorageName);
 
   IdentityStoreBase(
-      this.identities, int _selectedIndex, this.healthCertLastSelectIndex) {
+      this.identities, this.healthCertLastSelectIndex) {
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
-    healthCertLastSelectIndex = didHealthSelectIndex;
   }
 
   static Future<IdentityStore> fromJsonStore() async {
-    final int selectedIndex =
-        await _db.getItem(selectedIndexKey).then((savedItem) {
-      return savedItem != null ? savedItem[selectedIndexKey] as int : 0;
-    });
-
     final int didHealthSelectIndex =
         await _db.getItem(didHealthCertSelectIndexKey).then((savedItem) {
       return savedItem != null
@@ -57,7 +51,7 @@ abstract class IdentityStoreBase with Store {
             .orElse([]);
 
     return IdentityStore(
-        ObservableList.of(identities), selectedIndex, didHealthSelectIndex);
+        ObservableList.of(identities), didHealthSelectIndex);
   }
 
   Identity getIdentityById(String id) {
@@ -82,7 +76,7 @@ abstract class IdentityStoreBase with Store {
     try {
       return Optional.of(identities.firstWhere((e) => e.isSelected == true));
     } catch (StateError) {
-      return Optional.empty();
+      return const Optional.empty();
     }
   }
 
