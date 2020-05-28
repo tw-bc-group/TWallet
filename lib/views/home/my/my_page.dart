@@ -9,12 +9,14 @@ import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
   return getIt<IdentityStore>()
       .clear()
+      .then((_) => getIt<HealthCertificationStore>().clear())
       .then((_) => SecureStorage.clearAll())
       .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) =>
           Application.router

@@ -51,8 +51,13 @@ abstract class _HealthCertificationStore with Store {
     return _apiProvider.fetchHealthCertificate(did).then((token) {
       return _db.setItem(did, token.toJson()).then((_) {
         this.token = token;
+
         return Future.value(token);
       });
     });
+  }
+
+  Future<void> clear() async {
+    return _db.clearDataBase();
   }
 }
