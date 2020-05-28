@@ -20,16 +20,16 @@ import 'health_code_store.dart';
 
 class HealthCodePage extends StatefulWidget {
   final String id;
-  final bool firstRefresh;
+  final FirstRefreshState firstRefresh;
 
   @override
   State<StatefulWidget> createState() => HealthCodeState();
 
-  HealthCodePage(this.id, this.firstRefresh);
+  const HealthCodePage(this.id, this.firstRefresh);
 }
 
 class HealthCodeState extends State<HealthCodePage> {
-  final certStore = getIt<HealthCertificationStore>();
+  final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
   HealthCodeStore _certStore;
 
   Identity identity;
@@ -76,8 +76,8 @@ class HealthCodeState extends State<HealthCodePage> {
                           style: TextStyle(color: WalletColor.white),
                         ),
                         RaisedButton(
-                          child: const Text('点击重试'),
                           onPressed: onRefresh,
+                          child: const Text('点击重试'),
                         )
                       ]),
                 );
@@ -90,9 +90,9 @@ class HealthCodeState extends State<HealthCodePage> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(
-                          left: _screenUtil.setWidth(24),
-                          right: _screenUtil.setWidth(24),
-                          top: _screenUtil.setHeight(20),
+                          left: _screenUtil.setWidth(24).toDouble(),
+                          right: _screenUtil.setWidth(24).toDouble(),
+                          top: _screenUtil.setHeight(20).toDouble(),
                         ),
                         child: Stack(
                           alignment: Alignment.center,
@@ -100,13 +100,17 @@ class HealthCodeState extends State<HealthCodePage> {
                             Padding(
                               padding: EdgeInsets.only(top: _avatarWidth / 2),
                               child: Container(
-                                  padding: EdgeInsets.only(bottom: _screenUtil.setHeight(91)),
-                                  decoration: new BoxDecoration(
+                                  padding: EdgeInsets.only(
+                                      bottom:
+                                          _screenUtil.setHeight(91).toDouble()),
+                                  decoration: BoxDecoration(
                                       color: WalletColor.white,
                                       borderRadius: BorderRadius.circular(12)),
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: _screenUtil.setWidth(20)),
+                                        horizontal: _screenUtil
+                                            .setWidth(20)
+                                            .toDouble()),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -118,22 +122,29 @@ class HealthCodeState extends State<HealthCodePage> {
                                             child: Center(
                                               child: Text(identity.name,
                                                   style: WalletFont.font_18(
-                                                      textStyle: TextStyle(
-                                                          letterSpacing: 0,
-                                                          fontWeight: FontWeight
-                                                              .w600))),
+                                                      textStyle:
+                                                          const TextStyle(
+                                                              letterSpacing: 0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600))),
                                             )),
                                         Padding(
                                           padding: EdgeInsets.only(
-                                              top: _screenUtil.setHeight(28)),
+                                              top: _screenUtil
+                                                  .setHeight(28)
+                                                  .toDouble()),
                                           child: Center(
-                                            child: observeQrImage(
-                                                _screenUtil.setWidth(200)),
+                                            child: observeQrImage(_screenUtil
+                                                .setWidth(200)
+                                                .toDouble()),
                                           ),
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(
-                                              top: _screenUtil.setHeight(28)),
+                                              top: _screenUtil
+                                                  .setHeight(28)
+                                                  .toDouble()),
                                           child: Center(
                                             child: Text(
                                                 _certStore.currentCountDown
@@ -141,21 +152,25 @@ class HealthCodeState extends State<HealthCodePage> {
                                                         '$countDown s')
                                                     .orElse(''),
                                                 style: WalletFont.font_14(
-                                                    textStyle: TextStyle(
+                                                    textStyle: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600))),
                                           ),
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(
-                                              top: _screenUtil.setHeight(28)),
+                                              top: _screenUtil
+                                                  .setHeight(28)
+                                                  .toDouble()),
                                           child: Divider(
                                               color: WalletColor.grey,
                                               height: 1),
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(
-                                              top: _screenUtil.setHeight(32)),
+                                              top: _screenUtil
+                                                  .setHeight(32)
+                                                  .toDouble()),
                                           child: Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -187,7 +202,9 @@ class HealthCodeState extends State<HealthCodePage> {
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(
-                                              top: _screenUtil.setHeight(20)),
+                                              top: _screenUtil
+                                                  .setHeight(20)
+                                                  .toDouble()),
                                           child: Row(
                                             children: <Widget>[
                                               Text('红码：',

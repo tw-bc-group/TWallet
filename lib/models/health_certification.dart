@@ -5,15 +5,13 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 
 part 'health_certification.g.dart';
 
-const String HEALTHY = 'healthy';
-const String UNHEALTHY = 'unhealthy';
+const String healthy = 'healthy';
+const String unHealthy = 'unhealthy';
 
 abstract class HealthCertification
     implements Built<HealthCertification, HealthCertificationBuilder> {
   static Serializer<HealthCertification> get serializer =>
       _$healthCertificationSerializer;
-
-  HealthCertification._();
 
   @BuiltValueField(wireName: '@context')
   BuiltList<String> get context;
@@ -25,17 +23,20 @@ abstract class HealthCertification
   BuiltList<String> get typ;
   HealthCertificationSub get sub;
 
-  factory HealthCertification.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: FullType(HealthCertification));
-  }
-
   factory HealthCertification([Function(HealthCertificationBuilder) updates]) =
       _$HealthCertification;
 
-  Map<String, dynamic> toJson() {
-    return serializers.serialize(this);
+  factory HealthCertification.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+            specifiedType: const FullType(HealthCertification))
+        as HealthCertification;
   }
+
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this) as Map<String, dynamic>;
+  }
+
+  HealthCertification._();
 }
 
 abstract class HealthCertificationSub
@@ -43,36 +44,37 @@ abstract class HealthCertificationSub
   static Serializer<HealthCertificationSub> get serializer =>
       _$healthCertificationSubSerializer;
 
-  HealthCertificationSub._();
-
   String get id;
   String get phone;
   HealthyStatus get healthyStatus;
 
-  factory HealthCertificationSub.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: FullType(HealthCertificationSub));
-  }
-
   factory HealthCertificationSub(
           [Function(HealthCertificationSubBuilder) updates]) =
       _$HealthCertificationSub;
+
+  factory HealthCertificationSub.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+            specifiedType: const FullType(HealthCertificationSub))
+        as HealthCertificationSub;
+  }
+
+  HealthCertificationSub._();
 }
 
 abstract class HealthyStatus
     implements Built<HealthyStatus, HealthyStatusBuilder> {
   static Serializer<HealthyStatus> get serializer => _$healthyStatusSerializer;
 
-  HealthyStatus._();
-
   String get typ;
   String get val;
 
-  factory HealthyStatus.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: FullType(HealthyStatus));
-  }
-
   factory HealthyStatus([Function(HealthyStatusBuilder) updates]) =
       _$HealthyStatus;
+
+  factory HealthyStatus.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(HealthyStatus)) as HealthyStatus;
+  }
+
+  HealthyStatus._();
 }

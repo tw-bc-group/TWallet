@@ -18,7 +18,7 @@ class TxStatus extends EnumClass {
   static BuiltSet<TxStatus> get values => _$values;
   static TxStatus valueOf(String name) => _$valueOf(name);
 
-  String getDesc () {
+  String getDesc() {
     String res = '';
     switch (this) {
       case TxStatus.succeeded:

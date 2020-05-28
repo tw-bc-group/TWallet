@@ -7,21 +7,21 @@ class NewCommonLayout extends StatelessWidget {
   final Widget child;
   final bool withBottomBtn;
   final String btnText;
-  final Function btnOnPressed;
+  final VoidCallback btnOnPressed;
   final String title;
-  final String bodyBackColor;
+  final Color bodyBackColor;
   final BackIcon backIcon;
   final bool withBottomNavigationBar;
   final List<Widget> appBarActions;
 
-  NewCommonLayout(
+  const NewCommonLayout(
       {this.child,
       this.withBottomBtn = false,
       this.btnText = '完成',
       this.btnOnPressed,
       this.title,
-      this.bodyBackColor = WalletColor.PRIMARY,
-      this.backIcon = BackIcon.ARROW,
+      this.bodyBackColor,
+      this.backIcon = BackIcon.arrow,
       this.withBottomNavigationBar = true,
       this.appBarActions});
 
@@ -29,7 +29,7 @@ class NewCommonLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      backgroundColor: WalletTheme.rgbColor(bodyBackColor),
+      backgroundColor: bodyBackColor ?? WalletColor.primary,
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
         brightness: Brightness.dark,
@@ -54,7 +54,7 @@ class NewCommonLayout extends StatelessWidget {
               height: withBottomNavigationBar ? 30 : 0)),
       body: GestureDetector(
           onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
+            final FocusScopeNode currentFocus = FocusScope.of(context);
             if (!currentFocus.hasPrimaryFocus) {
               currentFocus.unfocus();
             }
@@ -64,14 +64,14 @@ class NewCommonLayout extends StatelessWidget {
               child: Container(
                 padding: withBottomNavigationBar
                     ? null
-                    : EdgeInsets.only(bottom: 30),
+                    : const EdgeInsets.only(bottom: 30),
                 child: Column(
                   children: <Widget>[
                     Expanded(child: child),
                     if (withBottomBtn)
                       Container(
                           color: WalletColor.white,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 30),
                           child: WalletTheme.button(
                               text: btnText, onPressed: btnOnPressed))

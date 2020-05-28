@@ -9,8 +9,8 @@ import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 class IdentityQRPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Identity identity = ModalRoute.of(context).settings.arguments;
-    print(identity);
+    final Identity identity =
+        ModalRoute.of(context).settings.arguments as Identity;
 
     return NewCommonLayout(
       title: '身份二维码',
@@ -21,30 +21,30 @@ class IdentityQRPage extends StatelessWidget {
 
   Widget _buildMainContent(Identity identity) {
     return Container(
-      margin: EdgeInsets.only(top: 15),
-        child: ListView(
+      margin: const EdgeInsets.only(top: 15),
+      child: ListView(
         children: <Widget>[
           Stack(
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                  color: WalletColor.white
-                ),
-                margin: EdgeInsets.only(left: 18, right: 18, top: 40),
-                padding: EdgeInsets.only(top: 74, bottom: 41, left: 60, right: 60),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    color: WalletColor.white),
+                margin: const EdgeInsets.only(left: 18, right: 18, top: 40),
+                padding: const EdgeInsets.only(
+                    top: 74, bottom: 41, left: 60, right: 60),
                 child: Column(
                   children: <Widget>[
                     Text(
                       identity.name,
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     _buildQRCode(identity.did.toString()),
                     Container(
-                      height: 1,
-                      margin: EdgeInsets.only(top: 60, bottom: 40),
-                      color: WalletColor.middleGrey
-                    ),
+                        height: 1,
+                        margin: const EdgeInsets.only(top: 60, bottom: 40),
+                        color: WalletColor.middleGrey),
                     Text(
                       identity.did.toString(),
                       style: WalletFont.font_14(),
@@ -53,11 +53,8 @@ class IdentityQRPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: AvatarWidget()
-                ),
+              const Positioned(
+                child: Align(child: AvatarWidget()),
               )
             ],
           )
@@ -68,7 +65,7 @@ class IdentityQRPage extends StatelessWidget {
 
   Widget _buildQRCode(String did) {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 30),
       child: QrImage(
         data: did,
         version: QrVersions.auto,

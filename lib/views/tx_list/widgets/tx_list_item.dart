@@ -8,26 +8,32 @@ import 'package:web3dart/credentials.dart';
 
 import 'color_money_text.dart';
 
+enum TxType {
+  credit,
+  expense,
+}
+
 class TxListItem extends StatelessWidget {
-  static final _greyColor = 0xFF888888;
+  static const _greyColor = 0xFF888888;
 
   final String _address;
   final TxStatus _status;
   final Amount _amount;
   final DateTime _dateTime;
-  final GestureTapCallback onTap;
-  final bool _isExpense;
+  final GestureTapCallback _onTap;
+  final TxType _txType;
 
-  TxListItem(this._address, this._status, this._amount, this._dateTime,
-      this.onTap, this._isExpense);
+  const TxListItem(this._address, this._status, this._amount, this._dateTime,
+      this._onTap, this._txType);
 
   Widget _renderDate() => Text(parseDate(_dateTime),
-      style: TextStyle(
+      style: const TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 10.7,
           color: Color(_greyColor)));
 
-  Widget _renderAddress() => Text(addressToShorthandDID(_address), style: WalletFont.font_16());
+  Widget _renderAddress() =>
+      Text(addressToShorthandDID(_address), style: WalletFont.font_16());
 
   String addressToShorthandDID(String address) {
     return DID.fromEthAddress(EthereumAddress.fromHex(address)).shorthandValue;
@@ -36,18 +42,16 @@ class TxListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: _onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 22),
+        padding: const EdgeInsets.symmetric(vertical: 22),
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                _renderDate()
-              ],
+              children: <Widget>[_renderDate()],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -55,7 +59,7 @@ class TxListItem extends StatelessWidget {
                 ColorMoneyText(
                   amount: _amount,
                   status: _status,
-                  isExpense: _isExpense,
+                  isExpense: _txType == TxType.expense,
                 )
               ],
             ),

@@ -4,42 +4,36 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 
-enum BackIcon { NONE, ARROW }
+enum BackIcon { none, arrow }
 
 class PageTitleWidget extends StatelessWidget {
   final String title;
   final BackIcon backIcon;
   final List<Widget> appBarActions;
 
-  PageTitleWidget({
+  const PageTitleWidget({
     this.title,
-    this.backIcon = BackIcon.ARROW,
+    this.backIcon = BackIcon.arrow,
     this.appBarActions,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Stack(
+    return Stack(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 48,
             ),
-            if (title != null) Text(
-              title,
-              style: WalletFont.font_18(
-                textStyle: TextStyle(
-                  color: WalletColor.white
-                )
-              )
-            ),
+            if (title != null)
+              Text(title,
+                  style: WalletFont.font_18(
+                      textStyle: TextStyle(color: WalletColor.white))),
           ],
         ),
-        if (backIcon != BackIcon.NONE)
+        if (backIcon != BackIcon.none)
           Positioned(
             left: 10,
             top: 0,
@@ -64,6 +58,6 @@ class PageTitleWidget extends StatelessWidget {
             ),
           ),
       ],
-    ));
+    );
   }
 }

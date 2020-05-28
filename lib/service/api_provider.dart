@@ -14,11 +14,10 @@ class ApiProvider {
   final HttpClient _httpClient = getIt<HttpClient>();
 
   Future<TwBalance> fetchPointV1({@required String address}) async {
-    return _httpClient
-        .get('/v1/token/$address')
-        .then((response) {
+    return _httpClient.get('/v1/token/$address').then((response) {
       return Future.value(
-          ApiResponse.fromJson(response.data, [FullType(TwBalance)]).result);
+          ApiResponse.fromJson(response.data, [const FullType(TwBalance)])
+              .result as TwBalance);
     });
   }
 
@@ -27,7 +26,8 @@ class ApiProvider {
         .get('/v1/contracts/$contractName', loading: false)
         .then((response) {
       return Future.value(
-          ApiResponse.fromJson(response.data, [FullType(Contract)]).result);
+          ApiResponse.fromJson(response.data, [const FullType(Contract)]).result
+              as Contract);
     });
   }
 
@@ -55,16 +55,17 @@ class ApiProvider {
     return _httpClient
         .get('/v1/transactions?from_addr=$fromAddress')
         .then((response) {
-      return Future.value(ApiResponse.fromJson(response.data, [
+      return Future.value(ApiResponse.fromJson(response.data, const [
         FullType(BuiltList, [FullType(Transaction)])
-      ]).result.toList());
+      ]).result.toList() as List<Transaction>);
     });
   }
 
   Future<Transaction> fetchTxDetails({@required String txHash}) async {
-    return _httpClient.get('/v1/transactions/' + txHash).then((response) {
+    return _httpClient.get('/v1/transactions/$txHash').then((response) {
       return Future.value(
-          ApiResponse.fromJson(response.data, [FullType(Transaction)]).result);
+          ApiResponse.fromJson(response.data, [const FullType(Transaction)])
+              .result as Transaction);
     });
   }
 
@@ -77,14 +78,15 @@ class ApiProvider {
       'contact': contact,
       "symptoms": symptoms
     }).then((response) => Future.value(ApiResponse.fromJson(
-        response.data, [FullType(HealthCertificationToken)]).result));
+            response.data, [const FullType(HealthCertificationToken)]).result
+        as HealthCertificationToken));
   }
 
   Future<HealthCertificationToken> fetchHealthCertificate(String did) {
-    return _httpClient
-        .get('/v1/health-certifications/$did')
-        .then((response) => Future.value(ApiResponse.fromJson(
-            response.data, [FullType(HealthCertificationToken)]).result));
+    return _httpClient.get('/v1/health-certifications/$did').then((response) =>
+        Future.value(ApiResponse.fromJson(
+                response.data, [const FullType(HealthCertificationToken)])
+            .result as HealthCertificationToken));
   }
 
   Future<Response> verifyHealthCertificationToken(String token) {

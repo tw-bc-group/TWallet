@@ -14,7 +14,7 @@ class QrScannerPageState extends State<QrScannerPage>
   ScannerController _scannerController;
 
   Future<bool> checkAndRequirePermission() async {
-    PermissionStatus status = await Permission.camera.status;
+    final PermissionStatus status = await Permission.camera.status;
     if (!status.isGranted) {
       if (status.isDenied ||
           status.isRestricted ||
@@ -23,20 +23,20 @@ class QrScannerPageState extends State<QrScannerPage>
           context: context,
           builder: (BuildContext context) {
             return CupertinoAlertDialog(
-              content: Text("需要去应用设置页面允许相机权限"),
+              content: const Text("需要去应用设置页面允许相机权限"),
               actions: <Widget>[
                 CupertinoDialogAction(
                   onPressed: () async {
                     Navigator.pop(context, false);
                     await openAppSettings();
                   },
-                  child: Text("去设置"),
+                  child: const Text("去设置"),
                 ),
                 CupertinoDialogAction(
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
-                  child: Text("拒绝"),
+                  child: const Text("拒绝"),
                 ),
               ],
             );
@@ -46,7 +46,7 @@ class QrScannerPageState extends State<QrScannerPage>
         await Permission.camera.request();
       }
     }
-    return await Permission.camera.isGranted;
+    return Permission.camera.isGranted;
   }
 
   @override
@@ -54,7 +54,7 @@ class QrScannerPageState extends State<QrScannerPage>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      Future.delayed(Duration(milliseconds: 500)).then((_) {
+      Future.delayed(const Duration(milliseconds: 500)).then((_) {
         checkAndRequirePermission().then((isGranted) {
           if (isGranted) {
             _scannerController.startCamera();
@@ -93,21 +93,19 @@ class QrScannerPageState extends State<QrScannerPage>
 
   @override
   Widget build(BuildContext context) {
-    Color buttonColor = Colors.grey[800];
+    final Color buttonColor = Colors.grey[800];
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            double borderWidth = constraints.maxWidth * 2 / 3;
+            final double borderWidth = constraints.maxWidth * 2 / 3;
             return Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                Container(
-                  child: PlatformAiBarcodeScannerWidget(
-                    platformScannerController: _scannerController,
-                  ),
+                PlatformAiBarcodeScannerWidget(
+                  platformScannerController: _scannerController,
                 ),
                 Container(
                   padding: EdgeInsets.only(
@@ -131,13 +129,13 @@ class QrScannerPageState extends State<QrScannerPage>
                       child: Row(
                         children: <Widget>[
                           Container(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.only(left: 10),
                             child: RaisedButton(
                                 color: buttonColor,
-                                shape: CircleBorder(),
-                                child: Icon(Icons.close, color: Colors.white),
+                                shape: const CircleBorder(),
                                 onPressed: () =>
-                                    Application.router.pop(context)),
+                                    Application.router.pop(context),
+                                child: Icon(Icons.close, color: Colors.white)),
                           ),
 //                          Expanded(child: Container()),
 //                          RaisedButton(
@@ -178,7 +176,7 @@ class QrScannerPageState extends State<QrScannerPage>
     @required double borderHeight,
   }) {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      var lineStrokeWidth = 5.0;
+      const double lineStrokeWidth = 5.0;
 
       return Container(
         width: borderWidth,

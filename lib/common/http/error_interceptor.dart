@@ -6,16 +6,6 @@ class ErrorInterceptor extends InterceptorsWrapper {
   static BuildContext context;
 
   @override
-  Future onRequest(RequestOptions options) {
-    return super.onRequest(options);
-  }
-
-  @override
-  Future onResponse(Response response) {
-    return super.onResponse(response);
-  }
-
-  @override
   Future onError(DioError err) {
     switch (err.type) {
       case DioErrorType.CONNECT_TIMEOUT:
@@ -38,7 +28,9 @@ class ErrorInterceptor extends InterceptorsWrapper {
         if (err.response != null) {
           if (err.response.statusCode == 400) {
             if (err.response.data['code'] == 40000) {
-              showErrorSnackbar(err.response.data['msg']);
+              showErrorSnackbar(
+                err.response.data['msg'] as String,
+              );
             } else {
               showErrorSnackbar('请求失败，请稍后再试..');
             }
@@ -55,14 +47,14 @@ class ErrorInterceptor extends InterceptorsWrapper {
     return super.onError(err);
   }
 
-  showErrorSnackbar(String errorMsg) {
+  void showErrorSnackbar(String errorMsg) {
     Flushbar(
       message: errorMsg,
       flushbarPosition: FlushbarPosition.BOTTOM,
       flushbarStyle: FlushbarStyle.FLOATING,
       backgroundColor: Colors.black87,
       isDismissible: false,
-      duration: Duration(seconds: 4),
+      duration: const Duration(seconds: 4),
     ).show(context);
   }
 }

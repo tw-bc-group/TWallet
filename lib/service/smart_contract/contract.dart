@@ -6,8 +6,8 @@ import 'package:web3dart/contracts.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
-const TOKEN_CONTRACT_NAME = 'token';
-const IDENTITY_REGISTRY_CONTRACT_NAME = 'identity-registry';
+const tokenContractName = 'token';
+const identityRegistryContractName = 'identity-registry';
 
 class ContractService {
   const ContractService(this.contracts);
@@ -15,16 +15,15 @@ class ContractService {
   final Map<String, Contract> contracts;
 
   Contract get identityRegistryContract =>
-      contracts[IDENTITY_REGISTRY_CONTRACT_NAME];
+      contracts[identityRegistryContractName];
 
-  Contract get twPointContract => contracts[TOKEN_CONTRACT_NAME];
+  Contract get twPointContract => contracts[tokenContractName];
 
   static Future<ContractService> init() async {
-    Map<String, Contract> contracts = Map();
-    [IDENTITY_REGISTRY_CONTRACT_NAME, TOKEN_CONTRACT_NAME]
-        .forEach((name) async {
+    final Map<String, Contract> contracts = {};
+    for (final name in [identityRegistryContractName, tokenContractName]) {
       contracts[name] = await Contract.fromApi(name);
-    });
+    }
     return ContractService(contracts);
   }
 }
@@ -39,7 +38,7 @@ class Contract {
     return getIt<ApiProvider>()
         .fetchContractAbiV1(contractName: contractName)
         .then((contract) {
-      if (contractName == TOKEN_CONTRACT_NAME) {
+      if (contractName == tokenContractName) {
         globalEnv().rebuild((builder) {
           builder.tokenName = contract.name;
           if (null != contract.symbol) {
@@ -48,7 +47,7 @@ class Contract {
           if (null != contract.decimal) {
             builder.tokenPrecision = contract.decimal;
           }
-          getIt<EnvStore>().updateEnv(builder.build());
+          getIt<EnvStore>().env = builder.build();
         });
       }
 

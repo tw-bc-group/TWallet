@@ -24,19 +24,6 @@ mixin _$EnvStore on _EnvStore, Store {
     });
   }
 
-  final _$_EnvStoreActionController = ActionController(name: '_EnvStore');
-
-  @override
-  void updateEnv(Env newEnv) {
-    final _$actionInfo =
-        _$_EnvStoreActionController.startAction(name: '_EnvStore.updateEnv');
-    try {
-      return super.updateEnv(newEnv);
-    } finally {
-      _$_EnvStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''

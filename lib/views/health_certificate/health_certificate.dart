@@ -19,26 +19,22 @@ import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 
 class HealthCertificatePage extends StatefulWidget {
   final String id;
-
-  HealthCertificatePage({this.id});
+  const HealthCertificatePage({this.id});
 
   @override
-  State<StatefulWidget> createState() {
-    return HealthCertificateState(id: id);
-  }
+  State<StatefulWidget> createState() => HealthCertificateState();
 }
 
 class HealthCertificateState extends State<HealthCertificatePage> {
-  final String id;
   final HealthCertificatePageStore _pageStore = HealthCertificatePageStore();
+  final ScrollController _scrollController = ScrollController();
 
   TextEditingController _phoneInputController;
   TextEditingController _temperatureInputController;
-  ScrollController _scrollController = ScrollController();
 
-  HealthCertificateState({this.id});
+  HealthCertificateState();
 
-  static TextStyle _titleStyle = WalletFont.font_14(
+  static final TextStyle _titleStyle = WalletFont.font_14(
       textStyle: TextStyle(
           fontWeight: FontWeight.w600,
           color: WalletColor.black,
@@ -62,13 +58,13 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     } else {
       getIt<HealthCertificationStore>()
           .bindHealthCert(
-              getIt<IdentityStore>().getIdentityById(id).did.toString(),
+              getIt<IdentityStore>().getIdentityById(widget.id).did.toString(),
               _pageStore.phone,
               double.parse(_pageStore.temperature),
               _pageStore.contactOption.toString(),
               _pageStore.symptomsOption.toString())
-          .then((_) => Application.router.navigateTo(
-              context, '${Routes.healthCode}?id=$id&firstRefresh=false',
+          .then((_) => Application.router.navigateTo(context,
+              '${Routes.healthCode}?id=${widget.id}&firstRefresh=false',
               replace: true));
     }
   }
@@ -79,17 +75,18 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       String errorText,
       TextEditingController controller,
       TextInputType inputType,
-      Function onChanged) {
-    List<Widget> columnChildren = [
+      ValueChanged<String> onChanged) {
+    final List<Widget> columnChildren = [
       _formTitle(title),
       Container(
-          padding: EdgeInsets.symmetric(horizontal: _screenUtil.setWidth(16)),
-          margin: EdgeInsets.symmetric(vertical: 13),
+          padding: EdgeInsets.symmetric(
+              horizontal: _screenUtil.setWidth(16).toDouble()),
+          margin: const EdgeInsets.symmetric(vertical: 13),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: WalletColor.grey, width: 1),
           ),
-          height: _screenUtil.setHeight(44),
+          height: _screenUtil.setHeight(44).toDouble(),
           child: TextField(
             controller: controller,
             keyboardType: inputType,
@@ -98,10 +95,10 @@ class HealthCertificateState extends State<HealthCertificatePage> {
               hintStyle: WalletFont.font_12(
                   textStyle: TextStyle(
                       color: WalletColor.grey, fontWeight: FontWeight.w400)),
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(style: BorderStyle.none),
               ),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(style: BorderStyle.none),
               ),
             ),
@@ -140,7 +137,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     ]);
   }
 
-  Widget _buildRadioGroup(Function onValueChanged) {
+  Widget _buildRadioGroup(Function(dynamic) onValueChanged) {
     return CustomRadioButton(
       elevation: 0,
       enableShape: true,
@@ -151,22 +148,22 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       radioButtonValue: onValueChanged,
       selectedColor: WalletColor.primary,
       customShape: RoundedRectangleBorder(
-        side: BorderSide(color: WalletColor.primary, width: 1),
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        side: BorderSide(color: WalletColor.primary),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
     );
   }
 
   Widget _buildForm(ScreenUtil _screenUtil) {
     return Container(
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
             color: WalletColor.white,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12), topRight: Radius.circular(12))),
         child: Padding(
           padding: EdgeInsets.only(
-              left: _screenUtil.setWidth(24),
-              right: _screenUtil.setWidth(24),
+              left: _screenUtil.setWidth(24).toDouble(),
+              right: _screenUtil.setWidth(24).toDouble(),
               top: 24),
           child: ListView(
             controller: _scrollController,
@@ -174,9 +171,9 @@ class HealthCertificateState extends State<HealthCertificatePage> {
               Text('请输入以下信息',
                   textAlign: TextAlign.center,
                   style: WalletFont.font_16(
-                      textStyle: TextStyle(fontWeight: FontWeight.w600))),
+                      textStyle: const TextStyle(fontWeight: FontWeight.w600))),
               Padding(
-                padding: EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 16),
                 child: _inputFiled(
                     _screenUtil,
                     '手机号',
@@ -186,45 +183,45 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                     (String value) => _pageStore.updatePhone(value)),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 16),
                 child: _inputFiled(
                     _screenUtil,
                     '今日体温（℃）',
                     _pageStore.error.temperature,
                     _temperatureInputController,
-                    TextInputType.numberWithOptions(decimal: true),
+                    const TextInputType.numberWithOptions(decimal: true),
                     (String value) => _pageStore.updateTemperature(value)),
               ),
               Padding(
-                  padding: EdgeInsets.only(top: 26),
+                  padding: const EdgeInsets.only(top: 26),
                   child: _formTitle('近14天内您是否接触新冠肺炎确诊患者或疑似患者？',
                       hasAsterisk: false)),
               Padding(
-                padding: EdgeInsets.only(top: 21),
-                child: _buildRadioGroup(
-                    (value) => _pageStore.contactOption = value),
+                padding: const EdgeInsets.only(top: 21),
+                child: _buildRadioGroup((dynamic value) =>
+                    _pageStore.contactOption = value as SelectOption),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 36),
+                padding: const EdgeInsets.only(top: 36),
                 child: _formTitle('您是否有发烧、恶心呕吐、头痛、呼吸急促、心慌、胸闷、乏力、肌肉疼痛等症状？',
                     hasAsterisk: false),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 21),
-                child: _buildRadioGroup(
-                    (value) => _pageStore.symptomsOption = value),
+                padding: const EdgeInsets.only(top: 21),
+                child: _buildRadioGroup((dynamic value) =>
+                    _pageStore.symptomsOption = value as SelectOption),
               ),
               Padding(
-                  padding: EdgeInsets.only(top: 36),
+                  padding: const EdgeInsets.only(top: 36),
                   child: Divider(color: WalletColor.grey)),
               Padding(
-                padding: EdgeInsets.only(top: 24),
+                padding: const EdgeInsets.only(top: 24),
                 child: Container(
                     decoration: BoxDecoration(
                         color: WalletColor.lightGrey,
                         borderRadius: BorderRadius.circular(8)),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 20),
+                      padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,7 +233,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                                     activeColor: WalletColor.primary,
                                     value: _pageStore.hasCommitment,
                                     onChanged: (value) =>
-                                        _pageStore.updateCommitment(value)),
+                                        _pageStore.hasCommitment = value),
                                 Expanded(
                                   child: _formTitle('本人郑重承诺'),
                                 )
@@ -244,7 +241,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                             ),
                             Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: _screenUtil.setWidth(10)),
+                                    horizontal:
+                                        _screenUtil.setWidth(10).toDouble()),
                                 child: Text(
                                     '上述信息是我本人填写，本人对内容真实性和完整性负责，因信息填报不实导致相关后果的，本人愿意承担相应责任。',
                                     style: WalletFont.font_12(
@@ -256,8 +254,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                     )),
               ),
               Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: _screenUtil.setHeight(24)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: _screenUtil.setHeight(24).toDouble()),
                   child: WalletTheme.button(
                       text: '确定',
                       onPressed:
@@ -276,17 +274,16 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     return Observer(
         builder: (_) => NewCommonLayout(
             title: '健康认证',
-            withBottomBtn: false,
             child: Column(
               children: <Widget>[
                 SvgPicture.asset(
                   'assets/icons/security.svg',
-                  width: _screenUtil.setWidth(60),
+                  width: _screenUtil.setWidth(60).toDouble(),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: _screenUtil.setWidth(24),
-                      vertical: _screenUtil.setHeight(24)),
+                      horizontal: _screenUtil.setWidth(24).toDouble(),
+                      vertical: _screenUtil.setHeight(24).toDouble()),
                   child: Text('本服务基于手机运营商提供的行程数据以及个人健康信息的填报，为公众提供本人防疫健康信息查询服务。',
                       textAlign: TextAlign.center,
                       style: WalletFont.font_14(

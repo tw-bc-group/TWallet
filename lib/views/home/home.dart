@@ -14,20 +14,18 @@ import 'identity/identity_page.dart';
 import 'my/my_page.dart';
 
 class Home extends StatefulWidget {
-  Home({this.defaultIndex = 0});
-
+  const Home({this.defaultIndex = 0});
   final int defaultIndex;
 
   @override
-  HomeState createState() => HomeState(defaultIndex: defaultIndex);
+  HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> {
-  HomeState({this.defaultIndex = 0});
+  HomeState();
 
-  final HomeStore homeStore = HomeStore();
-
-  static final iconPaths = {
+  static int get identityIndex => 2;
+  static final Map<String, Map<String, String>> iconPaths = {
     'home': {
       'unselected': 'assets/icons/bottom_bar/home.svg',
       'selected': 'assets/icons/bottom_bar/home_selected.svg',
@@ -46,37 +44,34 @@ class HomeState extends State<Home> {
     }
   };
 
-  static svgIcon(path) => SvgPicture.asset(path);
+  static SvgPicture svgIcon(String path) => SvgPicture.asset(path);
 
   static final List<BottomNavigationBarItem> _barItems = [
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['home']['unselected']),
         activeIcon: svgIcon(iconPaths['home']['selected']),
-        title: Text('首页')),
+        title: const Text('首页')),
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['discovery']['unselected']),
         activeIcon: svgIcon(iconPaths['discovery']['selected']),
-        title: Text('发现')),
+        title: const Text('发现')),
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['identity']['unselected']),
         activeIcon: svgIcon(iconPaths['identity']['selected']),
-        title: Text('身份')),
+        title: const Text('身份')),
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['me']['unselected']),
         activeIcon: svgIcon(iconPaths['me']['selected']),
-        title: Text('我')),
+        title: const Text('我')),
   ];
 
-  static int get identityIndex => 2;
+  final HomeStore homeStore = HomeStore();
 
-  // _barItems.indexWhere((item) => (item.title as Text).data == '');
-
-  int defaultIndex;
   List<Widget> _pages;
 
   @override
   void initState() {
-    homeStore.changePage(defaultIndex);
+    homeStore.currentPage = widget.defaultIndex;
     _pages = [
       HomePage(homeStore),
       DiscoveryPage(homeStore),
@@ -103,8 +98,8 @@ class HomeState extends State<Home> {
                 type: BottomNavigationBarType.fixed,
                 fixedColor: WalletColor.primary,
                 selectedFontSize: 12,
-                onTap: (index) {
-                  homeStore.changePage(index);
+                onTap: (int index) {
+                  homeStore.currentPage = index;
                 },
               )),
     );

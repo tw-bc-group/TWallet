@@ -16,9 +16,9 @@ Future<void> _cleanPrivateData(BuildContext context) async {
   return getIt<IdentityStore>()
       .clear()
       .then((_) => SecureStorage.clearAll())
-      .then((_) => Future.delayed(Duration(seconds: 1)).then((_) => Application
-          .router
-          .navigateTo(context, Routes.inputPin, clearStack: true)));
+      .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) =>
+          Application.router
+              .navigateTo(context, Routes.inputPin, clearStack: true)));
 }
 
 YYDialog showLoadingDialog() {
@@ -32,7 +32,7 @@ YYDialog showLoadingDialog() {
       width: 60,
       height: 60,
       alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 50),
+      margin: const EdgeInsets.only(top: 50),
       child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
     ))
@@ -46,8 +46,8 @@ class MyPage extends StatelessWidget {
 
     return Column(children: <Widget>[
       Container(
-        height: _screenUtil.setHeight(244),
-        decoration: BoxDecoration(
+        height: _screenUtil.setHeight(244).toDouble(),
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -61,32 +61,33 @@ class MyPage extends StatelessWidget {
           child: Container(
               color: WalletColor.lightGrey,
               child: Padding(
-                padding: EdgeInsets.all(_screenUtil.setWidth(24)),
+                padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
                 child: Column(
                   children: <Widget>[
                     GestureDetector(
                       onTap: () async {
-                        YYDialog loadingDialog = showLoadingDialog();
+                        final YYDialog loadingDialog = showLoadingDialog();
                         await _cleanPrivateData(context);
                         loadingDialog.dismiss();
                       },
                       child: Container(
-                          height: _screenUtil.setWidth(90),
+                          height: _screenUtil.setWidth(90).toDouble(),
                           decoration: BoxDecoration(
                             color: WalletColor.white,
                             borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
-                                  color: Color(0x0f000000),
-                                  offset: Offset(0, 4),
-                                  blurRadius: 12,
-                                  spreadRadius: 0)
+                                color: Color(0x0f000000),
+                                offset: Offset(0, 4),
+                                blurRadius: 12,
+                              )
                             ],
                           ),
                           child: Center(
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: _screenUtil.setWidth(20)),
+                                  horizontal:
+                                      _screenUtil.setWidth(20).toDouble()),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -100,8 +101,9 @@ class MyPage extends StatelessWidget {
                           )),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: _screenUtil.setWidth(24)),
-                      child: Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
+                      padding: EdgeInsets.only(
+                          top: _screenUtil.setWidth(24).toDouble()),
+                      child: const Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
                     )
                   ],
                 ),

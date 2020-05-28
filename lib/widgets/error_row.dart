@@ -6,7 +6,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 class ErrorRowWidget extends StatelessWidget {
   final String errorText;
 
-  ErrorRowWidget(this.errorText);
+  const ErrorRowWidget(this.errorText);
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,21 @@ class ErrorRowWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 7, right: 4),
+          margin: const EdgeInsets.only(top: 7, right: 4),
           child: SvgPicture.asset('assets/icons/error-tip.svg'),
         ),
         Expanded(
-          child: Container(
-            margin: EdgeInsets.only(top: 5),
-            alignment: Alignment.centerLeft,
-            child: Text(errorText,
-              style: WalletFont.font_12(
-                  textStyle: TextStyle(
-                color: WalletColor.accent,
-              )),
-            ),
-          )
-        )
+            child: Container(
+          margin: const EdgeInsets.only(top: 5),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            errorText,
+            style: WalletFont.font_12(
+                textStyle: TextStyle(
+              color: WalletColor.accent,
+            )),
+          ),
+        ))
       ],
     );
   }

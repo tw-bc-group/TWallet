@@ -10,50 +10,49 @@ import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 part 'identity_store.g.dart';
 
-const IDENTITIES_STORAGE_NAME = 'identities';
-const IDENTITIES_NAME_KEY = 'name';
-const SELECTED_INDEX_KEY = 'selected_index';
-const DID_HEALTH_CERT_SELECT_INDEX_KEY = 'did_health_cert_select_index';
+const identityStorageName = 'identities';
+const identityNameKey = 'name';
+const selectedIndexKey = 'selected_index';
+const didHealthCertSelectIndexKey = 'did_health_cert_select_index';
 
 enum AssetsType { point, token }
 
 class IdentityStore = IdentityStoreBase with _$IdentityStore;
 
 String _itemKey(String name) {
-  return '$IDENTITIES_NAME_KEY: $name';
+  return '$identityNameKey: $name';
 }
 
 abstract class IdentityStoreBase with Store {
-  static final _db = JsonStore(dbName: IDENTITIES_STORAGE_NAME);
+  static final _db = JsonStore(dbName: identityStorageName);
 
   IdentityStoreBase(
-      this.identities, int _selectedIndex, int didHealthSelectIndex) {
-    searchName = '';
+      this.identities, int _selectedIndex, this.healthCertLastSelectIndex) {
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
     selectIdentity(index: _selectedIndex);
-    healthCertLastSelectIndex = didHealthSelectIndex;
   }
 
   static Future<IdentityStore> fromJsonStore() async {
-    int selectedIndex = await _db.getItem(SELECTED_INDEX_KEY).then((savedItem) {
-      return savedItem != null ? savedItem[SELECTED_INDEX_KEY] : 0;
+    final int selectedIndex =
+        await _db.getItem(selectedIndexKey).then((savedItem) {
+      return savedItem != null ? savedItem[selectedIndexKey] as int : 0;
     });
 
-    int didHealthSelectIndex =
-        await _db.getItem(DID_HEALTH_CERT_SELECT_INDEX_KEY).then((savedItem) {
+    final int didHealthSelectIndex =
+        await _db.getItem(didHealthCertSelectIndexKey).then((savedItem) {
       return savedItem != null
-          ? savedItem[DID_HEALTH_CERT_SELECT_INDEX_KEY]
+          ? savedItem[didHealthCertSelectIndexKey] as int
           : 0;
     });
 
-    List<Identity> identities =
-        Optional.ofNullable(await _db.getListLike('$IDENTITIES_NAME_KEY: %'))
+    final List<Identity> identities =
+        Optional.ofNullable(await _db.getListLike('$identityNameKey: %'))
             .map((listItems) => listItems.map((item) {
-                  var identity = Identity.fromJson(item);
-                  return identity.setSelected(false);
+                  final Identity identity = Identity.fromJson(item);
+                  return identity.setUnSelected();
                 }).toList())
             .orElse([]);
 
@@ -72,7 +71,7 @@ abstract class IdentityStoreBase with Store {
   ObservableList<Identity> identities = ObservableList<Identity>();
 
   @observable
-  String searchName;
+  String searchName = '';
 
   StreamController<ObservableFuture<TwBalance>> _streamController;
 
@@ -80,8 +79,9 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   Optional<Identity> get selectedIdentity {
-    final found = identities.firstWhere((element) => element.isSelected == true, orElse: null);
-    return found == null ? Optional.empty() : Optional.of(found);
+    final found = identities.firstWhere((element) => element.isSelected == true,
+        orElse: () => null);
+    return found == null ? const Optional.empty() : Optional.of(found);
   }
 
   @computed
@@ -98,7 +98,7 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   List<Identity> get selectedFirstIdentities {
-    var ids = identities.toList();
+    final List<Identity> ids = identities.toList();
     if (selectedIdentity.isPresent) {
       ids.removeWhere((ele) => ele.id == selectedIdentity.first.id);
       return [selectedIdentity.first] + ids;
@@ -108,8 +108,9 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   List<Identity> get selectedFirstIdentitiesInHealthDApp {
-    var ids = identities.toList();
-    Identity selectedIdentity = ids.removeAt(healthCertLastSelectIndex ?? 0);
+    final List<Identity> ids = identities.toList();
+    final Identity selectedIdentity =
+        ids.removeAt(healthCertLastSelectIndex ?? 0);
     return [selectedIdentity] + ids;
   }
 
@@ -118,13 +119,8 @@ abstract class IdentityStoreBase with Store {
         (identity1, identity2) => identity1.name.compareTo(identity2.name));
   }
 
-  void dispose() async {
-    await _streamController.close();
-  }
-
-  @action
-  void updateSearchName(String name) {
-    searchName = name;
+  Future<void> dispose() async {
+    _streamController.close();
   }
 
   @action
@@ -137,31 +133,30 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> selectIdentity({@required int index}) async {
     if (index >= 0 && index < identities.length) {
-      await _db
-          .setItem(SELECTED_INDEX_KEY, {SELECTED_INDEX_KEY: index}).then((_) {
+      await _db.setItem(selectedIndexKey, {selectedIndexKey: index}).then((_) {
         updateIdentityIsSelected(index);
-        return fetchLatestPoint();
+        fetchLatestPoint();
       });
     }
   }
 
   @action
-  void setIdentityIsSelected(int index, bool value) {
+  void setIdentityIsSelected(int index, {bool isSelected}) {
     identities[index] =
-        identities[index].rebuild((id) => id..isSelected = value);
+        identities[index].rebuild((id) => id..isSelected = isSelected);
   }
 
   @action
   void updateIdentityIsSelected(int nexIndex) {
     identities = ObservableList.of(
-        identities.map((element) => element.setSelected(false)).toList());
-    setIdentityIsSelected(nexIndex, true);
+        identities.map((element) => element.setSelected()).toList());
+    setIdentityIsSelected(nexIndex);
   }
 
   @action
   Future<void> addIdentity({@required Identity identity}) async {
     _db.setItem(_itemKey(identity.name), identity.toJson()).then((_) {
-      identities.add(identity.setSelected(false));
+      identities.add(identity.setUnSelected());
       _identitiesSort();
       if (identities.length == 1) {
         selectIdentity(index: 0);
@@ -171,7 +166,8 @@ abstract class IdentityStoreBase with Store {
 
   @action
   void updateSelectedIdentity(Identity identity) {
-    int index = identities.indexWhere((other) => other.name == identity.name);
+    final int index =
+        identities.indexWhere((other) => other.name == identity.name);
     if (index >= 0) {
       identities[index] = identity;
       updateIdentityIsSelected(index);
@@ -182,7 +178,8 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future<void> updateIdentity(Identity identity) async {
-    int index = identities.indexWhere((other) => other.name == identity.name);
+    final int index =
+        identities.indexWhere((other) => other.name == identity.name);
     if (index >= 0) {
       identities[index] = identity;
       await _db.setItem(_itemKey(identities[index].name), identity.toJson());
@@ -196,8 +193,7 @@ abstract class IdentityStoreBase with Store {
     _streamController.add(ObservableFuture(
         Future.value(selectedIdentity).then((selectedIdentity) async {
       if (selectedIdentity.isPresent) {
-        return await TwBalance.fetchBalance(
-                address: selectedIdentity.value.address)
+        return TwBalance.fetchBalance(address: selectedIdentity.value.address)
             .then((twBalance) {
           updateSelectedIdentity(selectedIdentity.value
               .rebuild((identity) => identity..balance = twBalance.amount));
@@ -210,14 +206,14 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future updateHealthCertLastSelected(Identity identity) async {
-    int index = identities.indexWhere((e) => e.id == identity.id);
+    final int index = identities.indexWhere((e) => e.id == identity.id);
     if (index >= 0) {
       healthCertLastSelectIndex = index;
     } else {
       throw Exception('Identity updateHealthCertSelectedIdentity not exist.');
     }
 
-    final key = DID_HEALTH_CERT_SELECT_INDEX_KEY;
+    const key = didHealthCertSelectIndexKey;
     await _db.setItem(key, {key: index});
   }
 }

@@ -32,21 +32,21 @@ part 'serializer.g.dart';
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())
       ..add(AmountSerializer())
-      ..addBuilderFactory(FullType(BuiltList, [FullType(Transaction)]),
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(Transaction)]),
           () => ListBuilder<Transaction>())
-      ..addBuilderFactory(FullType(ApiResponse, [FullType(Contract)]),
+      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Contract)]),
           () => ApiResponseBuilder<Contract>())
-      ..addBuilderFactory(FullType(ApiResponse, [FullType(Transaction)]),
+      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Transaction)]),
           () => ApiResponseBuilder<Transaction>())
       ..addBuilderFactory(
-          FullType(ApiResponse, [
+          const FullType(ApiResponse, [
             FullType(BuiltList, [FullType(Transaction)])
           ]),
           () => ApiResponseBuilder<BuiltList<Transaction>>())
-      ..addBuilderFactory(FullType(ApiResponse, [FullType(TwBalance)]),
+      ..addBuilderFactory(const FullType(ApiResponse, [FullType(TwBalance)]),
           () => ApiResponseBuilder<TwBalance>())
       ..addBuilderFactory(
-          FullType(ApiResponse, [FullType(HealthCertificationToken)]),
+          const FullType(ApiResponse, [FullType(HealthCertificationToken)]),
           () => ApiResponseBuilder<HealthCertificationToken>())
       ..addPlugin(StandardJsonPlugin()))
     .build();

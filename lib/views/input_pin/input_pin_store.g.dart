@@ -61,31 +61,6 @@ mixin _$InputPinStore on _InputPinStore, Store {
     return _$setMasterKeyAsyncAction.run(() => super.setMasterKey());
   }
 
-  final _$_InputPinStoreActionController =
-      ActionController(name: '_InputPinStore');
-
-  @override
-  dynamic updatePin1(String value) {
-    final _$actionInfo = _$_InputPinStoreActionController.startAction(
-        name: '_InputPinStore.updatePin1');
-    try {
-      return super.updatePin1(value);
-    } finally {
-      _$_InputPinStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic updatePin2(String value) {
-    final _$actionInfo = _$_InputPinStoreActionController.startAction(
-        name: '_InputPinStore.updatePin2');
-    try {
-      return super.updatePin2(value);
-    } finally {
-      _$_InputPinStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''

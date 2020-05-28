@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code.dart';
+import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
 import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
@@ -19,18 +20,18 @@ import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
-var newWalletHandler = Handler(
+Handler newWalletHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return NewWalletWidget();
   },
 );
 
-var newIdentityHandler = Handler(
+Handler newIdentityHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return IdentityNewPage();
 });
 
-var homeHandler = Handler(
+Handler homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return Home(
       defaultIndex: int.parse(Optional.ofNullable(params['index'])
@@ -38,94 +39,99 @@ var homeHandler = Handler(
           .orElse('0')));
 });
 
-var inputPinHandler = Handler(
+Handler inputPinHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return PinInputWidget();
   },
 );
 
-var backupMnemonicsHandler = Handler(
+Handler backupMnemonicsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return BackupMnemonicsPage();
   },
 );
 
-var confirmMnemonicsHandler = Handler(
+Handler confirmMnemonicsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return ConfirmMnemonicsPage();
   },
 );
 
-var profileHandler = Handler(
+Handler profileHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  var id = params['id'].first;
+  final String id = params['id'].first;
   return ProfilePage(id: id);
 });
 
-var transferTwPointsHandler = Handler(
+Handler transferTwPointsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return TransferPage();
   },
 );
 
-var txListHandler = Handler(
+Handler txListHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return TxListPage();
+    return const TxListPage();
   },
 );
 
-var txListDetailsHandler = Handler(
+Handler txListDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return TxListDetailsPage();
 });
 
-var transferConfirmHandler = Handler(
+Handler transferConfirmHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    var amount = params['amount'].first;
-    var toAddress = params['toAddress'].first;
-    var currency = params['currency'].first;
+    final String amount = params['amount'].first;
+    final String toAddress = params['toAddress'].first;
+    final String currency = params['currency'].first;
     return TransferConfirmPage(
         currency: currency, amount: amount, toAddress: toAddress);
   },
 );
 
-var certificateHandler = Handler(
+Handler certificateHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    var id = params['id'].first;
+    final String id = params['id'].first;
     return HealthCertificatePage(id: id);
   },
 );
 
-var qrPageHandler = Handler(
+Handler qrPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return IdentityQRPage();
   },
 );
 
-var qrScannerHandler = Handler(
+Handler qrScannerHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return QrScannerPage();
   },
 );
 
-var healthCodeHandler = Handler(
+Handler healthCodeHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return HealthCodePage(
         params['id'].first,
         Optional.ofNullable(params['firstRefresh'])
             .flatMap((v) => Optional.ofNullable(v[0]))
-            .map((v) => v.toLowerCase() == 'true')
-            .orElse(true));
+            .map((v) {
+          if (v.toLowerCase() == 'true') {
+            return FirstRefreshState.enabled;
+          } else {
+            return FirstRefreshState.disabled;
+          }
+        }).orElse(FirstRefreshState.enabled));
   },
 );
 
-var healthCertificationPageHandler = Handler(
+Handler healthCertificationPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return HealthCertificationPage();
   },
 );
 
-var identityDetailHandler = Handler(
+Handler identityDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return IdentityDetailPage(id: params['id'].first);
   },

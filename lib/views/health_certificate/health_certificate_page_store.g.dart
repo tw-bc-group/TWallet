@@ -205,18 +205,7 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
   }
 
   @override
-  void updateCommitment(bool value) {
-    final _$actionInfo = _$_HealthCertificatePageStoreActionController
-        .startAction(name: '_HealthCertificatePageStore.updateCommitment');
-    try {
-      return super.updateCommitment(value);
-    } finally {
-      _$_HealthCertificatePageStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic validateAll() {
+  void validateAll() {
     final _$actionInfo = _$_HealthCertificatePageStoreActionController
         .startAction(name: '_HealthCertificatePageStore.validateAll');
     try {

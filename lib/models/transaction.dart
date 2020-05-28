@@ -38,15 +38,16 @@ abstract class Transaction extends Object
   TxStatus get txType;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this);
-  }
-
-  factory Transaction.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Transaction));
+    return serializers.serialize(this) as Map<String, dynamic>;
   }
 
   factory Transaction([void Function(TransactionBuilder) updates]) =
       _$Transaction;
+
+  factory Transaction.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(Transaction)) as Transaction;
+  }
+
   Transaction._();
 }

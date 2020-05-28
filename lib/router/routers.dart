@@ -4,23 +4,23 @@ import 'package:fluro/fluro.dart';
 import 'package:tw_wallet_ui/router/router_handler.dart';
 
 class Routes {
-  static final String home = "/home";
-  static final String inputPin = "/input_pin";
-  static final String newWallet = "/new_wallet";
-  static final String newIdentity = "/new_identity";
-  static final String backupMnemonics = "/backup_mnemonics";
-  static final String confirmMnemonics = "/confirm_mnemonics";
-  static final String profile = "/profile";
-  static final String transferTwPoints = '/transfer_tw_points';
-  static final String txList = "/tx_list";
-  static final String txListDetails = "/tx_list_details";
-  static final String transferConfirm = '/transfer_confirm';
-  static final String certificate = '/certificate';
-  static final String identityDetail = '/identity';
-  static final String qrPage = '/identity/qr';
-  static final String qrScanner = '/qr_scanner';
-  static final String healthCode = '/health_code';
-  static final String healthCertPage = '/dapp/health_cert';
+  static const String home = "/home";
+  static const String inputPin = "/input_pin";
+  static const String newWallet = "/new_wallet";
+  static const String newIdentity = "/new_identity";
+  static const String backupMnemonics = "/backup_mnemonics";
+  static const String confirmMnemonics = "/confirm_mnemonics";
+  static const String profile = "/profile";
+  static const String transferTwPoints = '/transfer_tw_points';
+  static const String txList = "/tx_list";
+  static const String txListDetails = "/tx_list_details";
+  static const String transferConfirm = '/transfer_confirm';
+  static const String certificate = '/certificate';
+  static const String identityDetail = '/identity';
+  static const String qrPage = '/identity/qr';
+  static const String qrScanner = '/qr_scanner';
+  static const String healthCode = '/health_code';
+  static const String healthCertPage = '/dapp/health_cert';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -43,7 +43,7 @@ class Routes {
   };
 
   static void configureRoutes(Router router) {
-    TransitionType transitionType =
+    final TransitionType transitionType =
         Platform.isIOS ? TransitionType.cupertino : TransitionType.material;
 
     routers.forEach(

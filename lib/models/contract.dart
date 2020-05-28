@@ -17,14 +17,15 @@ abstract class Contract extends Object
   int get decimal;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this);
-  }
-
-  factory Contract.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Contract));
+    return serializers.serialize(this) as Map<String, dynamic>;
   }
 
   factory Contract([void Function(ContractBuilder) updates]) = _$Contract;
+
+  factory Contract.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(Contract)) as Contract;
+  }
+
   Contract._();
 }

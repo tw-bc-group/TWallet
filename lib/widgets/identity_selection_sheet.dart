@@ -18,7 +18,7 @@ class IdentitySelectionSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: _calBottomSheetHeight(context, identities.length),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
@@ -27,23 +27,22 @@ class IdentitySelectionSheet extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 24, right: 24, top: 24),
+          padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
           child: Column(
             children: identities
                 .asMap()
                 .map(
                   (i, e) => MapEntry(
-                    i,
-                    GestureDetector(
-                      onTap: () => onSheetItemTap(i),
-                      child: IdentityCard(
-                        name: e.name,
-                        did: e.did.toString(),
-                        bgColor: WalletColor.identityCardBg,
-                        isSelected: e.isSelected ?? false,
-                      ),
-                    )
-                  ),
+                      i,
+                      GestureDetector(
+                        onTap: () => onSheetItemTap(i),
+                        child: IdentityCard(
+                          name: e.name,
+                          did: e.did.toString(),
+                          bgColor: WalletColor.identityCardBg,
+                          isSelected: e.isSelected ?? false,
+                        ),
+                      )),
                 )
                 .values
                 .toList(),
@@ -54,10 +53,11 @@ class IdentitySelectionSheet extends StatelessWidget {
   }
 
   // TODO: get height dynamic
-  _calBottomSheetHeight(BuildContext context, int itemCount) {
-    var height = MediaQuery.of(context).size.height * 0.7;
+  // ignore: missing_return
+  double _calBottomSheetHeight(BuildContext context, int itemCount) {
+    final double height = MediaQuery.of(context).size.height * 0.7;
     const everyCardHeight = 110.0;
-    var marginHeight = (itemCount - 1) * 20 + 24 + 22;
+    final int marginHeight = (itemCount - 1) * 20 + 24 + 22;
     if (height < everyCardHeight * itemCount + marginHeight) return height;
   }
 }

@@ -1,22 +1,22 @@
 import 'package:fluro/fluro.dart';
 
 enum ENV {
-  PRODUCTION,
-  DEV,
+  production,
+  dev,
 }
 
 class Application {
   /// 通过Application设计环境变量
-  static ENV env = ENV.DEV;
+  static ENV env = ENV.dev;
 
   static Router router;
 
   /// 所有获取配置的唯一入口
   Map<String, String> get config {
-    if (Application.env == ENV.PRODUCTION) {
+    if (Application.env == ENV.production) {
       return {};
     }
-    if (Application.env == ENV.DEV) {
+    if (Application.env == ENV.dev) {
       return {};
     }
     return {};

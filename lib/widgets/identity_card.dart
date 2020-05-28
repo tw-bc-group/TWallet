@@ -27,15 +27,15 @@ class IdentityCard extends StatelessWidget {
         overflow: Overflow.visible,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 20),
-            padding: EdgeInsets.all(20),
+            margin: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: <Widget>[
-                AvatarWidget(width: 70),
+                const AvatarWidget(width: 70),
                 _buildIdentityInfo(),
               ],
             ),
@@ -58,11 +58,11 @@ class IdentityCard extends StatelessWidget {
     );
   }
 
-  _buildIdentityInfo() {
+  Widget _buildIdentityInfo() {
     return Expanded(
       child: Container(
         height: 70,
-        margin: EdgeInsets.only(left: 20),
+        margin: const EdgeInsets.only(left: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class IdentityCard extends StatelessWidget {
             Expanded(
               child: Text(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff111111),
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -81,7 +81,7 @@ class IdentityCard extends StatelessWidget {
             Expanded(
               child: Text(
                 did,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff110000),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,

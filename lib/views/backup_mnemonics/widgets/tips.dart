@@ -10,10 +10,10 @@ class Tips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 16),
-        padding: EdgeInsets.all(5),
+        margin: const EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           color: WalletColor.accent.withOpacity(0.1),
         ),
         child: Row(
@@ -21,12 +21,12 @@ class Tips extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(right: 2),
+                margin: const EdgeInsets.only(right: 2),
                 child: SvgPicture.asset('assets/icons/tips.svg'),
               ),
               Expanded(
                   child: Container(
-                margin: EdgeInsets.only(top: 3),
+                margin: const EdgeInsets.only(top: 3),
                 child: Text(tipText,
                     style: WalletFont.font_12(
                         textStyle: TextStyle(

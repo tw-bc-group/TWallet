@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
@@ -18,7 +17,7 @@ Widget _pointItem({@required String point, BuildContext context}) {
       child: HomeListItem(
         leading: Text(
           globalEnv().tokenName,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'OpenSans',
             color: Color(0xff111111),
             fontSize: 16,
@@ -29,7 +28,7 @@ Widget _pointItem({@required String point, BuildContext context}) {
         ),
         trailing: Text(
           point,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'PingFangSC',
             color: Color(0xff4200d4),
             fontSize: 18,
@@ -59,18 +58,18 @@ class PointTab extends StatelessWidget {
             return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     '加载积分失败',
                     style: TextStyle(color: Colors.red),
                   ),
                   RaisedButton(
-                    child: const Text('点击重试'),
                     onPressed: _refresh,
+                    child: const Text('点击重试'),
                   )
                 ]);
           case FutureStatus.pending:
           case FutureStatus.fulfilled:
-            TwBalance balance = future.result;
+            final TwBalance balance = future.result as TwBalance;
             return balance == null
                 ? Container()
                 : HomeListView(

@@ -40,7 +40,7 @@ class LoadingInterceptor extends InterceptorsWrapper {
     return super.onError(err);
   }
 
-  showLoading() {
+  void showLoading() {
     dialogInstance = YYDialog().build()
       ..barrierDismissible = false
       ..borderRadius = 12
@@ -52,15 +52,14 @@ class LoadingInterceptor extends InterceptorsWrapper {
         width: 60,
         height: 60,
         alignment: Alignment.center,
-        margin: EdgeInsets.only(top: 50),
+        margin: const EdgeInsets.only(top: 50),
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)
-        ),
+            valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
       ))
       ..show();
   }
 
-  hideLoading() {
+  void hideLoading() {
     dialogInstance.dismiss();
   }
 }

@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage>
         icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
   ];
 
-  static var _tabViews = [PointTab(), EmptyPage(), EmptyPage(), EmptyPage()];
+  static final _tabViews = [PointTab(), EmptyPage(), EmptyPage(), EmptyPage()];
 
   TabController _tabController;
 
@@ -64,19 +64,17 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (context) => Container(
-        child: Column(
-          children: <Widget>[
-            HomePageHeader(
-              name: _name,
-              avatar: _avatar,
-              tabBar: _buildTabBar,
-              onAvatarTap: () => _onAvatarTap(context),
-              onChangeIdentityTap: () => _onChangeIdentityTap(context),
-            ),
-            _mainContent,
-          ],
-        ),
+      builder: (context) => Column(
+        children: <Widget>[
+          HomePageHeader(
+            name: _name,
+            avatar: _avatar,
+            tabBar: _buildTabBar,
+            onAvatarTap: () => _onAvatarTap(context),
+            onChangeIdentityTap: () => _onChangeIdentityTap(context),
+          ),
+          _mainContent,
+        ],
       ),
     );
   }
@@ -95,7 +93,7 @@ class _HomePageState extends State<HomePage>
       .map((identity) => identity.name)
       .orElse('');
 
-  Widget get _avatar => AvatarWidget(width: 80);
+  Widget get _avatar => const AvatarWidget(width: 80);
 
   TabBar get _buildTabBar => TabBar(
         isScrollable: true,
@@ -110,14 +108,14 @@ class _HomePageState extends State<HomePage>
         tabs: _tabs,
       );
 
-  _onAvatarTap(BuildContext context) {
+  void _onAvatarTap(BuildContext context) {
     _identityStore.selectedIdentity.ifPresent((identity) {
       final path = '${Routes.identityDetail}?id=${identity.id}';
       Application.router.navigateTo(context, path);
     });
   }
 
-  _onChangeIdentityTap(BuildContext context) {
+  Future<void> _onChangeIdentityTap(BuildContext context) {
     final ids = _identityStore.selectedFirstIdentities;
 
     return showModalBottomSheet(
@@ -133,7 +131,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  _onIdentityCardTap(BuildContext context, Identity selectedId) {
+  void _onIdentityCardTap(BuildContext context, Identity selectedId) {
     _identityStore.updateSelectedIdentity(selectedId);
     Navigator.pop(context);
   }

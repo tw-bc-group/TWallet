@@ -14,7 +14,7 @@ class HomeListView extends StatelessWidget {
       onRefresh: onRefresh,
       child: Container(
         color: WalletColor.backgroundWhite,
-        padding: EdgeInsets.only(left: 24, right: 24, top: 24),
+        padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
         child: ListView(
           children: children,
         ),

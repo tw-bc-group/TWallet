@@ -10,23 +10,18 @@ class ColorMoneyText extends StatelessWidget {
   final bool isExpense;
   final TextStyle textStyle;
 
-  ColorMoneyText({this.amount, this.status, this.isExpense, this.textStyle});
+  const ColorMoneyText(
+      {this.amount, this.status, this.isExpense, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-        text: amount.humanReadableWithSign,
-        style: textStyle != null
-          ? textStyle.merge(TextStyle(
-              color: _toColor(status)
-            ))
-          : WalletFont.font_18(
-              textStyle: TextStyle(
-                color: _toColor(status)
-              )
-            )
-      ),
+          text: amount.humanReadableWithSign,
+          style: textStyle != null
+              ? textStyle.merge(TextStyle(color: _toColor(status)))
+              : WalletFont.font_18(
+                  textStyle: TextStyle(color: _toColor(status)))),
     );
   }
 

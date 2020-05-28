@@ -11,16 +11,15 @@ class DiscoveryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 140,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 48),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 48),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color(0x0f000000),
             offset: Offset(0, 4),
             blurRadius: 12,
-            spreadRadius: 0,
           )
         ],
       ),
@@ -35,10 +34,10 @@ class DiscoveryItem extends StatelessWidget {
                 height: 44,
               ),
               Container(
-                margin: EdgeInsets.only(left: 8),
+                margin: const EdgeInsets.only(left: 8),
                 child: Text(
                   text,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xff111111),
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -53,7 +52,7 @@ class DiscoveryItem extends StatelessWidget {
             "assets/icons/right-arrow.svg",
             width: 24,
             height: 24,
-            color: Color(0xff999aaa),
+            color: const Color(0xff999aaa),
           ),
         ],
       ),

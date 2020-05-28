@@ -1,21 +1,21 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 enum SecureStorageItem {
-  MasterKey,
-  Mnemonics,
+  masterKey,
+  mnemonics,
 }
 
 extension _SecureStorageItemExtension on SecureStorageItem {
   String asKey() {
-    return this.toString().toLowerCase();
+    return toString().toLowerCase();
   }
 }
 
 class SecureStorage {
-  static final FlutterSecureStorage _storage = FlutterSecureStorage();
+  static const FlutterSecureStorage _storage = FlutterSecureStorage();
 
   static Future<String> get(SecureStorageItem item) async {
-    return await _storage.read(key: item.asKey());
+    return _storage.read(key: item.asKey());
   }
 
   static Future<void> set(SecureStorageItem item, String value) {
@@ -27,12 +27,13 @@ class SecureStorage {
   }
 
   static Future<void> clearAll() async {
-    return SecureStorageItem.values
-        .forEach((item) async => await _storage.delete(key: item.asKey()));
+    for (final item in SecureStorageItem.values) {
+      await _storage.delete(key: item.asKey());
+    }
   }
 
   static Future<bool> hasMnemonics() {
-    return SecureStorage.get(SecureStorageItem.Mnemonics)
+    return SecureStorage.get(SecureStorageItem.mnemonics)
         .then((res) => res != null);
   }
 }

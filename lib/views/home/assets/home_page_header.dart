@@ -8,7 +8,8 @@ class HomePageHeader extends StatelessWidget {
   final TabBar tabBar;
   final GestureTapCallback onAvatarTap;
   final GestureTapCallback onChangeIdentityTap;
-  final ImageProvider bgImage = AssetImage('assets/images/background.png');
+  final ImageProvider bgImage =
+      const AssetImage('assets/images/background.png');
   final SvgPicture changeImg =
       SvgPicture.asset('assets/icons/change-identity.svg');
 
@@ -22,8 +23,8 @@ class HomePageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 36),
-      padding: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(top: 36),
+      padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
           color: WalletColor.primary,
           image: DecorationImage(
@@ -36,9 +37,10 @@ class HomePageHeader extends StatelessWidget {
           GestureDetector(
               onTap: onAvatarTap,
               child: Container(
-                  margin: EdgeInsets.only(bottom: 34), child: avatar)),
+                  margin: const EdgeInsets.only(bottom: 34), child: avatar)),
           Container(
-              margin: EdgeInsets.only(bottom: 24), child: _buildName(name)),
+              margin: const EdgeInsets.only(bottom: 24),
+              child: _buildName(name)),
           GestureDetector(
             onTap: onChangeIdentityTap,
             child: _buildChangeIdentityButton(),
@@ -49,14 +51,14 @@ class HomePageHeader extends StatelessWidget {
     );
   }
 
-  _buildChangeIdentityButton() {
+  Widget _buildChangeIdentityButton() {
     return Container(
-      margin: EdgeInsets.only(bottom: 34),
+      margin: const EdgeInsets.only(bottom: 34),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           changeImg,
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
           Text(
             '切换身份',
             style: TextStyle(
@@ -72,7 +74,7 @@ class HomePageHeader extends StatelessWidget {
     );
   }
 
-  _buildName(String name) => Text(
+  Widget _buildName(String name) => Text(
         name,
         style: TextStyle(
           color: WalletColor.white,

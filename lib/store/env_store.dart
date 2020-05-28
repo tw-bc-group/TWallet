@@ -15,9 +15,4 @@ abstract class _EnvStore with Store {
 
   @observable
   Env env;
-
-  @action
-  void updateEnv(Env newEnv) {
-    env = newEnv;
-  }
 }

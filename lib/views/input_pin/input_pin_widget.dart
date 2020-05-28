@@ -18,8 +18,8 @@ class PinInputWidget extends StatelessWidget {
   final TextEditingController textEditingController1 = TextEditingController();
   final TextEditingController textEditingController2 = TextEditingController();
 
-  Widget _inputPinField(
-      TextEditingController textEditingController, Function onChanged) {
+  Widget _inputPinField(TextEditingController textEditingController,
+      ValueChanged<String> onChanged) {
     return PinCodeTextField(
       activeColor: WalletColor.black,
       inactiveColor: WalletColor.black,
@@ -29,7 +29,7 @@ class PinInputWidget extends StatelessWidget {
       obsecureText: true,
       animationType: AnimationType.fade,
       shape: PinCodeFieldShape.box,
-      animationDuration: Duration(milliseconds: 300),
+      animationDuration: const Duration(milliseconds: 300),
       borderRadius: BorderRadius.circular(5),
       fieldHeight: 40,
       fieldWidth: 40,
@@ -70,7 +70,8 @@ class PinInputWidget extends StatelessWidget {
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                              image: AssetImage('assets/images/background.png'),
+                              image: const AssetImage(
+                                  'assets/images/background.png'),
                               alignment: Alignment.bottomCenter,
                             )),
                             padding: const EdgeInsets.only(top: 94, bottom: 85),
@@ -85,15 +86,15 @@ class PinInputWidget extends StatelessWidget {
                           Expanded(
                               child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(12),
                                     topRight: Radius.circular(12)),
                                 color: WalletColor.white),
-                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: ListView(
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.only(top: 34),
+                                  padding: const EdgeInsets.only(top: 34),
                                   child: Text(
                                     "请创建您的 PIN 码",
                                     style: WalletFont.font_18(
@@ -104,7 +105,7 @@ class PinInputWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 16),
+                                  padding: const EdgeInsets.only(top: 16),
                                   child: Text(
                                     '- 用于 -',
                                     style: WalletFont.font_14(),
@@ -112,58 +113,55 @@ class PinInputWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 20),
+                                  padding: const EdgeInsets.only(top: 20),
                                   child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         Expanded(
                                             child: Column(children: [
-                                              SvgPicture.asset(
-                                                  'assets/icons/wallet.svg'),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                "解锁钱包",
-                                                style: WalletFont.font_14(
-                                                    textStyle: TextStyle(
-                                                        color: WalletColor
-                                                            .primary)),
-                                              )
-                                            ]),
-                                            flex: 1),
+                                          SvgPicture.asset(
+                                              'assets/icons/wallet.svg'),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            "解锁钱包",
+                                            style: WalletFont.font_14(
+                                                textStyle: TextStyle(
+                                                    color:
+                                                        WalletColor.primary)),
+                                          )
+                                        ])),
                                         Expanded(
                                             child: Column(children: [
-                                              SvgPicture.asset(
-                                                  'assets/icons/transaction.svg'),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                "确认交易",
-                                                style: WalletFont.font_14(
-                                                    textStyle: TextStyle(
-                                                        color: WalletColor
-                                                            .primary)),
-                                              )
-                                            ]),
-                                            flex: 1),
+                                          SvgPicture.asset(
+                                              'assets/icons/transaction.svg'),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            "确认交易",
+                                            style: WalletFont.font_14(
+                                                textStyle: TextStyle(
+                                                    color:
+                                                        WalletColor.primary)),
+                                          )
+                                        ])),
                                         Expanded(
                                             child: Column(children: [
-                                              SvgPicture.asset(
-                                                  'assets/icons/setting.svg'),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                "更多设置",
-                                                style: WalletFont.font_14(
-                                                    textStyle: TextStyle(
-                                                        color: WalletColor
-                                                            .primary)),
-                                              )
-                                            ]),
-                                            flex: 1),
+                                          SvgPicture.asset(
+                                              'assets/icons/setting.svg'),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            "更多设置",
+                                            style: WalletFont.font_14(
+                                                textStyle: TextStyle(
+                                                    color:
+                                                        WalletColor.primary)),
+                                          )
+                                        ])),
                                       ]),
                                 ),
                                 Container(
                                   height: 1,
-                                  margin: EdgeInsets.only(top: 23),
+                                  margin: const EdgeInsets.only(top: 23),
                                   color: WalletColor.middleGrey,
                                 ),
                                 Padding(
@@ -171,7 +169,7 @@ class PinInputWidget extends StatelessWidget {
                                   child: Text(
                                     "请输入 6 位 PIN 码",
                                     style: WalletFont.font_14(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                             fontWeight: FontWeight.w500)),
                                     textAlign: TextAlign.center,
                                   ),
@@ -180,14 +178,14 @@ class PinInputWidget extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10),
                                     child: _inputPinField(
                                         textEditingController1, (value) {
-                                      _inputPin.updatePin1(value);
+                                      _inputPin.pin1 = value;
                                     })),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 40.0),
                                   child: Text(
                                     "请再次输入 6 位 PIN 码",
                                     style: WalletFont.font_14(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                             fontWeight: FontWeight.w500)),
                                     textAlign: TextAlign.center,
                                   ),
@@ -196,7 +194,7 @@ class PinInputWidget extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10),
                                     child: _inputPinField(
                                         textEditingController2, (value) {
-                                      _inputPin.updatePin2(value);
+                                      _inputPin.pin2 = value;
                                     })),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10.0),
@@ -210,7 +208,7 @@ class PinInputWidget extends StatelessWidget {
                                                 fontSize: 15),
                                           )),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Observer(
@@ -228,7 +226,7 @@ class PinInputWidget extends StatelessWidget {
                                             : null),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                               ],

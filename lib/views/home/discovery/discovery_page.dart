@@ -9,7 +9,7 @@ import 'package:tw_wallet_ui/views/home/home_store.dart';
 class DiscoveryPage extends StatelessWidget {
   final HomeStore homeStore;
 
-  DiscoveryPage(this.homeStore);
+  const DiscoveryPage(this.homeStore);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,8 @@ class DiscoveryPage extends StatelessWidget {
           ],
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          margin: EdgeInsets.only(top: 68),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          margin: const EdgeInsets.only(top: 68),
           child: _healthItem(context: context),
         ),
       ],
@@ -33,8 +33,9 @@ class DiscoveryPage extends StatelessWidget {
 
   Widget _healthItem({BuildContext context}) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.healthCertPage, arguments: homeStore),
-      child: DiscoveryItem(text: "健康认证"),
+      onTap: () => Navigator.pushNamed(context, Routes.healthCertPage,
+          arguments: homeStore),
+      child: const DiscoveryItem(text: "健康认证"),
     );
   }
 
@@ -42,9 +43,9 @@ class DiscoveryPage extends StatelessWidget {
     return Container(
       height: 138,
       color: WalletColor.primary,
-      padding: EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10),
       child: Column(
-        children: <Widget>[
+        children: const <Widget>[
           Center(
             child: Text("发现",
                 style: TextStyle(
@@ -59,7 +60,7 @@ class DiscoveryPage extends StatelessWidget {
     );
   }
 
-  get _mainContent {
+  Widget get _mainContent {
     return Expanded(
       child: Container(
         color: WalletColor.backgroundWhite,

@@ -54,7 +54,8 @@ abstract class Identity extends Object
   @nullable
   bool get isSelected;
 
-  Identity setSelected(value) => rebuild((id) => id..isSelected = value);
+  Identity setSelected() => rebuild((id) => id..isSelected = true);
+  Identity setUnSelected() => rebuild((id) => id..isSelected = false);
 
   Future<bool> register() async {
     return getIt<ContractService>().identityRegistryContract.signContractCall(
@@ -85,15 +86,15 @@ abstract class Identity extends Object
   }
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this);
-  }
-
-  factory Identity.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Identity));
+    return serializers.serialize(this) as Map<String, dynamic>;
   }
 
   factory Identity([void Function(IdentityBuilder) updates]) = _$Identity;
+
+  factory Identity.fromJson(dynamic serialized) {
+    return serializers.deserialize(serialized,
+        specifiedType: const FullType(Identity)) as Identity;
+  }
 
   Identity._();
 }

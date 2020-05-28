@@ -23,7 +23,7 @@ abstract class TwBalance extends Object
 
   factory TwBalance.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
-        specifiedType: const FullType(TwBalance));
+        specifiedType: const FullType(TwBalance)) as TwBalance;
   }
 
   static Future<TwBalance> fetchBalance({String address}) async {

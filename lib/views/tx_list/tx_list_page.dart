@@ -29,7 +29,7 @@ class _TxListPageState extends State<TxListPage> {
   final IdentityStore iStore = getIt<IdentityStore>();
 
   void _onTap(Transaction item) {
-    final ie = _isExpense(item.fromAddress);
+    final ie = _txType(item.fromAddress) == TxType.expense;
     Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
           amount: item.amount.value.toString(),
@@ -51,31 +51,22 @@ class _TxListPageState extends State<TxListPage> {
   @override
   Widget build(BuildContext context) {
     return NewCommonLayout(
-      title: 'DC/EP',
-      withBottomNavigationBar: false,
-      child: Observer(
-        builder: (context) => Column(
-          children: <Widget>[
-            buildHeader(),
-            buildBody(),
-            buildFooter()
-          ],
-        )
-      )
-    );
+        title: 'DC/EP',
+        withBottomNavigationBar: false,
+        child: Observer(
+            builder: (context) => Column(
+                  children: <Widget>[buildHeader(), buildBody(), buildFooter()],
+                )));
   }
 
   Widget buildHeader() {
     return Container(
-      margin: EdgeInsets.only(top: 34),
+      margin: const EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        '${iStore.myBalance.humanReadableWithSymbol}',
-        style: WalletFont.font_24(
-          textStyle: TextStyle(
-            color: WalletColor.white
-          )
-        ),
+        iStore.myBalance.humanReadableWithSymbol,
+        style:
+            WalletFont.font_24(textStyle: TextStyle(color: WalletColor.white)),
       ),
     );
   }
@@ -83,83 +74,79 @@ class _TxListPageState extends State<TxListPage> {
   Widget buildBody() {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.only(top: 34),
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12)),
-          color: WalletColor.white
-        ),
-        child: buildListView()
-      ),
+          margin: const EdgeInsets.only(top: 34),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+              color: WalletColor.white),
+          child: buildListView()),
     );
   }
 
   Widget buildFooter() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
-            child: WalletTheme.button(
-              text: '转账',
-              onPressed: () => Application.router.navigateTo(context, '${Routes.transferTwPoints}'),
-              buttonType: ButtonType.OUTLINE,
-              outlineColor: WalletColor.white
-            )
-          ),
-          SizedBox(
+              child: WalletTheme.button(
+                  text: '转账',
+                  onPressed: () => Application.router
+                      .navigateTo(context, Routes.transferTwPoints),
+                  buttonType: ButtonType.outlineType,
+                  outlineColor: WalletColor.white)),
+          const SizedBox(
             width: 15,
           ),
           Expanded(
-            child: WalletTheme.button(
-              text: '收款',
-              onPressed: () => Navigator.pushNamed(context, Routes.qrPage, arguments: iStore.selectedIdentity.value),
-              buttonType: ButtonType.OUTLINE,
-              outlineColor: WalletColor.white
-            )
-          )
+              child: WalletTheme.button(
+                  text: '收款',
+                  onPressed: () => Navigator.pushNamed(context, Routes.qrPage,
+                      arguments: iStore.selectedIdentity.value),
+                  buttonType: ButtonType.outlineType,
+                  outlineColor: WalletColor.white))
         ],
       ),
     );
   }
 
-  bool _isExpense(String fromAddress) {
-    return fromAddress.toLowerCase() == iStore.myAddress.toLowerCase();
+  TxType _txType(String fromAddress) {
+    if (fromAddress.toLowerCase() == iStore.myAddress.toLowerCase()) {
+      return TxType.expense;
+    } else {
+      return TxType.credit;
+    }
   }
 
   Widget buildListView() {
     final txList = store.list;
-    
-    if (txList == null || txList.length == 0) {
-      return Center(child: Text("no content"));
+
+    if (txList == null || txList.isEmpty) {
+      return const Center(child: Text("no content"));
     }
 
     return ListView.separated(
       padding: const EdgeInsets.all(8),
-      itemCount: txList?.length == null ? 0 : txList?.length,
+      itemCount: txList?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
         final item = txList[index];
-        return Container(
-          child: TxListItem(
-              _isExpense(item.fromAddress)
+        return TxListItem(
+            _txType(item.fromAddress) == TxType.expense
                 ? item.toAddress
                 : item.fromAddress,
-              item.txType,
-              _amountWithSignal(
-                  _isExpense(item.fromAddress), item.amount.value),
-              item.createTime,
-              () => _onTap(item),
-              _isExpense(item.fromAddress)),
-        );
+            item.txType,
+            _amountWithSignal(
+                _txType(item.fromAddress) == TxType.expense, item.amount.value),
+            item.createTime,
+            () => _onTap(item),
+            _txType(item.fromAddress));
       },
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(
-            height: 1,
-            color: WalletColor.grey,
-          ),
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        height: 1,
+        color: WalletColor.grey,
+      ),
     );
   }
 

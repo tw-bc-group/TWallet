@@ -6,19 +6,19 @@ class CommonLayout extends StatelessWidget {
   final LayoutWidgetBuilder childBuilder;
   final bool withBottomBtn;
   final String btnText;
-  final Function btnOnPressed;
+  final VoidCallback btnOnPressed;
   final String title;
   final String bodyBackColor;
   final BackIcon backIcon;
 
-  CommonLayout({
+  const CommonLayout({
     this.childBuilder,
     this.withBottomBtn = false,
     this.btnText = '完成',
     this.btnOnPressed,
     this.title,
     this.bodyBackColor = '#f2f2f2',
-    this.backIcon = BackIcon.ARROW,
+    this.backIcon = BackIcon.arrow,
   });
 
   @override
@@ -41,7 +41,7 @@ class CommonLayout extends StatelessWidget {
       ),
       body: GestureDetector(
         onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
+          final FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
@@ -51,24 +51,23 @@ class CommonLayout extends StatelessWidget {
             child: LayoutBuilder(
                 builder: (context, constraints) => Container(
                     color: WalletTheme.rgbColor(bodyBackColor),
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                              child: childBuilder(context, constraints),
-                              flex: 10),
-                          withBottomBtn
-                              ? Container(
-                                  padding: EdgeInsets.only(
-                                      bottom: constraints.maxHeight / 20),
-                                  width: constraints.maxWidth * 0.7,
-                                  child: WalletTheme.button(
-                                      text: btnText, onPressed: btnOnPressed),
-                                )
-                              : Container()
-                        ],
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                            flex: 10,
+                            child: childBuilder(context, constraints)),
+                        if (withBottomBtn)
+                          Container(
+                            padding: EdgeInsets.only(
+                                bottom: constraints.maxHeight / 20),
+                            width: constraints.maxWidth * 0.7,
+                            child: WalletTheme.button(
+                                text: btnText, onPressed: btnOnPressed),
+                          )
+                        else
+                          Container()
+                      ],
                     )))),
       ),
     );

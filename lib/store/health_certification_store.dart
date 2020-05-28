@@ -21,7 +21,7 @@ abstract class _HealthCertificationStore with Store {
 
   @computed
   bool get isHealthy =>
-      token?.healthCertification?.sub?.healthyStatus?.val == HEALTHY;
+      token?.healthCertification?.sub?.healthyStatus?.val == healthy;
 
   @action
   Future<HealthCertificationToken> bindHealthCert(String did, String phone,
@@ -30,8 +30,8 @@ abstract class _HealthCertificationStore with Store {
         .healthCertificate(did, phone, temperature, contact, symptoms)
         .then((token) {
       return _db.setItem(did, token.toJson()).then((_) {
-        this.isBoundCert = true;
-        this.token = token;
+        isBoundCert = true;
+        token = token;
         return Future.value(token);
       });
     });
@@ -39,10 +39,10 @@ abstract class _HealthCertificationStore with Store {
 
   @action
   Future fetchHealthCertByDID(String did) async {
-    final token = await _db.getItem(did);
-    this.isBoundCert = token != null ? true : false;
-    if (this.isBoundCert) {
-      this.token = HealthCertificationToken.fromJson(token);
+    final item = await _db.getItem(did);
+    isBoundCert = item != null;
+    if (isBoundCert) {
+      token = HealthCertificationToken.fromJson(item);
     }
   }
 

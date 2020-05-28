@@ -7,9 +7,4 @@ class HomeStore = _HomeStore with _$HomeStore;
 abstract class _HomeStore with Store {
   @observable
   int currentPage = 0;
-
-  @action
-  void changePage(int index) {
-    currentPage = index;
-  }
 }

@@ -36,7 +36,7 @@ mixin _$HealthCodeStore on HealthCodeStoreBase, Store {
       ActionController(name: 'HealthCodeStoreBase');
 
   @override
-  dynamic updateElapsedSeconds() {
+  void updateElapsedSeconds() {
     final _$actionInfo = _$HealthCodeStoreBaseActionController.startAction(
         name: 'HealthCodeStoreBase.updateElapsedSeconds');
     try {
@@ -47,7 +47,7 @@ mixin _$HealthCodeStore on HealthCodeStoreBase, Store {
   }
 
   @override
-  dynamic fetchLatestHealthCode() {
+  void fetchLatestHealthCode() {
     final _$actionInfo = _$HealthCodeStoreBaseActionController.startAction(
         name: 'HealthCodeStoreBase.fetchLatestHealthCode');
     try {

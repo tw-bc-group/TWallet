@@ -15,10 +15,13 @@ String toOriginalFormatString(DateTime dateTime) {
 }
 
 bool isValidDateRange(DateTime date) {
-  var today = DateTime.now();
-  var earlistYear = 1900;
-  var latestYear = today.year;
-  var latestMonth = today.month;
-  var latestDay = today.day;
-  return date.year >= earlistYear && date.year <= latestYear && date.month <= latestMonth && date.day <= latestDay;
+  final DateTime today = DateTime.now();
+  const int earliestYear = 1900;
+  final int latestYear = today.year;
+  final int latestMonth = today.month;
+  final int latestDay = today.day;
+  return date.year >= earliestYear &&
+      date.year <= latestYear &&
+      date.month <= latestMonth &&
+      date.day <= latestDay;
 }

@@ -95,17 +95,6 @@ mixin _$TransferStore on _TransferStore, Store {
   }
 
   @override
-  void updateBalance(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction(
-        name: '_TransferStore.updateBalance');
-    try {
-      return super.updateBalance(value);
-    } finally {
-      _$_TransferStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void updatePayerAddress(String value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
         name: '_TransferStore.updatePayerAddress');

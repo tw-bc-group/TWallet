@@ -1,4 +1,4 @@
-import 'package:encrypt/encrypt.dart' as Encrypt;
+import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -8,7 +8,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
 
 class InputPinWidget extends StatefulWidget {
-  InputPinWidget({Key key}) : super(key: key);
+  const InputPinWidget({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -21,13 +21,15 @@ class InputPinWidgetState extends State<InputPinWidget> {
   bool showErrorMsg = false;
 
   Future<bool> validatePin() async {
-    final iv = Encrypt.IV.fromUtf8(pinValue + '0123456789');
-    Encrypt.Key aesKey =
-        Encrypt.Key.fromUtf8(pinValue + 'abcdefghijklmnopqrstuvwxyz');
-    var encrypt =
-        Encrypt.Encrypter(Encrypt.AES(aesKey, mode: Encrypt.AESMode.cbc));
-    var encryptedString = await SecureStorage.get(SecureStorageItem.MasterKey);
-    var encryptedKey = Encrypt.Encrypted.fromBase64(encryptedString);
+    final iv = encrypt_tool.IV.fromUtf8('${pinValue}0123456789');
+    final encrypt_tool.Key aesKey =
+        encrypt_tool.Key.fromUtf8('${pinValue}abcdefghijklmnopqrstuvwxyz');
+    final encrypt = encrypt_tool.Encrypter(
+        encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc));
+    final String encryptedString =
+        await SecureStorage.get(SecureStorageItem.masterKey);
+    final encrypt_tool.Encrypted encryptedKey =
+        encrypt_tool.Encrypted.fromBase64(encryptedString);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       return true;
@@ -39,7 +41,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
     }
   }
 
-  onChanged(String value) {
+  void onChanged(String value) {
     if (showErrorMsg) {
       showErrorMsg = false;
     }
@@ -51,14 +53,14 @@ class InputPinWidgetState extends State<InputPinWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 32),
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(top: 32),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 20),
               child: Text(
-              '输入PIN码',
+                '输入PIN码',
                 style: WalletFont.font_16(),
               ),
             ),
@@ -69,9 +71,9 @@ class InputPinWidgetState extends State<InputPinWidget> {
                 obsecureText: true,
                 animationType: AnimationType.fade,
                 shape: PinCodeFieldShape.box,
-                animationDuration: Duration(milliseconds: 300),
+                animationDuration: const Duration(milliseconds: 300),
                 borderWidth: 1,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
                 fieldHeight: 40,
                 fieldWidth: 40,
                 activeColor: WalletColor.primary,
@@ -86,7 +88,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
                 onChanged: onChanged,
               ),
             ),
-            if (showErrorMsg) ErrorRowWidget('*PIN码错误，请重新输入')
+            if (showErrorMsg) const ErrorRowWidget('*PIN码错误，请重新输入')
           ],
         ));
   }

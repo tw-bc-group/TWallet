@@ -24,19 +24,6 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
-  final _$_HomeStoreActionController = ActionController(name: '_HomeStore');
-
-  @override
-  void changePage(int index) {
-    final _$actionInfo =
-        _$_HomeStoreActionController.startAction(name: '_HomeStore.changePage');
-    try {
-      return super.changePage(index);
-    } finally {
-      _$_HomeStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''

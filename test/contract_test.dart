@@ -6,7 +6,7 @@ void main() {
   getItInit(isTest: true);
   group('Contract', () {
     test('Contract deserialize should be successful', () {
-      Map<String, dynamic> _serialized = {
+      final Map<String, dynamic> _serialized = {
         'address': 'address',
         'name': 'name',
         'abi': 'abi'

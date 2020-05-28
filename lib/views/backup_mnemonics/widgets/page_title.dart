@@ -5,7 +5,7 @@ class PageTitle extends StatelessWidget {
   final String title;
   final String desc;
 
-  PageTitle({this.title, this.desc});
+  const PageTitle({this.title, this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class PageTitle extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+      margin: const EdgeInsets.only(top: 30, left: 30, right: 30),
       child: Row(
         children: [
           Expanded(

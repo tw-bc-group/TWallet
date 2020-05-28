@@ -22,7 +22,7 @@ class TxListDetailsPageArgs {
   final String fromAddressName;
   final String toAddress;
   final bool isExpense;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final bool shouldBackToHome;
 
   TxListDetailsPageArgs(
@@ -40,23 +40,23 @@ class TxListDetailsPageArgs {
 class TxListDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TxListDetailsPageArgs args = ModalRoute.of(context).settings.arguments;
+    final TxListDetailsPageArgs args =
+        ModalRoute.of(context).settings.arguments as TxListDetailsPageArgs;
 
     return WillPopScope(
-      child: NewCommonLayout(
-        title: '交易状态',
-        backIcon: args.shouldBackToHome ? BackIcon.NONE : BackIcon.ARROW,
-        withBottomNavigationBar: false,
-        child: _buildMainContent(context, args),
-      ),
-      onWillPop: args.shouldBackToHome ? () async => false : null
-    );
+        onWillPop: args.shouldBackToHome ? () async => false : null,
+        child: NewCommonLayout(
+          title: '交易状态',
+          backIcon: args.shouldBackToHome ? BackIcon.none : BackIcon.arrow,
+          withBottomNavigationBar: false,
+          child: _buildMainContent(context, args),
+        ));
   }
 
   Container _buildMainContent(
       BuildContext context, TxListDetailsPageArgs args) {
     return Container(
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: ListView(
         children: <Widget>[
           _buildStatusCard(args),
@@ -69,11 +69,10 @@ class TxListDetailsPage extends StatelessWidget {
 
   Widget _buildStatusCard(TxListDetailsPageArgs args) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-        color: WalletColor.white
-      ),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          color: WalletColor.white),
       child: Column(
         children: <Widget>[
           ColorMoneyText(
@@ -85,14 +84,11 @@ class TxListDetailsPage extends StatelessWidget {
           Container(
             height: 1,
             color: WalletColor.middleGrey,
-            margin: EdgeInsets.only(top: 30, bottom: 24),
+            margin: const EdgeInsets.only(top: 30, bottom: 24),
           ),
-          Text(
-            '- ${args.status.toString()} -',
-            style: WalletFont.font_16()
-          ),
+          Text('- ${args.status.toString()} -', style: WalletFont.font_16()),
           Container(
-            margin: EdgeInsets.only(top: 14),
+            margin: const EdgeInsets.only(top: 14),
             child: Text(
               args.status.getDesc(),
               style: WalletFont.font_14(),
@@ -105,56 +101,47 @@ class TxListDetailsPage extends StatelessWidget {
 
   Widget _buildTXInfoCard(TxListDetailsPageArgs args) {
     return Container(
-      margin: EdgeInsets.only(top: 24),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.only(top: 24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-        color: WalletColor.white
-      ),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          color: WalletColor.white),
       child: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(right: 30),
-                child: Text(
-                  '交易时间',
-                  style: WalletFont.font_14(
-                    textStyle: TextStyle(
-                      color: WalletColor.grey
-                    )
-                  )
-                )
-              ),
+                  margin: const EdgeInsets.only(right: 30),
+                  child: Text('交易时间',
+                      style: WalletFont.font_14(
+                          textStyle: TextStyle(color: WalletColor.grey)))),
               Expanded(
-                child: Text(
-                  args.time,
-                  style: WalletFont.font_14(
-                    textStyle: TextStyle(
-                      fontWeight: FontWeight.w600
-                    )
-                  ),
-                  textAlign: TextAlign.right,
-                )
-              )
+                  child: Text(
+                args.time,
+                style: WalletFont.font_14(
+                    textStyle: const TextStyle(fontWeight: FontWeight.w600)),
+                textAlign: TextAlign.right,
+              ))
             ],
           ),
           Container(
             height: 1,
             color: WalletColor.middleGrey,
-            margin: EdgeInsets.symmetric(vertical: 20),
+            margin: const EdgeInsets.symmetric(vertical: 20),
           ),
           TxInfoCardWidget(
-            txInfoCardType: TxInfoCardType.Sender,
-            name: args.fromAddressName,
-            did: DID.fromEthAddress(EthereumAddress.fromHex(args.fromAddress)).toString()
-          ),
-          SizedBox(height: 20),
+              txInfoCardType: TxInfoCardType.sender,
+              name: args.fromAddressName,
+              did: DID
+                  .fromEthAddress(EthereumAddress.fromHex(args.fromAddress))
+                  .toString()),
+          const SizedBox(height: 20),
           TxInfoCardWidget(
-            txInfoCardType: TxInfoCardType.Receiver,
-            did: DID.fromEthAddress(EthereumAddress.fromHex(args.toAddress)).toString()
-          ),
+              txInfoCardType: TxInfoCardType.receiver,
+              did: DID
+                  .fromEthAddress(EthereumAddress.fromHex(args.toAddress))
+                  .toString()),
         ],
       ),
     );
@@ -162,23 +149,20 @@ class TxListDetailsPage extends StatelessWidget {
 
   Widget _buildButton(BuildContext context, TxListDetailsPageArgs args) {
     return Container(
-      margin: EdgeInsets.only(top: 24),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      margin: const EdgeInsets.only(top: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-              color: Color(0x0f000000),
-              offset: Offset(0, 4),
-              blurRadius: 12,
-              spreadRadius: 0)
+            color: Color(0x0f000000),
+            offset: Offset(0, 4),
+            blurRadius: 12,
+          )
         ],
         color: WalletColor.white,
       ),
-      child: WalletTheme.button(
-        text: '好的',
-        onPressed: args.onPressed
-      ),
+      child: WalletTheme.button(text: '好的', onPressed: args.onPressed),
     );
   }
 }

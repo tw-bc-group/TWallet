@@ -7,7 +7,8 @@ class DID {
 
   String get eip55Address => ethAddress.hexEip55;
 
-  String get shorthandValue => '${this.toString().substring(0, 10)}*${this.toString().substring(44)}';
+  String get shorthandValue =>
+      '${toString().substring(0, 10)}*${toString().substring(44)}';
 
   static String _withoutPrefixTag(String original) {
     return original.substring(globalEnv().didPrefix.length);

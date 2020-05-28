@@ -11,7 +11,7 @@ abstract class _TxListStore with Store {
 
   @observable
   ObservableFuture<List<Transaction>> listFuture =
-      ObservableFuture.value(new List<Transaction>());
+      ObservableFuture.value(<Transaction>[]);
 
   @observable
   ObservableFuture<Transaction> tx;
@@ -31,9 +31,9 @@ abstract class _TxListStore with Store {
     listFuture = ObservableFuture(future);
 
     try {
-      this.list = await future;
+      list = await future;
     } catch (e) {
-      this.errorMessage = e.toString();
+      errorMessage = e.toString();
     }
   }
 

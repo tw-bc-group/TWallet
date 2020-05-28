@@ -45,15 +45,10 @@ abstract class _TransferStore with Store {
   void resetAmountError(String value) {
     error.amount = null;
   }
-  
+
   @action
   void resetAddressError(String value) {
     error.payeeAddress = null;
-  }
-
-  @action
-  void updateBalance(String value) {
-    balance = value;
   }
 
   @action
@@ -69,8 +64,8 @@ abstract class _TransferStore with Store {
   @action
   void validateAmount(String value) {
     try {
-      double res = double.parse(value);
-      int indexOfDot = value.indexOf('.');
+      final double res = double.parse(value);
+      final int indexOfDot = value.indexOf('.');
       if (res <= 0) {
         error.amount = '请输入大于 0 的金额';
       } else if (res > double.parse(balance)) {
@@ -94,8 +89,7 @@ abstract class _TransferStore with Store {
       return;
     }
 
-    String address = value.substring(7);
-    print(address);
+    final String address = value.substring(7);
 
     try {
       EthereumAddress.fromHex(address);

@@ -10,18 +10,18 @@ class HomeListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: WalletColor.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-              color: Color(0x0f000000),
-              offset: Offset(0, 4),
-              blurRadius: 12,
-              spreadRadius: 0)
+            color: Color(0x0f000000),
+            offset: Offset(0, 4),
+            blurRadius: 12,
+          )
         ],
       ),
-      padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
       child: Column(
         children: <Widget>[
           Row(

@@ -18,7 +18,6 @@ import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/identity_card.dart';
 import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
-import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 import '../home.dart';
 
@@ -30,22 +29,21 @@ class HealthCertificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeStore = ModalRoute.of(context).settings.arguments;
+    final homeStore = ModalRoute.of(context).settings.arguments as HomeStore;
 
     return NewCommonLayout(
       appBarActions: <Widget>[
         _buildScanIcon(context),
       ],
       withBottomNavigationBar: false,
-      backIcon: BackIcon.ARROW,
       title: "健康认证",
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _tips,
-          _identityStore.identities.length > 0
-              ? _buildIdList(context)
-              : _buildIdentityEmpty(context, homeStore),
+          if (_identityStore.identities.isNotEmpty)
+            _buildIdList(context)
+          else
+            _buildIdentityEmpty(context, homeStore),
         ],
       ),
     );
@@ -53,11 +51,10 @@ class HealthCertificationPage extends StatelessWidget {
 
   Widget get _tips {
     return Container(
-        padding: EdgeInsets.only(top: 10, bottom: 10),
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "选择右上角进行健康码扫码验证",
               style: TextStyle(
                 color: Colors.white,
@@ -67,12 +64,12 @@ class HealthCertificationPage extends StatelessWidget {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: 20, bottom: 15),
+                margin: const EdgeInsets.only(top: 20, bottom: 15),
                 width: 167,
                 height: 1,
-                decoration: BoxDecoration(color: Color(0xffffffff))),
+                decoration: const BoxDecoration(color: Color(0xffffffff))),
             _hint,
-            Text(
+            const Text(
               "进行健康认证或查看健康码",
               style: TextStyle(
                 color: Colors.white,
@@ -86,10 +83,10 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Text get _hint {
-    final text = _identityStore.identities.length > 0 ? "选择使用下方身份" : "添加身份";
+    final text = _identityStore.identities.isNotEmpty ? "选择使用下方身份" : "添加身份";
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -101,8 +98,10 @@ class HealthCertificationPage extends StatelessWidget {
   Widget _buildIdentityEmpty(BuildContext context, HomeStore homeStore) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.only(left: 24, right: 24, top: 10, bottom: 147),
-        padding: EdgeInsets.only(left: 20, right: 20, top: 90, bottom: 46),
+        margin:
+            const EdgeInsets.only(left: 24, right: 24, top: 10, bottom: 147),
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, top: 90, bottom: 46),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -114,36 +113,32 @@ class HealthCertificationPage extends StatelessWidget {
             SvgPicture.asset(
               'assets/icons/new-identity.svg',
             ),
-            Container(
-              child: Column(
-                children: <Widget>[
-                  Text("您还没有添加身份",
-                      style: TextStyle(
-                        color: Color(0xff111111),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: 0,
-                      )),
-                  Text("请前往“身份”页面添加身份。",
-                      style: TextStyle(
-                        color: Color(0xff111111),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: 0,
-                      )),
-                ],
-              ),
+            Column(
+              children: const <Widget>[
+                Text("您还没有添加身份",
+                    style: TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: 0,
+                    )),
+                Text("请前往“身份”页面添加身份。",
+                    style: TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: 0,
+                    )),
+              ],
             ),
             WalletTheme.button(
               text: '立即前往',
               height: 44,
               onPressed: () {
                 Navigator.pop(context);
-                homeStore.changePage(
-                  HomeState.identityIndex,
-                );
+                homeStore.currentPage = HomeState.identityIndex;
               },
             ),
           ],
@@ -155,12 +150,12 @@ class HealthCertificationPage extends StatelessWidget {
   Widget _buildIdList(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Observer(
           builder: (BuildContext context) {
             final ids = _identityStore.selectedFirstIdentitiesInHealthDApp;
             return ListView.builder(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               itemCount: ids.length,
               itemBuilder: (BuildContext context, int index) {
                 final ele = ids[index];
@@ -181,7 +176,7 @@ class HealthCertificationPage extends StatelessWidget {
     await certStore.fetchHealthCertByDID(identity.did.toString());
     _identityStore.updateHealthCertLastSelected(identity);
 
-    var path = certStore.isBoundCert
+    final String path = certStore.isBoundCert
         ? '${Routes.healthCode}?id=${identity.id}'
         : '${Routes.certificate}?id=${identity.id}';
     Application.router.navigateTo(context, path);
@@ -189,7 +184,7 @@ class HealthCertificationPage extends StatelessWidget {
 
   Widget _buildScanIcon(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 24, top: 6),
+      margin: const EdgeInsets.only(right: 24, top: 6),
       child: GestureDetector(
         onTap: () => _handleScan(context),
         child: SvgPicture.asset(
@@ -202,23 +197,23 @@ class HealthCertificationPage extends StatelessWidget {
     );
   }
 
-  _handleScan(BuildContext context) async {
-    String scanResult =
-        await Application.router.navigateTo(context, Routes.qrScanner);
+  Future<void> _handleScan(BuildContext context) async {
+    final String scanResult = await Application.router
+        .navigateTo(context, Routes.qrScanner) as String;
 
     if (null == scanResult) {
       return;
     }
 
-    Future.delayed(Duration(milliseconds: 500)).then((_) async {
+    Future.delayed(const Duration(milliseconds: 500)).then((_) async {
       try {
-        HealthCertificationToken token =
+        final HealthCertificationToken token =
             HealthCertificationToken.fromJson(json.decode(scanResult));
         if (await token.verify()) {
           DialogType _hintType = DialogType.success;
           String _hintText = '无健康风险';
 
-          if (token.healthCertification.sub.healthyStatus.val == UNHEALTHY) {
+          if (token.healthCertification.sub.healthyStatus.val == unHealthy) {
             _hintType = DialogType.error;
             _hintText = '存在健康风险';
           }

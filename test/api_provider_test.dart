@@ -14,10 +14,10 @@ void main() {
 
   final _httpClient = getIt<HttpClient>();
   final _apiProvider = getIt<ApiProvider>();
-  final address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
+  const address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 
   test('Return a Contract Instance', () async {
-    final _contractName = 'test-name';
+    const _contractName = 'test-name';
     when(_httpClient.get('/v1/contracts/$_contractName', loading: false))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
@@ -34,7 +34,7 @@ void main() {
   });
 
   test('Return a TwBalance Instance', () async {
-    final url = '/v1/token/$address';
+    const url = '/v1/token/$address';
     when(_httpClient.get(url, loading: false))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
@@ -49,12 +49,12 @@ void main() {
               }
             }));
 
-    var res = await _apiProvider.fetchPointV1(address: address);
+    final TwBalance res = await _apiProvider.fetchPointV1(address: address);
     expect(res, isA<TwBalance>());
   });
 
   test('Return a List Of Transactions Instances', () async {
-    final url = '/v1/transactions?from_addr=$address';
+    const url = '/v1/transactions?from_addr=$address';
     when(_httpClient.get(url))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
@@ -76,9 +76,9 @@ void main() {
   });
 
   test('Return a Transactions Instance', () async {
-    final txHash =
+    const txHash =
         '0x13232ba90547279d00b30511ba4ca6c6f4ad08f27c22d75872d60c16fabd6ee5';
-    final url = '/v1/transactions/$txHash';
+    const url = '/v1/transactions/$txHash';
     when(_httpClient.get(url))
         .thenAnswer((_) async => Response(statusCode: 200, data: {
               'code': 200,
@@ -101,11 +101,11 @@ void main() {
   test(
       'When send a health certificate request, should be return a HealthCertification instance',
       () async {
-    final String phone = '13888888888';
-    final String did = '123456789';
-    final double temperature = 37.1;
-    final String contact = 'Yes';
-    final String symptoms = 'No';
+    const String phone = '13888888888';
+    const String did = '123456789';
+    const double temperature = 37.1;
+    const String contact = 'Yes';
+    const String symptoms = 'No';
 
     when(_httpClient.post('/v1/health-certifications', {
       'did': did,

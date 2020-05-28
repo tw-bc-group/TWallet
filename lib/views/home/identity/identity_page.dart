@@ -24,40 +24,44 @@ class _IdentityPageState extends State<IdentityPage> {
 
   Widget _listItem(Identity identity) {
     return Container(
-        margin: EdgeInsets.only(bottom: 24),
+        margin: const EdgeInsets.only(bottom: 24),
         child: GestureDetector(
             onTap: () {
-              Application.router
-                  .navigateTo(context, '${Routes.identityDetail}?id=${identity.id}');
+              Application.router.navigateTo(
+                  context, '${Routes.identityDetail}?id=${identity.id}');
             },
             child: Container(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                     color: WalletColor.white,
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                           color: Color(0x0f000000),
                           offset: Offset(0, 4),
-                          blurRadius: 12,
-                          spreadRadius: 0)
+                          blurRadius: 12)
                     ]),
                 child: Column(children: <Widget>[
                   Row(children: <Widget>[
-                    AvatarWidget(width: 32),
+                    const AvatarWidget(width: 32),
                     Expanded(
                         child: Container(
-                            margin: EdgeInsets.only(left: 12),
+                            margin: const EdgeInsets.only(left: 12),
                             child: Text(
                               identity.name,
                               style: WalletFont.font_18(),
                             )))
                   ]),
                   Container(
-                      margin: EdgeInsets.only(top: 16, bottom: 16),
+                      margin: const EdgeInsets.only(top: 16, bottom: 16),
                       height: 1,
                       color: WalletColor.middleGrey),
                   GestureDetector(
+                    onLongPress: () async {
+                      Clipboard.setData(
+                          ClipboardData(text: identity.did.toString()));
+                      await showDialogSample(context, DialogType.none, '复制成功');
+                    },
                     child: Text(
                       identity.did.toString(),
                       style: WalletFont.font_12(
@@ -65,11 +69,6 @@ class _IdentityPageState extends State<IdentityPage> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    onLongPress: () async {
-                      Clipboard.setData(
-                          ClipboardData(text: identity.did.toString()));
-                      await showDialogSample(context, DialogType.none, '复制成功');
-                    },
                   )
                 ]))));
   }
@@ -90,7 +89,6 @@ class _IdentityPageState extends State<IdentityPage> {
                 child: Text('身份',
                     style: WalletFont.font_18(
                         textStyle: TextStyle(color: WalletColor.white)))),
-
           ],
         )
         // TextField(
@@ -104,27 +102,25 @@ class _IdentityPageState extends State<IdentityPage> {
   }
 
   Widget buildNewIdentityCard() {
-    if (_store.identities.length == 0) {
+    if (_store.identities.isEmpty) {
       return Container(
-        margin: EdgeInsets.only(bottom: 24),
-        padding: EdgeInsets.only(top: 68, bottom: 78, left: 84, right: 84),
+        margin: const EdgeInsets.only(bottom: 24),
+        padding:
+            const EdgeInsets.only(top: 68, bottom: 78, left: 84, right: 84),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-                color: Color(0x0f000000),
-                offset: Offset(0, 4),
-                blurRadius: 12,
-                spreadRadius: 0)
+                color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 12)
           ],
           color: WalletColor.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage('assets/images/id-card.png')),
+            const Image(image: AssetImage('assets/images/id-card.png')),
             Container(
-              margin: EdgeInsets.only(top: 56),
+              margin: const EdgeInsets.only(top: 56),
               child: WalletTheme.button(
                   text: '新增身份',
                   onPressed: () => Application.router
@@ -136,16 +132,13 @@ class _IdentityPageState extends State<IdentityPage> {
     }
 
     return Container(
-      margin: EdgeInsets.only(bottom: 24),
-      padding: EdgeInsets.symmetric(horizontal: 64, vertical: 24),
+      margin: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-              color: Color(0x0f000000),
-              offset: Offset(0, 4),
-              blurRadius: 12,
-              spreadRadius: 0)
+              color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 12)
         ],
         color: WalletColor.white,
       ),
@@ -162,14 +155,14 @@ class _IdentityPageState extends State<IdentityPage> {
         decoration: BoxDecoration(
           color: WalletColor.primary,
           image: DecorationImage(
-              image: AssetImage('assets/images/background.png'),
+              image: const AssetImage('assets/images/background.png'),
               alignment: Alignment.bottomCenter),
         ),
         child: Column(children: <Widget>[
-          Container(padding: EdgeInsets.all(10), child: buildHeader()),
+          Container(padding: const EdgeInsets.all(10), child: buildHeader()),
           Expanded(child: Observer(builder: (_) {
             return Container(
-                padding: EdgeInsets.only(top: 24, left: 24, right: 24),
+                padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
                 child: ListView(
                   children: _store.identities
                           .where((identity) =>

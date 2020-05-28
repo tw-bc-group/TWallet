@@ -22,7 +22,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final initialRoute;
+  final String initialRoute;
 
   MyApp({@required this.initialRoute}) {
     final router = Router();

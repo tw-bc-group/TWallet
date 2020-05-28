@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 
-enum ButtonType { DEFAULT, OUTLINE }
+enum ButtonType { defaultType, outlineType }
 
 class WalletTheme {
   static Color get titleBgColor => rgbColor('0xfafafa');
@@ -11,11 +11,11 @@ class WalletTheme {
 
   static Widget button(
       {String text,
-      Function onPressed,
-      ButtonType buttonType = ButtonType.DEFAULT,
+      VoidCallback onPressed,
+      ButtonType buttonType = ButtonType.defaultType,
       double height = 45,
       Color outlineColor}) {
-    var raisedButton = RaisedButton(
+    final RaisedButton raisedButton = RaisedButton(
       color: WalletColor.primary,
       disabledColor: WalletColor.middleGrey,
       elevation: 0,
@@ -26,28 +26,27 @@ class WalletTheme {
               style: WalletFont.font_16(
                   textStyle: TextStyle(color: WalletColor.white)))),
     );
-    var outlineButton = OutlineButton(
-      textColor: outlineColor != null ? outlineColor : WalletColor.primary,
+    final OutlineButton outlineButton = OutlineButton(
+      textColor: outlineColor ?? WalletColor.primary,
       disabledTextColor: WalletColor.middleGrey,
       disabledBorderColor: WalletColor.middleGrey,
-      borderSide: BorderSide(color: outlineColor != null ? outlineColor : WalletColor.primary),
-      highlightedBorderColor: outlineColor != null ? outlineColor : WalletColor.primary,
+      borderSide: BorderSide(color: outlineColor ?? WalletColor.primary),
+      highlightedBorderColor: outlineColor ?? WalletColor.primary,
       onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Center(
           child: Text(text,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16,
                   height: 1.38,
                   fontFamily: 'PingFangHK',
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1))),
     );
-    return Container(
-      child: ButtonTheme(
-        height: height,
-        child: buttonType == ButtonType.DEFAULT ? raisedButton : outlineButton,
-      ),
+    return ButtonTheme(
+      height: height,
+      child:
+          buttonType == ButtonType.defaultType ? raisedButton : outlineButton,
     );
   }
 
@@ -55,7 +54,7 @@ class WalletTheme {
     String colorStr = colorString;
 
     if (!colorStr.startsWith('0xff') && colorStr.length == 6) {
-      colorStr = '0xff' + colorStr;
+      colorStr = '0xff$colorStr';
     }
 
     if (colorStr.startsWith('0x') && colorStr.length == 8) {
@@ -65,10 +64,10 @@ class WalletTheme {
       colorStr = colorStr.replaceRange(0, 1, '0xff');
     }
 
-    Color color = Color(int.parse(colorStr));
-    int red = color.red;
-    int green = color.green;
-    int blue = color.blue;
+    final Color color = Color(int.parse(colorStr));
+    final int red = color.red;
+    final int green = color.green;
+    final int blue = color.blue;
 
     return Color.fromRGBO(red, green, blue, alpha);
   }

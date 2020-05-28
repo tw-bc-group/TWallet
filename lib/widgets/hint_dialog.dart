@@ -37,8 +37,8 @@ Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {num width}) {
       break;
   }
 
-  return Optional.ofNullable(asset)
-      .map((asset) => SvgPicture.asset(asset, width: width, height: width));
+  return Optional.ofNullable(asset).map((asset) => SvgPicture.asset(asset,
+      width: width.toDouble(), height: width.toDouble()));
 }
 
 Future<void> hintDialogHelper(
@@ -75,33 +75,33 @@ class HintDialog extends Dialog {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil screenUtil = ScreenUtil();
+    final ScreenUtil screenUtil = ScreenUtil();
 
-    List<Widget> children = [
+    final List<Widget> children = [
       Padding(
-          padding: EdgeInsets.only(top: screenUtil.setHeight(16)),
+          padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
           child: Text(title.isEmpty ? '提示' : title,
               textAlign: TextAlign.center,
               style: WalletFont.font_18(
-                  textStyle: TextStyle(fontWeight: FontWeight.w600)))),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600)))),
       Padding(
-        padding: EdgeInsets.only(top: screenUtil.setHeight(16)),
+        padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
         child: Divider(color: WalletColor.grey),
       ),
       Padding(
         padding: EdgeInsets.only(
-            top: screenUtil.setHeight(20),
-            left: screenUtil.setHeight(20),
-            right: screenUtil.setHeight(20)),
+            top: screenUtil.setHeight(20).toDouble(),
+            left: screenUtil.setHeight(20).toDouble(),
+            right: screenUtil.setHeight(20).toDouble()),
         child: Text(text,
             textAlign: TextAlign.center,
             style: WalletFont.font_14(
-                textStyle: TextStyle(fontWeight: FontWeight.w600))),
+                textStyle: const TextStyle(fontWeight: FontWeight.w600))),
       ),
       Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: screenUtil.setWidth(20),
-            vertical: screenUtil.setHeight(20)),
+            horizontal: screenUtil.setWidth(20).toDouble(),
+            vertical: screenUtil.setHeight(20).toDouble()),
         child: WalletTheme.button(
             height: screenUtil.setHeight(44).toDouble(),
             text: buttonText.isEmpty ? '知道了' : buttonText,
@@ -115,7 +115,8 @@ class HintDialog extends Dialog {
         .ifPresent((svgPicture) => children.insert(
             2,
             Padding(
-              padding: EdgeInsets.only(top: screenUtil.setHeight(20)),
+              padding:
+                  EdgeInsets.only(top: screenUtil.setHeight(20).toDouble()),
               child: svgPicture,
             )));
 
@@ -124,9 +125,9 @@ class HintDialog extends Dialog {
           4,
           Padding(
             padding: EdgeInsets.only(
-                top: screenUtil.setWidth(20),
-                left: screenUtil.setWidth(20),
-                right: screenUtil.setWidth(20)),
+                top: screenUtil.setWidth(20).toDouble(),
+                left: screenUtil.setWidth(20).toDouble(),
+                right: screenUtil.setWidth(20).toDouble()),
             child: Text(subText,
                 textAlign: TextAlign.center,
                 style: WalletFont.font_10(
@@ -141,8 +142,8 @@ class HintDialog extends Dialog {
       type: MaterialType.transparency,
       child: Center(
           child: Container(
-              width: screenUtil.setWidth(280),
-              decoration: new BoxDecoration(
+              width: screenUtil.setWidth(280).toDouble(),
+              decoration: BoxDecoration(
                   color: WalletColor.white,
                   borderRadius: BorderRadius.circular(12)),
               child: Column(
@@ -170,44 +171,46 @@ class HintDialogSample extends Dialog {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      Timer(Duration(seconds: 1, milliseconds: 500),
+      Timer(const Duration(seconds: 1, milliseconds: 500),
           () => Navigator.pop(context));
     });
 
-    ScreenUtil screenUtil = ScreenUtil();
-    int textVerticalPadding = type == DialogType.none ? 15 : 32;
+    final ScreenUtil screenUtil = ScreenUtil();
+    final int textVerticalPadding = type == DialogType.none ? 15 : 32;
 
-    List<Widget> children =
+    final List<Widget> children =
         _dialogTypeToSvg(type, width: screenUtil.setWidth(44))
             .map((svgPicture) {
       return [
         Padding(
-            padding: EdgeInsets.only(top: screenUtil.setHeight(32)),
+            padding: EdgeInsets.only(top: screenUtil.setHeight(32).toDouble()),
             child: svgPicture)
       ];
-    }).orElse(List());
+    }).orElse([]);
 
     children.add(Padding(
         padding: EdgeInsets.symmetric(
-            vertical: screenUtil.setHeight(textVerticalPadding)),
+            vertical: screenUtil.setHeight(textVerticalPadding).toDouble()),
         child: Text(text,
             style: WalletFont.font_14(
-                textStyle: TextStyle(fontWeight: FontWeight.w600)))));
+                textStyle: const TextStyle(fontWeight: FontWeight.w600)))));
 
     return Material(
         type: MaterialType.transparency,
         child: Center(
           child: Container(
-            width: screenUtil.setWidth(type == DialogType.none ? 120 : 160),
-            decoration: new BoxDecoration(
+            width: screenUtil
+                .setWidth(type == DialogType.none ? 120 : 160)
+                .toDouble(),
+            decoration: BoxDecoration(
                 color: WalletColor.white,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                      color: Color(0x0f000000),
-                      offset: Offset(0, 4),
-                      blurRadius: 12,
-                      spreadRadius: 0)
+                    color: Color(0x0f000000),
+                    offset: Offset(0, 4),
+                    blurRadius: 12,
+                  )
                 ]),
             child: Column(
               mainAxisSize: MainAxisSize.min,

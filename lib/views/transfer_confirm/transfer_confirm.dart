@@ -18,40 +18,36 @@ class TransferConfirmPage extends StatefulWidget {
   final String amount;
   final String toAddress;
 
-  TransferConfirmPage({this.currency, this.amount, this.toAddress});
+  const TransferConfirmPage({this.currency, this.amount, this.toAddress});
 
   @override
-  State<StatefulWidget> createState() {
-    return TransferConfirmState(
-        currency: currency, amount: amount, toAddress: toAddress);
-  }
+  State<StatefulWidget> createState() => TransferConfirmState();
 }
 
 class TransferConfirmState extends State<TransferConfirmPage> {
-  final inputPinWidgetKey = GlobalKey<InputPinWidgetState>();
+  final GlobalKey<InputPinWidgetState> inputPinWidgetKey =
+      GlobalKey<InputPinWidgetState>();
   final IdentityStore identityStore = getIt<IdentityStore>();
-  final String currency;
-  final String amount;
-  final String toAddress;
 
-  TransferConfirmState({this.currency, this.amount, this.toAddress});
+  TransferConfirmState();
 
-  handleConfirm() async {
-    var pinValidation = await inputPinWidgetKey.currentState.validatePin();
+  Future<void> handleConfirm() async {
+    final bool pinValidation =
+        await inputPinWidgetKey.currentState.validatePin();
     if (pinValidation) {
-      var transferSuccess = await identityStore.selectedIdentity.value
+      final bool transferSuccess = await identityStore.selectedIdentity.value
           .transferPoint(
-              toAddress: toAddress,
-              amount: Amount(Decimal.parse(amount.toString())));
+              toAddress: widget.toAddress,
+              amount: Amount(Decimal.parse(widget.amount.toString())));
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
-                amount: '${globalEnv().tokenSymbol}$amount',
+                amount: '${globalEnv().tokenSymbol}${widget.amount}',
                 time: parseDate(DateTime.now()),
                 status: TxStatus.transferring,
                 fromAddress: identityStore.selectedIdentity.value.address,
-                toAddress: toAddress,
+                toAddress: widget.toAddress,
                 fromAddressName: identityStore.myName,
                 isExpense: true,
                 onPressed: () {
@@ -73,12 +69,12 @@ class TransferConfirmState extends State<TransferConfirmPage> {
               child: Column(children: [
                 ConfirmRowWidget(
                   title: '金额',
-                  contentLeft: '${globalEnv().tokenSymbol}$amount',
-                  contentRight: currency,
+                  contentLeft: '${globalEnv().tokenSymbol}${widget.amount}',
+                  contentRight: widget.currency,
                 ),
                 ConfirmRowWidget(
                   title: '接收地址',
-                  contentLeft: toAddress,
+                  contentLeft: widget.toAddress,
                 ),
                 InputPinWidget(key: inputPinWidgetKey)
               ]),

@@ -84,8 +84,8 @@ abstract class _HealthCertificatePageStore with Store {
     }
 
     try {
-      double res = double.parse(temperature);
-      int indexOfDot = temperature.indexOf('.');
+      final double res = double.parse(temperature);
+      final int indexOfDot = temperature.indexOf('.');
       if (res < 36 || res > 42) {
         error.temperature = '请输入 35 ~ 42℃ 范围内体温';
       } else if (indexOfDot >= 0 && temperature.length - indexOfDot > 2) {
@@ -111,12 +111,7 @@ abstract class _HealthCertificatePageStore with Store {
   }
 
   @action
-  void updateCommitment(bool value) {
-    hasCommitment = value;
-  }
-
-  @action
-  validateAll() {
+  void validateAll() {
     validatePhone();
     validateTemplate();
   }

@@ -149,22 +149,11 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       ActionController(name: 'IdentityStoreBase');
 
   @override
-  void updateSearchName(String name) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
-        name: 'IdentityStoreBase.updateSearchName');
-    try {
-      return super.updateSearchName(name);
-    } finally {
-      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setIdentityIsSelected(int index, bool value) {
+  void setIdentityIsSelected(int index, {bool isSelected}) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.setIdentityIsSelected');
     try {
-      return super.setIdentityIsSelected(index, value);
+      return super.setIdentityIsSelected(index, isSelected: isSelected);
     } finally {
       _$IdentityStoreBaseActionController.endAction(_$actionInfo);
     }

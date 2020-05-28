@@ -56,17 +56,17 @@ abstract class _IdentityNewStore with Store {
   void resetNameError(String value) {
     error.username = null;
   }
-  
+
   @action
   void resetPhoneError(String value) {
     error.phone = null;
   }
-  
+
   @action
   void resetEmailError(String value) {
     error.email = null;
   }
-  
+
   @action
   void resetBirthdayError(String value) {
     error.birthday = null;
@@ -99,7 +99,7 @@ abstract class _IdentityNewStore with Store {
 
   @action
   Future<bool> addIdentity() async {
-    MnemonicsStore store = getIt<MnemonicsStore>();
+    final MnemonicsStore store = getIt<MnemonicsStore>();
 
     if (!error.hasErrors) {
       return store.generateIdentityKeys().then((keys) {

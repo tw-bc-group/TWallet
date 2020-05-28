@@ -7,7 +7,7 @@ void main() {
 
   group('Transaction', () {
     test('Transaction deserialize should be successful', () {
-      Map<String, dynamic> _serialized = {
+      final Map<String, dynamic> _serialized = {
         "hash":
             "0x454971ef7eb2377ce00ca2686ab4f6c752e1a437ecf6edb363fff0ca0471ca92",
         "tx_type": "Transfer",

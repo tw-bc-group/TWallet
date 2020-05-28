@@ -6,7 +6,7 @@ import 'package:tw_wallet_ui/service/blockchain.dart';
 
 part 'mnemonics.g.dart';
 
-const SAVE_SPLIT_TAG = '|';
+const saveSplitTag = '|';
 
 class MnemonicsStore = MnemonicsBase with _$MnemonicsStore;
 
@@ -35,10 +35,10 @@ abstract class MnemonicsBase with Store {
 
   static Future<MnemonicsStore> init() async {
     Tuple2<int, String> value;
-    String saved = await SecureStorage.get(SecureStorageItem.Mnemonics);
+    final String saved = await SecureStorage.get(SecureStorageItem.mnemonics);
 
     if (null != saved) {
-      var splits = saved.split(SAVE_SPLIT_TAG);
+      final List<String> splits = saved.split(saveSplitTag);
       //兼容老版本
       if (splits.length == 1) {
         value = Tuple2(0, saved);
@@ -62,6 +62,6 @@ abstract class MnemonicsBase with Store {
   @action
   Future<void> save() async {
     await SecureStorage.set(
-        SecureStorageItem.Mnemonics, '$index$SAVE_SPLIT_TAG$mnemonics');
+        SecureStorageItem.mnemonics, '$index$saveSplitTag$mnemonics');
   }
 }

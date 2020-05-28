@@ -6,39 +6,41 @@ class TransferRowWidget extends StatelessWidget {
   final String errorMsg;
   final Widget child;
 
-  TransferRowWidget({this.title, this.errorMsg, this.child});
+  const TransferRowWidget({this.title, this.errorMsg, this.child});
 
   Widget buildLabel() {
     return Container(
       height: 43,
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          title == null
-              ? Container()
-              : Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 10, color: WalletTheme.rgbColor('#aaaaaa')),
-                ),
-          errorMsg == null
-              ? Container()
-              : Container(
-                  width: 200,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: errorMsg is Widget
-                        ? errorMsg
-                        : Text(
-                            '* ' + errorMsg,
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: WalletTheme.rgbColor('#dd5757')),
-                          ),
-                  ),
-                )
+          if (title == null)
+            Container()
+          else
+            Text(
+              title,
+              style: TextStyle(
+                  fontSize: 10, color: WalletTheme.rgbColor('#aaaaaa')),
+            ),
+          if (errorMsg == null)
+            Container()
+          else
+            Container(
+              width: 200,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: errorMsg is Widget
+                    ? errorMsg as Widget
+                    : Text(
+                        '* $errorMsg',
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: WalletTheme.rgbColor('#dd5757')),
+                      ),
+              ),
+            )
         ],
       ),
     );
@@ -47,7 +49,7 @@ class TransferRowWidget extends StatelessWidget {
   Widget buildContent() {
     return Container(
         height: 91,
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         decoration: BoxDecoration(color: WalletTheme.rgbColor('#fafafa')),
         child: Row(
           children: <Widget>[

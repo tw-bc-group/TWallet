@@ -12,7 +12,7 @@ class AvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    num _width = ScreenUtil().setWidth(width);
+    final num _width = ScreenUtil().setWidth(width);
 
     final decoration = hasBoarder
         ? BoxDecoration(
@@ -23,11 +23,15 @@ class AvatarWidget extends StatelessWidget {
     return Container(
       decoration: decoration,
       child: SizedBox(
-          width: _width,
-          height: _width,
+          width: _width.toDouble(),
+          height: _width.toDouble(),
           child: CircleAvatar(
               backgroundColor: WalletColor.grey,
-              child: SvgPicture.asset('assets/icons/avatar.svg',width: _width,height: _width,))),
+              child: SvgPicture.asset(
+                'assets/icons/avatar.svg',
+                width: _width.toDouble(),
+                height: _width.toDouble(),
+              ))),
     );
   }
 }

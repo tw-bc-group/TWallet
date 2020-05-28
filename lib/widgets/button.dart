@@ -2,44 +2,35 @@ import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
   final String text;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final double width;
   final double height;
 
-  Button({this.text, this.onPressed, this.width, this.height});
+  const Button({this.text, this.onPressed, this.width, this.height});
 
   @override
-  State<StatefulWidget> createState() {
-    return ButtonBase(
-        text: text, onPressed: onPressed, width: width, height: height);
-  }
+  State<StatefulWidget> createState() => ButtonBase();
 }
 
 class ButtonBase extends State<Button> {
-  String text;
-  Function onPressed;
-  double width;
-  double height;
-
-  ButtonBase({this.text, this.onPressed, this.width, this.height});
+  ButtonBase();
 
   @override
   Widget build(BuildContext context) {
-    print(onPressed);
-    if (width != null) {
+    if (widget.width != null) {
       return Center(
           child: Container(
-              width: width,
-              height: height,
+              width: widget.width,
+              height: widget.height,
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(10)),
               child: FlatButton(
                 disabledColor: Theme.of(context).disabledColor,
-                onPressed: onPressed,
+                onPressed: widget.onPressed,
                 child: Center(
                     child: Text(
-                  text,
+                  widget.text,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -48,16 +39,16 @@ class ButtonBase extends State<Button> {
               )));
     }
     return Container(
-        height: height,
+        height: widget.height,
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
         ),
         child: FlatButton(
           disabledColor: Theme.of(context).disabledColor,
-          onPressed: onPressed,
+          onPressed: widget.onPressed,
           child: Center(
               child: Text(
-            text,
+            widget.text,
             style: TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
           )),

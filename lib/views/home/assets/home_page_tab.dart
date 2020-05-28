@@ -12,7 +12,7 @@ class HomePageTab extends StatelessWidget {
       text,
       softWrap: false,
       overflow: TextOverflow.fade,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         fontStyle: FontStyle.normal,
@@ -24,7 +24,7 @@ class HomePageTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 14, right: 20, top: 2, bottom: 2),
+      padding: const EdgeInsets.only(left: 14, right: 20, top: 2, bottom: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
           border: Border.all(color: Colors.white, width: 2)),
@@ -33,13 +33,13 @@ class HomePageTab extends StatelessWidget {
         children: <Widget>[icon, _buildLabelText()],
       ),
     );
-
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('text', text, defaultValue: null));
-    properties.add(DiagnosticsProperty<Widget>('icon', icon, defaultValue: null));
+    properties
+        .add(DiagnosticsProperty<Widget>('icon', icon, defaultValue: null));
   }
 }
