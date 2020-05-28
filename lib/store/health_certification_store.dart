@@ -16,8 +16,8 @@ abstract class _HealthCertificationStore with Store {
   @observable
   HealthCertificationToken token;
 
-  @observable
-  bool isBoundCert = false;
+  @computed
+  bool get isBoundCert => token != null;
 
   @computed
   bool get isHealthy =>
@@ -28,10 +28,9 @@ abstract class _HealthCertificationStore with Store {
       double temperature, String contact, String symptoms) async {
     return _apiProvider
         .healthCertificate(did, phone, temperature, contact, symptoms)
-        .then((token) {
-      return _db.setItem(did, token.toJson()).then((_) {
-        isBoundCert = true;
-        token = token;
+        .then((newToken) {
+      return _db.setItem(did, newToken.toJson()).then((_) {
+        token = newToken;
         return Future.value(token);
       });
     });
@@ -39,25 +38,24 @@ abstract class _HealthCertificationStore with Store {
 
   @action
   Future fetchHealthCertByDID(String did) async {
-    final item = await _db.getItem(did);
-    isBoundCert = item != null;
-    if (isBoundCert) {
-      token = HealthCertificationToken.fromJson(item);
+    final savedToken = await _db.getItem(did);
+    if (savedToken != null) {
+      token = HealthCertificationToken.fromJson(savedToken);
     }
   }
 
   @action
   Future<HealthCertificationToken> fetchLatestHealthCert(String did) async {
-    return _apiProvider.fetchHealthCertificate(did).then((token) {
-      return _db.setItem(did, token.toJson()).then((_) {
-        this.token = token;
-
+    return _apiProvider.fetchHealthCertificate(did).then((res) {
+      return _db.setItem(did, res.toJson()).then((_) {
+        token = res;
         return Future.value(token);
       });
     });
   }
 
   Future<void> clear() async {
+    token = null;
     return _db.clearDataBase();
   }
 }

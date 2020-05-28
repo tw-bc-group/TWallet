@@ -9,6 +9,13 @@ part of 'health_certification_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
+  Computed<bool> _$isBoundCertComputed;
+
+  @override
+  bool get isBoundCert =>
+      (_$isBoundCertComputed ??= Computed<bool>(() => super.isBoundCert,
+              name: '_HealthCertificationStore.isBoundCert'))
+          .value;
   Computed<bool> _$isHealthyComputed;
 
   @override
@@ -29,21 +36,6 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   set token(HealthCertificationToken value) {
     _$tokenAtom.reportWrite(value, super.token, () {
       super.token = value;
-    });
-  }
-
-  final _$isBoundCertAtom = Atom(name: '_HealthCertificationStore.isBoundCert');
-
-  @override
-  bool get isBoundCert {
-    _$isBoundCertAtom.reportRead();
-    return super.isBoundCert;
-  }
-
-  @override
-  set isBoundCert(bool value) {
-    _$isBoundCertAtom.reportWrite(value, super.isBoundCert, () {
-      super.isBoundCert = value;
     });
   }
 
