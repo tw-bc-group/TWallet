@@ -1,12 +1,21 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tw_wallet_ui/views/tx_list/widgets/base_app_bar.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
+import 'package:tw_wallet_ui/models/did.dart';
+import 'package:tw_wallet_ui/models/tx_status.dart';
+import 'package:tw_wallet_ui/views/tx_list/widgets/color_money_text.dart';
+import 'package:tw_wallet_ui/views/tx_list/widgets/tx_info_card.dart';
+import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:web3dart/credentials.dart';
 
 class TxListDetailsPageArgs {
   final String amount;
   final String time;
-  final String status;
+  final TxStatus status;
   final String fromAddress;
   final String fromAddressName;
   final String toAddress;
@@ -29,27 +38,116 @@ class TxListDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
-      appBar: _buildAppBar(args),
-      body: _buildMainContent(context, args),
+    return NewCommonLayout(
+      title: '交易状态',
+      withBottomNavigationBar: false,
+      child: _buildMainContent(context, args),
     );
-  }
-
-  Widget _buildAppBar(TxListDetailsPageArgs args) {
-    return baseAppBar(
-        title: args.amount,
-        bottom: PreferredSize(
-          child: _buildAppBarHeaderInfo(args),
-          preferredSize: Size.fromHeight(35),
-        ));
   }
 
   Container _buildMainContent(
       BuildContext context, TxListDetailsPageArgs args) {
     return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 60),
+      padding: EdgeInsets.all(24),
+      child: ListView(
+        children: <Widget>[
+          _buildStatusCard(args),
+          _buildTXInfoCard(args)
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatusCard(TxListDetailsPageArgs args) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        color: WalletColor.white
+      ),
+      child: Column(
+        children: <Widget>[
+          ColorMoneyText(
+            amount: Amount(Decimal.parse(args.amount)),
+            status: args.status,
+            isExpense: args.isExpense,
+            textStyle: WalletFont.font_24(),
+          ),
+          Container(
+            height: 1,
+            color: WalletColor.middleGrey,
+            margin: EdgeInsets.only(top: 30, bottom: 24),
+          ),
+          Text(
+            '- ${args.status.toString()} -',
+            style: WalletFont.font_16()
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 14),
+            child: Text(
+              args.status.getDesc(),
+              style: WalletFont.font_14(),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTXInfoCard(TxListDetailsPageArgs args) {
+    return Container(
+      margin: EdgeInsets.only(top: 24),
       padding: EdgeInsets.all(20),
-      child: _buildList(context, args),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        color: WalletColor.white
+      ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(right: 30),
+                child: Text(
+                  '交易时间',
+                  style: WalletFont.font_14(
+                    textStyle: TextStyle(
+                      color: WalletColor.grey
+                    )
+                  )
+                )
+              ),
+              Expanded(
+                child: Text(
+                  args.time,
+                  style: WalletFont.font_14(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600
+                    )
+                  ),
+                  textAlign: TextAlign.right,
+                )
+              )
+            ],
+          ),
+          Container(
+            height: 1,
+            color: WalletColor.middleGrey,
+            margin: EdgeInsets.symmetric(vertical: 20),
+          ),
+          TxInfoCardWidget(
+            txInfoCardType: TxInfoCardType.Sender,
+            name: args.fromAddressName,
+            did: DID.fromEthAddress(EthereumAddress.fromHex(args.fromAddress)).toString()
+          ),
+          SizedBox(height: 20),
+          TxInfoCardWidget(
+            txInfoCardType: TxInfoCardType.Receiver,
+            did: DID.fromEthAddress(EthereumAddress.fromHex(args.toAddress)).toString()
+          ),
+        ],
+      ),
     );
   }
 
@@ -99,7 +197,7 @@ class TxListDetailsPage extends StatelessWidget {
         children: <Widget>[
           Text(args.time),
           SizedBox.fromSize(size: Size.fromHeight(5)),
-          Text(args.status),
+          // Text(args.status),
         ],
       ),
     );

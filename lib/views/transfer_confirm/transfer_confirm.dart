@@ -49,7 +49,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
             arguments: TxListDetailsPageArgs(
                 amount: '${globalEnv().tokenSymbol}$amount',
                 time: parseDate(DateTime.now()),
-                status: TxStatus.transferring.toString(),
+                status: TxStatus.transferring,
                 fromAddress: identityStore.selectedIdentity.value.address,
                 toAddress: toAddress,
                 fromAddressName: identityStore.myName,

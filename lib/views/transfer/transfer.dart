@@ -175,12 +175,11 @@ class TransferPageState extends State<TransferPage> {
               toAddress: payeeAddress,
               amount: Amount(Decimal.parse(amount.toString())));
       if (transferSuccess) {
-        // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
-                amount: '${globalEnv().tokenSymbol}$amount',
+                amount: '-$amount',
                 time: parseDate(DateTime.now()),
-                status: TxStatus.transferring.toString(),
+                status: TxStatus.transferring,
                 fromAddress: iStore.selectedIdentity.value.address,
                 toAddress: payeeAddress,
                 fromAddressName: iStore.myName,

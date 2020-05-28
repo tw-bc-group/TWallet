@@ -32,10 +32,9 @@ class _TxListPageState extends State<TxListPage> {
     final ie = _isExpense(item.fromAddress);
     Navigator.pushNamed(context, Routes.txListDetails,
         arguments: TxListDetailsPageArgs(
-          amount:
-              _amountWithSignal(ie, item.amount.value).humanReadableWithSign,
+          amount: item.amount.value.toString(),
           time: parseDate(item.createTime),
-          status: item.txType.toString(),
+          status: item.txType,
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
           fromAddressName: iStore.myName,

@@ -8,19 +8,25 @@ class ColorMoneyText extends StatelessWidget {
   final Amount amount;
   final TxStatus status;
   final bool isExpense;
+  final TextStyle textStyle;
 
-  ColorMoneyText({this.amount, this.status, this.isExpense});
+  ColorMoneyText({this.amount, this.status, this.isExpense, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-          text: amount.humanReadableWithSign,
-          style: WalletFont.font_18(
-            textStyle: TextStyle(
+        text: amount.humanReadableWithSign,
+        style: textStyle != null
+          ? textStyle.merge(TextStyle(
               color: _toColor(status)
+            ))
+          : WalletFont.font_18(
+              textStyle: TextStyle(
+                color: _toColor(status)
+              )
             )
-          )),
+      ),
     );
   }
 
@@ -32,8 +38,8 @@ class ColorMoneyText extends StatelessWidget {
   Color _toColor(TxStatus status) {
     final _statusColorMap = {
       TxStatus.succeeded: _parseSucceededColor(),
-      TxStatus.transferring: Color(0xFF888888),
-      TxStatus.failed: Color(0xFF888888),
+      TxStatus.transferring: _parseSucceededColor(),
+      TxStatus.failed: _parseSucceededColor(),
     };
     return _statusColorMap[status];
   }

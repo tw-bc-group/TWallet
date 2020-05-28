@@ -17,10 +17,10 @@ class Amount {
       '${globalEnv().tokenSymbol}$humanReadable';
 
   String get humanReadableWithSign {
-    if (!value.isNegative) {
-      return '+${globalEnv().tokenSymbol}$humanReadable';
+    if (value.isNegative) {
+      return '-${globalEnv().tokenSymbol}${humanReadable.substring(1)}';
     }
-    return humanReadableWithSymbol;
+    return '+${globalEnv().tokenSymbol}$humanReadable';
   }
 
   @override
