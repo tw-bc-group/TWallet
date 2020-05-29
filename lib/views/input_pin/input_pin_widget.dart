@@ -76,7 +76,7 @@ class PinInputWidget extends StatelessWidget {
                             )),
                             padding: const EdgeInsets.only(top: 94, bottom: 85),
                             child: Text(
-                              "欢迎来到 TW Wallet",
+                              "欢迎来到 ThoughtWallet",
                               style: WalletFont.font_22(
                                   textStyle:
                                       TextStyle(color: WalletColor.white)),

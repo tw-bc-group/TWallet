@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'TW Wallet',
+              title: 'ThoughtWallet',
               theme: ThemeData(
                   primaryColor: WalletColor.primary,
                   textTheme: TextTheme(

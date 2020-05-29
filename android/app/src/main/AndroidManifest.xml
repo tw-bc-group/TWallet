@@ -10,7 +10,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="tw_wallet_ui"
+        android:label="ThoughtWallet"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

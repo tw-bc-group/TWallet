@@ -34,11 +34,11 @@ dependencies:
   dio: ^3.0.9
   bip32: ^1.0.5
   bip39: ^1.0.3
-  get_it: ^4.0.1
+  get_it: ^4.0.2
   ethereum_address: ^1.0.1
   validators: ^2.0.0+1
   cached_network_image: ^2.0.0
-  optional: ^4.1.0
+  optional: ^5.0.0
   json_store: ^1.0.3
   more: ^2.2.0
   uuid: 2.0.4
@@ -58,6 +58,7 @@ dependencies:
   flutter_screenutil: ^1.1.0
   custom_radio_grouped_button: ^1.0.0
   convert: ^2.1.1
+  package_info: ^0.4.0+18
 
 dev_dependencies:
   flutter_test:
