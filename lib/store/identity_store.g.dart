@@ -171,17 +171,6 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   }
 
   @override
-  void selectIdentity(String name) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
-        name: 'IdentityStoreBase.selectIdentity');
-    try {
-      return super.selectIdentity(name);
-    } finally {
-      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void fetchLatestPoint() {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.fetchLatestPoint');
