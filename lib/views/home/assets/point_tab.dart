@@ -50,7 +50,7 @@ class PointTab extends StatefulWidget {
 class _PointTabState extends State<PointTab> {
   final IdentityStore _identityStore = getIt<IdentityStore>();
 
-  ReactionDisposer listening;
+  ReactionDisposer reactionDispose;
 
   Future<void> _refresh() async {
     _identityStore.fetchLatestPoint();
@@ -59,13 +59,13 @@ class _PointTabState extends State<PointTab> {
   @override
   void dispose() {
     super.dispose();
-    listening();
+    reactionDispose();
   }
 
   @override
   void initState() {
     super.initState();
-    listening = reaction((_) => _identityStore.selectedIdentity.value.id,
+    reactionDispose = reaction((_) => _identityStore.selectedIdentity.value.id,
             (_) => _refresh());
     _refresh();
   }
