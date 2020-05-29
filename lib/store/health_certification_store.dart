@@ -39,6 +39,7 @@ abstract class _HealthCertificationStore with Store {
   @action
   Future fetchHealthCertByDID(String did) async {
     final savedToken = await _db.getItem(did);
+    token = null;
     if (savedToken != null) {
       token = HealthCertificationToken.fromJson(savedToken);
     }
