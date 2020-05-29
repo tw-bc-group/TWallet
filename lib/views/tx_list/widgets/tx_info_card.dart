@@ -32,7 +32,7 @@ class TxInfoCardWidget extends StatelessWidget {
             color: cardTypeBackColorMap[txInfoCardType]),
         child: Column(
           children: <Widget>[
-            if (txInfoCardType == TxInfoCardType.sender)
+            if (name != null)
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -50,7 +50,7 @@ class TxInfoCardWidget extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ))
                   ]),
-            if (txInfoCardType == TxInfoCardType.sender)
+            if (name != null)
               Container(
                 height: 1,
                 margin: const EdgeInsets.only(top: 16, bottom: 7),

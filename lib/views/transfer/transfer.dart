@@ -114,7 +114,7 @@ class TransferPageState extends State<TransferPage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(top: 8),
-                  child: Text(identity.did.toString(),
+                  child: Text(_transferStore.payeeAddress,
                       style: WalletFont.font_16()),
                 )
               ],
@@ -273,6 +273,7 @@ class TransferPageState extends State<TransferPage> {
 
                         try {
                           final DID did = DID.parse(scanResult);
+                          _payeeAddressController.text = did.toString();
                           _transferStore.payeeAddress = did.toString();
                         } catch (_) {
                           await hintDialogHelper(
@@ -288,9 +289,8 @@ class TransferPageState extends State<TransferPage> {
                 inputFormatters: <TextInputFormatter>[
                   WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9\:]+')),
                 ],
-                controller: _payeeAddressController
-                  ..text = _transferStore.payeeAddress,
-                onChange: (value) => _transferStore.payeeAddress = value,
+                controller: _payeeAddressController,
+                onChange: (value) => _transferStore.payeeAddress = value
               ),
             ],
           )),
