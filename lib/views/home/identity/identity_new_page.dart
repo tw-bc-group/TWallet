@@ -9,6 +9,7 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
 
 class IdentityNewPage extends StatefulWidget {
@@ -40,17 +41,15 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     store.validateAll();
     if (!store.error.hasErrors && !isAdding) {
       isAdding = true;
-      Future.microtask(() {
-        store.validateAll();
-      }).then((_) {
-        if (!store.error.hasErrors) {
-          store.addIdentity().then((success) {
-            if (success) {
-              Application.router.pop(context);
-            }
-            isAdding = false;
-          });
-        }
+      store.addIdentity().then((success) async {
+        await showDialogSample(
+                context, DialogType.success, success ? '创建成功' : '创建失败')
+            .then((_) {
+          if (success) {
+            Application.router.pop(context);
+          }
+        });
+        isAdding = false;
       });
     }
   }
