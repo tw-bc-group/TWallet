@@ -40,10 +40,22 @@ Widget _pointItem({@required String point, BuildContext context}) {
       ));
 }
 
-class PointTab extends StatelessWidget {
+class PointTab extends StatefulWidget {
+  @override
+  _PointTabState createState() => _PointTabState();
+}
+
+class _PointTabState extends State<PointTab> {
   final IdentityStore _store = getIt<IdentityStore>();
 
   Future<void> _refresh() async {
+    _store.fetchLatestPoint();
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
     _store.fetchLatestPoint();
   }
 

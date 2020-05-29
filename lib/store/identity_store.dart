@@ -31,7 +31,6 @@ abstract class IdentityStoreBase with Store {
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
-    fetchLatestPoint();
   }
 
   static Future<IdentityStore> fromJsonStore() async {

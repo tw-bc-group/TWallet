@@ -15,7 +15,7 @@ class ApiProvider {
 
   Future<TwBalance> fetchPointV1({@required String address}) async {
     return _httpClient
-        .get('/v1/token/$address', loading: false)
+        .get('/v1/token/$address')
         .then((response) {
       return Future.value(ApiResponse.fromJson(
         response.data,
