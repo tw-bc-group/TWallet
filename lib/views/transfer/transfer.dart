@@ -273,7 +273,7 @@ class TransferPageState extends State<TransferPage> {
 
                         try {
                           final DID did = DID.parse(scanResult);
-                          _transferStore.updatePayeeAddress(did.toString());
+                          _transferStore.payeeAddress = did.toString();
                         } catch (_) {
                           await hintDialogHelper(
                               context, DialogType.warning, '未识别到有效的身份信息');
