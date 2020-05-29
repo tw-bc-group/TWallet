@@ -50,6 +50,7 @@ abstract class Identity extends Object
   @memoized
   DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
 
+  @nullable
   bool get isSelected;
 
   Identity setSelected() => rebuild((id) => id..isSelected = true);

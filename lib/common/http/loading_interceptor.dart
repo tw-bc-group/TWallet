@@ -60,6 +60,8 @@ class LoadingInterceptor extends InterceptorsWrapper {
   }
 
   void hideLoading() {
-    dialogInstance.dismiss();
+    if (dialogInstance != null) {
+      dialogInstance.dismiss();
+    }
   }
 }

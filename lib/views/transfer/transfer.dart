@@ -167,7 +167,7 @@ class TransferPageState extends State<TransferPage> {
         Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
                 amount: '-$amount',
-                time: parseDate(DateTime.now()),
+                time: parseDateTime(DateTime.now()),
                 status: TxStatus.transferring,
                 fromAddress: iStore.selectedIdentity.value.address,
                 toAddress: payeeAddress,
