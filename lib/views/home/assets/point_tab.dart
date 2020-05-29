@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
@@ -46,50 +48,42 @@ class PointTab extends StatefulWidget {
 }
 
 class _PointTabState extends State<PointTab> {
-  final IdentityStore _store = getIt<IdentityStore>();
+  final IdentityStore _identityStore = getIt<IdentityStore>();
 
   Future<void> _refresh() async {
-    _store.fetchLatestPoint();
+    _identityStore.fetchLatestPoint();
   }
-
 
   @override
   void initState() {
     super.initState();
-    _store.fetchLatestPoint();
+    _identityStore.fetchLatestPoint();
   }
 
   @override
-  // ignore: missing_return
   Widget build(BuildContext context) => Observer(builder: (_) {
+        Optional<Amount> amount;
         final ObservableFuture<TwBalance> future =
-            _store.fetchBalanceFutureStream.value;
+            _identityStore.fetchBalanceFutureStream.value;
 
         switch (future.status) {
-          case FutureStatus.rejected:
-            return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    '加载积分失败',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  RaisedButton(
-                    onPressed: _refresh,
-                    child: const Text('点击重试'),
-                  )
-                ]);
-          case FutureStatus.pending:
           case FutureStatus.fulfilled:
-            final TwBalance balance = future.result as TwBalance;
-            return HomeListView(
-                    onRefresh: _refresh,
-                    children: [
-                      _pointItem(
-                          point: balance?.amount?.humanReadableWithSymbol ?? "--",
-                          context: context)
-                    ],
-                  );
+            amount = Optional.ofNullable(future.result as TwBalance)
+                .map((balance) => balance.amount);
+            break;
+          default:
+            amount = _identityStore.selectedIdentity.map((i) => i.balance);
+            break;
         }
+
+        return HomeListView(
+          onRefresh: _refresh,
+          children: [
+            _pointItem(
+                point:
+                    amount.map((a) => a.humanReadableWithSymbol).orElse('--'),
+                context: context)
+          ],
+        );
       });
 }
