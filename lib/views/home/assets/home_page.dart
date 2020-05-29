@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
@@ -125,14 +124,15 @@ class _HomePageState extends State<HomePage>
       builder: (BuildContext context) {
         return IdentitySelectionSheet(
           identities: ids,
-          onSheetItemTap: (index) => _onIdentityCardTap(context, ids[index]),
+          onSheetItemTap: (index) =>
+              _onIdentityCardTap(context, ids[index].name),
         );
       },
     );
   }
 
-  void _onIdentityCardTap(BuildContext context, Identity selectedId) {
-    _identityStore.updateSelectedIdentity(selectedId);
+  void _onIdentityCardTap(BuildContext context, String selectedName) {
+    _identityStore.selectIdentity(selectedName);
     Navigator.pop(context);
   }
 }

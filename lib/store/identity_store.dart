@@ -124,6 +124,8 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> updateIdentityIsSelected(int selectedIndex) async {
     Identity selectedIdentity;
+    Identity lastSelectedIdentity;
+
     final List<Identity> newIdentities = identities
         .asMap()
         .map((index, identity) {
@@ -131,11 +133,19 @@ abstract class IdentityStoreBase with Store {
             selectedIdentity = identity.setSelected();
             return MapEntry(index, selectedIdentity);
           } else {
+            if (identity.isSelected) {
+              lastSelectedIdentity = identity.setUnSelected();
+            }
             return MapEntry(index, identity.setUnSelected());
           }
         })
         .values
         .toList();
+
+    if (null != lastSelectedIdentity) {
+      await _db.setItem(
+          _itemKey(lastSelectedIdentity.name), lastSelectedIdentity.toJson());
+    }
 
     if (null != selectedIdentity) {
       await _db
@@ -160,9 +170,21 @@ abstract class IdentityStoreBase with Store {
     final int index = identities.indexWhere((identity) => identity.isSelected);
     if (index >= 0) {
       identities[index] = identity;
-      //updateIdentityIsSelected(index);
     } else {
       throw Exception('Identity updated not exist.');
+    }
+  }
+
+  @action
+  void selectIdentity(String name) {
+    final int index = identities.indexWhere(
+      (identity) => identity.name == name,
+    );
+
+    if (index >= 0) {
+      updateIdentityIsSelected(index);
+    } else {
+      throw Exception('Identity selected not exist.');
     }
   }
 
