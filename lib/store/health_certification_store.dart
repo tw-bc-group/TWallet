@@ -1,5 +1,6 @@
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -38,11 +39,9 @@ abstract class _HealthCertificationStore with Store {
 
   @action
   Future fetchHealthCertByDID(String did) async {
-    final savedToken = await _db.getItem(did);
-    token = null;
-    if (savedToken != null) {
-      token = HealthCertificationToken.fromJson(savedToken);
-    }
+    token = Optional.ofNullable(await _db.getItem(did))
+        .map((token) => HealthCertificationToken.fromJson(token))
+        .orElse(null);
   }
 
   @action
