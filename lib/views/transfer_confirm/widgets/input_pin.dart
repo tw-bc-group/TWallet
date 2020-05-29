@@ -88,7 +88,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
                 onChanged: onChanged,
               ),
             ),
-            if (showErrorMsg) const ErrorRowWidget('*PIN码错误，请重新输入')
+            if (showErrorMsg) const ErrorRowWidget('PIN码错误，请重新输入')
           ],
         ));
   }

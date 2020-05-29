@@ -76,7 +76,7 @@ class TxListDetailsPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ColorMoneyText(
-            amount: Amount(Decimal.parse(args.amount)),
+            amount: Amount(Decimal.parse(args.isExpense ? '-${args.amount}': args.amount)),
             status: args.status,
             isExpense: args.isExpense,
             textStyle: WalletFont.font_24(),

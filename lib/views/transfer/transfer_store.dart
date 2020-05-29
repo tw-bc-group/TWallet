@@ -64,11 +64,13 @@ abstract class _TransferStore with Store {
       if (res <= 0) {
         error.amount = '请输入大于 0 的金额';
       } else if (res > double.parse(balance)) {
-        error.amount = '金额不能大于当前余额';
+        error.amount = '金额超过您目前的余额';
       } else if (indexOfDot >= 0 &&
           value.length - indexOfDot >
               globalEnv().tokenHumanReadablePrecision + 1) {
         error.amount = '金额仅支持 ${globalEnv().tokenHumanReadablePrecision} 位小数';
+      } else if (value.endsWith('.')) {
+        throw Error();
       } else {
         error.amount = null;
       }
@@ -80,7 +82,7 @@ abstract class _TransferStore with Store {
   @action
   void validatePayeeAddress(String value) {
     if (!value.startsWith(globalEnv().didPrefix)) {
-      error.payeeAddress = '请输入有效的收款人地址';
+      error.payeeAddress = '请输入有效的接收账户';
       return;
     }
 
