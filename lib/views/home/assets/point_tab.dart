@@ -70,13 +70,11 @@ class PointTab extends StatelessWidget {
           case FutureStatus.pending:
           case FutureStatus.fulfilled:
             final TwBalance balance = future.result as TwBalance;
-            return balance == null
-                ? Container()
-                : HomeListView(
+            return HomeListView(
                     onRefresh: _refresh,
                     children: [
                       _pointItem(
-                          point: balance.amount.humanReadableWithSymbol,
+                          point: balance?.amount?.humanReadableWithSymbol ?? "--",
                           context: context)
                     ],
                   );
