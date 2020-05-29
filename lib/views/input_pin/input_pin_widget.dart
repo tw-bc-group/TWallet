@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -52,7 +53,7 @@ class PinInputWidget extends StatelessWidget {
         backgroundColor: WalletColor.primary,
         bottomNavigationBar: Theme(
             data: Theme.of(context),
-            child: Container(color: WalletColor.white, height: 30)),
+            child: Container(height: 0)),
         body: Theme(
             data: Theme.of(context),
             child: GestureDetector(
@@ -213,7 +214,7 @@ class PinInputWidget extends StatelessWidget {
                                 ),
                                 Observer(
                                   builder: (_) => Container(
-                                    margin: const EdgeInsets.only(top: 16.0),
+                                    margin: EdgeInsets.only(top: 16.0, bottom: DeviceInfo.isIphoneXSeries() ? 34 : 20),
                                     child: WalletTheme.button(
                                         text: '下一步',
                                         onPressed: _inputPin.isCompleted

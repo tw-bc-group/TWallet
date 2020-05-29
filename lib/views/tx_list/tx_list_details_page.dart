@@ -48,7 +48,6 @@ class TxListDetailsPage extends StatelessWidget {
         child: NewCommonLayout(
           title: '交易状态',
           backIcon: args.shouldBackToHome ? BackIcon.none : BackIcon.arrow,
-          withBottomNavigationBar: false,
           child: _buildMainContent(context, args),
         ));
   }

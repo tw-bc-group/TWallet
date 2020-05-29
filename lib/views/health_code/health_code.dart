@@ -63,7 +63,6 @@ class HealthCodeState extends State<HealthCodePage> {
 
         return NewCommonLayout(
           title: '健康码',
-          withBottomNavigationBar: false,
           // ignore: missing_return
           child: Observer(builder: (_) {
             switch (_future.status) {

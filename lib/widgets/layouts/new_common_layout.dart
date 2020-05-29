@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
@@ -11,7 +12,6 @@ class NewCommonLayout extends StatelessWidget {
   final String title;
   final Color bodyBackColor;
   final BackIcon backIcon;
-  final bool withBottomNavigationBar;
   final List<Widget> appBarActions;
 
   const NewCommonLayout(
@@ -22,7 +22,6 @@ class NewCommonLayout extends StatelessWidget {
       this.title,
       this.bodyBackColor,
       this.backIcon = BackIcon.arrow,
-      this.withBottomNavigationBar = true,
       this.appBarActions});
 
   @override
@@ -50,8 +49,9 @@ class NewCommonLayout extends StatelessWidget {
       bottomNavigationBar: Theme(
           data: Theme.of(context),
           child: Container(
-              color: WalletColor.white,
-              height: withBottomNavigationBar ? 30 : 0)),
+            height: 0)),
+              // color: DeviceInfo.isIphoneXSeries() ? Colors.transparent : WalletColor.white,
+              // height: DeviceInfo.isIphoneXSeries() ? 30 : 0)),
       body: GestureDetector(
           onTap: () {
             final FocusScopeNode currentFocus = FocusScope.of(context);
@@ -62,17 +62,19 @@ class NewCommonLayout extends StatelessWidget {
           child: SafeArea(
               maintainBottomViewPadding: true,
               child: Container(
-                padding: withBottomNavigationBar
-                    ? null
-                    : const EdgeInsets.only(bottom: 30),
+                margin: const EdgeInsets.all(0),
                 child: Column(
                   children: <Widget>[
-                    Expanded(child: child),
+                    Expanded(
+                      child: Container(
+                        child: child
+                      )
+                    ),
                     if (withBottomBtn)
                       Container(
                           color: WalletColor.white,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 30),
+                          padding: EdgeInsets.symmetric(
+                              vertical: DeviceInfo.isIphoneXSeries() ? 34 : 20, horizontal: 30),
                           child: WalletTheme.button(
                               text: btnText, onPressed: btnOnPressed))
                   ],

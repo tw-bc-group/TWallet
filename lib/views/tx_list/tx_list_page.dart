@@ -52,7 +52,6 @@ class _TxListPageState extends State<TxListPage> {
   Widget build(BuildContext context) {
     return NewCommonLayout(
         title: 'DC/EP',
-        withBottomNavigationBar: false,
         child: Observer(
             builder: (context) => Column(
                   children: <Widget>[buildHeader(), buildBody(), buildFooter()],

@@ -14,7 +14,6 @@ class IdentityQRPage extends StatelessWidget {
 
     return NewCommonLayout(
       title: '身份二维码',
-      withBottomNavigationBar: false,
       child: _buildMainContent(identity),
     );
   }

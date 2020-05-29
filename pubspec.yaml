@@ -59,6 +59,7 @@ dependencies:
   custom_radio_grouped_button: ^1.0.0
   convert: ^2.1.1
   package_info: ^0.4.0+18
+  device_info: ^0.4.2+4
 
 dev_dependencies:
   flutter_test:

@@ -36,7 +36,6 @@ class IdentityDetailPage extends StatelessWidget {
     certStore.fetchHealthCertByDID(identity.did.toString());
     return NewCommonLayout(
       title: identity.name,
-      withBottomNavigationBar: false,
       child: Container(
           margin: const EdgeInsets.only(top: 24),
           padding: const EdgeInsets.symmetric(horizontal: 24),

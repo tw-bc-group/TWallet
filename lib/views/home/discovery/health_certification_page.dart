@@ -35,7 +35,6 @@ class HealthCertificationPage extends StatelessWidget {
       appBarActions: <Widget>[
         _buildScanIcon(context),
       ],
-      withBottomNavigationBar: false,
       title: "健康认证",
       child: Column(
         children: [
