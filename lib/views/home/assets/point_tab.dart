@@ -65,7 +65,7 @@ class _PointTabState extends State<PointTab> {
   @override
   void initState() {
     super.initState();
-    listening = reaction((_) => _store.selectedIdentity.value.id,
+    listening = reaction((_) => _identityStore.selectedIdentity.value.id,
             (_) => _refresh());
     _refresh();
   }
