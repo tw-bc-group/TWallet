@@ -19,7 +19,6 @@ class HealthCodeStore = HealthCodeStoreBase with _$HealthCodeStore;
 abstract class HealthCodeStoreBase with Store {
   Stopwatch _stopwatch;
   Timer _timer;
-  int countDown;
   int initialCountDown;
   final DID did;
   final _healthCertStore = getIt<HealthCertificationStore>();
@@ -37,11 +36,12 @@ abstract class HealthCodeStoreBase with Store {
     _stopwatch = Stopwatch();
     _timer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
       if (_stopwatch.isRunning) {
-        updateElapsedSeconds();
-      }
+        currentCountDown = Optional.of(
+            max(initialCountDown - _stopwatch.elapsed.inSeconds, 0));
 
-      if (currentCountDown == Optional.of(0)) {
-        fetchLatestHealthCode();
+        if (currentCountDown == Optional.of(0)) {
+          fetchLatestHealthCode();
+        }
       }
     });
 
@@ -53,7 +53,6 @@ abstract class HealthCodeStoreBase with Store {
   }
 
   void _startStopwatch() {
-    countDown = initialCountDown;
     _stopwatch
       ..reset()
       ..start();
@@ -66,17 +65,7 @@ abstract class HealthCodeStoreBase with Store {
   }
 
   @observable
-  int elapsedSeconds = 0;
-
-  @action
-  void updateElapsedSeconds() {
-    elapsedSeconds = _stopwatch.elapsed.inSeconds;
-  }
-
-  @computed
-  Optional<int> get currentCountDown => _stopwatch.isRunning
-      ? Optional.of(max(initialCountDown - elapsedSeconds, 0))
-      : const Optional.empty();
+  Optional<int> currentCountDown = const Optional.empty();
 
   @action
   void fetchLatestHealthCode() {

@@ -9,42 +9,24 @@ part of 'health_code_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HealthCodeStore on HealthCodeStoreBase, Store {
-  Computed<Optional<int>> _$currentCountDownComputed;
+  final _$currentCountDownAtom =
+      Atom(name: 'HealthCodeStoreBase.currentCountDown');
 
   @override
-  Optional<int> get currentCountDown => (_$currentCountDownComputed ??=
-          Computed<Optional<int>>(() => super.currentCountDown,
-              name: 'HealthCodeStoreBase.currentCountDown'))
-      .value;
-
-  final _$elapsedSecondsAtom = Atom(name: 'HealthCodeStoreBase.elapsedSeconds');
-
-  @override
-  int get elapsedSeconds {
-    _$elapsedSecondsAtom.reportRead();
-    return super.elapsedSeconds;
+  Optional<int> get currentCountDown {
+    _$currentCountDownAtom.reportRead();
+    return super.currentCountDown;
   }
 
   @override
-  set elapsedSeconds(int value) {
-    _$elapsedSecondsAtom.reportWrite(value, super.elapsedSeconds, () {
-      super.elapsedSeconds = value;
+  set currentCountDown(Optional<int> value) {
+    _$currentCountDownAtom.reportWrite(value, super.currentCountDown, () {
+      super.currentCountDown = value;
     });
   }
 
   final _$HealthCodeStoreBaseActionController =
       ActionController(name: 'HealthCodeStoreBase');
-
-  @override
-  void updateElapsedSeconds() {
-    final _$actionInfo = _$HealthCodeStoreBaseActionController.startAction(
-        name: 'HealthCodeStoreBase.updateElapsedSeconds');
-    try {
-      return super.updateElapsedSeconds();
-    } finally {
-      _$HealthCodeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void fetchLatestHealthCode() {
@@ -60,7 +42,6 @@ mixin _$HealthCodeStore on HealthCodeStoreBase, Store {
   @override
   String toString() {
     return '''
-elapsedSeconds: ${elapsedSeconds},
 currentCountDown: ${currentCountDown}
     ''';
   }
