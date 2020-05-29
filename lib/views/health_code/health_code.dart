@@ -44,6 +44,7 @@ class HealthCodeState extends State<HealthCodePage> {
   void initState() {
     super.initState();
     identity = getIt<IdentityStore>().getIdentityById(widget.id);
+    print(111111111);
     _certStore = HealthCodeStore(identity.did, 60, widget.firstRefresh);
   }
 
