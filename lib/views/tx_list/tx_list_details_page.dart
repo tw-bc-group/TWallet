@@ -132,13 +132,14 @@ class TxListDetailsPage extends StatelessWidget {
           ),
           TxInfoCardWidget(
               txInfoCardType: TxInfoCardType.sender,
-              name: args.fromAddressName,
+              name: args.isExpense ? args.fromAddressName : null,
               did: DID
                   .fromEthAddress(EthereumAddress.fromHex(args.fromAddress))
                   .toString()),
           const SizedBox(height: 20),
           TxInfoCardWidget(
               txInfoCardType: TxInfoCardType.receiver,
+              name: args.isExpense ? null : args.fromAddressName,
               did: DID
                   .fromEthAddress(EthereumAddress.fromHex(args.toAddress))
                   .toString()),
