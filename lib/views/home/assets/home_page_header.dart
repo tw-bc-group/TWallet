@@ -23,7 +23,7 @@ class HomePageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 36),
+      margin: const EdgeInsets.only(top: 26),
       padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
           color: WalletColor.primary,
@@ -37,9 +37,9 @@ class HomePageHeader extends StatelessWidget {
           GestureDetector(
               onTap: onAvatarTap,
               child: Container(
-                  margin: const EdgeInsets.only(bottom: 34), child: avatar)),
+                  margin: const EdgeInsets.only(bottom: 14), child: avatar)),
           Container(
-              margin: const EdgeInsets.only(bottom: 24),
+              margin: const EdgeInsets.only(bottom: 8),
               child: _buildName(name)),
           GestureDetector(
             onTap: onChangeIdentityTap,
@@ -53,7 +53,7 @@ class HomePageHeader extends StatelessWidget {
 
   Widget _buildChangeIdentityButton() {
     return Container(
-      margin: const EdgeInsets.only(bottom: 34),
+      margin: const EdgeInsets.only(bottom: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
