@@ -12,7 +12,6 @@ class DeviceInfo {
     try {
       iosDeviceInfo = await deviceInfoPlugin.iosInfo;
     } catch (_) {}
-    isIphoneXSeries();
   }
 
   static bool isIOS() {
@@ -20,9 +19,11 @@ class DeviceInfo {
   }
 
   static bool isIphoneXSeries() {
-    final iphoneName = iosDeviceInfo.name;
-    if (iphoneName.startsWith('iPhone X') || iphoneName.startsWith('iPhone 1')) {
-      return true;
+    if (isIOS()) {
+      final iphoneName = iosDeviceInfo.name;
+      if (iphoneName.startsWith('iPhone X') || iphoneName.startsWith('iPhone 1')) {
+        return true;
+      }
     }
     return false;
   }
