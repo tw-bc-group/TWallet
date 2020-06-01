@@ -42,8 +42,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     if (!store.error.hasErrors && !isAdding) {
       isAdding = true;
       store.addIdentity().then((success) async {
-        await showDialogSample(
-                context, DialogType.success, success ? '创建成功' : '创建失败')
+        await showDialogSample(DialogType.success, success ? '创建成功' : '创建失败')
             .then((_) {
           if (success) {
             Application.router.pop(context);

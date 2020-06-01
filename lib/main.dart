@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         future: getIt.allReady(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return MaterialApp(
+            return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'ThoughtWallet',
               theme: ThemeData(

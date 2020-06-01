@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 class ErrorInterceptor extends InterceptorsWrapper {
   static BuildContext context;
@@ -9,37 +9,37 @@ class ErrorInterceptor extends InterceptorsWrapper {
   Future onError(DioError err) {
     switch (err.type) {
       case DioErrorType.CONNECT_TIMEOUT:
-        showErrorSnackbar('连接超时');
+        showErrorDialog('连接超时');
         break;
 
       case DioErrorType.SEND_TIMEOUT:
-        showErrorSnackbar('发送超时');
+        showErrorDialog('发送超时');
         break;
 
       case DioErrorType.RECEIVE_TIMEOUT:
-        showErrorSnackbar('接收超时');
+        showErrorDialog('接收超时');
         break;
 
       case DioErrorType.CANCEL:
-        showErrorSnackbar('用户取消');
+        showErrorDialog('用户取消');
         break;
 
       default:
         if (err.response != null) {
           if (err.response.statusCode == 400) {
             if (err.response.data['code'] == 40000) {
-              showErrorSnackbar(
+              showErrorDialog(
                 err.response.data['msg'] as String,
               );
             } else {
-              showErrorSnackbar('请求失败，请稍后再试..');
+              showErrorDialog('请求失败，请稍后再试..');
             }
           }
           if (err.response.statusCode >= 500) {
-            showErrorSnackbar('服务端错误');
+            showErrorDialog('服务端错误');
           }
         } else {
-          showErrorSnackbar('未知错误');
+          showErrorDialog('未知错误');
         }
         break;
     }
@@ -47,14 +47,7 @@ class ErrorInterceptor extends InterceptorsWrapper {
     return super.onError(err);
   }
 
-  void showErrorSnackbar(String errorMsg) {
-    Flushbar(
-      message: errorMsg,
-      flushbarPosition: FlushbarPosition.BOTTOM,
-      flushbarStyle: FlushbarStyle.FLOATING,
-      backgroundColor: Colors.black87,
-      isDismissible: false,
-      duration: const Duration(seconds: 4),
-    ).show(context);
+  Future<void> showErrorDialog(String errorMsg) async {
+    await showDialogSample(DialogType.error, errorMsg);
   }
 }

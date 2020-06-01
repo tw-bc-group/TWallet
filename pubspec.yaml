@@ -60,6 +60,7 @@ dependencies:
   convert: ^2.1.1
   package_info: ^0.4.0+18
   device_info: ^0.4.2+4
+  get: ^2.7.1
 
 dev_dependencies:
   flutter_test:

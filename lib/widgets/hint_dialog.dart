@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
@@ -56,11 +57,7 @@ Future<void> hintDialogFull(
   String subText = '',
   String buttonText = '',
 }) async {
-  return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) =>
-          HintDialog(title, text, subText, buttonText, type));
+  return Get.dialog(HintDialog(title, text, subText, buttonText, type));
 }
 
 class HintDialog extends Dialog {
@@ -155,11 +152,8 @@ class HintDialog extends Dialog {
   }
 }
 
-Future<void> showDialogSample(
-    BuildContext context, DialogType type, String text) {
-  return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) => HintDialogSample(type, text));
+Future<void> showDialogSample(DialogType type, String text) {
+  return Get.dialog(HintDialogSample(type, text));
 }
 
 class HintDialogSample extends Dialog {

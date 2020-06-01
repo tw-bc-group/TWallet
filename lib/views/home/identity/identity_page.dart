@@ -60,7 +60,7 @@ class _IdentityPageState extends State<IdentityPage> {
                     onLongPress: () async {
                       Clipboard.setData(
                           ClipboardData(text: identity.did.toString()));
-                      await showDialogSample(context, DialogType.none, '复制成功');
+                      await showDialogSample(DialogType.none, '复制成功');
                     },
                     child: Text(
                       identity.did.toString(),
