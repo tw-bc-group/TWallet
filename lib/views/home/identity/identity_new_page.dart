@@ -41,15 +41,25 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     store.validateAll();
     if (!store.error.hasErrors && !isAdding) {
       isAdding = true;
-      store.addIdentity().then((success) async {
-        await showDialogSample(DialogType.success, success ? '创建成功' : '创建失败')
-            .then((_) {
-          if (success) {
-            Application.router.pop(context);
-          }
+      bool success = false;
+
+      try {
+        await store.addIdentity().then((res) async {
+          success = res;
         });
-        isAdding = false;
+      } catch (err) {
+        success = false;
+      }
+
+      await showDialogSample(
+              DialogType.success, success ? '创建成功' : '创建失败,请继续过会稍后再试....')
+          .then((_) {
+        if (success) {
+          Application.router.pop(context);
+        }
       });
+      store.clearError();
+      isAdding = false;
     }
   }
 

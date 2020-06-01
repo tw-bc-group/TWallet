@@ -66,8 +66,10 @@ abstract class Identity extends Object
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
           .identityRegister(name, pubKey, address, did.toString(), signedRawTx)
-          .then((response) =>
-              response.statusCode >= 200 && response.statusCode < 300);
+          .then((res) => res
+              .map((response) =>
+                  response.statusCode >= 200 && response.statusCode < 300)
+              .orElse(false));
     });
   }
 
@@ -80,7 +82,8 @@ abstract class Identity extends Object
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
           .transferPoint(address, pubKey, signedRawTx)
-          .then((response) => response.statusCode == 200);
+          .then((res) =>
+              res.map((response) => response.statusCode == 200).orElse(false));
     });
   }
 

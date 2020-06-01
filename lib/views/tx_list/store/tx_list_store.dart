@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 
@@ -14,7 +15,7 @@ abstract class _TxListStore with Store {
       ObservableFuture.value(<Transaction>[]);
 
   @observable
-  ObservableFuture<Transaction> tx;
+  ObservableFuture<Optional<Transaction>> tx;
 
   @observable
   List<Transaction> list;
@@ -27,7 +28,8 @@ abstract class _TxListStore with Store {
 
   @action
   Future fetchList(String myAddress) async {
-    final future = _client.fetchTxList(myAddress);
+    final future = _client.fetchTxList(myAddress).then((res) => res.orElse([]));
+
     listFuture = ObservableFuture(future);
 
     try {

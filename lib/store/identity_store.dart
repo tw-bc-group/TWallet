@@ -202,18 +202,16 @@ abstract class IdentityStoreBase with Store {
 
   @action
   void fetchLatestPoint() {
-    _streamController.add(ObservableFuture(
-        Future.value(selectedIdentity).then((selectedIdentity) async {
-      if (selectedIdentity.isPresent) {
-        return TwBalance.fetchBalance(address: selectedIdentity.value.address)
-            .then((twBalance) {
+    selectedIdentity.ifPresent((identity) {
+      TwBalance.fetchBalance(address: selectedIdentity.value.address)
+          .then((res) {
+        res.ifPresent((balance) {
           updateSelectedIdentity(selectedIdentity.value
-              .rebuild((identity) => identity..balance = twBalance.amount));
-          return twBalance;
+              .rebuild((identity) => identity..balance = balance.amount));
+          _streamController.add(ObservableFuture(Future.value(balance)));
         });
-      }
-      return null;
-    })));
+      });
+    });
   }
 
   @action

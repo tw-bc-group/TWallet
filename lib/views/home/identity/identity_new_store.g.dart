@@ -80,6 +80,17 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
       ActionController(name: '_IdentityNewStore');
 
   @override
+  void clearError() {
+    final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
+        name: '_IdentityNewStore.clearError');
+    try {
+      return super.clearError();
+    } finally {
+      _$_IdentityNewStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void resetNameError(String value) {
     final _$actionInfo = _$_IdentityNewStoreActionController.startAction(
         name: '_IdentityNewStore.resetNameError');

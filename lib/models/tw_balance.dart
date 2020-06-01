@@ -1,6 +1,7 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
@@ -26,7 +27,7 @@ abstract class TwBalance extends Object
         specifiedType: const FullType(TwBalance)) as TwBalance;
   }
 
-  static Future<TwBalance> fetchBalance({String address}) async {
+  static Future<Optional<TwBalance>> fetchBalance({String address}) async {
     return getIt<ApiProvider>().fetchPointV1(address: address);
   }
 

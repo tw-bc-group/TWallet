@@ -184,8 +184,10 @@ class HintDialogSample extends Dialog {
 
     children.add(Padding(
         padding: EdgeInsets.symmetric(
+            horizontal: screenUtil.setWidth(20).toDouble(),
             vertical: screenUtil.setHeight(textVerticalPadding).toDouble()),
         child: Text(text,
+            textAlign: TextAlign.center,
             style: WalletFont.font_14(
                 textStyle: const TextStyle(fontWeight: FontWeight.w600)))));
 

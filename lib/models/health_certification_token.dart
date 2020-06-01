@@ -29,9 +29,9 @@ abstract class HealthCertificationToken extends Object
   }
 
   Future<bool> verify() {
-    return getIt<ApiProvider>()
-        .verifyHealthCertificationToken(token)
-        .then((response) => response.statusCode == 200);
+    return getIt<ApiProvider>().verifyHealthCertificationToken(token).then(
+        (res) =>
+            res.map((response) => response.statusCode == 200).orElse(false));
   }
 
   factory HealthCertificationToken(

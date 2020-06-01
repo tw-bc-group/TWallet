@@ -250,9 +250,10 @@ class HealthCodeState extends State<HealthCodePage> {
 
   Widget observeQrImage(double width) {
     return Observer(builder: (BuildContext context) {
-      if (certStore.token == null) return Container();
-      return _buildQrImage(
-          encodeQRData(certStore.token), certStore.isHealthy, width);
+      return certStore.currentToken
+          .map((token) =>
+              _buildQrImage(encodeQRData(token), certStore.isHealthy, width))
+          .orElse(Container());
     });
   }
 

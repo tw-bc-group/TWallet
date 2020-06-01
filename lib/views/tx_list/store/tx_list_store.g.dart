@@ -34,13 +34,13 @@ mixin _$TxListStore on _TxListStore, Store {
   final _$txAtom = Atom(name: '_TxListStore.tx');
 
   @override
-  ObservableFuture<Transaction> get tx {
+  ObservableFuture<Optional<Transaction>> get tx {
     _$txAtom.reportRead();
     return super.tx;
   }
 
   @override
-  set tx(ObservableFuture<Transaction> value) {
+  set tx(ObservableFuture<Optional<Transaction>> value) {
     _$txAtom.reportWrite(value, super.tx, () {
       super.tx = value;
     });

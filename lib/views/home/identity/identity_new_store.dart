@@ -53,6 +53,14 @@ abstract class _IdentityNewStore with Store {
   }
 
   @action
+  void clearError() {
+    error.username = null;
+    error.phone = null;
+    error.email = null;
+    error.birthday = null;
+  }
+
+  @action
   void resetNameError(String value) {
     error.username = null;
   }
