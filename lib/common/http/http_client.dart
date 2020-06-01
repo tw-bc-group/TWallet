@@ -57,29 +57,29 @@ class HttpClient {
     return _dio
         .get(url, options: Options(extra: {'withoutLoading': !loading}))
         .then((response) => Optional.of(response))
-        .catchError((err) {
+        .catchError((error) {
       if (throwError) {
-        throw Exception(err);
+        throw Exception(error);
       } else {
-        showErrorDialog(err as DioError);
-        return Future.value(const Optional.empty() as Optional<Response>);
+        showErrorDialog(error as DioError);
       }
+      return const Optional.empty();
     });
   }
 
   Future<Optional<Response>> post(String url, Map<String, dynamic> data,
       {bool loading = true, bool throwError = false}) async {
-    Optional<Response> res = const Optional.empty();
-    try {
-      res = Optional.of(await _dio.post(url,
-          options: Options(extra: {'withoutLoading': !loading}), data: data));
-    } catch (err) {
+    return _dio
+        .post(url,
+            data: data, options: Options(extra: {'withoutLoading': !loading}))
+        .then((response) => Optional.of(response))
+        .catchError((error) {
       if (throwError) {
-        throw Exception(err);
+        throw Exception(error);
       } else {
-        showErrorDialog(err as DioError);
+        showErrorDialog(error as DioError);
       }
-    }
-    return res;
+      return const Optional.empty();
+    });
   }
 }
