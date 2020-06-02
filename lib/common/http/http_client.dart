@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
@@ -42,15 +43,24 @@ void showErrorDialog(DioError err) {
   showDialogSample(DialogType.error, '$errorMessage，请稍后再试。。。');
 }
 
-class HttpClient {
-  final Dio _dio = Dio()
+Dio _initDio() {
+  Dio _dio = Dio()
     ..options = BaseOptions(
       baseUrl: globalEnv().apiGatewayBaseUrl,
       connectTimeout: globalEnv().apiGatewayConnectTimeout,
       responseType: ResponseType.json,
     )
     ..interceptors.add(LoadingInterceptor());
-  //..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+
+  if (kDebugMode) {
+    _dio.interceptors
+        .add(LogInterceptor(requestBody: true, responseBody: true));
+  }
+  return _dio;
+}
+
+class HttpClient {
+  final Dio _dio = _initDio();
 
   Future<Optional<Response>> get(String url,
       {bool loading = true, bool throwError = false}) async {
