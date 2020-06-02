@@ -7,18 +7,18 @@ void main() {
 
   group('DID', () {
     test('Test valid DID parse', () {
-      expect(DID.parse('DID:TW:816F81681dC8dd12039c05B0093ccce24B4215f4'),
+      expect(DID.parse('did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4'),
           isA<DID>());
     });
 
     test(
-        'Test DID to String should be DID:TW:816F81681dC8dd12039c05B0093ccce24B4215f4',
+        'Test DID to String should be did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4',
         () {
       expect(
           DID
-              .parse('DID:TW:816F81681dC8dd12039c05B0093ccce24B4215f4')
+              .parse('did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4')
               .toString(),
-          'DID:TW:816F81681dC8dd12039c05B0093ccce24B4215f4');
+          'did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4');
     });
 
     test(
@@ -26,13 +26,13 @@ void main() {
         () {
       expect(
           DID
-              .parse('DID:TW:816F81681dC8dd12039c05B0093ccce24B4215f4')
+              .parse('did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4')
               .eip55Address,
           '0x816F81681dC8dd12039c05B0093ccce24B4215f4');
     });
 
     test('Test invalid address parse, should throw ArgumentError', () {
-      expect(() => DID.parse('DID:TW:816F81681dC8dd12039c05B0093ccce24B4215'),
+      expect(() => DID.parse('did:tw:816F81681dC8dd12039c05B0093ccce24B4215'),
           throwsArgumentError);
     });
 

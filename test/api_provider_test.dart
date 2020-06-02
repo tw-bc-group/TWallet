@@ -19,7 +19,8 @@ void main() {
 
   test('Return a Contract Instance', () async {
     const _contractName = 'test-name';
-    when(_httpClient.get('/v1/contracts/$_contractName', loading: false))
+    when(_httpClient.get('/v1/contracts/$_contractName',
+            loading: false, throwError: true))
         .thenAnswer((_) async => Optional.of(Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'OK',
@@ -36,7 +37,7 @@ void main() {
 
   test('Return a TwBalance Instance', () async {
     const url = '/v1/token/$address';
-    when(_httpClient.get(url, loading: false))
+    when(_httpClient.get(url, loading: true, throwError: false))
         .thenAnswer((_) async => Optional.of(Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',
@@ -50,14 +51,13 @@ void main() {
               }
             })));
 
-    final Optional<TwBalance> res =
-        await _apiProvider.fetchPointV1(address: address);
-    expect(res, isA<Optional<TwBalance>>());
+    expect(await _apiProvider.fetchPointV1(address: address),
+        isA<Optional<TwBalance>>());
   });
 
   test('Return a List Of Transactions Instances', () async {
     const url = '/v1/transactions?from_addr=$address';
-    when(_httpClient.get(url))
+    when(_httpClient.get(url, loading: true, throwError: true))
         .thenAnswer((_) async => Optional.of(Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',

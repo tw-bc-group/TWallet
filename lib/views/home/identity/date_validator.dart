@@ -11,17 +11,11 @@ String toOriginalFormatString(DateTime dateTime) {
   final y = dateTime.year.toString().padLeft(4, '0');
   final m = dateTime.month.toString().padLeft(2, '0');
   final d = dateTime.day.toString().padLeft(2, '0');
-  return "$y-$m-$d";
+  return '$y-$m-$d';
 }
 
 bool isValidDateRange(DateTime date) {
   final DateTime today = DateTime.now();
   const int earliestYear = 1900;
-  final int latestYear = today.year;
-  final int latestMonth = today.month;
-  final int latestDay = today.day;
-  return date.year >= earliestYear &&
-      date.year <= latestYear &&
-      date.month <= latestMonth &&
-      date.day <= latestDay;
+  return date.year >= earliestYear && !today.isBefore(date);
 }

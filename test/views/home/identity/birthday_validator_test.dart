@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:tw_wallet_ui/views/home/identity/date_validator.dart';
 
 void main() {
@@ -12,9 +13,10 @@ void main() {
     "20201201": false,
     "2020-00-00": false,
     "2020-00-01": false,
-    "2020-02-12": true,
     "1899-12-31": false,
     "2100-01-01": false,
+    "2020-02-12": true,
+    DateFormat('yyyy-MM-dd').format(DateTime.now()): true
   };
 
   test('should return true/false when inputting various format', () {
