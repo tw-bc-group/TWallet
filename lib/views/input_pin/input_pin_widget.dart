@@ -220,7 +220,7 @@ class PinInputWidget extends StatelessWidget {
                                         onPressed: _inputPin.isCompleted
                                             ? () async {
                                                 await _inputPin.setMasterKey();
-                                                Application.router.navigateTo(
+                                                return Application.router.navigateTo(
                                                     context, Routes.newWallet,
                                                     clearStack: true);
                                               }

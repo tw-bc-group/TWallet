@@ -173,12 +173,12 @@ class HealthCertificationPage extends StatelessWidget {
 
   Future _onIdentityTap(BuildContext context, Identity identity) async {
     await certStore.fetchHealthCertByDID(identity.did.toString());
-    _identityStore.updateHealthCertLastSelected(identity);
+    await _identityStore.updateHealthCertLastSelected(identity);
 
     final String path = certStore.isBoundCert
         ? '${Routes.healthCode}?id=${identity.id}'
         : '${Routes.certificate}?id=${identity.id}';
-    Application.router.navigateTo(context, path);
+    return Application.router.navigateTo(context, path);
   }
 
   Widget _buildScanIcon(BuildContext context) {
@@ -204,7 +204,7 @@ class HealthCertificationPage extends StatelessWidget {
       return;
     }
 
-    Future.delayed(const Duration(milliseconds: 500)).then((_) async {
+    return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
       try {
         final HealthCertificationToken token =
             HealthCertificationToken.fromJson(json.decode(scanResult));

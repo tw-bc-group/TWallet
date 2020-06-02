@@ -58,9 +58,10 @@ class _IdentityPageState extends State<IdentityPage> {
                       color: WalletColor.middleGrey),
                   GestureDetector(
                     onLongPress: () async {
-                      Clipboard.setData(
-                          ClipboardData(text: identity.did.toString()));
-                      await showDialogSample(DialogType.none, '复制成功');
+                      return Clipboard.setData(
+                              ClipboardData(text: identity.did.toString()))
+                          .then(
+                              (_) => showDialogSample(DialogType.none, '复制成功'));
                     },
                     child: Text(
                       identity.did.toString(),

@@ -110,7 +110,7 @@ abstract class IdentityStoreBase with Store {
   }
 
   Future<void> dispose() async {
-    _streamController.close();
+    return _streamController.close();
   }
 
   @action
@@ -158,7 +158,9 @@ abstract class IdentityStoreBase with Store {
     final Identity newIdentity =
         identities.isEmpty ? identity.setSelected() : identity.setUnSelected();
 
-    _db.setItem(_itemKey(newIdentity.name), newIdentity.toJson()).then((_) {
+    return _db
+        .setItem(_itemKey(newIdentity.name), newIdentity.toJson())
+        .then((_) {
       identities.add(newIdentity);
       _identitiesSort();
     });

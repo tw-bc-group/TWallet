@@ -87,7 +87,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
         btnOnPressed: buttonDisabled
             ? null
             : () async {
-                store.save().then((_) => Application.router.navigateTo(
+                return store.save().then((_) => Application.router.navigateTo(
                     context, '/home?index=${HomeState.identityIndex}',
                     transition: TransitionType.native, clearStack: true));
               },

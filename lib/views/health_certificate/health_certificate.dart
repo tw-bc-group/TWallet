@@ -50,13 +50,13 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   Future<void> handleConfirm() async {
     _pageStore.validateAll();
     if (_pageStore.error.hasErrors) {
-      _scrollController.animateTo(
+      return _scrollController.animateTo(
         0,
         curve: Curves.easeOut,
         duration: const Duration(milliseconds: 500),
       );
     } else {
-      getIt<HealthCertificationStore>()
+      return getIt<HealthCertificationStore>()
           .bindHealthCert(
               getIt<IdentityStore>().getIdentityById(widget.id).did.toString(),
               _pageStore.phone,

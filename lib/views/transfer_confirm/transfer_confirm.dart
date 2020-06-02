@@ -41,7 +41,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
               amount: Amount(Decimal.parse(widget.amount.toString())));
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
-        Navigator.pushNamed(context, Routes.txListDetails,
+        return Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
                 amount: '${globalEnv().tokenSymbol}${widget.amount}',
                 time: parseDate(DateTime.now()),

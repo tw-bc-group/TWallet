@@ -54,7 +54,7 @@ class QrScannerPageState extends State<QrScannerPage>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      return Future.delayed(const Duration(milliseconds: 500)).then((_) {
         checkAndRequirePermission().then((isGranted) {
           if (isGranted) {
             _scannerController.startCamera();

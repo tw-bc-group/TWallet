@@ -163,7 +163,7 @@ class TransferPageState extends State<TransferPage> {
               toAddress: payeeAddress,
               amount: Amount(Decimal.parse(amount.toString())));
       if (transferSuccess) {
-        Navigator.pushNamed(context, Routes.txListDetails,
+        return Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
                 amount: amount,
                 time: parseDateTime(DateTime.now()),
