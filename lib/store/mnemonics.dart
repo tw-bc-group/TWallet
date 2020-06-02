@@ -11,7 +11,28 @@ typedef GenerateKeysCallback = Future<dynamic> Function(
 
 const saveSplitTag = '|';
 
-class MnemonicsStore = MnemonicsBase with _$MnemonicsStore;
+class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
+  MnemonicsStore(Tuple2<int, String> value) : super(value);
+
+  static Future<MnemonicsStore> init() async {
+    Tuple2<int, String> value;
+    final String saved = await SecureStorage.get(SecureStorageItem.mnemonics);
+
+    if (null != saved) {
+      final List<String> splits = saved.split(saveSplitTag);
+      //兼容老版本
+      if (splits.length == 1) {
+        value = Tuple2(0, saved);
+      } else {
+        value = Tuple2(int.parse(splits.first), splits.last);
+      }
+    } else {
+      value = MnemonicsBase.brandNew();
+    }
+
+    return MnemonicsStore(value);
+  }
+}
 
 abstract class MnemonicsBase with Store {
   MnemonicsBase(this.value);
@@ -34,25 +55,6 @@ abstract class MnemonicsBase with Store {
 
   static Tuple2<int, String> brandNew() {
     return Tuple2(0, bip39.generateMnemonic());
-  }
-
-  static Future<MnemonicsStore> init() async {
-    Tuple2<int, String> value;
-    final String saved = await SecureStorage.get(SecureStorageItem.mnemonics);
-
-    if (null != saved) {
-      final List<String> splits = saved.split(saveSplitTag);
-      //兼容老版本
-      if (splits.length == 1) {
-        value = Tuple2(0, saved);
-      } else {
-        value = Tuple2(int.parse(splits.first), splits.last);
-      }
-    } else {
-      value = brandNew();
-    }
-
-    return MnemonicsStore(value);
   }
 
   @action

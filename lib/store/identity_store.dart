@@ -17,7 +17,29 @@ const didHealthCertSelectIndexKey = 'did_health_cert_select_index';
 
 enum AssetsType { point, token }
 
-class IdentityStore = IdentityStoreBase with _$IdentityStore;
+class IdentityStore extends IdentityStoreBase with _$IdentityStore {
+  IdentityStore(ObservableList identities, int didHealthSelectIndex)
+      : super(identities, didHealthSelectIndex);
+
+  static Future<IdentityStore> init() async {
+    final int didHealthSelectIndex = await IdentityStoreBase._db
+        .getItem(didHealthCertSelectIndexKey)
+        .then((savedItem) {
+      return savedItem != null
+          ? savedItem[didHealthCertSelectIndexKey] as int
+          : 0;
+    });
+
+    final List<Identity> identities = Optional.ofNullable(
+            await IdentityStoreBase._db.getListLike('$identityNameKey: %'))
+        .map((listItems) => listItems.map((item) {
+              return Identity.fromJson(item);
+            }).toList())
+        .orElse([]);
+
+    return IdentityStore(ObservableList.of(identities), didHealthSelectIndex);
+  }
+}
 
 String _itemKey(String name) {
   return '$identityNameKey: $name';
@@ -31,24 +53,6 @@ abstract class IdentityStoreBase with Store {
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value(null)));
     _identitiesSort();
-  }
-
-  static Future<IdentityStore> fromJsonStore() async {
-    final int didHealthSelectIndex =
-        await _db.getItem(didHealthCertSelectIndexKey).then((savedItem) {
-      return savedItem != null
-          ? savedItem[didHealthCertSelectIndexKey] as int
-          : 0;
-    });
-
-    final List<Identity> identities =
-        Optional.ofNullable(await _db.getListLike('$identityNameKey: %'))
-            .map((listItems) => listItems.map((item) {
-                  return Identity.fromJson(item);
-                }).toList())
-            .orElse([]);
-
-    return IdentityStore(ObservableList.of(identities), didHealthSelectIndex);
   }
 
   Identity getIdentityById(String id) {

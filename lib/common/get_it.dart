@@ -30,11 +30,10 @@ void getItInit({@required bool isTest}) {
     getIt.registerSingletonWithDependencies<ApiProvider>(() => ApiProvider(),
         dependsOn: [EnvStore, HttpClient]);
 
-    getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsBase.init);
+    getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsStore.init);
     getIt.registerSingletonAsync<ContractService>(ContractService.init,
         dependsOn: [EnvStore, ApiProvider]);
-    getIt
-        .registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);
+    getIt.registerSingletonAsync<IdentityStore>(IdentityStore.init);
     getIt.registerSingletonWithDependencies<HealthCertificationStore>(
         () => HealthCertificationStore(),
         dependsOn: [EnvStore]);

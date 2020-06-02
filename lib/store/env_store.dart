@@ -9,9 +9,8 @@ Env globalEnv() => getIt.get<EnvStore>().env;
 String appName() => getIt.get<EnvStore>().packageInfo.appName;
 
 class EnvStore extends _EnvStore with _$EnvStore {
-  EnvStore(PackageInfo info) {
+  EnvStore(PackageInfo packageInfo) : super(packageInfo) {
     env = Env.fromDefault();
-    packageInfo = info;
   }
 
   static Future<EnvStore> init() async {
@@ -21,6 +20,8 @@ class EnvStore extends _EnvStore with _$EnvStore {
 }
 
 abstract class _EnvStore with Store {
+  _EnvStore(this.packageInfo);
+
   @observable
   Env env;
 
