@@ -51,8 +51,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
         success = false;
       }
 
-      await showDialogSample(
-              DialogType.success, success ? '创建成功' : '创建失败,请继续过会稍后再试....')
+      await showDialogSample(DialogType.success, success ? '创建成功' : '创建失败')
           .then((_) {
         if (success) {
           Application.router.pop(context);
