@@ -58,10 +58,9 @@ abstract class MnemonicsBase with Store {
   @action
   Future<dynamic> generateKeys(GenerateKeysCallback callBack) async {
     return Future.value(BlockChainService.generateKeys(
-            BlockChainService.generateHDWallet(mnemonics), index))
+            BlockChainService.generateHDWallet(mnemonics), ++index))
         .then((keys) => callBack(keys))
         .then((res) {
-      index++;
       return save().then((_) => res);
     });
   }
