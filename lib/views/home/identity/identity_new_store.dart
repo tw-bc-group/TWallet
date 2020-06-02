@@ -106,27 +106,26 @@ abstract class _IdentityNewStore with Store {
   }
 
   @action
-  Future<bool> addIdentity() async {
+  Future<dynamic> addIdentity() async {
     final MnemonicsStore store = getIt<MnemonicsStore>();
 
     if (!error.hasErrors) {
-      return store.generateIdentityKeys().then((keys) {
-        return Future.value(Identity((identity) => identity
-          ..id = Uuid().v1()
-          ..name = name
-          ..pubKey = keys.first
-          ..priKey = keys.second
-          ..phone = phone
-          ..email = email
-          ..birthday = birthday)).then((identity) {
-          return identity.register().then((success) {
-            if (success) {
-              _identityStore.addIdentity(identity: identity);
-            }
-            return success;
-          });
-        });
-      });
+      return store
+          .generateKeys((keys) => Future.value(Identity((identity) => identity
+                ..id = Uuid().v1()
+                ..name = name
+                ..pubKey = keys.first
+                ..priKey = keys.second
+                ..phone = phone
+                ..email = email
+                ..birthday = birthday)).then((identity) {
+                return identity.register().then((success) {
+                  if (success) {
+                    _identityStore.addIdentity(identity: identity);
+                  }
+                  return success;
+                });
+              }));
     }
     return false;
   }

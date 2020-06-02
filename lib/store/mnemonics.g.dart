@@ -38,13 +38,11 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
     });
   }
 
-  final _$generateIdentityKeysAsyncAction =
-      AsyncAction('MnemonicsBase.generateIdentityKeys');
+  final _$generateKeysAsyncAction = AsyncAction('MnemonicsBase.generateKeys');
 
   @override
-  Future<Tuple2<String, String>> generateIdentityKeys() {
-    return _$generateIdentityKeysAsyncAction
-        .run(() => super.generateIdentityKeys());
+  Future<dynamic> generateKeys(GenerateKeysCallback callBack) {
+    return _$generateKeysAsyncAction.run(() => super.generateKeys(callBack));
   }
 
   final _$saveAsyncAction = AsyncAction('MnemonicsBase.save');

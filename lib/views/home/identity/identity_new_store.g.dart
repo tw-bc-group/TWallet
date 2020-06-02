@@ -72,7 +72,7 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
   final _$addIdentityAsyncAction = AsyncAction('_IdentityNewStore.addIdentity');
 
   @override
-  Future<bool> addIdentity() {
+  Future<dynamic> addIdentity() {
     return _$addIdentityAsyncAction.run(() => super.addIdentity());
   }
 

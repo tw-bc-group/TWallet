@@ -12,8 +12,7 @@ class BlockChainService {
     return BIP32.fromSeed(seed);
   }
 
-  static Tuple2<String, String> generateIdentityKeys(BIP32 hdWallet,
-      [int index = 0]) {
+  static Tuple2<String, String> generateKeys(BIP32 hdWallet, [int index = 0]) {
     final BIP32 keypair = hdWallet.derivePath("m/44'/60'/0'/0/$index");
     final String publicKey = '0x${hex.encode(keypair.publicKey)}';
     final String privateKey = '0x${hex.encode(keypair.privateKey)}';

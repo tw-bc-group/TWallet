@@ -49,8 +49,8 @@ class HttpClient {
       connectTimeout: globalEnv().apiGatewayConnectTimeout,
       responseType: ResponseType.json,
     )
-    ..interceptors.add(LoadingInterceptor())
-    ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    ..interceptors.add(LoadingInterceptor());
+  //..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
 
   Future<Optional<Response>> get(String url,
       {bool loading = true, bool throwError = false}) async {

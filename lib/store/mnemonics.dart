@@ -6,6 +6,9 @@ import 'package:tw_wallet_ui/service/blockchain.dart';
 
 part 'mnemonics.g.dart';
 
+typedef GenerateKeysCallback = Future<dynamic> Function(
+    Tuple2<String, String> keys);
+
 const saveSplitTag = '|';
 
 class MnemonicsStore = MnemonicsBase with _$MnemonicsStore;
@@ -53,10 +56,14 @@ abstract class MnemonicsBase with Store {
   }
 
   @action
-  Future<Tuple2<String, String>> generateIdentityKeys() async {
-    return Future.value(BlockChainService.generateIdentityKeys(
-            BlockChainService.generateHDWallet(mnemonics), ++index))
-        .then((res) => save().then((_) => res));
+  Future<dynamic> generateKeys(GenerateKeysCallback callBack) async {
+    return Future.value(BlockChainService.generateKeys(
+            BlockChainService.generateHDWallet(mnemonics), index))
+        .then((keys) => callBack(keys))
+        .then((res) {
+      index++;
+      return save().then((_) => res);
+    });
   }
 
   @action

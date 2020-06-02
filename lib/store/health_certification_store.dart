@@ -15,7 +15,7 @@ abstract class _HealthCertificationStore with Store {
   final _db = JsonStore(dbName: "HealthCertificationToken");
 
   @observable
-  Optional<HealthCertificationToken> currentToken;
+  Optional<HealthCertificationToken> currentToken = const Optional.empty();
 
   @computed
   bool get isBoundCert => currentToken.isPresent;

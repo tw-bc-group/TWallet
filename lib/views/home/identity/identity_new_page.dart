@@ -45,7 +45,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
 
       try {
         await store.addIdentity().then((res) async {
-          success = res;
+          success = res as bool;
         });
       } catch (err) {
         success = false;
