@@ -64,7 +64,6 @@ dependencies:
   intl: ^0.16.1
   pedantic: ^1.8.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

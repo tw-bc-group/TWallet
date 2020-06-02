@@ -16,19 +16,27 @@ class MockHttpClient extends Mock implements HttpClient {}
 void getItInit({@required bool isTest}) {
   WidgetsFlutterBinding.ensureInitialized();
 
-  getIt.registerSingleton<EnvStore>(EnvStore());
+  getIt.registerSingletonAsync<EnvStore>(EnvStore.init);
 
   if (isTest) {
     getIt.registerSingleton<HttpClient>(MockHttpClient());
+
+    getIt.registerSingletonWithDependencies<ApiProvider>(() => ApiProvider(),
+        dependsOn: [EnvStore, MockHttpClient]);
   } else {
-    getIt.registerSingleton<HttpClient>(HttpClient());
+    getIt.registerSingletonWithDependencies<HttpClient>(() => HttpClient(),
+        dependsOn: [EnvStore]);
+
+    getIt.registerSingletonWithDependencies<ApiProvider>(() => ApiProvider(),
+        dependsOn: [EnvStore, HttpClient]);
 
     getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsBase.init);
-    getIt.registerSingletonAsync<ContractService>(ContractService.init);
+    getIt.registerSingletonAsync<ContractService>(ContractService.init,
+        dependsOn: [EnvStore, ApiProvider]);
     getIt
         .registerSingletonAsync<IdentityStore>(IdentityStoreBase.fromJsonStore);
-    getIt.registerSingleton(HealthCertificationStore());
+    getIt.registerSingletonWithDependencies<HealthCertificationStore>(
+        () => HealthCertificationStore(),
+        dependsOn: [EnvStore]);
   }
-
-  getIt.registerSingleton<ApiProvider>(ApiProvider());
 }

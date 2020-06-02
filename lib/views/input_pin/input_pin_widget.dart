@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 
 import 'input_pin_store.dart';
 
@@ -51,9 +52,8 @@ class PinInputWidget extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         backgroundColor: WalletColor.primary,
-        bottomNavigationBar: Theme(
-            data: Theme.of(context),
-            child: Container(height: 0)),
+        bottomNavigationBar:
+            Theme(data: Theme.of(context), child: Container(height: 0)),
         body: Theme(
             data: Theme.of(context),
             child: GestureDetector(
@@ -77,7 +77,7 @@ class PinInputWidget extends StatelessWidget {
                             )),
                             padding: const EdgeInsets.only(top: 94, bottom: 85),
                             child: Text(
-                              "欢迎来到 ThoughtWallet",
+                              "欢迎来到 ${appName().replaceAll('\n', '')}",
                               style: WalletFont.font_22(
                                   textStyle:
                                       TextStyle(color: WalletColor.white)),
@@ -214,15 +214,20 @@ class PinInputWidget extends StatelessWidget {
                                 ),
                                 Observer(
                                   builder: (_) => Container(
-                                    margin: EdgeInsets.only(top: 16.0, bottom: DeviceInfo.isIphoneXSeries() ? 34 : 20),
+                                    margin: EdgeInsets.only(
+                                        top: 16.0,
+                                        bottom: DeviceInfo.isIphoneXSeries()
+                                            ? 34
+                                            : 20),
                                     child: WalletTheme.button(
                                         text: '下一步',
                                         onPressed: _inputPin.isCompleted
                                             ? () async {
                                                 await _inputPin.setMasterKey();
-                                                return Application.router.navigateTo(
-                                                    context, Routes.newWallet,
-                                                    clearStack: true);
+                                                return Application.router
+                                                    .navigateTo(context,
+                                                        Routes.newWallet,
+                                                        clearStack: true);
                                               }
                                             : null),
                                   ),

@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:package_info/package_info.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -9,6 +10,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/env_store.dart';
 
 Future<String> _initialRoute() async {
   await DeviceInfo.initialDeviceInfo();
@@ -21,6 +23,10 @@ Future<String> _initialRoute() async {
 
 Future<void> main() async {
   getItInit(isTest: false);
+  Stopwatch watch = Stopwatch()..start();
+  PackageInfo _packageInfo = await PackageInfo.fromPlatform();
+  watch.stop();
+  print('packageInfo: $_packageInfo, elapsed: ${watch.elapsed.toString()}');
   runApp(MyApp(initialRoute: await _initialRoute()));
 }
 
@@ -42,7 +48,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData) {
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'ThoughtWallet',
+              title: appName(),
               theme: ThemeData(
                   primaryColor: WalletColor.primary,
                   textTheme: TextTheme(

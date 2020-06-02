@@ -24,10 +24,26 @@ mixin _$EnvStore on _EnvStore, Store {
     });
   }
 
+  final _$packageInfoAtom = Atom(name: '_EnvStore.packageInfo');
+
+  @override
+  PackageInfo get packageInfo {
+    _$packageInfoAtom.reportRead();
+    return super.packageInfo;
+  }
+
+  @override
+  set packageInfo(PackageInfo value) {
+    _$packageInfoAtom.reportWrite(value, super.packageInfo, () {
+      super.packageInfo = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-env: ${env}
+env: ${env},
+packageInfo: ${packageInfo}
     ''';
   }
 }
