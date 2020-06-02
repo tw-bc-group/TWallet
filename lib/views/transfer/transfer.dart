@@ -15,7 +15,6 @@ import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/service/dialog.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer_store.dart';
 import 'package:tw_wallet_ui/views/transfer/widgets/transfer_input.dart';
@@ -65,7 +64,7 @@ class TransferPageState extends State<TransferPage> {
     confirmDialogInstance = YYDialog().build()
       ..backgroundColor = WalletColor.white
       ..borderRadius = 12.0
-      ..width = fullScreenWidth
+      ..width = 1000.0
       ..margin = const EdgeInsets.symmetric(horizontal: 24)
       ..widget(Column(
         children: <Widget>[
@@ -283,15 +282,14 @@ class TransferPageState extends State<TransferPage> {
                 ],
               ),
               TransferInputWidget(
-                withPrefix: false,
-                errorText: _transferStore.error.payeeAddress,
-                keyboardType: TextInputType.text,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9\:]+')),
-                ],
-                controller: _payeeAddressController,
-                onChange: (value) => _transferStore.payeeAddress = value
-              ),
+                  withPrefix: false,
+                  errorText: _transferStore.error.payeeAddress,
+                  keyboardType: TextInputType.text,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9\:]+')),
+                  ],
+                  controller: _payeeAddressController,
+                  onChange: (value) => _transferStore.payeeAddress = value),
             ],
           )),
     );
