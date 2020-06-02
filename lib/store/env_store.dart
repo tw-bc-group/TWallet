@@ -6,16 +6,19 @@ import 'package:tw_wallet_ui/models/env.dart';
 part 'env_store.g.dart';
 
 Env globalEnv() => getIt.get<EnvStore>().env;
-String appName() => getIt.get<EnvStore>().packageInfo.appName;
+String appName() => getIt.get<EnvStore>().packageInfo?.appName ?? 'test-app';
 
 class EnvStore extends _EnvStore with _$EnvStore {
   EnvStore(PackageInfo packageInfo) : super(packageInfo) {
     env = Env.fromDefault();
   }
 
-  static Future<EnvStore> init() async {
-    return PackageInfo.fromPlatform()
-        .then((packageInfo) => EnvStore(packageInfo));
+  static Future<EnvStore> init({bool isTest = false}) async {
+    PackageInfo packageInfo;
+    if (!isTest) {
+      packageInfo = await PackageInfo.fromPlatform();
+    }
+    return EnvStore(packageInfo);
   }
 }
 

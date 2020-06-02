@@ -18,7 +18,7 @@ const didHealthCertSelectIndexKey = 'did_health_cert_select_index';
 enum AssetsType { point, token }
 
 class IdentityStore extends IdentityStoreBase with _$IdentityStore {
-  IdentityStore(ObservableList identities, int didHealthSelectIndex)
+  IdentityStore(ObservableList<Identity> identities, int didHealthSelectIndex)
       : super(identities, didHealthSelectIndex);
 
   static Future<IdentityStore> init() async {
