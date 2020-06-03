@@ -23,7 +23,7 @@ abstract class _TransferStore with Store {
 
   List<ReactionDisposer> _disposers;
 
-  void setupErrorReseters() {
+  void setupErrorDisposers() {
     _disposers = [
       reaction((_) => amount, resetAmountError),
       reaction((_) => payeeAddress, resetAddressError),

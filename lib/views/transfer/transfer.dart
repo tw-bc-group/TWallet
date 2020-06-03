@@ -41,7 +41,7 @@ class TransferPageState extends State<TransferPage> {
   @override
   void initState() {
     super.initState();
-    _transferStore.setupErrorReseters();
+    _transferStore.setupErrorDisposers();
     identity = getIt<IdentityStore>().selectedIdentity.value;
     _transferStore.balance = identity.balance.humanReadable;
     _transferStore.updatePayerAddress(identity.address);
