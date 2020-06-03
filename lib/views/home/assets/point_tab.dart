@@ -65,8 +65,8 @@ class _PointTabState extends State<PointTab> {
   @override
   void initState() {
     super.initState();
-    reactionDispose = reaction((_) => _identityStore.selectedIdentity.value.id,
-            (_) => _refresh());
+    reactionDispose = reaction(
+        (_) => _identityStore.selectedIdentity.value.id, (_) => _refresh());
     _refresh();
   }
 
@@ -80,6 +80,9 @@ class _PointTabState extends State<PointTab> {
           case FutureStatus.fulfilled:
             amount = Optional.ofNullable(future.result as TwBalance)
                 .map((balance) => balance.amount);
+            break;
+          case FutureStatus.pending:
+            amount = Optional.empty();
             break;
           default:
             amount = _identityStore.selectedIdentity.map((i) => i.balance);
