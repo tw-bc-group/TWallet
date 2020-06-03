@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
-import 'package:web3dart/credentials.dart';
 
 part 'transfer_store.g.dart';
 
@@ -10,7 +10,7 @@ abstract class _TransferStore with Store {
   final FormErrorState error = FormErrorState();
 
   @observable
-  String payerAddress;
+  String payerDID;
 
   @observable
   String balance;
@@ -19,14 +19,14 @@ abstract class _TransferStore with Store {
   String amount;
 
   @observable
-  String payeeAddress;
+  String payeeDID;
 
   List<ReactionDisposer> _disposers;
 
   void setupErrorReseters() {
     _disposers = [
       reaction((_) => amount, resetAmountError),
-      reaction((_) => payeeAddress, resetAddressError),
+      reaction((_) => payeeDID, resetAddressError),
     ];
   }
 
@@ -38,7 +38,7 @@ abstract class _TransferStore with Store {
 
   void validateAll() {
     validateAmount(amount);
-    validatePayeeAddress(payeeAddress);
+    validatePayeeDID(payeeDID);
   }
 
   @action
@@ -48,12 +48,12 @@ abstract class _TransferStore with Store {
 
   @action
   void resetAddressError(String value) {
-    error.payeeAddress = null;
+    error.payeeDID = null;
   }
 
   @action
-  void updatePayerAddress(String value) {
-    payerAddress = value.startsWith('0x') ? value : '0x$value';
+  void updatePayerDID(String value) {
+    payerDID = value;
   }
 
   @action
@@ -80,23 +80,17 @@ abstract class _TransferStore with Store {
   }
 
   @action
-  void validatePayeeAddress(String value) {
-    if (!value.startsWith(globalEnv().didPrefix)) {
-      error.payeeAddress = '请输入有效的接收账户';
-      return;
-    }
-
-    final String address = value.substring(7);
-
+  void validatePayeeDID(String value) {
     try {
-      EthereumAddress.fromHex(address);
-      if (address == payerAddress) {
-        error.payeeAddress = '收款人地址不能与付款人地址相同';
-      } else {
-        error.payeeAddress = null;
+      if (value == payerDID) {
+        error.payeeDID = '收款人账户不能与付款人账户相同';
+        return;
       }
+      DID.parse(value);
+      error.payeeDID = null;
     } catch (_) {
-      error.payeeAddress = '请输入有效的收款人地址';
+      error.payeeDID = '请输入有效的接收账户';
+      return;
     }
   }
 }
@@ -108,8 +102,8 @@ abstract class _FormErrorState with Store {
   String amount;
 
   @observable
-  String payeeAddress;
+  String payeeDID;
 
   @computed
-  bool get hasErrors => amount != null || payeeAddress != null;
+  bool get hasErrors => amount != null || payeeDID != null;
 }

@@ -9,18 +9,18 @@ part of 'transfer_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TransferStore on _TransferStore, Store {
-  final _$payerAddressAtom = Atom(name: '_TransferStore.payerAddress');
+  final _$payerDIDAtom = Atom(name: '_TransferStore.payerDID');
 
   @override
-  String get payerAddress {
-    _$payerAddressAtom.reportRead();
-    return super.payerAddress;
+  String get payerDID {
+    _$payerDIDAtom.reportRead();
+    return super.payerDID;
   }
 
   @override
-  set payerAddress(String value) {
-    _$payerAddressAtom.reportWrite(value, super.payerAddress, () {
-      super.payerAddress = value;
+  set payerDID(String value) {
+    _$payerDIDAtom.reportWrite(value, super.payerDID, () {
+      super.payerDID = value;
     });
   }
 
@@ -54,18 +54,18 @@ mixin _$TransferStore on _TransferStore, Store {
     });
   }
 
-  final _$payeeAddressAtom = Atom(name: '_TransferStore.payeeAddress');
+  final _$payeeDIDAtom = Atom(name: '_TransferStore.payeeDID');
 
   @override
-  String get payeeAddress {
-    _$payeeAddressAtom.reportRead();
-    return super.payeeAddress;
+  String get payeeDID {
+    _$payeeDIDAtom.reportRead();
+    return super.payeeDID;
   }
 
   @override
-  set payeeAddress(String value) {
-    _$payeeAddressAtom.reportWrite(value, super.payeeAddress, () {
-      super.payeeAddress = value;
+  set payeeDID(String value) {
+    _$payeeDIDAtom.reportWrite(value, super.payeeDID, () {
+      super.payeeDID = value;
     });
   }
 
@@ -95,11 +95,11 @@ mixin _$TransferStore on _TransferStore, Store {
   }
 
   @override
-  void updatePayerAddress(String value) {
+  void updatePayerDID(String value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
-        name: '_TransferStore.updatePayerAddress');
+        name: '_TransferStore.updatePayerDID');
     try {
-      return super.updatePayerAddress(value);
+      return super.updatePayerDID(value);
     } finally {
       _$_TransferStoreActionController.endAction(_$actionInfo);
     }
@@ -117,11 +117,11 @@ mixin _$TransferStore on _TransferStore, Store {
   }
 
   @override
-  void validatePayeeAddress(String value) {
+  void validatePayeeDID(String value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
-        name: '_TransferStore.validatePayeeAddress');
+        name: '_TransferStore.validatePayeeDID');
     try {
-      return super.validatePayeeAddress(value);
+      return super.validatePayeeDID(value);
     } finally {
       _$_TransferStoreActionController.endAction(_$actionInfo);
     }
@@ -130,10 +130,10 @@ mixin _$TransferStore on _TransferStore, Store {
   @override
   String toString() {
     return '''
-payerAddress: ${payerAddress},
+payerDID: ${payerDID},
 balance: ${balance},
 amount: ${amount},
-payeeAddress: ${payeeAddress}
+payeeDID: ${payeeDID}
     ''';
   }
 }
@@ -162,18 +162,18 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$payeeAddressAtom = Atom(name: '_FormErrorState.payeeAddress');
+  final _$payeeDIDAtom = Atom(name: '_FormErrorState.payeeDID');
 
   @override
-  String get payeeAddress {
-    _$payeeAddressAtom.reportRead();
-    return super.payeeAddress;
+  String get payeeDID {
+    _$payeeDIDAtom.reportRead();
+    return super.payeeDID;
   }
 
   @override
-  set payeeAddress(String value) {
-    _$payeeAddressAtom.reportWrite(value, super.payeeAddress, () {
-      super.payeeAddress = value;
+  set payeeDID(String value) {
+    _$payeeDIDAtom.reportWrite(value, super.payeeDID, () {
+      super.payeeDID = value;
     });
   }
 
@@ -181,7 +181,7 @@ mixin _$FormErrorState on _FormErrorState, Store {
   String toString() {
     return '''
 amount: ${amount},
-payeeAddress: ${payeeAddress},
+payeeDID: ${payeeDID},
 hasErrors: ${hasErrors}
     ''';
   }

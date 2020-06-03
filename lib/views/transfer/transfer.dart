@@ -44,7 +44,7 @@ class TransferPageState extends State<TransferPage> {
     _transferStore.setupErrorReseters();
     identity = getIt<IdentityStore>().selectedIdentity.value;
     _transferStore.balance = identity.balance.humanReadable;
-    _transferStore.updatePayerAddress(identity.address);
+    _transferStore.updatePayerDID(identity.did.toString());
   }
 
   @override
@@ -113,7 +113,7 @@ class TransferPageState extends State<TransferPage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(top: 8),
-                  child: Text(_transferStore.payeeAddress,
+                  child: Text(_transferStore.payeeDID,
                       style: WalletFont.font_16()),
                 )
               ],
@@ -155,7 +155,7 @@ class TransferPageState extends State<TransferPage> {
   Future<void> onConfirm() async {
     final bool pinValidation =
         await inputPinWidgetKey.currentState.validatePin();
-    final String payeeAddress = '0x${_transferStore.payeeAddress.substring(7)}';
+    final String payeeAddress = '0x${_transferStore.payeeDID.substring(7)}';
     final String amount = _transferStore.amount;
     if (pinValidation) {
       final bool transferSuccess = await iStore.selectedIdentity.value
@@ -180,8 +180,8 @@ class TransferPageState extends State<TransferPage> {
   bool btnDisabled() {
     return _transferStore.amount == null ||
         _transferStore.amount.isEmpty ||
-        _transferStore.payeeAddress == null ||
-        _transferStore.payeeAddress.isEmpty;
+        _transferStore.payeeDID == null ||
+        _transferStore.payeeDID.isEmpty;
   }
 
   @override
@@ -269,7 +269,7 @@ class TransferPageState extends State<TransferPage> {
                         try {
                           final DID did = DID.parse(scanResult);
                           _payeeAddressController.text = did.toString();
-                          _transferStore.payeeAddress = did.toString();
+                          _transferStore.payeeDID = did.toString();
                         } catch (_) {
                           await hintDialogHelper(
                               context, DialogType.warning, '未识别到有效的身份信息');
@@ -279,13 +279,13 @@ class TransferPageState extends State<TransferPage> {
               ),
               TransferInputWidget(
                   withPrefix: false,
-                  errorText: _transferStore.error.payeeAddress,
+                  errorText: _transferStore.error.payeeDID,
                   keyboardType: TextInputType.text,
                   inputFormatters: <TextInputFormatter>[
                     WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9\:]+')),
                   ],
                   controller: _payeeAddressController,
-                  onChange: (value) => _transferStore.payeeAddress = value),
+                  onChange: (value) => _transferStore.payeeDID = value),
             ],
           )),
     );
