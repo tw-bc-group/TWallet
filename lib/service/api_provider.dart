@@ -37,15 +37,15 @@ class ApiProvider {
   Future<Optional<Response>> identityRegister(String name, String publicKey,
       String address, String did, String signedRawTx) {
     return _httpClient.post(
-        '/v1/identities',
-        {
-          'name': name,
-          'publicKey': publicKey,
-          'address': address,
-          'did': did,
-          'signedTransactionRawData': signedRawTx
-        },
-        throwError: true);
+      '/v1/identities',
+      {
+        'name': name,
+        'publicKey': publicKey,
+        'address': address,
+        'did': did,
+        'signedTransactionRawData': signedRawTx
+      },
+    );
   }
 
   Future<Optional<Response>> transferPoint(
