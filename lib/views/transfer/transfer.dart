@@ -172,10 +172,6 @@ class TransferPageState extends State<TransferPage> {
                 toAddress: payeeAddress,
                 fromAddressName: iStore.myName,
                 isExpense: true,
-                onPressed: () {
-                  iStore.fetchLatestPoint();
-                  Navigator.popUntil(context, ModalRoute.withName(Routes.home));
-                },
                 shouldBackToHome: true));
       }
     }

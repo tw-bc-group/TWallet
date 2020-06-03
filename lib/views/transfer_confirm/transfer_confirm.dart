@@ -43,17 +43,14 @@ class TransferConfirmState extends State<TransferConfirmPage> {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         return Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
-                amount: '${globalEnv().tokenSymbol}${widget.amount}',
-                time: parseDate(DateTime.now()),
-                status: TxStatus.transferring,
-                fromAddress: identityStore.selectedIdentity.value.address,
-                toAddress: widget.toAddress,
-                fromAddressName: identityStore.myName,
-                isExpense: true,
-                onPressed: () {
-                  identityStore.fetchLatestPoint();
-                  Navigator.popUntil(context, ModalRoute.withName(Routes.home));
-                }));
+              amount: '${globalEnv().tokenSymbol}${widget.amount}',
+              time: parseDate(DateTime.now()),
+              status: TxStatus.transferring,
+              fromAddress: identityStore.selectedIdentity.value.address,
+              toAddress: widget.toAddress,
+              fromAddressName: identityStore.myName,
+              isExpense: true,
+            ));
       }
     }
   }

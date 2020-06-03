@@ -2,12 +2,16 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/color_money_text.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_info_card.dart';
 import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
@@ -22,7 +26,6 @@ class TxListDetailsPageArgs {
   final String fromAddressName;
   final String toAddress;
   final bool isExpense;
-  final VoidCallback onPressed;
   final bool shouldBackToHome;
 
   TxListDetailsPageArgs(
@@ -33,7 +36,6 @@ class TxListDetailsPageArgs {
       this.status,
       this.fromAddress,
       this.toAddress,
-      this.onPressed,
       this.shouldBackToHome = false});
 }
 
@@ -75,7 +77,8 @@ class TxListDetailsPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ColorMoneyText(
-            amount: Amount(Decimal.parse(args.isExpense ? '-${args.amount}': args.amount)),
+            amount: Amount(Decimal.parse(
+                args.isExpense ? '-${args.amount}' : args.amount)),
             status: args.status,
             isExpense: args.isExpense,
             textStyle: WalletFont.font_24(),
@@ -162,7 +165,17 @@ class TxListDetailsPage extends StatelessWidget {
         ],
         color: WalletColor.white,
       ),
-      child: WalletTheme.button(text: '好的', onPressed: args.onPressed),
+      child: WalletTheme.button(
+          text: '好的',
+          onPressed: () {
+            getIt<IdentityStore>().fetchLatestPoint();
+            Navigator.popUntil(
+                context,
+                (Route<dynamic> route) =>
+                    Optional.ofNullable(route.settings.name)
+                        .map((name) => name.startsWith(Routes.home))
+                        .orElse(false));
+          }),
     );
   }
 }
