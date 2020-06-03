@@ -19,7 +19,7 @@ abstract class Env extends Object implements Built<Env, EnvBuilder> {
 
   factory Env.fromDefault() {
     return Env((builder) => builder
-      ..apiGatewayBaseUrl = 'https://dev.tw-wallet.in2e.com'
+      ..apiGatewayBaseUrl = 'https://wallet.blockchain.thoughtworks.cn:10443'
       ..apiGatewayConnectTimeout = 30 * 1000
       ..web3RpcGatewayUrl = 'http://quorum.tw-wallet.in2e.com:22000'
       ..didPrefix = 'did:tw:'
