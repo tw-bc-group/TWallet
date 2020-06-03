@@ -7,6 +7,13 @@ import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 void showErrorDialog(DioError err) {
   String errorMessage = '未知错误';
+  DialogType _hintType = DialogType.error;
+
+  if (err.type == DioErrorType.CONNECT_TIMEOUT ||
+      err.type == DioErrorType.SEND_TIMEOUT ||
+      err.type == DioErrorType.RECEIVE_TIMEOUT) {
+    _hintType = DialogType.network;
+  }
 
   switch (err.type) {
     case DioErrorType.CONNECT_TIMEOUT:
@@ -40,7 +47,7 @@ void showErrorDialog(DioError err) {
       }
       break;
   }
-  showDialogSample(DialogType.error, '$errorMessage，请稍后再试。。。');
+  showDialogSample(_hintType, '$errorMessage，请稍后再试。。。');
 }
 
 Dio _initDio() {
@@ -81,7 +88,7 @@ class HttpClient {
       {bool loading = true, bool throwError = false}) async {
     return _dio
         .post(url,
-            data: data, options: Options(extra: {'withoutLoading': !loading}))
+            data: '1111', options: Options(extra: {'withoutLoading': !loading}))
         .then((response) => Optional.of(response))
         .catchError((error) {
       if (throwError) {

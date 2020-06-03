@@ -14,6 +14,7 @@ enum DialogType {
   success,
   warning,
   error,
+  network,
   hint,
   none,
 }
@@ -30,6 +31,9 @@ Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {num width}) {
       break;
     case DialogType.error:
       asset = 'assets/icons/hint-error.svg';
+      break;
+    case DialogType.network:
+      asset = 'assets/icons/hint-network.svg';
       break;
     case DialogType.hint:
       asset = 'assets/icons/hint.svg';
