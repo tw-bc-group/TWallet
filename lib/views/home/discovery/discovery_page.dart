@@ -32,10 +32,19 @@ class DiscoveryPage extends StatelessWidget {
   }
 
   Widget _healthItem({BuildContext context}) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.healthCertPage,
-          arguments: homeStore),
-      child: const DiscoveryItem(text: "健康认证"),
+    return Column(
+      children: <Widget>[
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, Routes.healthCertPage,
+              arguments: homeStore),
+          child: const DiscoveryItem(text: "健康认证"),
+        ),
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, Routes.dapp,
+              arguments: homeStore),
+          child: const DiscoveryItem(text: "DAPP TEST"),
+        )
+      ],
     );
   }
 

@@ -12,6 +12,7 @@ class DiscoveryItem extends StatelessWidget {
     return Container(
       height: 140,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 48),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
