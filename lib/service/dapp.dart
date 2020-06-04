@@ -11,9 +11,10 @@ class DAppService {
     switch (method) {
       case WebviewRequestMethod.quitApp:
         return quitApp;
-    }
 
-    throw ArgumentError.value(method.toString(), 'unexpected method');
+      default:
+        throw ArgumentError.value(method.toString(), 'unexpected method');
+    }
   }
 
   static void quitApp(String id) {
