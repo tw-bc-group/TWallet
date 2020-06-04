@@ -3,7 +3,7 @@ include: package:lint/analysis_options.yaml
 analyzer:
   exclude:
     - lib/generated/*.dart
-    - lib/generated/intl/messages_en.dart
+    - lib/generated/intl/*.dart
     - lib/**/*.g.dart
 
 linter:
