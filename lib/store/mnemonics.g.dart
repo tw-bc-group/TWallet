@@ -69,9 +69,9 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
   @override
   String toString() {
     return '''
-value: $value,
-index: $index,
-mnemonics: $mnemonics
+value: ${value},
+index: ${index},
+mnemonics: ${mnemonics}
     ''';
   }
 }

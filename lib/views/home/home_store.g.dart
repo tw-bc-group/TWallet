@@ -27,7 +27,7 @@ mixin _$HomeStore on _HomeStore, Store {
   @override
   String toString() {
     return '''
-currentPage: $currentPage
+currentPage: ${currentPage}
     ''';
   }
 }

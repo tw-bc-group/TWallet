@@ -1,0 +1,20 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'webview_request_method.g.dart';
+
+class WebviewRequestMethod extends EnumClass {
+  static Serializer<WebviewRequestMethod> get serializer =>
+      _$webviewRequestMethodSerializer;
+
+  static const WebviewRequestMethod quitApp = _$quitApp;
+  static const WebviewRequestMethod createAccount = _$createAccount;
+  static const WebviewRequestMethod qrCode = _$qrCode;
+  static const WebviewRequestMethod signTransaction = _$signTransaction;
+
+  const WebviewRequestMethod._(String name) : super(name);
+
+  static BuiltSet<WebviewRequestMethod> get values => _$values;
+  static WebviewRequestMethod valueOf(String name) => _$valueOf(name);
+}

@@ -1,16 +1,17 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
-import 'package:tw_wallet_ui/models/webview/webview_request_type.dart';
+import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 
 part 'webview_request.g.dart';
 
 abstract class WebviewRequest
     implements Built<WebviewRequest, WebviewRequestBuilder> {
-  static Serializer<WebviewRequest> get serializer => _$webviewRequestSerializer;
+  static Serializer<WebviewRequest> get serializer =>
+      _$webviewRequestSerializer;
 
   String get id;
-  WebviewRequestType get method;
+  WebviewRequestMethod get method;
 
   static WebviewRequest fromJson(dynamic serialized) {
     try {

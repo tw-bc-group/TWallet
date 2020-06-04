@@ -64,10 +64,10 @@ mixin _$InputPinStore on _InputPinStore, Store {
   @override
   String toString() {
     return '''
-pin1: $pin1,
-pin2: $pin2,
-isCompleted: $isCompleted,
-isUnequal: $isUnequal
+pin1: ${pin1},
+pin2: ${pin2},
+isCompleted: ${isCompleted},
+isUnequal: ${isUnequal}
     ''';
   }
 }

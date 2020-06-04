@@ -71,9 +71,9 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   @override
   String toString() {
     return '''
-currentToken: $currentToken,
-isBoundCert: $isBoundCert,
-isHealthy: $isHealthy
+currentToken: ${currentToken},
+isBoundCert: ${isBoundCert},
+isHealthy: ${isHealthy}
     ''';
   }
 }

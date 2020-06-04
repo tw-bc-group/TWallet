@@ -9,7 +9,7 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
-import 'package:tw_wallet_ui/models/webview/webview_request_type.dart';
+import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
 
 import 'amount.dart';
@@ -31,7 +31,7 @@ part 'serializer.g.dart';
   HealthyStatus,
   SelectOption,
   WebviewRequest,
-  WebviewRequestType
+  WebviewRequestMethod
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())
@@ -52,7 +52,7 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
           const FullType(ApiResponse, [FullType(HealthCertificationToken)]),
           () => ApiResponseBuilder<HealthCertificationToken>())
-      ..addBuilderFactory(const FullType(WebviewRequest),
-          () => WebviewRequestBuilder())
+      ..addBuilderFactory(
+          const FullType(WebviewRequest), () => WebviewRequestBuilder())
       ..addPlugin(StandardJsonPlugin()))
     .build();

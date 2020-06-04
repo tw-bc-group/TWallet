@@ -24,7 +24,7 @@ class _$WebviewRequestSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'method',
       serializers.serialize(object.method,
-          specifiedType: const FullType(WebviewRequestType)),
+          specifiedType: const FullType(WebviewRequestMethod)),
     ];
 
     return result;
@@ -48,8 +48,8 @@ class _$WebviewRequestSerializer
           break;
         case 'method':
           result.method = serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewRequestType))
-              as WebviewRequestType;
+                  specifiedType: const FullType(WebviewRequestMethod))
+              as WebviewRequestMethod;
           break;
       }
     }
@@ -62,7 +62,7 @@ class _$WebviewRequest extends WebviewRequest {
   @override
   final String id;
   @override
-  final WebviewRequestType method;
+  final WebviewRequestMethod method;
 
   factory _$WebviewRequest([void Function(WebviewRequestBuilder) updates]) =>
       (new WebviewRequestBuilder()..update(updates)).build();
@@ -112,9 +112,9 @@ class WebviewRequestBuilder
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
-  WebviewRequestType _method;
-  WebviewRequestType get method => _$this._method;
-  set method(WebviewRequestType method) => _$this._method = method;
+  WebviewRequestMethod _method;
+  WebviewRequestMethod get method => _$this._method;
+  set method(WebviewRequestMethod method) => _$this._method = method;
 
   WebviewRequestBuilder();
 
