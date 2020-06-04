@@ -218,12 +218,12 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
   @override
   String toString() {
     return '''
-phone: ${phone},
-temperature: ${temperature},
-contactOption: ${contactOption},
-symptomsOption: ${symptomsOption},
-hasCommitment: ${hasCommitment},
-hasEmpty: ${hasEmpty}
+phone: $phone,
+temperature: $temperature,
+contactOption: $contactOption,
+symptomsOption: $symptomsOption,
+hasCommitment: $hasCommitment,
+hasEmpty: $hasEmpty
     ''';
   }
 }
@@ -270,9 +270,9 @@ mixin _$FormErrorState on _FormErrorState, Store {
   @override
   String toString() {
     return '''
-phone: ${phone},
-temperature: ${temperature},
-hasErrors: ${hasErrors}
+phone: $phone,
+temperature: $temperature,
+hasErrors: $hasErrors
     ''';
   }
 }

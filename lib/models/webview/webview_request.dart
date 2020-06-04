@@ -15,7 +15,7 @@ abstract class WebviewRequest
   static WebviewRequest fromJson(dynamic serialized) {
     try {
       return serializers.deserialize(serialized,
-          specifiedType: FullType(WebviewRequest)) as WebviewRequest;
+          specifiedType: const FullType(WebviewRequest)) as WebviewRequest;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

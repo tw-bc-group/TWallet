@@ -184,15 +184,15 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   @override
   String toString() {
     return '''
-healthCertLastSelectIndex: ${healthCertLastSelectIndex},
-identities: ${identities},
-searchName: ${searchName},
-selectedIdentity: ${selectedIdentity},
-myName: ${myName},
-myAddress: ${myAddress},
-myBalance: ${myBalance},
-selectedFirstIdentities: ${selectedFirstIdentities},
-selectedFirstIdentitiesInHealthDApp: ${selectedFirstIdentitiesInHealthDApp}
+healthCertLastSelectIndex: $healthCertLastSelectIndex,
+identities: $identities,
+searchName: $searchName,
+selectedIdentity: $selectedIdentity,
+myName: $myName,
+myAddress: $myAddress,
+myBalance: $myBalance,
+selectedFirstIdentities: $selectedFirstIdentities,
+selectedFirstIdentitiesInHealthDApp: $selectedFirstIdentitiesInHealthDApp
     ''';
   }
 }

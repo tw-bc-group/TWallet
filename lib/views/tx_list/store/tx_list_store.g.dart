@@ -99,11 +99,11 @@ mixin _$TxListStore on _TxListStore, Store {
   @override
   String toString() {
     return '''
-listFuture: ${listFuture},
-tx: ${tx},
-list: ${list},
-errorMessage: ${errorMessage},
-loading: ${loading}
+listFuture: $listFuture,
+tx: $tx,
+list: $list,
+errorMessage: $errorMessage,
+loading: $loading
     ''';
   }
 }

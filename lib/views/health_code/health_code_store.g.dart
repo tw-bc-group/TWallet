@@ -42,7 +42,7 @@ mixin _$HealthCodeStore on HealthCodeStoreBase, Store {
   @override
   String toString() {
     return '''
-currentCountDown: ${currentCountDown}
+currentCountDown: $currentCountDown
     ''';
   }
 }

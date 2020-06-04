@@ -137,10 +137,10 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
   @override
   String toString() {
     return '''
-name: ${name},
-phone: ${phone},
-email: ${email},
-birthday: ${birthday}
+name: $name,
+phone: $phone,
+email: $email,
+birthday: $birthday
     ''';
   }
 }
@@ -217,11 +217,11 @@ mixin _$FormErrorState on _FormErrorState, Store {
   @override
   String toString() {
     return '''
-username: ${username},
-phone: ${phone},
-email: ${email},
-birthday: ${birthday},
-hasErrors: ${hasErrors}
+username: $username,
+phone: $phone,
+email: $email,
+birthday: $birthday,
+hasErrors: $hasErrors
     ''';
   }
 }

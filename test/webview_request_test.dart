@@ -10,8 +10,8 @@ void main() {
 
   test('should return WebviewRequest type model when given a json map', () {
     const jsonMapString = '{ "id": "id", "method": "quitApp" }';
-    Map<String, dynamic> jsonMap = json.decode(jsonMapString);
-    var request = WebviewRequest.fromJson(jsonMap);
+    final Map<String, dynamic> jsonMap = json.decode(jsonMapString) as Map<String, dynamic>;
+    final request = WebviewRequest.fromJson(jsonMap);
     expect(request is WebviewRequest, isTrue);
     expect(request.method.toString(), WebviewRequestType.quitApp.toString());
   });

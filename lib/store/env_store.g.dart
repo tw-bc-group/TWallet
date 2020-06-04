@@ -42,8 +42,8 @@ mixin _$EnvStore on _EnvStore, Store {
   @override
   String toString() {
     return '''
-env: ${env},
-packageInfo: ${packageInfo}
+env: $env,
+packageInfo: $packageInfo
     ''';
   }
 }

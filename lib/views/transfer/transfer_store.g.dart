@@ -119,10 +119,10 @@ mixin _$TransferStore on _TransferStore, Store {
   @override
   String toString() {
     return '''
-payerDID: ${payerDID},
-balance: ${balance},
-amount: ${amount},
-payeeDID: ${payeeDID}
+payerDID: $payerDID,
+balance: $balance,
+amount: $amount,
+payeeDID: $payeeDID
     ''';
   }
 }
@@ -169,9 +169,9 @@ mixin _$FormErrorState on _FormErrorState, Store {
   @override
   String toString() {
     return '''
-amount: ${amount},
-payeeDID: ${payeeDID},
-hasErrors: ${hasErrors}
+amount: $amount,
+payeeDID: $payeeDID,
+hasErrors: $hasErrors
     ''';
   }
 }

@@ -15,12 +15,12 @@ class DAppPage extends StatelessWidget {
       name: 'ThoughtWalletNative',
       onMessageReceived: (JavascriptMessage message) {
         try {
-          Map<String, dynamic> requestJson = jsonDecode(message.message);
-          WebviewRequest webviewRequest = WebviewRequest.fromJson(requestJson);
+          final Map<String, dynamic> requestJson = jsonDecode(message.message) as Map<String, dynamic>;
+          final WebviewRequest webviewRequest = WebviewRequest.fromJson(requestJson);
           DAppService.getOperator(webviewRequest.method.toString()).call(webviewRequest.id);
         } catch (e) {
           _controller.future.then((webviewController) => webviewController.evaluateJavascript('window.ThoughtWallet.rejectPromise($e);'));
-        };
+        }
       });
   }
 
@@ -38,9 +38,9 @@ class DAppPage extends StatelessWidget {
               _controller.complete(webViewController);
               DAppService.webviewController = webViewController;
             },
-            javascriptChannels: <JavascriptChannel>[
+            javascriptChannels: <JavascriptChannel>{
               _nativeJavascriptChannel(context),
-            ].toSet(),
+            },
             onPageStarted: (String url) {
               print('Page started loading: $url');
             },
