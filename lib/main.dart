@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sentry/sentry.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -10,6 +13,17 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
+
+final SentryClient sentry = SentryClient(
+    dsn:
+        "https://cbc45c2b4f0f400797ca489f4f117699@o402661.ingest.sentry.io/5264109");
+
+void _reportErrorToSentry(Object error, StackTrace stackTrace) {
+  sentry.captureException(
+    exception: error,
+    stackTrace: stackTrace,
+  );
+}
 
 Future<String> _initialRoute() async {
   await DeviceInfo.initialDeviceInfo();
@@ -21,14 +35,22 @@ Future<String> _initialRoute() async {
 }
 
 Future<void> main() async {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    Zone.current.handleUncaughtError(details.exception, details.stack);
+  };
   getItInit(isTest: false);
-  runApp(MyApp(initialRoute: await _initialRoute()));
+  _initialRoute().then((initialRoute) => runZonedGuarded(
+        () => runApp(ThoughtWallet(initialRoute: initialRoute)),
+        (error, stackTrace) {
+          _reportErrorToSentry(error, stackTrace);
+        },
+      ));
 }
 
-class MyApp extends StatelessWidget {
+class ThoughtWallet extends StatelessWidget {
   final String initialRoute;
 
-  MyApp({@required this.initialRoute}) {
+  ThoughtWallet({@required this.initialRoute}) {
     final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
