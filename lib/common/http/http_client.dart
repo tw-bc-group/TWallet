@@ -51,7 +51,7 @@ void showErrorDialog(DioError err) {
 }
 
 Dio _initDio() {
-  Dio _dio = Dio()
+  final Dio _dio = Dio()
     ..options = BaseOptions(
       baseUrl: globalEnv().apiGatewayBaseUrl,
       connectTimeout: globalEnv().apiGatewayConnectTimeout,

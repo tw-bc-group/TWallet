@@ -95,17 +95,6 @@ mixin _$TransferStore on _TransferStore, Store {
   }
 
   @override
-  void updatePayerDID(String value) {
-    final _$actionInfo = _$_TransferStoreActionController.startAction(
-        name: '_TransferStore.updatePayerDID');
-    try {
-      return super.updatePayerDID(value);
-    } finally {
-      _$_TransferStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void validateAmount(String value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
         name: '_TransferStore.validateAmount');

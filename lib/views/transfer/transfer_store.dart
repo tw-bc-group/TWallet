@@ -52,11 +52,6 @@ abstract class _TransferStore with Store {
   }
 
   @action
-  void updatePayerDID(String value) {
-    payerDID = value;
-  }
-
-  @action
   void validateAmount(String value) {
     try {
       final double res = double.parse(value);

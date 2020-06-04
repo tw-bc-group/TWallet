@@ -37,7 +37,7 @@ void main() {
 
   test('Return a TwBalance Instance', () async {
     const url = '/v1/token/$address';
-    when(_httpClient.get(url, loading: true, throwError: false))
+    when(_httpClient.get(url, loading: false))
         .thenAnswer((_) async => Optional.of(Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',
@@ -57,7 +57,7 @@ void main() {
 
   test('Return a List Of Transactions Instances', () async {
     const url = '/v1/transactions?from_addr=$address';
-    when(_httpClient.get(url, loading: true, throwError: true))
+    when(_httpClient.get(url, throwError: true))
         .thenAnswer((_) async => Optional.of(Response(statusCode: 200, data: {
               'code': 200,
               'msg': 'SUCCESS',

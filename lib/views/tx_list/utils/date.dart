@@ -6,12 +6,12 @@ String parseDateTime(DateTime dateTime) {
   final hour = toLengthTwo(dateTime.hour);
   final minute = toLengthTwo(dateTime.minute);
   final second = toLengthTwo(dateTime.second);
-  return '${dateTime.day} ${_month(dateTime.month)} ${dateTime.year} ${hour}:${minute}:${second}';
+  return '${dateTime.day} ${_month(dateTime.month)} ${dateTime.year} $hour:$minute:$second';
 }
 
 String toLengthTwo(int value) {
   if (value < 10) {
-    return '0${value}';
+    return '0$value';
   }
   return value.toString();
 }
