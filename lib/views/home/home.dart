@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 import 'assets/home_page.dart';
@@ -83,6 +84,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     YYDialog.init(context);
+    DAppService.context = context;
     ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
 
     return Scaffold(

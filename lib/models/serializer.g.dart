@@ -18,6 +18,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Transaction.serializer)
       ..add(TwBalance.serializer)
       ..add(TxStatus.serializer)
+      ..add(WebviewRequest.serializer)
+      ..add(WebviewRequestType.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
