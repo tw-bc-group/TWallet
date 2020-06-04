@@ -122,7 +122,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
 
   @override
-  Future<void> addIdentity({@required Identity identity}) {
+  Future<Identity> addIdentity({@required Identity identity}) {
     return _$addIdentityAsyncAction
         .run(() => super.addIdentity(identity: identity));
   }

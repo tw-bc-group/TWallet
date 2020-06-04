@@ -53,6 +53,9 @@ abstract class Identity extends Object
   @nullable
   bool get isSelected;
 
+  @nullable
+  bool get fromDApp;
+
   Identity setSelected() => rebuild((id) => id..isSelected = true);
   Identity setUnSelected() => rebuild((id) => id..isSelected = false);
 

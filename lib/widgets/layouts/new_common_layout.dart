@@ -46,12 +46,10 @@ class NewCommonLayout extends StatelessWidget {
         centerTitle: true,
         titleSpacing: 0.0,
       ),
-      bottomNavigationBar: Theme(
-          data: Theme.of(context),
-          child: Container(
-            height: 0)),
-              // color: DeviceInfo.isIphoneXSeries() ? Colors.transparent : WalletColor.white,
-              // height: DeviceInfo.isIphoneXSeries() ? 30 : 0)),
+      bottomNavigationBar:
+          Theme(data: Theme.of(context), child: Container(height: 0)),
+      // color: DeviceInfo.isIphoneXSeries() ? Colors.transparent : WalletColor.white,
+      // height: DeviceInfo.isIphoneXSeries() ? 30 : 0)),
       body: GestureDetector(
           onTap: () {
             final FocusScopeNode currentFocus = FocusScope.of(context);
@@ -65,16 +63,13 @@ class NewCommonLayout extends StatelessWidget {
                 margin: const EdgeInsets.all(0),
                 child: Column(
                   children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        child: child
-                      )
-                    ),
+                    Expanded(child: Container(child: child)),
                     if (withBottomBtn)
                       Container(
                           color: WalletColor.white,
                           padding: EdgeInsets.symmetric(
-                              vertical: DeviceInfo.isIphoneXSeries() ? 34 : 20, horizontal: 30),
+                              vertical: DeviceInfo.isIphoneXSeries() ? 34 : 20,
+                              horizontal: 30),
                           child: WalletTheme.button(
                               text: btnText, onPressed: btnOnPressed))
                   ],

@@ -46,7 +46,8 @@ class TxInfoCardWidget extends StatelessWidget {
                         child: Text(
                       name,
                       style: WalletFont.font_12(
-                          textStyle: const TextStyle(fontWeight: FontWeight.w600)),
+                          textStyle:
+                              const TextStyle(fontWeight: FontWeight.w600)),
                       textAlign: TextAlign.right,
                     ))
                   ]),
@@ -68,7 +69,8 @@ class TxInfoCardWidget extends StatelessWidget {
                       child: Text(
                     did,
                     style: WalletFont.font_12(
-                        textStyle: const TextStyle(fontWeight: FontWeight.w600)),
+                        textStyle:
+                            const TextStyle(fontWeight: FontWeight.w600)),
                     textAlign: TextAlign.right,
                   ))
                 ]),

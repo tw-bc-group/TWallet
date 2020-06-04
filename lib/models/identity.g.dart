@@ -75,6 +75,12 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add(serializers.serialize(object.isSelected,
             specifiedType: const FullType(bool)));
     }
+    if (object.fromDApp != null) {
+      result
+        ..add('fromDApp')
+        ..add(serializers.serialize(object.fromDApp,
+            specifiedType: const FullType(bool)));
+    }
     return result;
   }
 
@@ -133,6 +139,10 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.isSelected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
+        case 'fromDApp':
+          result.fromDApp = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
       }
     }
 
@@ -163,6 +173,8 @@ class _$Identity extends Identity {
   final String healthStatus;
   @override
   final bool isSelected;
+  @override
+  final bool fromDApp;
   String __address;
   DID __did;
 
@@ -180,7 +192,8 @@ class _$Identity extends Identity {
       this.balance,
       this.healthCertificateStatus,
       this.healthStatus,
-      this.isSelected})
+      this.isSelected,
+      this.fromDApp})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
@@ -220,7 +233,8 @@ class _$Identity extends Identity {
         balance == other.balance &&
         healthCertificateStatus == other.healthCertificateStatus &&
         healthStatus == other.healthStatus &&
-        isSelected == other.isSelected;
+        isSelected == other.isSelected &&
+        fromDApp == other.fromDApp;
   }
 
   @override
@@ -233,16 +247,20 @@ class _$Identity extends Identity {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                        pubKey.hashCode),
-                                    priKey.hashCode),
-                                phone.hashCode),
-                            email.hashCode),
-                        birthday.hashCode),
-                    balance.hashCode),
-                healthCertificateStatus.hashCode),
-            healthStatus.hashCode),
-        isSelected.hashCode));
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, id.hashCode),
+                                                name.hashCode),
+                                            pubKey.hashCode),
+                                        priKey.hashCode),
+                                    phone.hashCode),
+                                email.hashCode),
+                            birthday.hashCode),
+                        balance.hashCode),
+                    healthCertificateStatus.hashCode),
+                healthStatus.hashCode),
+            isSelected.hashCode),
+        fromDApp.hashCode));
   }
 
   @override
@@ -258,7 +276,8 @@ class _$Identity extends Identity {
           ..add('balance', balance)
           ..add('healthCertificateStatus', healthCertificateStatus)
           ..add('healthStatus', healthStatus)
-          ..add('isSelected', isSelected))
+          ..add('isSelected', isSelected)
+          ..add('fromDApp', fromDApp))
         .toString();
   }
 }
@@ -311,6 +330,10 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   bool get isSelected => _$this._isSelected;
   set isSelected(bool isSelected) => _$this._isSelected = isSelected;
 
+  bool _fromDApp;
+  bool get fromDApp => _$this._fromDApp;
+  set fromDApp(bool fromDApp) => _$this._fromDApp = fromDApp;
+
   IdentityBuilder();
 
   IdentityBuilder get _$this {
@@ -326,6 +349,7 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
       _healthCertificateStatus = _$v.healthCertificateStatus;
       _healthStatus = _$v.healthStatus;
       _isSelected = _$v.isSelected;
+      _fromDApp = _$v.fromDApp;
       _$v = null;
     }
     return this;
@@ -358,7 +382,8 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
             balance: balance,
             healthCertificateStatus: healthCertificateStatus,
             healthStatus: healthStatus,
-            isSelected: isSelected);
+            isSelected: isSelected,
+            fromDApp: fromDApp);
     replace(_$result);
     return _$result;
   }

@@ -32,9 +32,13 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
 
     final List<Identity> identities = Optional.ofNullable(
             await IdentityStoreBase._db.getListLike('$identityNameKey: %'))
-        .map((listItems) => listItems.map((item) {
+        .map((listItems) => listItems
+            .map((item) {
               return Identity.fromJson(item);
-            }).toList())
+            })
+            .where(
+                (identity) => identity.fromDApp == null || !identity.fromDApp)
+            .toList())
         .orElse([]);
 
     return IdentityStore(ObservableList.of(identities), didHealthSelectIndex);
@@ -158,7 +162,7 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  Future<void> addIdentity({@required Identity identity}) async {
+  Future<Identity> addIdentity({@required Identity identity}) async {
     final Identity newIdentity =
         identities.isEmpty ? identity.setSelected() : identity.setUnSelected();
 
@@ -167,6 +171,7 @@ abstract class IdentityStoreBase with Store {
         .then((_) {
       identities.add(newIdentity);
       _identitiesSort();
+      return newIdentity;
     });
   }
 
