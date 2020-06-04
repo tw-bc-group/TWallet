@@ -19,9 +19,14 @@ final SentryClient sentry = SentryClient(
     dsn:
         "https://cbc45c2b4f0f400797ca489f4f117699@o402661.ingest.sentry.io/5264109");
 
-void _reportErrorToSentry(Object error, StackTrace stackTrace) {
-  showDialogSample(DialogType.hint, 'Report to Sentry');
-  sentry.captureException(
+bool get isInDebugMode {
+  bool inDebugMode = false;
+  assert(inDebugMode = true);
+  return inDebugMode;
+}
+
+Future<void> _reportError(dynamic error, dynamic stackTrace) async {
+  await sentry.captureException(
     exception: error,
     stackTrace: stackTrace,
   );
@@ -37,14 +42,23 @@ Future<String> _initialRoute() async {
 }
 
 Future<void> main() async {
-  FlutterError.onError = (FlutterErrorDetails details) {
-    Zone.current.handleUncaughtError(details.exception, details.stack);
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    await showDialogSample(DialogType.error, 'Flutter Error');
+
+    if (isInDebugMode) {
+      // In development mode simply print to console.
+      FlutterError.dumpErrorToConsole(details);
+    } else {
+      // In production mode report to the application zone to report to
+      // Sentry.
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    }
   };
   getItInit(isTest: false);
   _initialRoute().then((initialRoute) => runZonedGuarded(
         () => runApp(ThoughtWallet(initialRoute: initialRoute)),
-        (error, stackTrace) {
-          _reportErrorToSentry(error, stackTrace);
+        (error, stackTrace) async {
+          await _reportError(error, stackTrace);
         },
       ));
 }
