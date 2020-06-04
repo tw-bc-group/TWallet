@@ -43,7 +43,7 @@ dependencies:
   more: ^2.2.0
   uuid: 2.0.4
   date_format: ^1.0.8
-  web3dart: ^2.0.0-dev.6
+  web3dart: ^2.0.0-dev.7
   http: ^0.12.0+4
   built_value: ^7.0.9
   built_value_generator: ^7.0.9
