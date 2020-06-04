@@ -13,12 +13,14 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 final SentryClient sentry = SentryClient(
     dsn:
         "https://cbc45c2b4f0f400797ca489f4f117699@o402661.ingest.sentry.io/5264109");
 
 void _reportErrorToSentry(Object error, StackTrace stackTrace) {
+  showDialogSample(DialogType.hint, 'Report to Sentry');
   sentry.captureException(
     exception: error,
     stackTrace: stackTrace,
