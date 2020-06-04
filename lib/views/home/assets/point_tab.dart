@@ -82,7 +82,7 @@ class _PointTabState extends State<PointTab> {
                 .map((balance) => balance.amount);
             break;
           case FutureStatus.pending:
-            amount = Optional.empty();
+            amount = const Optional.empty();
             break;
           default:
             amount = _identityStore.selectedIdentity.map((i) => i.balance);

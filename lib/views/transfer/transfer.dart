@@ -43,8 +43,8 @@ class TransferPageState extends State<TransferPage> {
     super.initState();
     _transferStore.setupErrorDisposers();
     identity = getIt<IdentityStore>().selectedIdentity.value;
+    _transferStore.payeeDID = identity.did.toString();
     _transferStore.balance = identity.balance.humanReadable;
-    _transferStore.updatePayerDID(identity.did.toString());
   }
 
   @override
