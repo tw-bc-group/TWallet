@@ -97,6 +97,7 @@ abstract class Identity extends Object
   factory Identity([void Function(IdentityBuilder) updates]) =>
       _$Identity((builder) => builder
         ..isSelected = false
+        ..fromDApp = false
         ..update(updates));
 
   factory Identity.fromJson(dynamic serialized) {
