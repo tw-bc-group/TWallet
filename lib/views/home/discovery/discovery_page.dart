@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -28,14 +27,14 @@ class DiscoveryPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           margin: const EdgeInsets.only(top: 68),
-          child: _healthItem(context: context),
+          child: _dappList(context: context),
         ),
       ],
     );
   }
 
-  Widget _healthItem({BuildContext context}) {
-    var dappItemList = <Widget>[
+  Widget _dappList({BuildContext context}) {
+    final List<Widget> dappItemList = <Widget>[
       GestureDetector(
         onTap: () => Navigator.pushNamed(context, Routes.healthCertPage,
             arguments: homeStore),
@@ -47,9 +46,10 @@ class DiscoveryPage extends StatelessWidget {
       )
     ];
     dappItemList.addAll(dappList.map((dapp) => GestureDetector(
-      onTap: () => Application.router.navigateTo(context, '${Routes.dapp}?id=${dapp.id}'),
-      child: DiscoveryItem(text: dapp.name, svgAsset: dapp.iconAsset),
-    )));
+          onTap: () => Application.router
+              .navigateTo(context, '${Routes.dapp}?id=${dapp.id}'),
+          child: DiscoveryItem(text: dapp.name, svgAsset: dapp.iconAsset),
+        )));
     return ListView(
       children: dappItemList,
     );
