@@ -8,4 +8,5 @@ analyzer:
 
 linter:
   rules:
+    unnecessary_brace_in_string_interps: false
     avoid_classes_with_only_static_members: false
