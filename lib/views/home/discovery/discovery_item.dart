@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DiscoveryItem extends StatelessWidget {
   final String text;
+  final String svgAsset;
 
-  const DiscoveryItem({this.text});
+  const DiscoveryItem({this.text, this.svgAsset});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class DiscoveryItem extends StatelessWidget {
           Row(
             children: <Widget>[
               SvgPicture.asset(
-                "assets/icons/health-cert.svg",
+                svgAsset ?? "assets/icons/health-cert.svg",
                 width: 44,
                 height: 44,
               ),

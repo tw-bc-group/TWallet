@@ -3,13 +3,21 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DAppPage extends StatelessWidget {
+  final String id;
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
+
+  DAppPage({this.id});
+
+  String getDappById(String id) {
+    return dappList.firstWhere((dapp) => id == dapp.id).url;
+  }
 
   JavascriptChannel _nativeJavascriptChannel(BuildContext context) {
     return JavascriptChannel(
@@ -37,7 +45,7 @@ class DAppPage extends StatelessWidget {
         body: SafeArea(
           child: Builder(builder: (BuildContext context) {
             return WebView(
-              initialUrl: 'http://127.0.0.1:3000/',
+              initialUrl: getDappById(id),
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController webViewController) {
                 _controller.complete(webViewController);

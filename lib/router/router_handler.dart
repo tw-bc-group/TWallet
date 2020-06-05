@@ -140,6 +140,6 @@ Handler identityDetailHandler = Handler(
 
 Handler dappHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return DAppPage();
+    return DAppPage(id: params['id'].first);
   },
 );
