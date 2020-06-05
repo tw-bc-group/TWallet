@@ -26,10 +26,11 @@ bool get isInDebugMode {
 }
 
 Future<void> _reportError(dynamic error, dynamic stackTrace) async {
-  await sentry.captureException(
-    exception: error,
-    stackTrace: stackTrace,
-  );
+  await Future.delayed(const Duration(seconds: 2))
+      .then((_) => sentry.captureException(
+            exception: error,
+            stackTrace: stackTrace,
+          ));
 }
 
 Future<String> _initialRoute() async {
@@ -43,7 +44,7 @@ Future<String> _initialRoute() async {
 
 Future<void> main() async {
   FlutterError.onError = (FlutterErrorDetails details) async {
-    await showDialogSample(DialogType.error, 'Flutter Error');
+    await showDialogSample(DialogType.error, 'isInDebugMode: $isInDebugMode');
 
     if (isInDebugMode) {
       // In development mode simply print to console.
