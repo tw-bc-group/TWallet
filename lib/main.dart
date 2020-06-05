@@ -25,11 +25,10 @@ bool get isInDebugMode {
 }
 
 Future<void> _reportError(dynamic error, dynamic stackTrace) async {
-  await Future.delayed(const Duration(seconds: 2))
-      .then((_) => sentry.captureException(
-            exception: error,
-            stackTrace: stackTrace,
-          ));
+  return sentry.captureException(
+    exception: error,
+    stackTrace: stackTrace,
+  );
 }
 
 Future<String> _initialRoute() async {
