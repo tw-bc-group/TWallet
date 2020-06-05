@@ -13,7 +13,6 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
-import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 final SentryClient sentry = SentryClient(
     dsn:
@@ -44,15 +43,10 @@ Future<String> _initialRoute() async {
 
 Future<void> main() async {
   FlutterError.onError = (FlutterErrorDetails details) async {
-    await showDialogSample(DialogType.error, 'isInDebugMode: $isInDebugMode');
-
     if (isInDebugMode) {
-      // In development mode simply print to console.
       FlutterError.dumpErrorToConsole(details);
     } else {
-      // In production mode report to the application zone to report to
-      // Sentry.
-      Zone.current.handleUncaughtError(details.exception, details.stack);
+      await _reportError(details.exception, details.stack);
     }
   };
   getItInit(isTest: false);
