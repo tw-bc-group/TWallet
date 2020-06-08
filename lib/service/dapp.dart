@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
@@ -20,6 +22,8 @@ class DAppService {
         return quitApp;
       case WebviewRequestMethod.createAccount:
         return createAccount;
+      case WebviewRequestMethod.qrCode:
+        return qrCode;
 
       default:
         throw ArgumentError.value(method.toString(), 'unexpected method');
@@ -28,6 +32,14 @@ class DAppService {
 
   static void quitApp(String id) {
     Application.router.pop(context);
+  }
+
+  static Future<void> qrCode(String id) async {
+    resolve(
+        id,
+        Optional.ofNullable(
+                await Application.router.navigateTo(context, Routes.qrScanner))
+            .orElse(''));
   }
 
   static void createAccount(String id) {
