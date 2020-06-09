@@ -59,13 +59,13 @@ class DAppService {
             'publicKey': value.pubKey,
             'index': _mnemonicsStore.index
           };
-          resolve(id, json.encode(resultJson));
+          resolve(id, resultJson);
         }));
   }
 
   static void resolve(String id, dynamic data) {
     webviewController.evaluateJavascript(
-        'window.ThoughtWallet.resolvePromise("$id", \'$data\')');
+        'window.ThoughtWallet.resolvePromise("$id", \'${json.encode(data)}\')');
   }
 
   static void reject(String id, dynamic data) {
