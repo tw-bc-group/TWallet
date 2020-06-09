@@ -39,17 +39,16 @@ class DiscoveryItem extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 8),
                 child: Expanded(
-                  child: Text(
-                    text,
-                    style: const TextStyle(
-                      color: Color(0xff111111),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 1,
-                    ),
-                  )
-                ),
+                    child: Text(
+                  text,
+                  style: const TextStyle(
+                    color: Color(0xff111111),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: 1,
+                  ),
+                )),
               ),
             ],
           ),

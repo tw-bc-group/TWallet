@@ -43,9 +43,9 @@ class DAppService {
   }
 
   static void createAccount(String id) {
-    final MnemonicsStore store = getIt<MnemonicsStore>();
+    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     final IdentityStore _identityStore = getIt<IdentityStore>();
-    store.generateKeys((keys) => Future.value(Identity((identity) => identity
+    _mnemonicsStore.generateKeys((keys) => Future.value(Identity((identity) => identity
               ..id = Uuid().v1()
               ..name = id
               ..pubKey = keys.first
@@ -53,10 +53,11 @@ class DAppService {
               ..fromDApp = true))
             .then((value) => _identityStore.addIdentity(identity: value))
             .then((Identity value) {
-          final Map<String, String> resultJson = {
+          final Map<String, dynamic> resultJson = {
             'id': value.id,
             'address': value.address,
-            'publicKey': value.pubKey
+            'publicKey': value.pubKey,
+            'index': _mnemonicsStore.index
           };
           resolve(id, json.encode(resultJson));
         }));
