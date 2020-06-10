@@ -26,7 +26,12 @@ class _$WebviewRequestSerializer
       serializers.serialize(object.method,
           specifiedType: const FullType(WebviewRequestMethod)),
     ];
-
+    if (object.param != null) {
+      result
+        ..add('param')
+        ..add(serializers.serialize(object.param,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -51,6 +56,10 @@ class _$WebviewRequestSerializer
                   specifiedType: const FullType(WebviewRequestMethod))
               as WebviewRequestMethod;
           break;
+        case 'param':
+          result.param = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -63,11 +72,13 @@ class _$WebviewRequest extends WebviewRequest {
   final String id;
   @override
   final WebviewRequestMethod method;
+  @override
+  final String param;
 
   factory _$WebviewRequest([void Function(WebviewRequestBuilder) updates]) =>
       (new WebviewRequestBuilder()..update(updates)).build();
 
-  _$WebviewRequest._({this.id, this.method}) : super._() {
+  _$WebviewRequest._({this.id, this.method, this.param}) : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('WebviewRequest', 'id');
     }
@@ -87,19 +98,23 @@ class _$WebviewRequest extends WebviewRequest {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is WebviewRequest && id == other.id && method == other.method;
+    return other is WebviewRequest &&
+        id == other.id &&
+        method == other.method &&
+        param == other.param;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, id.hashCode), method.hashCode));
+    return $jf($jc($jc($jc(0, id.hashCode), method.hashCode), param.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('WebviewRequest')
           ..add('id', id)
-          ..add('method', method))
+          ..add('method', method)
+          ..add('param', param))
         .toString();
   }
 }
@@ -116,12 +131,17 @@ class WebviewRequestBuilder
   WebviewRequestMethod get method => _$this._method;
   set method(WebviewRequestMethod method) => _$this._method = method;
 
+  String _param;
+  String get param => _$this._param;
+  set param(String param) => _$this._param = param;
+
   WebviewRequestBuilder();
 
   WebviewRequestBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _method = _$v.method;
+      _param = _$v.param;
       _$v = null;
     }
     return this;
@@ -142,7 +162,8 @@ class WebviewRequestBuilder
 
   @override
   _$WebviewRequest build() {
-    final _$result = _$v ?? new _$WebviewRequest._(id: id, method: method);
+    final _$result =
+        _$v ?? new _$WebviewRequest._(id: id, method: method, param: param);
     replace(_$result);
     return _$result;
   }

@@ -12,6 +12,8 @@ abstract class WebviewRequest
 
   String get id;
   WebviewRequestMethod get method;
+  @nullable
+  String get param;
 
   static WebviewRequest fromJson(dynamic serialized) {
     try {

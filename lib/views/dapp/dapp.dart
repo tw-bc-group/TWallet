@@ -29,7 +29,7 @@ class DAppPage extends StatelessWidget {
             final WebviewRequest webviewRequest =
                 WebviewRequest.fromJson(requestJson);
             DAppService.getOperator(webviewRequest.method)
-                .call(webviewRequest.id);
+                .call(webviewRequest.id, webviewRequest.param);
           } catch (e) {
             _controller.future.then((webviewController) => webviewController
                 .evaluateJavascript('window.ThoughtWallet.rejectPromise($e);'));
