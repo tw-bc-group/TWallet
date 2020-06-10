@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -28,7 +30,8 @@ class DAppService {
         return qrCode;
       case WebviewRequestMethod.signTransaction:
         return signTransaction;
-
+      case WebviewRequestMethod.getRootKey:
+        return getRootKey;
       default:
         throw ArgumentError.value(method.toString(), 'unexpected method');
     }
@@ -70,6 +73,12 @@ class DAppService {
         }));
   }
 
+  static void getRootKey(String id, _) {
+    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+    final walletSeed = bip39.mnemonicToSeed(_mnemonicsStore.mnemonics);
+    resolve(id, sha256.convert(walletSeed).toString());
+  }
+
   static void resolve(String id, dynamic data) {
     webviewController.evaluateJavascript(
         'window.ThoughtWallet.resolvePromise("$id", \'${json.encode(data)}\')');
@@ -77,6 +86,6 @@ class DAppService {
 
   static void reject(String id, dynamic data) {
     webviewController.evaluateJavascript(
-        'window.ThoughtWallet.rejectPromise("$id", \'$data\');');
+        'window.ThoughtWallet.rejectPromise("$id", \'${json.encode(data)}\');');
   }
 }

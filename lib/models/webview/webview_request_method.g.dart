@@ -12,6 +12,8 @@ const WebviewRequestMethod _$createAccount =
 const WebviewRequestMethod _$qrCode = const WebviewRequestMethod._('qrCode');
 const WebviewRequestMethod _$signTransaction =
     const WebviewRequestMethod._('signTransaction');
+const WebviewRequestMethod _$getRootKey =
+    const WebviewRequestMethod._('getRootKey');
 
 WebviewRequestMethod _$valueOf(String name) {
   switch (name) {
@@ -23,6 +25,8 @@ WebviewRequestMethod _$valueOf(String name) {
       return _$qrCode;
     case 'signTransaction':
       return _$signTransaction;
+    case 'getRootKey':
+      return _$getRootKey;
     default:
       throw new ArgumentError(name);
   }
@@ -34,6 +38,7 @@ final BuiltSet<WebviewRequestMethod> _$values =
   _$createAccount,
   _$qrCode,
   _$signTransaction,
+  _$getRootKey,
 ]);
 
 Serializer<WebviewRequestMethod> _$webviewRequestMethodSerializer =

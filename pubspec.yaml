@@ -65,6 +65,7 @@ dependencies:
   webview_flutter: ^0.3.22+1
   sentry:
     git: https://github.com/flutter/sentry.git
+  crypto: ^2.1.4
 
 dev_dependencies:
   flutter_test:
