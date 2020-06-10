@@ -29,29 +29,30 @@ class DiscoveryItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(
+          Expanded(child: Row(
             children: <Widget>[
               SvgPicture.asset(
                 svgAsset ?? "assets/icons/health-cert.svg",
                 width: 44,
                 height: 44,
               ),
-              Container(
+              Expanded(
+                child: Container(
                 margin: const EdgeInsets.only(left: 8),
-                child: Expanded(
-                    child: Text(
-                  text,
-                  style: const TextStyle(
-                    color: Color(0xff111111),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 1,
+                  child: Text(
+                    text,
+                    overflow: TextOverflow.visible,
+                    style: const TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: 1,
+                    ),
                   ),
-                )),
-              ),
+              )),
             ],
-          ),
+          )),
           SvgPicture.asset(
             "assets/icons/right-arrow.svg",
             width: 24,

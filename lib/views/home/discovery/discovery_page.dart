@@ -39,10 +39,6 @@ class DiscoveryPage extends StatelessWidget {
         onTap: () => Navigator.pushNamed(context, Routes.healthCertPage,
             arguments: homeStore),
         child: const DiscoveryItem(text: '健康认证'),
-      ),
-      GestureDetector(
-        onTap: () => throw StateError('this is test error'),
-        child: const DiscoveryItem(text: 'Error Report Test'),
       )
     ];
     dappItemList.addAll(dappList.map((dapp) => GestureDetector(
