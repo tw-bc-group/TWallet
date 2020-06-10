@@ -17,7 +17,7 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/identity_card.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import '../home.dart';
 
@@ -31,7 +31,7 @@ class HealthCertificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeStore = ModalRoute.of(context).settings.arguments as HomeStore;
 
-    return NewCommonLayout(
+    return CommonLayout(
       appBarActions: <Widget>[
         _buildScanIcon(context),
       ],

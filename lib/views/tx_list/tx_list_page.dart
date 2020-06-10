@@ -15,7 +15,7 @@ import 'package:tw_wallet_ui/views/tx_list/store/tx_list_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_list_item.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class TxListPage extends StatefulWidget {
   const TxListPage();
@@ -50,7 +50,7 @@ class _TxListPageState extends State<TxListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return NewCommonLayout(
+    return CommonLayout(
         title: 'DC/EP',
         child: Observer(
             builder: (context) => Column(

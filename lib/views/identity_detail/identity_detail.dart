@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/certificate_card.dart';
 import 'package:tw_wallet_ui/views/identity_detail/widgets/identity_basic_info.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class IdentityDetailPage extends StatelessWidget {
   final IdentityStore identityStore = getIt<IdentityStore>();
@@ -34,7 +34,7 @@ class IdentityDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Identity identity = identityStore.getIdentityById(id);
     certStore.fetchHealthCertByDID(identity.did.toString());
-    return NewCommonLayout(
+    return CommonLayout(
       title: identity.name,
       child: Container(
           margin: const EdgeInsets.only(top: 24),

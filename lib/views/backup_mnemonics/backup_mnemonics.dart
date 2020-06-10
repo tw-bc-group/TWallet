@@ -8,7 +8,7 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class BackupMnemonicsPage extends StatefulWidget {
   @override
@@ -54,7 +54,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
   @override
   Widget build(BuildContext context) {
     YYDialog.init(context);
-    return NewCommonLayout(
+    return CommonLayout(
         withBottomBtn: true,
         btnOnPressed: () =>
             Application.router.navigateTo(context, Routes.confirmMnemonics),

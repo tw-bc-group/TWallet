@@ -9,7 +9,7 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/widgets/word_button.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class ConfirmMnemonicsPage extends StatefulWidget {
   @override
@@ -82,7 +82,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
         selectedWords.map((tuple) => tuple.second).toList().join(' ') !=
             store.mnemonics;
 
-    return NewCommonLayout(
+    return CommonLayout(
         withBottomBtn: true,
         btnOnPressed: buttonDisabled
             ? null

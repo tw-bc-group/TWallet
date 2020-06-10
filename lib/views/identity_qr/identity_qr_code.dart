@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class IdentityQRPage extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class IdentityQRPage extends StatelessWidget {
     final Identity identity =
         ModalRoute.of(context).settings.arguments as Identity;
 
-    return NewCommonLayout(
+    return CommonLayout(
       title: '身份二维码',
       child: _buildMainContent(identity),
     );

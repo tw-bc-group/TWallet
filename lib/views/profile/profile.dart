@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/profile/widgets/profile_row.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import '../../models/identity.dart';
 
@@ -37,7 +37,7 @@ class ProfilePage extends StatelessWidget {
     final Identity identity = identityStore.getIdentityById(id);
     certStore.fetchHealthCertByDID(identity.did.toString());
 
-    return NewCommonLayout(
+    return CommonLayout(
       title: '个人信息',
       child: Column(children: <Widget>[
         Container(

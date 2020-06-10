@@ -14,7 +14,7 @@ import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import 'health_code_store.dart';
 
@@ -60,7 +60,7 @@ class HealthCodeState extends State<HealthCodePage> {
         final ObservableFuture<void> _future =
             _certStore.fetchHealthCodeStream.value;
 
-        return NewCommonLayout(
+        return CommonLayout(
           title: '健康码',
           // ignore: missing_return
           child: Observer(builder: (_) {

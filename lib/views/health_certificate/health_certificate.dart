@@ -15,7 +15,7 @@ import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class HealthCertificatePage extends StatefulWidget {
   final String id;
@@ -272,7 +272,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     final _screenUtil = ScreenUtil();
 
     return Observer(
-        builder: (_) => NewCommonLayout(
+        builder: (_) => CommonLayout(
             title: '健康认证',
             child: Column(
               children: <Widget>[

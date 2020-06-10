@@ -5,7 +5,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class NewWalletWidget extends StatelessWidget {
@@ -39,7 +39,7 @@ class NewWalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NewCommonLayout(
+    return CommonLayout(
         backIcon: BackIcon.none,
         child: Container(
           decoration: BoxDecoration(

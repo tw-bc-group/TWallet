@@ -14,7 +14,7 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/color_money_text.dart';
 import 'package:tw_wallet_ui/views/tx_list/widgets/tx_info_card.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 import 'package:web3dart/credentials.dart';
 
@@ -47,7 +47,7 @@ class TxListDetailsPage extends StatelessWidget {
 
     return WillPopScope(
         onWillPop: args.shouldBackToHome ? () async => false : null,
-        child: NewCommonLayout(
+        child: CommonLayout(
           title: '交易状态',
           backIcon: args.shouldBackToHome ? BackIcon.none : BackIcon.arrow,
           child: _buildMainContent(context, args),

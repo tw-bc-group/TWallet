@@ -1,35 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/common/device_info.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class CommonLayout extends StatelessWidget {
-  final LayoutWidgetBuilder childBuilder;
+  final Widget child;
   final bool withBottomBtn;
   final String btnText;
   final VoidCallback btnOnPressed;
   final String title;
-  final String bodyBackColor;
+  final Color bodyBackColor;
   final BackIcon backIcon;
+  final List<Widget> appBarActions;
 
-  const CommonLayout({
-    this.childBuilder,
-    this.withBottomBtn = false,
-    this.btnText = '完成',
-    this.btnOnPressed,
-    this.title,
-    this.bodyBackColor = '#f2f2f2',
-    this.backIcon = BackIcon.arrow,
-  });
+  const CommonLayout(
+      {this.child,
+      this.withBottomBtn = false,
+      this.btnText = '完成',
+      this.btnOnPressed,
+      this.title,
+      this.bodyBackColor,
+      this.backIcon = BackIcon.arrow,
+      this.appBarActions});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      backgroundColor: WalletTheme.rgbColor(bodyBackColor),
+      resizeToAvoidBottomPadding: true,
+      backgroundColor: bodyBackColor ?? WalletColor.primary,
       appBar: AppBar(
-        backgroundColor: WalletTheme.rgbColor('#fafafa'),
-        brightness: Brightness.light,
-        title: PageTitleWidget(title: title, backIcon: backIcon),
+        backgroundColor: WalletColor.primary,
+        brightness: Brightness.dark,
+        title: PageTitleWidget(
+          title: title,
+          backIcon: backIcon,
+          appBarActions: appBarActions,
+        ),
         textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.black,
             displayColor: Colors.black,
@@ -39,37 +46,35 @@ class CommonLayout extends StatelessWidget {
         centerTitle: true,
         titleSpacing: 0.0,
       ),
+      bottomNavigationBar:
+          Theme(data: Theme.of(context), child: Container(height: 0)),
+      // color: DeviceInfo.isIphoneXSeries() ? Colors.transparent : WalletColor.white,
+      // height: DeviceInfo.isIphoneXSeries() ? 30 : 0)),
       body: GestureDetector(
-        onTap: () {
-          final FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: SafeArea(
-            maintainBottomViewPadding: true,
-            child: LayoutBuilder(
-                builder: (context, constraints) => Container(
-                    color: WalletTheme.rgbColor(bodyBackColor),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                            flex: 10,
-                            child: childBuilder(context, constraints)),
-                        if (withBottomBtn)
-                          Container(
-                            padding: EdgeInsets.only(
-                                bottom: constraints.maxHeight / 20),
-                            width: constraints.maxWidth * 0.7,
-                            child: WalletTheme.button(
-                                text: btnText, onPressed: btnOnPressed),
-                          )
-                        else
-                          Container()
-                      ],
-                    )))),
-      ),
+          onTap: () {
+            final FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: SafeArea(
+              maintainBottomViewPadding: true,
+              child: Container(
+                margin: const EdgeInsets.all(0),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(child: Container(child: child)),
+                    if (withBottomBtn)
+                      Container(
+                          color: WalletColor.white,
+                          padding: EdgeInsets.symmetric(
+                              vertical: DeviceInfo.isIphoneXSeries() ? 34 : 20,
+                              horizontal: 30),
+                          child: WalletTheme.button(
+                              text: btnText, onPressed: btnOnPressed))
+                  ],
+                ),
+              ))),
     );
   }
 }

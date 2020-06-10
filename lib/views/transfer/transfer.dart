@@ -22,7 +22,7 @@ import 'package:tw_wallet_ui/views/transfer_confirm/widgets/input_pin.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class TransferPage extends StatefulWidget {
   @override
@@ -187,7 +187,7 @@ class TransferPageState extends State<TransferPage> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (context) => NewCommonLayout(
+      builder: (context) => CommonLayout(
           withBottomBtn: true,
           btnText: '下一步',
           btnOnPressed: btnDisabled() ? null : onNext,

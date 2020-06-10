@@ -62,19 +62,19 @@ class TransferConfirmState extends State<TransferConfirmPage> {
         withBottomBtn: true,
         btnText: '确认转出',
         btnOnPressed: handleConfirm,
-        childBuilder: (context, constraints) => SingleChildScrollView(
-              child: Column(children: [
-                ConfirmRowWidget(
-                  title: '金额',
-                  contentLeft: '${globalEnv().tokenSymbol}${widget.amount}',
-                  contentRight: widget.currency,
-                ),
-                ConfirmRowWidget(
-                  title: '接收地址',
-                  contentLeft: widget.toAddress,
-                ),
-                InputPinWidget(key: inputPinWidgetKey)
-              ]),
-            ));
+        child: SingleChildScrollView(
+          child: Column(children: [
+            ConfirmRowWidget(
+              title: '金额',
+              contentLeft: '${globalEnv().tokenSymbol}${widget.amount}',
+              contentRight: widget.currency,
+            ),
+            ConfirmRowWidget(
+              title: '接收地址',
+              contentLeft: widget.toAddress,
+            ),
+            InputPinWidget(key: inputPinWidgetKey)
+          ]),
+        ));
   }
 }

@@ -55,10 +55,10 @@ class DAppPage extends StatelessWidget {
                 _nativeJavascriptChannel(context),
               },
               onPageStarted: (String url) {
-                print('Page started loading: $url');
+//                print('Page started loading: $url');
               },
               onPageFinished: (String url) {
-                print('Page finished loading: $url');
+//                print('Page finished loading: $url');
               },
               gestureNavigationEnabled: true,
             );

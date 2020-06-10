@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
-import 'package:tw_wallet_ui/widgets/layouts/new_common_layout.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class IdentityNewPage extends StatefulWidget {
   @override
@@ -92,7 +92,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => NewCommonLayout(
+      builder: (_) => CommonLayout(
         title: '个人信息',
         child: Column(
           children: <Widget>[
