@@ -1,17 +1,21 @@
 import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/webview/parameter/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
+import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 typedef OperatorFunction = void Function(String id, String param);
@@ -41,7 +45,37 @@ class DAppService {
     Application.router.pop(context);
   }
 
-  static void signTransaction(String id, String param) {}
+  static Future<void> signTransaction(String id, String param) async {
+    final WebviewSignTransaction _signTransaction =
+        WebviewSignTransaction.fromJson(json.decode(param));
+    final Web3Client _web3Client =
+        Web3Client(_signTransaction.rpcUrl, Client());
+    final Identity _identity =
+        getIt<IdentityStore>().getIdentityById(_signTransaction.accountId);
+    final DeployedContract _contract = DeployedContract(
+        ContractAbi.fromJson(
+            _signTransaction.contractAbi, _signTransaction.contractName),
+        EthereumAddress.fromHex(_signTransaction.contractAddress));
+
+    await _web3Client
+        .credentialsFromPrivateKey(_identity.priKey)
+        .then((credentials) {
+      return _web3Client
+          .signTransaction(
+              credentials,
+              Transaction.callContract(
+                contract: _contract,
+                function: _contract.function(_signTransaction.functionName),
+                parameters: _signTransaction.parameters
+                    .map((p) => p.realType())
+                    .toList(),
+                gasPrice: EtherAmount.zero(),
+                maxGas: 3000000,
+              ),
+              fetchChainIdFromNetworkId: true)
+          .then((rawTx) => resolve(id, '0x${bytesToHex(rawTx)}'));
+    });
+  }
 
   static Future<void> qrCode(String id, _) async {
     resolve(

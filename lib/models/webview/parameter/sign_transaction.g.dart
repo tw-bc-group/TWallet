@@ -24,13 +24,23 @@ class _$WebviewSignTransactionSerializer
       Serializers serializers, WebviewSignTransaction object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'accountId',
+      serializers.serialize(object.accountId,
+          specifiedType: const FullType(String)),
       'rpcUrl',
       serializers.serialize(object.rpcUrl,
           specifiedType: const FullType(String)),
-      'abi',
-      serializers.serialize(object.abi, specifiedType: const FullType(String)),
-      'function',
-      serializers.serialize(object.function,
+      'contractName',
+      serializers.serialize(object.contractName,
+          specifiedType: const FullType(String)),
+      'contractAddress',
+      serializers.serialize(object.contractAddress,
+          specifiedType: const FullType(String)),
+      'contractAbi',
+      serializers.serialize(object.contractAbi,
+          specifiedType: const FullType(String)),
+      'functionName',
+      serializers.serialize(object.functionName,
           specifiedType: const FullType(String)),
       'gasPrice',
       serializers.serialize(object.gasPrice,
@@ -39,8 +49,8 @@ class _$WebviewSignTransactionSerializer
       serializers.serialize(object.maxGas, specifiedType: const FullType(num)),
       'parameters',
       serializers.serialize(object.parameters,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(JsonObject)])),
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(WebviewParameter)])),
     ];
 
     return result;
@@ -58,16 +68,28 @@ class _$WebviewSignTransactionSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'accountId':
+          result.accountId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'rpcUrl':
           result.rpcUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'abi':
-          result.abi = serializers.deserialize(value,
+        case 'contractName':
+          result.contractName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'function':
-          result.function = serializers.deserialize(value,
+        case 'contractAddress':
+          result.contractAddress = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'contractAbi':
+          result.contractAbi = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'functionName':
+          result.functionName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'gasPrice':
@@ -81,7 +103,7 @@ class _$WebviewSignTransactionSerializer
         case 'parameters':
           result.parameters.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(JsonObject)]))
+                      BuiltList, const [const FullType(WebviewParameter)]))
               as BuiltList<Object>);
           break;
       }
@@ -93,38 +115,60 @@ class _$WebviewSignTransactionSerializer
 
 class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
+  final String accountId;
+  @override
   final String rpcUrl;
   @override
-  final String abi;
+  final String contractName;
   @override
-  final String function;
+  final String contractAddress;
+  @override
+  final String contractAbi;
+  @override
+  final String functionName;
   @override
   final num gasPrice;
   @override
   final num maxGas;
   @override
-  final BuiltList<JsonObject> parameters;
+  final BuiltList<WebviewParameter> parameters;
 
   factory _$WebviewSignTransaction(
           [void Function(WebviewSignTransactionBuilder) updates]) =>
       (new WebviewSignTransactionBuilder()..update(updates)).build();
 
   _$WebviewSignTransaction._(
-      {this.rpcUrl,
-      this.abi,
-      this.function,
+      {this.accountId,
+      this.rpcUrl,
+      this.contractName,
+      this.contractAddress,
+      this.contractAbi,
+      this.functionName,
       this.gasPrice,
       this.maxGas,
       this.parameters})
       : super._() {
+    if (accountId == null) {
+      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'accountId');
+    }
     if (rpcUrl == null) {
       throw new BuiltValueNullFieldError('WebviewSignTransaction', 'rpcUrl');
     }
-    if (abi == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'abi');
+    if (contractName == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewSignTransaction', 'contractName');
     }
-    if (function == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'function');
+    if (contractAddress == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewSignTransaction', 'contractAddress');
+    }
+    if (contractAbi == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewSignTransaction', 'contractAbi');
+    }
+    if (functionName == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewSignTransaction', 'functionName');
     }
     if (gasPrice == null) {
       throw new BuiltValueNullFieldError('WebviewSignTransaction', 'gasPrice');
@@ -151,9 +195,12 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is WebviewSignTransaction &&
+        accountId == other.accountId &&
         rpcUrl == other.rpcUrl &&
-        abi == other.abi &&
-        function == other.function &&
+        contractName == other.contractName &&
+        contractAddress == other.contractAddress &&
+        contractAbi == other.contractAbi &&
+        functionName == other.functionName &&
         gasPrice == other.gasPrice &&
         maxGas == other.maxGas &&
         parameters == other.parameters;
@@ -164,8 +211,16 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, rpcUrl.hashCode), abi.hashCode),
-                    function.hashCode),
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc($jc(0, accountId.hashCode),
+                                    rpcUrl.hashCode),
+                                contractName.hashCode),
+                            contractAddress.hashCode),
+                        contractAbi.hashCode),
+                    functionName.hashCode),
                 gasPrice.hashCode),
             maxGas.hashCode),
         parameters.hashCode));
@@ -174,9 +229,12 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('WebviewSignTransaction')
+          ..add('accountId', accountId)
           ..add('rpcUrl', rpcUrl)
-          ..add('abi', abi)
-          ..add('function', function)
+          ..add('contractName', contractName)
+          ..add('contractAddress', contractAddress)
+          ..add('contractAbi', contractAbi)
+          ..add('functionName', functionName)
           ..add('gasPrice', gasPrice)
           ..add('maxGas', maxGas)
           ..add('parameters', parameters))
@@ -188,17 +246,30 @@ class WebviewSignTransactionBuilder
     implements Builder<WebviewSignTransaction, WebviewSignTransactionBuilder> {
   _$WebviewSignTransaction _$v;
 
+  String _accountId;
+  String get accountId => _$this._accountId;
+  set accountId(String accountId) => _$this._accountId = accountId;
+
   String _rpcUrl;
   String get rpcUrl => _$this._rpcUrl;
   set rpcUrl(String rpcUrl) => _$this._rpcUrl = rpcUrl;
 
-  String _abi;
-  String get abi => _$this._abi;
-  set abi(String abi) => _$this._abi = abi;
+  String _contractName;
+  String get contractName => _$this._contractName;
+  set contractName(String contractName) => _$this._contractName = contractName;
 
-  String _function;
-  String get function => _$this._function;
-  set function(String function) => _$this._function = function;
+  String _contractAddress;
+  String get contractAddress => _$this._contractAddress;
+  set contractAddress(String contractAddress) =>
+      _$this._contractAddress = contractAddress;
+
+  String _contractAbi;
+  String get contractAbi => _$this._contractAbi;
+  set contractAbi(String contractAbi) => _$this._contractAbi = contractAbi;
+
+  String _functionName;
+  String get functionName => _$this._functionName;
+  set functionName(String functionName) => _$this._functionName = functionName;
 
   num _gasPrice;
   num get gasPrice => _$this._gasPrice;
@@ -208,19 +279,22 @@ class WebviewSignTransactionBuilder
   num get maxGas => _$this._maxGas;
   set maxGas(num maxGas) => _$this._maxGas = maxGas;
 
-  ListBuilder<JsonObject> _parameters;
-  ListBuilder<JsonObject> get parameters =>
-      _$this._parameters ??= new ListBuilder<JsonObject>();
-  set parameters(ListBuilder<JsonObject> parameters) =>
+  ListBuilder<WebviewParameter> _parameters;
+  ListBuilder<WebviewParameter> get parameters =>
+      _$this._parameters ??= new ListBuilder<WebviewParameter>();
+  set parameters(ListBuilder<WebviewParameter> parameters) =>
       _$this._parameters = parameters;
 
   WebviewSignTransactionBuilder();
 
   WebviewSignTransactionBuilder get _$this {
     if (_$v != null) {
+      _accountId = _$v.accountId;
       _rpcUrl = _$v.rpcUrl;
-      _abi = _$v.abi;
-      _function = _$v.function;
+      _contractName = _$v.contractName;
+      _contractAddress = _$v.contractAddress;
+      _contractAbi = _$v.contractAbi;
+      _functionName = _$v.functionName;
       _gasPrice = _$v.gasPrice;
       _maxGas = _$v.maxGas;
       _parameters = _$v.parameters?.toBuilder();
@@ -248,9 +322,12 @@ class WebviewSignTransactionBuilder
     try {
       _$result = _$v ??
           new _$WebviewSignTransaction._(
+              accountId: accountId,
               rpcUrl: rpcUrl,
-              abi: abi,
-              function: function,
+              contractName: contractName,
+              contractAddress: contractAddress,
+              contractAbi: contractAbi,
+              functionName: functionName,
               gasPrice: gasPrice,
               maxGas: maxGas,
               parameters: parameters.build());

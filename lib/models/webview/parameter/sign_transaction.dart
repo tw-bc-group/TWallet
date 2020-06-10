@@ -1,8 +1,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
+import 'package:tw_wallet_ui/models/webview/parameter/parameter.dart';
 
 part 'sign_transaction.g.dart';
 
@@ -11,12 +11,15 @@ abstract class WebviewSignTransaction
   static Serializer<WebviewSignTransaction> get serializer =>
       _$webviewSignTransactionSerializer;
 
+  String get accountId;
   String get rpcUrl;
-  String get abi;
-  String get function;
+  String get contractName;
+  String get contractAddress;
+  String get contractAbi;
+  String get functionName;
   num get gasPrice;
   num get maxGas;
-  BuiltList<JsonObject> get parameters;
+  BuiltList<WebviewParameter> get parameters;
 
   static WebviewSignTransaction fromJson(dynamic serialized) {
     try {
