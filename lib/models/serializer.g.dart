@@ -20,6 +20,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(TxStatus.serializer)
       ..add(WebviewRequest.serializer)
       ..add(WebviewRequestMethod.serializer)
+      ..add(WebviewSignTransaction.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(JsonObject)]),
+          () => new ListBuilder<JsonObject>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/iso_8601_date_time_serializer.dart';
+import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
@@ -8,6 +9,7 @@ import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
+import 'package:tw_wallet_ui/models/webview/method_param/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
@@ -31,7 +33,8 @@ part 'serializer.g.dart';
   HealthyStatus,
   SelectOption,
   WebviewRequest,
-  WebviewRequestMethod
+  WebviewRequestMethod,
+  WebviewSignTransaction,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())
@@ -54,5 +57,9 @@ final Serializers serializers = (_$serializers.toBuilder()
           () => ApiResponseBuilder<HealthCertificationToken>())
       ..addBuilderFactory(
           const FullType(WebviewRequest), () => WebviewRequestBuilder())
+      ..addBuilderFactory(
+          const FullType(WebviewSignTransaction,
+              [FullType(BuiltList), FullType(JsonObject)]),
+          () => WebviewSignTransactionBuilder())
       ..addPlugin(StandardJsonPlugin()))
     .build();
