@@ -4,19 +4,28 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class DAppPage extends StatelessWidget {
+class DAppPage extends StatefulWidget {
   final String id;
+  const DAppPage({this.id});
+
+  @override
+  State<StatefulWidget> createState() {
+    return DAppPageState();
+  }
+}
+
+class DAppPageState extends State<DAppPage> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
-
-  DAppPage({this.id});
+  bool isLoadingPage = true;
 
   String getDappById(String id) {
-    return dappList.firstWhere((dapp) => id == dapp.id).url;
+    return dappList.firstWhere((dapp) => dapp.id == id).url;
   }
 
   JavascriptChannel _nativeJavascriptChannel(BuildContext context) {
@@ -50,6 +59,12 @@ class DAppPage extends StatelessWidget {
     return true;
   }
 
+  void finishLoading() {
+    setState(() {
+      isLoadingPage = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -58,26 +73,34 @@ class DAppPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: Builder(builder: (BuildContext context) {
-            return WebView(
-              initialUrl: getDappById(id),
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController webViewController) {
-                _controller.complete(webViewController);
-                DAppService.webviewController = webViewController;
-              },
-              javascriptChannels: <JavascriptChannel>{
-                _nativeJavascriptChannel(context),
-              },
-              onPageStarted: (String url) {
-//                print('Page started loading: $url');
-              },
-              onPageFinished: (String url) {
-//                print('Page finished loading: $url');
-              },
-              gestureNavigationEnabled: true,
-            );
-          }),
+          child: Stack(
+            children: <Widget>[
+              Builder(builder: (BuildContext context) {
+                return WebView(
+                  initialUrl: getDappById(widget.id),
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controller.complete(webViewController);
+                    DAppService.webviewController = webViewController;
+                  },
+                  javascriptChannels: <JavascriptChannel>{
+                    _nativeJavascriptChannel(context),
+                  },
+                  onPageStarted: (String url) {
+    //                print('Page started loading: $url');
+                  },
+                  onPageFinished: (String url) {
+                    finishLoading();
+                  },
+                  gestureNavigationEnabled: true,
+                );
+              }),
+              if (isLoadingPage) Container(
+                  alignment: FractionalOffset.center,
+                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
+                )
+            ],
+          ),
         ))
     );
   }
