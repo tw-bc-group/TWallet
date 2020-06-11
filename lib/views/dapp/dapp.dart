@@ -37,10 +37,25 @@ class DAppPage extends StatelessWidget {
         });
   }
 
+  Future<bool> onBack() async {
+    if (!_controller.isCompleted) {
+      return true;
+    }
+    final webViewController = await _controller.future;
+    final webViewCanGoBack = await webViewController.canGoBack();
+    if (webViewCanGoBack) {
+      webViewController.goBack();
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: onBack,
+      child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Builder(builder: (BuildContext context) {
@@ -63,6 +78,7 @@ class DAppPage extends StatelessWidget {
               gestureNavigationEnabled: true,
             );
           }),
-        ));
+        ))
+    );
   }
 }
