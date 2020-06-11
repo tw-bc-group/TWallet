@@ -14,6 +14,10 @@ const WebviewRequestMethod _$signTransaction =
     const WebviewRequestMethod._('signTransaction');
 const WebviewRequestMethod _$getRootKey =
     const WebviewRequestMethod._('getRootKey');
+const WebviewRequestMethod _$setStatusBarMode =
+    const WebviewRequestMethod._('setStatusBarMode');
+const WebviewRequestMethod _$setStatusBarBackgroundColor =
+    const WebviewRequestMethod._('setStatusBarBackgroundColor');
 
 WebviewRequestMethod _$valueOf(String name) {
   switch (name) {
@@ -27,6 +31,10 @@ WebviewRequestMethod _$valueOf(String name) {
       return _$signTransaction;
     case 'getRootKey':
       return _$getRootKey;
+    case 'setStatusBarMode':
+      return _$setStatusBarMode;
+    case 'setStatusBarBackgroundColor':
+      return _$setStatusBarBackgroundColor;
     default:
       throw new ArgumentError(name);
   }
@@ -39,6 +47,8 @@ final BuiltSet<WebviewRequestMethod> _$values =
   _$qrCode,
   _$signTransaction,
   _$getRootKey,
+  _$setStatusBarMode,
+  _$setStatusBarBackgroundColor,
 ]);
 
 Serializer<WebviewRequestMethod> _$webviewRequestMethodSerializer =

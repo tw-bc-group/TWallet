@@ -23,6 +23,13 @@ class DAppPageState extends State<DAppPage> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
   bool isLoadingPage = true;
+  Color backgroundColor = Colors.white;
+
+  @override
+  void initState() {
+    super.initState();
+    DAppService.dappPageStateInstance = this;
+  }
 
   String getDappById(String id) {
     return dappList.firstWhere((dapp) => dapp.id == id).url;
@@ -48,6 +55,7 @@ class DAppPageState extends State<DAppPage> {
 
   Future<bool> onBack() async {
     if (!_controller.isCompleted) {
+      resetToAppStatusBar();
       return true;
     }
     final webViewController = await _controller.future;
@@ -56,6 +64,7 @@ class DAppPageState extends State<DAppPage> {
       webViewController.goBack();
       return false;
     }
+    resetToAppStatusBar();
     return true;
   }
 
@@ -65,13 +74,27 @@ class DAppPageState extends State<DAppPage> {
     });
   }
 
+  void changeBackgroundColor(Color color) {
+    setState(() {
+      backgroundColor = color;
+    });
+  }
+
+  void resetToAppStatusBar() {
+    DAppService.setStatusBarMode('id', 'dark');
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: WalletColor.primary,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return WillPopScope(
       onWillPop: onBack,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
+        bottomNavigationBar:
+          Theme(data: Theme.of(context), child: Container(height: 0)),
         body: SafeArea(
           child: Stack(
             children: <Widget>[

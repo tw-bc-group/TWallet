@@ -7,14 +7,16 @@ import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/webview/parameter/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
+import 'package:tw_wallet_ui/views/dapp/dapp.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
@@ -25,6 +27,7 @@ typedef OperatorFunction = void Function(String id, String param);
 class DAppService {
   static BuildContext context;
   static WebViewController webviewController;
+  static DAppPageState dappPageStateInstance;
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
     switch (method) {
@@ -38,6 +41,10 @@ class DAppService {
         return signTransaction;
       case WebviewRequestMethod.getRootKey:
         return getRootKey;
+      case WebviewRequestMethod.setStatusBarMode:
+        return setStatusBarMode;
+      case WebviewRequestMethod.setStatusBarBackgroundColor:
+        return setStatusBarBackgroundColor;
       default:
         throw ArgumentError.value(method.toString(), 'unexpected method');
     }
@@ -117,17 +124,17 @@ class DAppService {
 
   static void setStatusBarMode(String id, String param) {
     if (param == 'dark') {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-      return;
+      return SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     }
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   }
 
   static void setStatusBarBackgroundColor(String id, String param) {
+    if (DeviceInfo.isIOS()) {
+      return dappPageStateInstance.changeBackgroundColor(WalletTheme.rgbColor(param));
+    }
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: WalletColor.accent,
-      systemNavigationBarDividerColor: WalletColor.accent,
-      statusBarColor: WalletColor.accent
+      statusBarColor: WalletTheme.rgbColor(param),
     ));
   }
 
