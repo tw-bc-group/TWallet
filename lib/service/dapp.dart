@@ -3,10 +3,15 @@ import 'dart:convert';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:http/http.dart';
+=======
+import 'package:flutter/services.dart';
+>>>>>>> chore: add setStatusBarMode and setStatusBarBackgroundColor function but not fullfilled
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/webview/parameter/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
@@ -111,6 +116,22 @@ class DAppService {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     final walletSeed = bip39.mnemonicToSeed(_mnemonicsStore.mnemonics);
     resolve(id, sha256.convert(walletSeed).toString());
+  }
+
+  static void setStatusBarMode(String id, String param) {
+    if (param == 'dark') {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+      return;
+    }
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  }
+
+  static void setStatusBarBackgroundColor(String id, String param) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: WalletColor.accent,
+      systemNavigationBarDividerColor: WalletColor.accent,
+      statusBarColor: WalletColor.accent
+    ));
   }
 
   static void resolve(String id, dynamic data) {
