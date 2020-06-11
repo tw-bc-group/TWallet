@@ -78,8 +78,8 @@ class DAppService {
                 parameters: _signTransaction.parameters
                     .map((p) => p.realType())
                     .toList(),
-                gasPrice: EtherAmount.zero(),
-                maxGas: 3000000,
+                gasPrice: EtherAmount.inWei(_signTransaction.gasPrice),
+                maxGas: _signTransaction.maxGas,
               ),
               fetchChainIdFromNetworkId: true)
           .then((rawTx) => resolve(id, '0x${bytesToHex(rawTx)}'));

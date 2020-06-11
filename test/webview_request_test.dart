@@ -31,7 +31,7 @@ void main() {
         'contractAbi':
             '{ "constant":false, "inputs":[ { "name":"recipient", "type":"address" }, { "name":"amount", "type":"uint256" } ], "name":"transfer", "outputs":[ { "name":"", "type":"bool" } ], "payable":false, "stateMutability":"nonpayable", "type":"function" }',
         'functionName': 'functionName',
-        'gasPrice': 1000,
+        'gasPrice': '1000',
         'maxGas': 3000000,
         'parameters': [
           {

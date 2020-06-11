@@ -44,9 +44,9 @@ class _$WebviewSignTransactionSerializer
           specifiedType: const FullType(String)),
       'gasPrice',
       serializers.serialize(object.gasPrice,
-          specifiedType: const FullType(num)),
+          specifiedType: const FullType(BigInt)),
       'maxGas',
-      serializers.serialize(object.maxGas, specifiedType: const FullType(num)),
+      serializers.serialize(object.maxGas, specifiedType: const FullType(int)),
       'parameters',
       serializers.serialize(object.parameters,
           specifiedType: const FullType(
@@ -94,11 +94,11 @@ class _$WebviewSignTransactionSerializer
           break;
         case 'gasPrice':
           result.gasPrice = serializers.deserialize(value,
-              specifiedType: const FullType(num)) as num;
+              specifiedType: const FullType(BigInt)) as BigInt;
           break;
         case 'maxGas':
           result.maxGas = serializers.deserialize(value,
-              specifiedType: const FullType(num)) as num;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'parameters':
           result.parameters.replace(serializers.deserialize(value,
@@ -127,9 +127,9 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
   final String functionName;
   @override
-  final num gasPrice;
+  final BigInt gasPrice;
   @override
-  final num maxGas;
+  final int maxGas;
   @override
   final BuiltList<WebviewParameter> parameters;
 
@@ -271,13 +271,13 @@ class WebviewSignTransactionBuilder
   String get functionName => _$this._functionName;
   set functionName(String functionName) => _$this._functionName = functionName;
 
-  num _gasPrice;
-  num get gasPrice => _$this._gasPrice;
-  set gasPrice(num gasPrice) => _$this._gasPrice = gasPrice;
+  BigInt _gasPrice;
+  BigInt get gasPrice => _$this._gasPrice;
+  set gasPrice(BigInt gasPrice) => _$this._gasPrice = gasPrice;
 
-  num _maxGas;
-  num get maxGas => _$this._maxGas;
-  set maxGas(num maxGas) => _$this._maxGas = maxGas;
+  int _maxGas;
+  int get maxGas => _$this._maxGas;
+  set maxGas(int maxGas) => _$this._maxGas = maxGas;
 
   ListBuilder<WebviewParameter> _parameters;
   ListBuilder<WebviewParameter> get parameters =>

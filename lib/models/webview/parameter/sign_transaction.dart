@@ -17,8 +17,8 @@ abstract class WebviewSignTransaction
   String get contractAddress;
   String get contractAbi;
   String get functionName;
-  num get gasPrice;
-  num get maxGas;
+  BigInt get gasPrice;
+  int get maxGas;
   BuiltList<WebviewParameter> get parameters;
 
   static WebviewSignTransaction fromJson(dynamic serialized) {
