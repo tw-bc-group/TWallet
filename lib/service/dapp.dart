@@ -3,11 +3,8 @@ import 'dart:convert';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:http/http.dart';
-=======
 import 'package:flutter/services.dart';
->>>>>>> chore: add setStatusBarMode and setStatusBarBackgroundColor function but not fullfilled
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
