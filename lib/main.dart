@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sentry/sentry.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
-import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/views/splash_screen/splash_screen.dart';
 
 final SentryClient sentry = SentryClient(
     dsn:
@@ -31,30 +30,26 @@ Future<void> _reportError(dynamic error, dynamic stackTrace) async {
   );
 }
 
-Future<String> _initialRoute() async {
-  await DeviceInfo.initialDeviceInfo();
-  if (await SecureStorage.hasMnemonics()) {
-    return Routes.home;
-  } else {
-    return Routes.inputPin;
-  }
+Future<void> main() async {
+  // FlutterError.onError = (FlutterErrorDetails details) async {
+  //   if (isInDebugMode) {
+  //     FlutterError.dumpErrorToConsole(details);
+  //   } else {
+  //     await _reportError(details.exception, details.stack);
+  //   }
+  // };
+  runApp(const SplashScreen(
+    onInitializationComplete: runMainApp,
+  ));
 }
 
-Future<void> main() async {
-  FlutterError.onError = (FlutterErrorDetails details) async {
-    if (isInDebugMode) {
-      FlutterError.dumpErrorToConsole(details);
-    } else {
-      await _reportError(details.exception, details.stack);
-    }
-  };
-  getItInit(isTest: false);
-  _initialRoute().then((initialRoute) => runZonedGuarded(
-        () => runApp(ThoughtWallet(initialRoute: initialRoute)),
-        (error, stackTrace) async {
-          await _reportError(error, stackTrace);
-        },
-      ));
+void runMainApp(String initialRoute) {
+  runZonedGuarded(
+    () => runApp(ThoughtWallet(initialRoute: initialRoute)),
+    (error, stackTrace) async {
+      await _reportError(error, stackTrace);
+    },
+  );
 }
 
 class ThoughtWallet extends StatelessWidget {

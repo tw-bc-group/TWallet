@@ -13,7 +13,7 @@ GetIt getIt = GetIt.instance;
 
 class MockHttpClient extends Mock implements HttpClient {}
 
-void getItInit({@required bool isTest}) {
+Future<void> getItInit({@required bool isTest}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   getIt.registerSingletonAsync<EnvStore>(() => EnvStore.init(isTest: isTest));
@@ -28,10 +28,13 @@ void getItInit({@required bool isTest}) {
     getIt.registerSingletonWithDependencies<ApiProvider>(() => ApiProvider(),
         dependsOn: [EnvStore, HttpClient]);
 
-    getIt.registerSingletonAsync<MnemonicsStore>(MnemonicsStore.init);
-    getIt.registerSingletonAsync<ContractService>(ContractService.init,
+    getIt.registerSingleton<MnemonicsStore>(await MnemonicsStore.init());
+    await getIt.isReady<ApiProvider>();
+    await getIt.isReady<EnvStore>();
+    final ContractService contractService = await ContractService.init();
+    getIt.registerSingletonWithDependencies<ContractService>(() => contractService,
         dependsOn: [EnvStore, ApiProvider]);
-    getIt.registerSingletonAsync<IdentityStore>(IdentityStore.init);
+    getIt.registerSingleton<IdentityStore>(await IdentityStore.init());
     getIt.registerSingletonWithDependencies<HealthCertificationStore>(
         () => HealthCertificationStore(),
         dependsOn: [EnvStore]);

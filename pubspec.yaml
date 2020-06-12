@@ -66,6 +66,7 @@ dependencies:
   sentry:
     git: https://github.com/flutter/sentry.git
   crypto: ^2.1.4
+  flutter_native_splash: ^0.1.9
 
 dev_dependencies:
   flutter_test:
@@ -119,3 +120,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
   enabled: true
+
+flutter_native_splash:
+  image: assets/images/thought-wallet.png
+  color: "#ffffff"
