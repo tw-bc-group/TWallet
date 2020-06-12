@@ -55,6 +55,7 @@ class DAppService {
   }
 
   static void quitApp(String id, _) {
+    setStatusBarMode(id, 'dark');
     Application.router.pop(context);
   }
 

@@ -89,6 +89,7 @@ class DAppPageState extends State<DAppPage> {
 
   @override
   Widget build(BuildContext context) {
+    DAppService.setStatusBarMode('id', 'dark');
     return WillPopScope(
       onWillPop: onBack,
       child: Scaffold(
