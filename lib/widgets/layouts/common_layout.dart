@@ -27,7 +27,6 @@ class CommonLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DAppService.setStatusBarBackgroundColor('id', 'param');
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       backgroundColor: bodyBackColor ?? WalletColor.primary,
