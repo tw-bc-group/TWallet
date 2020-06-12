@@ -36,8 +36,6 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
             .map((item) {
               return Identity.fromJson(item);
             })
-            .where(
-                (identity) => identity.fromDApp == null || !identity.fromDApp)
             .toList())
         .orElse([]);
 

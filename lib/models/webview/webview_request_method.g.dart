@@ -18,6 +18,10 @@ const WebviewRequestMethod _$setStatusBarMode =
     const WebviewRequestMethod._('setStatusBarMode');
 const WebviewRequestMethod _$setStatusBarBackgroundColor =
     const WebviewRequestMethod._('setStatusBarBackgroundColor');
+const WebviewRequestMethod _$getAccountById =
+    const WebviewRequestMethod._('getAccountById');
+const WebviewRequestMethod _$getAccountByIds =
+    const WebviewRequestMethod._('getAccountByIds');
 
 WebviewRequestMethod _$valueOf(String name) {
   switch (name) {
@@ -35,6 +39,10 @@ WebviewRequestMethod _$valueOf(String name) {
       return _$setStatusBarMode;
     case 'setStatusBarBackgroundColor':
       return _$setStatusBarBackgroundColor;
+    case 'getAccountById':
+      return _$getAccountById;
+    case 'getAccountByIds':
+      return _$getAccountByIds;
     default:
       throw new ArgumentError(name);
   }
@@ -49,6 +57,8 @@ final BuiltSet<WebviewRequestMethod> _$values =
   _$getRootKey,
   _$setStatusBarMode,
   _$setStatusBarBackgroundColor,
+  _$getAccountById,
+  _$getAccountByIds,
 ]);
 
 Serializer<WebviewRequestMethod> _$webviewRequestMethodSerializer =

@@ -45,6 +45,10 @@ class DAppService {
         return setStatusBarMode;
       case WebviewRequestMethod.setStatusBarBackgroundColor:
         return setStatusBarBackgroundColor;
+      case WebviewRequestMethod.getAccountById:
+        return getAccountById;
+      case WebviewRequestMethod.getAccountByIds:
+        return getAccountByIds;
       default:
         throw ArgumentError.value(method.toString(), 'unexpected method');
     }
@@ -103,7 +107,8 @@ class DAppService {
               ..name = id
               ..pubKey = keys.first
               ..priKey = keys.second
-              ..fromDApp = true))
+              ..fromDApp = true
+              ..index = _mnemonicsStore.index))
             .then((value) => _identityStore.addIdentity(identity: value))
             .then((Identity value) {
           final Map<String, dynamic> resultJson = {
@@ -136,6 +141,32 @@ class DAppService {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: WalletTheme.rgbColor(param),
     ));
+  }
+
+  static void getAccountById(String id, String param) {
+    final IdentityStore _identityStore = getIt<IdentityStore>();
+    final identity = _identityStore.getIdentityById(param);
+    resolve(id, {
+      'id': identity.id,
+      'address': identity.address,
+      'publicKey': identity.pubKey,
+      'index': identity.index
+    });
+  }
+
+  static void getAccountByIds(String id, String param) {
+    final IdentityStore _identityStore = getIt<IdentityStore>();
+    final List<Map> result = [];
+    param.split(',').forEach((accountId) {
+      final identity = _identityStore.getIdentityById(accountId);
+      result.add({
+        'id': identity.id,
+        'address': identity.address,
+        'publicKey': identity.pubKey,
+        'index': identity.index
+      });
+    });
+    resolve(id, result);
   }
 
   static void resolve(String id, dynamic data) {
