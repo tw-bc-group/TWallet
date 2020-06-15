@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
+import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
@@ -99,26 +100,29 @@ class DAppPageState extends State<DAppPage> {
         body: SafeArea(
           child: Stack(
             children: <Widget>[
-              Builder(builder: (BuildContext context) {
-                return WebView(
-                  initialUrl: getDappById(widget.id),
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    _controller.complete(webViewController);
-                    DAppService.webviewController = webViewController;
-                  },
-                  javascriptChannels: <JavascriptChannel>{
-                    _nativeJavascriptChannel(context),
-                  },
-                  onPageStarted: (String url) {
-    //                print('Page started loading: $url');
-                  },
-                  onPageFinished: (String url) {
-                    finishLoading();
-                  },
-                  gestureNavigationEnabled: true,
-                );
-              }),
+              Container(
+                padding: EdgeInsets.only(bottom: DeviceInfo.isIphoneXSeries() ? 34 : 20),
+                child: Builder(builder: (BuildContext context) {
+                  return WebView(
+                    initialUrl: getDappById(widget.id),
+                    javascriptMode: JavascriptMode.unrestricted,
+                    onWebViewCreated: (WebViewController webViewController) {
+                      _controller.complete(webViewController);
+                      DAppService.webviewController = webViewController;
+                    },
+                    javascriptChannels: <JavascriptChannel>{
+                      _nativeJavascriptChannel(context),
+                    },
+                    onPageStarted: (String url) {
+      //                print('Page started loading: $url');
+                    },
+                    onPageFinished: (String url) {
+                      finishLoading();
+                    },
+                    gestureNavigationEnabled: true,
+                  );
+                })
+              ),
               if (isLoadingPage) Container(
                   alignment: FractionalOffset.center,
                   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
