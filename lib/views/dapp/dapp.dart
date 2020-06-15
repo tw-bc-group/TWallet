@@ -101,7 +101,7 @@ class DAppPageState extends State<DAppPage> {
           child: Stack(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(bottom: DeviceInfo.isIphoneXSeries() ? 34 : 20),
+                padding: EdgeInsets.only(bottom: DeviceInfo.isIphoneXSeries() ? 34 : 0),
                 child: Builder(builder: (BuildContext context) {
                   return WebView(
                     initialUrl: getDappById(widget.id),
