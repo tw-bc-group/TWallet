@@ -24,7 +24,12 @@ List<DAppInfo> dappList = [
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
       '5',
+      'M. Enterprise DEV',
+      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/dev/index.html#/enterprise/login',
+      'assets/icons/dapp/loyalty-enterprise.svg'),
+  DAppInfo(
+      '6',
       'M. Enterprise QA',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html',
+      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html#/enterprise/login',
       'assets/icons/dapp/loyalty-enterprise.svg')
 ];
