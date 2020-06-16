@@ -145,6 +145,10 @@ class DAppService {
   }
 
   static void getAccountById(String id, String param) {
+    if (param.isEmpty) {
+      return resolve(id, null);
+    }
+
     final IdentityStore _identityStore = getIt<IdentityStore>();
     final identity = _identityStore.getIdentityById(param);
     resolve(id, {
@@ -156,6 +160,10 @@ class DAppService {
   }
 
   static void getAccountByIds(String id, String param) {
+    if (param.isEmpty) {
+      return resolve(id, []);
+    }
+
     final IdentityStore _identityStore = getIt<IdentityStore>();
     final List<Map> result = [];
     param.split(',').forEach((accountId) {
