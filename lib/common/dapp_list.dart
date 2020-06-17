@@ -20,7 +20,7 @@ List<DAppInfo> dappList = [
       'M. CLUB QA',
       'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
-  DAppInfo('4', 'M. Enterprise LOCAL', 'http://127.0.0.1:3000/#/enterprise/login',
+  DAppInfo('4', 'M. Enterprise LOCAL', 'http://127.0.0.1:3000/#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
       '5',
