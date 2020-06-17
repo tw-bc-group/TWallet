@@ -30,6 +30,7 @@ class DAppPageState extends State<DAppPage> {
   void initState() {
     super.initState();
     DAppService.dappPageStateInstance = this;
+    DAppService.setStatusBarMode('id', 'dark');
   }
 
   String getDappById(String id) {
@@ -90,19 +91,20 @@ class DAppPageState extends State<DAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    DAppService.setStatusBarMode('id', 'dark');
     return WillPopScope(
       onWillPop: onBack,
       child: Scaffold(
         backgroundColor: backgroundColor,
         bottomNavigationBar:
-          Theme(data: Theme.of(context), child: Container(height: 0)),
+          Theme(data: Theme.of(context), child: Container(
+              height: DeviceInfo.isIphoneXSeries() ? 34 : 0,
+              color: WalletColor.white,
+            ),
+          ),
         body: SafeArea(
           child: Stack(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(bottom: DeviceInfo.isIphoneXSeries() ? 34 : 0),
-                child: Builder(builder: (BuildContext context) {
+              Builder(builder: (BuildContext context) {
                   return WebView(
                     initialUrl: getDappById(widget.id),
                     javascriptMode: JavascriptMode.unrestricted,
@@ -121,7 +123,7 @@ class DAppPageState extends State<DAppPage> {
                     },
                     gestureNavigationEnabled: true,
                   );
-                })
+                }
               ),
               if (isLoadingPage) Container(
                   alignment: FractionalOffset.center,
