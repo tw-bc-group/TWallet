@@ -17,6 +17,7 @@ class WebviewRequestMethod extends EnumClass {
   static const WebviewRequestMethod setStatusBarBackgroundColor = _$setStatusBarBackgroundColor;
   static const WebviewRequestMethod getAccountById = _$getAccountById;
   static const WebviewRequestMethod getAccountByIds = _$getAccountByIds;
+  static const WebviewRequestMethod validatePin = _$validatePin;
 
   const WebviewRequestMethod._(String name) : super(name);
 

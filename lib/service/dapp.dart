@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/webview/parameter/sign_transaction.dart';
@@ -49,6 +51,8 @@ class DAppService {
         return getAccountById;
       case WebviewRequestMethod.getAccountByIds:
         return getAccountByIds;
+      case WebviewRequestMethod.validatePin:
+        return validatePin;
       default:
         throw ArgumentError.value(method.toString(), 'unexpected method');
     }
@@ -176,6 +180,24 @@ class DAppService {
       });
     });
     resolve(id, result);
+  }
+
+  static Future<void> validatePin(String id, String pin) async {
+    final iv = encrypt_tool.IV.fromUtf8('${pin}0123456789');
+    final encrypt_tool.Key aesKey =
+        encrypt_tool.Key.fromUtf8('${pin}abcdefghijklmnopqrstuvwxyz');
+    final encrypt = encrypt_tool.Encrypter(
+        encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc));
+    final String encryptedString =
+        await SecureStorage.get(SecureStorageItem.masterKey);
+    final encrypt_tool.Encrypted encryptedKey =
+        encrypt_tool.Encrypted.fromBase64(encryptedString);
+    try {
+      encrypt.decrypt(encryptedKey, iv: iv);
+      resolve(id, true);
+    } catch (error) {
+      resolve(id, false);
+    }
   }
 
   static void resolve(String id, dynamic data) {

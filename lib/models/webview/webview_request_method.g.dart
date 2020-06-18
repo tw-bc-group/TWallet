@@ -22,6 +22,8 @@ const WebviewRequestMethod _$getAccountById =
     const WebviewRequestMethod._('getAccountById');
 const WebviewRequestMethod _$getAccountByIds =
     const WebviewRequestMethod._('getAccountByIds');
+const WebviewRequestMethod _$validatePin =
+    const WebviewRequestMethod._('validatePin');
 
 WebviewRequestMethod _$valueOf(String name) {
   switch (name) {
@@ -43,6 +45,8 @@ WebviewRequestMethod _$valueOf(String name) {
       return _$getAccountById;
     case 'getAccountByIds':
       return _$getAccountByIds;
+    case 'validatePin':
+      return _$validatePin;
     default:
       throw new ArgumentError(name);
   }
@@ -59,6 +63,7 @@ final BuiltSet<WebviewRequestMethod> _$values =
   _$setStatusBarBackgroundColor,
   _$getAccountById,
   _$getAccountByIds,
+  _$validatePin,
 ]);
 
 Serializer<WebviewRequestMethod> _$webviewRequestMethodSerializer =
