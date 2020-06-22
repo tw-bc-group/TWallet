@@ -13,6 +13,8 @@ class WebviewParameterType extends EnumClass {
   static const WebviewParameterType string = _$string;
   static const WebviewParameterType ethAddress = _$ethAddress;
   static const WebviewParameterType bigInt = _$bigInt;
+  static const WebviewParameterType _amount = _$_amount;
+  static const WebviewParameterType _merchantAddress = _$_merchantAddress;
 
   const WebviewParameterType._(String name) : super(name);
 

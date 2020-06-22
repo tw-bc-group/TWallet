@@ -10,6 +10,9 @@ const WebviewParameterType _$string = const WebviewParameterType._('string');
 const WebviewParameterType _$ethAddress =
     const WebviewParameterType._('ethAddress');
 const WebviewParameterType _$bigInt = const WebviewParameterType._('bigInt');
+const WebviewParameterType _$_amount = const WebviewParameterType._('_amount');
+const WebviewParameterType _$_merchantAddress =
+    const WebviewParameterType._('_merchantAddress');
 
 WebviewParameterType _$valueOf(String name) {
   switch (name) {
@@ -19,6 +22,10 @@ WebviewParameterType _$valueOf(String name) {
       return _$ethAddress;
     case 'bigInt':
       return _$bigInt;
+    case '_amount':
+      return _$_amount;
+    case '_merchantAddress':
+      return _$_merchantAddress;
     default:
       throw new ArgumentError(name);
   }
@@ -29,6 +36,8 @@ final BuiltSet<WebviewParameterType> _$values =
   _$string,
   _$ethAddress,
   _$bigInt,
+  _$_amount,
+  _$_merchantAddress,
 ]);
 
 Serializer<WebviewParameterType> _$webviewParameterTypeSerializer =

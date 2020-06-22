@@ -20,6 +20,11 @@ List<DAppInfo> dappList = [
       'M. CLUB QA',
       'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
+  DAppInfo(
+      '7',
+      'M. CLUB UAT',
+      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/uat/index.html',
+      'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo('4', 'M. Enterprise LOCAL', 'http://127.0.0.1:3000/#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
@@ -31,5 +36,10 @@ List<DAppInfo> dappList = [
       '6',
       'M. Enterprise QA',
       'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html#/enterprise/login',
+      'assets/icons/dapp/loyalty-enterprise.svg'),
+  DAppInfo(
+      '8',
+      'M. Enterprise UAT',
+      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/uat/index.html#/enterprise/login',
       'assets/icons/dapp/loyalty-enterprise.svg')
 ];
