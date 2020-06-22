@@ -13,33 +13,33 @@ List<DAppInfo> dappList = [
   DAppInfo(
       '2',
       'M. CLUB DEV',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/dev/index.html',
+      'https://tw-loyalty-club-app-dev.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
       '3',
       'M. CLUB QA',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html',
+      'https://tw-loyalty-club-app-qa.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
       '7',
       'M. CLUB UAT',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/uat/index.html',
+      'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo('4', 'M. Enterprise LOCAL', 'http://127.0.0.1:3000/#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
       '5',
       'M. Enterprise DEV',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/dev/index.html#/enterprise/login',
+      'https://tw-loyalty-club-app-dev.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
       '6',
       'M. Enterprise QA',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/qa/index.html#/enterprise/login',
+      'https://tw-loyalty-club-app-qa.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
       '8',
       'M. Enterprise UAT',
-      'https://tw-loyalty-club-app.s3.us-east-2.amazonaws.com/www/uat/index.html#/enterprise/login',
+      'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg')
 ];
