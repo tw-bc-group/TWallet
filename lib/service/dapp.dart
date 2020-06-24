@@ -202,11 +202,11 @@ class DAppService {
 
   static void resolve(String id, dynamic data) {
     webviewController.evaluateJavascript(
-        'window.ThoughtWallet.resolvePromise("$id", \'${json.encode(data)}\')');
+        'window.TWallet.resolvePromise("$id", \'${json.encode(data)}\')');
   }
 
   static void reject(String id, dynamic data) {
     webviewController.evaluateJavascript(
-        'window.ThoughtWallet.rejectPromise("$id", \'${json.encode(data)}\');');
+        'window.TWallet.rejectPromise("$id", \'${json.encode(data)}\');');
   }
 }

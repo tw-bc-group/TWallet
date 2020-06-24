@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-    <string>ThoughtWallet</string>
+    <string>TWallet</string>
 	<key>CFBundleDisplayName</key>
-	<string>ThoughtWallet</string>
+	<string>TWallet</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

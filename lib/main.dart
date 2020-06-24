@@ -45,17 +45,17 @@ Future<void> main() async {
 
 void runMainApp(String initialRoute) {
   runZonedGuarded(
-    () => runApp(ThoughtWallet(initialRoute: initialRoute)),
+    () => runApp(TWallet(initialRoute: initialRoute)),
     (error, stackTrace) async {
       await _reportError(error, stackTrace);
     },
   );
 }
 
-class ThoughtWallet extends StatelessWidget {
+class TWallet extends StatelessWidget {
   final String initialRoute;
 
-  ThoughtWallet({@required this.initialRoute}) {
+  TWallet({@required this.initialRoute}) {
     final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;

@@ -53,7 +53,7 @@ class _SplashAppState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: WalletColor.white,
       body: Center(
-        child: Image.asset('assets/images/thought-wallet.png')
+        child: Image.asset('assets/images/t-wallet.png')
       ),
     );
   }

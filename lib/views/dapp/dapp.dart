@@ -39,7 +39,7 @@ class DAppPageState extends State<DAppPage> {
 
   JavascriptChannel _nativeJavascriptChannel(BuildContext context) {
     return JavascriptChannel(
-        name: 'ThoughtWalletNative',
+        name: 'TWalletNative',
         onMessageReceived: (JavascriptMessage message) {
           try {
             final Map<String, dynamic> requestJson =
@@ -50,7 +50,7 @@ class DAppPageState extends State<DAppPage> {
                 .call(webviewRequest.id, webviewRequest.param);
           } catch (e) {
             _controller.future.then((webviewController) => webviewController
-                .evaluateJavascript('window.ThoughtWallet.rejectPromise($e);'));
+                .evaluateJavascript('window.TWallet.rejectPromise($e);'));
           }
         });
   }

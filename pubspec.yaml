@@ -122,5 +122,5 @@ flutter_intl:
   enabled: true
 
 flutter_native_splash:
-  image: assets/images/thought-wallet.png
+  image: assets/images/t-wallet.png
   color: "#ffffff"
