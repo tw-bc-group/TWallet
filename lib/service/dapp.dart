@@ -68,6 +68,7 @@ class DAppService {
         WebviewSignTransaction.fromJson(json.decode(param));
     final Web3Client _web3Client =
         Web3Client(_signTransaction.rpcUrl, Client());
+    final blockNum = await _web3Client.getBlockNumber();
     final Identity _identity =
         getIt<IdentityStore>().getIdentityById(_signTransaction.accountId);
     final DeployedContract _contract = DeployedContract(
@@ -88,6 +89,7 @@ class DAppService {
                     .map((p) => p.realType())
                     .toList(),
                 gasPrice: EtherAmount.inWei(_signTransaction.gasPrice),
+                nonce: blockNum + 1,
                 maxGas: _signTransaction.maxGas,
               ),
               fetchChainIdFromNetworkId: true)
@@ -141,7 +143,8 @@ class DAppService {
 
   static void setStatusBarBackgroundColor(String id, String param) {
     if (DeviceInfo.isIOS()) {
-      return dappPageStateInstance.changeBackgroundColor(WalletTheme.rgbColor(param));
+      return dappPageStateInstance
+          .changeBackgroundColor(WalletTheme.rgbColor(param));
     }
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: WalletTheme.rgbColor(param),
