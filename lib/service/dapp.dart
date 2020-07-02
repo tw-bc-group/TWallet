@@ -68,8 +68,6 @@ class DAppService {
         WebviewSignTransaction.fromJson(json.decode(param));
     final Web3Client _web3Client =
         Web3Client(_signTransaction.rpcUrl, Client());
-    final blockNum = await _web3Client.getBlockNumber();
-    final nonce = DateTime.now().millisecondsSinceEpoch + blockNum;
     final Identity _identity =
         getIt<IdentityStore>().getIdentityById(_signTransaction.accountId);
     final DeployedContract _contract = DeployedContract(
@@ -90,7 +88,6 @@ class DAppService {
                     .map((p) => p.realType())
                     .toList(),
                 gasPrice: EtherAmount.inWei(_signTransaction.gasPrice),
-                nonce: nonce,
                 maxGas: _signTransaction.maxGas,
               ),
               fetchChainIdFromNetworkId: true)
