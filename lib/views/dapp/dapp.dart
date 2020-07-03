@@ -92,46 +92,48 @@ class DAppPageState extends State<DAppPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: onBack,
-      child: Scaffold(
-        backgroundColor: backgroundColor,
-        bottomNavigationBar:
-          Theme(data: Theme.of(context), child: Container(
-              height: DeviceInfo.isIphoneXSeries() ? 34 : 0,
-              color: WalletColor.white,
-            ),
-          ),
-        body: SafeArea(
-          child: Stack(
-            children: <Widget>[
-              Builder(builder: (BuildContext context) {
-                  return WebView(
-                    initialUrl: getDappById(widget.id),
-                    javascriptMode: JavascriptMode.unrestricted,
-                    onWebViewCreated: (WebViewController webViewController) {
-                      _controller.complete(webViewController);
-                      DAppService.webviewController = webViewController;
-                    },
-                    javascriptChannels: <JavascriptChannel>{
-                      _nativeJavascriptChannel(context),
-                    },
-                    onPageStarted: (String url) {
-      //                print('Page started loading: $url');
-                    },
-                    onPageFinished: (String url) {
-                      finishLoading();
-                    },
-                    gestureNavigationEnabled: true,
-                  );
-                }
+        onWillPop: onBack,
+        child: Scaffold(
+            backgroundColor: backgroundColor,
+            bottomNavigationBar: Theme(
+              data: Theme.of(context),
+              child: Container(
+                height: DeviceInfo.isIphoneXSeries() ? 34 : 0,
+                color: WalletColor.white,
               ),
-              if (isLoadingPage) Container(
-                  alignment: FractionalOffset.center,
-                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
-                )
-            ],
-          ),
-        ))
-    );
+            ),
+            body: SafeArea(
+              child: Stack(
+                children: <Widget>[
+                  Builder(builder: (BuildContext context) {
+                    return WebView(
+                      initialUrl: getDappById(widget.id),
+                      javascriptMode: JavascriptMode.unrestricted,
+                      onWebViewCreated: (WebViewController webViewController) {
+                        _controller.complete(webViewController);
+                        DAppService.webviewController = webViewController;
+                      },
+                      javascriptChannels: <JavascriptChannel>{
+                        _nativeJavascriptChannel(context),
+                      },
+                      onPageStarted: (String url) {
+                        //                print('Page started loading: $url');
+                      },
+                      onPageFinished: (String url) {
+                        finishLoading();
+                      },
+                      gestureNavigationEnabled: true,
+                    );
+                  }),
+                  if (isLoadingPage)
+                    Container(
+                      alignment: FractionalOffset.center,
+                      child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              WalletColor.primary)),
+                    )
+                ],
+              ),
+            )));
   }
 }
