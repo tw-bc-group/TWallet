@@ -147,10 +147,9 @@ class _IdentityPageState extends State<IdentityPage> {
         ),
         child: WalletTheme.button(
             text: '新增身份',
-            // onPressed: () =>
-            //     Application.router.navigateTo(context, Routes.newIdentity)),
-            // onPressed: () => PincodeService.validate()));
-            onPressed: () => DAppService.signTransaction('id', 'param')));
+            onPressed: () =>
+                Application.router.navigateTo(context, Routes.newIdentity)));
+    // onPressed: () => DAppService.signTransaction('id', 'param')));
   }
 
   @override
