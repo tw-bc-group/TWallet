@@ -22,7 +22,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(WebviewParameterType.serializer)
       ..add(WebviewRequest.serializer)
       ..add(WebviewRequestMethod.serializer)
-      ..add(WebviewSignTransaction.serializer)
+      ..add(WebviewTransactionInfo.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

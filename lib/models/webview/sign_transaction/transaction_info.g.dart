@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sign_transaction.dart';
+part of 'transaction_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<WebviewSignTransaction> _$webviewSignTransactionSerializer =
-    new _$WebviewSignTransactionSerializer();
+Serializer<WebviewTransactionInfo> _$webviewTransactionInfoSerializer =
+    new _$WebviewTransactionInfoSerializer();
 
-class _$WebviewSignTransactionSerializer
-    implements StructuredSerializer<WebviewSignTransaction> {
+class _$WebviewTransactionInfoSerializer
+    implements StructuredSerializer<WebviewTransactionInfo> {
   @override
   final Iterable<Type> types = const [
-    WebviewSignTransaction,
-    _$WebviewSignTransaction
+    WebviewTransactionInfo,
+    _$WebviewTransactionInfo
   ];
   @override
-  final String wireName = 'WebviewSignTransaction';
+  final String wireName = 'WebviewTransactionInfo';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, WebviewSignTransaction object,
+      Serializers serializers, WebviewTransactionInfo object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'accountId',
@@ -57,10 +57,10 @@ class _$WebviewSignTransactionSerializer
   }
 
   @override
-  WebviewSignTransaction deserialize(
+  WebviewTransactionInfo deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new WebviewSignTransactionBuilder();
+    final result = new WebviewTransactionInfoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -113,7 +113,7 @@ class _$WebviewSignTransactionSerializer
   }
 }
 
-class _$WebviewSignTransaction extends WebviewSignTransaction {
+class _$WebviewTransactionInfo extends WebviewTransactionInfo {
   @override
   final String accountId;
   @override
@@ -133,11 +133,11 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
   final BuiltList<WebviewParameter> parameters;
 
-  factory _$WebviewSignTransaction(
-          [void Function(WebviewSignTransactionBuilder) updates]) =>
-      (new WebviewSignTransactionBuilder()..update(updates)).build();
+  factory _$WebviewTransactionInfo(
+          [void Function(WebviewTransactionInfoBuilder) updates]) =>
+      (new WebviewTransactionInfoBuilder()..update(updates)).build();
 
-  _$WebviewSignTransaction._(
+  _$WebviewTransactionInfo._(
       {this.accountId,
       this.rpcUrl,
       this.contractName,
@@ -149,52 +149,52 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
       this.parameters})
       : super._() {
     if (accountId == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'accountId');
+      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'accountId');
     }
     if (rpcUrl == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'rpcUrl');
+      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'rpcUrl');
     }
     if (contractName == null) {
       throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'contractName');
+          'WebviewTransactionInfo', 'contractName');
     }
     if (contractAddress == null) {
       throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'contractAddress');
+          'WebviewTransactionInfo', 'contractAddress');
     }
     if (contractAbi == null) {
       throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'contractAbi');
+          'WebviewTransactionInfo', 'contractAbi');
     }
     if (functionName == null) {
       throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'functionName');
+          'WebviewTransactionInfo', 'functionName');
     }
     if (gasPrice == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'gasPrice');
+      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'gasPrice');
     }
     if (maxGas == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'maxGas');
+      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'maxGas');
     }
     if (parameters == null) {
       throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'parameters');
+          'WebviewTransactionInfo', 'parameters');
     }
   }
 
   @override
-  WebviewSignTransaction rebuild(
-          void Function(WebviewSignTransactionBuilder) updates) =>
+  WebviewTransactionInfo rebuild(
+          void Function(WebviewTransactionInfoBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  WebviewSignTransactionBuilder toBuilder() =>
-      new WebviewSignTransactionBuilder()..replace(this);
+  WebviewTransactionInfoBuilder toBuilder() =>
+      new WebviewTransactionInfoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is WebviewSignTransaction &&
+    return other is WebviewTransactionInfo &&
         accountId == other.accountId &&
         rpcUrl == other.rpcUrl &&
         contractName == other.contractName &&
@@ -228,7 +228,7 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewSignTransaction')
+    return (newBuiltValueToStringHelper('WebviewTransactionInfo')
           ..add('accountId', accountId)
           ..add('rpcUrl', rpcUrl)
           ..add('contractName', contractName)
@@ -242,9 +242,9 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   }
 }
 
-class WebviewSignTransactionBuilder
-    implements Builder<WebviewSignTransaction, WebviewSignTransactionBuilder> {
-  _$WebviewSignTransaction _$v;
+class WebviewTransactionInfoBuilder
+    implements Builder<WebviewTransactionInfo, WebviewTransactionInfoBuilder> {
+  _$WebviewTransactionInfo _$v;
 
   String _accountId;
   String get accountId => _$this._accountId;
@@ -285,9 +285,9 @@ class WebviewSignTransactionBuilder
   set parameters(ListBuilder<WebviewParameter> parameters) =>
       _$this._parameters = parameters;
 
-  WebviewSignTransactionBuilder();
+  WebviewTransactionInfoBuilder();
 
-  WebviewSignTransactionBuilder get _$this {
+  WebviewTransactionInfoBuilder get _$this {
     if (_$v != null) {
       _accountId = _$v.accountId;
       _rpcUrl = _$v.rpcUrl;
@@ -304,24 +304,24 @@ class WebviewSignTransactionBuilder
   }
 
   @override
-  void replace(WebviewSignTransaction other) {
+  void replace(WebviewTransactionInfo other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$WebviewSignTransaction;
+    _$v = other as _$WebviewTransactionInfo;
   }
 
   @override
-  void update(void Function(WebviewSignTransactionBuilder) updates) {
+  void update(void Function(WebviewTransactionInfoBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$WebviewSignTransaction build() {
-    _$WebviewSignTransaction _$result;
+  _$WebviewTransactionInfo build() {
+    _$WebviewTransactionInfo _$result;
     try {
       _$result = _$v ??
-          new _$WebviewSignTransaction._(
+          new _$WebviewTransactionInfo._(
               accountId: accountId,
               rpcUrl: rpcUrl,
               contractName: contractName,
@@ -338,7 +338,7 @@ class WebviewSignTransactionBuilder
         parameters.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'WebviewSignTransaction', _$failedField, e.toString());
+            'WebviewTransactionInfo', _$failedField, e.toString());
       }
       rethrow;
     }

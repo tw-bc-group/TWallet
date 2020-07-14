@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
-import 'package:tw_wallet_ui/models/webview/parameter/sign_transaction.dart';
+import 'package:tw_wallet_ui/models/webview/sign_transaction/transaction_info.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/pincode.dart';
@@ -70,8 +70,8 @@ class DAppService {
       return reject(id, '');
     }
     try {
-      final WebviewSignTransaction _signTransaction =
-          WebviewSignTransaction.fromJson(json.decode(param));
+      final WebviewTransactionInfo _signTransaction =
+          WebviewTransactionInfo.fromJson(json.decode(param));
       final Web3Client _web3Client =
           Web3Client(_signTransaction.rpcUrl, Client());
       final Identity _identity =
