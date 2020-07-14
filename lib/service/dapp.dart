@@ -16,6 +16,7 @@ import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/webview/parameter/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/pincode.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/dapp/dapp.dart';
@@ -64,35 +65,40 @@ class DAppService {
   }
 
   static Future<void> signTransaction(String id, String param) async {
-    final WebviewSignTransaction _signTransaction =
-        WebviewSignTransaction.fromJson(json.decode(param));
-    final Web3Client _web3Client =
-        Web3Client(_signTransaction.rpcUrl, Client());
-    final Identity _identity =
-        getIt<IdentityStore>().getIdentityById(_signTransaction.accountId);
-    final DeployedContract _contract = DeployedContract(
-        ContractAbi.fromJson(
-            _signTransaction.contractAbi, _signTransaction.contractName),
-        EthereumAddress.fromHex(_signTransaction.contractAddress));
+    final pincodeValidate = await PincodeService.validate();
+    if (pincodeValidate == null) {
+      return reject(id, '');
+    }
+    try {
+      final WebviewSignTransaction _signTransaction =
+          WebviewSignTransaction.fromJson(json.decode(param));
+      final Web3Client _web3Client =
+          Web3Client(_signTransaction.rpcUrl, Client());
+      final Identity _identity =
+          getIt<IdentityStore>().getIdentityById(_signTransaction.accountId);
+      final DeployedContract _contract = DeployedContract(
+          ContractAbi.fromJson(
+              _signTransaction.contractAbi, _signTransaction.contractName),
+          EthereumAddress.fromHex(_signTransaction.contractAddress));
 
-    await _web3Client
-        .credentialsFromPrivateKey(_identity.priKey)
-        .then((credentials) {
-      return _web3Client
-          .signTransaction(
-              credentials,
-              Transaction.callContract(
-                contract: _contract,
-                function: _contract.function(_signTransaction.functionName),
-                parameters: _signTransaction.parameters
-                    .map((p) => p.realType())
-                    .toList(),
-                gasPrice: EtherAmount.inWei(_signTransaction.gasPrice),
-                maxGas: _signTransaction.maxGas,
-              ),
-              fetchChainIdFromNetworkId: true)
-          .then((rawTx) => resolve(id, '0x${bytesToHex(rawTx)}'));
-    });
+      final credentials =
+          await _web3Client.credentialsFromPrivateKey(_identity.priKey);
+      final rawTx = await _web3Client.signTransaction(
+        credentials,
+        Transaction.callContract(
+          contract: _contract,
+          function: _contract.function(_signTransaction.functionName),
+          parameters:
+              _signTransaction.parameters.map((p) => p.realType()).toList(),
+          gasPrice: EtherAmount.inWei(_signTransaction.gasPrice),
+          maxGas: _signTransaction.maxGas,
+        ),
+        fetchChainIdFromNetworkId: true,
+      );
+      resolve(id, '0x${bytesToHex(rawTx)}');
+    } catch (err) {
+      reject(id, err.toString());
+    }
   }
 
   static Future<void> qrCode(String id, _) async {

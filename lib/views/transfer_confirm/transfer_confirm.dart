@@ -73,7 +73,9 @@ class TransferConfirmState extends State<TransferConfirmPage> {
               title: '接收地址',
               contentLeft: widget.toAddress,
             ),
-            InputPinWidget(key: inputPinWidgetKey)
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: InputPinWidget(key: inputPinWidgetKey))
           ]),
         ));
   }

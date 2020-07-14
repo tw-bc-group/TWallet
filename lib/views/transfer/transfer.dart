@@ -119,7 +119,17 @@ class TransferPageState extends State<TransferPage> {
               ],
             ),
           ),
-          InputPinWidget(key: inputPinWidgetKey),
+          Container(
+            margin: const EdgeInsets.only(bottom: 20, top: 32),
+            child: Text(
+              '输入PIN码',
+              style: WalletFont.font_16(),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: InputPinWidget(key: inputPinWidgetKey),
+          ),
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(

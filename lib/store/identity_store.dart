@@ -32,11 +32,9 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
 
     final List<Identity> identities = Optional.ofNullable(
             await IdentityStoreBase._db.getListLike('$identityNameKey: %'))
-        .map((listItems) => listItems
-            .map((item) {
+        .map((listItems) => listItems.map((item) {
               return Identity.fromJson(item);
-            })
-            .toList())
+            }).toList())
         .orElse([]);
 
     return IdentityStore(ObservableList.of(identities), didHealthSelectIndex);

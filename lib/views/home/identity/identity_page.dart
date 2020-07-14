@@ -8,6 +8,8 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/service/dapp.dart';
+import 'package:tw_wallet_ui/service/pincode.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
@@ -133,21 +135,22 @@ class _IdentityPageState extends State<IdentityPage> {
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 24),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-              color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 12)
-        ],
-        color: WalletColor.white,
-      ),
-      child: WalletTheme.button(
-          text: '新增身份',
-          onPressed: () =>
-              Application.router.navigateTo(context, Routes.newIdentity)),
-    );
+        margin: const EdgeInsets.only(bottom: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+                color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 12)
+          ],
+          color: WalletColor.white,
+        ),
+        child: WalletTheme.button(
+            text: '新增身份',
+            // onPressed: () =>
+            //     Application.router.navigateTo(context, Routes.newIdentity)),
+            // onPressed: () => PincodeService.validate()));
+            onPressed: () => DAppService.signTransaction('id', 'param')));
   }
 
   @override
@@ -166,8 +169,8 @@ class _IdentityPageState extends State<IdentityPage> {
                 padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
                 child: ListView(
                   children: _store.identities
-                          .where(
-                            (identity) => identity.fromDApp == null || !identity.fromDApp)
+                          .where((identity) =>
+                              identity.fromDApp == null || !identity.fromDApp)
                           .where((identity) =>
                               identity.name.contains(_store.searchName))
                           .map((identity) => _listItem(identity))
