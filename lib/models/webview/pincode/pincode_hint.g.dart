@@ -19,17 +19,25 @@ class _$WebviewPincodeHintSerializer
   @override
   Iterable<Object> serialize(Serializers serializers, WebviewPincodeHint object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'text',
-      serializers.serialize(object.text, specifiedType: const FullType(String)),
-      'color',
-      serializers.serialize(object.color,
-          specifiedType: const FullType(String)),
-      'fontSize',
-      serializers.serialize(object.fontSize,
-          specifiedType: const FullType(double)),
-    ];
-
+    final result = <Object>[];
+    if (object.text != null) {
+      result
+        ..add('text')
+        ..add(serializers.serialize(object.text,
+            specifiedType: const FullType(String)));
+    }
+    if (object.color != null) {
+      result
+        ..add('color')
+        ..add(serializers.serialize(object.color,
+            specifiedType: const FullType(String)));
+    }
+    if (object.fontSize != null) {
+      result
+        ..add('fontSize')
+        ..add(serializers.serialize(object.fontSize,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -76,17 +84,7 @@ class _$WebviewPincodeHint extends WebviewPincodeHint {
           [void Function(WebviewPincodeHintBuilder) updates]) =>
       (new WebviewPincodeHintBuilder()..update(updates)).build();
 
-  _$WebviewPincodeHint._({this.text, this.color, this.fontSize}) : super._() {
-    if (text == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeHint', 'text');
-    }
-    if (color == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeHint', 'color');
-    }
-    if (fontSize == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeHint', 'fontSize');
-    }
-  }
+  _$WebviewPincodeHint._({this.text, this.color, this.fontSize}) : super._();
 
   @override
   WebviewPincodeHint rebuild(

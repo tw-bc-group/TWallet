@@ -23,14 +23,19 @@ class _$WebviewPincodeErrorMsgSerializer
   Iterable<Object> serialize(
       Serializers serializers, WebviewPincodeErrorMsg object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'color',
-      serializers.serialize(object.color,
-          specifiedType: const FullType(String)),
-      'size',
-      serializers.serialize(object.size, specifiedType: const FullType(double)),
-    ];
-
+    final result = <Object>[];
+    if (object.color != null) {
+      result
+        ..add('color')
+        ..add(serializers.serialize(object.color,
+            specifiedType: const FullType(String)));
+    }
+    if (object.fontSize != null) {
+      result
+        ..add('fontSize')
+        ..add(serializers.serialize(object.fontSize,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -50,8 +55,8 @@ class _$WebviewPincodeErrorMsgSerializer
           result.color = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'size':
-          result.size = serializers.deserialize(value,
+        case 'fontSize':
+          result.fontSize = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
       }
@@ -65,20 +70,13 @@ class _$WebviewPincodeErrorMsg extends WebviewPincodeErrorMsg {
   @override
   final String color;
   @override
-  final double size;
+  final double fontSize;
 
   factory _$WebviewPincodeErrorMsg(
           [void Function(WebviewPincodeErrorMsgBuilder) updates]) =>
       (new WebviewPincodeErrorMsgBuilder()..update(updates)).build();
 
-  _$WebviewPincodeErrorMsg._({this.color, this.size}) : super._() {
-    if (color == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeErrorMsg', 'color');
-    }
-    if (size == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeErrorMsg', 'size');
-    }
-  }
+  _$WebviewPincodeErrorMsg._({this.color, this.fontSize}) : super._();
 
   @override
   WebviewPincodeErrorMsg rebuild(
@@ -94,19 +92,19 @@ class _$WebviewPincodeErrorMsg extends WebviewPincodeErrorMsg {
     if (identical(other, this)) return true;
     return other is WebviewPincodeErrorMsg &&
         color == other.color &&
-        size == other.size;
+        fontSize == other.fontSize;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, color.hashCode), size.hashCode));
+    return $jf($jc($jc(0, color.hashCode), fontSize.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('WebviewPincodeErrorMsg')
           ..add('color', color)
-          ..add('size', size))
+          ..add('fontSize', fontSize))
         .toString();
   }
 }
@@ -119,16 +117,16 @@ class WebviewPincodeErrorMsgBuilder
   String get color => _$this._color;
   set color(String color) => _$this._color = color;
 
-  double _size;
-  double get size => _$this._size;
-  set size(double size) => _$this._size = size;
+  double _fontSize;
+  double get fontSize => _$this._fontSize;
+  set fontSize(double fontSize) => _$this._fontSize = fontSize;
 
   WebviewPincodeErrorMsgBuilder();
 
   WebviewPincodeErrorMsgBuilder get _$this {
     if (_$v != null) {
       _color = _$v.color;
-      _size = _$v.size;
+      _fontSize = _$v.fontSize;
       _$v = null;
     }
     return this;
@@ -150,7 +148,7 @@ class WebviewPincodeErrorMsgBuilder
   @override
   _$WebviewPincodeErrorMsg build() {
     final _$result =
-        _$v ?? new _$WebviewPincodeErrorMsg._(color: color, size: size);
+        _$v ?? new _$WebviewPincodeErrorMsg._(color: color, fontSize: fontSize);
     replace(_$result);
     return _$result;
   }

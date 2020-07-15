@@ -23,14 +23,19 @@ class _$WebviewPincodeCloseSerializer
   Iterable<Object> serialize(
       Serializers serializers, WebviewPincodeClose object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'color',
-      serializers.serialize(object.color,
-          specifiedType: const FullType(String)),
-      'size',
-      serializers.serialize(object.size, specifiedType: const FullType(double)),
-    ];
-
+    final result = <Object>[];
+    if (object.color != null) {
+      result
+        ..add('color')
+        ..add(serializers.serialize(object.color,
+            specifiedType: const FullType(String)));
+    }
+    if (object.size != null) {
+      result
+        ..add('size')
+        ..add(serializers.serialize(object.size,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -71,14 +76,7 @@ class _$WebviewPincodeClose extends WebviewPincodeClose {
           [void Function(WebviewPincodeCloseBuilder) updates]) =>
       (new WebviewPincodeCloseBuilder()..update(updates)).build();
 
-  _$WebviewPincodeClose._({this.color, this.size}) : super._() {
-    if (color == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeClose', 'color');
-    }
-    if (size == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeClose', 'size');
-    }
-  }
+  _$WebviewPincodeClose._({this.color, this.size}) : super._();
 
   @override
   WebviewPincodeClose rebuild(

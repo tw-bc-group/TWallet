@@ -42,7 +42,24 @@ void main() {
             {'type': 'bigInt', 'value': '1'}
           ]
         },
-        'pincodeStyle': {}
+        'pincodeStyle': {
+          'closeIcon': {'color': '#dddddd', 'size': 20},
+          'errorMsg': {'color': '#dddddd', 'fontSize': 12},
+          'hintMsg': {'text': '', 'color': '#dddddd', 'fontSize': 12},
+          'inputFields': {
+            'borderWidth': 1,
+            'borderRadius': 8,
+            'size': 40,
+            'textColor': '#dddddd',
+            'borderColor': '#dddddd',
+            'activeBorderColor': '#dddddd',
+            'selectedBorderColor': '#dddddd',
+            'filledColor': '#dddddd',
+            'activeFillColor': '#dddddd',
+            'selectedFillColor': '#dddddd'
+          },
+          'title': {'text': '', 'color': '#dddddd', 'fontSize': 16},
+        }
       };
 
       expect(WebviewSignTransaction.fromJson(serialized),

@@ -23,38 +23,67 @@ class _$WebviewPincodeInputSerializer
   Iterable<Object> serialize(
       Serializers serializers, WebviewPincodeInput object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'borderWidth',
-      serializers.serialize(object.borderWidth,
-          specifiedType: const FullType(double)),
-      'borderRadius',
-      serializers.serialize(object.borderRadius,
-          specifiedType: const FullType(double)),
-      'size',
-      serializers.serialize(object.size, specifiedType: const FullType(double)),
-      'textColor',
-      serializers.serialize(object.textColor,
-          specifiedType: const FullType(String)),
-      'borderColor',
-      serializers.serialize(object.borderColor,
-          specifiedType: const FullType(String)),
-      'activeBorderColor',
-      serializers.serialize(object.activeBorderColor,
-          specifiedType: const FullType(String)),
-      'selectedBorderColor',
-      serializers.serialize(object.selectedBorderColor,
-          specifiedType: const FullType(String)),
-      'filledColor',
-      serializers.serialize(object.filledColor,
-          specifiedType: const FullType(String)),
-      'activeFillColor',
-      serializers.serialize(object.activeFillColor,
-          specifiedType: const FullType(String)),
-      'selectedFillColor',
-      serializers.serialize(object.selectedFillColor,
-          specifiedType: const FullType(String)),
-    ];
-
+    final result = <Object>[];
+    if (object.borderWidth != null) {
+      result
+        ..add('borderWidth')
+        ..add(serializers.serialize(object.borderWidth,
+            specifiedType: const FullType(double)));
+    }
+    if (object.borderRadius != null) {
+      result
+        ..add('borderRadius')
+        ..add(serializers.serialize(object.borderRadius,
+            specifiedType: const FullType(double)));
+    }
+    if (object.size != null) {
+      result
+        ..add('size')
+        ..add(serializers.serialize(object.size,
+            specifiedType: const FullType(double)));
+    }
+    if (object.textColor != null) {
+      result
+        ..add('textColor')
+        ..add(serializers.serialize(object.textColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.borderColor != null) {
+      result
+        ..add('borderColor')
+        ..add(serializers.serialize(object.borderColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.activeBorderColor != null) {
+      result
+        ..add('activeBorderColor')
+        ..add(serializers.serialize(object.activeBorderColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.selectedBorderColor != null) {
+      result
+        ..add('selectedBorderColor')
+        ..add(serializers.serialize(object.selectedBorderColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.filledColor != null) {
+      result
+        ..add('filledColor')
+        ..add(serializers.serialize(object.filledColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.activeFillColor != null) {
+      result
+        ..add('activeFillColor')
+        ..add(serializers.serialize(object.activeFillColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.selectedFillColor != null) {
+      result
+        ..add('selectedFillColor')
+        ..add(serializers.serialize(object.selectedFillColor,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -154,42 +183,7 @@ class _$WebviewPincodeInput extends WebviewPincodeInput {
       this.filledColor,
       this.activeFillColor,
       this.selectedFillColor})
-      : super._() {
-    if (borderWidth == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeInput', 'borderWidth');
-    }
-    if (borderRadius == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeInput', 'borderRadius');
-    }
-    if (size == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeInput', 'size');
-    }
-    if (textColor == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeInput', 'textColor');
-    }
-    if (borderColor == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeInput', 'borderColor');
-    }
-    if (activeBorderColor == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeInput', 'activeBorderColor');
-    }
-    if (selectedBorderColor == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeInput', 'selectedBorderColor');
-    }
-    if (filledColor == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeInput', 'filledColor');
-    }
-    if (activeFillColor == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeInput', 'activeFillColor');
-    }
-    if (selectedFillColor == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeInput', 'selectedFillColor');
-    }
-  }
+      : super._();
 
   @override
   WebviewPincodeInput rebuild(

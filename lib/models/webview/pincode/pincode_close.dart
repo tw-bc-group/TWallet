@@ -8,8 +8,9 @@ abstract class WebviewPincodeClose
     implements Built<WebviewPincodeClose, WebviewPincodeCloseBuilder> {
   static Serializer<WebviewPincodeClose> get serializer =>
       _$webviewPincodeCloseSerializer;
-
+  @nullable
   String get color;
+  @nullable
   double get size;
 
   static WebviewPincodeClose fromJson(dynamic serialized) {

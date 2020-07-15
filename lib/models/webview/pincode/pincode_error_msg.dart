@@ -9,8 +9,10 @@ abstract class WebviewPincodeErrorMsg
   static Serializer<WebviewPincodeErrorMsg> get serializer =>
       _$webviewPincodeErrorMsgSerializer;
 
+  @nullable
   String get color;
-  double get size;
+  @nullable
+  double get fontSize;
 
   static WebviewPincodeErrorMsg fromJson(dynamic serialized) {
     try {

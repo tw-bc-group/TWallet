@@ -9,15 +9,25 @@ abstract class WebviewPincodeInput
   static Serializer<WebviewPincodeInput> get serializer =>
       _$webviewPincodeInputSerializer;
 
+  @nullable
   double get borderWidth;
+  @nullable
   double get borderRadius;
+  @nullable
   double get size;
+  @nullable
   String get textColor;
+  @nullable
   String get borderColor;
+  @nullable
   String get activeBorderColor;
+  @nullable
   String get selectedBorderColor;
+  @nullable
   String get filledColor;
+  @nullable
   String get activeFillColor;
+  @nullable
   String get selectedFillColor;
 
   static WebviewPincodeInput fromJson(dynamic serialized) {

@@ -24,11 +24,11 @@ class PincodeService {
         if (!completer.isCompleted) {
           completer.complete();
         }
-        dialogInstance = null;
       }
       ..show();
     return completer.future.then((value) {
       dialogInstance.dismiss();
+      dialogInstance = null;
       return value;
     });
   }

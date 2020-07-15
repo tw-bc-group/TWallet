@@ -9,8 +9,11 @@ abstract class WebviewPincodeHint
   static Serializer<WebviewPincodeHint> get serializer =>
       _$webviewPincodeHintSerializer;
 
+  @nullable
   String get text;
+  @nullable
   String get color;
+  @nullable
   double get fontSize;
 
   static WebviewPincodeHint fromJson(dynamic serialized) {

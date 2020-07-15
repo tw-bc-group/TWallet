@@ -14,11 +14,16 @@ abstract class WebviewPincodeStyle
   static Serializer<WebviewPincodeStyle> get serializer =>
       _$webviewPincodeStyleSerializer;
 
-  WebviewPincodeClose get pincodeClose;
-  WebviewPincodeErrorMsg get pincodeErrorMsg;
-  WebviewPincodeHint get pincodeHint;
-  WebviewPincodeInput get pincodeInput;
-  WebviewPincodeTitle get pincodeTitle;
+  @nullable
+  WebviewPincodeClose get closeIcon;
+  @nullable
+  WebviewPincodeErrorMsg get errorMsg;
+  @nullable
+  WebviewPincodeHint get hintMsg;
+  @nullable
+  WebviewPincodeInput get inputFields;
+  @nullable
+  WebviewPincodeTitle get title;
 
   static WebviewPincodeStyle fromJson(dynamic serialized) {
     try {

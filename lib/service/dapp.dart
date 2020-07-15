@@ -65,11 +65,11 @@ class DAppService {
   }
 
   static Future<void> signTransaction(String id, String param) async {
-    final pincodeValidate = await PincodeService.validate();
-    if (pincodeValidate == null) {
-      return reject(id, '');
-    }
     try {
+      final pincodeValidate = await PincodeService.validate();
+      if (pincodeValidate == null) {
+        return reject(id, '');
+      }
       final WebviewTransactionInfo _signTransaction =
           WebviewTransactionInfo.fromJson(json.decode(param));
       final Web3Client _web3Client =

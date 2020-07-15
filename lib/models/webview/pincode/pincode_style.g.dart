@@ -23,24 +23,37 @@ class _$WebviewPincodeStyleSerializer
   Iterable<Object> serialize(
       Serializers serializers, WebviewPincodeStyle object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'pincodeClose',
-      serializers.serialize(object.pincodeClose,
-          specifiedType: const FullType(WebviewPincodeClose)),
-      'pincodeErrorMsg',
-      serializers.serialize(object.pincodeErrorMsg,
-          specifiedType: const FullType(WebviewPincodeErrorMsg)),
-      'pincodeHint',
-      serializers.serialize(object.pincodeHint,
-          specifiedType: const FullType(WebviewPincodeHint)),
-      'pincodeInput',
-      serializers.serialize(object.pincodeInput,
-          specifiedType: const FullType(WebviewPincodeInput)),
-      'pincodeTitle',
-      serializers.serialize(object.pincodeTitle,
-          specifiedType: const FullType(WebviewPincodeTitle)),
-    ];
-
+    final result = <Object>[];
+    if (object.closeIcon != null) {
+      result
+        ..add('closeIcon')
+        ..add(serializers.serialize(object.closeIcon,
+            specifiedType: const FullType(WebviewPincodeClose)));
+    }
+    if (object.errorMsg != null) {
+      result
+        ..add('errorMsg')
+        ..add(serializers.serialize(object.errorMsg,
+            specifiedType: const FullType(WebviewPincodeErrorMsg)));
+    }
+    if (object.hintMsg != null) {
+      result
+        ..add('hintMsg')
+        ..add(serializers.serialize(object.hintMsg,
+            specifiedType: const FullType(WebviewPincodeHint)));
+    }
+    if (object.inputFields != null) {
+      result
+        ..add('inputFields')
+        ..add(serializers.serialize(object.inputFields,
+            specifiedType: const FullType(WebviewPincodeInput)));
+    }
+    if (object.title != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(object.title,
+            specifiedType: const FullType(WebviewPincodeTitle)));
+    }
     return result;
   }
 
@@ -56,28 +69,28 @@ class _$WebviewPincodeStyleSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'pincodeClose':
-          result.pincodeClose.replace(serializers.deserialize(value,
+        case 'closeIcon':
+          result.closeIcon.replace(serializers.deserialize(value,
                   specifiedType: const FullType(WebviewPincodeClose))
               as WebviewPincodeClose);
           break;
-        case 'pincodeErrorMsg':
-          result.pincodeErrorMsg.replace(serializers.deserialize(value,
+        case 'errorMsg':
+          result.errorMsg.replace(serializers.deserialize(value,
                   specifiedType: const FullType(WebviewPincodeErrorMsg))
               as WebviewPincodeErrorMsg);
           break;
-        case 'pincodeHint':
-          result.pincodeHint.replace(serializers.deserialize(value,
+        case 'hintMsg':
+          result.hintMsg.replace(serializers.deserialize(value,
                   specifiedType: const FullType(WebviewPincodeHint))
               as WebviewPincodeHint);
           break;
-        case 'pincodeInput':
-          result.pincodeInput.replace(serializers.deserialize(value,
+        case 'inputFields':
+          result.inputFields.replace(serializers.deserialize(value,
                   specifiedType: const FullType(WebviewPincodeInput))
               as WebviewPincodeInput);
           break;
-        case 'pincodeTitle':
-          result.pincodeTitle.replace(serializers.deserialize(value,
+        case 'title':
+          result.title.replace(serializers.deserialize(value,
                   specifiedType: const FullType(WebviewPincodeTitle))
               as WebviewPincodeTitle);
           break;
@@ -90,44 +103,27 @@ class _$WebviewPincodeStyleSerializer
 
 class _$WebviewPincodeStyle extends WebviewPincodeStyle {
   @override
-  final WebviewPincodeClose pincodeClose;
+  final WebviewPincodeClose closeIcon;
   @override
-  final WebviewPincodeErrorMsg pincodeErrorMsg;
+  final WebviewPincodeErrorMsg errorMsg;
   @override
-  final WebviewPincodeHint pincodeHint;
+  final WebviewPincodeHint hintMsg;
   @override
-  final WebviewPincodeInput pincodeInput;
+  final WebviewPincodeInput inputFields;
   @override
-  final WebviewPincodeTitle pincodeTitle;
+  final WebviewPincodeTitle title;
 
   factory _$WebviewPincodeStyle(
           [void Function(WebviewPincodeStyleBuilder) updates]) =>
       (new WebviewPincodeStyleBuilder()..update(updates)).build();
 
   _$WebviewPincodeStyle._(
-      {this.pincodeClose,
-      this.pincodeErrorMsg,
-      this.pincodeHint,
-      this.pincodeInput,
-      this.pincodeTitle})
-      : super._() {
-    if (pincodeClose == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeStyle', 'pincodeClose');
-    }
-    if (pincodeErrorMsg == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeStyle', 'pincodeErrorMsg');
-    }
-    if (pincodeHint == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeStyle', 'pincodeHint');
-    }
-    if (pincodeInput == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeStyle', 'pincodeInput');
-    }
-    if (pincodeTitle == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeStyle', 'pincodeTitle');
-    }
-  }
+      {this.closeIcon,
+      this.errorMsg,
+      this.hintMsg,
+      this.inputFields,
+      this.title})
+      : super._();
 
   @override
   WebviewPincodeStyle rebuild(
@@ -142,31 +138,31 @@ class _$WebviewPincodeStyle extends WebviewPincodeStyle {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is WebviewPincodeStyle &&
-        pincodeClose == other.pincodeClose &&
-        pincodeErrorMsg == other.pincodeErrorMsg &&
-        pincodeHint == other.pincodeHint &&
-        pincodeInput == other.pincodeInput &&
-        pincodeTitle == other.pincodeTitle;
+        closeIcon == other.closeIcon &&
+        errorMsg == other.errorMsg &&
+        hintMsg == other.hintMsg &&
+        inputFields == other.inputFields &&
+        title == other.title;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, pincodeClose.hashCode), pincodeErrorMsg.hashCode),
-                pincodeHint.hashCode),
-            pincodeInput.hashCode),
-        pincodeTitle.hashCode));
+            $jc($jc($jc(0, closeIcon.hashCode), errorMsg.hashCode),
+                hintMsg.hashCode),
+            inputFields.hashCode),
+        title.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('WebviewPincodeStyle')
-          ..add('pincodeClose', pincodeClose)
-          ..add('pincodeErrorMsg', pincodeErrorMsg)
-          ..add('pincodeHint', pincodeHint)
-          ..add('pincodeInput', pincodeInput)
-          ..add('pincodeTitle', pincodeTitle))
+          ..add('closeIcon', closeIcon)
+          ..add('errorMsg', errorMsg)
+          ..add('hintMsg', hintMsg)
+          ..add('inputFields', inputFields)
+          ..add('title', title))
         .toString();
   }
 }
@@ -175,45 +171,43 @@ class WebviewPincodeStyleBuilder
     implements Builder<WebviewPincodeStyle, WebviewPincodeStyleBuilder> {
   _$WebviewPincodeStyle _$v;
 
-  WebviewPincodeCloseBuilder _pincodeClose;
-  WebviewPincodeCloseBuilder get pincodeClose =>
-      _$this._pincodeClose ??= new WebviewPincodeCloseBuilder();
-  set pincodeClose(WebviewPincodeCloseBuilder pincodeClose) =>
-      _$this._pincodeClose = pincodeClose;
+  WebviewPincodeCloseBuilder _closeIcon;
+  WebviewPincodeCloseBuilder get closeIcon =>
+      _$this._closeIcon ??= new WebviewPincodeCloseBuilder();
+  set closeIcon(WebviewPincodeCloseBuilder closeIcon) =>
+      _$this._closeIcon = closeIcon;
 
-  WebviewPincodeErrorMsgBuilder _pincodeErrorMsg;
-  WebviewPincodeErrorMsgBuilder get pincodeErrorMsg =>
-      _$this._pincodeErrorMsg ??= new WebviewPincodeErrorMsgBuilder();
-  set pincodeErrorMsg(WebviewPincodeErrorMsgBuilder pincodeErrorMsg) =>
-      _$this._pincodeErrorMsg = pincodeErrorMsg;
+  WebviewPincodeErrorMsgBuilder _errorMsg;
+  WebviewPincodeErrorMsgBuilder get errorMsg =>
+      _$this._errorMsg ??= new WebviewPincodeErrorMsgBuilder();
+  set errorMsg(WebviewPincodeErrorMsgBuilder errorMsg) =>
+      _$this._errorMsg = errorMsg;
 
-  WebviewPincodeHintBuilder _pincodeHint;
-  WebviewPincodeHintBuilder get pincodeHint =>
-      _$this._pincodeHint ??= new WebviewPincodeHintBuilder();
-  set pincodeHint(WebviewPincodeHintBuilder pincodeHint) =>
-      _$this._pincodeHint = pincodeHint;
+  WebviewPincodeHintBuilder _hintMsg;
+  WebviewPincodeHintBuilder get hintMsg =>
+      _$this._hintMsg ??= new WebviewPincodeHintBuilder();
+  set hintMsg(WebviewPincodeHintBuilder hintMsg) => _$this._hintMsg = hintMsg;
 
-  WebviewPincodeInputBuilder _pincodeInput;
-  WebviewPincodeInputBuilder get pincodeInput =>
-      _$this._pincodeInput ??= new WebviewPincodeInputBuilder();
-  set pincodeInput(WebviewPincodeInputBuilder pincodeInput) =>
-      _$this._pincodeInput = pincodeInput;
+  WebviewPincodeInputBuilder _inputFields;
+  WebviewPincodeInputBuilder get inputFields =>
+      _$this._inputFields ??= new WebviewPincodeInputBuilder();
+  set inputFields(WebviewPincodeInputBuilder inputFields) =>
+      _$this._inputFields = inputFields;
 
-  WebviewPincodeTitleBuilder _pincodeTitle;
-  WebviewPincodeTitleBuilder get pincodeTitle =>
-      _$this._pincodeTitle ??= new WebviewPincodeTitleBuilder();
-  set pincodeTitle(WebviewPincodeTitleBuilder pincodeTitle) =>
-      _$this._pincodeTitle = pincodeTitle;
+  WebviewPincodeTitleBuilder _title;
+  WebviewPincodeTitleBuilder get title =>
+      _$this._title ??= new WebviewPincodeTitleBuilder();
+  set title(WebviewPincodeTitleBuilder title) => _$this._title = title;
 
   WebviewPincodeStyleBuilder();
 
   WebviewPincodeStyleBuilder get _$this {
     if (_$v != null) {
-      _pincodeClose = _$v.pincodeClose?.toBuilder();
-      _pincodeErrorMsg = _$v.pincodeErrorMsg?.toBuilder();
-      _pincodeHint = _$v.pincodeHint?.toBuilder();
-      _pincodeInput = _$v.pincodeInput?.toBuilder();
-      _pincodeTitle = _$v.pincodeTitle?.toBuilder();
+      _closeIcon = _$v.closeIcon?.toBuilder();
+      _errorMsg = _$v.errorMsg?.toBuilder();
+      _hintMsg = _$v.hintMsg?.toBuilder();
+      _inputFields = _$v.inputFields?.toBuilder();
+      _title = _$v.title?.toBuilder();
       _$v = null;
     }
     return this;
@@ -238,24 +232,24 @@ class WebviewPincodeStyleBuilder
     try {
       _$result = _$v ??
           new _$WebviewPincodeStyle._(
-              pincodeClose: pincodeClose.build(),
-              pincodeErrorMsg: pincodeErrorMsg.build(),
-              pincodeHint: pincodeHint.build(),
-              pincodeInput: pincodeInput.build(),
-              pincodeTitle: pincodeTitle.build());
+              closeIcon: _closeIcon?.build(),
+              errorMsg: _errorMsg?.build(),
+              hintMsg: _hintMsg?.build(),
+              inputFields: _inputFields?.build(),
+              title: _title?.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'pincodeClose';
-        pincodeClose.build();
-        _$failedField = 'pincodeErrorMsg';
-        pincodeErrorMsg.build();
-        _$failedField = 'pincodeHint';
-        pincodeHint.build();
-        _$failedField = 'pincodeInput';
-        pincodeInput.build();
-        _$failedField = 'pincodeTitle';
-        pincodeTitle.build();
+        _$failedField = 'closeIcon';
+        _closeIcon?.build();
+        _$failedField = 'errorMsg';
+        _errorMsg?.build();
+        _$failedField = 'hintMsg';
+        _hintMsg?.build();
+        _$failedField = 'inputFields';
+        _inputFields?.build();
+        _$failedField = 'title';
+        _title?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'WebviewPincodeStyle', _$failedField, e.toString());

@@ -12,6 +12,7 @@ abstract class WebviewSignTransaction
       _$webviewSignTransactionSerializer;
 
   WebviewTransactionInfo get transactionInfo;
+  @nullable
   WebviewPincodeStyle get pincodeStyle;
 
   static WebviewSignTransaction fromJson(dynamic serialized) {

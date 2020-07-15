@@ -9,8 +9,11 @@ abstract class WebviewPincodeTitle
   static Serializer<WebviewPincodeTitle> get serializer =>
       _$webviewPincodeTitleSerializer;
 
+  @nullable
   String get text;
+  @nullable
   String get color;
+  @nullable
   double get fontSize;
 
   static WebviewPincodeTitle fromJson(dynamic serialized) {

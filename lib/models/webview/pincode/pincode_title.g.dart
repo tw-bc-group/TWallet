@@ -23,17 +23,25 @@ class _$WebviewPincodeTitleSerializer
   Iterable<Object> serialize(
       Serializers serializers, WebviewPincodeTitle object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'text',
-      serializers.serialize(object.text, specifiedType: const FullType(String)),
-      'color',
-      serializers.serialize(object.color,
-          specifiedType: const FullType(String)),
-      'fontSize',
-      serializers.serialize(object.fontSize,
-          specifiedType: const FullType(double)),
-    ];
-
+    final result = <Object>[];
+    if (object.text != null) {
+      result
+        ..add('text')
+        ..add(serializers.serialize(object.text,
+            specifiedType: const FullType(String)));
+    }
+    if (object.color != null) {
+      result
+        ..add('color')
+        ..add(serializers.serialize(object.color,
+            specifiedType: const FullType(String)));
+    }
+    if (object.fontSize != null) {
+      result
+        ..add('fontSize')
+        ..add(serializers.serialize(object.fontSize,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -80,17 +88,7 @@ class _$WebviewPincodeTitle extends WebviewPincodeTitle {
           [void Function(WebviewPincodeTitleBuilder) updates]) =>
       (new WebviewPincodeTitleBuilder()..update(updates)).build();
 
-  _$WebviewPincodeTitle._({this.text, this.color, this.fontSize}) : super._() {
-    if (text == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeTitle', 'text');
-    }
-    if (color == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeTitle', 'color');
-    }
-    if (fontSize == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeTitle', 'fontSize');
-    }
-  }
+  _$WebviewPincodeTitle._({this.text, this.color, this.fontSize}) : super._();
 
   @override
   WebviewPincodeTitle rebuild(

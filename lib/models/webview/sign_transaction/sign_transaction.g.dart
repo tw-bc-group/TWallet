@@ -27,11 +27,13 @@ class _$WebviewSignTransactionSerializer
       'transactionInfo',
       serializers.serialize(object.transactionInfo,
           specifiedType: const FullType(WebviewTransactionInfo)),
-      'pincodeStyle',
-      serializers.serialize(object.pincodeStyle,
-          specifiedType: const FullType(WebviewPincodeStyle)),
     ];
-
+    if (object.pincodeStyle != null) {
+      result
+        ..add('pincodeStyle')
+        ..add(serializers.serialize(object.pincodeStyle,
+            specifiedType: const FullType(WebviewPincodeStyle)));
+    }
     return result;
   }
 
@@ -79,10 +81,6 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
     if (transactionInfo == null) {
       throw new BuiltValueNullFieldError(
           'WebviewSignTransaction', 'transactionInfo');
-    }
-    if (pincodeStyle == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'pincodeStyle');
     }
   }
 
@@ -164,14 +162,14 @@ class WebviewSignTransactionBuilder
       _$result = _$v ??
           new _$WebviewSignTransaction._(
               transactionInfo: transactionInfo.build(),
-              pincodeStyle: pincodeStyle.build());
+              pincodeStyle: _pincodeStyle?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'transactionInfo';
         transactionInfo.build();
         _$failedField = 'pincodeStyle';
-        pincodeStyle.build();
+        _pincodeStyle?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'WebviewSignTransaction', _$failedField, e.toString());
