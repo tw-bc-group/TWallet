@@ -27,13 +27,11 @@ class _$WebviewSignTransactionSerializer
       'transactionInfo',
       serializers.serialize(object.transactionInfo,
           specifiedType: const FullType(WebviewTransactionInfo)),
+      'pincodeDialogStyle',
+      serializers.serialize(object.pincodeDialogStyle,
+          specifiedType: const FullType(WebviewPincodeDialogStyle)),
     ];
-    if (object.pincodeStyle != null) {
-      result
-        ..add('pincodeStyle')
-        ..add(serializers.serialize(object.pincodeStyle,
-            specifiedType: const FullType(WebviewPincodeStyle)));
-    }
+
     return result;
   }
 
@@ -54,10 +52,10 @@ class _$WebviewSignTransactionSerializer
                   specifiedType: const FullType(WebviewTransactionInfo))
               as WebviewTransactionInfo);
           break;
-        case 'pincodeStyle':
-          result.pincodeStyle.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeStyle))
-              as WebviewPincodeStyle);
+        case 'pincodeDialogStyle':
+          result.pincodeDialogStyle.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(WebviewPincodeDialogStyle))
+              as WebviewPincodeDialogStyle);
           break;
       }
     }
@@ -70,17 +68,21 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
   final WebviewTransactionInfo transactionInfo;
   @override
-  final WebviewPincodeStyle pincodeStyle;
+  final WebviewPincodeDialogStyle pincodeDialogStyle;
 
   factory _$WebviewSignTransaction(
           [void Function(WebviewSignTransactionBuilder) updates]) =>
       (new WebviewSignTransactionBuilder()..update(updates)).build();
 
-  _$WebviewSignTransaction._({this.transactionInfo, this.pincodeStyle})
+  _$WebviewSignTransaction._({this.transactionInfo, this.pincodeDialogStyle})
       : super._() {
     if (transactionInfo == null) {
       throw new BuiltValueNullFieldError(
           'WebviewSignTransaction', 'transactionInfo');
+    }
+    if (pincodeDialogStyle == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewSignTransaction', 'pincodeDialogStyle');
     }
   }
 
@@ -98,19 +100,20 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
     if (identical(other, this)) return true;
     return other is WebviewSignTransaction &&
         transactionInfo == other.transactionInfo &&
-        pincodeStyle == other.pincodeStyle;
+        pincodeDialogStyle == other.pincodeDialogStyle;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, transactionInfo.hashCode), pincodeStyle.hashCode));
+    return $jf(
+        $jc($jc(0, transactionInfo.hashCode), pincodeDialogStyle.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('WebviewSignTransaction')
           ..add('transactionInfo', transactionInfo)
-          ..add('pincodeStyle', pincodeStyle))
+          ..add('pincodeDialogStyle', pincodeDialogStyle))
         .toString();
   }
 }
@@ -125,18 +128,18 @@ class WebviewSignTransactionBuilder
   set transactionInfo(WebviewTransactionInfoBuilder transactionInfo) =>
       _$this._transactionInfo = transactionInfo;
 
-  WebviewPincodeStyleBuilder _pincodeStyle;
-  WebviewPincodeStyleBuilder get pincodeStyle =>
-      _$this._pincodeStyle ??= new WebviewPincodeStyleBuilder();
-  set pincodeStyle(WebviewPincodeStyleBuilder pincodeStyle) =>
-      _$this._pincodeStyle = pincodeStyle;
+  WebviewPincodeDialogStyleBuilder _pincodeDialogStyle;
+  WebviewPincodeDialogStyleBuilder get pincodeDialogStyle =>
+      _$this._pincodeDialogStyle ??= new WebviewPincodeDialogStyleBuilder();
+  set pincodeDialogStyle(WebviewPincodeDialogStyleBuilder pincodeDialogStyle) =>
+      _$this._pincodeDialogStyle = pincodeDialogStyle;
 
   WebviewSignTransactionBuilder();
 
   WebviewSignTransactionBuilder get _$this {
     if (_$v != null) {
       _transactionInfo = _$v.transactionInfo?.toBuilder();
-      _pincodeStyle = _$v.pincodeStyle?.toBuilder();
+      _pincodeDialogStyle = _$v.pincodeDialogStyle?.toBuilder();
       _$v = null;
     }
     return this;
@@ -162,14 +165,14 @@ class WebviewSignTransactionBuilder
       _$result = _$v ??
           new _$WebviewSignTransaction._(
               transactionInfo: transactionInfo.build(),
-              pincodeStyle: _pincodeStyle?.build());
+              pincodeDialogStyle: pincodeDialogStyle.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'transactionInfo';
         transactionInfo.build();
-        _$failedField = 'pincodeStyle';
-        _pincodeStyle?.build();
+        _$failedField = 'pincodeDialogStyle';
+        pincodeDialogStyle.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'WebviewSignTransaction', _$failedField, e.toString());

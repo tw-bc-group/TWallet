@@ -1,97 +1,71 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pincode_input.dart';
+part of 'pincode_dialog_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<WebviewPincodeInput> _$webviewPincodeInputSerializer =
-    new _$WebviewPincodeInputSerializer();
+Serializer<WebviewPincodeDialogInput> _$webviewPincodeDialogInputSerializer =
+    new _$WebviewPincodeDialogInputSerializer();
 
-class _$WebviewPincodeInputSerializer
-    implements StructuredSerializer<WebviewPincodeInput> {
+class _$WebviewPincodeDialogInputSerializer
+    implements StructuredSerializer<WebviewPincodeDialogInput> {
   @override
   final Iterable<Type> types = const [
-    WebviewPincodeInput,
-    _$WebviewPincodeInput
+    WebviewPincodeDialogInput,
+    _$WebviewPincodeDialogInput
   ];
   @override
-  final String wireName = 'WebviewPincodeInput';
+  final String wireName = 'WebviewPincodeDialogInput';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, WebviewPincodeInput object,
+      Serializers serializers, WebviewPincodeDialogInput object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.borderWidth != null) {
-      result
-        ..add('borderWidth')
-        ..add(serializers.serialize(object.borderWidth,
-            specifiedType: const FullType(double)));
-    }
-    if (object.borderRadius != null) {
-      result
-        ..add('borderRadius')
-        ..add(serializers.serialize(object.borderRadius,
-            specifiedType: const FullType(double)));
-    }
-    if (object.size != null) {
-      result
-        ..add('size')
-        ..add(serializers.serialize(object.size,
-            specifiedType: const FullType(double)));
-    }
-    if (object.textColor != null) {
-      result
-        ..add('textColor')
-        ..add(serializers.serialize(object.textColor,
-            specifiedType: const FullType(String)));
-    }
-    if (object.borderColor != null) {
-      result
-        ..add('borderColor')
-        ..add(serializers.serialize(object.borderColor,
-            specifiedType: const FullType(String)));
-    }
-    if (object.activeBorderColor != null) {
-      result
-        ..add('activeBorderColor')
-        ..add(serializers.serialize(object.activeBorderColor,
-            specifiedType: const FullType(String)));
-    }
-    if (object.selectedBorderColor != null) {
-      result
-        ..add('selectedBorderColor')
-        ..add(serializers.serialize(object.selectedBorderColor,
-            specifiedType: const FullType(String)));
-    }
-    if (object.filledColor != null) {
-      result
-        ..add('filledColor')
-        ..add(serializers.serialize(object.filledColor,
-            specifiedType: const FullType(String)));
-    }
-    if (object.activeFillColor != null) {
-      result
-        ..add('activeFillColor')
-        ..add(serializers.serialize(object.activeFillColor,
-            specifiedType: const FullType(String)));
-    }
-    if (object.selectedFillColor != null) {
-      result
-        ..add('selectedFillColor')
-        ..add(serializers.serialize(object.selectedFillColor,
-            specifiedType: const FullType(String)));
-    }
+    final result = <Object>[
+      'borderWidth',
+      serializers.serialize(object.borderWidth,
+          specifiedType: const FullType(double)),
+      'borderRadius',
+      serializers.serialize(object.borderRadius,
+          specifiedType: const FullType(double)),
+      'size',
+      serializers.serialize(object.size, specifiedType: const FullType(double)),
+      'textSize',
+      serializers.serialize(object.textSize,
+          specifiedType: const FullType(double)),
+      'textColor',
+      serializers.serialize(object.textColor,
+          specifiedType: const FullType(String)),
+      'borderColor',
+      serializers.serialize(object.borderColor,
+          specifiedType: const FullType(String)),
+      'activeBorderColor',
+      serializers.serialize(object.activeBorderColor,
+          specifiedType: const FullType(String)),
+      'selectedBorderColor',
+      serializers.serialize(object.selectedBorderColor,
+          specifiedType: const FullType(String)),
+      'filledColor',
+      serializers.serialize(object.filledColor,
+          specifiedType: const FullType(String)),
+      'activeFillColor',
+      serializers.serialize(object.activeFillColor,
+          specifiedType: const FullType(String)),
+      'selectedFillColor',
+      serializers.serialize(object.selectedFillColor,
+          specifiedType: const FullType(String)),
+    ];
+
     return result;
   }
 
   @override
-  WebviewPincodeInput deserialize(
+  WebviewPincodeDialogInput deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new WebviewPincodeInputBuilder();
+    final result = new WebviewPincodeDialogInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -109,6 +83,10 @@ class _$WebviewPincodeInputSerializer
           break;
         case 'size':
           result.size = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'textSize':
+          result.textSize = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'textColor':
@@ -146,13 +124,15 @@ class _$WebviewPincodeInputSerializer
   }
 }
 
-class _$WebviewPincodeInput extends WebviewPincodeInput {
+class _$WebviewPincodeDialogInput extends WebviewPincodeDialogInput {
   @override
   final double borderWidth;
   @override
   final double borderRadius;
   @override
   final double size;
+  @override
+  final double textSize;
   @override
   final String textColor;
   @override
@@ -168,14 +148,15 @@ class _$WebviewPincodeInput extends WebviewPincodeInput {
   @override
   final String selectedFillColor;
 
-  factory _$WebviewPincodeInput(
-          [void Function(WebviewPincodeInputBuilder) updates]) =>
-      (new WebviewPincodeInputBuilder()..update(updates)).build();
+  factory _$WebviewPincodeDialogInput(
+          [void Function(WebviewPincodeDialogInputBuilder) updates]) =>
+      (new WebviewPincodeDialogInputBuilder()..update(updates)).build();
 
-  _$WebviewPincodeInput._(
+  _$WebviewPincodeDialogInput._(
       {this.borderWidth,
       this.borderRadius,
       this.size,
+      this.textSize,
       this.textColor,
       this.borderColor,
       this.activeBorderColor,
@@ -183,24 +164,69 @@ class _$WebviewPincodeInput extends WebviewPincodeInput {
       this.filledColor,
       this.activeFillColor,
       this.selectedFillColor})
-      : super._();
+      : super._() {
+    if (borderWidth == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'borderWidth');
+    }
+    if (borderRadius == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'borderRadius');
+    }
+    if (size == null) {
+      throw new BuiltValueNullFieldError('WebviewPincodeDialogInput', 'size');
+    }
+    if (textSize == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'textSize');
+    }
+    if (textColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'textColor');
+    }
+    if (borderColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'borderColor');
+    }
+    if (activeBorderColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'activeBorderColor');
+    }
+    if (selectedBorderColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'selectedBorderColor');
+    }
+    if (filledColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'filledColor');
+    }
+    if (activeFillColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'activeFillColor');
+    }
+    if (selectedFillColor == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogInput', 'selectedFillColor');
+    }
+  }
 
   @override
-  WebviewPincodeInput rebuild(
-          void Function(WebviewPincodeInputBuilder) updates) =>
+  WebviewPincodeDialogInput rebuild(
+          void Function(WebviewPincodeDialogInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  WebviewPincodeInputBuilder toBuilder() =>
-      new WebviewPincodeInputBuilder()..replace(this);
+  WebviewPincodeDialogInputBuilder toBuilder() =>
+      new WebviewPincodeDialogInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is WebviewPincodeInput &&
+    return other is WebviewPincodeDialogInput &&
         borderWidth == other.borderWidth &&
         borderRadius == other.borderRadius &&
         size == other.size &&
+        textSize == other.textSize &&
         textColor == other.textColor &&
         borderColor == other.borderColor &&
         activeBorderColor == other.activeBorderColor &&
@@ -220,9 +246,11 @@ class _$WebviewPincodeInput extends WebviewPincodeInput {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, borderWidth.hashCode),
-                                        borderRadius.hashCode),
-                                    size.hashCode),
+                                    $jc(
+                                        $jc($jc(0, borderWidth.hashCode),
+                                            borderRadius.hashCode),
+                                        size.hashCode),
+                                    textSize.hashCode),
                                 textColor.hashCode),
                             borderColor.hashCode),
                         activeBorderColor.hashCode),
@@ -234,10 +262,11 @@ class _$WebviewPincodeInput extends WebviewPincodeInput {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeInput')
+    return (newBuiltValueToStringHelper('WebviewPincodeDialogInput')
           ..add('borderWidth', borderWidth)
           ..add('borderRadius', borderRadius)
           ..add('size', size)
+          ..add('textSize', textSize)
           ..add('textColor', textColor)
           ..add('borderColor', borderColor)
           ..add('activeBorderColor', activeBorderColor)
@@ -249,9 +278,10 @@ class _$WebviewPincodeInput extends WebviewPincodeInput {
   }
 }
 
-class WebviewPincodeInputBuilder
-    implements Builder<WebviewPincodeInput, WebviewPincodeInputBuilder> {
-  _$WebviewPincodeInput _$v;
+class WebviewPincodeDialogInputBuilder
+    implements
+        Builder<WebviewPincodeDialogInput, WebviewPincodeDialogInputBuilder> {
+  _$WebviewPincodeDialogInput _$v;
 
   double _borderWidth;
   double get borderWidth => _$this._borderWidth;
@@ -264,6 +294,10 @@ class WebviewPincodeInputBuilder
   double _size;
   double get size => _$this._size;
   set size(double size) => _$this._size = size;
+
+  double _textSize;
+  double get textSize => _$this._textSize;
+  set textSize(double textSize) => _$this._textSize = textSize;
 
   String _textColor;
   String get textColor => _$this._textColor;
@@ -297,13 +331,16 @@ class WebviewPincodeInputBuilder
   set selectedFillColor(String selectedFillColor) =>
       _$this._selectedFillColor = selectedFillColor;
 
-  WebviewPincodeInputBuilder();
+  WebviewPincodeDialogInputBuilder() {
+    WebviewPincodeDialogInput._initializeBuilder(this);
+  }
 
-  WebviewPincodeInputBuilder get _$this {
+  WebviewPincodeDialogInputBuilder get _$this {
     if (_$v != null) {
       _borderWidth = _$v.borderWidth;
       _borderRadius = _$v.borderRadius;
       _size = _$v.size;
+      _textSize = _$v.textSize;
       _textColor = _$v.textColor;
       _borderColor = _$v.borderColor;
       _activeBorderColor = _$v.activeBorderColor;
@@ -317,25 +354,26 @@ class WebviewPincodeInputBuilder
   }
 
   @override
-  void replace(WebviewPincodeInput other) {
+  void replace(WebviewPincodeDialogInput other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$WebviewPincodeInput;
+    _$v = other as _$WebviewPincodeDialogInput;
   }
 
   @override
-  void update(void Function(WebviewPincodeInputBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogInputBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$WebviewPincodeInput build() {
+  _$WebviewPincodeDialogInput build() {
     final _$result = _$v ??
-        new _$WebviewPincodeInput._(
+        new _$WebviewPincodeDialogInput._(
             borderWidth: borderWidth,
             borderRadius: borderRadius,
             size: size,
+            textSize: textSize,
             textColor: textColor,
             borderColor: borderColor,
             activeBorderColor: activeBorderColor,

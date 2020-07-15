@@ -5,15 +5,18 @@ import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_style.dart';
 import 'package:tw_wallet_ui/service/pincode.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/input_pin.dart';
 
 class PinDialogWidget extends StatelessWidget {
   final Completer completer;
+  final WebviewPincodeDialogStyle pincodeDialogStyle;
   final GlobalKey<InputPinWidgetState> inputPinWidgetKey =
       GlobalKey<InputPinWidgetState>();
 
-  PinDialogWidget({this.completer});
+  PinDialogWidget({this.completer, this.pincodeDialogStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -27,29 +30,40 @@ class PinDialogWidget extends StatelessWidget {
               onTap: () => PincodeService.dismissPincodeDialog(),
               child: Align(
                 alignment: Alignment.centerRight,
-                child: SvgPicture.asset('assets/icons/pin-code-close.svg'),
+                child: SvgPicture.asset('assets/icons/pin-code-close.svg',
+                    width: pincodeDialogStyle.closeIcon.size,
+                    height: pincodeDialogStyle.closeIcon.size,
+                    color: WalletTheme.rgbColor(
+                        pincodeDialogStyle.closeIcon.color)),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 20),
               child: Text(
-                'PIN CODE',
+                pincodeDialogStyle.title.text,
                 textAlign: TextAlign.center,
-                style: WalletFont.font_16(),
+                style: WalletFont.font_16(
+                    textStyle: TextStyle(
+                        color: WalletTheme.rgbColor(
+                            pincodeDialogStyle.title.color))),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 16),
               child: Text(
-                'Please input PIN code to confirm transaction',
+                pincodeDialogStyle.hintMsg.text,
                 textAlign: TextAlign.center,
-                style: WalletFont.font_12(),
+                style: WalletFont.font_12(
+                    textStyle: TextStyle(
+                        color: WalletTheme.rgbColor(
+                            pincodeDialogStyle.title.color))),
               ),
             ),
             InputPinWidget(
               key: inputPinWidgetKey,
               autoValidate: true,
               completer: completer,
+              pincodeDialogInput: pincodeDialogStyle.inputFields,
             ),
           ],
         ));

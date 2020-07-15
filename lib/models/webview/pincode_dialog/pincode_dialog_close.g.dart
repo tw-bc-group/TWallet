@@ -1,49 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pincode_close.dart';
+part of 'pincode_dialog_close.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<WebviewPincodeClose> _$webviewPincodeCloseSerializer =
-    new _$WebviewPincodeCloseSerializer();
+Serializer<WebviewPincodeDialogClose> _$webviewPincodeDialogCloseSerializer =
+    new _$WebviewPincodeDialogCloseSerializer();
 
-class _$WebviewPincodeCloseSerializer
-    implements StructuredSerializer<WebviewPincodeClose> {
+class _$WebviewPincodeDialogCloseSerializer
+    implements StructuredSerializer<WebviewPincodeDialogClose> {
   @override
   final Iterable<Type> types = const [
-    WebviewPincodeClose,
-    _$WebviewPincodeClose
+    WebviewPincodeDialogClose,
+    _$WebviewPincodeDialogClose
   ];
   @override
-  final String wireName = 'WebviewPincodeClose';
+  final String wireName = 'WebviewPincodeDialogClose';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, WebviewPincodeClose object,
+      Serializers serializers, WebviewPincodeDialogClose object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.color != null) {
-      result
-        ..add('color')
-        ..add(serializers.serialize(object.color,
-            specifiedType: const FullType(String)));
-    }
-    if (object.size != null) {
-      result
-        ..add('size')
-        ..add(serializers.serialize(object.size,
-            specifiedType: const FullType(double)));
-    }
+    final result = <Object>[
+      'color',
+      serializers.serialize(object.color,
+          specifiedType: const FullType(String)),
+      'size',
+      serializers.serialize(object.size, specifiedType: const FullType(double)),
+    ];
+
     return result;
   }
 
   @override
-  WebviewPincodeClose deserialize(
+  WebviewPincodeDialogClose deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new WebviewPincodeCloseBuilder();
+    final result = new WebviewPincodeDialogCloseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -66,31 +61,38 @@ class _$WebviewPincodeCloseSerializer
   }
 }
 
-class _$WebviewPincodeClose extends WebviewPincodeClose {
+class _$WebviewPincodeDialogClose extends WebviewPincodeDialogClose {
   @override
   final String color;
   @override
   final double size;
 
-  factory _$WebviewPincodeClose(
-          [void Function(WebviewPincodeCloseBuilder) updates]) =>
-      (new WebviewPincodeCloseBuilder()..update(updates)).build();
+  factory _$WebviewPincodeDialogClose(
+          [void Function(WebviewPincodeDialogCloseBuilder) updates]) =>
+      (new WebviewPincodeDialogCloseBuilder()..update(updates)).build();
 
-  _$WebviewPincodeClose._({this.color, this.size}) : super._();
+  _$WebviewPincodeDialogClose._({this.color, this.size}) : super._() {
+    if (color == null) {
+      throw new BuiltValueNullFieldError('WebviewPincodeDialogClose', 'color');
+    }
+    if (size == null) {
+      throw new BuiltValueNullFieldError('WebviewPincodeDialogClose', 'size');
+    }
+  }
 
   @override
-  WebviewPincodeClose rebuild(
-          void Function(WebviewPincodeCloseBuilder) updates) =>
+  WebviewPincodeDialogClose rebuild(
+          void Function(WebviewPincodeDialogCloseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  WebviewPincodeCloseBuilder toBuilder() =>
-      new WebviewPincodeCloseBuilder()..replace(this);
+  WebviewPincodeDialogCloseBuilder toBuilder() =>
+      new WebviewPincodeDialogCloseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is WebviewPincodeClose &&
+    return other is WebviewPincodeDialogClose &&
         color == other.color &&
         size == other.size;
   }
@@ -102,16 +104,17 @@ class _$WebviewPincodeClose extends WebviewPincodeClose {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeClose')
+    return (newBuiltValueToStringHelper('WebviewPincodeDialogClose')
           ..add('color', color)
           ..add('size', size))
         .toString();
   }
 }
 
-class WebviewPincodeCloseBuilder
-    implements Builder<WebviewPincodeClose, WebviewPincodeCloseBuilder> {
-  _$WebviewPincodeClose _$v;
+class WebviewPincodeDialogCloseBuilder
+    implements
+        Builder<WebviewPincodeDialogClose, WebviewPincodeDialogCloseBuilder> {
+  _$WebviewPincodeDialogClose _$v;
 
   String _color;
   String get color => _$this._color;
@@ -121,9 +124,11 @@ class WebviewPincodeCloseBuilder
   double get size => _$this._size;
   set size(double size) => _$this._size = size;
 
-  WebviewPincodeCloseBuilder();
+  WebviewPincodeDialogCloseBuilder() {
+    WebviewPincodeDialogClose._initializeBuilder(this);
+  }
 
-  WebviewPincodeCloseBuilder get _$this {
+  WebviewPincodeDialogCloseBuilder get _$this {
     if (_$v != null) {
       _color = _$v.color;
       _size = _$v.size;
@@ -133,22 +138,22 @@ class WebviewPincodeCloseBuilder
   }
 
   @override
-  void replace(WebviewPincodeClose other) {
+  void replace(WebviewPincodeDialogClose other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$WebviewPincodeClose;
+    _$v = other as _$WebviewPincodeDialogClose;
   }
 
   @override
-  void update(void Function(WebviewPincodeCloseBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogCloseBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$WebviewPincodeClose build() {
+  _$WebviewPincodeDialogClose build() {
     final _$result =
-        _$v ?? new _$WebviewPincodeClose._(color: color, size: size);
+        _$v ?? new _$WebviewPincodeDialogClose._(color: color, size: size);
     replace(_$result);
     return _$result;
   }

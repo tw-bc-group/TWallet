@@ -84,7 +84,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                   : WalletColor.middleGrey,
               margin: const EdgeInsets.only(top: 6),
             ),
-            if (errorText != null) ErrorRowWidget(errorText)
+            if (errorText != null) ErrorRowWidget(errorText: errorText)
           ],
         ));
   }

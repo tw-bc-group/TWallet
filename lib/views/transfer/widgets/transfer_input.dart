@@ -61,7 +61,7 @@ class TransferInputWidget extends StatelessWidget {
           ],
         ),
       ),
-      if (errorText != null) ErrorRowWidget(errorText)
+      if (errorText != null) ErrorRowWidget(errorText: errorText)
     ]);
   }
 }

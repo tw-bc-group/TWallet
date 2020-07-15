@@ -110,7 +110,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     ];
 
     if (errorText != null) {
-      columnChildren.add(ErrorRowWidget(errorText));
+      columnChildren.add(ErrorRowWidget(errorText: errorText));
     }
 
     return Column(

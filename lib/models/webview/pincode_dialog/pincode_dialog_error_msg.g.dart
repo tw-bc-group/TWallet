@@ -1,51 +1,48 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pincode_hint.dart';
+part of 'pincode_dialog_error_msg.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<WebviewPincodeHint> _$webviewPincodeHintSerializer =
-    new _$WebviewPincodeHintSerializer();
+Serializer<WebviewPincodeDialogErrorMsg>
+    _$webviewPincodeDialogErrorMsgSerializer =
+    new _$WebviewPincodeDialogErrorMsgSerializer();
 
-class _$WebviewPincodeHintSerializer
-    implements StructuredSerializer<WebviewPincodeHint> {
+class _$WebviewPincodeDialogErrorMsgSerializer
+    implements StructuredSerializer<WebviewPincodeDialogErrorMsg> {
   @override
-  final Iterable<Type> types = const [WebviewPincodeHint, _$WebviewPincodeHint];
+  final Iterable<Type> types = const [
+    WebviewPincodeDialogErrorMsg,
+    _$WebviewPincodeDialogErrorMsg
+  ];
   @override
-  final String wireName = 'WebviewPincodeHint';
+  final String wireName = 'WebviewPincodeDialogErrorMsg';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, WebviewPincodeHint object,
+  Iterable<Object> serialize(
+      Serializers serializers, WebviewPincodeDialogErrorMsg object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.text != null) {
-      result
-        ..add('text')
-        ..add(serializers.serialize(object.text,
-            specifiedType: const FullType(String)));
-    }
-    if (object.color != null) {
-      result
-        ..add('color')
-        ..add(serializers.serialize(object.color,
-            specifiedType: const FullType(String)));
-    }
-    if (object.fontSize != null) {
-      result
-        ..add('fontSize')
-        ..add(serializers.serialize(object.fontSize,
-            specifiedType: const FullType(double)));
-    }
+    final result = <Object>[
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+      'color',
+      serializers.serialize(object.color,
+          specifiedType: const FullType(String)),
+      'fontSize',
+      serializers.serialize(object.fontSize,
+          specifiedType: const FullType(double)),
+    ];
+
     return result;
   }
 
   @override
-  WebviewPincodeHint deserialize(
+  WebviewPincodeDialogErrorMsg deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new WebviewPincodeHintBuilder();
+    final result = new WebviewPincodeDialogErrorMsgBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -72,7 +69,7 @@ class _$WebviewPincodeHintSerializer
   }
 }
 
-class _$WebviewPincodeHint extends WebviewPincodeHint {
+class _$WebviewPincodeDialogErrorMsg extends WebviewPincodeDialogErrorMsg {
   @override
   final String text;
   @override
@@ -80,25 +77,39 @@ class _$WebviewPincodeHint extends WebviewPincodeHint {
   @override
   final double fontSize;
 
-  factory _$WebviewPincodeHint(
-          [void Function(WebviewPincodeHintBuilder) updates]) =>
-      (new WebviewPincodeHintBuilder()..update(updates)).build();
+  factory _$WebviewPincodeDialogErrorMsg(
+          [void Function(WebviewPincodeDialogErrorMsgBuilder) updates]) =>
+      (new WebviewPincodeDialogErrorMsgBuilder()..update(updates)).build();
 
-  _$WebviewPincodeHint._({this.text, this.color, this.fontSize}) : super._();
+  _$WebviewPincodeDialogErrorMsg._({this.text, this.color, this.fontSize})
+      : super._() {
+    if (text == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogErrorMsg', 'text');
+    }
+    if (color == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogErrorMsg', 'color');
+    }
+    if (fontSize == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogErrorMsg', 'fontSize');
+    }
+  }
 
   @override
-  WebviewPincodeHint rebuild(
-          void Function(WebviewPincodeHintBuilder) updates) =>
+  WebviewPincodeDialogErrorMsg rebuild(
+          void Function(WebviewPincodeDialogErrorMsgBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  WebviewPincodeHintBuilder toBuilder() =>
-      new WebviewPincodeHintBuilder()..replace(this);
+  WebviewPincodeDialogErrorMsgBuilder toBuilder() =>
+      new WebviewPincodeDialogErrorMsgBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is WebviewPincodeHint &&
+    return other is WebviewPincodeDialogErrorMsg &&
         text == other.text &&
         color == other.color &&
         fontSize == other.fontSize;
@@ -112,7 +123,7 @@ class _$WebviewPincodeHint extends WebviewPincodeHint {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeHint')
+    return (newBuiltValueToStringHelper('WebviewPincodeDialogErrorMsg')
           ..add('text', text)
           ..add('color', color)
           ..add('fontSize', fontSize))
@@ -120,9 +131,11 @@ class _$WebviewPincodeHint extends WebviewPincodeHint {
   }
 }
 
-class WebviewPincodeHintBuilder
-    implements Builder<WebviewPincodeHint, WebviewPincodeHintBuilder> {
-  _$WebviewPincodeHint _$v;
+class WebviewPincodeDialogErrorMsgBuilder
+    implements
+        Builder<WebviewPincodeDialogErrorMsg,
+            WebviewPincodeDialogErrorMsgBuilder> {
+  _$WebviewPincodeDialogErrorMsg _$v;
 
   String _text;
   String get text => _$this._text;
@@ -136,9 +149,11 @@ class WebviewPincodeHintBuilder
   double get fontSize => _$this._fontSize;
   set fontSize(double fontSize) => _$this._fontSize = fontSize;
 
-  WebviewPincodeHintBuilder();
+  WebviewPincodeDialogErrorMsgBuilder() {
+    WebviewPincodeDialogErrorMsg._initializeBuilder(this);
+  }
 
-  WebviewPincodeHintBuilder get _$this {
+  WebviewPincodeDialogErrorMsgBuilder get _$this {
     if (_$v != null) {
       _text = _$v.text;
       _color = _$v.color;
@@ -149,22 +164,22 @@ class WebviewPincodeHintBuilder
   }
 
   @override
-  void replace(WebviewPincodeHint other) {
+  void replace(WebviewPincodeDialogErrorMsg other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$WebviewPincodeHint;
+    _$v = other as _$WebviewPincodeDialogErrorMsg;
   }
 
   @override
-  void update(void Function(WebviewPincodeHintBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogErrorMsgBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$WebviewPincodeHint build() {
+  _$WebviewPincodeDialogErrorMsg build() {
     final _$result = _$v ??
-        new _$WebviewPincodeHint._(
+        new _$WebviewPincodeDialogErrorMsg._(
             text: text, color: color, fontSize: fontSize);
     replace(_$result);
     return _$result;

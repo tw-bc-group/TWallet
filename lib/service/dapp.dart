@@ -13,6 +13,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/webview/sign_transaction/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/transaction_info.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -66,20 +67,25 @@ class DAppService {
 
   static Future<void> signTransaction(String id, String param) async {
     try {
-      final pincodeValidate = await PincodeService.validate();
+      final WebviewSignTransaction _signTransaction =
+          WebviewSignTransaction.fromJson(json.decode(param));
+      print('--------------');
+      print(_signTransaction?.pincodeDialogStyle);
+      print('--------------');
+      final pincodeValidate =
+          await PincodeService.validate(_signTransaction.pincodeDialogStyle);
       if (pincodeValidate == null) {
         return reject(id, '');
       }
-      final WebviewTransactionInfo _signTransaction =
-          WebviewTransactionInfo.fromJson(json.decode(param));
+      final _transactionInfo = _signTransaction.transactionInfo;
       final Web3Client _web3Client =
-          Web3Client(_signTransaction.rpcUrl, Client());
+          Web3Client(_transactionInfo.rpcUrl, Client());
       final Identity _identity =
-          getIt<IdentityStore>().getIdentityById(_signTransaction.accountId);
+          getIt<IdentityStore>().getIdentityById(_transactionInfo.accountId);
       final DeployedContract _contract = DeployedContract(
           ContractAbi.fromJson(
-              _signTransaction.contractAbi, _signTransaction.contractName),
-          EthereumAddress.fromHex(_signTransaction.contractAddress));
+              _transactionInfo.contractAbi, _transactionInfo.contractName),
+          EthereumAddress.fromHex(_transactionInfo.contractAddress));
 
       final credentials =
           await _web3Client.credentialsFromPrivateKey(_identity.priKey);
@@ -87,11 +93,11 @@ class DAppService {
         credentials,
         Transaction.callContract(
           contract: _contract,
-          function: _contract.function(_signTransaction.functionName),
+          function: _contract.function(_transactionInfo.functionName),
           parameters:
-              _signTransaction.parameters.map((p) => p.realType()).toList(),
-          gasPrice: EtherAmount.inWei(_signTransaction.gasPrice),
-          maxGas: _signTransaction.maxGas,
+              _transactionInfo.parameters.map((p) => p.realType()).toList(),
+          gasPrice: EtherAmount.inWei(_transactionInfo.gasPrice),
+          maxGas: _transactionInfo.maxGas,
         ),
         fetchChainIdFromNetworkId: true,
       );
@@ -213,7 +219,9 @@ class DAppService {
   }
 
   static void reject(String id, dynamic data) {
-    webviewController.evaluateJavascript(
-        'window.TWallet.rejectPromise("$id", \'${json.encode(data)}\');');
+    webviewController
+        // ignore: avoid_escaping_inner_quotes
+        .evaluateJavascript(
+            'window.TWallet.rejectPromise("$id", \'${json.encode(data.toString())}\');');
   }
 }

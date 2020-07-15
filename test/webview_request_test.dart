@@ -42,7 +42,7 @@ void main() {
             {'type': 'bigInt', 'value': '1'}
           ]
         },
-        'pincodeStyle': {
+        'pincodeDialogStyle': {
           'closeIcon': {'color': '#dddddd', 'size': 20},
           'errorMsg': {'color': '#dddddd', 'fontSize': 12},
           'hintMsg': {'text': '', 'color': '#dddddd', 'fontSize': 12},

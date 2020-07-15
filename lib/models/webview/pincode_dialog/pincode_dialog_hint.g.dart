@@ -1,55 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pincode_title.dart';
+part of 'pincode_dialog_hint.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<WebviewPincodeTitle> _$webviewPincodeTitleSerializer =
-    new _$WebviewPincodeTitleSerializer();
+Serializer<WebviewPincodeDialogHint> _$webviewPincodeDialogHintSerializer =
+    new _$WebviewPincodeDialogHintSerializer();
 
-class _$WebviewPincodeTitleSerializer
-    implements StructuredSerializer<WebviewPincodeTitle> {
+class _$WebviewPincodeDialogHintSerializer
+    implements StructuredSerializer<WebviewPincodeDialogHint> {
   @override
   final Iterable<Type> types = const [
-    WebviewPincodeTitle,
-    _$WebviewPincodeTitle
+    WebviewPincodeDialogHint,
+    _$WebviewPincodeDialogHint
   ];
   @override
-  final String wireName = 'WebviewPincodeTitle';
+  final String wireName = 'WebviewPincodeDialogHint';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, WebviewPincodeTitle object,
+      Serializers serializers, WebviewPincodeDialogHint object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.text != null) {
-      result
-        ..add('text')
-        ..add(serializers.serialize(object.text,
-            specifiedType: const FullType(String)));
-    }
-    if (object.color != null) {
-      result
-        ..add('color')
-        ..add(serializers.serialize(object.color,
-            specifiedType: const FullType(String)));
-    }
-    if (object.fontSize != null) {
-      result
-        ..add('fontSize')
-        ..add(serializers.serialize(object.fontSize,
-            specifiedType: const FullType(double)));
-    }
+    final result = <Object>[
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+      'color',
+      serializers.serialize(object.color,
+          specifiedType: const FullType(String)),
+      'fontSize',
+      serializers.serialize(object.fontSize,
+          specifiedType: const FullType(double)),
+    ];
+
     return result;
   }
 
   @override
-  WebviewPincodeTitle deserialize(
+  WebviewPincodeDialogHint deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new WebviewPincodeTitleBuilder();
+    final result = new WebviewPincodeDialogHintBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -76,7 +68,7 @@ class _$WebviewPincodeTitleSerializer
   }
 }
 
-class _$WebviewPincodeTitle extends WebviewPincodeTitle {
+class _$WebviewPincodeDialogHint extends WebviewPincodeDialogHint {
   @override
   final String text;
   @override
@@ -84,25 +76,37 @@ class _$WebviewPincodeTitle extends WebviewPincodeTitle {
   @override
   final double fontSize;
 
-  factory _$WebviewPincodeTitle(
-          [void Function(WebviewPincodeTitleBuilder) updates]) =>
-      (new WebviewPincodeTitleBuilder()..update(updates)).build();
+  factory _$WebviewPincodeDialogHint(
+          [void Function(WebviewPincodeDialogHintBuilder) updates]) =>
+      (new WebviewPincodeDialogHintBuilder()..update(updates)).build();
 
-  _$WebviewPincodeTitle._({this.text, this.color, this.fontSize}) : super._();
+  _$WebviewPincodeDialogHint._({this.text, this.color, this.fontSize})
+      : super._() {
+    if (text == null) {
+      throw new BuiltValueNullFieldError('WebviewPincodeDialogHint', 'text');
+    }
+    if (color == null) {
+      throw new BuiltValueNullFieldError('WebviewPincodeDialogHint', 'color');
+    }
+    if (fontSize == null) {
+      throw new BuiltValueNullFieldError(
+          'WebviewPincodeDialogHint', 'fontSize');
+    }
+  }
 
   @override
-  WebviewPincodeTitle rebuild(
-          void Function(WebviewPincodeTitleBuilder) updates) =>
+  WebviewPincodeDialogHint rebuild(
+          void Function(WebviewPincodeDialogHintBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  WebviewPincodeTitleBuilder toBuilder() =>
-      new WebviewPincodeTitleBuilder()..replace(this);
+  WebviewPincodeDialogHintBuilder toBuilder() =>
+      new WebviewPincodeDialogHintBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is WebviewPincodeTitle &&
+    return other is WebviewPincodeDialogHint &&
         text == other.text &&
         color == other.color &&
         fontSize == other.fontSize;
@@ -116,7 +120,7 @@ class _$WebviewPincodeTitle extends WebviewPincodeTitle {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeTitle')
+    return (newBuiltValueToStringHelper('WebviewPincodeDialogHint')
           ..add('text', text)
           ..add('color', color)
           ..add('fontSize', fontSize))
@@ -124,9 +128,10 @@ class _$WebviewPincodeTitle extends WebviewPincodeTitle {
   }
 }
 
-class WebviewPincodeTitleBuilder
-    implements Builder<WebviewPincodeTitle, WebviewPincodeTitleBuilder> {
-  _$WebviewPincodeTitle _$v;
+class WebviewPincodeDialogHintBuilder
+    implements
+        Builder<WebviewPincodeDialogHint, WebviewPincodeDialogHintBuilder> {
+  _$WebviewPincodeDialogHint _$v;
 
   String _text;
   String get text => _$this._text;
@@ -140,9 +145,11 @@ class WebviewPincodeTitleBuilder
   double get fontSize => _$this._fontSize;
   set fontSize(double fontSize) => _$this._fontSize = fontSize;
 
-  WebviewPincodeTitleBuilder();
+  WebviewPincodeDialogHintBuilder() {
+    WebviewPincodeDialogHint._initializeBuilder(this);
+  }
 
-  WebviewPincodeTitleBuilder get _$this {
+  WebviewPincodeDialogHintBuilder get _$this {
     if (_$v != null) {
       _text = _$v.text;
       _color = _$v.color;
@@ -153,22 +160,22 @@ class WebviewPincodeTitleBuilder
   }
 
   @override
-  void replace(WebviewPincodeTitle other) {
+  void replace(WebviewPincodeDialogHint other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$WebviewPincodeTitle;
+    _$v = other as _$WebviewPincodeDialogHint;
   }
 
   @override
-  void update(void Function(WebviewPincodeTitleBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogHintBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$WebviewPincodeTitle build() {
+  _$WebviewPincodeDialogHint build() {
     final _$result = _$v ??
-        new _$WebviewPincodeTitle._(
+        new _$WebviewPincodeDialogHint._(
             text: text, color: color, fontSize: fontSize);
     replace(_$result);
     return _$result;

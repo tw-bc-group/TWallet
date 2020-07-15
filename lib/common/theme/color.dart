@@ -2,18 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 
 class WalletColor {
-  static final Color primary = WalletTheme.rgbColor('#4200d4');
-  static final Color accent = WalletTheme.rgbColor('#ff5164');
-  static final Color black = WalletTheme.rgbColor('#111111');
-  static final Color white = WalletTheme.rgbColor('#ffffff');
-  static final Color grey = WalletTheme.rgbColor('#999aaa');
-  static final Color middleGrey = WalletTheme.rgbColor('#e0e1e9');
-  static final Color lightGrey = WalletTheme.rgbColor('#f2f4fa');
-  static final Color yellowWhite = WalletTheme.rgbColor('#fef8e4');
+  static const String PRIMARY = '#4200d4';
+  static const String ACCENT = '#ff5164';
+  static const String BLACK = '#111111';
+  static const String WHITE = '#ffffff';
+  static const String GREY = '#999aaa';
+  static const String MIDDLE_GREY = '#e0e1e9';
+  static const String LIGHT_GREY = '#f2f4fa';
+  static const String YELLOW_WHITE = '#fef8e4';
+  static const String GREEN = '#3abfbc';
+  static const String RED = '#ff5164';
+  static const String BLUE = '#306fff';
+
+  static final Color primary = WalletTheme.rgbColor(PRIMARY);
+  static final Color accent = WalletTheme.rgbColor(ACCENT);
+  static final Color black = WalletTheme.rgbColor(BLACK);
+  static final Color white = WalletTheme.rgbColor(WHITE);
+  static final Color grey = WalletTheme.rgbColor(GREY);
+  static final Color middleGrey = WalletTheme.rgbColor(MIDDLE_GREY);
+  static final Color lightGrey = WalletTheme.rgbColor(LIGHT_GREY);
+  static final Color yellowWhite = WalletTheme.rgbColor(YELLOW_WHITE);
   static final Color backgroundWhite = WalletTheme.rgbColor('#f0f2f9');
-  static final Color green = WalletTheme.rgbColor('#3abfbc');
-  static final Color red = WalletTheme.rgbColor('#ff5164');
+  static final Color green = WalletTheme.rgbColor(GREEN);
+  static final Color red = WalletTheme.rgbColor(RED);
   static final Color identityCardBg = WalletTheme.rgbColor("#f2f4fa");
   static final Color boxShadow = WalletTheme.rgbColor("#0f0000");
-  static final Color blue = WalletTheme.rgbColor('#306fff');
+  static final Color blue = WalletTheme.rgbColor(BLUE);
 }

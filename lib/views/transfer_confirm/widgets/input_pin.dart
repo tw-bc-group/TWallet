@@ -5,22 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
-import 'package:tw_wallet_ui/models/webview/pincode/pincode_input.dart';
+import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_error_msg.dart';
+import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_input.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
 
 class InputPinWidget extends StatefulWidget {
   final bool autoValidate;
-  final WebviewPincodeInput webviewPincodeInput;
+  final WebviewPincodeDialogInput pincodeDialogInput;
+  final WebviewPincodeDialogErrorMsg pincodeDialogErrorMsg;
   final Function onValidateSuccess;
   final Completer completer;
 
   const InputPinWidget({
     Key key,
     this.autoValidate = false,
-    this.webviewPincodeInput,
+    this.pincodeDialogInput,
+    this.pincodeDialogErrorMsg,
     this.onValidateSuccess,
     this.completer,
   }) : super(key: key);
@@ -77,32 +79,6 @@ class InputPinWidgetState extends State<InputPinWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final borderWidth = widget.webviewPincodeInput?.borderWidth ?? 1;
-    final borderRadius = BorderRadius.all(
-        Radius.circular(widget.webviewPincodeInput?.borderRadius ?? 4));
-    final size = widget.webviewPincodeInput?.size ?? 40;
-    final borderColor = widget.webviewPincodeInput?.borderColor == null
-        ? WalletColor.black
-        : WalletTheme.rgbColor(widget.webviewPincodeInput?.borderColor);
-    final activeBorderColor = widget.webviewPincodeInput?.activeBorderColor ==
-            null
-        ? WalletColor.primary
-        : WalletTheme.rgbColor(widget.webviewPincodeInput?.activeBorderColor);
-    final selectedBorderColor = widget
-                .webviewPincodeInput?.selectedBorderColor ==
-            null
-        ? WalletColor.primary
-        : WalletTheme.rgbColor(widget.webviewPincodeInput?.selectedBorderColor);
-    final filledColor = widget.webviewPincodeInput?.filledColor == null
-        ? WalletColor.white
-        : WalletTheme.rgbColor(widget.webviewPincodeInput?.filledColor);
-    final activeFillColor = widget.webviewPincodeInput?.activeFillColor == null
-        ? WalletColor.white
-        : WalletTheme.rgbColor(widget.webviewPincodeInput?.activeFillColor);
-    final selectedFillColor = widget.webviewPincodeInput?.selectedFillColor ==
-            null
-        ? WalletColor.primary
-        : WalletTheme.rgbColor(widget.webviewPincodeInput?.selectedFillColor);
     return Column(
       children: <Widget>[
         Container(
@@ -113,26 +89,43 @@ class InputPinWidgetState extends State<InputPinWidget> {
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
-                borderWidth: borderWidth,
-                borderRadius: borderRadius,
-                fieldHeight: size,
-                fieldWidth: size,
-                inactiveColor: borderColor,
-                activeColor: activeBorderColor,
-                selectedColor: selectedBorderColor,
-                inactiveFillColor: filledColor,
-                activeFillColor: activeFillColor,
-                selectedFillColor: selectedFillColor,
+                borderWidth: widget.pincodeDialogInput.borderWidth,
+                borderRadius: BorderRadius.all(
+                    Radius.circular(widget.pincodeDialogInput.borderRadius)),
+                fieldHeight: widget.pincodeDialogInput.size,
+                fieldWidth: widget.pincodeDialogInput.size,
+                inactiveColor:
+                    WalletTheme.rgbColor(widget.pincodeDialogInput.borderColor),
+                activeColor: WalletTheme.rgbColor(
+                    widget.pincodeDialogInput.activeBorderColor),
+                selectedColor: WalletTheme.rgbColor(
+                    widget.pincodeDialogInput.selectedBorderColor),
+                inactiveFillColor:
+                    WalletTheme.rgbColor(widget.pincodeDialogInput.filledColor),
+                activeFillColor: WalletTheme.rgbColor(
+                    widget.pincodeDialogInput.activeFillColor),
+                selectedFillColor: WalletTheme.rgbColor(
+                    widget.pincodeDialogInput.selectedFillColor),
               ),
               animationDuration: const Duration(milliseconds: 300),
-              textStyle: WalletFont.font_16(),
+              textStyle: WalletFont.font_16(
+                textStyle: TextStyle(
+                  color:
+                      WalletTheme.rgbColor(widget.pincodeDialogInput.textColor),
+                  fontSize: widget.pincodeDialogInput.textSize,
+                ),
+              ),
               enableActiveFill: true,
               textInputType: TextInputType.number,
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               onChanged: onChanged,
               onCompleted: handlePinComplete),
         ),
-        if (showErrorMsg) const ErrorRowWidget('PIN码错误，请重新输入')
+        if (showErrorMsg)
+          ErrorRowWidget(
+            errorText: 'PIN码错误，请重新输入',
+            pincodeDialogErrorMsg: widget.pincodeDialogErrorMsg,
+          )
       ],
     );
   }

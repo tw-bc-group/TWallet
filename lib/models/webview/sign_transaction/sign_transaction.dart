@@ -1,7 +1,7 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
-import 'package:tw_wallet_ui/models/webview/pincode/pincode_style.dart';
+import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_style.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/transaction_info.dart';
 
 part 'sign_transaction.g.dart';
@@ -12,8 +12,7 @@ abstract class WebviewSignTransaction
       _$webviewSignTransactionSerializer;
 
   WebviewTransactionInfo get transactionInfo;
-  @nullable
-  WebviewPincodeStyle get pincodeStyle;
+  WebviewPincodeDialogStyle get pincodeDialogStyle;
 
   static WebviewSignTransaction fromJson(dynamic serialized) {
     try {
