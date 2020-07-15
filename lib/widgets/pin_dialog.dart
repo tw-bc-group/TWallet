@@ -63,6 +63,7 @@ class PinDialogWidget extends StatelessWidget {
               autoValidate: true,
               completer: completer,
               pincodeDialogInput: pincodeDialogStyle.inputFields,
+              pincodeDialogErrorMsg: pincodeDialogStyle.errorMsg,
             ),
           ],
         ));

@@ -69,9 +69,6 @@ class DAppService {
     try {
       final WebviewSignTransaction _signTransaction =
           WebviewSignTransaction.fromJson(json.decode(param));
-      print('--------------');
-      print(_signTransaction?.pincodeDialogStyle);
-      print('--------------');
       final pincodeValidate =
           await PincodeService.validate(_signTransaction.pincodeDialogStyle);
       if (pincodeValidate == null) {
