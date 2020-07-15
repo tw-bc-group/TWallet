@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_error_msg.dart';
@@ -89,30 +90,37 @@ class InputPinWidgetState extends State<InputPinWidget> {
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
-                borderWidth: widget.pincodeDialogInput.borderWidth,
-                borderRadius: BorderRadius.all(
-                    Radius.circular(widget.pincodeDialogInput.borderRadius)),
-                fieldHeight: widget.pincodeDialogInput.size,
-                fieldWidth: widget.pincodeDialogInput.size,
-                inactiveColor:
-                    WalletTheme.rgbColor(widget.pincodeDialogInput.borderColor),
+                borderWidth: widget.pincodeDialogInput?.borderWidth ?? 1,
+                borderRadius: BorderRadius.all(Radius.circular(
+                    widget.pincodeDialogInput?.borderRadius ?? 8)),
+                fieldHeight: widget.pincodeDialogInput?.size ?? 40,
+                fieldWidth: widget.pincodeDialogInput?.size ?? 40,
+                inactiveColor: WalletTheme.rgbColor(
+                    widget.pincodeDialogInput?.borderColor ??
+                        WalletColor.BLACK),
                 activeColor: WalletTheme.rgbColor(
-                    widget.pincodeDialogInput.activeBorderColor),
+                    widget.pincodeDialogInput?.activeBorderColor ??
+                        WalletColor.PRIMARY),
                 selectedColor: WalletTheme.rgbColor(
-                    widget.pincodeDialogInput.selectedBorderColor),
-                inactiveFillColor:
-                    WalletTheme.rgbColor(widget.pincodeDialogInput.filledColor),
+                    widget.pincodeDialogInput?.selectedBorderColor ??
+                        WalletColor.PRIMARY),
+                inactiveFillColor: WalletTheme.rgbColor(
+                    widget.pincodeDialogInput?.filledColor ??
+                        WalletColor.WHITE),
                 activeFillColor: WalletTheme.rgbColor(
-                    widget.pincodeDialogInput.activeFillColor),
+                    widget.pincodeDialogInput?.activeFillColor ??
+                        WalletColor.WHITE),
                 selectedFillColor: WalletTheme.rgbColor(
-                    widget.pincodeDialogInput.selectedFillColor),
+                    widget.pincodeDialogInput?.selectedFillColor ??
+                        WalletColor.PRIMARY),
               ),
               animationDuration: const Duration(milliseconds: 300),
               textStyle: WalletFont.font_16(
                 textStyle: TextStyle(
-                  color:
-                      WalletTheme.rgbColor(widget.pincodeDialogInput.textColor),
-                  fontSize: widget.pincodeDialogInput.textSize,
+                  color: WalletTheme.rgbColor(
+                      widget.pincodeDialogInput?.textColor ??
+                          WalletColor.BLACK),
+                  fontSize: widget.pincodeDialogInput.textSize ?? 16,
                 ),
               ),
               enableActiveFill: true,
