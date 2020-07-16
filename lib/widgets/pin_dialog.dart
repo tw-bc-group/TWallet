@@ -55,7 +55,7 @@ class PinDialogWidget extends StatelessWidget {
                 style: WalletFont.font_12(
                     textStyle: TextStyle(
                         color: WalletTheme.rgbColor(
-                            pincodeDialogStyle.title.color))),
+                            pincodeDialogStyle.hintMsg.color))),
               ),
             ),
             InputPinWidget(
