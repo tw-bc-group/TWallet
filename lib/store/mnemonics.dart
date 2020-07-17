@@ -10,6 +10,7 @@ typedef GenerateKeysCallback = Future<dynamic> Function(
     Tuple2<String, String> keys);
 
 const saveSplitTag = '|';
+const identityStartIndex = 1;
 
 class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
   MnemonicsStore(Tuple2<int, String> value) : super(value);
@@ -22,7 +23,7 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
       final List<String> splits = saved.split(saveSplitTag);
       //兼容老版本
       if (splits.length == 1) {
-        value = Tuple2(0, saved);
+        value = Tuple2(identityStartIndex, saved);
       } else {
         value = Tuple2(int.parse(splits.first), splits.last);
       }
@@ -54,7 +55,8 @@ abstract class MnemonicsBase with Store {
   }
 
   static Tuple2<int, String> brandNew() {
-    return Tuple2(0, bip39.generateMnemonic());
+    //the index 0 is used to call save identities contract
+    return Tuple2(identityStartIndex, bip39.generateMnemonic());
   }
 
   @action
