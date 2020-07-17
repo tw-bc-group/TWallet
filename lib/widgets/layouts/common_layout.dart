@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
-import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 class CommonLayout extends StatelessWidget {

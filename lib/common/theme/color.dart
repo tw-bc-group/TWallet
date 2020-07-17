@@ -2,16 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 
 class WalletColor {
+// ignore: constant_identifier_names
   static const String PRIMARY = '#4200d4';
+// ignore: constant_identifier_names
   static const String ACCENT = '#ff5164';
+// ignore: constant_identifier_names
   static const String BLACK = '#111111';
+// ignore: constant_identifier_names
   static const String WHITE = '#ffffff';
+// ignore: constant_identifier_names
   static const String GREY = '#999aaa';
+// ignore: constant_identifier_names
   static const String MIDDLE_GREY = '#e0e1e9';
+// ignore: constant_identifier_names
   static const String LIGHT_GREY = '#f2f4fa';
+// ignore: constant_identifier_names
   static const String YELLOW_WHITE = '#fef8e4';
+// ignore: constant_identifier_names
   static const String GREEN = '#3abfbc';
+// ignore: constant_identifier_names
   static const String RED = '#ff5164';
+// ignore: constant_identifier_names
   static const String BLUE = '#306fff';
 
   static final Color primary = WalletTheme.rgbColor(PRIMARY);
