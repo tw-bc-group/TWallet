@@ -16,6 +16,7 @@ import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
 import 'package:tw_wallet_ui/views/profile/profile.dart';
 import 'package:tw_wallet_ui/views/qr_scanner/qr_scanner.dart';
+import 'package:tw_wallet_ui/views/restore_mnemonics/restore_mnemonics.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
@@ -141,5 +142,11 @@ Handler identityDetailHandler = Handler(
 Handler dappHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return DAppPage(id: params['id'].first);
+  },
+);
+
+Handler restoreMnemonicsHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return RestoreMnemonicsPage();
   },
 );

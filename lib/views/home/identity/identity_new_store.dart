@@ -111,7 +111,7 @@ abstract class _IdentityNewStore with Store {
 
     if (!error.hasErrors) {
       return store
-          .generateKeys((keys) => Future.value(Identity((identity) => identity
+          .generateKeys((index, keys) => Future.value(Identity((identity) => identity
                 ..id = Uuid().v1()
                 ..name = name
                 ..pubKey = keys.first

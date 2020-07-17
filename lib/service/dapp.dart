@@ -122,7 +122,7 @@ class DAppService {
   static void createAccount(String id, _) {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     final IdentityStore _identityStore = getIt<IdentityStore>();
-    _mnemonicsStore.generateKeys((keys) =>
+    _mnemonicsStore.generateKeys((index, keys) =>
         Future.value(Identity((identity) => identity
               ..id = Uuid().v1()
               ..name = id

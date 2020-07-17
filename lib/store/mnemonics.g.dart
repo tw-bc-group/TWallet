@@ -6,7 +6,7 @@ part of 'mnemonics.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MnemonicsStore on MnemonicsBase, Store {
   Computed<int> _$indexComputed;
@@ -38,32 +38,11 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
     });
   }
 
-  final _$generateKeysAsyncAction = AsyncAction('MnemonicsBase.generateKeys');
-
-  @override
-  Future<dynamic> generateKeys(GenerateKeysCallback callBack) {
-    return _$generateKeysAsyncAction.run(() => super.generateKeys(callBack));
-  }
-
   final _$saveAsyncAction = AsyncAction('MnemonicsBase.save');
 
   @override
   Future<void> save() {
     return _$saveAsyncAction.run(() => super.save());
-  }
-
-  final _$MnemonicsBaseActionController =
-      ActionController(name: 'MnemonicsBase');
-
-  @override
-  void refresh() {
-    final _$actionInfo = _$MnemonicsBaseActionController.startAction(
-        name: 'MnemonicsBase.refresh');
-    try {
-      return super.refresh();
-    } finally {
-      _$MnemonicsBaseActionController.endAction(_$actionInfo);
-    }
   }
 
   @override

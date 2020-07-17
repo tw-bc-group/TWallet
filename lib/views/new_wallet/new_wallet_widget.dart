@@ -64,7 +64,9 @@ class NewWalletWidget extends StatelessWidget {
                     child: buildBigButton(title: '创建钱包'),
                   ),
                   GestureDetector(
-                    child: buildBigButton(title: '恢复钱包', disabled: true),
+                    onTap: () => Application.router
+                        .navigateTo(context, Routes.restoreMnemonics),
+                    child: buildBigButton(title: '恢复钱包'),
                   ),
                 ],
               )),

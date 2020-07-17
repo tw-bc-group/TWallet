@@ -7,7 +7,7 @@ import 'package:tw_wallet_ui/service/blockchain.dart';
 part 'mnemonics.g.dart';
 
 typedef GenerateKeysCallback = Future<dynamic> Function(
-    Tuple2<String, String> keys);
+    int index, Tuple2<String, String> keys);
 
 const saveSplitTag = '|';
 const identityStartIndex = 1;
@@ -28,10 +28,35 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
         value = Tuple2(int.parse(splits.first), splits.last);
       }
     } else {
-      value = MnemonicsBase.brandNew();
+      value = MnemonicsStore.brandNew();
     }
 
     return MnemonicsStore(value);
+  }
+
+  void refresh() {
+    value = brandNew();
+  }
+
+  Future<void> restore(int index, String mnemonics) {
+    return Future.value(Tuple2(index, mnemonics)).then((res) {
+      value = Tuple2(index, mnemonics);
+      return save();
+    });
+  }
+
+  Future<dynamic> generateKeys(GenerateKeysCallback callBack) async {
+    return Future.value(BlockChainService.generateKeys(
+            BlockChainService.generateHDWallet(mnemonics), ++index))
+        .then((keys) => callBack(index, keys))
+        .then((res) {
+      return save().then((_) => res);
+    });
+  }
+
+  static Tuple2<int, String> brandNew() {
+    //the index 0 is used to call save identities contract
+    return Tuple2(identityStartIndex, bip39.generateMnemonic());
   }
 }
 
@@ -48,26 +73,6 @@ abstract class MnemonicsBase with Store {
 
   @computed
   String get mnemonics => value.second;
-
-  @action
-  void refresh() {
-    value = brandNew();
-  }
-
-  static Tuple2<int, String> brandNew() {
-    //the index 0 is used to call save identities contract
-    return Tuple2(identityStartIndex, bip39.generateMnemonic());
-  }
-
-  @action
-  Future<dynamic> generateKeys(GenerateKeysCallback callBack) async {
-    return Future.value(BlockChainService.generateKeys(
-            BlockChainService.generateHDWallet(mnemonics), ++index))
-        .then((keys) => callBack(keys))
-        .then((res) {
-      return save().then((_) => res);
-    });
-  }
 
   @action
   Future<void> save() async {

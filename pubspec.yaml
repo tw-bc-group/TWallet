@@ -41,7 +41,7 @@ dependencies:
   optional: ^5.0.0
   json_store: ^1.0.3
   more: ^2.2.0
-  uuid: 2.0.4
+  uuid: ^2.2.0
   date_format: ^1.0.8
   web3dart: ^2.0.0-dev.7
   http: ^0.12.0+4
@@ -55,12 +55,12 @@ dependencies:
   permission_handler: ^5.0.0+hotfix.5
   flushbar: ^1.10.2
   flutter_svg: ^0.17.4
-  flutter_screenutil: ^1.1.0
+  flutter_screenutil: ^2.3.0
   custom_radio_grouped_button: ^1.0.0
   convert: ^2.1.1
   package_info: ^0.4.0+18
   device_info: ^0.4.2+4
-  get: ^2.7.1
+  get: ^3.3.0
   intl: ^0.16.1
   webview_flutter: ^0.3.22+1
   sentry:

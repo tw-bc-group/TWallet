@@ -10,6 +10,7 @@ class Routes {
   static const String newIdentity = "/new_identity";
   static const String backupMnemonics = "/backup_mnemonics";
   static const String confirmMnemonics = "/confirm_mnemonics";
+  static const String restoreMnemonics = "/restore_mnemonics";
   static const String profile = "/profile";
   static const String transferTwPoints = '/transfer_tw_points';
   static const String txList = "/tx_list";
@@ -30,6 +31,7 @@ class Routes {
     newIdentity: newIdentityHandler,
     backupMnemonics: backupMnemonicsHandler,
     confirmMnemonics: confirmMnemonicsHandler,
+    restoreMnemonics: restoreMnemonicsHandler,
     profile: profileHandler,
     transferTwPoints: transferTwPointsHandler,
     txList: txListHandler,
