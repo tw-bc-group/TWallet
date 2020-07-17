@@ -218,6 +218,7 @@ class DAppService {
     webviewController
         // ignore: avoid_escaping_inner_quotes
         .evaluateJavascript(
+            // ignore: unnecessary_string_escapes
             'window.TWallet.rejectPromise("$id", \'${json.encode(data.toString()).replaceAll('\"', '\\"')}\');');
   }
 }
