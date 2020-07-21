@@ -67,6 +67,7 @@ dependencies:
     git: https://github.com/flutter/sentry.git
   crypto: ^2.1.4
   flutter_native_splash: ^0.1.9
+  corsac_jwt: ^0.2.2
 
 dev_dependencies:
   flutter_test:

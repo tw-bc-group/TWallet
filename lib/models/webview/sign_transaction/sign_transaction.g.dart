@@ -27,6 +27,9 @@ class _$WebviewSignTransactionSerializer
       'transactionInfo',
       serializers.serialize(object.transactionInfo,
           specifiedType: const FullType(WebviewTransactionInfo)),
+      'token',
+      serializers.serialize(object.token,
+          specifiedType: const FullType(String)),
       'pincodeDialogStyle',
       serializers.serialize(object.pincodeDialogStyle,
           specifiedType: const FullType(WebviewPincodeDialogStyle)),
@@ -52,6 +55,10 @@ class _$WebviewSignTransactionSerializer
                   specifiedType: const FullType(WebviewTransactionInfo))
               as WebviewTransactionInfo);
           break;
+        case 'token':
+          result.token = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'pincodeDialogStyle':
           result.pincodeDialogStyle.replace(serializers.deserialize(value,
                   specifiedType: const FullType(WebviewPincodeDialogStyle))
@@ -68,17 +75,23 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
   final WebviewTransactionInfo transactionInfo;
   @override
+  final String token;
+  @override
   final WebviewPincodeDialogStyle pincodeDialogStyle;
 
   factory _$WebviewSignTransaction(
           [void Function(WebviewSignTransactionBuilder) updates]) =>
       (new WebviewSignTransactionBuilder()..update(updates)).build();
 
-  _$WebviewSignTransaction._({this.transactionInfo, this.pincodeDialogStyle})
+  _$WebviewSignTransaction._(
+      {this.transactionInfo, this.token, this.pincodeDialogStyle})
       : super._() {
     if (transactionInfo == null) {
       throw new BuiltValueNullFieldError(
           'WebviewSignTransaction', 'transactionInfo');
+    }
+    if (token == null) {
+      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'token');
     }
     if (pincodeDialogStyle == null) {
       throw new BuiltValueNullFieldError(
@@ -100,19 +113,21 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
     if (identical(other, this)) return true;
     return other is WebviewSignTransaction &&
         transactionInfo == other.transactionInfo &&
+        token == other.token &&
         pincodeDialogStyle == other.pincodeDialogStyle;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc(0, transactionInfo.hashCode), pincodeDialogStyle.hashCode));
+    return $jf($jc($jc($jc(0, transactionInfo.hashCode), token.hashCode),
+        pincodeDialogStyle.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('WebviewSignTransaction')
           ..add('transactionInfo', transactionInfo)
+          ..add('token', token)
           ..add('pincodeDialogStyle', pincodeDialogStyle))
         .toString();
   }
@@ -128,6 +143,10 @@ class WebviewSignTransactionBuilder
   set transactionInfo(WebviewTransactionInfoBuilder transactionInfo) =>
       _$this._transactionInfo = transactionInfo;
 
+  String _token;
+  String get token => _$this._token;
+  set token(String token) => _$this._token = token;
+
   WebviewPincodeDialogStyleBuilder _pincodeDialogStyle;
   WebviewPincodeDialogStyleBuilder get pincodeDialogStyle =>
       _$this._pincodeDialogStyle ??= new WebviewPincodeDialogStyleBuilder();
@@ -139,6 +158,7 @@ class WebviewSignTransactionBuilder
   WebviewSignTransactionBuilder get _$this {
     if (_$v != null) {
       _transactionInfo = _$v.transactionInfo?.toBuilder();
+      _token = _$v.token;
       _pincodeDialogStyle = _$v.pincodeDialogStyle?.toBuilder();
       _$v = null;
     }
@@ -165,12 +185,14 @@ class WebviewSignTransactionBuilder
       _$result = _$v ??
           new _$WebviewSignTransaction._(
               transactionInfo: transactionInfo.build(),
+              token: token,
               pincodeDialogStyle: pincodeDialogStyle.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'transactionInfo';
         transactionInfo.build();
+
         _$failedField = 'pincodeDialogStyle';
         pincodeDialogStyle.build();
       } catch (e) {

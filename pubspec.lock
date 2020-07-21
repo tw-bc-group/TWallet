@@ -211,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  corsac_jwt:
+    dependency: "direct main"
+    description:
+      name: corsac_jwt
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   crypto:
     dependency: "direct main"
     description:
@@ -772,6 +779,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.8"
+  rsa_pkcs:
+    dependency: transitive
+    description:
+      name: rsa_pkcs
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.3"
   rxdart:
     dependency: transitive
     description:

@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_error_msg.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_input.dart';
+import 'package:tw_wallet_ui/service/pincode.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
 
 class InputPinWidget extends StatefulWidget {
@@ -51,7 +52,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       if (widget.completer != null) {
-        widget.completer.complete(true);
+        widget.completer.complete(PincodeService.createToken());
       }
       return true;
     } catch (error) {

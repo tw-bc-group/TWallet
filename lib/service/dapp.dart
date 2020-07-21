@@ -68,8 +68,8 @@ class DAppService {
     try {
       final WebviewSignTransaction _signTransaction =
           WebviewSignTransaction.fromJson(json.decode(param));
-      final pincodeValidate =
-          await PincodeService.validate(_signTransaction.pincodeDialogStyle);
+      final pincodeValidate = await PincodeService.validate(
+          _signTransaction.token, _signTransaction.pincodeDialogStyle);
       if (pincodeValidate == null) {
         return reject(id, '');
       }
@@ -97,7 +97,13 @@ class DAppService {
         ),
         fetchChainIdFromNetworkId: true,
       );
-      resolve(id, '0x${bytesToHex(rawTx)}');
+      resolve(
+        id,
+        {
+          'rawData': '0x${bytesToHex(rawTx)}',
+          'token': pincodeValidate is String ? pincodeValidate : ''
+        },
+      );
     } catch (err) {
       reject(id, err.toString());
     }
@@ -211,14 +217,13 @@ class DAppService {
 
   static void resolve(String id, dynamic data) {
     webviewController.evaluateJavascript(
-        'window.TWallet.resolvePromise("$id", \'${json.encode(data)}\')');
+        'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})');
   }
 
   static void reject(String id, dynamic data) {
     webviewController
         // ignore: avoid_escaping_inner_quotes
         .evaluateJavascript(
-            // ignore: unnecessary_string_escapes
-            'window.TWallet.rejectPromise("$id", \'${json.encode(data.toString()).replaceAll('\"', '\\"')}\');');
+            'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});');
   }
 }
