@@ -43,7 +43,6 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
 
     return Obx(() => CommonLayout(
         withBottomBtn: true,
-        btnText: '完成',
         btnOnPressed: _isValidInput
             ? () => getIt<MnemonicsStore>()
                 .restore(1, _inputValue.value.trim())
@@ -90,7 +89,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                           autofocus: true,
                           style: WalletFont.font_16(
                               textStyle:
-                                  TextStyle(fontWeight: FontWeight.w600)),
+                                  const TextStyle(fontWeight: FontWeight.w600)),
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           maxLength: 320,
