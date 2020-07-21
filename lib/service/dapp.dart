@@ -101,7 +101,9 @@ class DAppService {
         id,
         {
           'rawData': '0x${bytesToHex(rawTx)}',
-          'token': pincodeValidate is String ? pincodeValidate : ''
+          'token': pincodeValidate is String
+              ? pincodeValidate
+              : _signTransaction.token
         },
       );
     } catch (err) {
