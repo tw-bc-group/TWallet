@@ -61,8 +61,12 @@ class PincodeService {
 
   static bool verifyToken(String stringToken) {
     final signer = JWTHmacSha256Signer(tokenSecret);
-    final decodedToken = JWT.parse(stringToken);
-
+    JWT decodedToken;
+    try {
+      decodedToken = JWT.parse(stringToken);
+    } catch (e) {
+      return false;
+    }
     if (!decodedToken.verify(signer)) {
       return false;
     }
