@@ -2,27 +2,27 @@ import 'package:http/http.dart' show Client;
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:web3dart/contracts.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
-const tokenContractName = 'token';
-const identityRegistryContractName = 'identity-registry';
+const maxGas = 300000;
+const contractsOnChain = ['token', 'identities'];
 
 class ContractService {
   const ContractService(this.contracts);
 
   final Map<String, Contract> contracts;
 
-  Contract get identityRegistryContract =>
-      contracts[identityRegistryContractName];
+  Contract get tokenContract => contracts[contractsOnChain[0]];
 
-  Contract get twPointContract => contracts[tokenContractName];
+  Contract get identitiesContract => contracts[contractsOnChain[1]];
 
   static Future<ContractService> init() async {
     final Map<String, Contract> contracts = {};
-    for (final name in [identityRegistryContractName, tokenContractName]) {
+    for (final name in contractsOnChain) {
       (await Contract.fromApi(name))
           .ifPresent((contract) => contracts[name] = contract);
     }
@@ -32,6 +32,7 @@ class ContractService {
 
 class Contract {
   Contract(this.contract);
+
   final DeployedContract contract;
   final Web3Client web3Client =
       Web3Client(globalEnv().web3RpcGatewayUrl, Client());
@@ -41,7 +42,7 @@ class Contract {
         .fetchContractAbiV1(contractName: contractName)
         .then((res) {
       res.ifPresent((contract) {
-        if (contractName == tokenContractName) {
+        if (contractName == contractsOnChain[0]) {
           globalEnv().rebuild((builder) {
             builder.tokenName = contract.name;
             if (null != contract.symbol) {
@@ -61,19 +62,54 @@ class Contract {
     });
   }
 
+  Transaction makeTransaction(String functionName, List<dynamic> parameters) {
+    return Transaction.callContract(
+      contract: contract,
+      function: contract.function(functionName),
+      parameters: parameters,
+      gasPrice: EtherAmount.zero(),
+      maxGas: maxGas,
+    );
+  }
+
+  Future<List<dynamic>> callFunction(
+      String publicKey, String functionName, List<dynamic> parameters) async {
+    return web3Client.call(
+        sender: EthereumAddress.fromHex(
+            BlockChainService.publicKeyToAddress(publicKey.substring(2))),
+        contract: contract,
+        function: contract.function(functionName),
+        params: parameters ?? []);
+  }
+
+  Future<bool> sendTransaction(
+      String privateKey, String functionName, List<dynamic> parameters) async {
+    TransactionReceipt receipt;
+    final String hash = await web3Client
+        .credentialsFromPrivateKey(privateKey)
+        .then((credentials) => web3Client.sendTransaction(
+            credentials, makeTransaction(functionName, parameters ?? []),
+            fetchChainIdFromNetworkId: true));
+
+    while (true) {
+      await Future.delayed(const Duration(seconds: 2)).then((_) async {
+        receipt = await web3Client.getTransactionReceipt(hash);
+      });
+
+      if (receipt != null) {
+        break;
+      }
+    }
+
+    return receipt.status;
+  }
+
   Future<String> signContractCall(
       String privateKey, String functionName, List<dynamic> parameters) async {
     return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
       return web3Client
           .signTransaction(
-              credentials,
-              Transaction.callContract(
-                contract: contract,
-                function: contract.function(functionName),
-                parameters: parameters,
-                gasPrice: EtherAmount.zero(),
-                maxGas: 3000000,
-              ),
+              credentials, makeTransaction(functionName, parameters),
               fetchChainIdFromNetworkId: true)
           .then((rawTx) => '0x${bytesToHex(rawTx)}');
     });

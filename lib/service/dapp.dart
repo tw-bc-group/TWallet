@@ -20,7 +20,6 @@ import 'package:tw_wallet_ui/service/pincode.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/dapp/dapp.dart';
-import 'package:uuid/uuid.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -124,12 +123,11 @@ class DAppService {
     final IdentityStore _identityStore = getIt<IdentityStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
         Future.value(Identity((identity) => identity
-              ..id = Uuid().v1()
               ..name = id
               ..pubKey = keys.first
               ..priKey = keys.second
-              ..fromDApp = true
-              ..index = _mnemonicsStore.index))
+              ..dappId = "demo"
+              ..index = index))
             .then((value) => _identityStore.addIdentity(identity: value))
             .then((Identity value) {
           final Map<String, dynamic> resultJson = {

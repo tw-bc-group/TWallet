@@ -18,21 +18,25 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
   Iterable<Object> serialize(Serializers serializers, Identity object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'index',
+      serializers.serialize(object.index, specifiedType: const FullType(int)),
       'pubKey',
       serializers.serialize(object.pubKey,
           specifiedType: const FullType(String)),
       'priKey',
       serializers.serialize(object.priKey,
           specifiedType: const FullType(String)),
+      'dappId',
+      serializers.serialize(object.dappId,
+          specifiedType: const FullType(String)),
+      'isSelected',
+      serializers.serialize(object.isSelected,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.id != null) {
-      result
-        ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(String)));
-    }
     if (object.phone != null) {
       result
         ..add('phone')
@@ -69,23 +73,11 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         ..add(serializers.serialize(object.healthStatus,
             specifiedType: const FullType(String)));
     }
-    if (object.isSelected != null) {
+    if (object.extra != null) {
       result
-        ..add('isSelected')
-        ..add(serializers.serialize(object.isSelected,
-            specifiedType: const FullType(bool)));
-    }
-    if (object.fromDApp != null) {
-      result
-        ..add('fromDApp')
-        ..add(serializers.serialize(object.fromDApp,
-            specifiedType: const FullType(bool)));
-    }
-    if (object.index != null) {
-      result
-        ..add('index')
-        ..add(serializers.serialize(object.index,
-            specifiedType: const FullType(int)));
+        ..add('extra')
+        ..add(serializers.serialize(object.extra,
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -109,6 +101,10 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'index':
+          result.index = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'pubKey':
           result.pubKey = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -116,6 +112,14 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
         case 'priKey':
           result.priKey = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'dappId':
+          result.dappId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'isSelected':
+          result.isSelected = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'phone':
           result.phone = serializers.deserialize(value,
@@ -141,17 +145,9 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
           result.healthStatus = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'isSelected':
-          result.isSelected = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'fromDApp':
-          result.fromDApp = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'index':
-          result.index = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+        case 'extra':
+          result.extra = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -166,9 +162,15 @@ class _$Identity extends Identity {
   @override
   final String name;
   @override
+  final int index;
+  @override
   final String pubKey;
   @override
   final String priKey;
+  @override
+  final String dappId;
+  @override
+  final bool isSelected;
   @override
   final String phone;
   @override
@@ -182,11 +184,7 @@ class _$Identity extends Identity {
   @override
   final String healthStatus;
   @override
-  final bool isSelected;
-  @override
-  final bool fromDApp;
-  @override
-  final int index;
+  final String extra;
   String __address;
   DID __did;
 
@@ -196,26 +194,39 @@ class _$Identity extends Identity {
   _$Identity._(
       {this.id,
       this.name,
+      this.index,
       this.pubKey,
       this.priKey,
+      this.dappId,
+      this.isSelected,
       this.phone,
       this.email,
       this.birthday,
       this.balance,
       this.healthCertificateStatus,
       this.healthStatus,
-      this.isSelected,
-      this.fromDApp,
-      this.index})
+      this.extra})
       : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('Identity', 'id');
+    }
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
+    }
+    if (index == null) {
+      throw new BuiltValueNullFieldError('Identity', 'index');
     }
     if (pubKey == null) {
       throw new BuiltValueNullFieldError('Identity', 'pubKey');
     }
     if (priKey == null) {
       throw new BuiltValueNullFieldError('Identity', 'priKey');
+    }
+    if (dappId == null) {
+      throw new BuiltValueNullFieldError('Identity', 'dappId');
+    }
+    if (isSelected == null) {
+      throw new BuiltValueNullFieldError('Identity', 'isSelected');
     }
   }
 
@@ -238,17 +249,18 @@ class _$Identity extends Identity {
     return other is Identity &&
         id == other.id &&
         name == other.name &&
+        index == other.index &&
         pubKey == other.pubKey &&
         priKey == other.priKey &&
+        dappId == other.dappId &&
+        isSelected == other.isSelected &&
         phone == other.phone &&
         email == other.email &&
         birthday == other.birthday &&
         balance == other.balance &&
         healthCertificateStatus == other.healthCertificateStatus &&
         healthStatus == other.healthStatus &&
-        isSelected == other.isSelected &&
-        fromDApp == other.fromDApp &&
-        index == other.index;
+        extra == other.extra;
   }
 
   @override
@@ -264,19 +276,21 @@ class _$Identity extends Identity {
                                     $jc(
                                         $jc(
                                             $jc(
-                                                $jc($jc(0, id.hashCode),
-                                                    name.hashCode),
+                                                $jc(
+                                                    $jc($jc(0, id.hashCode),
+                                                        name.hashCode),
+                                                    index.hashCode),
                                                 pubKey.hashCode),
                                             priKey.hashCode),
-                                        phone.hashCode),
-                                    email.hashCode),
-                                birthday.hashCode),
-                            balance.hashCode),
-                        healthCertificateStatus.hashCode),
-                    healthStatus.hashCode),
-                isSelected.hashCode),
-            fromDApp.hashCode),
-        index.hashCode));
+                                        dappId.hashCode),
+                                    isSelected.hashCode),
+                                phone.hashCode),
+                            email.hashCode),
+                        birthday.hashCode),
+                    balance.hashCode),
+                healthCertificateStatus.hashCode),
+            healthStatus.hashCode),
+        extra.hashCode));
   }
 
   @override
@@ -284,17 +298,18 @@ class _$Identity extends Identity {
     return (newBuiltValueToStringHelper('Identity')
           ..add('id', id)
           ..add('name', name)
+          ..add('index', index)
           ..add('pubKey', pubKey)
           ..add('priKey', priKey)
+          ..add('dappId', dappId)
+          ..add('isSelected', isSelected)
           ..add('phone', phone)
           ..add('email', email)
           ..add('birthday', birthday)
           ..add('balance', balance)
           ..add('healthCertificateStatus', healthCertificateStatus)
           ..add('healthStatus', healthStatus)
-          ..add('isSelected', isSelected)
-          ..add('fromDApp', fromDApp)
-          ..add('index', index))
+          ..add('extra', extra))
         .toString();
   }
 }
@@ -310,6 +325,10 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
+  int _index;
+  int get index => _$this._index;
+  set index(int index) => _$this._index = index;
+
   String _pubKey;
   String get pubKey => _$this._pubKey;
   set pubKey(String pubKey) => _$this._pubKey = pubKey;
@@ -317,6 +336,14 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String _priKey;
   String get priKey => _$this._priKey;
   set priKey(String priKey) => _$this._priKey = priKey;
+
+  String _dappId;
+  String get dappId => _$this._dappId;
+  set dappId(String dappId) => _$this._dappId = dappId;
+
+  bool _isSelected;
+  bool get isSelected => _$this._isSelected;
+  set isSelected(bool isSelected) => _$this._isSelected = isSelected;
 
   String _phone;
   String get phone => _$this._phone;
@@ -343,17 +370,9 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String get healthStatus => _$this._healthStatus;
   set healthStatus(String healthStatus) => _$this._healthStatus = healthStatus;
 
-  bool _isSelected;
-  bool get isSelected => _$this._isSelected;
-  set isSelected(bool isSelected) => _$this._isSelected = isSelected;
-
-  bool _fromDApp;
-  bool get fromDApp => _$this._fromDApp;
-  set fromDApp(bool fromDApp) => _$this._fromDApp = fromDApp;
-
-  int _index;
-  int get index => _$this._index;
-  set index(int index) => _$this._index = index;
+  String _extra;
+  String get extra => _$this._extra;
+  set extra(String extra) => _$this._extra = extra;
 
   IdentityBuilder();
 
@@ -361,17 +380,18 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
+      _index = _$v.index;
       _pubKey = _$v.pubKey;
       _priKey = _$v.priKey;
+      _dappId = _$v.dappId;
+      _isSelected = _$v.isSelected;
       _phone = _$v.phone;
       _email = _$v.email;
       _birthday = _$v.birthday;
       _balance = _$v.balance;
       _healthCertificateStatus = _$v.healthCertificateStatus;
       _healthStatus = _$v.healthStatus;
-      _isSelected = _$v.isSelected;
-      _fromDApp = _$v.fromDApp;
-      _index = _$v.index;
+      _extra = _$v.extra;
       _$v = null;
     }
     return this;
@@ -396,17 +416,18 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
         new _$Identity._(
             id: id,
             name: name,
+            index: index,
             pubKey: pubKey,
             priKey: priKey,
+            dappId: dappId,
+            isSelected: isSelected,
             phone: phone,
             email: email,
             birthday: birthday,
             balance: balance,
             healthCertificateStatus: healthCertificateStatus,
             healthStatus: healthStatus,
-            isSelected: isSelected,
-            fromDApp: fromDApp,
-            index: index);
+            extra: extra);
     replace(_$result);
     return _$result;
   }

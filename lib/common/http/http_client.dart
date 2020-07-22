@@ -60,8 +60,8 @@ Dio _initDio() {
     ..interceptors.add(LoadingInterceptor());
 
   if (kDebugMode) {
-    _dio.interceptors
-        .add(LogInterceptor(requestBody: true, responseBody: true));
+//    _dio.interceptors
+//        .add(LogInterceptor(requestBody: true, responseBody: true));
   }
   return _dio;
 }

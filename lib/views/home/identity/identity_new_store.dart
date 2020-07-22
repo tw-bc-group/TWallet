@@ -110,16 +110,17 @@ abstract class _IdentityNewStore with Store {
     final MnemonicsStore store = getIt<MnemonicsStore>();
 
     if (!error.hasErrors) {
-      return store
-          .generateKeys((index, keys) => Future.value(Identity((identity) => identity
+      return store.generateKeys(
+          (index, keys) => Future.value(Identity((identity) => identity
                 ..id = Uuid().v1()
                 ..name = name
+                ..index = index
                 ..pubKey = keys.first
                 ..priKey = keys.second
                 ..phone = phone
                 ..email = email
                 ..birthday = birthday)).then((identity) {
-                return identity.register().then((success) {
+                return identity.register(index, "").then((success) {
                   if (success) {
                     _identityStore.addIdentity(identity: identity);
                   }

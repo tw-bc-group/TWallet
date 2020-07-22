@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
@@ -44,10 +45,16 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
     return Obx(() => CommonLayout(
         withBottomBtn: true,
         btnOnPressed: _isValidInput
-            ? () => getIt<MnemonicsStore>()
-                .restore(1, _inputValue.value.trim())
-                .then(
-                    (_) => Application.router.navigateTo(context, Routes.home))
+            ? () async {
+                final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+                await _mnemonicsStore
+                    .restore(1, _inputValue.value.trim())
+                    .then((_) {
+                  Identity.restore().then((_) => _mnemonicsStore.save()).then(
+                      (_) =>
+                          Application.router.navigateTo(context, Routes.home));
+                });
+              }
             : null,
         child: Container(
           decoration: BoxDecoration(
