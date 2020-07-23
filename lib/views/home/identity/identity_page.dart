@@ -166,8 +166,8 @@ class _IdentityPageState extends State<IdentityPage> {
                 padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
                 child: ListView(
                   children: _store.identities
-                          .where((identity) => identity.dappId.isEmpty)
                           .where((identity) =>
+                              identity.dappId.isEmpty &&
                               identity.name.contains(_store.searchName))
                           .map((identity) => _listItem(identity))
                           .toList() +
