@@ -33,8 +33,8 @@ class DAppPageState extends State<DAppPage> {
     DAppService.setStatusBarMode('id', 'dark');
   }
 
-  String getDappById(String id) {
-    return dappList.firstWhere((dapp) => dapp.id == id).url;
+  DAppInfo getDappById(String id) {
+    return dappList.firstWhere((dapp) => dapp.id == id);
   }
 
   JavascriptChannel _nativeJavascriptChannel(BuildContext context) {
@@ -107,11 +107,13 @@ class DAppPageState extends State<DAppPage> {
                 children: <Widget>[
                   Builder(builder: (BuildContext context) {
                     return WebView(
-                      initialUrl: getDappById(widget.id),
+                      initialUrl: getDappById(widget.id)?.url,
                       javascriptMode: JavascriptMode.unrestricted,
                       onWebViewCreated: (WebViewController webViewController) {
                         _controller.complete(webViewController);
                         DAppService.webviewController = webViewController;
+                        webViewController.evaluateJavascript(
+                            'window._wallet_dapp_id = ${widget.id}');
                       },
                       javascriptChannels: <JavascriptChannel>{
                         _nativeJavascriptChannel(context),
