@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -39,6 +40,8 @@ class NewWalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    YYDialog.init(context);
+
     return CommonLayout(
         backIcon: BackIcon.none,
         child: Container(

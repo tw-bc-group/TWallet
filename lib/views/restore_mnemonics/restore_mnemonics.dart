@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -38,6 +39,24 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
     );
   }
 
+  YYDialog showProgressDialog() {
+    return YYDialog().build()
+      ..borderRadius = 12
+      ..barrierColor = Colors.transparent
+      ..backgroundColor = WalletColor.white
+      ..width = 160
+      ..height = 160
+      ..widget(Container(
+        width: 60,
+        height: 60,
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(top: 50),
+        child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
+      ))
+      ..show();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ScreenUtil _screenUtil = ScreenUtil();
@@ -47,12 +66,16 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
         btnOnPressed: _isValidInput
             ? () async {
                 final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+                final YYDialog _progressDialog = showProgressDialog();
                 await _mnemonicsStore
                     .restore(1, _inputValue.value.trim())
                     .then((_) {
-                  Identity.restore().then((_) => _mnemonicsStore.save()).then(
-                      (_) =>
-                          Application.router.navigateTo(context, Routes.home));
+                  Identity.restore()
+                      .then((_) => _mnemonicsStore.save())
+                      .then((_) {
+                    _progressDialog.dismiss();
+                    Application.router.navigateTo(context, Routes.home);
+                  });
                 });
               }
             : null,
