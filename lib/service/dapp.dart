@@ -118,8 +118,7 @@ class DAppService {
             .orElse(''));
   }
 
-  //TODO: add param, such as dappId, extra etc.
-  static void createAccount(String id, _) {
+  static void createAccount(String id, String dappid) {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     final IdentityStore _identityStore = getIt<IdentityStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
@@ -127,7 +126,7 @@ class DAppService {
               ..name = id
               ..pubKey = keys.first
               ..priKey = keys.second
-              ..dappId = "demo"
+              ..dappId = dappid
               ..index = index))
             .then((value) => _identityStore.addIdentity(identity: value))
             .then((Identity value) {
@@ -164,15 +163,15 @@ class DAppService {
     ));
   }
 
-  static void getAccounts(String id, String param) {
-    if (param.isEmpty) {
+  static void getAccounts(String id, String dappid) {
+    if (dappid.isEmpty) {
       resolve(id, null);
     } else {
       resolve(
           id,
           getIt<IdentityStore>()
               .identities
-              .where((identity) => identity.dappId == param)
+              .where((identity) => identity.dappId == dappid)
               .toList());
     }
   }
