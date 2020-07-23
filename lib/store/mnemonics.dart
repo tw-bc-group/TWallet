@@ -23,6 +23,7 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
           BlockChainService.generateHDWallet(mnemonics), 0)
       .second;
 
+  @override
   void refresh() {
     value = brandNew();
   }
