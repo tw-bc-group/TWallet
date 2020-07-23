@@ -113,7 +113,7 @@ class DAppPageState extends State<DAppPage> {
                         _controller.complete(webViewController);
                         DAppService.webviewController = webViewController;
                         webViewController.evaluateJavascript(
-                            'window._wallet_dapp_id = ${widget.id}');
+                            'window._wallet_dapp_id = ${json.encode(widget.id)}');
                       },
                       javascriptChannels: <JavascriptChannel>{
                         _nativeJavascriptChannel(context),
