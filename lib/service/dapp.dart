@@ -118,6 +118,7 @@ class DAppService {
             .orElse(''));
   }
 
+  //TODO: add param, such as dappId, extra etc.
   static void createAccount(String id, _) {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     final IdentityStore _identityStore = getIt<IdentityStore>();
@@ -161,6 +162,19 @@ class DAppService {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: WalletTheme.rgbColor(param),
     ));
+  }
+
+  static void getAccounts(String id, String param) {
+    if (param.isEmpty) {
+      resolve(id, null);
+    } else {
+      resolve(
+          id,
+          getIt<IdentityStore>()
+              .identities
+              .where((identity) => identity.dappId == param)
+              .toList());
+    }
   }
 
   static void getAccountById(String id, String param) {
