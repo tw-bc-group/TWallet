@@ -66,8 +66,13 @@ abstract class Identity extends Object
 
   Identity setUnSelected() => rebuild((id) => id..isSelected = false);
 
-  Map<String, dynamic> basicInfo() =>
-      {'id': id, 'address': address, 'publicKey': pubKey, 'index': index};
+  Map<String, dynamic> basicInfo() => {
+        'id': id,
+        'address': address,
+        'publicKey': pubKey,
+        'index': index,
+        'extra': extra
+      };
 
   factory Identity([void Function(IdentityBuilder) updates]) =>
       _$Identity((builder) => builder
