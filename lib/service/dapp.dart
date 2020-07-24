@@ -172,6 +172,7 @@ class DAppService {
           getIt<IdentityStore>()
               .identities
               .where((identity) => identity.dappId == dappid)
+              .map((identity) => identity.basicInfo())
               .toList());
     }
   }
@@ -181,14 +182,7 @@ class DAppService {
       return resolve(id, null);
     }
 
-    final IdentityStore _identityStore = getIt<IdentityStore>();
-    final identity = _identityStore.getIdentityById(param);
-    resolve(id, {
-      'id': identity.id,
-      'address': identity.address,
-      'publicKey': identity.pubKey,
-      'index': identity.index
-    });
+    resolve(id, getIt<IdentityStore>().getIdentityById(param).basicInfo());
   }
 
   static void getAccountByIds(String id, String param) {
