@@ -52,7 +52,7 @@ class PincodeService {
 
   static String createToken() {
     final builder = JWTBuilder()
-      ..expiresAt = DateTime.now().add(const Duration(minutes: 1))
+      ..expiresAt = DateTime.now().add(const Duration(seconds: 15))
       ..setClaim('name', 'dapp');
     final signer = JWTHmacSha256Signer(tokenSecret);
     final signedToken = builder.getSignedToken(signer);
