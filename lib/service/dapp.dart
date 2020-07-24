@@ -47,6 +47,8 @@ class DAppService {
         return setStatusBarMode;
       case WebviewRequestMethod.setStatusBarBackgroundColor:
         return setStatusBarBackgroundColor;
+      case WebviewRequestMethod.getAccounts:
+        return getAccounts;
       case WebviewRequestMethod.getAccountById:
         return getAccountById;
       case WebviewRequestMethod.getAccountByIds:
