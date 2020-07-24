@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -53,7 +52,6 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    YYDialog.init(context);
     return CommonLayout(
         withBottomBtn: true,
         btnOnPressed: () =>

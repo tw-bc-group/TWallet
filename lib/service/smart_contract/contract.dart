@@ -74,12 +74,16 @@ class Contract {
 
   Future<List<dynamic>> callFunction(
       String publicKey, String functionName, List<dynamic> parameters) async {
-    return web3Client.call(
-        sender: EthereumAddress.fromHex(
-            BlockChainService.publicKeyToAddress(publicKey.substring(2))),
-        contract: contract,
-        function: contract.function(functionName),
-        params: parameters ?? []);
+    return web3Client
+        .call(
+            sender: EthereumAddress.fromHex(
+                BlockChainService.publicKeyToAddress(publicKey.substring(2))),
+            contract: contract,
+            function: contract.function(functionName),
+            params: parameters ?? [])
+        .then((res) {
+      return res;
+    });
   }
 
   Future<bool> sendTransaction(

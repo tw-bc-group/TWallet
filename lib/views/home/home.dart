@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -84,9 +83,8 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 375, height: 812);
-    YYDialog.init(context);
     DAppService.context = context;
+    ScreenUtil.init(context, width: 375, height: 812);
 
     return Scaffold(
       backgroundColor: WalletColor.primary,

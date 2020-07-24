@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
@@ -21,6 +22,7 @@ class IdentityNewPage extends StatefulWidget {
 class _IdentityNewPageState extends State<IdentityNewPage> {
   bool isAdding = false;
   final IdentityNewStore store = IdentityNewStore();
+  final ProgressDialog _dialog = getIt<ProgressDialog>();
 
   @override
   void initState() {
@@ -38,32 +40,14 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     return store.name.isEmpty;
   }
 
-  YYDialog showProgressDialog() {
-    return YYDialog().build()
-      ..borderRadius = 12
-      ..barrierColor = Colors.transparent
-      ..backgroundColor = WalletColor.white
-      ..width = 160
-      ..height = 160
-      ..widget(Container(
-        width: 60,
-        height: 60,
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(top: 50),
-        child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
-      ))
-      ..show();
-  }
-
   Future<void> _addOnPressed() async {
     store.validateAll();
     if (!store.error.hasErrors && !isAdding) {
       isAdding = true;
-      final YYDialog _progressDialog = showProgressDialog();
+      _dialog.show();
       await store.addIdentity().then((success) {
         store.clearError();
-        _progressDialog.dismiss();
+        _dialog.dismiss();
         if (success as bool) {
           showDialogSample(DialogType.success, '创建成功')
               .then((_) => Application.router.pop(context));

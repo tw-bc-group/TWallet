@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
@@ -17,6 +18,7 @@ Future<void> getItInit({@required bool isTest}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   getIt.registerSingletonAsync<EnvStore>(() => EnvStore.init(isTest: isTest));
+  getIt.registerLazySingleton<ProgressDialog>(() => ProgressDialog());
 
   if (isTest) {
     getIt.registerSingleton<HttpClient>(MockHttpClient());

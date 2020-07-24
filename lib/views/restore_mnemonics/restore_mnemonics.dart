@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
@@ -26,13 +27,6 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
 
   bool get _isValidInput => _inputWords.length == 12;
 
-//  bool get _isValidInput =>
-//      _inputValue.value
-//          .trim()
-//          .split(' ')
-//          .where((element) => element.isNotEmpty)
-//          .length == 12;
-
   Widget buildInfoTipButton() {
     return Positioned(
       top: -6,
@@ -49,24 +43,6 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
     );
   }
 
-  YYDialog showProgressDialog() {
-    return YYDialog().build()
-      ..borderRadius = 12
-      ..barrierColor = Colors.transparent
-      ..backgroundColor = WalletColor.white
-      ..width = 160
-      ..height = 160
-      ..widget(Container(
-        width: 60,
-        height: 60,
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(top: 50),
-        child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
-      ))
-      ..show();
-  }
-
   @override
   Widget build(BuildContext context) {
     final ScreenUtil _screenUtil = ScreenUtil();
@@ -75,10 +51,11 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
         withBottomBtn: true,
         btnOnPressed: _isValidInput
             ? () async {
+                final ProgressDialog _progressDialog = getIt<ProgressDialog>();
+                _progressDialog.show();
                 try {
                   final MnemonicsStore _mnemonicsStore =
                       getIt<MnemonicsStore>();
-                  final YYDialog _progressDialog = showProgressDialog();
                   _mnemonicsStore.brandNew(mnemonics: _inputWords.join(' '));
                   getIt<IdentityStore>().restore().then((maxIndex) {
                     _mnemonicsStore.save(newIndex: maxIndex);
@@ -89,6 +66,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                   });
                 } catch (_) {
                   _restoreFailed.value = true;
+                  _progressDialog.dismiss();
                 }
               }
             : null,

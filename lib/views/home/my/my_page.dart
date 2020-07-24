@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,11 +11,14 @@ import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
+  final ProgressDialog _dialog = getIt<ProgressDialog>();
+  _dialog.show();
   return getIt<IdentityStore>()
       .clear()
       .then((_) => getIt<HealthCertificationStore>().clear())
@@ -39,27 +41,11 @@ Future<void> _cleanPrivateData(BuildContext context) async {
 
     final Directory tempDir = await getTemporaryDirectory();
     return delDir(tempDir);
-  }).then((_) => Future.delayed(const Duration(seconds: 1)).then((_) =>
-          Application.router
-              .navigateTo(context, Routes.inputPin, clearStack: true)));
-}
-
-YYDialog showLoadingDialog() {
-  return YYDialog().build()
-    ..borderRadius = 12
-    ..barrierColor = Colors.transparent
-    ..backgroundColor = WalletColor.white
-    ..width = 160
-    ..height = 160
-    ..widget(Container(
-      width: 60,
-      height: 60,
-      alignment: Alignment.center,
-      margin: const EdgeInsets.only(top: 50),
-      child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
-    ))
-    ..show();
+  }).then((_) => Future.delayed(const Duration(seconds: 1)).then((_) {
+    _dialog.dismiss();
+            Application.router
+                .navigateTo(context, Routes.inputPin, clearStack: true);
+          }));
 }
 
 class MyPage extends StatelessWidget {
@@ -88,11 +74,7 @@ class MyPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () async {
-                        final YYDialog loadingDialog = showLoadingDialog();
-                        await _cleanPrivateData(context);
-                        loadingDialog.dismiss();
-                      },
+                      onTap: () => _cleanPrivateData(context),
                       child: Container(
                           height: _screenUtil.setWidth(90).toDouble(),
                           decoration: BoxDecoration(
