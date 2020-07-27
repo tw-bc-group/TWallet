@@ -31,13 +31,14 @@ Future<void> _reportError(dynamic error, dynamic stackTrace) async {
 }
 
 Future<void> main() async {
-  // FlutterError.onError = (FlutterErrorDetails details) async {
-  //   if (isInDebugMode) {
-  //     FlutterError.dumpErrorToConsole(details);
-  //   } else {
-  //     await _reportError(details.exception, details.stack);
-  //   }
-  // };
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    if (isInDebugMode) {
+      FlutterError.dumpErrorToConsole(details);
+    } else {
+      await _reportError(details.exception, details.stack);
+    }
+  };
+
   runApp(const SplashScreen(
     onInitializationComplete: runMainApp,
   ));
