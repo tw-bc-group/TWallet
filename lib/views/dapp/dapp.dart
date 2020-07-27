@@ -49,8 +49,9 @@ class DAppPageState extends State<DAppPage> {
             DAppService.getOperator(webviewRequest.method)
                 .call(webviewRequest.id, webviewRequest.param);
           } catch (e) {
-            _controller.future.then((webviewController) => webviewController
-                .evaluateJavascript('window.TWallet.rejectPromise($e);'));
+            _controller.future.then((webviewController) =>
+                webviewController.evaluateJavascript(
+                    'window.TWallet.rejectPromise(${json.encode(json.encode(e))});'));
           }
         });
   }
