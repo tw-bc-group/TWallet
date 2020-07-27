@@ -22,21 +22,28 @@ class _$IdentitySerializer implements StructuredSerializer<Identity> {
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'index',
-      serializers.serialize(object.index, specifiedType: const FullType(int)),
       'pubKey',
       serializers.serialize(object.pubKey,
           specifiedType: const FullType(String)),
       'priKey',
       serializers.serialize(object.priKey,
           specifiedType: const FullType(String)),
-      'dappId',
-      serializers.serialize(object.dappId,
-          specifiedType: const FullType(String)),
       'isSelected',
       serializers.serialize(object.isSelected,
           specifiedType: const FullType(bool)),
     ];
+    if (object.index != null) {
+      result
+        ..add('index')
+        ..add(serializers.serialize(object.index,
+            specifiedType: const FullType(int)));
+    }
+    if (object.dappId != null) {
+      result
+        ..add('dappId')
+        ..add(serializers.serialize(object.dappId,
+            specifiedType: const FullType(String)));
+    }
     if (object.phone != null) {
       result
         ..add('phone')
@@ -213,17 +220,11 @@ class _$Identity extends Identity {
     if (name == null) {
       throw new BuiltValueNullFieldError('Identity', 'name');
     }
-    if (index == null) {
-      throw new BuiltValueNullFieldError('Identity', 'index');
-    }
     if (pubKey == null) {
       throw new BuiltValueNullFieldError('Identity', 'pubKey');
     }
     if (priKey == null) {
       throw new BuiltValueNullFieldError('Identity', 'priKey');
-    }
-    if (dappId == null) {
-      throw new BuiltValueNullFieldError('Identity', 'dappId');
     }
     if (isSelected == null) {
       throw new BuiltValueNullFieldError('Identity', 'isSelected');
