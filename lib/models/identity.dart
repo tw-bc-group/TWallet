@@ -24,14 +24,12 @@ abstract class Identity extends Object
 
   String get name;
 
-  @nullable
   int get index;
 
   String get pubKey;
 
   String get priKey;
 
-  @nullable
   String get dappId;
 
   bool get isSelected;
