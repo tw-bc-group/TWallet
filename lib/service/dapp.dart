@@ -68,7 +68,7 @@ class DAppService {
   static Future<void> signTransaction(String id, String param) async {
     try {
       final WebviewSignTransaction _signTransaction =
-          WebviewSignTransaction.fromJson(json.decode(param));
+      WebviewSignTransaction.fromJson(json.decode(param));
       final pincodeValidate = await PincodeService.validate(
           _signTransaction.token, _signTransaction.pincodeDialogStyle);
       if (pincodeValidate == null) {
@@ -76,23 +76,23 @@ class DAppService {
       }
       final _transactionInfo = _signTransaction.transactionInfo;
       final Web3Client _web3Client =
-          Web3Client(_transactionInfo.rpcUrl, Client());
+      Web3Client(_transactionInfo.rpcUrl, Client());
       final Identity _identity =
-          getIt<IdentityStore>().getIdentityById(_transactionInfo.accountId);
+      getIt<IdentityStore>().getIdentityById(_transactionInfo.accountId);
       final DeployedContract _contract = DeployedContract(
           ContractAbi.fromJson(
               _transactionInfo.contractAbi, _transactionInfo.contractName),
           EthereumAddress.fromHex(_transactionInfo.contractAddress));
 
       final credentials =
-          await _web3Client.credentialsFromPrivateKey(_identity.priKey);
+      await _web3Client.credentialsFromPrivateKey(_identity.priKey);
       final rawTx = await _web3Client.signTransaction(
         credentials,
         Transaction.callContract(
           contract: _contract,
           function: _contract.function(_transactionInfo.functionName),
           parameters:
-              _transactionInfo.parameters.map((p) => p.realType()).toList(),
+          _transactionInfo.parameters.map((p) => p.realType()).toList(),
           gasPrice: EtherAmount.inWei(_transactionInfo.gasPrice),
           maxGas: _transactionInfo.maxGas,
         ),
@@ -116,31 +116,35 @@ class DAppService {
     resolve(
         id,
         Optional.ofNullable(
-                await Application.router.navigateTo(context, Routes.qrScanner))
+            await Application.router.navigateTo(context, Routes.qrScanner))
             .orElse(''));
   }
 
   static void createAccount(String id, String dappid) {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
-    final IdentityStore _identityStore = getIt<IdentityStore>();
-    _mnemonicsStore.generateKeys((index, keys) =>
-        Future.value(Identity((identity) => identity
+    _mnemonicsStore.generateKeys(
+            (index, keys) =>
+            Future.value(Identity((identity) =>
+            identity
               ..name = id
               ..pubKey = keys.first
               ..priKey = keys.second
               ..dappId = dappid
               ..index = index))
-            .then((value) => _identityStore.addIdentity(identity: value))
-            .then((Identity value) {
-          final Map<String, dynamic> resultJson = {
-            'id': value.id,
-            'address': value.address,
-            'publicKey': value.pubKey,
-            'index': index
-          };
-          resolve(id, resultJson);
-        }));
-  }
+            //TODO: need extra
+                .then((identity) =>
+                identity.register(index, '').then((success) {
+                  if (success) {
+                    resolve(id, {
+                      'id': identity.id,
+                      'address': identity.address,
+                      'publicKey': identity.pubKey,
+                      'index': index
+                    });
+                  }
+                })));
+
+    }
 
   static void getRootKey(String id, _) {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
@@ -209,13 +213,13 @@ class DAppService {
   static Future<void> validatePin(String id, String pin) async {
     final iv = encrypt_tool.IV.fromUtf8('${pin}0123456789');
     final encrypt_tool.Key aesKey =
-        encrypt_tool.Key.fromUtf8('${pin}abcdefghijklmnopqrstuvwxyz');
+    encrypt_tool.Key.fromUtf8('${pin}abcdefghijklmnopqrstuvwxyz');
     final encrypt = encrypt_tool.Encrypter(
         encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc));
     final String encryptedString =
-        await SecureStorage.get(SecureStorageItem.masterKey);
+    await SecureStorage.get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
-        encrypt_tool.Encrypted.fromBase64(encryptedString);
+    encrypt_tool.Encrypted.fromBase64(encryptedString);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       resolve(id, true);
@@ -226,13 +230,15 @@ class DAppService {
 
   static void resolve(String id, dynamic data) {
     webviewController.evaluateJavascript(
-        'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})');
+        'window.TWallet.resolvePromise("$id", ${json.encode(
+            json.encode(data))})');
   }
 
   static void reject(String id, dynamic data) {
     webviewController
-        // ignore: avoid_escaping_inner_quotes
+    // ignore: avoid_escaping_inner_quotes
         .evaluateJavascript(
-            'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});');
+        'window.TWallet.rejectPromise("$id", ${json.encode(
+            json.encode(data))});');
   }
 }

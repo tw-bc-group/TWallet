@@ -90,7 +90,12 @@ abstract class Identity extends Object
       "", //dappId
       BigInt.from(index),
       extra,
-    ]);
+    ]).then((success) {
+      if (success) {
+        getIt<IdentityStore>().addIdentity(identity: this);
+      }
+      return success;
+    });
   }
 
   Future<bool> transferPoint({String toAddress, Amount amount}) async {
