@@ -113,8 +113,6 @@ class DAppPageState extends State<DAppPage> {
                       onWebViewCreated: (WebViewController webViewController) {
                         _controller.complete(webViewController);
                         DAppService.webviewController = webViewController;
-                        webViewController.evaluateJavascript(
-                            'window._wallet_dapp_id = ${json.encode(widget.id)}');
                       },
                       javascriptChannels: <JavascriptChannel>{
                         _nativeJavascriptChannel(context),
@@ -124,6 +122,9 @@ class DAppPageState extends State<DAppPage> {
                       },
                       onPageFinished: (String url) {
                         finishLoading();
+                        _controller.future.then((webViewController) =>
+                            webViewController.evaluateJavascript(
+                                'window._wallet_dapp_id = ${json.encode(widget.id)}'));
                       },
                       gestureNavigationEnabled: true,
                     );

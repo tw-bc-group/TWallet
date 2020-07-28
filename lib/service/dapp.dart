@@ -136,7 +136,7 @@ class DAppService {
             'id': value.id,
             'address': value.address,
             'publicKey': value.pubKey,
-            'index': _mnemonicsStore.index
+            'index': index
           };
           resolve(id, resultJson);
         }));
