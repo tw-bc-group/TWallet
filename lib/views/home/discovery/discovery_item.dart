@@ -29,7 +29,8 @@ class DiscoveryItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Expanded(child: Row(
+          Expanded(
+              child: Row(
             children: <Widget>[
               SvgPicture.asset(
                 svgAsset ?? "assets/icons/health-cert.svg",
@@ -37,19 +38,19 @@ class DiscoveryItem extends StatelessWidget {
                 height: 44,
               ),
               Expanded(
-                child: Container(
+                  child: Container(
                 margin: const EdgeInsets.only(left: 8),
-                  child: Text(
-                    text,
-                    overflow: TextOverflow.visible,
-                    style: const TextStyle(
-                      color: Color(0xff111111),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 1,
-                    ),
+                child: Text(
+                  text,
+                  overflow: TextOverflow.visible,
+                  style: const TextStyle(
+                    color: Color(0xff111111),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: 1,
                   ),
+                ),
               )),
             ],
           )),

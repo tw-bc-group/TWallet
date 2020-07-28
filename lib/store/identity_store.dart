@@ -65,6 +65,14 @@ abstract class IdentityStoreBase with Store {
   @observable
   ObservableList<Identity> identities = ObservableList<Identity>();
 
+  @computed
+  List<Identity> get identitiesWithoutDapp =>
+      identities.where((element) => element.dappId.isEmpty).toList();
+
+  @computed
+  List<Identity> get identitiesWithDapp =>
+      identities.where((element) => element.dappId.isNotEmpty).toList();
+
   @observable
   String searchName = '';
 
@@ -159,8 +167,9 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future<Identity> addIdentity({@required Identity identity}) async {
-    final Identity newIdentity =
-        identities.isEmpty ? identity.setSelected() : identity.setUnSelected();
+    final Identity newIdentity = identities.isEmpty && identity.dappId.isEmpty
+        ? identity.setSelected()
+        : identity.setUnSelected();
 
     return _db
         .setItem(_itemKey(newIdentity.name), newIdentity.toJson())

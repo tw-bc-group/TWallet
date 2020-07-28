@@ -39,7 +39,7 @@ class HealthCertificationPage extends StatelessWidget {
       child: Column(
         children: [
           _tips,
-          if (_identityStore.identities.isNotEmpty)
+          if (_identityStore.identitiesWithoutDapp.isNotEmpty)
             _buildIdList(context)
           else
             _buildIdentityEmpty(context, homeStore),
@@ -82,7 +82,8 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Text get _hint {
-    final text = _identityStore.identities.isNotEmpty ? "选择使用下方身份" : "添加身份";
+    final text =
+        _identityStore.identitiesWithoutDapp.isNotEmpty ? "选择使用下方身份" : "添加身份";
     return Text(
       text,
       style: const TextStyle(

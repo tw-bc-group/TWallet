@@ -13,18 +13,20 @@ const saveSplitTag = '|';
 const identityStartIndex = 1;
 
 class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
+  Tuple2<String, String> indexZeroKeys;
+
   MnemonicsStore(Tuple2<int, String> value) : super(value);
 
-  String get firstPublicKey => BlockChainService.generateKeys(
-          BlockChainService.generateHDWallet(mnemonics), 0)
-      .first;
-
-  String get firstPrivateKey => BlockChainService.generateKeys(
-          BlockChainService.generateHDWallet(mnemonics), 0)
-      .second;
+  String get firstPublicKey => indexZeroKeys.first;
+  String get firstPrivateKey => indexZeroKeys.second;
 
   void refresh() {
     value = brandNew();
+  }
+
+  void generateIndexZeroKeys() {
+    indexZeroKeys ??= BlockChainService.generateKeys(
+        BlockChainService.generateHDWallet(mnemonics), 0);
   }
 
   Future<void> restore(int index, String mnemonics) {

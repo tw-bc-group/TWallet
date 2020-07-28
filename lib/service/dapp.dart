@@ -177,8 +177,7 @@ class DAppService {
       resolve(
           id,
           getIt<IdentityStore>()
-              .identities
-              .where((identity) => identity.dappId == dappid)
+              .identitiesWithDapp
               .map((identity) => identity.basicInfo())
               .toList());
     }

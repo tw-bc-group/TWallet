@@ -12,7 +12,7 @@ import '../home_store.dart';
 void showDialogIfNoIdentity(BuildContext context, HomeStore homeStore) {
   final IdentityStore _identityStore = getIt<IdentityStore>();
 
-  if (_identityStore.identities.isEmpty) {
+  if (_identityStore.identitiesWithoutDapp.isEmpty) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _showAddIdentityDialog(context, homeStore);
     });

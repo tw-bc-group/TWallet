@@ -32,7 +32,8 @@ Future<void> getItInit({@required bool isTest}) async {
     await getIt.isReady<ApiProvider>();
     await getIt.isReady<EnvStore>();
     final ContractService contractService = await ContractService.init();
-    getIt.registerSingletonWithDependencies<ContractService>(() => contractService,
+    getIt.registerSingletonWithDependencies<ContractService>(
+        () => contractService,
         dependsOn: [EnvStore, ApiProvider]);
     getIt.registerSingleton<IdentityStore>(await IdentityStore.init());
     getIt.registerSingletonWithDependencies<HealthCertificationStore>(
