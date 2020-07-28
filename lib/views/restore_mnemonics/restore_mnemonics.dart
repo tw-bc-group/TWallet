@@ -22,7 +22,13 @@ class RestoreMnemonicsPage extends StatefulWidget {
 class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
   final RxString _inputValue = ''.obs;
 
-  bool get _isValidInput => _inputValue.value.trim().split(' ').length == 12;
+  bool get _isValidInput =>
+      _inputValue.value
+          .trim()
+          .split(' ')
+          .where((element) => element.isNotEmpty)
+          .length ==
+      12;
 
   Widget buildInfoTipButton() {
     return Positioned(
@@ -124,7 +130,9 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           maxLength: 320,
-                          inputFormatters: [WhitelistingTextInputFormatter(RegExp("[a-zA-Z ]"))],
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter(RegExp("[a-zA-Z ]"))
+                          ],
                           decoration: InputDecoration(
                               border: InputBorder.none, counterText: ''),
                           onChanged: (String value) =>
