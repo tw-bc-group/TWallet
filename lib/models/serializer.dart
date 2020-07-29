@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
+import 'package:tw_wallet_ui/models/webview/create_account_param.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_close.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_error_msg.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_hint.dart';
@@ -51,6 +52,7 @@ part 'serializer.g.dart';
   WebviewPincodeDialogHint,
   WebviewPincodeDialogInput,
   WebviewPincodeDialogTitle,
+  CreateAccountParam,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(Iso8601DateTimeSerializer())

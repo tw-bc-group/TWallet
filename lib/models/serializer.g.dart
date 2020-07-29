@@ -9,6 +9,7 @@ part of 'serializer.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ApiResponse.serializer)
       ..add(Contract.serializer)
+      ..add(CreateAccountParam.serializer)
       ..add(HealthCertification.serializer)
       ..add(HealthCertificationSub.serializer)
       ..add(HealthCertificationToken.serializer)
