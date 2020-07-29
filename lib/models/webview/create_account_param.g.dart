@@ -23,11 +23,13 @@ class _$CreateAccountParamSerializer
       'dappid',
       serializers.serialize(object.dappid,
           specifiedType: const FullType(String)),
-      'extra',
-      serializers.serialize(object.extra,
-          specifiedType: const FullType(String)),
     ];
-
+    if (object.extra != null) {
+      result
+        ..add('extra')
+        ..add(serializers.serialize(object.extra,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -71,9 +73,6 @@ class _$CreateAccountParam extends CreateAccountParam {
   _$CreateAccountParam._({this.dappid, this.extra}) : super._() {
     if (dappid == null) {
       throw new BuiltValueNullFieldError('CreateAccountParam', 'dappid');
-    }
-    if (extra == null) {
-      throw new BuiltValueNullFieldError('CreateAccountParam', 'extra');
     }
   }
 

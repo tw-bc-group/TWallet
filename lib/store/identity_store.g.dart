@@ -9,6 +9,21 @@ part of 'identity_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$IdentityStore on IdentityStoreBase, Store {
+  Computed<List<Identity>> _$identitiesWithoutDappComputed;
+
+  @override
+  List<Identity> get identitiesWithoutDapp =>
+      (_$identitiesWithoutDappComputed ??= Computed<List<Identity>>(
+              () => super.identitiesWithoutDapp,
+              name: 'IdentityStoreBase.identitiesWithoutDapp'))
+          .value;
+  Computed<List<Identity>> _$identitiesWithDappComputed;
+
+  @override
+  List<Identity> get identitiesWithDapp => (_$identitiesWithDappComputed ??=
+          Computed<List<Identity>>(() => super.identitiesWithDapp,
+              name: 'IdentityStoreBase.identitiesWithDapp'))
+      .value;
   Computed<Optional<Identity>> _$selectedIdentityComputed;
 
   @override
@@ -187,6 +202,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 healthCertLastSelectIndex: ${healthCertLastSelectIndex},
 identities: ${identities},
 searchName: ${searchName},
+identitiesWithoutDapp: ${identitiesWithoutDapp},
+identitiesWithDapp: ${identitiesWithDapp},
 selectedIdentity: ${selectedIdentity},
 myName: ${myName},
 myAddress: ${myAddress},

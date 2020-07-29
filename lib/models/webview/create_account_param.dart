@@ -10,6 +10,7 @@ abstract class CreateAccountParam
       _$createAccountParamSerializer;
 
   String get dappid;
+  @nullable
   String get extra;
 
   static CreateAccountParam fromJson(dynamic serialized) {
