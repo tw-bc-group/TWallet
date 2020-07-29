@@ -122,9 +122,12 @@ class DAppPageState extends State<DAppPage> {
                       },
                       onPageFinished: (String url) {
                         finishLoading();
-                        _controller.future.then((webViewController) =>
-                            webViewController.evaluateJavascript(
-                                'window._wallet_dapp_id = ${json.encode(widget.id)}'));
+                        _controller.future.then((webViewController) {
+                          webViewController.evaluateJavascript(
+                              'window._wallet_dapp_id = ${json.encode(widget.id)}');
+                          webViewController.evaluateJavascript(
+                              'document.body.style.overflow = "hidden";');
+                        });
                       },
                       gestureNavigationEnabled: true,
                     );
