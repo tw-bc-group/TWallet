@@ -29,9 +29,9 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
         BlockChainService.generateHDWallet(mnemonics), 0);
   }
 
-  Future<void> restore(int index, String mnemonics) {
-    return Future.value(Tuple2(index, mnemonics)).then((res) {
-      value = Tuple2(index, mnemonics);
+  Future<void> restore(String mnemonics) {
+    return Future.value(Tuple2(identityStartIndex, mnemonics)).then((res) {
+      value = Tuple2(identityStartIndex, mnemonics);
     });
   }
 

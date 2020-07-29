@@ -75,7 +75,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                 final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
                 final YYDialog _progressDialog = showProgressDialog();
                 await _mnemonicsStore
-                    .restore(1, _inputValue.value.trim())
+                    .restore(_inputValue.value.trim())
                     .then((_) {
                   Identity.restore()
                       .then((_) => _mnemonicsStore.save())
