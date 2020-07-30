@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
+import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ class RestoreMnemonicsPage extends StatefulWidget {
 
 class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
   final RxString _inputValue = ''.obs;
+  final RxBool _restoreFailed = false.obs;
 
   bool get _isValidInput =>
       _inputValue.value
@@ -72,18 +74,20 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
         withBottomBtn: true,
         btnOnPressed: _isValidInput
             ? () async {
-                final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
-                final YYDialog _progressDialog = showProgressDialog();
-                await _mnemonicsStore
-                    .restore(_inputValue.value.trim())
-                    .then((_) {
-                  Identity.restore()
-                      .then((_) => _mnemonicsStore.save())
-                      .then((_) {
+                try {
+                  final MnemonicsStore _mnemonicsStore =
+                      getIt<MnemonicsStore>();
+                  final YYDialog _progressDialog = showProgressDialog();
+                  _mnemonicsStore.brandNew(mnemonics: _inputValue.value.trim());
+                  Identity.restore().then((maxIndex) {
+                    _mnemonicsStore.save(newIndex: maxIndex);
+                  }).then((_) {
                     _progressDialog.dismiss();
                     Application.router.navigateTo(context, Routes.home);
                   });
-                });
+                } catch (_) {
+                  _restoreFailed.value = true;
+                }
               }
             : null,
         child: Container(
@@ -106,14 +110,16 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                 ])),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: _screenUtil.setWidth(40).toDouble()),
+                padding: EdgeInsets.only(
+                    top: _screenUtil.setWidth(40).toDouble(),
+                    bottom: _screenUtil.setWidth(24).toDouble()),
                 child: Center(
                     child: Text('-请按顺序输入您的助记词，按空格分隔-',
                         style: WalletFont.font_14())),
               ),
               Padding(
-                padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
+                padding: EdgeInsets.symmetric(
+                    horizontal: _screenUtil.setWidth(24).toDouble()),
                 child: Container(
                     height: _screenUtil.setHeight(162).toDouble(),
                     decoration: BoxDecoration(
@@ -139,6 +145,12 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                               _inputValue.value = value),
                     )),
               ),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: _screenUtil.setWidth(24).toDouble()),
+                  child: _restoreFailed.value
+                      ? const Tips('恢复失败，请稍后再试')
+                      : Container())
             ],
           ),
         )));

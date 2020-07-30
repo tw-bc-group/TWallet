@@ -41,8 +41,8 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
   final _$saveAsyncAction = AsyncAction('MnemonicsBase.save');
 
   @override
-  Future<void> save() {
-    return _$saveAsyncAction.run(() => super.save());
+  Future<void> save({int newIndex}) {
+    return _$saveAsyncAction.run(() => super.save(newIndex: newIndex));
   }
 
   @override

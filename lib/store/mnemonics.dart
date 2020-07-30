@@ -15,24 +15,17 @@ const identityStartIndex = 1;
 class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
   Tuple2<String, String> indexZeroKeys;
 
-  MnemonicsStore(Tuple2<int, String> value) : super(value);
+  MnemonicsStore(Tuple2<int, String> value) : super(value) {
+    generateIndexZeroKeys();
+  }
 
   String get firstPublicKey => indexZeroKeys.first;
-  String get firstPrivateKey => indexZeroKeys.second;
 
-  void refresh() {
-    value = brandNew();
-  }
+  String get firstPrivateKey => indexZeroKeys.second;
 
   void generateIndexZeroKeys() {
     indexZeroKeys ??= BlockChainService.generateKeys(
         BlockChainService.generateHDWallet(mnemonics), 0);
-  }
-
-  Future<void> restore(String mnemonics) {
-    return Future.value(Tuple2(identityStartIndex, mnemonics)).then((res) {
-      value = Tuple2(identityStartIndex, mnemonics);
-    });
   }
 
   Tuple2<String, String> indexKeys(int index) {
@@ -49,9 +42,10 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
     });
   }
 
-  static Tuple2<int, String> brandNew() {
+  void brandNew({String mnemonics}) {
     //the index 0 is used to call save identities contract
-    return Tuple2(identityStartIndex, bip39.generateMnemonic());
+    value = Tuple2(identityStartIndex, mnemonics ?? bip39.generateMnemonic());
+    generateIndexZeroKeys();
   }
 
   static Future<MnemonicsStore> init() async {
@@ -67,7 +61,7 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
         value = Tuple2(int.parse(splits.first), splits.last);
       }
     } else {
-      value = MnemonicsStore.brandNew();
+      value = Tuple2(identityStartIndex, bip39.generateMnemonic());
     }
 
     return MnemonicsStore(value);
@@ -89,7 +83,11 @@ abstract class MnemonicsBase with Store {
   String get mnemonics => value.second;
 
   @action
-  Future<void> save() async {
+  Future<void> save({int newIndex}) async {
+    if (newIndex != null) {
+      value = Tuple2(newIndex, value.second);
+    }
+
     await SecureStorage.set(
         SecureStorageItem.mnemonics, '$index$saveSplitTag$mnemonics');
   }

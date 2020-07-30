@@ -21,7 +21,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
   @override
   void initState() {
     super.initState();
-    store.refresh();
+    store.brandNew();
   }
 
   Widget buildWords(MnemonicsStore mnemonics) {

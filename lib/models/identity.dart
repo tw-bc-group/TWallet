@@ -121,36 +121,37 @@ abstract class Identity extends Object
         specifiedType: const FullType(Identity)) as Identity;
   }
 
-  static Future<bool> restore() async {
-    try {
-      final IdentityStore _identityStore = getIt<IdentityStore>();
-      final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
-      final List<dynamic> queryResult = await getIt<ContractService>()
-          .identitiesContract
-          .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
+  static Future<int> restore() async {
+    int maxIndex = -1;
 
-      if (queryResult.isNotEmpty) {
-        await _identityStore.clear();
+    final IdentityStore _identityStore = getIt<IdentityStore>();
+    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+    final List<dynamic> queryResult = await getIt<ContractService>()
+        .identitiesContract
+        .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
 
-        for (int i = 0; i < (queryResult[0] as List<dynamic>).length; i++) {
-          final int index = (queryResult[3][i] as BigInt).toInt();
-          final Tuple2<String, String> keys = _mnemonicsStore.indexKeys(index);
-          final Identity identity = Identity((identity) => identity
-            ..id = Uuid().v1()
-            ..name = queryResult[0][i] as String
-            ..pubKey = keys.first
-            ..priKey = keys.second
-            ..dappId = queryResult[2][i] as String
-            ..index = index
-            ..extra = queryResult[4][i] as String);
-          await _identityStore.addIdentity(identity: identity);
+    if (queryResult.isNotEmpty) {
+      await _identityStore.clear();
+
+      for (int i = 0; i < (queryResult[0] as List<dynamic>).length; i++) {
+        final int index = (queryResult[3][i] as BigInt).toInt();
+        final Tuple2<String, String> keys = _mnemonicsStore.indexKeys(index);
+        final Identity identity = Identity((identity) => identity
+          ..id = Uuid().v1()
+          ..name = queryResult[0][i] as String
+          ..pubKey = keys.first
+          ..priKey = keys.second
+          ..dappId = queryResult[2][i] as String
+          ..index = index
+          ..extra = queryResult[4][i] as String);
+        await _identityStore.addIdentity(identity: identity);
+
+        if (index > maxIndex) {
+          maxIndex = index;
         }
       }
-
-      return true;
-    } catch (_) {
-      return false;
     }
+    return maxIndex;
   }
 
   Identity._();
