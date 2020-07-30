@@ -130,8 +130,6 @@ abstract class Identity extends Object
         .identitiesContract
         .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
 
-    print('publicKey: ${_mnemonicsStore.firstPublicKey}, queryResult: $queryResult');
-
     if (queryResult.isNotEmpty) {
       await _identityStore.clear();
 
