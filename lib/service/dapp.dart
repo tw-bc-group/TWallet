@@ -126,10 +126,12 @@ class DAppService {
 
   static void peekAccount(String id, _) {
     final Tuple2<String, String> _keyPair = getIt<MnemonicsStore>().peekKeys();
+    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     final Identity _identity = Identity((builder) => builder
       ..name = id
       ..pubKey = _keyPair.first
-      ..priKey = _keyPair.second);
+      ..priKey = _keyPair.second
+      ..index = _mnemonicsStore.index);
     resolve(id, _identity.basicInfo());
   }
 
