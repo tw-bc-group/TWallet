@@ -6,6 +6,7 @@ import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
+import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
@@ -48,6 +49,8 @@ class DAppService {
         return setStatusBarMode;
       case WebviewRequestMethod.setStatusBarBackgroundColor:
         return setStatusBarBackgroundColor;
+      case WebviewRequestMethod.peekAccount:
+        return peekAccount;
       case WebviewRequestMethod.getAccounts:
         return getAccounts;
       case WebviewRequestMethod.getAccountById:
@@ -121,28 +124,30 @@ class DAppService {
             .orElse(''));
   }
 
+  static void peekAccount(String id, _) {
+    final Tuple2<String, String> _keyPair = getIt<MnemonicsStore>().peekKeys();
+    final Identity _identity = Identity((builder) => builder
+      ..name = id
+      ..pubKey = _keyPair.first
+      ..priKey = _keyPair.second);
+    resolve(id, _identity.basicInfo());
+  }
+
   static void createAccount(String id, String param) {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param));
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
-    _mnemonicsStore.generateKeys(
-        (index, keys) => Future.value(Identity((identity) => identity
+    _mnemonicsStore.generateKeys((index, keys) =>
+        Future.value(Identity((identity) => identity
               ..name = id
               ..pubKey = keys.first
               ..priKey = keys.second
               ..dappId = createAccountParam.dappid
               ..extra = createAccountParam.extra
               ..index = index))
-            //TODO: need extra
             .then((identity) => identity.register().then((success) {
                   if (success) {
-                    resolve(id, {
-                      'id': identity.id,
-                      'address': identity.address,
-                      'publicKey': identity.pubKey,
-                      'index': index,
-                      'extra': identity.extra
-                    });
+                    resolve(id, identity.basicInfo());
                   }
                 })));
   }

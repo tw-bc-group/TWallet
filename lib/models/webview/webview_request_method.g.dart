@@ -18,6 +18,8 @@ const WebviewRequestMethod _$setStatusBarMode =
     const WebviewRequestMethod._('setStatusBarMode');
 const WebviewRequestMethod _$setStatusBarBackgroundColor =
     const WebviewRequestMethod._('setStatusBarBackgroundColor');
+const WebviewRequestMethod _$peekAccount =
+    const WebviewRequestMethod._('peekAccount');
 const WebviewRequestMethod _$getAccounts =
     const WebviewRequestMethod._('getAccounts');
 const WebviewRequestMethod _$getAccountById =
@@ -43,6 +45,8 @@ WebviewRequestMethod _$valueOf(String name) {
       return _$setStatusBarMode;
     case 'setStatusBarBackgroundColor':
       return _$setStatusBarBackgroundColor;
+    case 'peekAccount':
+      return _$peekAccount;
     case 'getAccounts':
       return _$getAccounts;
     case 'getAccountById':
@@ -65,6 +69,7 @@ final BuiltSet<WebviewRequestMethod> _$values =
   _$getRootKey,
   _$setStatusBarMode,
   _$setStatusBarBackgroundColor,
+  _$peekAccount,
   _$getAccounts,
   _$getAccountById,
   _$getAccountByIds,

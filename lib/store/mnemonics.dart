@@ -23,9 +23,14 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
 
   String get firstPrivateKey => indexZeroKeys.second;
 
-  void generateIndexZeroKeys(String value) {
+  void generateIndexZeroKeys(String mnemonics) {
     indexZeroKeys = BlockChainService.generateKeys(
-        BlockChainService.generateHDWallet(value), 0);
+        BlockChainService.generateHDWallet(mnemonics), 0);
+  }
+
+  Tuple2<String, String> peekKeys() {
+    return BlockChainService.generateKeys(
+        BlockChainService.generateHDWallet(mnemonics), index);
   }
 
   Tuple2<String, String> indexKeys(int index) {
