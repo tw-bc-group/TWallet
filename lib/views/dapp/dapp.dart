@@ -51,7 +51,7 @@ class DAppPageState extends State<DAppPage> {
           } catch (e) {
             _controller.future.then((webviewController) =>
                 webviewController.evaluateJavascript(
-                    'window.TWallet.rejectPromise(${json.encode(json.encode(e))});'));
+                    'window.TWallet.rejectPromise(${json.encode(json.encode(e.toString()))});'));
           }
         });
   }
