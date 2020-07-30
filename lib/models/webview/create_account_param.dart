@@ -9,6 +9,10 @@ abstract class CreateAccountParam
   static Serializer<CreateAccountParam> get serializer =>
       _$createAccountParamSerializer;
 
+  static void _initializeBuilder(
+          CreateAccountParamBuilder webviewPincodeDialogCloseBuilder) =>
+      webviewPincodeDialogCloseBuilder..extra = '{}';
+
   String get dappid;
   @nullable
   String get extra;

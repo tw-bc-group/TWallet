@@ -119,7 +119,9 @@ class CreateAccountParamBuilder
   String get extra => _$this._extra;
   set extra(String extra) => _$this._extra = extra;
 
-  CreateAccountParamBuilder();
+  CreateAccountParamBuilder() {
+    CreateAccountParam._initializeBuilder(this);
+  }
 
   CreateAccountParamBuilder get _$this {
     if (_$v != null) {
