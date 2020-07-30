@@ -7,8 +7,8 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
@@ -79,11 +79,12 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                       getIt<MnemonicsStore>();
                   final YYDialog _progressDialog = showProgressDialog();
                   _mnemonicsStore.brandNew(mnemonics: _inputValue.value.trim());
-                  Identity.restore().then((maxIndex) {
+                  getIt<IdentityStore>().restore().then((maxIndex) {
                     _mnemonicsStore.save(newIndex: maxIndex);
                   }).then((_) {
                     _progressDialog.dismiss();
-                    Application.router.navigateTo(context, Routes.home);
+                    Application.router
+                        .navigateTo(context, Routes.home, clearStack: true);
                   });
                 } catch (_) {
                   _restoreFailed.value = true;

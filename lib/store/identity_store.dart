@@ -3,10 +3,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
+import 'package:more/tuple.dart';
 import 'package:optional/optional_internal.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
+import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/store/mnemonics.dart';
+import 'package:uuid/uuid.dart';
 
 part 'identity_store.g.dart';
 
@@ -125,6 +130,37 @@ abstract class IdentityStoreBase with Store {
     return _streamController.close();
   }
 
+  Future<int> restore() async {
+    int maxIndex = -1;
+
+    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+    final List<dynamic> queryResult = await getIt<ContractService>()
+        .identitiesContract
+        .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
+
+    if (queryResult.isNotEmpty) {
+      await clear();
+
+      for (int i = 0; i < (queryResult[0] as List<dynamic>).length; i++) {
+        final int index = (queryResult[3][i] as BigInt).toInt();
+        final Tuple2<String, String> keys = _mnemonicsStore.indexKeys(index);
+        final Identity identity = Identity((identity) => identity
+          ..id = Uuid().v1()
+          ..name = queryResult[0][i] as String
+          ..pubKey = keys.first
+          ..priKey = keys.second
+          ..dappId = queryResult[2][i] as String
+          ..index = index
+          ..extra = queryResult[4][i] as String);
+        await addIdentity(identity: identity);
+        if (index > maxIndex) {
+          maxIndex = index;
+        }
+      }
+    }
+    return maxIndex;
+  }
+
   @action
   Future<void> clear() async {
     await _db.clearDataBase();
@@ -167,7 +203,11 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future<Identity> addIdentity({@required Identity identity}) async {
-    final Identity newIdentity = identities.isEmpty && identity.dappId.isEmpty
+    final Identity newIdentity = identities
+                .where((identity) => identity.dappId.isEmpty)
+                .toList()
+                .isEmpty &&
+            identity.dappId.isEmpty
         ? identity.setSelected()
         : identity.setUnSelected();
 

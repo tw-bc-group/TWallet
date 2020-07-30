@@ -1,6 +1,5 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -119,39 +118,6 @@ abstract class Identity extends Object
   factory Identity.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
         specifiedType: const FullType(Identity)) as Identity;
-  }
-
-  static Future<int> restore() async {
-    int maxIndex = -1;
-
-    final IdentityStore _identityStore = getIt<IdentityStore>();
-    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
-    final List<dynamic> queryResult = await getIt<ContractService>()
-        .identitiesContract
-        .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
-
-    if (queryResult.isNotEmpty) {
-      await _identityStore.clear();
-
-      for (int i = 0; i < (queryResult[0] as List<dynamic>).length; i++) {
-        final int index = (queryResult[3][i] as BigInt).toInt();
-        final Tuple2<String, String> keys = _mnemonicsStore.indexKeys(index);
-        final Identity identity = Identity((identity) => identity
-          ..id = Uuid().v1()
-          ..name = queryResult[0][i] as String
-          ..pubKey = keys.first
-          ..priKey = keys.second
-          ..dappId = queryResult[2][i] as String
-          ..index = index
-          ..extra = queryResult[4][i] as String);
-        await _identityStore.addIdentity(identity: identity);
-
-        if (index > maxIndex) {
-          maxIndex = index;
-        }
-      }
-    }
-    return maxIndex;
   }
 
   Identity._();
