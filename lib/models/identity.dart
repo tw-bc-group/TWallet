@@ -82,12 +82,12 @@ abstract class Identity extends Object
         ..extra = ""
         ..update(updates));
 
-  Future<bool> register(int index, String extra) async {
+  Future<bool> register() async {
     return getIt<ContractService>().identitiesContract.sendTransaction(
         getIt<MnemonicsStore>().firstPrivateKey, 'registerIdentity', [
       name,
       did.toString(),
-      "", //dappId
+      dappId,
       BigInt.from(index),
       extra,
     ]).then((success) {

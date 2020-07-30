@@ -120,7 +120,7 @@ abstract class _IdentityNewStore with Store {
                 ..phone = phone
                 ..email = email
                 ..birthday = birthday)).then((identity) {
-                return identity.register(index, "");
+                return identity.register();
               }));
     }
     return false;

@@ -134,7 +134,7 @@ class DAppService {
               ..extra = createAccountParam.extra
               ..index = index))
             //TODO: need extra
-            .then((identity) => identity.register(index, '').then((success) {
+            .then((identity) => identity.register().then((success) {
                   if (success) {
                     resolve(id, {
                       'id': identity.id,
