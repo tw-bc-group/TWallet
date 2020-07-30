@@ -103,7 +103,7 @@ class _IdentityPageState extends State<IdentityPage> {
   }
 
   Widget buildNewIdentityCard() {
-    if (_store.identities.isEmpty) {
+    if (_store.identitiesWithoutDapp.isEmpty) {
       return Container(
         margin: const EdgeInsets.only(bottom: 24),
         padding:
