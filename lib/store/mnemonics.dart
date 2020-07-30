@@ -16,16 +16,16 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
   Tuple2<String, String> indexZeroKeys;
 
   MnemonicsStore(Tuple2<int, String> value) : super(value) {
-    generateIndexZeroKeys();
+    generateIndexZeroKeys(value.second);
   }
 
   String get firstPublicKey => indexZeroKeys.first;
 
   String get firstPrivateKey => indexZeroKeys.second;
 
-  void generateIndexZeroKeys() {
+  void generateIndexZeroKeys(String value) {
     indexZeroKeys = BlockChainService.generateKeys(
-        BlockChainService.generateHDWallet(mnemonics), 0);
+        BlockChainService.generateHDWallet(value), 0);
   }
 
   Tuple2<String, String> indexKeys(int index) {
@@ -45,7 +45,7 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
   void brandNew({String mnemonics}) {
     //the index 0 is used to call save identities contract
     value = Tuple2(identityStartIndex, mnemonics ?? bip39.generateMnemonic());
-    generateIndexZeroKeys();
+    generateIndexZeroKeys(value.second);
   }
 
   static Future<MnemonicsStore> init() async {
