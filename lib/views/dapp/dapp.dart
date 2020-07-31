@@ -118,13 +118,14 @@ class DAppPageState extends State<DAppPage> {
                         _nativeJavascriptChannel(context),
                       },
                       onPageStarted: (String url) {
-                        //                print('Page started loading: $url');
+                        _controller.future.then((webViewController) {
+                          webViewController.evaluateJavascript(
+                              'window._wallet_dapp_id = ${json.encode(widget.id)}');
+                        });
                       },
                       onPageFinished: (String url) {
                         finishLoading();
                         _controller.future.then((webViewController) {
-                          webViewController.evaluateJavascript(
-                              'window._wallet_dapp_id = ${json.encode(widget.id)}');
                           webViewController.evaluateJavascript(
                               'document.body.style.overflow = "hidden";');
                         });

@@ -141,7 +141,7 @@ class DAppService {
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
         Future.value(Identity((identity) => identity
-              ..name = id
+              ..name = DateTime.now().millisecondsSinceEpoch.toString()
               ..pubKey = keys.first
               ..priKey = keys.second
               ..dappId = createAccountParam.dappid
@@ -178,6 +178,8 @@ class DAppService {
   }
 
   static void getAccounts(String id, String dappid) {
+    print('--------------');
+    print(dappid);
     if (dappid.isEmpty) {
       resolve(id, null);
     } else {
