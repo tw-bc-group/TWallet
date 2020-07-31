@@ -178,8 +178,6 @@ class DAppService {
   }
 
   static void getAccounts(String id, String dappid) {
-    print('--------------');
-    print(dappid);
     if (dappid.isEmpty) {
       resolve(id, null);
     } else {
@@ -187,6 +185,7 @@ class DAppService {
           id,
           getIt<IdentityStore>()
               .identitiesWithDapp
+              .where((identity) => identity.dappId == dappid)
               .map((identity) => identity.basicInfo())
               .toList());
     }

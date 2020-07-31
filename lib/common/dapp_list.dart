@@ -8,50 +8,50 @@ class DAppInfo {
 }
 
 List<DAppInfo> dappList = [
-  DAppInfo('dapp-1', 'M. CLUB LOCAL', 'http://127.0.0.1:3000',
+  DAppInfo('club-local', 'M. CLUB LOCAL', 'http://127.0.0.1:3000',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
-      'dapp-2',
+      'club-dev',
       'M. CLUB DEV',
       'https://tw-loyalty-club-app-dev.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
-      'dapp-3',
+      'club-qa',
       'M. CLUB QA',
       'https://tw-loyalty-club-app-qa.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
-      'dapp-7',
+      'club-uat',
       'M. CLUB UAT',
       'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
-      'dapp-9',
+      'club-prod',
       'M. CLUB',
       'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html',
       'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
-      'dapp-4',
+      'enterprise-local',
       'M. Enterprise LOCAL',
       'http://127.0.0.1:3000/#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
-      'dapp-5',
+      'enterprise-dev',
       'M. Enterprise DEV',
       'https://tw-loyalty-club-app-dev.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
-      'dapp-6',
+      'enterprise-qa',
       'M. Enterprise QA',
       'https://tw-loyalty-club-app-qa.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
-      'dapp-8',
+      'enterprise-uat',
       'M. Enterprise UAT',
       'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
-      'dapp-10',
+      'enterprise-prod',
       'M. Enterprise',
       'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg')
