@@ -21,16 +21,17 @@ class RestoreMnemonicsPage extends StatefulWidget {
 }
 
 class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
-  final RxString _inputValue = ''.obs;
+  final RxList<String> _inputWords = RxList([]);
   final RxBool _restoreFailed = false.obs;
 
-  bool get _isValidInput =>
-      _inputValue.value
-          .trim()
-          .split(' ')
-          .where((element) => element.isNotEmpty)
-          .length ==
-      12;
+  bool get _isValidInput => _inputWords.length == 12;
+
+//  bool get _isValidInput =>
+//      _inputValue.value
+//          .trim()
+//          .split(' ')
+//          .where((element) => element.isNotEmpty)
+//          .length == 12;
 
   Widget buildInfoTipButton() {
     return Positioned(
@@ -78,7 +79,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                   final MnemonicsStore _mnemonicsStore =
                       getIt<MnemonicsStore>();
                   final YYDialog _progressDialog = showProgressDialog();
-                  _mnemonicsStore.brandNew(mnemonics: _inputValue.value.trim());
+                  _mnemonicsStore.brandNew(mnemonics: _inputWords.join(' '));
                   getIt<IdentityStore>().restore().then((maxIndex) {
                     _mnemonicsStore.save(newIndex: maxIndex);
                   }).then((_) {
@@ -142,8 +143,11 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                           ],
                           decoration: InputDecoration(
                               border: InputBorder.none, counterText: ''),
-                          onChanged: (String value) =>
-                              _inputValue.value = value),
+                          onChanged: (String value) => _inputWords.value = value
+                              .trim()
+                              .split(' ')
+                              .where((e) => e.isNotEmpty)
+                              .toList()),
                     )),
               ),
               Padding(
