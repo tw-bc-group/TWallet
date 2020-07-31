@@ -105,7 +105,8 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   List<Identity> get selectedFirstIdentities {
-    final List<Identity> ids = identities.toList();
+    final List<Identity> ids =
+        identities.where((e) => e.dappId.isEmpty).toList();
     if (selectedIdentity.isPresent) {
       ids.removeWhere((ele) => ele.id == selectedIdentity.first.id);
       return [selectedIdentity.first] + ids;
