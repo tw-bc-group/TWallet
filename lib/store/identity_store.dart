@@ -116,7 +116,8 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   List<Identity> get selectedFirstIdentitiesInHealthDApp {
-    final List<Identity> ids = identities.toList();
+    final List<Identity> ids =
+        identities.where((identity) => identity.dappId.isEmpty).toList();
     final Identity selectedIdentity =
         ids.removeAt(healthCertLastSelectIndex ?? 0);
     return [selectedIdentity] + ids;
