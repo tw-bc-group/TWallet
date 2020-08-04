@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -18,7 +21,25 @@ Future<void> _cleanPrivateData(BuildContext context) async {
       .clear()
       .then((_) => getIt<HealthCertificationStore>().clear())
       .then((_) => SecureStorage.clearAll())
-      .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) =>
+      .then((_) async {
+    Future<void> delDir(FileSystemEntity file) async {
+      try {
+        if (file is Directory) {
+          final List<FileSystemEntity> children = file.listSync();
+          for (final FileSystemEntity child in children) {
+            await delDir(child);
+          }
+        }
+      } catch (e) {
+        // ignore: avoid_print
+        print(e);
+      }
+      await file.delete();
+    }
+
+    final Directory tempDir = await getTemporaryDirectory();
+    return delDir(tempDir);
+  }).then((_) => Future.delayed(const Duration(seconds: 1)).then((_) =>
           Application.router
               .navigateTo(context, Routes.inputPin, clearStack: true)));
 }

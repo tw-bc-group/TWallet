@@ -68,6 +68,7 @@ dependencies:
   crypto: ^2.1.4
   flutter_native_splash: ^0.1.9
   corsac_jwt: ^0.2.2
+  path_provider: ^1.6.11
 
 dev_dependencies:
   flutter_test:
