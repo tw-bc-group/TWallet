@@ -19,6 +19,7 @@ import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class HealthCertificatePage extends StatefulWidget {
   final String id;
+
   const HealthCertificatePage({this.id});
 
   @override
@@ -141,12 +142,13 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     return CustomRadioButton(
       elevation: 0,
       enableShape: true,
-      buttonColor: Theme.of(context).canvasColor,
+      unSelectedColor: Theme.of(context).canvasColor,
       buttonLables:
           SelectOption.values.map((value) => value.description()).toList(),
       buttonValues: SelectOption.values.toList(),
       radioButtonValue: onValueChanged,
       selectedColor: WalletColor.primary,
+      defaultSelected: SelectOption.no,
       customShape: RoundedRectangleBorder(
         side: BorderSide(color: WalletColor.primary),
         borderRadius: const BorderRadius.all(Radius.circular(8)),

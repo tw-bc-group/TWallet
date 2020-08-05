@@ -56,7 +56,7 @@ packages:
       name: basic_utils
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.6"
+    version: "2.6.0"
   bip32:
     dependency: "direct main"
     description:
@@ -119,14 +119,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.0"
+    version: "1.10.1"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "6.0.1"
   built_collection:
     dependency: "direct main"
     description:
@@ -238,7 +238,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.16.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -252,7 +252,7 @@ packages:
       name: custom_radio_grouped_button
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.4"
   dart_style:
     dependency: transitive
     description:
@@ -369,7 +369,7 @@ packages:
       name: flutter_screenutil
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.1"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -400,7 +400,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.2"
   get_it:
     dependency: "direct main"
     description:
@@ -805,10 +805,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "996bd32ae35eea6a73895d0de6c410a79afde7c6"
+      resolved-ref: cd10dae3327d9c107945706e4a63acea20a872b4
       url: "https://github.com/flutter/sentry.git"
     source: git
-    version: "5.0.0"
+    version: "4.0.0"
   shelf:
     dependency: transitive
     description:
