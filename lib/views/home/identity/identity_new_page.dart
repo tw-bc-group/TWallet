@@ -81,6 +81,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
       labelStyle:
           WalletFont.font_14(textStyle: TextStyle(color: WalletColor.grey)),
       hintText: hintText,
+      counterText: '',
       border: InputBorder.none,
     );
   }
@@ -134,6 +135,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                         children: <Widget>[
                           buildInputField(
                               textFieldChild: TextField(
+                                  maxLength: 16,
                                   keyboardType: TextInputType.text,
                                   onChanged: (String value) =>
                                       store.name = value.trim(),
