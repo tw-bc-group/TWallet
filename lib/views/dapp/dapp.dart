@@ -125,10 +125,10 @@ class DAppPageState extends State<DAppPage> {
                       },
                       onPageFinished: (String url) {
                         finishLoading();
-                        _controller.future.then((webViewController) {
-                          webViewController.evaluateJavascript(
-                              'document.body.style.overflow = "hidden";');
-                        });
+                        // _controller.future.then((webViewController) {
+                        //   webViewController.evaluateJavascript(
+                        //       'document.body.style.overflow = "hidden";');
+                        // });
                       },
                       gestureNavigationEnabled: true,
                     );
