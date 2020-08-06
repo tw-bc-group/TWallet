@@ -29,8 +29,6 @@ class NewDAppPageState extends State<NewDAppPage> {
   bool isLoadingPage = true;
   Color backgroundColor = Colors.white;
 
-  StreamSubscription<WebViewStateChanged> _onStateChanged;
-
   final Set<JavascriptChannel> jsChannels = [
     JavascriptChannel(
         name: 'TWalletNative',
@@ -55,24 +53,17 @@ class NewDAppPageState extends State<NewDAppPage> {
   void initState() {
     super.initState();
 
-    _onStateChanged =
-        flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged state) {
-      if (state.type == WebViewState.shouldStart) {
-        print('should start');
-      }
+    flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged state) {
       if (state.type == WebViewState.startLoad) {
         flutterWebviewPlugin.evalJavascript(
             'window._wallet_dapp_id = ${json.encode(widget.id)}');
       }
       if (state.type == WebViewState.finishLoad) {
-        print('finish load');
-      }
-      if (state.type == WebViewState.abortLoad) {
-        print('abort load');
+        flutterWebviewPlugin.evalJavascript(
+            'window._wallet_dapp_id = ${json.encode(widget.id)}');
       }
     });
 
-    // DAppService.dappPageStateInstance = this;
     DAppService.setStatusBarMode('id', 'dark');
   }
 
@@ -134,39 +125,6 @@ class NewDAppPageState extends State<NewDAppPage> {
           child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
         ),
-        // body: SafeArea(
-        //   child: Stack(
-        //     children: <Widget>[
-        //       Builder(builder: (BuildContext context) {
-        //         return WebView(
-        //           initialUrl: getDappById(widget.id)?.url,
-        //           javascriptMode: JavascriptMode.unrestricted,
-        //           onWebViewCreated: (WebViewController webViewController) {
-        //             _controller.complete(webViewController);
-        //             DAppService.webviewController = webViewController;
-        //           },
-        //           javascriptChannels: <JavascriptChannel>{
-        //             _nativeJavascriptChannel(context),
-        //           },
-        //           onPageStarted: (String url) {
-        //             _controller.future.then((webViewController) {
-        //               webViewController.evaluateJavascript(
-        //                   'window._wallet_dapp_id = ${json.encode(widget.id)}');
-        //             });
-        //           },
-        //           onPageFinished: (String url) {
-        //             finishLoading();
-        //             // _controller.future.then((webViewController) {
-        //             //   webViewController.evaluateJavascript(
-        //             //       'document.body.style.overflow = "hidden";');
-        //             // });
-        //           },
-        //           gestureNavigationEnabled: true,
-        //         );
-        //       }),
-        //       if (isLoadingPage)
-
-        //     ],
       ),
     );
   }
