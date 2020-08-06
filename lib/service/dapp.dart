@@ -35,6 +35,7 @@ class DAppService {
   static DAppPageState dappPageStateInstance;
   static final FlutterWebviewPlugin flutterWebviewPlugin =
       FlutterWebviewPlugin();
+  static String dappid;
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
     switch (method) {
@@ -147,7 +148,7 @@ class DAppService {
               ..name = DateTime.now().millisecondsSinceEpoch.toString()
               ..pubKey = keys.first
               ..priKey = keys.second
-              ..dappId = createAccountParam.dappid
+              ..dappId = dappid
               ..extra = createAccountParam.extra
               ..index = index))
             .then((identity) => identity.register().then((success) {
@@ -180,7 +181,7 @@ class DAppService {
     ));
   }
 
-  static void getAccounts(String id, String dappid) {
+  static void getAccounts(String id, _) {
     if (dappid.isEmpty) {
       resolve(id, null);
     } else {

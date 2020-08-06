@@ -113,6 +113,7 @@ class DAppPageState extends State<DAppPage> {
                       onWebViewCreated: (WebViewController webViewController) {
                         _controller.complete(webViewController);
                         DAppService.webviewController = webViewController;
+                        DAppService.dappid = widget.id;
                       },
                       javascriptChannels: <JavascriptChannel>{
                         _nativeJavascriptChannel(context),
