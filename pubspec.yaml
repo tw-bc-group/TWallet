@@ -69,6 +69,8 @@ dependencies:
   flutter_native_splash: ^0.1.9
   corsac_jwt: ^0.2.2
   path_provider: ^1.6.11
+  flutter_webview_plugin: ^0.3.11
+
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:more/tuple.dart';
@@ -32,6 +33,8 @@ class DAppService {
   static BuildContext context;
   static WebViewController webviewController;
   static DAppPageState dappPageStateInstance;
+  static final FlutterWebviewPlugin flutterWebviewPlugin =
+      FlutterWebviewPlugin();
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
     switch (method) {
@@ -132,12 +135,14 @@ class DAppService {
       ..index = _keyPair.first
       ..pubKey = _keyPair.second
       ..priKey = _keyPair.third);
+    print(_identity.name);
     resolve(id, _identity.basicInfo());
   }
 
   static void createAccount(String id, String param) {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param));
+    print(createAccountParam.dappid);
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
         Future.value(Identity((identity) => identity
@@ -178,6 +183,12 @@ class DAppService {
   }
 
   static void getAccounts(String id, String dappid) {
+    print(dappid);
+    print(getIt<IdentityStore>()
+        .identitiesWithDapp
+        .where((identity) => identity.dappId == dappid)
+        .map((identity) => identity.basicInfo())
+        .toList());
     if (dappid.isEmpty) {
       resolve(id, null);
     } else {
@@ -237,11 +248,15 @@ class DAppService {
   }
 
   static void resolve(String id, dynamic data) {
+    flutterWebviewPlugin.evalJavascript(
+        'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})');
     webviewController.evaluateJavascript(
         'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})');
   }
 
   static void reject(String id, dynamic data) {
+    flutterWebviewPlugin.evalJavascript(
+        'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});');
     webviewController
         // ignore: avoid_escaping_inner_quotes
         .evaluateJavascript(
