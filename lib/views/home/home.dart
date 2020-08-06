@@ -86,7 +86,6 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     YYDialog.init(context);
     DAppService.context = context;
-    ScreenUtil.init(context, width: 375, height: 812);
 
     return Scaffold(
       backgroundColor: WalletColor.primary,

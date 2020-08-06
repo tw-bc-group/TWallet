@@ -11,6 +11,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import 'input_pin_store.dart';
 
@@ -50,6 +51,7 @@ class PinInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 375, height: 812);
+    final ScreenUtil _screenUtil = ScreenUtil();
 
     return Scaffold(
         resizeToAvoidBottomPadding: true,
@@ -116,48 +118,44 @@ class PinInputWidget extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20),
-                                  child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: Column(children: [
-                                          SvgPicture.asset(
-                                              'assets/icons/wallet.svg'),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            "解锁钱包",
-                                            style: WalletFont.font_14(
-                                                textStyle: TextStyle(
-                                                    color:
-                                                        WalletColor.primary)),
-                                          )
-                                        ])),
-                                        Expanded(
-                                            child: Column(children: [
-                                          SvgPicture.asset(
-                                              'assets/icons/transaction.svg'),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            "确认交易",
-                                            style: WalletFont.font_14(
-                                                textStyle: TextStyle(
-                                                    color:
-                                                        WalletColor.primary)),
-                                          )
-                                        ])),
-                                        Expanded(
-                                            child: Column(children: [
-                                          SvgPicture.asset(
-                                              'assets/icons/setting.svg'),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            "更多设置",
-                                            style: WalletFont.font_14(
-                                                textStyle: TextStyle(
-                                                    color:
-                                                        WalletColor.primary)),
-                                          )
-                                        ])),
-                                      ]),
+                                  child: Row(children: [
+                                    Expanded(
+                                        child: Column(children: [
+                                      SvgPicture.asset(
+                                          'assets/icons/wallet.svg'),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "解锁钱包",
+                                        style: WalletFont.font_14(
+                                            textStyle: TextStyle(
+                                                color: WalletColor.primary)),
+                                      )
+                                    ])),
+                                    Expanded(
+                                        child: Column(children: [
+                                      SvgPicture.asset(
+                                          'assets/icons/transaction.svg'),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "确认交易",
+                                        style: WalletFont.font_14(
+                                            textStyle: TextStyle(
+                                                color: WalletColor.primary)),
+                                      )
+                                    ])),
+                                    Expanded(
+                                        child: Column(children: [
+                                      SvgPicture.asset(
+                                          'assets/icons/setting.svg'),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "更多设置",
+                                        style: WalletFont.font_14(
+                                            textStyle: TextStyle(
+                                                color: WalletColor.primary)),
+                                      )
+                                    ])),
+                                  ]),
                                 ),
                                 Container(
                                   height: 1,
@@ -218,21 +216,32 @@ class PinInputWidget extends StatelessWidget {
                                         bottom: DeviceInfo.isIphoneXSeries()
                                             ? 34
                                             : 20),
-                                    child: WalletTheme.button(
-                                        text: '下一步',
-                                        onPressed: _inputPin.isCompleted
-                                            ? () async {
-                                                await _inputPin.setMasterKey();
-                                                return Application.router
-                                                    .navigateTo(context,
-                                                        Routes.newWallet,
-                                                        clearStack: true);
-                                              }
-                                            : null),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: _screenUtil
+                                              .setWidth(30)
+                                              .toDouble(),
+                                          vertical: DeviceInfo.isIphoneXSeries()
+                                              ? _screenUtil
+                                                  .setHeight(34)
+                                                  .toDouble()
+                                              : _screenUtil
+                                                  .setHeight(20)
+                                                  .toDouble()),
+                                      child: WalletTheme.button(
+                                          text: '下一步',
+                                          onPressed: _inputPin.isCompleted
+                                              ? () async {
+                                                  await _inputPin
+                                                      .setMasterKey();
+                                                  return Application.router
+                                                      .navigateTo(context,
+                                                          Routes.newWallet,
+                                                          clearStack: true);
+                                                }
+                                              : null),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 16,
                                 ),
                               ],
                             ),

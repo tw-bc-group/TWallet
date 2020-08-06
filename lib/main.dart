@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sentry/sentry.dart';
 import 'package:tw_wallet_ui/common/application.dart';
