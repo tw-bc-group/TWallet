@@ -29,7 +29,6 @@ class ProfileRowWidget extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(right: 50),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 if (assetIcon != null)
                   Container(

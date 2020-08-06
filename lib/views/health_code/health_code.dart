@@ -266,7 +266,7 @@ class HealthCodeState extends State<HealthCodePage> {
     return Container(
       width: width,
       height: width,
-      decoration: BoxDecoration(border: Border.all(color: color, width: 1)),
+      decoration: BoxDecoration(border: Border.all(color: color)),
       child: QrImage(data: data, foregroundColor: color),
     );
   }

@@ -135,14 +135,12 @@ class DAppService {
       ..index = _keyPair.first
       ..pubKey = _keyPair.second
       ..priKey = _keyPair.third);
-    print(_identity.name);
     resolve(id, _identity.basicInfo());
   }
 
   static void createAccount(String id, String param) {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param));
-    print(createAccountParam.dappid);
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
         Future.value(Identity((identity) => identity
@@ -183,12 +181,6 @@ class DAppService {
   }
 
   static void getAccounts(String id, String dappid) {
-    print(dappid);
-    print(getIt<IdentityStore>()
-        .identitiesWithDapp
-        .where((identity) => identity.dappId == dappid)
-        .map((identity) => identity.basicInfo())
-        .toList());
     if (dappid.isEmpty) {
       resolve(id, null);
     } else {

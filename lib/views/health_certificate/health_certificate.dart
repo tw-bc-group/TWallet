@@ -85,7 +85,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
           margin: const EdgeInsets.symmetric(vertical: 13),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: WalletColor.grey, width: 1),
+            border: Border.all(color: WalletColor.grey),
           ),
           height: _screenUtil.setHeight(44).toDouble(),
           child: TextField(
@@ -225,7 +225,6 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(

@@ -155,8 +155,8 @@ class _IdentityPageState extends State<IdentityPage> {
     return Container(
         decoration: BoxDecoration(
           color: WalletColor.primary,
-          image: DecorationImage(
-              image: const AssetImage('assets/images/background.png'),
+          image: const DecorationImage(
+              image: AssetImage('assets/images/background.png'),
               alignment: Alignment.bottomCenter),
         ),
         child: Column(children: <Widget>[

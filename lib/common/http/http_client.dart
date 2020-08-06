@@ -55,7 +55,6 @@ Dio _initDio() {
     ..options = BaseOptions(
       baseUrl: globalEnv().apiGatewayBaseUrl,
       connectTimeout: globalEnv().apiGatewayConnectTimeout,
-      responseType: ResponseType.json,
     )
     ..interceptors.add(LoadingInterceptor());
 

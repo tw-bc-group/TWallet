@@ -31,7 +31,7 @@ class ButtonBase extends State<Button> {
                 child: Center(
                     child: Text(
                   widget.text,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
@@ -49,7 +49,7 @@ class ButtonBase extends State<Button> {
           child: Center(
               child: Text(
             widget.text,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
           )),
         ));

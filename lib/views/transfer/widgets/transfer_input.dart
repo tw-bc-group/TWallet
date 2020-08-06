@@ -29,7 +29,7 @@ class TransferInputWidget extends StatelessWidget {
         margin: const EdgeInsets.only(top: 18),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: WalletColor.middleGrey, width: 1),
+          border: Border.all(color: WalletColor.middleGrey),
         ),
         child: Row(
           children: <Widget>[

@@ -49,7 +49,7 @@ class PinInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
+    ScreenUtil.init(context, width: 375, height: 812);
 
     return Scaffold(
         resizeToAvoidBottomPadding: true,
@@ -71,10 +71,9 @@ class PinInputWidget extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 image: DecorationImage(
-                              image: const AssetImage(
-                                  'assets/images/background.png'),
+                              image: AssetImage('assets/images/background.png'),
                               alignment: Alignment.bottomCenter,
                             )),
                             padding: const EdgeInsets.only(top: 94, bottom: 85),
@@ -118,8 +117,6 @@ class PinInputWidget extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20),
                                   child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
                                       children: [
                                         Expanded(
                                             child: Column(children: [

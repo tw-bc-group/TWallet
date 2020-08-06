@@ -139,9 +139,10 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                           maxLines: null,
                           maxLength: 320,
                           inputFormatters: [
-                            WhitelistingTextInputFormatter(RegExp("[a-zA-Z ]"))
+                            FilteringTextInputFormatter.allow(
+                                RegExp("[a-zA-Z ]"))
                           ],
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: InputBorder.none, counterText: ''),
                           onChanged: (String value) => _inputWords.value = value
                               .trim()

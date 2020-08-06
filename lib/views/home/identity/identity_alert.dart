@@ -37,7 +37,6 @@ Future<void> _showAddIdentityDialog(
                       borderRadius: BorderRadius.circular(12)),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(

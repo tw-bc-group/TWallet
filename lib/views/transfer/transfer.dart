@@ -245,7 +245,7 @@ class TransferPageState extends State<TransferPage> {
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter(RegExp(r'\d+|\.')),
+                    FilteringTextInputFormatter.allow(RegExp(r'\d+|\.'))
                   ],
                   onChange: (value) => _transferStore.amount = value),
               Container(
@@ -292,7 +292,7 @@ class TransferPageState extends State<TransferPage> {
                   errorText: _transferStore.error.payeeDID,
                   keyboardType: TextInputType.text,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter(RegExp(r'[a-zA-Z0-9\:]+')),
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\:]+'))
                   ],
                   controller: _payeeAddressController,
                   onChange: (value) => _transferStore.payeeDID = value),

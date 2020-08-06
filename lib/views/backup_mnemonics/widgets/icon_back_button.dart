@@ -10,7 +10,7 @@ class IconBackButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             iconSize: 28,
             onPressed: () {
               Application.router.pop(context);

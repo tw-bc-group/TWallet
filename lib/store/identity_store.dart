@@ -56,7 +56,7 @@ abstract class IdentityStoreBase with Store {
   IdentityStoreBase(this.identities, this.healthCertLastSelectIndex) {
     _streamController = StreamController();
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
-        initialValue: ObservableFuture(Future.value(null)));
+        initialValue: ObservableFuture(Future.value()));
     _identitiesSort();
   }
 

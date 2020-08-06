@@ -37,7 +37,7 @@ class IdentityQRPage extends StatelessWidget {
                     Text(
                       identity.name,
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     _buildQRCode(identity.did.toString()),
                     Container(
@@ -67,7 +67,6 @@ class IdentityQRPage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 30),
       child: QrImage(
         data: did,
-        version: QrVersions.auto,
 //        size: 200.0,
       ),
     );

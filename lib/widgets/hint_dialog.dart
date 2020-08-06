@@ -150,7 +150,6 @@ class HintDialog extends Dialog {
               child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: children))),
     );
   }
@@ -215,7 +214,6 @@ class HintDialogSample extends Dialog {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: children,
             ),
           ),
