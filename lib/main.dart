@@ -73,7 +73,7 @@ class TWallet extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: appName(),
               theme: ThemeData(
-                  primaryColor: WalletColor.primary,
+                  primaryColor: WalletColor.white,
                   textTheme: TextTheme(
                       bodyText2: WalletFont.font_14(
                           textStyle: TextStyle(
