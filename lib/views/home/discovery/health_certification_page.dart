@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -96,18 +97,25 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Widget _buildIdentityEmpty(BuildContext context, HomeStore homeStore) {
+    final ScreenUtil _screenUtil = ScreenUtil();
+
     return Expanded(
       child: Container(
-        margin:
-            const EdgeInsets.only(left: 24, right: 24, top: 10, bottom: 147),
-        padding:
-            const EdgeInsets.only(left: 20, right: 20, top: 90, bottom: 46),
+        margin: EdgeInsets.only(
+            left: _screenUtil.setWidth(24).toDouble(),
+            right: _screenUtil.setWidth(24).toDouble(),
+            top: _screenUtil.setHeight(10).toDouble(),
+            bottom: _screenUtil.setHeight(147).toDouble()),
+        padding: EdgeInsets.only(
+            left: _screenUtil.setWidth(20).toDouble(),
+            right: _screenUtil.setWidth(20).toDouble(),
+            top: _screenUtil.setHeight(90).toDouble(),
+            bottom: _screenUtil.setHeight(46).toDouble()),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             SvgPicture.asset(
