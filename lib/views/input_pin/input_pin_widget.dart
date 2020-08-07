@@ -11,7 +11,6 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import 'input_pin_store.dart';
 

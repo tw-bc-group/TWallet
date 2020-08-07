@@ -8,7 +8,6 @@ class ProgressDialog {
   YYDialog _dialog;
 
   void show() {
-    print("show - count: $count");
     count++;
 
     if (count == 1) {
@@ -17,7 +16,6 @@ class ProgressDialog {
   }
 
   void dismiss() {
-    print("dismiss - count: $count");
     if (count > 0) {
       count--;
     }

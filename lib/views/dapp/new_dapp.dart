@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class NewDAppPageState extends State<NewDAppPage> {
   bool isLoadingPage = true;
   Color backgroundColor = Colors.white;
 
-  final Set<JavascriptChannel> jsChannels = [
+  final Set<JavascriptChannel> jsChannels = {
     JavascriptChannel(
         name: 'TWalletNative',
         onMessageReceived: (JavascriptMessage message) {
@@ -47,7 +46,7 @@ class NewDAppPageState extends State<NewDAppPage> {
                 'window.TWallet.rejectPromise(${json.encode(json.encode(e.toString()))});');
           }
         })
-  ].toSet();
+  };
 
   @override
   void initState() {

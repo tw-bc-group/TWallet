@@ -4,7 +4,6 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:more/tuple.dart';
