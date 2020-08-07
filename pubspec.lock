@@ -414,7 +414,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.2"
+    version: "3.4.3"
   get_it:
     dependency: "direct main"
     description:
@@ -819,7 +819,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "421e50317e7e30646081dea3f2493aa181fdb0ba"
+      resolved-ref: "16880d084aab59cb223a789494606f11a7dd95f2"
       url: "https://github.com/flutter/sentry.git"
     source: git
     version: "4.0.0"

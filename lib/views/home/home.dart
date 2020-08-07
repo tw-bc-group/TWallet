@@ -84,6 +84,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 375, height: 812);
     YYDialog.init(context);
     DAppService.context = context;
 
