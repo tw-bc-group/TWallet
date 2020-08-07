@@ -23,9 +23,11 @@ Future<void> _cleanPrivateData(BuildContext context) async {
       .then((_) => getIt<HealthCertificationStore>().clear())
       .then((_) => SecureStorage.clearAll())
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
-      .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) =>
-          Application.router
-              .navigateTo(context, Routes.inputPin, clearStack: true)));
+      .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) {
+            _dialog.dismiss();
+            Application.router
+                .navigateTo(context, Routes.inputPin, clearStack: true);
+          }));
 }
 
 Future<void> clearAllDappStorage(

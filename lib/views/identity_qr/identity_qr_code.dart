@@ -36,8 +36,8 @@ class IdentityQRPage extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       identity.name,
-                      style:
-                          const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     _buildQRCode(identity.did.toString()),
                     Container(

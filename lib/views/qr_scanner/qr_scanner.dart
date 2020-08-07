@@ -135,7 +135,8 @@ class QrScannerPageState extends State<QrScannerPage>
                                 shape: const CircleBorder(),
                                 onPressed: () =>
                                     Application.router.pop(context),
-                                child: const Icon(Icons.close, color: Colors.white)),
+                                child: const Icon(Icons.close,
+                                    color: Colors.white)),
                           ),
 //                          Expanded(child: Container()),
 //                          RaisedButton(

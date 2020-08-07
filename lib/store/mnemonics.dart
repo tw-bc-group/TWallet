@@ -30,7 +30,7 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
 
   Tuple3<int, String, String> peekKeys() {
     final int nextIndex = index + 1;
-    final keyPair =  BlockChainService.generateKeys(
+    final keyPair = BlockChainService.generateKeys(
         BlockChainService.generateHDWallet(mnemonics), nextIndex);
     return Tuple3(nextIndex, keyPair.first, keyPair.second);
   }

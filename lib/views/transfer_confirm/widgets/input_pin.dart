@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:optional/optional.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -121,7 +122,9 @@ class InputPinWidgetState extends State<InputPinWidget> {
                   color: WalletTheme.rgbColor(
                       widget.pincodeDialogInput?.textColor ??
                           WalletColor.BLACK),
-                  fontSize: widget.pincodeDialogInput.textSize ?? 16,
+                  fontSize: Optional.ofNullable(widget.pincodeDialogInput)
+                      .map((v) => v.textSize)
+                      .orElse(16),
                 ),
               ),
               enableActiveFill: true,
