@@ -43,7 +43,7 @@ class DiscoveryPage extends StatelessWidget {
     ];
     dappItemList.addAll(dappList.map((dapp) => GestureDetector(
           onTap: () => Application.router
-              .navigateTo(context, '${Routes.newDapp}?id=${dapp.id}'),
+              .navigateTo(context, '${Routes.dapp}?id=${dapp.id}'),
           child: DiscoveryItem(text: dapp.name, svgAsset: dapp.iconAsset),
         )));
     return ListView(
