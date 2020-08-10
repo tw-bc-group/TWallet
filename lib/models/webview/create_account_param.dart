@@ -13,7 +13,6 @@ abstract class CreateAccountParam
           CreateAccountParamBuilder webviewPincodeDialogCloseBuilder) =>
       webviewPincodeDialogCloseBuilder..extra = '{}';
 
-  String get dappid;
   @nullable
   String get extra;
 

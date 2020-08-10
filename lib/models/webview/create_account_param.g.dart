@@ -19,11 +19,7 @@ class _$CreateAccountParamSerializer
   @override
   Iterable<Object> serialize(Serializers serializers, CreateAccountParam object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'dappid',
-      serializers.serialize(object.dappid,
-          specifiedType: const FullType(String)),
-    ];
+    final result = <Object>[];
     if (object.extra != null) {
       result
         ..add('extra')
@@ -45,10 +41,6 @@ class _$CreateAccountParamSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'dappid':
-          result.dappid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'extra':
           result.extra = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -62,19 +54,13 @@ class _$CreateAccountParamSerializer
 
 class _$CreateAccountParam extends CreateAccountParam {
   @override
-  final String dappid;
-  @override
   final String extra;
 
   factory _$CreateAccountParam(
           [void Function(CreateAccountParamBuilder) updates]) =>
       (new CreateAccountParamBuilder()..update(updates)).build();
 
-  _$CreateAccountParam._({this.dappid, this.extra}) : super._() {
-    if (dappid == null) {
-      throw new BuiltValueNullFieldError('CreateAccountParam', 'dappid');
-    }
-  }
+  _$CreateAccountParam._({this.extra}) : super._();
 
   @override
   CreateAccountParam rebuild(
@@ -88,20 +74,17 @@ class _$CreateAccountParam extends CreateAccountParam {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CreateAccountParam &&
-        dappid == other.dappid &&
-        extra == other.extra;
+    return other is CreateAccountParam && extra == other.extra;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, dappid.hashCode), extra.hashCode));
+    return $jf($jc(0, extra.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CreateAccountParam')
-          ..add('dappid', dappid)
           ..add('extra', extra))
         .toString();
   }
@@ -110,10 +93,6 @@ class _$CreateAccountParam extends CreateAccountParam {
 class CreateAccountParamBuilder
     implements Builder<CreateAccountParam, CreateAccountParamBuilder> {
   _$CreateAccountParam _$v;
-
-  String _dappid;
-  String get dappid => _$this._dappid;
-  set dappid(String dappid) => _$this._dappid = dappid;
 
   String _extra;
   String get extra => _$this._extra;
@@ -125,7 +104,6 @@ class CreateAccountParamBuilder
 
   CreateAccountParamBuilder get _$this {
     if (_$v != null) {
-      _dappid = _$v.dappid;
       _extra = _$v.extra;
       _$v = null;
     }
@@ -147,8 +125,7 @@ class CreateAccountParamBuilder
 
   @override
   _$CreateAccountParam build() {
-    final _$result =
-        _$v ?? new _$CreateAccountParam._(dappid: dappid, extra: extra);
+    final _$result = _$v ?? new _$CreateAccountParam._(extra: extra);
     replace(_$result);
     return _$result;
   }
