@@ -12,6 +12,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity.dart';
 import 'package:tw_wallet_ui/models/webview/create_account_param.dart';
@@ -67,6 +68,7 @@ class DAppService {
 
   static void quitApp(String id, _) {
     setStatusBarMode(id, 'dark');
+    setStatusBarBackgroundColor(id, WalletColor.PRIMARY);
     Application.router.pop(context);
   }
 

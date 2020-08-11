@@ -84,7 +84,7 @@ class DAppPageState extends State<DAppPage> {
   }
 
   void resetToAppStatusBar() {
-    DAppService.setStatusBarMode('id', 'dark');
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: WalletColor.primary,
     ));
