@@ -71,6 +71,7 @@ dependencies:
   corsac_jwt: ^0.2.2
   path_provider: ^1.6.11
   flutter_webview_plugin: ^0.3.11
+  flutter_blue: ^0.7.0
 
 
 dev_dependencies:

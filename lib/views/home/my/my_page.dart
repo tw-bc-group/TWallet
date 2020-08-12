@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
@@ -41,43 +43,45 @@ Future<void> clearAllDappStorage(
 }
 
 class MyPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildButton(String text, VoidCallback onTap) {
     final _screenUtil = ScreenUtil();
 
-    Widget _buildButton(String text, VoidCallback onTap) {
-      return GestureDetector(
-        onTap: onTap,
-        child: Container(
-          margin: EdgeInsets.only(bottom: _screenUtil.setWidth(15).toDouble()),
-          height: _screenUtil.setWidth(90).toDouble(),
-          decoration: BoxDecoration(
-            color: WalletColor.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x0f000000),
-                offset: Offset(0, 4),
-                blurRadius: 12,
-              )
-            ],
-          ),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: _screenUtil.setWidth(20).toDouble()),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(text, style: WalletFont.font_18()),
-                  SvgPicture.asset('assets/icons/right-arrow.svg')
-                ],
-              ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(bottom: _screenUtil.setWidth(15).toDouble()),
+        height: _screenUtil.setWidth(90).toDouble(),
+        decoration: BoxDecoration(
+          color: WalletColor.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 12,
+            )
+          ],
+        ),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: _screenUtil.setWidth(20).toDouble()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(text, style: WalletFont.font_18()),
+                SvgPicture.asset('assets/icons/right-arrow.svg')
+              ],
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final _screenUtil = ScreenUtil();
 
     return Column(children: <Widget>[
       Container(
@@ -99,6 +103,10 @@ class MyPage extends StatelessWidget {
                 padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
                 child: ListView(
                   children: <Widget>[
+                    _buildButton(
+                        '测试蓝牙',
+                        () => Application.router
+                            .navigateTo(context, Routes.bleTest)),
                     _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(
