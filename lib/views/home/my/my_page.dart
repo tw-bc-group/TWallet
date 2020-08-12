@@ -45,6 +45,40 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenUtil = ScreenUtil();
 
+    Widget _buildButton(String text, VoidCallback onTap) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: EdgeInsets.only(bottom: _screenUtil.setWidth(15).toDouble()),
+          height: _screenUtil.setWidth(90).toDouble(),
+          decoration: BoxDecoration(
+            color: WalletColor.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0f000000),
+                offset: Offset(0, 4),
+                blurRadius: 12,
+              )
+            ],
+          ),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: _screenUtil.setWidth(20).toDouble()),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(text, style: WalletFont.font_18()),
+                  SvgPicture.asset('assets/icons/right-arrow.svg')
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Column(children: <Widget>[
       Container(
         height: _screenUtil.setHeight(244).toDouble(),
@@ -63,43 +97,12 @@ class MyPage extends StatelessWidget {
               color: WalletColor.lightGrey,
               child: Padding(
                 padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
-                child: Column(
+                child: ListView(
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () => _cleanPrivateData(context),
-                      child: Container(
-                          height: _screenUtil.setWidth(90).toDouble(),
-                          decoration: BoxDecoration(
-                            color: WalletColor.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x0f000000),
-                                offset: Offset(0, 4),
-                                blurRadius: 12,
-                              )
-                            ],
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      _screenUtil.setWidth(20).toDouble()),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text('清除数据', style: WalletFont.font_18()),
-                                  SvgPicture.asset(
-                                      'assets/icons/right-arrow.svg')
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
+                    _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: _screenUtil.setWidth(24).toDouble()),
+                          top: _screenUtil.setWidth(5).toDouble()),
                       child: const Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
                     )
                   ],
