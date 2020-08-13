@@ -85,15 +85,17 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Text('输入助记词', style: WalletFont.font_20()),
                   ),
-                  buildInfoTipButton()
+                  // buildInfoTipButton()
                 ])),
               ),
               Padding(
                 padding: EdgeInsets.only(
                     top: _screenUtil.setWidth(40).toDouble(),
-                    bottom: _screenUtil.setWidth(24).toDouble()),
+                    bottom: _screenUtil.setWidth(24).toDouble(),
+                    left: _screenUtil.setWidth(24).toDouble(),
+                    right: _screenUtil.setWidth(24).toDouble()),
                 child: Center(
-                    child: Text('-请按顺序输入您的助记词，按空格分隔-',
+                    child: Text('请输入您在创建钱包时备份的助记词。正确输入后，钱包将被恢复。',
                         style: WalletFont.font_14())),
               ),
               Padding(
