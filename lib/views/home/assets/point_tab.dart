@@ -67,7 +67,7 @@ class _PointTabState extends State<PointTab> {
     super.initState();
     reactionDispose = reaction(
         (_) => _identityStore.selectedIdentity.value.id, (_) => _refresh());
-    _refresh();
+    _identityStore.fetchLatestPoint(withLoading: false);
   }
 
   @override

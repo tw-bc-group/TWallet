@@ -14,8 +14,11 @@ import 'package:tw_wallet_ui/models/tw_balance.dart';
 class ApiProvider {
   final HttpClient _httpClient = getIt<HttpClient>();
 
-  Future<Optional<TwBalance>> fetchPointV1({@required String address}) async {
-    return _httpClient.get('/v1/token/$address', loading: false).then((res) {
+  Future<Optional<TwBalance>> fetchPointV1(
+      {@required String address, bool withLoading}) async {
+    return _httpClient
+        .get('/v1/token/$address', loading: withLoading ?? true)
+        .then((res) {
       return Future.value(res.map((response) => ApiResponse.fromJson(
             response.data,
             const [FullType(TwBalance)],
@@ -107,5 +110,10 @@ class ApiProvider {
   Future<Optional<Response>> verifyHealthCertificationToken(String token) {
     return _httpClient
         .post('/v1/health-certifications/verify', {'token': token});
+  }
+
+  Future<Optional<Response>> issuePoints(String address) {
+    return _httpClient
+        .post('/v1/token/reward', {'address': address, 'amount': 10});
   }
 }

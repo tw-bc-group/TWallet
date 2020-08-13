@@ -27,8 +27,10 @@ abstract class TwBalance extends Object
         specifiedType: const FullType(TwBalance)) as TwBalance;
   }
 
-  static Future<Optional<TwBalance>> fetchBalance({String address}) async {
-    return getIt<ApiProvider>().fetchPointV1(address: address);
+  static Future<Optional<TwBalance>> fetchBalance(
+      {String address, bool withLoading}) async {
+    return getIt<ApiProvider>()
+        .fetchPointV1(address: address, withLoading: withLoading);
   }
 
   static TwBalance zero = TwBalance((builder) => builder.amount = Amount.zero);
