@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/discovery/discovery_item.dart';
@@ -39,6 +41,11 @@ class DiscoveryPage extends StatelessWidget {
         child: const DiscoveryItem(text: '健康认证'),
       )
     ];
+    dappItemList.addAll(dappList.map((dapp) => GestureDetector(
+          onTap: () => Application.router
+              .navigateTo(context, '${Routes.dapp}?id=${dapp.id}'),
+          child: DiscoveryItem(text: dapp.name, svgAsset: dapp.iconAsset),
+        )));
     return ListView(
       children: dappItemList,
     );
