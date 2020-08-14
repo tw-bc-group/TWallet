@@ -2,7 +2,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
-import 'package:tw_wallet_ui/views/bluetooth/bluetooth.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/dapp/dapp.dart';
 import 'package:tw_wallet_ui/views/dapp/new_dapp.dart';
@@ -156,11 +155,5 @@ Handler newDappHandler = Handler(
 Handler restoreMnemonicsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return RestoreMnemonicsPage();
-  },
-);
-
-Handler bleTestHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return FlutterBlueApp();
   },
 );

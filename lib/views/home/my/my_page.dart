@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -16,6 +15,7 @@ import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
+import 'package:tw_wallet_ui/views/ble_test/ble_test.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
   final ProgressDialog _dialog = getIt<ProgressDialog>();
@@ -103,10 +103,7 @@ class MyPage extends StatelessWidget {
                 padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
                 child: ListView(
                   children: <Widget>[
-                    _buildButton(
-                        '测试蓝牙',
-                        () => Application.router
-                            .navigateTo(context, Routes.bleTest)),
+                    _buildButton('测试蓝牙', () => Get.to(BleTest())),
                     _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(

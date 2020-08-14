@@ -342,13 +342,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_blue:
-    dependency: "direct main"
-    description:
-      name: flutter_blue
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.2"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -604,6 +597,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
+  mutex:
+    dependency: transitive
+    description:
+      name: mutex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   node_interop:
     dependency: transitive
     description:
@@ -814,6 +814,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.8"
+  retry:
+    dependency: transitive
+    description:
+      name: retry
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   rsa_pkcs:
     dependency: transitive
     description:
@@ -828,6 +835,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.24.1"
+  sdk_xyo_flutter:
+    dependency: "direct main"
+    description:
+      name: sdk_xyo_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   sentry:
     dependency: "direct main"
     description:
