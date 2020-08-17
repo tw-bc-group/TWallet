@@ -103,7 +103,7 @@ class MyPage extends StatelessWidget {
                 padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
                 child: ListView(
                   children: <Widget>[
-                    _buildButton('测试蓝牙', () => Get.to(BleTest())),
+                    _buildButton('测试Ble服务器模式', () => Get.to(BleTest())),
                     _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(

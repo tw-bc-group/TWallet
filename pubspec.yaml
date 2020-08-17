@@ -71,7 +71,6 @@ dependencies:
   corsac_jwt: ^0.2.2
   path_provider: ^1.6.11
   flutter_webview_plugin: ^0.3.11
-  sdk_xyo_flutter: ^0.2.3
 
 dev_dependencies:
   flutter_test:

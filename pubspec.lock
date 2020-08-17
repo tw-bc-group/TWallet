@@ -280,7 +280,7 @@ packages:
       name: device_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2+4"
+    version: "0.4.2+6"
   dio:
     dependency: "direct main"
     description:
@@ -414,7 +414,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.4"
+    version: "3.4.6"
   get_it:
     dependency: "direct main"
     description:
@@ -597,13 +597,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
-  mutex:
-    dependency: transitive
-    description:
-      name: mutex
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   node_interop:
     dependency: transitive
     description:
@@ -758,13 +751,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
-  protobuf:
-    dependency: transitive
-    description:
-      name: protobuf
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   pub_semver:
     dependency: transitive
     description:
@@ -814,13 +800,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.8"
-  retry:
-    dependency: transitive
-    description:
-      name: retry
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   rsa_pkcs:
     dependency: transitive
     description:
@@ -835,13 +814,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.24.1"
-  sdk_xyo_flutter:
-    dependency: "direct main"
-    description:
-      name: sdk_xyo_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
   sentry:
     dependency: "direct main"
     description:
@@ -857,7 +829,7 @@ packages:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.7"
+    version: "0.7.9"
   shelf_web_socket:
     dependency: transitive
     description:
