@@ -12,6 +12,7 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.util.*
+import kotlin.concurrent.timer as timer
 
 
 class MainActivity : FlutterActivity() {
@@ -25,6 +26,8 @@ class MainActivity : FlutterActivity() {
     private val _uuidCharRead = UUID.fromString("0ac637b0-9c14-4741-8f9f-b0baae77d0b4")
     private val _uuidCharWrite = UUID.fromString("4fec0357-2493-4901-b1a2-9e2ec21b9676")
     private var _registeredDevices = mutableSetOf<BluetoothDevice>()
+    private var _characteristicRead: BluetoothGattCharacteristic? = null
+    private var _timer: Timer? = null
 
     private val _advertiseCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
@@ -106,9 +109,8 @@ class MainActivity : FlutterActivity() {
         override fun onConnectionStateChange(device: BluetoothDevice, status: Int, newState: Int) {
             Log.d(_tag, "onConnectionStateChange device=${device.name} newState=$newState")
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                Log.d(_tag, "连接建立")
+                _registeredDevices.add(device)
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                Log.d(_tag, "连接断开")
                 _registeredDevices.remove(device)
             }
         }
@@ -149,7 +151,7 @@ class MainActivity : FlutterActivity() {
     private fun addServices() {
         val gattService = BluetoothGattService(_uuidService, BluetoothGattService.SERVICE_TYPE_PRIMARY)
 
-        val characteristicRead = BluetoothGattCharacteristic(_uuidCharRead,
+         _characteristicRead = BluetoothGattCharacteristic(_uuidCharRead,
                 BluetoothGattCharacteristic.PROPERTY_READ or BluetoothGattCharacteristic.PROPERTY_NOTIFY,
                 BluetoothGattCharacteristic.PERMISSION_READ)
 
@@ -158,7 +160,7 @@ class MainActivity : FlutterActivity() {
                         or BluetoothGattCharacteristic.PROPERTY_NOTIFY,
                 BluetoothGattCharacteristic.PERMISSION_WRITE or BluetoothGattCharacteristic.PERMISSION_READ)
 
-        gattService.addCharacteristic(characteristicRead)
+        gattService.addCharacteristic(_characteristicRead)
         gattService.addCharacteristic(characteristicWrite)
 
         _bluetoothGattServer = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).openGattServer(this, gattServerCallback)
@@ -173,6 +175,15 @@ class MainActivity : FlutterActivity() {
         }
         val advertiseSettings = buildAdvertiseSettings()
         _bluetoothAdvertiser!!.startAdvertising(advertiseSettings, _advertiseData, _advertiseCallback)
+        _timer = timer(period = 2000) {
+            for (_device in _registeredDevices) {
+                if (_characteristicRead != null) {
+                    Log.d(_tag, "send hello to device: $_device")
+                    _characteristicRead?.value = "hello, matrix!".toByteArray()
+                    _bluetoothGattServer?.notifyCharacteristicChanged(_device, _characteristicRead, false);
+                }
+            }
+        }
     }
 
     private fun stopAdvertising() {
