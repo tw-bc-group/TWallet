@@ -12,7 +12,6 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.util.*
-import kotlin.concurrent.timer as timer
 
 
 class MainActivity : FlutterActivity() {
@@ -27,7 +26,6 @@ class MainActivity : FlutterActivity() {
     private val _uuidCharWrite = UUID.fromString("4fec0357-2493-4901-b1a2-9e2ec21b9676")
     private var _registeredDevices = mutableSetOf<BluetoothDevice>()
     private var _characteristicRead: BluetoothGattCharacteristic? = null
-    private var _timer: Timer? = null
 
     private val _advertiseCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
@@ -82,15 +80,17 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 "startAdvertising" -> {
                     startAdvertising()
-                    result.success(0)
+                    result.success(true)
                 }
                 "stopAdvertising" -> {
                     stopAdvertising()
-                    result.success(0)
+                    result.success(true)
+                }
+                "sendData" -> {
+                    sendData("hello, ble!".toByteArray())
                 }
                 else -> {
-                    startAdvertising()
-                    result.success(0)
+                    result.notImplemented()
                 }
             }
         }
@@ -118,8 +118,7 @@ class MainActivity : FlutterActivity() {
         override fun onCharacteristicWriteRequest(device: BluetoothDevice?, requestId: Int, characteristic: BluetoothGattCharacteristic, preparedWrite: Boolean, responseNeeded: Boolean, offset: Int, value: ByteArray?) {
             super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value)
             val data = String(value!!)
-            Log.d(_tag, "收到了客户端发过来的数据 $data")
-            //告诉客户端发送成功
+            Log.d(_tag, "received $data")
             _bluetoothGattServer!!.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, characteristic.value)
         }
 
@@ -144,24 +143,28 @@ class MainActivity : FlutterActivity() {
                         0, null)
             }
         }
+    }
 
-
+    private fun sendData(data: ByteArray) {
+        for (device in _registeredDevices) {
+            _characteristicRead?.value = data
+            _bluetoothGattServer?.notifyCharacteristicChanged(device, _characteristicRead, true)
+        }
     }
 
     private fun addServices() {
         val gattService = BluetoothGattService(_uuidService, BluetoothGattService.SERVICE_TYPE_PRIMARY)
 
-         _characteristicRead = BluetoothGattCharacteristic(_uuidCharRead,
+        _characteristicRead = BluetoothGattCharacteristic(_uuidCharRead,
                 BluetoothGattCharacteristic.PROPERTY_READ or BluetoothGattCharacteristic.PROPERTY_NOTIFY,
                 BluetoothGattCharacteristic.PERMISSION_READ)
 
-        val characteristicWrite = BluetoothGattCharacteristic(_uuidCharWrite,
-                BluetoothGattCharacteristic.PROPERTY_WRITE or BluetoothGattCharacteristic.PROPERTY_READ
-                        or BluetoothGattCharacteristic.PROPERTY_NOTIFY,
-                BluetoothGattCharacteristic.PERMISSION_WRITE or BluetoothGattCharacteristic.PERMISSION_READ)
-
         gattService.addCharacteristic(_characteristicRead)
-        gattService.addCharacteristic(characteristicWrite)
+
+        gattService.addCharacteristic(BluetoothGattCharacteristic(_uuidCharWrite,
+                BluetoothGattCharacteristic.PROPERTY_WRITE
+                        or BluetoothGattCharacteristic.PROPERTY_NOTIFY,
+                BluetoothGattCharacteristic.PERMISSION_WRITE))
 
         _bluetoothGattServer = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).openGattServer(this, gattServerCallback)
         _bluetoothGattServer!!.addService(gattService)
@@ -175,15 +178,6 @@ class MainActivity : FlutterActivity() {
         }
         val advertiseSettings = buildAdvertiseSettings()
         _bluetoothAdvertiser!!.startAdvertising(advertiseSettings, _advertiseData, _advertiseCallback)
-        _timer = timer(period = 2000) {
-            for (_device in _registeredDevices) {
-                if (_characteristicRead != null) {
-                    Log.d(_tag, "send hello to device: $_device")
-                    _characteristicRead?.value = "hello, matrix!".toByteArray()
-                    _bluetoothGattServer?.notifyCharacteristicChanged(_device, _characteristicRead, false);
-                }
-            }
-        }
     }
 
     private fun stopAdvertising() {

@@ -8,7 +8,7 @@ class BlePeriphery {
   factory BlePeriphery() {
     if (_instance == null) {
       const MethodChannel _methodChannel =
-      MethodChannel('matrix.ble_periphery/method');
+          MethodChannel('matrix.ble_periphery/method');
       _instance = BlePeriphery.private(_methodChannel);
     }
     return _instance;
@@ -22,5 +22,9 @@ class BlePeriphery {
 
   Future<void> stopAdvertising() {
     return _methodChannel.invokeMethod('stopAdvertising');
+  }
+
+  Future<void> sendData() {
+    return _methodChannel.invokeMethod('sendData');
   }
 }

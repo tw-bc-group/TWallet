@@ -1,0 +1,194 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ble_lib/flutter_ble_lib.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+
+import 'ble_device.dart';
+import 'device_detail.dart';
+import 'hex_painter.dart';
+
+class DevicesList extends ListView {
+  DevicesList(List<BleDevice> devices)
+      : super.separated(
+            separatorBuilder: (context, index) => Divider(
+                  color: Colors.grey[300],
+                  height: 0,
+                  indent: 0,
+                ),
+            itemCount: devices.length,
+            itemBuilder: (context, i) {
+              return _buildRow(context, devices[i]);
+            });
+
+  static Widget _buildAvatar(BuildContext context, BleDevice device) {
+    switch (device.category) {
+      case DeviceCategory.sensorTag:
+        return CircleAvatar(
+            backgroundColor: Theme.of(context).accentColor,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('assets/icons/ti_logo.png'),
+            ));
+      case DeviceCategory.hex:
+        return CircleAvatar(
+            backgroundColor: Colors.black,
+            child:
+                CustomPaint(painter: HexPainter(), size: const Size(20, 24)));
+      case DeviceCategory.other:
+      default:
+        return CircleAvatar(
+            backgroundColor: WalletColor.primary,
+            foregroundColor: WalletColor.white,
+            child: const Icon(Icons.bluetooth));
+    }
+  }
+
+  static Widget _buildRow(
+    BuildContext context,
+    BleDevice device,
+  ) {
+    return ListTile(
+      onTap: () => Get.to(DeviceDetail(device)),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: _buildAvatar(context, device),
+      ),
+      title: Text(device.name),
+      trailing: const Padding(
+        padding: EdgeInsets.only(top: 16),
+        child: Icon(Icons.chevron_right, color: Colors.grey),
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            device.id.toString(),
+            style: const TextStyle(fontSize: 10),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          )
+        ],
+      ),
+      contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+    );
+  }
+}
+
+class DeviceListPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _DeviceListPageState();
+}
+
+class _DeviceListPageState extends State<DeviceListPage> {
+  final BleManager _bleManager = BleManager();
+  final RxList<BleDevice> _bleDevices = RxList([]);
+  StreamSubscription<ScanResult> _scanSubscription;
+
+  Future<bool> _checkAndRequirePermissions() async {
+    final Permission _permission = Permission.locationWhenInUse;
+    final PermissionStatus status = await _permission.status;
+
+    if (!status.isGranted) {
+      if (status.isDenied ||
+          status.isRestricted ||
+          status.isPermanentlyDenied) {
+        return showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              content: const Text("需要去应用设置页面允许使用定位信息权限"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  onPressed: () async {
+                    Navigator.pop(context, false);
+                    await openAppSettings();
+                  },
+                  child: const Text("去设置"),
+                ),
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: const Text("拒绝"),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        await _permission.request();
+      }
+    }
+    return _permission.isGranted;
+  }
+
+  Future<void> _waitForBluetoothPoweredOn() async {
+    final Completer completer = Completer();
+
+    StreamSubscription<BluetoothState> subscription;
+
+    subscription =
+        _bleManager.observeBluetoothState().listen((bluetoothState) async {
+      if (bluetoothState == BluetoothState.POWERED_ON &&
+          !completer.isCompleted) {
+        await subscription.cancel();
+        completer.complete();
+      }
+    });
+
+    return completer.future;
+  }
+
+  void _startScan() {
+    _scanSubscription =
+        _bleManager.startPeripheralScan().listen((ScanResult scanResult) {
+      final bleDevice = BleDevice(scanResult);
+      if (scanResult.advertisementData.localName != null &&
+          !_bleDevices.contains(bleDevice)) {
+        _bleDevices.add(bleDevice);
+      }
+    });
+  }
+
+  Future<void> _refresh() {
+    return Future.value(_scanSubscription?.cancel())
+        .then((_) => _bleManager.stopPeripheralScan())
+        .then((_) => _bleDevices.clear())
+        .then((_) => _checkAndRequirePermissions())
+        .then((_) => _startScan());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _bleManager
+        .createClient()
+        .then((_) => _checkAndRequirePermissions())
+        .then((_) => _waitForBluetoothPoweredOn())
+        .then((_) => _startScan());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scanSubscription?.cancel()?.then((_) => _bleManager.destroyClient());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonLayout(
+      title: 'BleTest',
+      bodyBackColor: WalletColor.white,
+      child: RefreshIndicator(
+        onRefresh: _refresh,
+        child: Obx(() => DevicesList(_bleDevices.value)),
+      ),
+    );
+  }
+}
