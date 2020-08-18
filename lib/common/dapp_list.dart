@@ -20,16 +20,16 @@ List<DAppInfo> dappList = [
   //     'M. CLUB QA',
   //     'https://tw-loyalty-club-app-qa.s3.us-east-2.amazonaws.com/www/index.html',
   //     'assets/icons/dapp/loyalty-club.svg'),
-  DAppInfo(
-      'dapp-7',
-      'M. CLUB',
-      'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html',
-      'assets/icons/dapp/loyalty-club.svg'),
   // DAppInfo(
-  //     'dapp-9',
-  //     'M. CLUB',
-  //     'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html',
+  //     'dapp-7',
+  //     'M. CLUB UAT',
+  //     'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html',
   //     'assets/icons/dapp/loyalty-club.svg'),
+  DAppInfo(
+      'dapp-9',
+      'M. CLUB',
+      'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html',
+      'assets/icons/dapp/loyalty-club.svg'),
   // DAppInfo(
   //     'dapp-4',
   //     'M. Enterprise LOCAL',
@@ -45,14 +45,14 @@ List<DAppInfo> dappList = [
   //     'M. Enterprise QA',
   //     'https://tw-loyalty-club-app-qa.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
   //     'assets/icons/dapp/loyalty-enterprise.svg'),
-  DAppInfo(
-      'dapp-8',
-      'M. Enterprise',
-      'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
-      'assets/icons/dapp/loyalty-enterprise.svg'),
   // DAppInfo(
-  //     'dapp-10',
-  //     'M. Enterprise',
-  //     'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
-  //     'assets/icons/dapp/loyalty-enterprise.svg')
+  //     'dapp-8',
+  //     'M. Enterprise UAT',
+  //     'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
+  //     'assets/icons/dapp/loyalty-enterprise.svg'),
+  DAppInfo(
+      'dapp-10',
+      'M. Enterprise',
+      'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
+      'assets/icons/dapp/loyalty-enterprise.svg')
 ];
