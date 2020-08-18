@@ -19,10 +19,34 @@ class DeviceDetail extends StatefulWidget {
 }
 
 class _DeviceDetailState extends State<DeviceDetail> {
+  Characteristic _readCharacteristic;
+  Characteristic _writeCharacteristic;
   final Rx<PeripheralConnectionState> _connectionState =
       Rx(PeripheralConnectionState.disconnected);
   final TextEditingController _sendController = TextEditingController();
   final TextEditingController _receiveController = TextEditingController();
+
+  Future<void> discovery() async {
+    await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
+
+    final Service service = await widget._bleDevice.peripheral.services().then(
+        (services) => services.firstWhere((service) =>
+            service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0"));
+
+    final List<Characteristic> characteristics =
+        await service.characteristics();
+
+    _readCharacteristic = characteristics.firstWhere((characteristic) =>
+        characteristic.uuid == "0ac637b0-9c14-4741-8f9f-b0baae77d0b4");
+
+    _writeCharacteristic = characteristics.firstWhere((characteristic) =>
+        characteristic.uuid == "4fec0357-2493-4901-b1a2-9e2ec21b9676");
+
+    _readCharacteristic.monitor().listen((data) {
+      _receiveController.text =
+          '${_receiveController.text}${String.fromCharCodes(data)}\n';
+    });
+  }
 
   @override
   void initState() {
@@ -46,25 +70,7 @@ class _DeviceDetailState extends State<DeviceDetail> {
                           PeripheralConnectionState.connected
                       ? () async {
                           if (_sendController.text.isNotEmpty) {
-                            await widget._bleDevice.peripheral
-                                .discoverAllServicesAndCharacteristics();
-
-                            final Service service = await widget
-                                ._bleDevice.peripheral
-                                .services()
-                                .then((services) => services.firstWhere(
-                                    (service) =>
-                                        service.uuid ==
-                                        "36efb2e4-8711-4852-b339-c6b5dac518e0"));
-
-                            final List<Characteristic> characteristics =
-                                await service.characteristics();
-                            final Characteristic characteristic =
-                                characteristics.firstWhere((characteristic) =>
-                                    characteristic.uuid ==
-                                    "4fec0357-2493-4901-b1a2-9e2ec21b9676");
-
-                            characteristic
+                            _writeCharacteristic
                                 .write(
                                     Uint8List.fromList(
                                         _sendController.text.codeUnits),
@@ -83,6 +89,9 @@ class _DeviceDetailState extends State<DeviceDetail> {
                 stream: widget._bleDevice.connectionState,
                 initialData: PeripheralConnectionState.disconnected,
                 builder: (context, snapshot) {
+                  if (snapshot.data == PeripheralConnectionState.connected) {
+                    discovery();
+                  }
                   _connectionState.value = snapshot.data;
                   return Text(_connectionState.value.toString());
                 })
