@@ -46,7 +46,11 @@ class _DeviceDetailState extends State<DeviceDetail> {
                           PeripheralConnectionState.connected
                       ? () async {
                           if (_sendController.text.isNotEmpty) {
-                            final Service service = await widget._bleDevice.peripheral
+                            await widget._bleDevice.peripheral
+                                .discoverAllServicesAndCharacteristics();
+
+                            final Service service = await widget
+                                ._bleDevice.peripheral
                                 .services()
                                 .then((services) => services.firstWhere(
                                     (service) =>
