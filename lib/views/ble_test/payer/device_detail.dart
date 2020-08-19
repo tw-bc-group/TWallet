@@ -26,7 +26,7 @@ class _DeviceDetailState extends State<DeviceDetail> {
   final TextEditingController _sendController = TextEditingController();
   final TextEditingController _receiveController = TextEditingController();
 
-  Future<void> discovery() async {
+  Future<bool> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
 
     final Service service = await widget._bleDevice.peripheral.services().then(
@@ -42,16 +42,23 @@ class _DeviceDetailState extends State<DeviceDetail> {
     _writeCharacteristic = characteristics.firstWhere((characteristic) =>
         characteristic.uuid == "4fec0357-2493-4901-b1a2-9e2ec21b9676");
 
-    _readCharacteristic.monitor().listen((data) {
-      _receiveController.text =
-          '${_receiveController.text}${String.fromCharCodes(data)}\n';
-    });
+    if (_readCharacteristic == null || _writeCharacteristic == null) {
+      return false;
+    }
+
+    return true;
   }
 
   @override
   void initState() {
     super.initState();
     widget._bleDevice.connect();
+  }
+
+  @override
+  void dispose() {
+    widget._bleDevice.disconnect();
+    super.dispose();
   }
 
   @override
@@ -90,7 +97,13 @@ class _DeviceDetailState extends State<DeviceDetail> {
                 initialData: PeripheralConnectionState.disconnected,
                 builder: (context, snapshot) {
                   if (snapshot.data == PeripheralConnectionState.connected) {
-                    discovery();
+                    discovery().then((success) {
+                      if (!success) {
+                        widget._bleDevice
+                            .disconnect()
+                            .then((_) => widget._bleDevice.connect());
+                      }
+                    });
                   }
                   _connectionState.value = snapshot.data;
                   return Text(_connectionState.value.toString());

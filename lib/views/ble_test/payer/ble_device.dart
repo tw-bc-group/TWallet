@@ -33,7 +33,11 @@ class BleDevice {
   }
 
   Future<void> connect() {
-    return peripheral.connect();
+    return peripheral.connect(refreshGatt: true);
+  }
+
+  Future<void> disconnect() {
+    return peripheral.disconnectOrCancelConnection();
   }
 }
 

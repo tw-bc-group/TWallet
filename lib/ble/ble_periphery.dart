@@ -1,23 +1,34 @@
+import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
 
 class BlePeriphery {
   static BlePeriphery _instance;
   final MethodChannel _methodChannel;
-  int nextListenerId = 1;
+  final EventChannel _eventChannel;
 
   factory BlePeriphery() {
     if (_instance == null) {
       const MethodChannel _methodChannel =
           MethodChannel('matrix.ble_periphery/method');
-      _instance = BlePeriphery.private(_methodChannel);
+      const EventChannel _eventChannel =
+          EventChannel('matrix.ble_periphery/event');
+
+      _instance = BlePeriphery.private(_methodChannel, _eventChannel);
     }
     return _instance;
   }
 
-  BlePeriphery.private(this._methodChannel);
+  Stream<Uint8List> readStream() {
+    return _eventChannel
+        .receiveBroadcastStream()
+        .asyncMap((event) => event as Uint8List);
+  }
 
-  Future<void> startAdvertising() {
-    return _methodChannel.invokeMethod('startAdvertising');
+  BlePeriphery.private(this._methodChannel, this._eventChannel);
+
+  Future<void> startAdvertising(String name) {
+    return _methodChannel.invokeMethod('startAdvertising', name);
   }
 
   Future<void> stopAdvertising() {

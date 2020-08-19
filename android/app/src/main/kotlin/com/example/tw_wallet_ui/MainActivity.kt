@@ -6,19 +6,35 @@ import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.util.*
+import io.flutter.plugin.common.EventChannel as PluginCommonEventChannel
+
+class StreamHandler : PluginCommonEventChannel.StreamHandler {
+    var eventSink: PluginCommonEventChannel.EventSink? = null
+
+    override fun onListen(p0: Any?, p1: PluginCommonEventChannel.EventSink?) {
+        this.eventSink = p1
+    }
+
+    override fun onCancel(p0: Any?) {
+        this.eventSink = null
+    }
+}
 
 
 class MainActivity : FlutterActivity() {
     private val _tag = "ble_periphery"
     private var _isAdvertising = false
     private val _methodChannel = "matrix.ble_periphery/method"
-    private val _advertiseData = AdvertiseData.Builder().setIncludeDeviceName(true).setIncludeTxPowerLevel(true).build()
+    private val _eventChannel = "matrix.ble_periphery/event"
+    private val _advertiseData = AdvertiseData.Builder().setIncludeDeviceName(true).setIncludeTxPowerLevel(false).build()
     private var _bluetoothAdvertiser: BluetoothLeAdvertiser? = null
     private var _bluetoothGattServer: BluetoothGattServer? = null
     private val _uuidService = UUID.fromString("36efb2e4-8711-4852-b339-c6b5dac518e0")
@@ -26,6 +42,7 @@ class MainActivity : FlutterActivity() {
     private val _uuidCharWrite = UUID.fromString("4fec0357-2493-4901-b1a2-9e2ec21b9676")
     private var _registeredDevices = mutableSetOf<BluetoothDevice>()
     private var _characteristicRead: BluetoothGattCharacteristic? = null
+    private var _streamHandler: StreamHandler? = null
 
     private val _advertiseCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
@@ -75,28 +92,32 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
 
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, _methodChannel).setMethodCallHandler { call, result ->
-            print(call.method)
-
             when (call.method) {
                 "startAdvertising" -> {
-                    startAdvertising()
+                    startAdvertising(call.arguments())
                     result.success(true)
                 }
                 "stopAdvertising" -> {
                     stopAdvertising()
                     result.success(true)
                 }
-                "sendData" -> {
-                    sendData("hello, ble!".toByteArray())
-                }
+//                "sendData" -> {
+//                    sendData(call.arguments())
+//                    result.success(true)
+//                }
                 else -> {
                     result.notImplemented()
                 }
             }
         }
+
+        _streamHandler = StreamHandler()
+
+        PluginCommonEventChannel(flutterEngine.dartExecutor.binaryMessenger, _eventChannel).setStreamHandler(_streamHandler)
+
     }
 
-    private fun buildAdvertiseSettings(): AdvertiseSettings? {
+    private fun buildAdvertiseSettings(): AdvertiseSettings {
         return AdvertiseSettings.Builder()
                 .setConnectable(true)
                 .setTimeout(0)
@@ -117,9 +138,12 @@ class MainActivity : FlutterActivity() {
 
         override fun onCharacteristicWriteRequest(device: BluetoothDevice?, requestId: Int, characteristic: BluetoothGattCharacteristic, preparedWrite: Boolean, responseNeeded: Boolean, offset: Int, value: ByteArray?) {
             super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value)
-            val data = String(value!!)
-            Log.d(_tag, "received $data")
             _bluetoothGattServer!!.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, characteristic.value)
+            if (null !== value) {
+                Handler(Looper.getMainLooper()).post {
+                    _streamHandler?.eventSink?.success(value)
+                }
+            }
         }
 
         override fun onDescriptorWriteRequest(device: BluetoothDevice, requestId: Int,
@@ -145,11 +169,9 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    private fun sendData(data: ByteArray) {
-        for (device in _registeredDevices) {
-            _characteristicRead?.value = data
-            _bluetoothGattServer?.notifyCharacteristicChanged(device, _characteristicRead, true)
-        }
+    private fun sendData(device: BluetoothDevice, data: ByteArray) {
+        _characteristicRead?.value = data
+        _bluetoothGattServer?.notifyCharacteristicChanged(device, _characteristicRead, false)
     }
 
     private fun addServices() {
@@ -170,18 +192,19 @@ class MainActivity : FlutterActivity() {
         _bluetoothGattServer!!.addService(gattService)
     }
 
-    private fun startAdvertising() {
+    private fun startAdvertising(name: String) {
         if (_bluetoothAdvertiser == null) {
             val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-            bluetoothAdapter.name = "ble-test"
+            bluetoothAdapter.name = name
+            Log.d(_tag, "startAdvertising, name: $name")
             _bluetoothAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
         }
-        val advertiseSettings = buildAdvertiseSettings()
-        _bluetoothAdvertiser!!.startAdvertising(advertiseSettings, _advertiseData, _advertiseCallback)
+        _bluetoothAdvertiser!!.startAdvertising(buildAdvertiseSettings(), _advertiseData, _advertiseCallback)
     }
 
     private fun stopAdvertising() {
         _bluetoothAdvertiser!!.stopAdvertising(_advertiseCallback)
+        _bluetoothAdvertiser = null;
         _isAdvertising = false
     }
 }
