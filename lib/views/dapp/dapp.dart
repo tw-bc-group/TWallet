@@ -62,7 +62,7 @@ class DAppPageState extends State<DAppPage> {
       return true;
     }
     final webViewController = await _controller.future;
-    webViewController.evaluateJavascript('window.TWallet.onBack();');
+    webViewController.evaluateJavascript('window.TWallet.emit("BACK");');
     return false;
   }
 
