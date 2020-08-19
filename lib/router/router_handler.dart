@@ -4,7 +4,6 @@ import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/dapp/dapp.dart';
-import 'package:tw_wallet_ui/views/dapp/new_dapp.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
@@ -143,12 +142,6 @@ Handler identityDetailHandler = Handler(
 Handler dappHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return DAppPage(id: params['id'].first);
-  },
-);
-
-Handler newDappHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return NewDAppPage(id: params['id'].first);
   },
 );
 
