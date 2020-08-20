@@ -19,10 +19,11 @@ class BlePeriphery {
     return _instance;
   }
 
-  Stream<Uint8List> readStream() {
-    return _eventChannel
-        .receiveBroadcastStream()
-        .asyncMap((event) => event as Uint8List);
+  Stream<Map<String, dynamic>> readStream() {
+    return _eventChannel.receiveBroadcastStream().asyncMap((event) {
+      return (event as Map<dynamic, dynamic>)
+          .map((key, value) => MapEntry(key as String, value));
+    });
   }
 
   BlePeriphery.private(this._methodChannel, this._eventChannel);
@@ -35,7 +36,8 @@ class BlePeriphery {
     return _methodChannel.invokeMethod('stopAdvertising');
   }
 
-  Future<void> sendData() {
-    return _methodChannel.invokeMethod('sendData');
+  Future<void> sendData(String device, Uint8List data) {
+    return _methodChannel
+        .invokeMethod('sendData', {'device': device, 'data': data});
   }
 }

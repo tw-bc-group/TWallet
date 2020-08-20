@@ -40,7 +40,7 @@ class MainActivity : FlutterActivity() {
     private val _uuidService = UUID.fromString("36efb2e4-8711-4852-b339-c6b5dac518e0")
     private val _uuidCharRead = UUID.fromString("0ac637b0-9c14-4741-8f9f-b0baae77d0b4")
     private val _uuidCharWrite = UUID.fromString("4fec0357-2493-4901-b1a2-9e2ec21b9676")
-    private var _registeredDevices = mutableSetOf<BluetoothDevice>()
+    private var _registeredDevices = HashMap<String, BluetoothDevice>()
     private var _characteristicRead: BluetoothGattCharacteristic? = null
     private var _streamHandler: StreamHandler? = null
 
@@ -101,10 +101,10 @@ class MainActivity : FlutterActivity() {
                     stopAdvertising()
                     result.success(true)
                 }
-//                "sendData" -> {
-//                    sendData(call.arguments())
-//                    result.success(true)
-//                }
+                "sendData" -> {
+                    sendData(call.argument<String>("device")!!, call.argument<ByteArray>("data")!!)
+                    result.success(true)
+                }
                 else -> {
                     result.notImplemented()
                 }
@@ -130,9 +130,9 @@ class MainActivity : FlutterActivity() {
         override fun onConnectionStateChange(device: BluetoothDevice, status: Int, newState: Int) {
             Log.d(_tag, "onConnectionStateChange device=${device.name} newState=$newState")
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                _registeredDevices.add(device)
+                _registeredDevices[device.toString()] = device
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                _registeredDevices.remove(device)
+                _registeredDevices.remove(device.toString())
             }
         }
 
@@ -141,37 +141,17 @@ class MainActivity : FlutterActivity() {
             _bluetoothGattServer!!.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, characteristic.value)
             if (null !== value) {
                 Handler(Looper.getMainLooper()).post {
-                    _streamHandler?.eventSink?.success(value)
+                    _streamHandler?.eventSink?.success(hashMapOf("device" to device.toString(), "data" to value))
                 }
-            }
-        }
-
-        override fun onDescriptorWriteRequest(device: BluetoothDevice, requestId: Int,
-                                              descriptor: BluetoothGattDescriptor,
-                                              preparedWrite: Boolean, responseNeeded: Boolean,
-                                              offset: Int, value: ByteArray) {
-
-            Log.d(_tag, "onDescriptorWriteRequest")
-            if (Arrays.equals(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE, value)) {
-                Log.d(_tag, "Subscribe device to notifications: $device")
-                _registeredDevices.add(device)
-            } else if (Arrays.equals(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE, value)) {
-                Log.d(_tag, "Unsubscribe device from notifications: $device")
-                _registeredDevices.remove(device)
-            }
-
-            if (responseNeeded) {
-                _bluetoothGattServer?.sendResponse(device,
-                        requestId,
-                        BluetoothGatt.GATT_SUCCESS,
-                        0, null)
             }
         }
     }
 
-    private fun sendData(device: BluetoothDevice, data: ByteArray) {
-        _characteristicRead?.value = data
-        _bluetoothGattServer?.notifyCharacteristicChanged(device, _characteristicRead, false)
+    private fun sendData(device: String, data: ByteArray) {
+        if (_registeredDevices[device] != null) {
+            _characteristicRead?.value = data
+            _bluetoothGattServer?.notifyCharacteristicChanged(_registeredDevices[device], _characteristicRead, true)
+        }
     }
 
     private fun addServices() {
@@ -193,12 +173,12 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun startAdvertising(name: String) {
+        val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         if (_bluetoothAdvertiser == null) {
-            val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-            bluetoothAdapter.name = name
             Log.d(_tag, "startAdvertising, name: $name")
             _bluetoothAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
         }
+        bluetoothAdapter.name = name
         _bluetoothAdvertiser!!.startAdvertising(buildAdvertiseSettings(), _advertiseData, _advertiseCallback)
     }
 
