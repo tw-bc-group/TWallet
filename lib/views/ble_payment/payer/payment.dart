@@ -7,18 +7,18 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-import 'ble_device.dart';
+import 'payee.dart';
 
-class DeviceDetail extends StatefulWidget {
-  final BleDevice _bleDevice;
+class Payment extends StatefulWidget {
+  final Payee _bleDevice;
 
-  const DeviceDetail(this._bleDevice);
+  const Payment(this._bleDevice);
 
   @override
-  State<StatefulWidget> createState() => _DeviceDetailState();
+  State<StatefulWidget> createState() => _PaymentState();
 }
 
-class _DeviceDetailState extends State<DeviceDetail> {
+class _PaymentState extends State<Payment> {
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
   final Rx<PeripheralConnectionState> _connectionState =

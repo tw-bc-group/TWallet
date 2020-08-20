@@ -8,11 +8,13 @@ import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
+
 // import 'package:tw_wallet_ui/views/dapp/dapp.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 
 class NewDAppPage extends StatefulWidget {
   final String id;
+
   const NewDAppPage({this.id});
 
   @override
@@ -23,6 +25,7 @@ class NewDAppPage extends StatefulWidget {
 
 class NewDAppPageState extends State<NewDAppPage> {
   final FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
+
   // final Completer<WebViewController> _controller =
   //     Completer<WebViewController>();
   bool isLoadingPage = true;
@@ -107,7 +110,7 @@ class NewDAppPageState extends State<NewDAppPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      // onWillPop: onBack,
+      onWillPop: null,
       child: WebviewScaffold(
         bottomNavigationBar: Theme(
           data: Theme.of(context),

@@ -15,8 +15,8 @@ import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
-import 'package:tw_wallet_ui/views/ble_test/payer/device_list.dart';
-import 'package:tw_wallet_ui/views/ble_test/payee/payee_confirm.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payee/payee_confirm.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/payee_list.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
   final ProgressDialog _dialog = getIt<ProgressDialog>();
@@ -105,7 +105,7 @@ class MyPage extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     _buildButton('测试收款', () => Get.to(PayeeConfirm())),
-                    _buildButton('Ble客户端', () => Get.to(DeviceListPage())),
+                    _buildButton('测试付款', () => Get.to(PayeeList())),
                     _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(

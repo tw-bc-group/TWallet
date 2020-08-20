@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 
-class BleDevice {
+class Payee {
   final Peripheral peripheral;
   final String name;
   final DeviceCategory category;
@@ -11,7 +11,7 @@ class BleDevice {
   Stream<PeripheralConnectionState> get connectionState =>
       peripheral.observeConnectionState(emitCurrentValue: true);
 
-  BleDevice(ScanResult scanResult)
+  Payee(ScanResult scanResult)
       : peripheral = scanResult.peripheral,
         name = scanResult.name,
         category = scanResult.category;
@@ -21,7 +21,7 @@ class BleDevice {
 
   @override
   bool operator ==(Object other) =>
-      other is BleDevice &&
+      other is Payee &&
       name != null &&
       other.name != null &&
       compareAsciiLowerCase(name, other.name) == 0 &&

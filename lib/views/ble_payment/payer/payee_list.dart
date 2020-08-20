@@ -9,12 +9,12 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-import 'ble_device.dart';
-import 'device_detail.dart';
 import 'hex_painter.dart';
+import 'payee.dart';
+import 'payment.dart';
 
-class DevicesList extends ListView {
-  DevicesList(List<BleDevice> devices)
+class PayeeListView extends ListView {
+  PayeeListView(List<Payee> devices)
       : super.separated(
             separatorBuilder: (context, index) => Divider(
                   color: Colors.grey[300],
@@ -26,7 +26,7 @@ class DevicesList extends ListView {
               return _buildRow(context, devices[i]);
             });
 
-  static Widget _buildAvatar(BuildContext context, BleDevice device) {
+  static Widget _buildAvatar(BuildContext context, Payee device) {
     switch (device.category) {
       case DeviceCategory.sensorTag:
         return CircleAvatar(
@@ -45,16 +45,16 @@ class DevicesList extends ListView {
         return CircleAvatar(
             backgroundColor: WalletColor.primary,
             foregroundColor: WalletColor.white,
-            child: const Icon(Icons.bluetooth));
+            child: const Icon(Icons.attach_money));
     }
   }
 
   static Widget _buildRow(
     BuildContext context,
-    BleDevice device,
+    Payee device,
   ) {
     return ListTile(
-      onTap: () => Get.to(DeviceDetail(device)),
+      onTap: () => Get.to(Payment(device)),
       leading: Padding(
         padding: const EdgeInsets.only(top: 8),
         child: _buildAvatar(context, device),
@@ -80,14 +80,14 @@ class DevicesList extends ListView {
   }
 }
 
-class DeviceListPage extends StatefulWidget {
+class PayeeList extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _DeviceListPageState();
+  State<StatefulWidget> createState() => _PayeeListState();
 }
 
-class _DeviceListPageState extends State<DeviceListPage> {
+class _PayeeListState extends State<PayeeList> {
   final BleManager _bleManager = BleManager();
-  final RxList<BleDevice> _bleDevices = RxList([]);
+  final RxList<Payee> _bleDevices = RxList([]);
   StreamSubscription<ScanResult> _scanSubscription;
 
   Future<bool> _checkAndRequirePermissions() async {
@@ -148,7 +148,7 @@ class _DeviceListPageState extends State<DeviceListPage> {
   void _startScan() {
     _scanSubscription =
         _bleManager.startPeripheralScan().listen((ScanResult scanResult) {
-      final bleDevice = BleDevice(scanResult);
+      final bleDevice = Payee(scanResult);
       if (scanResult.advertisementData.localName != null &&
           !_bleDevices.contains(bleDevice)) {
         _bleDevices.add(bleDevice);
@@ -187,7 +187,7 @@ class _DeviceListPageState extends State<DeviceListPage> {
       bodyBackColor: WalletColor.white,
       child: RefreshIndicator(
         onRefresh: _refresh,
-        child: Obx(() => DevicesList(_bleDevices.value)),
+        child: Obx(() => PayeeListView(_bleDevices.value)),
       ),
     );
   }
