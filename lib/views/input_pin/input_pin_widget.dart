@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
@@ -23,6 +24,7 @@ class PinInputWidget extends StatelessWidget {
   Widget _inputPinField(TextEditingController textEditingController,
       ValueChanged<String> onChanged) {
     return PinCodeTextField(
+      appContext: Get.overlayContext,
       pinTheme: PinTheme(
         activeColor: WalletColor.black,
         inactiveColor: WalletColor.black,
