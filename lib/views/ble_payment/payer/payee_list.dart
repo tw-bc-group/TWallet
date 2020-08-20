@@ -183,7 +183,7 @@ class _PayeeListState extends State<PayeeList> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-      title: 'BleTest',
+      title: '附近收款账户',
       bodyBackColor: WalletColor.white,
       child: RefreshIndicator(
         onRefresh: _refresh,
