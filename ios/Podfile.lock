@@ -5,6 +5,9 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - flutter_ble_lib (2.2.9):
+    - Flutter
+    - MultiplatformBleAdapter (~> 0.1.6)
   - flutter_custom_dialog (0.0.1):
     - Flutter
   - flutter_secure_storage (3.3.1):
@@ -15,6 +18,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - MTBBarcodeScanner (5.0.11)
+  - MultiplatformBleAdapter (0.1.6)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -31,6 +35,7 @@ DEPENDENCIES:
   - ai_barcode (from `.symlinks/plugins/ai_barcode/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
+  - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
@@ -44,6 +49,7 @@ SPEC REPOS:
   trunk:
     - FMDB
     - MTBBarcodeScanner
+    - MultiplatformBleAdapter
 
 EXTERNAL SOURCES:
   ai_barcode:
@@ -52,6 +58,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
+  flutter_ble_lib:
+    :path: ".symlinks/plugins/flutter_ble_lib/ios"
   flutter_custom_dialog:
     :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   flutter_secure_storage:
@@ -73,17 +81,19 @@ SPEC CHECKSUMS:
   ai_barcode: a415de3b4616800a963d265b292511f890a3649d
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_ble_lib: 18c15b1ceaeebfecd2e0beae2628030e66cd8a19
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  MultiplatformBleAdapter: 652f47ecd7f5036756517cf66833210709a72eab
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: ea4755e716bdb5b5fbfe6d3beefca7b6ee0110e0
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0.beta.2
