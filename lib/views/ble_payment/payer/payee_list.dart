@@ -14,16 +14,16 @@ import 'payee.dart';
 import 'payment.dart';
 
 class PayeeListView extends ListView {
-  PayeeListView(List<Payee> devices)
+  PayeeListView(RxList<Payee> payees)
       : super.separated(
             separatorBuilder: (context, index) => Divider(
                   color: Colors.grey[300],
                   height: 0,
                   indent: 0,
                 ),
-            itemCount: devices.length,
+            itemCount: payees.length,
             itemBuilder: (context, i) {
-              return _buildRow(context, devices[i]);
+              return _buildRow(context, payees, payees[i]);
             });
 
   static Widget _buildAvatar(BuildContext context, Payee device) {
@@ -51,15 +51,19 @@ class PayeeListView extends ListView {
 
   static Widget _buildRow(
     BuildContext context,
-    Payee device,
+    RxList<Payee> payees,
+    Payee payee,
   ) {
     return ListTile(
-      onTap: () => Get.to(Payment(device)),
+      onTap: () async {
+        final String payeeName = await Get.to(Payment(payee));
+        payees.removeWhere((payee) => payee.name == payeeName);
+      },
       leading: Padding(
         padding: const EdgeInsets.only(top: 8),
-        child: _buildAvatar(context, device),
+        child: _buildAvatar(context, payee),
       ),
-      title: Text(device.name),
+      title: Text(payee.name),
       trailing: const Padding(
         padding: EdgeInsets.only(top: 16),
         child: Icon(Icons.chevron_right, color: Colors.grey),
@@ -68,7 +72,7 @@ class PayeeListView extends ListView {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            device.id.toString(),
+            payee.id.toString(),
             style: const TextStyle(fontSize: 10),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
@@ -187,7 +191,7 @@ class _PayeeListState extends State<PayeeList> {
       bodyBackColor: WalletColor.white,
       child: RefreshIndicator(
         onRefresh: _refresh,
-        child: Obx(() => PayeeListView(_bleDevices.value)),
+        child: Obx(() => PayeeListView(_bleDevices)),
       ),
     );
   }

@@ -37,7 +37,8 @@ class BlePeriphery {
   }
 
   Future<void> sendData(String device, Uint8List data) {
-    return _methodChannel
-        .invokeMethod('sendData', {'device': device, 'data': data});
+    return Future.delayed(const Duration(milliseconds: 500)).then((_) =>
+        _methodChannel
+            .invokeMethod('sendData', {'device': device, 'data': data}));
   }
 }

@@ -18,7 +18,6 @@ enum PaymentProgress {
   waitUserConnect,
   askAmount,
   waitUserConfirm,
-  askPayment,
   waitPaymentConfirm,
   success,
   notSupported,
@@ -36,8 +35,6 @@ extension PaymentProgressExtension on PaymentProgress {
         return '询问金额';
       case PaymentProgress.waitUserConfirm:
         return '等待用户确认';
-      case PaymentProgress.askPayment:
-        return '开始付款';
       case PaymentProgress.waitPaymentConfirm:
         return '等待付款确认';
       case PaymentProgress.success:
@@ -69,7 +66,6 @@ extension CharacteristicExtension on Characteristic {
 
 class _PaymentState extends State<Payment> {
   double _amount = 0;
-  String _lastCommand = '';
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
   StreamSubscription _dataMonitor;
@@ -111,10 +107,6 @@ class _PaymentState extends State<Payment> {
 
     _dataMonitor = _readCharacteristic.monitor().listen((data) {
       final String command = String.fromCharCodes(data);
-      if (_lastCommand == command) {
-        return;
-      }
-      _lastCommand = command;
 
       switch (_paymentProgress.value) {
         case PaymentProgress.askAmount:
@@ -173,16 +165,19 @@ class _PaymentState extends State<Payment> {
         return WalletTheme.button(
             text: '确认付款 $_amount',
             onPressed: () async {
-              _paymentProgress.value = PaymentProgress.askPayment;
-              await _writeCharacteristic.writeString('$askPayment:$_amount');
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
+              await _writeCharacteristic.writeString(
+                '$askPayment:$_amount',
+              );
             });
 
       case PaymentProgress.waitUserConnect:
         return WalletTheme.button(text: '重新连接', onPressed: () => _doConnect());
 
       case PaymentProgress.success:
-        return WalletTheme.button(text: '结束付款', onPressed: () => Get.back());
+        return WalletTheme.button(
+            text: '结束付款',
+            onPressed: () => Get.back(result: widget._bleDevice.name));
 
       default:
         return Container();
