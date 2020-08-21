@@ -184,7 +184,8 @@ class MainActivity : FlutterActivity() {
 
     private fun stopAdvertising() {
         _bluetoothAdvertiser!!.stopAdvertising(_advertiseCallback)
-        _bluetoothAdvertiser = null;
+        _bluetoothGattServer!!.close()
         _isAdvertising = false
+        Log.d(_tag, "stopAdvertising, name: ${(context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter.name}")
     }
 }
