@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -13,12 +14,42 @@ import '../command.dart';
 import 'payee.dart';
 
 enum PaymentProgress {
+  connecting,
+  waitUserConnect,
   askAmount,
-  waitConfirm,
+  waitUserConfirm,
   askPayment,
   waitPaymentConfirm,
   success,
+  notSupported,
   unknown,
+}
+
+extension PaymentProgressExtension on PaymentProgress {
+  String description() {
+    switch (this) {
+      case PaymentProgress.connecting:
+        return '连接中';
+      case PaymentProgress.waitUserConnect:
+        return '等待用户重连';
+      case PaymentProgress.askAmount:
+        return '询问金额';
+      case PaymentProgress.waitUserConfirm:
+        return '等待用户确认';
+      case PaymentProgress.askPayment:
+        return '开始付款';
+      case PaymentProgress.waitPaymentConfirm:
+        return '等待付款确认';
+      case PaymentProgress.success:
+        return '付款成功';
+      case PaymentProgress.notSupported:
+        return '对端不支持';
+      case PaymentProgress.unknown:
+        return '未知错误';
+      default:
+        return '';
+    }
+  }
 }
 
 class Payment extends StatefulWidget {
@@ -41,6 +72,7 @@ class _PaymentState extends State<Payment> {
   String _lastCommand = '';
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
+  StreamSubscription _dataMonitor;
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.unknown);
   final RxString _hintText = RxString('');
 
@@ -48,8 +80,13 @@ class _PaymentState extends State<Payment> {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
 
     final Service service = await widget._bleDevice.peripheral.services().then(
-        (services) => services.firstWhere((service) =>
-            service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0"));
+        (services) => services.firstWhere(
+            (service) => service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0",
+            orElse: () => null));
+
+    if (null == service) {
+      return const Optional.empty();
+    }
 
     final List<Characteristic> characteristics =
         await service.characteristics();
@@ -67,17 +104,12 @@ class _PaymentState extends State<Payment> {
     return Optional.of(Tuple2(_readCharacteristic, _writeCharacteristic));
   }
 
-  void _appendProgress(String text) {
-    _hintText.value = '${_hintText.value}\n$text';
-  }
-
   Future<void> _doPayment(
       Characteristic _readCharacteristic, Characteristic _writeCharacteristic) {
     _paymentProgress.value = PaymentProgress.askAmount;
     _writeCharacteristic.writeString(askAmount);
-    _appendProgress('询问金额...');
 
-    _readCharacteristic.monitor().listen((data) {
+    _dataMonitor = _readCharacteristic.monitor().listen((data) {
       final String command = String.fromCharCodes(data);
       if (_lastCommand == command) {
         return;
@@ -88,9 +120,8 @@ class _PaymentState extends State<Payment> {
         case PaymentProgress.askAmount:
           if (command.startsWith(answerAmount)) {
             final String amount = command.split(':')[1];
-            _appendProgress('付款金额为 $amount');
             _amount = double.parse(amount);
-            _paymentProgress.value = PaymentProgress.waitConfirm;
+            _paymentProgress.value = PaymentProgress.waitUserConfirm;
           }
           break;
 
@@ -98,9 +129,10 @@ class _PaymentState extends State<Payment> {
           if (command.startsWith(answerPayment)) {
             final String amount = command.split(':')[1];
             if (double.parse(amount) == _amount) {
-              _appendProgress('付款成功');
+              _paymentProgress.value = PaymentProgress.success;
+            } else {
+              _paymentProgress.value = PaymentProgress.unknown;
             }
-            _paymentProgress.value = PaymentProgress.success;
           }
           break;
 
@@ -112,27 +144,72 @@ class _PaymentState extends State<Payment> {
     return Future.value();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    widget._bleDevice.connect();
-    widget._bleDevice.connectionState.listen((state) {
-      if (state == PeripheralConnectionState.connected) {
-        discovery().then((res) {
+  Future<void> _doDisconnect() async {
+    if (null != _dataMonitor) {
+      await _dataMonitor.cancel();
+    }
+
+    if (await widget._bleDevice.isConnected()) {
+      await widget._bleDevice.disconnect();
+    }
+  }
+
+  Future<void> _doConnect() async {
+    try {
+      await widget._bleDevice.connect().then((_) => discovery().then((res) =>
           res.ifPresent(
               (characteristics) =>
                   _doPayment(characteristics.first, characteristics.second),
-              orElse: () => widget._bleDevice
-                  .disconnect()
-                  .then((_) => widget._bleDevice.connect()));
-        });
+              orElse: () =>
+                  _paymentProgress.value = PaymentProgress.notSupported)));
+    } catch (_) {
+      _paymentProgress.value = PaymentProgress.waitUserConnect;
+    }
+  }
+
+  Widget _buildButton() {
+    switch (_paymentProgress.value) {
+      case PaymentProgress.waitUserConfirm:
+        return WalletTheme.button(
+            text: '确认付款 $_amount',
+            onPressed: () async {
+              _paymentProgress.value = PaymentProgress.askPayment;
+              await _writeCharacteristic.writeString('$askPayment:$_amount');
+              _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
+            });
+
+      case PaymentProgress.waitUserConnect:
+        return WalletTheme.button(text: '重新连接', onPressed: () => _doConnect());
+
+      case PaymentProgress.success:
+        return WalletTheme.button(text: '结束付款', onPressed: () => Get.back());
+
+      default:
+        return Container();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget._bleDevice.connectionState.listen((state) {
+      if (state == PeripheralConnectionState.connecting) {
+        _paymentProgress.value = PaymentProgress.connecting;
       }
     });
+    _paymentProgress.listen((value) {
+      if (value == PaymentProgress.connecting) {
+        _hintText.value = value.description();
+      } else {
+        _hintText.value += '\n${value.description()}';
+      }
+    });
+    _doConnect();
   }
 
   @override
   void dispose() {
-    widget._bleDevice.disconnect();
+    _doDisconnect();
     super.dispose();
   }
 
@@ -145,23 +222,13 @@ class _PaymentState extends State<Payment> {
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
             Expanded(
-                child: Text(
-              _hintText.value,
-              textAlign: TextAlign.center,
+                child: Center(
+              child: Text(
+                _hintText.value,
+                textAlign: TextAlign.center,
+              ),
             )),
-            if (_paymentProgress.value == PaymentProgress.waitConfirm)
-              WalletTheme.button(
-                  text: '确认付款',
-                  onPressed: () async {
-                    _paymentProgress.value = PaymentProgress.askPayment;
-                    _appendProgress('付款中...');
-                    await _writeCharacteristic
-                        .writeString('$askPayment:$_amount');
-                    _appendProgress('付款确认中...');
-                    _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
-                  })
-            else
-              Container(),
+            _buildButton()
           ]),
         )));
   }

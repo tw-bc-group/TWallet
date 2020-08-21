@@ -9,7 +9,7 @@ class Payee {
   String get id => peripheral.identifier;
 
   Stream<PeripheralConnectionState> get connectionState =>
-      peripheral.observeConnectionState(emitCurrentValue: true);
+      peripheral.observeConnectionState(completeOnDisconnect: true);
 
   Payee(ScanResult scanResult)
       : peripheral = scanResult.peripheral,
@@ -30,6 +30,10 @@ class Payee {
   @override
   String toString() {
     return 'BleDevice{name: $name}';
+  }
+
+  Future<bool> isConnected() {
+    return peripheral.isConnected();
   }
 
   Future<void> connect() {
