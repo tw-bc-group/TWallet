@@ -14,6 +14,7 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.util.*
+import kotlin.concurrent.timer
 import io.flutter.plugin.common.EventChannel as PluginCommonEventChannel
 
 class StreamHandler : PluginCommonEventChannel.StreamHandler {
@@ -43,6 +44,7 @@ class MainActivity : FlutterActivity() {
     private var _registeredDevices = HashMap<String, BluetoothDevice>()
     private var _characteristicRead: BluetoothGattCharacteristic? = null
     private var _streamHandler: StreamHandler? = null
+    private var _checkAdapterNameTimer: Timer? = null
 
     private val _advertiseCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
@@ -121,7 +123,7 @@ class MainActivity : FlutterActivity() {
         return AdvertiseSettings.Builder()
                 .setConnectable(true)
                 .setTimeout(0)
-                .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
+                .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_LOW)
                 .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
                 .build()
     }
@@ -173,18 +175,31 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun startAdvertising(name: String) {
-        val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-        if (_bluetoothAdvertiser == null) {
-            Log.d(_tag, "startAdvertising, name: $name")
-            _bluetoothAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
+        (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter.name = name
+
+        _checkAdapterNameTimer = timer(initialDelay = 1000, period = 500) {
+            val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+            Log.d(_tag, "checkAdapterName, name: ${(context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter.name}")
+            if (bluetoothAdapter.name == name) {
+                _checkAdapterNameTimer!!.cancel()
+                _checkAdapterNameTimer = null
+                if (_bluetoothAdvertiser == null) {
+                    _bluetoothAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
+                    _bluetoothAdvertiser!!.startAdvertising(buildAdvertiseSettings(), _advertiseData, _advertiseCallback)
+                    Log.d(_tag, "startAdvertising, name: $name")
+                }
+            }
         }
-        bluetoothAdapter.name = name
-        _bluetoothAdvertiser!!.startAdvertising(buildAdvertiseSettings(), _advertiseData, _advertiseCallback)
+
     }
 
     private fun stopAdvertising() {
         _bluetoothGattServer!!.close()
         _bluetoothAdvertiser!!.stopAdvertising(_advertiseCallback)
+        if (null != _checkAdapterNameTimer) {
+            _checkAdapterNameTimer?.cancel()
+            _checkAdapterNameTimer = null
+        }
         _isAdvertising = false
         Log.d(_tag, "stopAdvertising, name: ${(context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter.name}")
     }
