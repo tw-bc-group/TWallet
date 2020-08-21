@@ -196,6 +196,7 @@ class MainActivity : FlutterActivity() {
     private fun stopAdvertising() {
         _bluetoothGattServer!!.close()
         _bluetoothAdvertiser!!.stopAdvertising(_advertiseCallback)
+        _bluetoothAdvertiser = null
         if (null != _checkAdapterNameTimer) {
             _checkAdapterNameTimer?.cancel()
             _checkAdapterNameTimer = null
