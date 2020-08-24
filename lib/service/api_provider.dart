@@ -48,12 +48,6 @@ class ApiProvider {
     );
   }
 
-//  Future<Optional<Response>> identitiesRestore(String owner) {
-//    return _httpClient.get(
-//      '/v1/identities/$owner',
-//    );
-//  }
-
   Future<Optional<Response>> transferPoint(
       String fromAddress, String publicKey, String signedRawTx) {
     return _httpClient.post('/v1/token/transfer', {

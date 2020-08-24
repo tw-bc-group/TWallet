@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:typed_data';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
@@ -16,7 +16,7 @@ import 'payee.dart';
 enum PaymentProgress {
   connecting,
   waitUserConnect,
-  askAmount,
+  askInfo,
   waitUserConfirm,
   waitPaymentConfirm,
   success,
@@ -31,8 +31,8 @@ extension PaymentProgressExtension on PaymentProgress {
         return '连接中';
       case PaymentProgress.waitUserConnect:
         return '等待用户重连';
-      case PaymentProgress.askAmount:
-        return '询问金额';
+      case PaymentProgress.askInfo:
+        return '询问付款信息';
       case PaymentProgress.waitUserConfirm:
         return '等待用户确认';
       case PaymentProgress.waitPaymentConfirm:
@@ -59,12 +59,13 @@ class Payment extends StatefulWidget {
 }
 
 extension CharacteristicExtension on Characteristic {
-  Future<void> writeString(String value) {
-    return write(Uint8List.fromList(value.codeUnits), true);
+  Future<void> writeCommand(Command command) {
+    return write(command.encode(), true);
   }
 }
 
 class _PaymentState extends State<Payment> {
+  String _payee = '';
   double _amount = 0;
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
@@ -102,29 +103,31 @@ class _PaymentState extends State<Payment> {
 
   Future<void> _doPayment(
       Characteristic _readCharacteristic, Characteristic _writeCharacteristic) {
-    _paymentProgress.value = PaymentProgress.askAmount;
-    _writeCharacteristic.writeString(askAmount);
+    _paymentProgress.value = PaymentProgress.askInfo;
+    _writeCharacteristic
+        .writeCommand(Command((builder) => builder.type = CommandType.askInfo));
 
     _dataMonitor = _readCharacteristic.monitor().listen((data) {
-      final String command = String.fromCharCodes(data);
+      final Command command =
+          Command.fromJson(json.decode(String.fromCharCodes(data)));
 
       switch (_paymentProgress.value) {
-        case PaymentProgress.askAmount:
-          if (command.startsWith(answerAmount)) {
-            final String amount = command.split(':')[1];
-            _amount = double.parse(amount);
+        case PaymentProgress.askInfo:
+          if (command.type == CommandType.answerInfo) {
+            final List<String> fields = command.param.split(':');
+            _payee = fields[0];
+            _amount = double.parse(fields[1]);
             _paymentProgress.value = PaymentProgress.waitUserConfirm;
+          } else {
+            _paymentProgress.value = PaymentProgress.unknown;
           }
           break;
 
         case PaymentProgress.waitPaymentConfirm:
-          if (command.startsWith(answerPayment)) {
-            final String amount = command.split(':')[1];
-            if (double.parse(amount) == _amount) {
-              _paymentProgress.value = PaymentProgress.success;
-            } else {
-              _paymentProgress.value = PaymentProgress.unknown;
-            }
+          if (command.type == CommandType.answerPayment) {
+            _paymentProgress.value = PaymentProgress.success;
+          } else {
+            _paymentProgress.value = PaymentProgress.unknown;
           }
           break;
 
@@ -166,8 +169,7 @@ class _PaymentState extends State<Payment> {
             text: '确认付款 $_amount',
             onPressed: () async {
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
-              await _writeCharacteristic.writeString(
-                '$askPayment:$_amount',
+              await _writeCharacteristic.writeCommand(
               );
             });
 

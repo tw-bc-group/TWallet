@@ -1,13 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-
-import '../command.dart';
 
 enum PaymentProgress {
   waitingPayment,
@@ -67,17 +63,17 @@ class _PaymentState extends State<Payment> {
     _blePeriphery.startAdvertising('${widget.name}收款${widget.amount}');
 
     _blePeriphery.readStream().listen((data) {
-      final String command = String.fromCharCodes(data['data'] as Uint8List);
-      if (command.startsWith(askAmount)) {
-        _paymentProgress.value = PaymentProgress.receivedAskPayment;
-        _blePeriphery.sendData(data['device'] as String,
-            Uint8List.fromList('$answerAmount:${widget.amount}'.codeUnits));
-      } else if (command.startsWith(askPayment)) {
-        _paymentProgress.value = PaymentProgress.doingPayment;
-        _blePeriphery.sendData(data['device'] as String,
-            Uint8List.fromList('$answerPayment:${widget.amount}'.codeUnits));
-        _paymentProgress.value = PaymentProgress.success;
-      }
+//      final String command = String.fromCharCodes(data['data'] as Uint8List);
+//      if (command.startsWith(askAmount)) {
+//        _paymentProgress.value = PaymentProgress.receivedAskPayment;
+//        _blePeriphery.sendData(data['device'] as String,
+//            Uint8List.fromList('$answerAmount:${widget.amount}'.codeUnits));
+//      } else if (command.startsWith(askPayment)) {
+//        _paymentProgress.value = PaymentProgress.doingPayment;
+//        _blePeriphery.sendData(data['device'] as String,
+//            Uint8List.fromList('$answerPayment:${widget.amount}'.codeUnits));
+//        _paymentProgress.value = PaymentProgress.success;
+//      }
     });
 
     _paymentProgress.value = PaymentProgress.waitingPayment;
