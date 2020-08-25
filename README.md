@@ -13,6 +13,8 @@
 
 <h4 align="center">A leading-edge digital wallet (blockchain-based) project with a token named DC/EP and DID (Decentralized Identifiers) capability and a DApp browser.</h4>
 
+<img align="center" src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Pay.svg">
+
 ## TWallet's What-Is
 
 ### What Is A Digital Wallet
@@ -22,6 +24,8 @@
 `A digital wallet also known as "e-Wallet" refers to an electronic device, online service, or software program that allows one party to make electronic transactions with another party bartering digital currency units for goods and services. This can include purchasing items on-line with a computer or using a smartphone to purchase something at a store. Money can be deposited in the digital wallet prior to any transactions or, in other cases, an individual's bank account can be linked to the digital wallet. Users might also have their driver's license, health card, loyalty card(s) and other ID documents stored within the wallet. The credentials can be passed to a merchant's terminal wirelessly via near field communication (NFC). Increasingly, digital wallets are being made not just for basic financial transactions but to also authenticate the holder's credentials. For example, a digital wallet could verify the age of the buyer to the store while purchasing alcohol. The system has already gained popularity in Japan, where digital wallets are known as "wallet mobiles". A cryptocurrency wallet is a digital wallet where private keys are stored for cryptocurrencies like bitcoin.`
 
 ### What Is DID (Decentralized Identifiers)
+
+<img src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Identity.svg" align="right">
 
 ***From wikipedia:***
 
