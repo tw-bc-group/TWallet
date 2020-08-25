@@ -6,7 +6,7 @@
   <br>
   <p align="center">
     <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions welcome">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+    <img src="https://img.shields.io/badge/flutter-1.20.0-informational" alt="Flutter">
     <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License">
   </p>
 </h1>
@@ -61,9 +61,17 @@ Please don't be stingy to give us feedback. You can go to [issues page](https://
 2. ```flutter doctor``` to check your `flutter` environment and find which device you can use to build the app
 3. ```flutter run -d device``` run the project in specific device
 
-### How To Contribute
+### Contributing
 
+If you have read up till here, then 🎉🎉🎉. There are couple of ways in which you can contribute to
+this growing project.
 
+- Pick up any issue marked with labels
+- Propose any feature, enhancement
+- Report a bug
+- Fix a bug
+- Participate in a discussion and help in decision making
+- Send in a Pull Request :-)
 
 ## Reminding
 
