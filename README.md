@@ -1,4 +1,4 @@
-<img align="left" height="120" src="./assets/images/t-wallet.png">
+<img align="left" height="60" src="./docs//t-wallet.png">
 
 <h1 style="display: inline-block; vertical-align: middle;">TWallet</h1>
 
