@@ -1,69 +1,47 @@
-# tw_wallet_ui
+# TWallet
 
-A new Flutter project for tw block-chain's wallet ui.
+A leading-edge digital wallet (blockchain-based) project with a token named DC/EP and DID (Decentralized Identifiers) capability and a DApp browser.
 
-## What devices and OS versions does Flutter run on?
-Mobile operating systems: Android Jelly Bean, v16, 4.1.x or newer, and iOS 8 or newer.
+## TWallet's What-Is
 
-Mobile hardware: iOS devices (iPhone 4S or newer) and ARM Android devices.
+### What Is A Digital Wallet
 
-Flutter supports building ahead-of-time (AOT) compiled libraries for x86_64, armeabi-v7a, and arm64-v8a.
+***From wikipedia:***
 
-Apps built for ARMv7 or ARM64 run fine (using ARM emulation) on many x86 Android devices.
+`A digital wallet also known as "e-Wallet" refers to an electronic device, online service, or software program that allows one party to make electronic transactions with another party bartering digital currency units for goods and services. This can include purchasing items on-line with a computer or using a smartphone to purchase something at a store. Money can be deposited in the digital wallet prior to any transactions or, in other cases, an individual's bank account can be linked to the digital wallet. Users might also have their driver's license, health card, loyalty card(s) and other ID documents stored within the wallet. The credentials can be passed to a merchant's terminal wirelessly via near field communication (NFC). Increasingly, digital wallets are being made not just for basic financial transactions but to also authenticate the holder's credentials. For example, a digital wallet could verify the age of the buyer to the store while purchasing alcohol. The system has already gained popularity in Japan, where digital wallets are known as "wallet mobiles". A cryptocurrency wallet is a digital wallet where private keys are stored for cryptocurrencies like bitcoin.`
 
-We support developing Flutter apps with Android and iOS devices, as well as with Android emulators and the iOS simulator.
+### What Is DID (Decentralized Identifiers)
 
-We test on a variety of low-end to high-end phones and tablets, but we don’t yet have an official device compatibility guarantee.
+***From wikipedia:***
 
+`Decentralized identifiers (DIDs) are a type of identifier that enables a verifiable, decentralized digital identity. They are based on the Self-sovereign identity paradigm. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies. These identifiers are designed to enable the controller of a DID to prove control over it and to be implemented independently of any centralized registry, identity provider, or certificate authority. DIDs are URLs that associate a DID subject with a DID document allowing trustable interactions associated with that subject. Each DID document can express cryptographic material, verification methods, or service endpoints, which provide a set of mechanisms enabling a DID controller to prove control of the DID. Service endpoints enable trusted interactions associated with the DID subject. A DID document might contain semantics about the subject that it identifies. A DID document might contain the DID subject itself (e.g. a data model).`
 
+### What Is A DApp
 
-## Getting Started
+***From wikipedia:***
 
-This project is a starting point for a Flutter application.
+`A decentralized application (DApp, dApp, Dapp, or dapp) is a computer application that runs on a distributed computing system. DApps have been popularized by distributed ledger technologies (DLT) such as the Ethereum Blockchain, where DApps are often referred to as smart contracts.`
 
-A few resources to get you started if this is your first Flutter project:
+### What is a DApp Browser
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+`A decentralized app (DApp) browser is a combination of a messaging interface and a UX that enables users to interact with decentralized applications.`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## User Guide
 
+### How To Try The App
 
-## Error Report
+We don't plan to release this app to the app market at this stage. If you want to try directly, [you can apply here.](https://blockchain.thoughtworks.cn/twallet/)
 
-We use [sentry](https://sentry.io/) to collect errors
+### Welcome Feedbacks
 
-## Run
+Please don't be stingy to give us feedback. You can go to [issues page](https://github.com/tw-bc-group/TWallet/issues) and submit with the existed labels or a new one. We will deal with it as soon as possible.
 
-```bash
-flutter run -d device
-```
+## For Developers
 
+### Quick Start
 
+1. make sure you have ```flutter``` installed
+2. ```flutter doctor``` to check your `flutter` environment and find which device you can use to build the app
+3. ```flutter run -d device``` run the project in specific device
 
-The device above can get from
-
-```
-flutter doctor
-```
-
-
-
-## Deploy
-
-[Android](https://flutter.dev/docs/deployment/android)
-
-app bundle 
-
-```bash
-flutter build appbundle
-```
-
-apk
-
-```bash
-flutter build apk --split-per-abi
-```
-
+### How To Contribute
