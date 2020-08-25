@@ -13,9 +13,9 @@
 
 <h4 align="center">A leading-edge digital wallet (blockchain-based) project with a token named DC/EP and DID (Decentralized Identifiers) capability and a DApp browser.</h4>
 
-<center>
+<p align="center">
   <img src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Pay.svg">
-</center>
+</p>
 
 ## TWallet's What-Is
 
@@ -27,7 +27,7 @@
 
 ### What Is DID (Decentralized Identifiers)
 
-<img width="300px" src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Identity.svg" align="right">
+<img width="400px" src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Identity.svg" align="right">
 
 ***From wikipedia:***
 
