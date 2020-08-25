@@ -1,6 +1,9 @@
-<img align="left" height="60" src="./docs//t-wallet.png">
+<h1 align="center">
+  <br>
+  <a href="https://blockchain.thoughtworks.cn/twallet/"><img src="./assets/images/t-wallet.png" alt="TWallet" width="200"></a>
 
-<h1 style="display: inline-block; vertical-align: middle;">TWallet</h1>
+  TWallet
+</h1>
 
 <p>A leading-edge digital wallet (blockchain-based) project with a token named DC/EP and DID (Decentralized Identifiers) capability and a DApp browser.</p>
 
