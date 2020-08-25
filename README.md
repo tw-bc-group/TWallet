@@ -5,6 +5,12 @@
   TWallet
 </h1>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions welcome">
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+  <img src="https://img.shields.io/badge/flutter-1.20.0-informational" alt="License">
+</p>
+
 <h4 align="center">A leading-edge digital wallet (blockchain-based) project with a token named DC/EP and DID (Decentralized Identifiers) capability and a DApp browser.</h4>
 
 ## TWallet's What-Is
