@@ -61,4 +61,4 @@ Please don't be stingy to give us feedback. You can go to [issues page](https://
 
 ## Reminding
 
-<p color="red">The codebase follows the BSD 3-Clause License. Please do not package and upload this code to the application market at will!</p>
+<p style="color: darkred;">The codebase follows the BSD 3-Clause License. Please do not package and upload this code to the application market at will!</p>
