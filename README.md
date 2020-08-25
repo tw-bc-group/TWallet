@@ -56,3 +56,9 @@ Please don't be stingy to give us feedback. You can go to [issues page](https://
 3. ```flutter run -d device``` run the project in specific device
 
 ### How To Contribute
+
+
+
+## Reminding
+
+<font color=red>The codebase follows the BSD 3-Clause License. Please do not package and upload this code to the application market at will!</font>
