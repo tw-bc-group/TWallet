@@ -27,7 +27,7 @@
 
 ### What Is DID (Decentralized Identifiers)
 
-<img src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Identity.svg" align="right">
+<img width="300px" src="https://blockchain.thoughtworks.cn/wp-content/uploads/2020/06/ScreenCut_Identity.svg" align="right">
 
 ***From wikipedia:***
 
