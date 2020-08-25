@@ -1,8 +1,6 @@
-<img align="left" height="150" src="./assets/images/t-wallet.png">
+<img align="left" height="120" src="./assets/images/t-wallet.png">
 
 <h1 style="display: inline-block; vertical-align: middle;">TWallet</h1>
-
-======================
 
 <p>A leading-edge digital wallet (blockchain-based) project with a token named DC/EP and DID (Decentralized Identifiers) capability and a DApp browser.</p>
 
