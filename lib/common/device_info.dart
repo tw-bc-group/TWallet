@@ -20,9 +20,8 @@ class DeviceInfo {
 
   static bool isIphoneXSeries() {
     if (isIOS()) {
-      final iphoneName = iosDeviceInfo.name;
-      if (iphoneName.startsWith('iPhone X') ||
-          iphoneName.startsWith('iPhone 1')) {
+      final iphoneName = iosDeviceInfo.utsname.machine;
+      if (iphoneName.startsWith('iPhone1')) {
         return true;
       }
     }
