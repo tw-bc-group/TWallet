@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
@@ -8,9 +7,10 @@ import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-import '../command.dart';
 import 'payee.dart';
 
 enum PaymentProgress {
@@ -65,8 +65,6 @@ extension CharacteristicExtension on Characteristic {
 }
 
 class _PaymentState extends State<Payment> {
-  String _payee = '';
-  double _amount = 0;
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
   StreamSubscription _dataMonitor;
@@ -101,44 +99,6 @@ class _PaymentState extends State<Payment> {
     return Optional.of(Tuple2(_readCharacteristic, _writeCharacteristic));
   }
 
-  Future<void> _doPayment(
-      Characteristic _readCharacteristic, Characteristic _writeCharacteristic) {
-    _paymentProgress.value = PaymentProgress.askInfo;
-    _writeCharacteristic
-        .writeCommand(Command((builder) => builder.type = CommandType.askInfo));
-
-    _dataMonitor = _readCharacteristic.monitor().listen((data) {
-      final Command command =
-          Command.fromJson(json.decode(String.fromCharCodes(data)));
-
-      switch (_paymentProgress.value) {
-        case PaymentProgress.askInfo:
-          if (command.type == CommandType.answerInfo) {
-            final List<String> fields = command.param.split(':');
-            _payee = fields[0];
-            _amount = double.parse(fields[1]);
-            _paymentProgress.value = PaymentProgress.waitUserConfirm;
-          } else {
-            _paymentProgress.value = PaymentProgress.unknown;
-          }
-          break;
-
-        case PaymentProgress.waitPaymentConfirm:
-          if (command.type == CommandType.answerPayment) {
-            _paymentProgress.value = PaymentProgress.success;
-          } else {
-            _paymentProgress.value = PaymentProgress.unknown;
-          }
-          break;
-
-        default:
-          break;
-      }
-    });
-
-    return Future.value();
-  }
-
   Future<void> _doDisconnect() async {
     if (null != _dataMonitor) {
       await _dataMonitor.cancel();
@@ -150,27 +110,27 @@ class _PaymentState extends State<Payment> {
   }
 
   Future<void> _doConnect() async {
-    try {
-      await widget._bleDevice.connect().then((_) => discovery().then((res) =>
-          res.ifPresent(
-              (characteristics) =>
-                  _doPayment(characteristics.first, characteristics.second),
-              orElse: () =>
-                  _paymentProgress.value = PaymentProgress.notSupported)));
-    } catch (_) {
-      _paymentProgress.value = PaymentProgress.waitUserConnect;
-    }
+    // try {
+    await widget._bleDevice.connect().then((_) => discovery().then((res) =>
+        res.ifPresent(
+            (characteristics) =>
+                Session(characteristics.first, characteristics.second)
+                    .negotiateAesKey(),
+            orElse: () =>
+                _paymentProgress.value = PaymentProgress.notSupported)));
+//    } catch (e) {
+//      print('e: $e');
+//      _paymentProgress.value = PaymentProgress.waitUserConnect;
+//    }
   }
 
   Widget _buildButton() {
     switch (_paymentProgress.value) {
       case PaymentProgress.waitUserConfirm:
         return WalletTheme.button(
-            text: '确认付款 $_amount',
+            text: '确认付款',
             onPressed: () async {
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
-              await _writeCharacteristic.writeCommand(
-              );
             });
 
       case PaymentProgress.waitUserConnect:

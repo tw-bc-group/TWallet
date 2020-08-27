@@ -6,21 +6,27 @@ part of 'command.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const CommandType _$askInfo = const CommandType._('askInfo');
-const CommandType _$answerInfo = const CommandType._('answerInfo');
-const CommandType _$askPayment = const CommandType._('askPayment');
-const CommandType _$answerPayment = const CommandType._('answerPayment');
+const CommandType _$ok = const CommandType._('ok');
+const CommandType _$getPubKey = const CommandType._('getPubKey');
+const CommandType _$setPubKey = const CommandType._('setPubKey');
+const CommandType _$setAesKey = const CommandType._('setAesKey');
+const CommandType _$getTxInfo = const CommandType._('getTxInfo');
+const CommandType _$setTxInfo = const CommandType._('setTxInfo');
 
 CommandType _$valueOf(String name) {
   switch (name) {
-    case 'askInfo':
-      return _$askInfo;
-    case 'answerInfo':
-      return _$answerInfo;
-    case 'askPayment':
-      return _$askPayment;
-    case 'answerPayment':
-      return _$answerPayment;
+    case 'ok':
+      return _$ok;
+    case 'getPubKey':
+      return _$getPubKey;
+    case 'setPubKey':
+      return _$setPubKey;
+    case 'setAesKey':
+      return _$setAesKey;
+    case 'getTxInfo':
+      return _$getTxInfo;
+    case 'setTxInfo':
+      return _$setTxInfo;
     default:
       throw new ArgumentError(name);
   }
@@ -28,10 +34,12 @@ CommandType _$valueOf(String name) {
 
 final BuiltSet<CommandType> _$values =
     new BuiltSet<CommandType>(const <CommandType>[
-  _$askInfo,
-  _$answerInfo,
-  _$askPayment,
-  _$answerPayment,
+  _$ok,
+  _$getPubKey,
+  _$setPubKey,
+  _$setAesKey,
+  _$getTxInfo,
+  _$setTxInfo,
 ]);
 
 Serializer<CommandType> _$commandTypeSerializer = new _$CommandTypeSerializer();

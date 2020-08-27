@@ -37,7 +37,7 @@ class Payee {
   }
 
   Future<void> connect() {
-    return peripheral.connect(refreshGatt: true);
+    return peripheral.connect(requestMtu: 512, refreshGatt: true);
   }
 
   Future<void> disconnect() {

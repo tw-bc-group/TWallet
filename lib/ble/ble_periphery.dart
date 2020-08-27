@@ -4,29 +4,39 @@ import 'package:flutter/services.dart';
 
 class BlePeriphery {
   static BlePeriphery _instance;
+  final EventChannel _dataChannel;
+  final EventChannel _stateChannel;
   final MethodChannel _methodChannel;
-  final EventChannel _eventChannel;
 
   factory BlePeriphery() {
     if (_instance == null) {
+      const EventChannel _dataChannel =
+          EventChannel('matrix.ble_periphery/data');
+      const EventChannel _stateChannel =
+          EventChannel('matrix.ble_periphery/state');
       const MethodChannel _methodChannel =
-          MethodChannel('matrix.ble_periphery/method');
-      const EventChannel _eventChannel =
-          EventChannel('matrix.ble_periphery/event');
+      MethodChannel('matrix.ble_periphery/method');
 
-      _instance = BlePeriphery.private(_methodChannel, _eventChannel);
+      _instance =
+          BlePeriphery.private(_methodChannel, _stateChannel, _dataChannel);
     }
     return _instance;
   }
 
-  Stream<Map<String, dynamic>> readStream() {
-    return _eventChannel.receiveBroadcastStream().asyncMap((event) {
-      return (event as Map<dynamic, dynamic>)
-          .map((key, value) => MapEntry(key as String, value));
-    });
+  BlePeriphery.private(
+      this._methodChannel, this._stateChannel, this._dataChannel);
+
+  Stream<Map<String, String>> stateStream() {
+    return _stateChannel.receiveBroadcastStream().asyncMap((state) =>
+        (state as Map<dynamic, dynamic>)
+            .map((key, value) => MapEntry(key as String, value as String)));
   }
 
-  BlePeriphery.private(this._methodChannel, this._eventChannel);
+  Stream<Map<String, dynamic>> dataStream() {
+    return _dataChannel.receiveBroadcastStream().asyncMap((data) =>
+        (data as Map<dynamic, dynamic>)
+            .map((key, value) => MapEntry(key as String, value)));
+  }
 
   Future<void> startAdvertising(String name) {
     return _methodChannel.invokeMethod('startAdvertising', name);
@@ -37,8 +47,7 @@ class BlePeriphery {
   }
 
   Future<void> sendData(String device, Uint8List data) {
-    return Future.delayed(const Duration(milliseconds: 500)).then((_) =>
-        _methodChannel
-            .invokeMethod('sendData', {'device': device, 'data': data}));
+    return _methodChannel
+        .invokeMethod('sendData', {'device': device, 'data': data});
   }
 }

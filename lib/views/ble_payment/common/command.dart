@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:built_collection/built_collection.dart';
@@ -10,10 +11,12 @@ part 'command.g.dart';
 class CommandType extends EnumClass {
   static Serializer<CommandType> get serializer => _$commandTypeSerializer;
 
-  static const CommandType askInfo = _$askInfo;
-  static const CommandType answerInfo = _$answerInfo;
-  static const CommandType askPayment = _$askPayment;
-  static const CommandType answerPayment = _$answerPayment;
+  static const CommandType ok = _$ok;
+  static const CommandType getPubKey = _$getPubKey;
+  static const CommandType setPubKey = _$setPubKey;
+  static const CommandType setAesKey = _$setAesKey;
+  static const CommandType getTxInfo = _$getTxInfo;
+  static const CommandType setTxInfo = _$setTxInfo;
 
   static BuiltSet<CommandType> get values => _$values;
 
@@ -32,17 +35,25 @@ abstract class Command implements Built<Command, CommandBuilder> {
 
   Uint8List encode() {
     return Uint8List.fromList(
-        (serializers.serialize(this) as String).codeUnits);
+        json.encode(serializers.serialize(this)).codeUnits);
+  }
+
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this) as Map<String, dynamic>;
+  }
+
+  static Command fromJson(dynamic serialized) {
+    try {
+      return serializers.deserialize(serialized,
+          specifiedType: const FullType(Command)) as Command;
+    } catch (error) {
+      throw Exception('command deserialize error, $error');
+    }
   }
 
   factory Command([Function(CommandBuilder) updates]) = _$Command;
 
-  factory Command.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Command)) as Command;
-  }
-
-  factory Command.build(CommandType type, String param) {
+  factory Command.build(CommandType type, {String param}) {
     return Command((builder) => builder
       ..type = type
       ..param = param);

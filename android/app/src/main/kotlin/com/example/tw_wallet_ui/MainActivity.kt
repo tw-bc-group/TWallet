@@ -14,6 +14,7 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.util.*
+import java.util.stream.Stream
 import kotlin.concurrent.timer
 import io.flutter.plugin.common.EventChannel as PluginCommonEventChannel
 
@@ -33,8 +34,9 @@ class StreamHandler : PluginCommonEventChannel.StreamHandler {
 class MainActivity : FlutterActivity() {
     private val _tag = "ble_periphery"
     private var _isAdvertising = false
+    private val _dataChannel = "matrix.ble_periphery/data"
+    private val _stateChannel = "matrix.ble_periphery/state"
     private val _methodChannel = "matrix.ble_periphery/method"
-    private val _eventChannel = "matrix.ble_periphery/event"
     private val _advertiseData = AdvertiseData.Builder().setIncludeDeviceName(true).setIncludeTxPowerLevel(false).build()
     private var _bluetoothAdvertiser: BluetoothLeAdvertiser? = null
     private var _bluetoothGattServer: BluetoothGattServer? = null
@@ -43,7 +45,8 @@ class MainActivity : FlutterActivity() {
     private val _uuidCharWrite = UUID.fromString("4fec0357-2493-4901-b1a2-9e2ec21b9676")
     private var _registeredDevices = HashMap<String, BluetoothDevice>()
     private var _characteristicRead: BluetoothGattCharacteristic? = null
-    private var _streamHandler: StreamHandler? = null
+    private var _dataStreamHandler: StreamHandler? = null
+    private var _stateStreamHandler: StreamHandler? = null
     private var _checkAdapterNameTimer: Timer? = null
 
     private val _advertiseCallback = object : AdvertiseCallback() {
@@ -113,9 +116,11 @@ class MainActivity : FlutterActivity() {
             }
         }
 
-        _streamHandler = StreamHandler()
+        _dataStreamHandler = StreamHandler()
+        _stateStreamHandler = StreamHandler()
 
-        PluginCommonEventChannel(flutterEngine.dartExecutor.binaryMessenger, _eventChannel).setStreamHandler(_streamHandler)
+        PluginCommonEventChannel(flutterEngine.dartExecutor.binaryMessenger, _dataChannel).setStreamHandler(_dataStreamHandler)
+        PluginCommonEventChannel(flutterEngine.dartExecutor.binaryMessenger, _stateChannel).setStreamHandler(_stateStreamHandler)
 
     }
 
@@ -136,21 +141,24 @@ class MainActivity : FlutterActivity() {
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 _registeredDevices.remove(device.toString())
             }
+            Handler(Looper.getMainLooper()).post {
+                _stateStreamHandler?.eventSink?.success(hashMapOf("device" to device.toString(), "state" to newState))
+            }
         }
 
         override fun onCharacteristicWriteRequest(device: BluetoothDevice?, requestId: Int, characteristic: BluetoothGattCharacteristic, preparedWrite: Boolean, responseNeeded: Boolean, offset: Int, value: ByteArray?) {
             super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value)
             _bluetoothGattServer!!.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, characteristic.value)
-            if (null !== value) {
-                Handler(Looper.getMainLooper()).post {
-                    _streamHandler?.eventSink?.success(hashMapOf("device" to device.toString(), "data" to value))
-                }
+            Log.d(_tag, "$device received: ${String(value!!)}")
+            Handler(Looper.getMainLooper()).post {
+                _dataStreamHandler?.eventSink?.success(hashMapOf("device" to device.toString(), "data" to value))
             }
         }
     }
 
     private fun sendData(device: String, data: ByteArray) {
         if (_registeredDevices[device] != null) {
+            Log.d(_tag, "sendData, data size: ${data.size}")
             _characteristicRead?.value = data
             _bluetoothGattServer?.notifyCharacteristicChanged(_registeredDevices[device], _characteristicRead, true)
         }

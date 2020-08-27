@@ -72,7 +72,8 @@ dependencies:
   path_provider: ^1.6.11
   flutter_webview_plugin: ^0.3.11
   collection: ^1.14.13
-  flutter_ble_lib: ^2.2.9
+  flutter_ble_lib: ^2.3.0
+  crypton: ^1.1.1
 
 dev_dependencies:
   flutter_test:

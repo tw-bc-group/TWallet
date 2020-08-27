@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payee/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 enum PaymentProgress {
@@ -32,18 +35,20 @@ extension PaymentProgressExtension on PaymentProgress {
 class Payment extends StatefulWidget {
   final String name;
   final double amount;
+  final String address;
 
-  const Payment({Key key, this.name, this.amount}) : super(key: key);
+  const Payment({Key key, this.name, this.address, this.amount}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PaymentState();
 }
 
 class _PaymentState extends State<Payment> {
-  final _blePeriphery = BlePeriphery();
   final RxString _hintText = RxString('');
+  final BlePeriphery _blePeriphery = BlePeriphery();
   final Rx<PaymentProgress> _paymentProgress =
       Rx(PaymentProgress.waitingPayment);
+  final Map<String, Session> _sessions = {};
 
   Widget _buildButton() {
     if (_paymentProgress.value == PaymentProgress.success) {
@@ -62,18 +67,31 @@ class _PaymentState extends State<Payment> {
 
     _blePeriphery.startAdvertising('${widget.name}收款${widget.amount}');
 
-    _blePeriphery.readStream().listen((data) {
-//      final String command = String.fromCharCodes(data['data'] as Uint8List);
-//      if (command.startsWith(askAmount)) {
-//        _paymentProgress.value = PaymentProgress.receivedAskPayment;
-//        _blePeriphery.sendData(data['device'] as String,
-//            Uint8List.fromList('$answerAmount:${widget.amount}'.codeUnits));
-//      } else if (command.startsWith(askPayment)) {
-//        _paymentProgress.value = PaymentProgress.doingPayment;
-//        _blePeriphery.sendData(data['device'] as String,
-//            Uint8List.fromList('$answerPayment:${widget.amount}'.codeUnits));
-//        _paymentProgress.value = PaymentProgress.success;
-//      }
+    _blePeriphery.stateStream().listen((event) {
+      final String peer = event['device'];
+
+      switch (event['state']) {
+        case 'connected':
+          _sessions[peer] = Session(_blePeriphery, peer, widget.address, widget.amount);
+          break;
+
+        case 'disconnected':
+          _sessions.remove(peer);
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    _blePeriphery.dataStream().listen((event) {
+      final String peer = event['device'] as String;
+      final Uint8List payload = event['data'] as Uint8List;
+      if (_sessions.containsKey(peer)) {
+        _sessions[peer].onData(payload);
+      } else {
+        print('error, session not found');
+      }
     });
 
     _paymentProgress.value = PaymentProgress.waitingPayment;

@@ -20,6 +20,7 @@ import 'package:tw_wallet_ui/models/webview/sign_transaction/sign_transaction.da
 import 'package:tw_wallet_ui/models/webview/sign_transaction/transaction_info.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
 
 import 'amount.dart';
@@ -53,10 +54,14 @@ part 'serializer.g.dart';
   WebviewPincodeDialogInput,
   WebviewPincodeDialogTitle,
   CreateAccountParam,
+  Command,
+  CommandType,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
+      ..addPlugin(StandardJsonPlugin())
       ..add(Iso8601DateTimeSerializer())
       ..add(AmountSerializer())
+      ..addBuilderFactory(const FullType(Command), () => CommandBuilder())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Transaction)]),
           () => ListBuilder<Transaction>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Contract)]),
@@ -102,6 +107,5 @@ final Serializers serializers = (_$serializers.toBuilder()
               FullType(WebviewPincodeDialogTitle)
             ],
           ),
-          () => WebviewPincodeDialogStyleBuilder)
-      ..addPlugin(StandardJsonPlugin()))
+          () => WebviewPincodeDialogStyleBuilder))
     .build();
