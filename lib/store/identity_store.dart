@@ -259,9 +259,10 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  void fetchLatestPoint() {
+  void fetchLatestPoint({bool withLoading}) {
     selectedIdentity.ifPresent((identity) {
-      TwBalance.fetchBalance(address: selectedIdentity.value.address)
+      TwBalance.fetchBalance(
+              address: selectedIdentity.value.address, withLoading: withLoading)
           .then((res) {
         res.ifPresent((balance) {
           updateSelectedIdentity(selectedIdentity.value

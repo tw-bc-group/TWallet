@@ -62,13 +62,8 @@ class DAppPageState extends State<DAppPage> {
       return true;
     }
     final webViewController = await _controller.future;
-    final webViewCanGoBack = await webViewController.canGoBack();
-    if (webViewCanGoBack) {
-      webViewController.goBack();
-      return false;
-    }
-    resetToAppStatusBar();
-    return true;
+    webViewController.evaluateJavascript('window.TWallet.emit("BACK");');
+    return false;
   }
 
   void finishLoading() {
