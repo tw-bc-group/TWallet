@@ -5,9 +5,11 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
-  - flutter_ble_lib (2.2.9):
+  - flutter_ble_lib (2.3.0):
     - Flutter
     - MultiplatformBleAdapter (~> 0.1.6)
+  - flutter_ble_peripheral (0.0.3):
+    - Flutter
   - flutter_custom_dialog (0.0.1):
     - Flutter
   - flutter_secure_storage (3.3.1):
@@ -36,6 +38,7 @@ DEPENDENCIES:
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
   - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
+  - flutter_ble_peripheral (from `.symlinks/plugins/flutter_ble_peripheral/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
@@ -60,6 +63,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_ble_lib:
     :path: ".symlinks/plugins/flutter_ble_lib/ios"
+  flutter_ble_peripheral:
+    :path: ".symlinks/plugins/flutter_ble_peripheral/ios"
   flutter_custom_dialog:
     :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   flutter_secure_storage:
@@ -81,7 +86,8 @@ SPEC CHECKSUMS:
   ai_barcode: a415de3b4616800a963d265b292511f890a3649d
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_ble_lib: 18c15b1ceaeebfecd2e0beae2628030e66cd8a19
+  flutter_ble_lib: 1d400af3aa9ea4b069974cd06c2bafefe0289086
+  flutter_ble_peripheral: e12ab87914fc1690b22bb26649e4f6698625f425
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
@@ -94,6 +100,6 @@ SPEC CHECKSUMS:
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: ea4755e716bdb5b5fbfe6d3beefca7b6ee0110e0
+PODFILE CHECKSUM: 5f815016d139ed6929e933e0c3d2602df375d7c7
 
 COCOAPODS: 1.10.0.beta.2

@@ -74,6 +74,7 @@ dependencies:
   collection: ^1.14.13
   flutter_ble_lib: ^2.3.0
   crypton: ^1.1.1
+  flutter_ble_peripheral: ^0.2.0
 
 dev_dependencies:
   flutter_test:

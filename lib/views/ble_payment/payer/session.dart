@@ -1,7 +1,5 @@
-import 'package:crypton/crypton.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:optional/optional.dart';
-import 'package:random_string/random_string.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/extension.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
@@ -62,7 +60,7 @@ class Session {
     //   print('monitor, command: $command');
     //
     //   switch (command.type) {
-    //     case CommandType.answerPublicKey:
+    //     case CommandType.setPubKey:
     //       if (_state == SessionState.waitPublicKeyAnswer) {}
     //       break;
     //
@@ -76,33 +74,32 @@ class Session {
           .sendCommand(Command.build(CommandType.getPubKey))
           .then((_) => _state = SessionState.waitPublicKeyAnswer);
 
-      final String publicKeyString =
-          await Future.delayed(const Duration(seconds: 1))
-              .then((_) => _readCharacteristic.receiveCommand())
-              .then(_checkCommand)
-              .then((command) => command.param);
+      final String publicKeyString = await _readCharacteristic
+          .receiveCommand()
+          .then(_checkCommand)
+          .then((command) => command.param);
 
       if (publicKeyString.isEmpty) {
         throw Exception('public key is empty');
       }
-
-      final String aesKey = randomString(16);
-      final String encryptedAesKey =
-          RSAPublicKey.fromString(publicKeyString).encrypt(aesKey);
-
-      _writeCharacteristic
-          .sendCommand(
-              Command.build(CommandType.setAesKey, param: encryptedAesKey))
-          .then((_) => _state = SessionState.waitAesKeyAnswer);
-
-      final SymmEncrypt encrypter = SymmEncrypt(aesKey, publicKeyString);
-
-      _readCharacteristic
-          .receiveEncryptedCommand(encrypter)
-          .then(_checkCommand);
-
-      return Optional.of(encrypter);
-      //return const Optional.empty();
+      //
+      // final String aesKey = randomString(16);
+      // final String encryptedAesKey =
+      //     RSAPublicKey.fromString(publicKeyString).encrypt(aesKey);
+      //
+      // _writeCharacteristic
+      //     .sendCommand(
+      //         Command.build(CommandType.setAesKey, param: encryptedAesKey))
+      //     .then((_) => _state = SessionState.waitAesKeyAnswer);
+      //
+      // final SymmEncrypt encrypter = SymmEncrypt(aesKey, publicKeyString);
+      //
+      // _readCharacteristic
+      //     .receiveEncryptedCommand(encrypter)
+      //     .then(_checkCommand);
+      //
+      // return Optional.of(encrypter);
+      return const Optional.empty();
     } catch (e) {
       print('session error: $e');
       return const Optional.empty();

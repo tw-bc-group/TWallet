@@ -21,7 +21,7 @@ extension CharacteristicExtension on Characteristic {
   }
 
   Future<void> sendCommand(Command command) {
-    return write(command.encode(), true);
+    return write(command.encode(), false);
   }
 
   Future<Command> receiveEncryptedCommand(SymmEncrypt encrypter) {
@@ -30,6 +30,6 @@ extension CharacteristicExtension on Characteristic {
   }
 
   Future<void> sendEncryptedCommand(SymmEncrypt encrypter, Command command) {
-    return write(encrypter.encrypt(command.encode()), true);
+    return write(encrypter.encrypt(command.encode()), false);
   }
 }

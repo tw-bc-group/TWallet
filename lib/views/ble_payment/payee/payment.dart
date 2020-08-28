@@ -37,7 +37,8 @@ class Payment extends StatefulWidget {
   final double amount;
   final String address;
 
-  const Payment({Key key, this.name, this.address, this.amount}) : super(key: key);
+  const Payment({Key key, this.name, this.address, this.amount})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PaymentState();
@@ -72,7 +73,8 @@ class _PaymentState extends State<Payment> {
 
       switch (event['state']) {
         case 'connected':
-          _sessions[peer] = Session(_blePeriphery, peer, widget.address, widget.amount);
+          _sessions[peer] =
+              Session(_blePeriphery, peer, widget.address, widget.amount);
           break;
 
         case 'disconnected':
@@ -87,10 +89,15 @@ class _PaymentState extends State<Payment> {
     _blePeriphery.dataStream().listen((event) {
       final String peer = event['device'] as String;
       final Uint8List payload = event['data'] as Uint8List;
-      if (_sessions.containsKey(peer)) {
+      print('payee data coming: ${payload.length}');
+      if (!_sessions.containsKey(peer)) {
+        _sessions[peer] =
+            Session(_blePeriphery, peer, widget.address, widget.amount);
+      }
+      try {
         _sessions[peer].onData(payload);
-      } else {
-        print('error, session not found');
+      } catch (_) {
+        _sessions.remove(peer);
       }
     });
 
