@@ -6,13 +6,13 @@ class SymmEncrypt {
   Encrypter encrypter;
   IV iv;
 
-  SymmEncrypt(String key, String iv) {
-    this.iv = IV.fromUtf8(iv);
+  SymmEncrypt(String key, String ivString) {
+    iv = IV.fromUtf8(ivString);
     encrypter = Encrypter(AES(Key.fromUtf8(key)));
   }
 
   Uint8List encrypt(Uint8List data) {
-    return encrypter.encryptBytes(data).bytes;
+    return encrypter.encryptBytes(data, iv: iv).bytes;
   }
 
   Uint8List decrypt(Uint8List encryptedData) {

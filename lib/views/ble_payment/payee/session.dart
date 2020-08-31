@@ -6,6 +6,8 @@ import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
+typedef OnStateUpdate = void Function(String state);
+
 class Session {
   final String peer;
   final String address;
@@ -30,7 +32,7 @@ class Session {
     return peripheral.sendData(peer, data);
   }
 
-  Future<void> onData(Uint8List data) async {
+  Future<void> onData(Uint8List data, OnStateUpdate onStateUpdate) async {
     Uint8List cmdData;
 
     if (encrypter != null) {
@@ -44,26 +46,39 @@ class Session {
 
     switch (command.type) {
       case CommandType.getPubKey:
+        onStateUpdate('对端请求会话公钥');
         keyPair = RSAKeypair.fromRandom();
-        peripheral.sendData(
-            peer,
-            Command.build(CommandType.setPubKey,
-                    param: keyPair.publicKey.toString())
-                .encode());
+        peripheral
+            .sendData(
+                peer,
+                Command.build(CommandType.setPubKey,
+                        param: keyPair.publicKey.toString())
+                    .encode())
+            .then((_) => onStateUpdate('发送随机会话公钥'));
         break;
 
       case CommandType.setAesKey:
+        onStateUpdate('收到会话加密密钥');
         final String aesKey = keyPair.privateKey.decrypt(command.param);
         encrypter = SymmEncrypt(aesKey, keyPair.publicKey.toString());
         keyPair = null;
-        _sendCommand(Command.build(
-          CommandType.ok,
-        ));
+        _sendCommand(Command.build(CommandType.setAesOk))
+            .then((_) => onStateUpdate('回复会话加密密钥成功'));
         break;
 
       case CommandType.getTxInfo:
+        onStateUpdate('收到交易信息请求');
         _sendCommand(
-            Command.build(CommandType.setTxInfo, param: '$address:$amount'));
+                Command.build(CommandType.setTxInfo, param: '$address:$amount'))
+            .then((_) => onStateUpdate('发送交易信息'));
+        break;
+
+      case CommandType.setRawTx:
+        onStateUpdate('收款中...');
+        Future.delayed(const Duration(seconds: 2))
+            .then((_) => _sendCommand(Command.build(CommandType.setRawTxOk,
+                param: '$address:$amount')))
+            .then((_) => onStateUpdate('收款成功'));
         break;
     }
     return;

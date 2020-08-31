@@ -8,30 +8,6 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-enum PaymentProgress {
-  waitingPayment,
-  receivedAskPayment,
-  doingPayment,
-  success,
-}
-
-extension PaymentProgressExtension on PaymentProgress {
-  String description() {
-    switch (this) {
-      case PaymentProgress.waitingPayment:
-        return '等待收款';
-      case PaymentProgress.receivedAskPayment:
-        return '收到付款请求';
-      case PaymentProgress.doingPayment:
-        return '处理交易';
-      case PaymentProgress.success:
-        return '交易成功';
-      default:
-        return '';
-    }
-  }
-}
-
 class Payment extends StatefulWidget {
   final String name;
   final double amount;
@@ -47,12 +23,10 @@ class Payment extends StatefulWidget {
 class _PaymentState extends State<Payment> {
   final RxString _hintText = RxString('');
   final BlePeriphery _blePeriphery = BlePeriphery();
-  final Rx<PaymentProgress> _paymentProgress =
-      Rx(PaymentProgress.waitingPayment);
   final Map<String, Session> _sessions = {};
 
   Widget _buildButton() {
-    if (_paymentProgress.value == PaymentProgress.success) {
+    if (_hintText.value == '收款成功') {
       return WalletTheme.button(text: '结束收款', onPressed: () => Get.back());
     } else {
       return Container();
@@ -62,9 +36,6 @@ class _PaymentState extends State<Payment> {
   @override
   void initState() {
     super.initState();
-
-    _paymentProgress
-        .listen((value) => _hintText.value += '\n${value.description()}');
 
     _blePeriphery.startAdvertising('${widget.name}收款${widget.amount}');
 
@@ -95,13 +66,12 @@ class _PaymentState extends State<Payment> {
             Session(_blePeriphery, peer, widget.address, widget.amount);
       }
       try {
-        _sessions[peer].onData(payload);
+        _sessions[peer]
+            .onData(payload, (state) => _hintText.value += '\n$state');
       } catch (_) {
         _sessions.remove(peer);
       }
     });
-
-    _paymentProgress.value = PaymentProgress.waitingPayment;
   }
 
   @override

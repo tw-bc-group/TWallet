@@ -11,12 +11,14 @@ part 'command.g.dart';
 class CommandType extends EnumClass {
   static Serializer<CommandType> get serializer => _$commandTypeSerializer;
 
-  static const CommandType ok = _$ok;
   static const CommandType getPubKey = _$getPubKey;
   static const CommandType setPubKey = _$setPubKey;
   static const CommandType setAesKey = _$setAesKey;
+  static const CommandType setAesOk = _$setAesOk;
   static const CommandType getTxInfo = _$getTxInfo;
   static const CommandType setTxInfo = _$setTxInfo;
+  static const CommandType setRawTx = _$setRawTx;
+  static const CommandType setRawTxOk = _$setRawTxOk;
 
   static BuiltSet<CommandType> get values => _$values;
 

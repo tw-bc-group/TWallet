@@ -65,11 +65,14 @@ extension CharacteristicExtension on Characteristic {
 }
 
 class _PaymentState extends State<Payment> {
+  final RxDouble _amount = 0.0.obs;
+  final RxString _hintText = RxString('');
+  final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
+
+  Completer _confirmCompleter;
+  StreamSubscription _dataMonitor;
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
-  StreamSubscription _dataMonitor;
-  final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.unknown);
-  final RxString _hintText = RxString('');
 
   Future<Optional<Tuple2<Characteristic, Characteristic>>> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
@@ -110,18 +113,35 @@ class _PaymentState extends State<Payment> {
   }
 
   Future<void> _doConnect() async {
-    // try {
-    await widget._bleDevice.connect().then((_) => discovery().then((res) =>
-        res.ifPresent(
-            (characteristics) =>
-                Session(characteristics.first, characteristics.second)
-                    .negotiateAesKey(),
-            orElse: () =>
-                _paymentProgress.value = PaymentProgress.notSupported)));
-//    } catch (e) {
-//      print('e: $e');
-//      _paymentProgress.value = PaymentProgress.waitUserConnect;
-//    }
+    try {
+      await widget._bleDevice.connect().then((_) => discovery().then((res) =>
+          res.ifPresent(
+              (characteristics) =>
+                  Session(characteristics.first, characteristics.second)
+                      .run((SessionState state, {dynamic param}) {
+                    switch (state) {
+                      case SessionState.waitUserConfirm:
+                        if (param != null) {
+                          _amount.value = param as double;
+                        }
+                        _paymentProgress.value =
+                            PaymentProgress.waitUserConfirm;
+                        break;
+
+                      case SessionState.success:
+                        _paymentProgress.value = PaymentProgress.success;
+                        break;
+                      default:
+                        break;
+                    }
+
+                    _hintText.value += '\n${state.description()}';
+                  }).then((completer) => _confirmCompleter = completer),
+              orElse: () =>
+                  _paymentProgress.value = PaymentProgress.notSupported)));
+    } catch (_) {
+      _paymentProgress.value = PaymentProgress.waitUserConnect;
+    }
   }
 
   Widget _buildButton() {
@@ -130,6 +150,7 @@ class _PaymentState extends State<Payment> {
         return WalletTheme.button(
             text: '确认付款',
             onPressed: () async {
+              _confirmCompleter.complete();
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
             });
 
@@ -151,16 +172,10 @@ class _PaymentState extends State<Payment> {
     super.initState();
     widget._bleDevice.connectionState.listen((state) {
       if (state == PeripheralConnectionState.connecting) {
-        _paymentProgress.value = PaymentProgress.connecting;
+        _hintText.value = '连接中';
       }
     });
-    _paymentProgress.listen((value) {
-      if (value == PaymentProgress.connecting) {
-        _hintText.value = value.description();
-      } else {
-        _hintText.value += '\n${value.description()}';
-      }
-    });
+
     _doConnect();
   }
 

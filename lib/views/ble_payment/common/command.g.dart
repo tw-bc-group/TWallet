@@ -6,27 +6,33 @@ part of 'command.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const CommandType _$ok = const CommandType._('ok');
 const CommandType _$getPubKey = const CommandType._('getPubKey');
 const CommandType _$setPubKey = const CommandType._('setPubKey');
 const CommandType _$setAesKey = const CommandType._('setAesKey');
+const CommandType _$setAesOk = const CommandType._('setAesOk');
 const CommandType _$getTxInfo = const CommandType._('getTxInfo');
 const CommandType _$setTxInfo = const CommandType._('setTxInfo');
+const CommandType _$setRawTx = const CommandType._('setRawTx');
+const CommandType _$setRawTxOk = const CommandType._('setRawTxOk');
 
 CommandType _$valueOf(String name) {
   switch (name) {
-    case 'ok':
-      return _$ok;
     case 'getPubKey':
       return _$getPubKey;
     case 'setPubKey':
       return _$setPubKey;
     case 'setAesKey':
       return _$setAesKey;
+    case 'setAesOk':
+      return _$setAesOk;
     case 'getTxInfo':
       return _$getTxInfo;
     case 'setTxInfo':
       return _$setTxInfo;
+    case 'setRawTx':
+      return _$setRawTx;
+    case 'setRawTxOk':
+      return _$setRawTxOk;
     default:
       throw new ArgumentError(name);
   }
@@ -34,12 +40,14 @@ CommandType _$valueOf(String name) {
 
 final BuiltSet<CommandType> _$values =
     new BuiltSet<CommandType>(const <CommandType>[
-  _$ok,
   _$getPubKey,
   _$setPubKey,
   _$setAesKey,
+  _$setAesOk,
   _$getTxInfo,
   _$setTxInfo,
+  _$setRawTx,
+  _$setRawTxOk,
 ]);
 
 Serializer<CommandType> _$commandTypeSerializer = new _$CommandTypeSerializer();
