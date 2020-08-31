@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/did.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -37,7 +37,7 @@ class TransferPageState extends State<TransferPage> {
   final IdentityStore iStore = getIt<IdentityStore>();
   final TextEditingController _payeeAddressController = TextEditingController();
   YYDialog confirmDialogInstance;
-  Identity identity;
+  DecentralizedIdentity identity;
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class TransferPageState extends State<TransferPage> {
     _transferStore.setupErrorDisposers();
     identity = getIt<IdentityStore>().selectedIdentity.value;
     _transferStore.payerDID = identity.did.toString();
-    _transferStore.balance = identity.balance.humanReadable;
+    _transferStore.balance = identity.accountInfo.balance.humanReadable;
   }
 
   @override

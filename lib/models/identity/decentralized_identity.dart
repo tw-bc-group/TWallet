@@ -1,6 +1,11 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
+import 'package:tw_wallet_ui/models/did.dart';
+import 'package:tw_wallet_ui/models/identity/account_info.dart';
+import 'package:tw_wallet_ui/models/identity/health_info.dart';
+import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
@@ -10,71 +15,51 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web3dart/credentials.dart';
 
-import 'amount.dart';
-import 'did.dart';
+part 'decentralized_identity.g.dart';
 
-part 'identity.g.dart';
-
-abstract class Identity extends Object
-    implements Built<Identity, IdentityBuilder> {
-  static Serializer<Identity> get serializer => _$identitySerializer;
+abstract class DecentralizedIdentity extends Object
+    implements Built<DecentralizedIdentity, DecentralizedIdentityBuilder> {
+  static Serializer<DecentralizedIdentity> get serializer =>
+      _$decentralizedIdentitySerializer;
 
   String get id;
-
-  String get name;
-
-  int get index;
-
-  String get pubKey;
-
-  String get priKey;
 
   String get dappId;
 
   bool get isSelected;
 
-  @nullable
-  String get phone;
+  ProfileInfo get profileInfo;
 
-  @nullable
-  String get email;
+  AccountInfo get accountInfo;
 
-  @nullable
-  String get birthday;
-
-  @nullable
-  Amount get balance;
-
-  @nullable
-  String get healthCertificateStatus;
-
-  @nullable
-  String get healthStatus;
-
-  @memoized
-  String get address =>
-      BlockChainService.publicKeyToAddress(pubKey.substring(2));
-
-  @memoized
-  DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
+  HealthInfo get healthInfo;
 
   @nullable
   String get extra;
 
-  Identity setSelected() => rebuild((id) => id..isSelected = true);
+  @memoized
+  String get address =>
+      BlockChainService.publicKeyToAddress(accountInfo.pubKey.substring(2));
 
-  Identity setUnSelected() => rebuild((id) => id..isSelected = false);
+  @memoized
+  DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
+
+  DecentralizedIdentity setSelected() => rebuild((id) => id..isSelected = true);
+
+  DecentralizedIdentity setUnSelected() =>
+      rebuild((id) => id..isSelected = false);
 
   Map<String, dynamic> basicInfo() => {
         'id': id,
         'address': address,
-        'publicKey': pubKey,
-        'index': index,
+        'publicKey': accountInfo.pubKey,
+        'index': accountInfo.index,
         'extra': extra
       };
 
-  factory Identity([void Function(IdentityBuilder) updates]) =>
-      _$Identity((builder) => builder
+  factory DecentralizedIdentity(
+          [void Function(DecentralizedIdentityBuilder) updates]) =>
+      _$DecentralizedIdentity((builder) => builder
         ..id = Uuid().v1()
         ..isSelected = false
         ..dappId = ""
@@ -84,14 +69,14 @@ abstract class Identity extends Object
   Future<bool> register() async {
     return getIt<ContractService>().identitiesContract.sendTransaction(
         getIt<MnemonicsStore>().firstPrivateKey, 'registerIdentity', [
-      name,
+      profileInfo.name,
       did.toString(),
       dappId,
-      BigInt.from(index),
+      BigInt.from(accountInfo.index),
       extra,
     ]).then((success) {
       if (success) {
-        getIt<IdentityStore>().addIdentity(identity: this);
+        // getIt<IdentityStore>().addIdentity(identity: this);
       }
       return success;
     });
@@ -100,12 +85,12 @@ abstract class Identity extends Object
   Future<bool> transferPoint({String toAddress, Amount amount}) async {
     return getIt<ContractService>()
         .tokenContract
-        .signContractCall(priKey, 'transfer', [
+        .signContractCall(accountInfo.priKey, 'transfer', [
       EthereumAddress.fromHex(toAddress),
       BigInt.parse(amount.original.toString()),
     ]).then((signedRawTx) {
       return getIt<ApiProvider>()
-          .transferPoint(address, pubKey, signedRawTx)
+          .transferPoint(address, accountInfo.pubKey, signedRawTx)
           .then((res) =>
               res.map((response) => response.statusCode == 200).orElse(false));
     });
@@ -115,10 +100,11 @@ abstract class Identity extends Object
     return serializers.serialize(this) as Map<String, dynamic>;
   }
 
-  factory Identity.fromJson(dynamic serialized) {
+  factory DecentralizedIdentity.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,
-        specifiedType: const FullType(Identity)) as Identity;
+            specifiedType: const FullType(DecentralizedIdentity))
+        as DecentralizedIdentity;
   }
 
-  Identity._();
+  DecentralizedIdentity._();
 }

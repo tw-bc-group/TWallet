@@ -5,6 +5,10 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/identity/account_info.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/models/identity/health_info.dart';
+import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
@@ -24,14 +28,16 @@ import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_st
 
 import 'amount.dart';
 import 'health_certification_token.dart';
-import 'identity.dart';
 
 part 'serializer.g.dart';
 
 @SerializersFor([
   ApiResponse,
   Contract,
-  Identity,
+  DecentralizedIdentity,
+  AccountInfo,
+  HealthInfo,
+  ProfileInfo,
   Transaction,
   TwBalance,
   TxStatus,

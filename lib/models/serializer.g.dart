@@ -7,14 +7,17 @@ part of 'serializer.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(AccountInfo.serializer)
       ..add(ApiResponse.serializer)
       ..add(Contract.serializer)
       ..add(CreateAccountParam.serializer)
+      ..add(DecentralizedIdentity.serializer)
       ..add(HealthCertification.serializer)
       ..add(HealthCertificationSub.serializer)
       ..add(HealthCertificationToken.serializer)
+      ..add(HealthInfo.serializer)
       ..add(HealthyStatus.serializer)
-      ..add(Identity.serializer)
+      ..add(ProfileInfo.serializer)
       ..add(SelectOption.serializer)
       ..add(Transaction.serializer)
       ..add(TwBalance.serializer)

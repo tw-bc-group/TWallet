@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
@@ -32,7 +32,7 @@ class HealthCodeState extends State<HealthCodePage> {
   final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
   HealthCodeStore _certStore;
 
-  Identity identity;
+  DecentralizedIdentity identity;
 
   HealthCodeState();
 
@@ -119,7 +119,8 @@ class HealthCodeState extends State<HealthCodePage> {
                                                 top: _avatarWidth / 2 +
                                                     _screenUtil.setHeight(20)),
                                             child: Center(
-                                              child: Text(identity.name,
+                                              child: Text(
+                                                  identity.profileInfo.name,
                                                   style: WalletFont.font_18(
                                                       textStyle:
                                                           const TextStyle(

@@ -9,28 +9,31 @@ part of 'identity_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$IdentityStore on IdentityStoreBase, Store {
-  Computed<List<Identity>> _$identitiesWithoutDappComputed;
+  Computed<List<DecentralizedIdentity>> _$identitiesWithoutDappComputed;
 
   @override
-  List<Identity> get identitiesWithoutDapp =>
-      (_$identitiesWithoutDappComputed ??= Computed<List<Identity>>(
-              () => super.identitiesWithoutDapp,
-              name: 'IdentityStoreBase.identitiesWithoutDapp'))
+  List<DecentralizedIdentity> get identitiesWithoutDapp =>
+      (_$identitiesWithoutDappComputed ??=
+              Computed<List<DecentralizedIdentity>>(
+                  () => super.identitiesWithoutDapp,
+                  name: 'IdentityStoreBase.identitiesWithoutDapp'))
           .value;
-  Computed<List<Identity>> _$identitiesWithDappComputed;
+  Computed<List<DecentralizedIdentity>> _$identitiesWithDappComputed;
 
   @override
-  List<Identity> get identitiesWithDapp => (_$identitiesWithDappComputed ??=
-          Computed<List<Identity>>(() => super.identitiesWithDapp,
+  List<DecentralizedIdentity> get identitiesWithDapp =>
+      (_$identitiesWithDappComputed ??= Computed<List<DecentralizedIdentity>>(
+              () => super.identitiesWithDapp,
               name: 'IdentityStoreBase.identitiesWithDapp'))
-      .value;
-  Computed<Optional<Identity>> _$selectedIdentityComputed;
+          .value;
+  Computed<Optional<DecentralizedIdentity>> _$selectedIdentityComputed;
 
   @override
-  Optional<Identity> get selectedIdentity => (_$selectedIdentityComputed ??=
-          Computed<Optional<Identity>>(() => super.selectedIdentity,
+  Optional<DecentralizedIdentity> get selectedIdentity =>
+      (_$selectedIdentityComputed ??= Computed<Optional<DecentralizedIdentity>>(
+              () => super.selectedIdentity,
               name: 'IdentityStoreBase.selectedIdentity'))
-      .value;
+          .value;
   Computed<String> _$myNameComputed;
 
   @override
@@ -52,20 +55,22 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       (_$myBalanceComputed ??= Computed<Amount>(() => super.myBalance,
               name: 'IdentityStoreBase.myBalance'))
           .value;
-  Computed<List<Identity>> _$selectedFirstIdentitiesComputed;
+  Computed<List<DecentralizedIdentity>> _$selectedFirstIdentitiesComputed;
 
   @override
-  List<Identity> get selectedFirstIdentities =>
-      (_$selectedFirstIdentitiesComputed ??= Computed<List<Identity>>(
-              () => super.selectedFirstIdentities,
-              name: 'IdentityStoreBase.selectedFirstIdentities'))
+  List<DecentralizedIdentity> get selectedFirstIdentities =>
+      (_$selectedFirstIdentitiesComputed ??=
+              Computed<List<DecentralizedIdentity>>(
+                  () => super.selectedFirstIdentities,
+                  name: 'IdentityStoreBase.selectedFirstIdentities'))
           .value;
-  Computed<List<Identity>> _$selectedFirstIdentitiesInHealthDAppComputed;
+  Computed<List<DecentralizedIdentity>>
+      _$selectedFirstIdentitiesInHealthDAppComputed;
 
   @override
-  List<Identity> get selectedFirstIdentitiesInHealthDApp =>
+  List<DecentralizedIdentity> get selectedFirstIdentitiesInHealthDApp =>
       (_$selectedFirstIdentitiesInHealthDAppComputed ??=
-              Computed<List<Identity>>(
+              Computed<List<DecentralizedIdentity>>(
                   () => super.selectedFirstIdentitiesInHealthDApp,
                   name:
                       'IdentityStoreBase.selectedFirstIdentitiesInHealthDApp'))
@@ -91,13 +96,13 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   final _$identitiesAtom = Atom(name: 'IdentityStoreBase.identities');
 
   @override
-  ObservableList<Identity> get identities {
+  ObservableList<DecentralizedIdentity> get identities {
     _$identitiesAtom.reportRead();
     return super.identities;
   }
 
   @override
-  set identities(ObservableList<Identity> value) {
+  set identities(ObservableList<DecentralizedIdentity> value) {
     _$identitiesAtom.reportWrite(value, super.identities, () {
       super.identities = value;
     });
@@ -137,7 +142,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
 
   @override
-  Future<Identity> addIdentity({@required Identity identity}) {
+  Future<DecentralizedIdentity> addIdentity(
+      {@required DecentralizedIdentity identity}) {
     return _$addIdentityAsyncAction
         .run(() => super.addIdentity(identity: identity));
   }
@@ -146,7 +152,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       AsyncAction('IdentityStoreBase.updateIdentity');
 
   @override
-  Future<void> updateIdentity(Identity identity) {
+  Future<void> updateIdentity(DecentralizedIdentity identity) {
     return _$updateIdentityAsyncAction
         .run(() => super.updateIdentity(identity));
   }
@@ -155,7 +161,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       AsyncAction('IdentityStoreBase.updateHealthCertLastSelected');
 
   @override
-  Future<dynamic> updateHealthCertLastSelected(Identity identity) {
+  Future<dynamic> updateHealthCertLastSelected(DecentralizedIdentity identity) {
     return _$updateHealthCertLastSelectedAsyncAction
         .run(() => super.updateHealthCertLastSelected(identity));
   }
@@ -164,7 +170,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       ActionController(name: 'IdentityStoreBase');
 
   @override
-  void updateSelectedIdentity(Identity identity) {
+  void updateSelectedIdentity(DecentralizedIdentity identity) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.updateSelectedIdentity');
     try {

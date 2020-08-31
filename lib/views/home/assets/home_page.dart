@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage>
       );
 
   String get _name => _identityStore.selectedIdentity
-      .map((identity) => identity.name)
+      .map((identity) => identity.profileInfo.name)
       .orElse('');
 
   Widget get _avatar => const AvatarWidget(width: 80);
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage>
         return IdentitySelectionSheet(
           identities: ids,
           onSheetItemTap: (index) =>
-              _onIdentityCardTap(context, ids[index].name),
+              _onIdentityCardTap(context, ids[index].profileInfo.name),
         );
       },
     );

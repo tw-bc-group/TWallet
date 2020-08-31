@@ -14,7 +14,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/webview/create_account_param.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
@@ -84,15 +84,15 @@ class DAppService {
       final _transactionInfo = _signTransaction.transactionInfo;
       final Web3Client _web3Client =
           Web3Client(_transactionInfo.rpcUrl, Client());
-      final Identity _identity =
+      final DecentralizedIdentity _identity =
           getIt<IdentityStore>().getIdentityById(_transactionInfo.accountId);
       final DeployedContract _contract = DeployedContract(
           ContractAbi.fromJson(
               _transactionInfo.contractAbi, _transactionInfo.contractName),
           EthereumAddress.fromHex(_transactionInfo.contractAddress));
 
-      final credentials =
-          await _web3Client.credentialsFromPrivateKey(_identity.priKey);
+      final credentials = await _web3Client
+          .credentialsFromPrivateKey(_identity.accountInfo.priKey);
       final rawTx = await _web3Client.signTransaction(
         credentials,
         Transaction.callContract(
@@ -130,11 +130,12 @@ class DAppService {
   static void peekAccount(String id, _) {
     final Tuple3<int, String, String> _keyPair =
         getIt<MnemonicsStore>().peekKeys();
-    final Identity _identity = Identity((builder) => builder
-      ..name = id
-      ..index = _keyPair.first
-      ..pubKey = _keyPair.second
-      ..priKey = _keyPair.third);
+    final DecentralizedIdentity _identity =
+        DecentralizedIdentity((builder) => builder
+          ..profileInfo.name = id
+          ..accountInfo.index = _keyPair.first
+          ..accountInfo.pubKey = _keyPair.second
+          ..accountInfo.priKey = _keyPair.third);
     resolve(id, _identity.basicInfo());
   }
 
@@ -143,14 +144,14 @@ class DAppService {
         CreateAccountParam.fromJson(json.decode(param));
     final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
-        Future.value(Identity((identity) => identity
-              ..name = DateTime.now().millisecondsSinceEpoch.toString()
-              ..pubKey = keys.first
-              ..priKey = keys.second
-              ..dappId = dappid
-              ..extra = createAccountParam.extra
-              ..index = index))
-            .then((identity) => identity.register().then((success) {
+        Future.value(DecentralizedIdentity((identity) => identity
+          ..profileInfo.name = DateTime.now().millisecondsSinceEpoch.toString()
+          ..accountInfo.pubKey = keys.first
+          ..accountInfo.priKey = keys.second
+          ..dappId = dappid
+          ..extra = createAccountParam.extra
+          ..accountInfo.index = index)).then(
+            (identity) => identity.register().then((success) {
                   if (success) {
                     resolve(id, identity.basicInfo());
                   }
@@ -214,8 +215,8 @@ class DAppService {
       result.add({
         'id': identity.id,
         'address': identity.address,
-        'publicKey': identity.pubKey,
-        'index': identity.index
+        'publicKey': identity.accountInfo.pubKey,
+        'index': identity.accountInfo.index
       });
     });
     resolve(id, result);

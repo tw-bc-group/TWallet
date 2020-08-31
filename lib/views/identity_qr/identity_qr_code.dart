@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class IdentityQRPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Identity identity =
-        ModalRoute.of(context).settings.arguments as Identity;
+    final DecentralizedIdentity identity =
+        ModalRoute.of(context).settings.arguments as DecentralizedIdentity;
 
     return CommonLayout(
       title: '身份二维码',
@@ -18,7 +18,7 @@ class IdentityQRPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMainContent(Identity identity) {
+  Widget _buildMainContent(DecentralizedIdentity identity) {
     return Container(
       margin: const EdgeInsets.only(top: 15),
       child: ListView(
@@ -35,7 +35,7 @@ class IdentityQRPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      identity.name,
+                      identity.profileInfo.name,
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                     ),
