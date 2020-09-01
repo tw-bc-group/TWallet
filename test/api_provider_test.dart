@@ -51,7 +51,8 @@ void main() {
               }
             })));
 
-    expect(await _apiProvider.fetchPointV1(address: address),
+    expect(
+        await _apiProvider.fetchPointV1(address: address, withLoading: false),
         isA<Optional<TwBalance>>());
   });
 
