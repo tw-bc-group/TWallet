@@ -26,43 +26,35 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
               () => super.identitiesWithDapp,
               name: 'IdentityStoreBase.identitiesWithDapp'))
           .value;
-  Computed<Optional<DecentralizedIdentity>> _$selectedIdentityComputed;
+  Computed<String> _$selectedIdentityNameComputed;
 
   @override
-  Optional<DecentralizedIdentity> get selectedIdentity =>
-      (_$selectedIdentityComputed ??= Computed<Optional<DecentralizedIdentity>>(
-              () => super.selectedIdentity,
-              name: 'IdentityStoreBase.selectedIdentity'))
-          .value;
-  Computed<String> _$myNameComputed;
+  String get selectedIdentityName => (_$selectedIdentityNameComputed ??=
+          Computed<String>(() => super.selectedIdentityName,
+              name: 'IdentityStoreBase.selectedIdentityName'))
+      .value;
+  Computed<String> _$selectedIdentityAddressComputed;
 
   @override
-  String get myName =>
-      (_$myNameComputed ??= Computed<String>(() => super.myName,
-              name: 'IdentityStoreBase.myName'))
-          .value;
-  Computed<String> _$myAddressComputed;
+  String get selectedIdentityAddress => (_$selectedIdentityAddressComputed ??=
+          Computed<String>(() => super.selectedIdentityAddress,
+              name: 'IdentityStoreBase.selectedIdentityAddress'))
+      .value;
+  Computed<Amount> _$selectedIdentityBalanceComputed;
 
   @override
-  String get myAddress =>
-      (_$myAddressComputed ??= Computed<String>(() => super.myAddress,
-              name: 'IdentityStoreBase.myAddress'))
-          .value;
-  Computed<Amount> _$myBalanceComputed;
+  Amount get selectedIdentityBalance => (_$selectedIdentityBalanceComputed ??=
+          Computed<Amount>(() => super.selectedIdentityBalance,
+              name: 'IdentityStoreBase.selectedIdentityBalance'))
+      .value;
+  Computed<List<DecentralizedIdentity>> _$identitiesExceptSelectedComputed;
 
   @override
-  Amount get myBalance =>
-      (_$myBalanceComputed ??= Computed<Amount>(() => super.myBalance,
-              name: 'IdentityStoreBase.myBalance'))
-          .value;
-  Computed<List<DecentralizedIdentity>> _$selectedFirstIdentitiesComputed;
-
-  @override
-  List<DecentralizedIdentity> get selectedFirstIdentities =>
-      (_$selectedFirstIdentitiesComputed ??=
+  List<DecentralizedIdentity> get identitiesExceptSelected =>
+      (_$identitiesExceptSelectedComputed ??=
               Computed<List<DecentralizedIdentity>>(
-                  () => super.selectedFirstIdentities,
-                  name: 'IdentityStoreBase.selectedFirstIdentities'))
+                  () => super.identitiesExceptSelected,
+                  name: 'IdentityStoreBase.identitiesExceptSelected'))
           .value;
   Computed<List<DecentralizedIdentity>>
       _$selectedFirstIdentitiesInHealthDAppComputed;
@@ -123,20 +115,27 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     });
   }
 
+  final _$selectedIdentityAtom =
+      Atom(name: 'IdentityStoreBase.selectedIdentity');
+
+  @override
+  Optional<DecentralizedIdentity> get selectedIdentity {
+    _$selectedIdentityAtom.reportRead();
+    return super.selectedIdentity;
+  }
+
+  @override
+  set selectedIdentity(Optional<DecentralizedIdentity> value) {
+    _$selectedIdentityAtom.reportWrite(value, super.selectedIdentity, () {
+      super.selectedIdentity = value;
+    });
+  }
+
   final _$clearAsyncAction = AsyncAction('IdentityStoreBase.clear');
 
   @override
   Future<void> clear() {
     return _$clearAsyncAction.run(() => super.clear());
-  }
-
-  final _$updateIdentityIsSelectedAsyncAction =
-      AsyncAction('IdentityStoreBase.updateIdentityIsSelected');
-
-  @override
-  Future<void> updateIdentityIsSelected(int selectedIndex) {
-    return _$updateIdentityIsSelectedAsyncAction
-        .run(() => super.updateIdentityIsSelected(selectedIndex));
   }
 
   final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
@@ -146,6 +145,15 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       {@required DecentralizedIdentity identity}) {
     return _$addIdentityAsyncAction
         .run(() => super.addIdentity(identity: identity));
+  }
+
+  final _$selectIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.selectIdentity');
+
+  @override
+  Future<void> selectIdentity(DecentralizedIdentity identity) {
+    return _$selectIdentityAsyncAction
+        .run(() => super.selectIdentity(identity));
   }
 
   final _$updateIdentityAsyncAction =
@@ -170,28 +178,6 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       ActionController(name: 'IdentityStoreBase');
 
   @override
-  void updateSelectedIdentity(DecentralizedIdentity identity) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
-        name: 'IdentityStoreBase.updateSelectedIdentity');
-    try {
-      return super.updateSelectedIdentity(identity);
-    } finally {
-      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void selectIdentity(String name) {
-    final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
-        name: 'IdentityStoreBase.selectIdentity');
-    try {
-      return super.selectIdentity(name);
-    } finally {
-      _$IdentityStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void fetchLatestPoint({bool withLoading}) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.fetchLatestPoint');
@@ -208,13 +194,13 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
 healthCertLastSelectIndex: ${healthCertLastSelectIndex},
 identities: ${identities},
 searchName: ${searchName},
+selectedIdentity: ${selectedIdentity},
 identitiesWithoutDapp: ${identitiesWithoutDapp},
 identitiesWithDapp: ${identitiesWithDapp},
-selectedIdentity: ${selectedIdentity},
-myName: ${myName},
-myAddress: ${myAddress},
-myBalance: ${myBalance},
-selectedFirstIdentities: ${selectedFirstIdentities},
+selectedIdentityName: ${selectedIdentityName},
+selectedIdentityAddress: ${selectedIdentityAddress},
+selectedIdentityBalance: ${selectedIdentityBalance},
+identitiesExceptSelected: ${identitiesExceptSelected},
 selectedFirstIdentitiesInHealthDApp: ${selectedFirstIdentitiesInHealthDApp}
     ''';
   }

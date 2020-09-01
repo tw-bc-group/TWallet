@@ -181,7 +181,7 @@ class TransferPageState extends State<TransferPage> {
                 status: TxStatus.transferring,
                 fromAddress: iStore.selectedIdentity.value.address,
                 toAddress: payeeAddress,
-                fromAddressName: iStore.myName,
+                fromAddressName: iStore.selectedIdentityName,
                 isExpense: true,
                 shouldBackToHome: true));
       }
@@ -217,7 +217,7 @@ class TransferPageState extends State<TransferPage> {
       margin: const EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        iStore.myBalance.humanReadableWithSymbol,
+        iStore.selectedIdentityBalance.humanReadableWithSymbol,
         style:
             WalletFont.font_24(textStyle: TextStyle(color: WalletColor.white)),
       ),

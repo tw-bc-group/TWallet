@@ -29,9 +29,6 @@ class _$DecentralizedIdentitySerializer
       'dappId',
       serializers.serialize(object.dappId,
           specifiedType: const FullType(String)),
-      'isSelected',
-      serializers.serialize(object.isSelected,
-          specifiedType: const FullType(bool)),
       'profileInfo',
       serializers.serialize(object.profileInfo,
           specifiedType: const FullType(ProfileInfo)),
@@ -71,10 +68,6 @@ class _$DecentralizedIdentitySerializer
           result.dappId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'isSelected':
-          result.isSelected = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
         case 'profileInfo':
           result.profileInfo.replace(serializers.deserialize(value,
               specifiedType: const FullType(ProfileInfo)) as ProfileInfo);
@@ -104,8 +97,6 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
   @override
   final String dappId;
   @override
-  final bool isSelected;
-  @override
   final ProfileInfo profileInfo;
   @override
   final AccountInfo accountInfo;
@@ -123,7 +114,6 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
   _$DecentralizedIdentity._(
       {this.id,
       this.dappId,
-      this.isSelected,
       this.profileInfo,
       this.accountInfo,
       this.healthInfo,
@@ -134,9 +124,6 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
     }
     if (dappId == null) {
       throw new BuiltValueNullFieldError('DecentralizedIdentity', 'dappId');
-    }
-    if (isSelected == null) {
-      throw new BuiltValueNullFieldError('DecentralizedIdentity', 'isSelected');
     }
     if (profileInfo == null) {
       throw new BuiltValueNullFieldError(
@@ -172,7 +159,6 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
     return other is DecentralizedIdentity &&
         id == other.id &&
         dappId == other.dappId &&
-        isSelected == other.isSelected &&
         profileInfo == other.profileInfo &&
         accountInfo == other.accountInfo &&
         healthInfo == other.healthInfo &&
@@ -184,9 +170,7 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
     return $jf($jc(
         $jc(
             $jc(
-                $jc(
-                    $jc($jc($jc(0, id.hashCode), dappId.hashCode),
-                        isSelected.hashCode),
+                $jc($jc($jc(0, id.hashCode), dappId.hashCode),
                     profileInfo.hashCode),
                 accountInfo.hashCode),
             healthInfo.hashCode),
@@ -198,7 +182,6 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
     return (newBuiltValueToStringHelper('DecentralizedIdentity')
           ..add('id', id)
           ..add('dappId', dappId)
-          ..add('isSelected', isSelected)
           ..add('profileInfo', profileInfo)
           ..add('accountInfo', accountInfo)
           ..add('healthInfo', healthInfo)
@@ -218,10 +201,6 @@ class DecentralizedIdentityBuilder
   String _dappId;
   String get dappId => _$this._dappId;
   set dappId(String dappId) => _$this._dappId = dappId;
-
-  bool _isSelected;
-  bool get isSelected => _$this._isSelected;
-  set isSelected(bool isSelected) => _$this._isSelected = isSelected;
 
   ProfileInfoBuilder _profileInfo;
   ProfileInfoBuilder get profileInfo =>
@@ -251,7 +230,6 @@ class DecentralizedIdentityBuilder
     if (_$v != null) {
       _id = _$v.id;
       _dappId = _$v.dappId;
-      _isSelected = _$v.isSelected;
       _profileInfo = _$v.profileInfo?.toBuilder();
       _accountInfo = _$v.accountInfo?.toBuilder();
       _healthInfo = _$v.healthInfo?.toBuilder();
@@ -282,7 +260,6 @@ class DecentralizedIdentityBuilder
           new _$DecentralizedIdentity._(
               id: id,
               dappId: dappId,
-              isSelected: isSelected,
               profileInfo: profileInfo.build(),
               accountInfo: accountInfo.build(),
               healthInfo: healthInfo.build(),

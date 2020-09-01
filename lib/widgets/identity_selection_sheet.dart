@@ -10,9 +10,10 @@ typedef SheetItemTapCallback = void Function(int index);
 class IdentitySelectionSheet extends StatelessWidget {
   final List<DecentralizedIdentity> identities;
   final SheetItemTapCallback onSheetItemTap;
+  final DecentralizedIdentity selectedIdentity;
 
   const IdentitySelectionSheet(
-      {@required this.identities, this.onSheetItemTap});
+      {@required this.identities, this.onSheetItemTap, this.selectedIdentity});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class IdentitySelectionSheet extends StatelessWidget {
                           name: e.profileInfo.name,
                           did: e.did.toString(),
                           bgColor: WalletColor.identityCardBg,
-                          isSelected: e.isSelected ?? false,
+                          isSelected: e == selectedIdentity,
                         ),
                       )),
                 )

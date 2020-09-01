@@ -26,8 +26,6 @@ abstract class DecentralizedIdentity extends Object
 
   String get dappId;
 
-  bool get isSelected;
-
   ProfileInfo get profileInfo;
 
   AccountInfo get accountInfo;
@@ -44,11 +42,6 @@ abstract class DecentralizedIdentity extends Object
   @memoized
   DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
 
-  DecentralizedIdentity setSelected() => rebuild((id) => id..isSelected = true);
-
-  DecentralizedIdentity setUnSelected() =>
-      rebuild((id) => id..isSelected = false);
-
   Map<String, dynamic> basicInfo() => {
         'id': id,
         'address': address,
@@ -61,7 +54,6 @@ abstract class DecentralizedIdentity extends Object
           [void Function(DecentralizedIdentityBuilder) updates]) =>
       _$DecentralizedIdentity((builder) => builder
         ..id = Uuid().v1()
-        ..isSelected = false
         ..dappId = ""
         ..extra = ""
         ..update(updates));
@@ -76,7 +68,7 @@ abstract class DecentralizedIdentity extends Object
       extra,
     ]).then((success) {
       if (success) {
-        // getIt<IdentityStore>().addIdentity(identity: this);
+        getIt<IdentityStore>().addIdentity(identity: this);
       }
       return success;
     });

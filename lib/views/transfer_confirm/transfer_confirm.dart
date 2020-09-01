@@ -48,7 +48,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
               status: TxStatus.transferring,
               fromAddress: identityStore.selectedIdentity.value.address,
               toAddress: widget.toAddress,
-              fromAddressName: identityStore.myName,
+              fromAddressName: identityStore.selectedIdentityName,
               isExpense: true,
             ));
       }
