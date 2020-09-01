@@ -137,12 +137,13 @@ class Session {
       switch (_state.value) {
         case SessionState.waitPublicKeyAnswer:
           final String aesKey = randomString(16);
-          final String publicKeyString = command.param;
-          final String encryptedAesKey =
-              RSAPublicKey.fromString(publicKeyString).encrypt(aesKey);
+          final String iv = randomString(16);
           _sendCommand(
-              Command.build(CommandType.setAesKey, param: encryptedAesKey),
-              SessionState.waitAesKeyAnswer);
+                  Command.build(CommandType.setAesKey,
+                      param: RSAPublicKey.fromString(command.param)
+                          .encrypt('$aesKey $iv')),
+                  SessionState.waitAesKeyAnswer)
+              .then((_) => _encrypter = SymmEncrypt(aesKey, iv));
           break;
 
         case SessionState.waitAesKeyAnswer:
@@ -157,7 +158,6 @@ class Session {
           _state.value = SessionState.waitUserConfirm;
           onStateUpdate(_state.value, param: _amount);
           confirmCompleter.future.then((_) {
-            print('the user is confirm to transfer dcep');
             _sendCommand(
                 Command.build(CommandType.setRawTx), SessionState.waitReceipt);
           });

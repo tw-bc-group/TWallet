@@ -119,6 +119,7 @@ class _PaymentState extends State<Payment> {
               (characteristics) =>
                   Session(characteristics.first, characteristics.second)
                       .run((SessionState state, {dynamic param}) {
+                    print('onStateUpdate, state: $state, param: $param');
                     switch (state) {
                       case SessionState.waitUserConfirm:
                         if (param != null) {
@@ -148,7 +149,7 @@ class _PaymentState extends State<Payment> {
     switch (_paymentProgress.value) {
       case PaymentProgress.waitUserConfirm:
         return WalletTheme.button(
-            text: '确认付款',
+            text: '确认付款 ${_amount.value}',
             onPressed: () async {
               _confirmCompleter.complete();
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
@@ -180,8 +181,8 @@ class _PaymentState extends State<Payment> {
   }
 
   @override
-  void dispose() {
-    _doDisconnect();
+  Future<void> dispose() async {
+    await _doDisconnect();
     super.dispose();
   }
 

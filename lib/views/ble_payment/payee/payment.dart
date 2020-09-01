@@ -40,15 +40,15 @@ class _PaymentState extends State<Payment> {
     _blePeriphery.startAdvertising('${widget.name}收款${widget.amount}');
 
     _blePeriphery.stateStream().listen((event) {
-      final String peer = event['device'];
+      final String peer = event['device'] as String;
 
-      switch (event['state']) {
-        case 'connected':
+      switch (BleCentralState.fromInt(event['state'] as int)) {
+        case BleCentralState.connected:
           _sessions[peer] =
               Session(_blePeriphery, peer, widget.address, widget.amount);
           break;
 
-        case 'disconnected':
+        case BleCentralState.disconnected:
           _sessions.remove(peer);
           break;
 

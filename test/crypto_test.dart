@@ -13,13 +13,13 @@ import 'package:web3dart/crypto.dart';
 void main() {
   group('aes test', () {
     test(
-        'when use aes key encrypt some thing, use same key decrypt should return same thing',
+        'when use aes key encrypt something, use same key decrypt should return same things',
         () {
       final String message =
           DateTime.now().millisecondsSinceEpoch.toRadixString(16);
       final String aesKey = randomString(16);
       final key = Key.fromUtf8(aesKey);
-      final IV iv = IV.fromUtf8(aesKey);
+      final IV iv = IV.fromUtf8(randomString(16));
       final Encrypter encrypter = Encrypter(AES(key));
       final Encrypted aesEncrypted = encrypter.encrypt(message, iv: iv);
       final String decrypted = encrypter.decrypt(aesEncrypted, iv: iv);
@@ -42,7 +42,7 @@ void main() {
 
   group('ecdsa test', () {
     test(
-        'when use private key signed something, should verify valid and recover address',
+        'when use private key signed something, should verify valid and recover correct address',
         () {
       final BIP32 bip32 =
           BlockChainService.generateHDWallet('1 2 3 4 5 6 7 8 9 10 11 12');
