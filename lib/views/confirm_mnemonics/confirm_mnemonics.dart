@@ -1,8 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
@@ -19,7 +19,7 @@ class ConfirmMnemonicsPage extends StatefulWidget {
 }
 
 class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
-  final MnemonicsStore store = getIt<MnemonicsStore>();
+  final MnemonicsStore store = Get.find();
   final List<Tuple2<int, String>> selectedWords = [];
 
   List<String> words = [];

@@ -65,28 +65,20 @@ class TWallet extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getIt.allReady(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: appName(),
-              theme: ThemeData(
-                  primaryColor: WalletColor.white,
-                  textTheme: TextTheme(
-                      bodyText2: WalletFont.font_14(
-                          textStyle: TextStyle(
-                              color: WalletColor.primary,
-                              fontWeight: FontWeight.w400))),
-                  disabledColor: Colors.grey,
-                  fontFamily: 'PingFangHK'),
-              initialRoute: initialRoute,
-              onGenerateRoute: Application.router.generator,
-            );
-          } else {
-            return Container(color: WalletTheme.mainBgColor);
-          }
-        });
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: appName(),
+      theme: ThemeData(
+          primaryColor: WalletColor.white,
+          textTheme: TextTheme(
+              bodyText2: WalletFont.font_14(
+                  textStyle: TextStyle(
+                      color: WalletColor.primary,
+                      fontWeight: FontWeight.w400))),
+          disabledColor: Colors.grey,
+          fontFamily: 'PingFangHK'),
+      initialRoute: initialRoute,
+      onGenerateRoute: Application.router.generator,
+    );
   }
 }

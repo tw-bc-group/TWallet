@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -27,7 +27,7 @@ class TransferConfirmPage extends StatefulWidget {
 class TransferConfirmState extends State<TransferConfirmPage> {
   final GlobalKey<InputPinWidgetState> inputPinWidgetKey =
       GlobalKey<InputPinWidgetState>();
-  final IdentityStore identityStore = getIt<IdentityStore>();
+  final IdentityStore identityStore = Get.find();
 
   TransferConfirmState();
 

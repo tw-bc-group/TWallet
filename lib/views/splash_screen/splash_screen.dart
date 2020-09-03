@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:tw_wallet_ui/common/getx.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -33,7 +33,7 @@ class _SplashAppState extends State<SplashScreen> {
   }
 
   Future<void> _initializeAsyncDependencies() async {
-    await getItInit(isTest: false);
+    await initGlobalDependencies();
     final route = await _initialRoute();
     widget.onInitializationComplete(route);
   }

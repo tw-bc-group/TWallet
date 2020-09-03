@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -48,7 +48,7 @@ class PointTab extends StatefulWidget {
 }
 
 class _PointTabState extends State<PointTab> {
-  final IdentityStore _identityStore = getIt<IdentityStore>();
+  final IdentityStore _identityStore = Get.find();
 
   ReactionDisposer reactionDispose;
 

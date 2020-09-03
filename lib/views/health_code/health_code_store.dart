@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 
@@ -21,7 +21,7 @@ abstract class HealthCodeStoreBase with Store {
   Timer _timer;
   int initialCountDown;
   final DID did;
-  final _healthCertStore = getIt<HealthCertificationStore>();
+  final _healthCertStore = Get.find<HealthCertificationStore>();
 
   StreamController<ObservableFuture<void>> _fetchHealthCodeStreamController;
   ObservableStream<ObservableFuture<void>> fetchHealthCodeStream;

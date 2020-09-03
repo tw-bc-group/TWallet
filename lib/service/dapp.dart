@@ -4,13 +4,13 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -85,7 +85,7 @@ class DAppService {
       final Web3Client _web3Client =
           Web3Client(_transactionInfo.rpcUrl, Client());
       final DecentralizedIdentity _identity =
-          getIt<IdentityStore>().getIdentityById(_transactionInfo.accountId);
+          Get.find<IdentityStore>().getIdentityById(_transactionInfo.accountId);
       final DeployedContract _contract = DeployedContract(
           ContractAbi.fromJson(
               _transactionInfo.contractAbi, _transactionInfo.contractName),
@@ -129,7 +129,7 @@ class DAppService {
 
   static void peekAccount(String id, _) {
     final Tuple3<int, String, String> _keyPair =
-        getIt<MnemonicsStore>().peekKeys();
+        Get.find<MnemonicsStore>().peekKeys();
     final DecentralizedIdentity _identity =
         DecentralizedIdentity((builder) => builder
           ..profileInfo.name = id
@@ -142,7 +142,7 @@ class DAppService {
   static void createAccount(String id, String param) {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param));
-    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+    final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
     _mnemonicsStore.generateKeys((index, keys) =>
         Future.value(DecentralizedIdentity((identity) => identity
           ..profileInfo.name = DateTime.now().millisecondsSinceEpoch.toString()
@@ -159,7 +159,7 @@ class DAppService {
   }
 
   static void getRootKey(String id, _) {
-    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
+    final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
     final walletSeed = bip39.mnemonicToSeed(_mnemonicsStore.mnemonics);
     resolve(id, sha256.convert(walletSeed).toString());
   }
@@ -187,7 +187,7 @@ class DAppService {
     } else {
       resolve(
           id,
-          getIt<IdentityStore>()
+          Get.find<IdentityStore>()
               .identitiesWithDapp
               .where((identity) => identity.dappId == dappid)
               .map((identity) => identity.basicInfo())
@@ -200,7 +200,7 @@ class DAppService {
       return resolve(id, null);
     }
 
-    resolve(id, getIt<IdentityStore>().getIdentityById(param).basicInfo());
+    resolve(id, Get.find<IdentityStore>().getIdentityById(param).basicInfo());
   }
 
   static void getAccountByIds(String id, String param) {
@@ -208,7 +208,7 @@ class DAppService {
       return resolve(id, []);
     }
 
-    final IdentityStore _identityStore = getIt<IdentityStore>();
+    final IdentityStore _identityStore = Get.find<IdentityStore>();
     final List<Map> result = [];
     param.split(',').forEach((accountId) {
       final identity = _identityStore.getIdentityById(accountId);

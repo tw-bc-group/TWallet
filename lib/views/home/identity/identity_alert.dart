@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/views/home/home.dart';
 import '../home_store.dart';
 
 void showDialogIfNoIdentity(BuildContext context, HomeStore homeStore) {
-  final IdentityStore _identityStore = getIt<IdentityStore>();
+  final IdentityStore _identityStore = Get.find();
 
   if (_identityStore.identitiesWithoutDapp.isEmpty) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {

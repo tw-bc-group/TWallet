@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
@@ -16,11 +16,11 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
-  final ProgressDialog _dialog = getIt<ProgressDialog>();
+  final ProgressDialog _dialog = Get.find();
   _dialog.show();
-  return getIt<IdentityStore>()
+  return Get.find<IdentityStore>()
       .clear()
-      .then((_) => getIt<HealthCertificationStore>().clear())
+      .then((_) => Get.find<HealthCertificationStore>().clear())
       .then((_) => SecureStorage.clearAll())
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
       .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) {

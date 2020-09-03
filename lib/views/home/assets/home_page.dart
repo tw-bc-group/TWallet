@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   _HomePageState();
 
-  final IdentityStore _identityStore = getIt<IdentityStore>();
+  final IdentityStore _identityStore = Get.find();
 
   static const _tabs = [
     HomePageTab(

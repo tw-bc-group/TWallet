@@ -1,5 +1,5 @@
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -14,7 +14,7 @@ class IdentityNewStore = _IdentityNewStore with _$IdentityNewStore;
 
 abstract class _IdentityNewStore with Store {
   final FormErrorState error = FormErrorState();
-  final _identityStore = getIt<IdentityStore>();
+  final IdentityStore _identityStore = Get.find();
 
   @observable
   String name = '';
@@ -107,7 +107,7 @@ abstract class _IdentityNewStore with Store {
 
   @action
   Future<dynamic> addIdentity() async {
-    final MnemonicsStore store = getIt<MnemonicsStore>();
+    final MnemonicsStore store = Get.find();
 
     if (!error.hasErrors) {
       return store.generateKeys((index, keys) =>

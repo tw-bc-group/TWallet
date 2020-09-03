@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -15,8 +15,8 @@ import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class ProfilePage extends StatelessWidget {
   final String id;
-  final IdentityStore identityStore = getIt<IdentityStore>();
-  final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
+  final IdentityStore identityStore = Get.find();
+  final HealthCertificationStore certStore = Get.find();
 
   ProfilePage({this.id});
 

@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -57,9 +57,12 @@ class HealthCertificateState extends State<HealthCertificatePage> {
         duration: const Duration(milliseconds: 500),
       );
     } else {
-      return getIt<HealthCertificationStore>()
+      return Get.find<HealthCertificationStore>()
           .bindHealthCert(
-              getIt<IdentityStore>().getIdentityById(widget.id).did.toString(),
+              Get.find<IdentityStore>()
+                  .getIdentityById(widget.id)
+                  .did
+                  .toString(),
               _pageStore.phone,
               double.parse(_pageStore.temperature),
               _pageStore.contactOption.toString(),

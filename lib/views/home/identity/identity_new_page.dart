@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -22,7 +22,7 @@ class IdentityNewPage extends StatefulWidget {
 class _IdentityNewPageState extends State<IdentityNewPage> {
   bool isAdding = false;
   final IdentityNewStore store = IdentityNewStore();
-  final ProgressDialog _dialog = getIt<ProgressDialog>();
+  final ProgressDialog _dialog = Get.find();
 
   @override
   void initState() {

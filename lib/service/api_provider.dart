@@ -2,8 +2,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
@@ -12,7 +12,7 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 class ApiProvider {
-  final HttpClient _httpClient = getIt<HttpClient>();
+  final HttpClient _httpClient = Get.find();
 
   Future<Optional<TwBalance>> fetchPointV1(
       {@required String address, bool withLoading}) async {
