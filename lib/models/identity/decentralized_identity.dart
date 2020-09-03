@@ -9,7 +9,7 @@ import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
-import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
