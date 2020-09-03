@@ -51,8 +51,10 @@ void showErrorDialog(DioError err) {
   showDialogSample(_hintType, '$errorMessage，请稍后再试。。。');
 }
 
-Dio _initDio(
-    LoadingInterceptor _loadingInterceptor, LogInterceptor _logInterceptor) {
+Dio _initDio() {
+  final LoadingInterceptor _loadingInterceptor = Get.find();
+  final LogInterceptor _logInterceptor = Get.find();
+  print(_loadingInterceptor);
   final Dio _dio = Dio()
     ..options = BaseOptions(
       baseUrl: globalEnv().apiGatewayBaseUrl,
@@ -68,13 +70,7 @@ Dio _initDio(
 }
 
 class HttpClient {
-  Dio _dio;
-
-  HttpClient init(
-      LoadingInterceptor _loadingInterceptor, LogInterceptor _logInterceptor) {
-    _dio = _initDio(_loadingInterceptor, _logInterceptor);
-    return this;
-  }
+  final Dio _dio = _initDio();
 
   Future<Optional<Response>> get(String url,
       {bool loading = true, bool throwError = false}) async {

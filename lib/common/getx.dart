@@ -13,12 +13,10 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 Future<void> initGlobalDependencies() async {
   await Get.putAsync(() => EnvStore.init());
   Get.put(ProgressDialog());
-  final _loadingInterceptor = Get.put(LoadingInterceptor());
-  final _logInterceptor =
-      Get.put(LogInterceptor(requestBody: true, responseBody: true));
-  final _httpClient =
-      Get.put(HttpClient().init(_loadingInterceptor, _logInterceptor));
-  Get.put(ApiProvider().init(_httpClient));
+  Get.put(LoadingInterceptor());
+  Get.put(LogInterceptor(requestBody: true, responseBody: true));
+  Get.put(HttpClient());
+  Get.put(ApiProvider());
   await Get.putAsync(() => MnemonicsStore.init());
   await Get.putAsync(() => ContractService.init());
   await Get.putAsync(() => IdentityStore.init());
