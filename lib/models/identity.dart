@@ -97,6 +97,15 @@ abstract class Identity extends Object
     });
   }
 
+  Future<String> signOfflinePayment(BigInt bill, String toAddress) {
+    return getIt<ContractService>().nftTokenContract.signContractCall(
+        priKey, 'safeTransferFrom', [
+      EthereumAddress.fromHex(address),
+      EthereumAddress.fromHex(toAddress),
+      bill
+    ]);
+  }
+
   Future<bool> transferPoint({String toAddress, Amount amount}) async {
     return getIt<ContractService>()
         .tokenContract

@@ -9,7 +9,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 const maxGas = 300000;
-const contractsOnChain = ['token', 'identities'];
+const contractsOnChain = ['token', 'identities', 'nft-dcep'];
 
 class ContractService {
   const ContractService(this.contracts);
@@ -19,6 +19,8 @@ class ContractService {
   Contract get tokenContract => contracts[contractsOnChain[0]];
 
   Contract get identitiesContract => contracts[contractsOnChain[1]];
+
+  Contract get nftTokenContract => contracts[contractsOnChain[2]];
 
   static Future<ContractService> init() async {
     final Map<String, Contract> contracts = {};
