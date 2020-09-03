@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tw_wallet_ui/models/eth_tx.dart';
+import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
 import 'package:tw_wallet_ui/service/rlp.dart';
 import 'package:web3dart/crypto.dart';
 

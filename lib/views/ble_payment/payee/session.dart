@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:crypton/crypton.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
-import 'package:tw_wallet_ui/models/eth_tx.dart';
+import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
 import 'package:tw_wallet_ui/service/rlp.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';

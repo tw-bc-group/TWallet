@@ -4,7 +4,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:web3dart/crypto.dart';
 
-part 'eth_tx.g.dart';
+part 'eth_tx_info.g.dart';
 
 abstract class EthTxInfo extends Object
     implements Built<EthTxInfo, EthTxInfoBuilder> {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'eth_tx.dart';
+part of 'eth_tx_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
