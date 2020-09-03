@@ -5,8 +5,10 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:get/get.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payer/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
@@ -67,9 +69,9 @@ extension CharacteristicExtension on Characteristic {
 class _PaymentState extends State<Payment> {
   final RxDouble _amount = 0.0.obs;
   final RxString _hintText = RxString('');
+  final Completer<bool> _confirmCompleter = Completer();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
-  Completer _confirmCompleter;
   StreamSubscription _dataMonitor;
   Characteristic _readCharacteristic;
   Characteristic _writeCharacteristic;
@@ -102,7 +104,11 @@ class _PaymentState extends State<Payment> {
     return Optional.of(Tuple2(_readCharacteristic, _writeCharacteristic));
   }
 
-  Future<void> _doDisconnect() async {
+  Future<void> _doCleanup() async {
+    if (!_confirmCompleter.isCompleted) {
+      _confirmCompleter.complete(false);
+    }
+
     if (null != _dataMonitor) {
       await _dataMonitor.cancel();
     }
@@ -112,37 +118,49 @@ class _PaymentState extends State<Payment> {
     }
   }
 
-  Future<void> _doConnect() async {
-    try {
-      await widget._bleDevice.connect().then((_) => discovery().then((res) =>
-          res.ifPresent(
-              (characteristics) =>
-                  Session(characteristics.first, characteristics.second)
-                      .run((SessionState state, {dynamic param}) {
-                    print('onStateUpdate, state: $state, param: $param');
-                    switch (state) {
-                      case SessionState.waitUserConfirm:
-                        if (param != null) {
-                          _amount.value = param as double;
-                        }
-                        _paymentProgress.value =
-                            PaymentProgress.waitUserConfirm;
-                        break;
+  Future<Optional<String>> _onWaitSignPayment(
+      String toAddress, double amount) async {
+    _amount.value = amount;
 
-                      case SessionState.success:
-                        _paymentProgress.value = PaymentProgress.success;
-                        break;
-                      default:
-                        break;
-                    }
-
-                    _hintText.value += '\n${state.description()}';
-                  }).then((completer) => _confirmCompleter = completer),
-              orElse: () =>
-                  _paymentProgress.value = PaymentProgress.notSupported)));
-    } catch (_) {
-      _paymentProgress.value = PaymentProgress.waitUserConnect;
+    if (await _confirmCompleter.future) {
+      return getIt<IdentityStore>()
+          .selectedIdentity
+          .value
+          .signOfflinePayment(BigInt.from(0x2222), toAddress)
+          .then((signedTx) => Optional.of(signedTx));
+    } else {
+      return const Optional.empty();
     }
+  }
+
+  void _onStateUpdate(SessionState state) {
+    switch (state) {
+      case SessionState.waitUserConfirm:
+        _paymentProgress.value = PaymentProgress.waitUserConfirm;
+        break;
+
+      case SessionState.success:
+        _paymentProgress.value = PaymentProgress.success;
+        break;
+      default:
+        break;
+    }
+
+    _hintText.value += '\n${state.description()}';
+  }
+
+  void _doConnect() {
+    widget._bleDevice.connect().then((_) => discovery().then((res) {
+          res.ifPresent(
+              (characteristics) => Session(
+                      //TODO:
+                      getIt<IdentityStore>().selectedIdentity.value.address,
+                      characteristics.first,
+                      characteristics.second)
+                  .run(_onWaitSignPayment, _onStateUpdate),
+              orElse: () =>
+                  _paymentProgress.value = PaymentProgress.notSupported);
+        }));
   }
 
   Widget _buildButton() {
@@ -151,7 +169,7 @@ class _PaymentState extends State<Payment> {
         return WalletTheme.button(
             text: '确认付款 ${_amount.value}',
             onPressed: () async {
-              _confirmCompleter.complete();
+              _confirmCompleter.complete(true);
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
             });
 
@@ -181,16 +199,11 @@ class _PaymentState extends State<Payment> {
   }
 
   @override
-  Future<void> dispose() async {
-    await _doDisconnect();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Obx(() => CommonLayout(
         title: widget._bleDevice.name,
         bodyBackColor: WalletColor.white,
+        beforeDispose: _doCleanup,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[

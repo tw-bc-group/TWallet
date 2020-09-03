@@ -9,7 +9,6 @@ import 'command.dart';
 extension CharacteristicExtension on Characteristic {
   Future<String> receiveString() {
     return read().then((data) {
-      print('data: ${String.fromCharCodes(data)}');
       return data;
     }).then((Uint8List data) => String.fromCharCodes(data));
   }

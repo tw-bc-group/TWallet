@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/payment.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
@@ -51,8 +53,11 @@ class PayeeConfirm extends StatelessWidget {
         withBottomBtn: true,
         btnText: '开始收款',
         btnOnPressed: _payeeAmount.value > 0.0 && _payeeName.value.isNotEmpty
-            ? () => Get.to(
-                Payment(name: _payeeName.value, amount: _payeeAmount.value))
+            ? () => Get.to(Payment(
+                name: _payeeName.value,
+                amount: _payeeAmount.value,
+                //TODO:
+                address: getIt<IdentityStore>().selectedIdentity.value.address))
             : null,
         child: Container(
             color: WalletColor.white,

@@ -3,8 +3,11 @@ import 'dart:typed_data';
 
 import 'package:crypton/crypton.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
+import 'package:tw_wallet_ui/models/eth_tx.dart';
+import 'package:tw_wallet_ui/service/rlp.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
+import 'package:web3dart/crypto.dart';
 
 typedef OnStateUpdate = void Function(String state);
 
@@ -15,6 +18,7 @@ class Session {
   final BlePeriphery peripheral;
 
   RSAKeypair keyPair;
+  String fromAddress;
   SymmEncrypt encrypter;
 
   Session(this.peripheral, this.peer, this.address, this.amount);
@@ -69,17 +73,23 @@ class Session {
 
       case CommandType.getTxInfo:
         onStateUpdate('收到交易信息请求');
+        fromAddress = command.param;
         _sendCommand(
                 Command.build(CommandType.setTxInfo, param: '$address:$amount'))
             .then((_) => onStateUpdate('发送交易信息'));
         break;
 
       case CommandType.setRawTx:
-        onStateUpdate('收款中...');
-        Future.delayed(const Duration(seconds: 2))
-            .then((_) => _sendCommand(Command.build(CommandType.setRawTxOk,
-                param: '$address:$amount')))
-            .then((_) => onStateUpdate('收款成功'));
+        onStateUpdate('收款验证...');
+        final EthTxInfo txInfo =
+            EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param)));
+        if (txInfo.to != address) {
+          onStateUpdate('验证失败...');
+        } else {
+          _sendCommand(Command.build(CommandType.setRawTxOk,
+                  param: '$address:$amount'))
+              .then((_) => onStateUpdate('收款成功'));
+        }
         break;
     }
     return;

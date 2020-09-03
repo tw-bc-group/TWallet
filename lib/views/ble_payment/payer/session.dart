@@ -6,12 +6,16 @@ import 'dart:typed_data';
 import 'package:crypton/crypton.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:get/get.dart';
+import 'package:optional/optional.dart';
 import 'package:random_string/random_string.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/extension.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
-typedef OnStateUpdate = void Function(SessionState state, {dynamic param});
+typedef WaitOnSignPayment = Future<Optional<String>> Function(
+    String toAddress, double amount);
+
+typedef OnStateUpdate = void Function(SessionState state);
 
 enum SessionState {
   initial,
@@ -47,16 +51,15 @@ extension SessionStateExtension on SessionState {
 }
 
 class Session {
+  final String address;
   final Characteristic _readCharacteristic;
   final Characteristic _writeCharacteristic;
   final Queue<Completer> _readQueue = Queue();
   final Rx<SessionState> _state = Rx(SessionState.initial);
 
-  String _to;
-  double _amount;
   SymmEncrypt _encrypter;
 
-  Session(this._readCharacteristic, this._writeCharacteristic);
+  Session(this.address, this._readCharacteristic, this._writeCharacteristic);
 
   Future<void> _sendCommand(Command command, SessionState newState) {
     Future sendFuture;
@@ -115,9 +118,8 @@ class Session {
     return Future.value(command);
   }
 
-  Future<Completer> run(OnStateUpdate onStateUpdate) async {
-    final Completer confirmCompleter = Completer();
-
+  Future<void> run(
+      WaitOnSignPayment onSignPayment, OnStateUpdate onStateUpdate) async {
     _state.listen((newState) => onStateUpdate(newState));
 
     _readCharacteristic.monitor().listen((data) async {
@@ -147,19 +149,18 @@ class Session {
           break;
 
         case SessionState.waitAesKeyAnswer:
-          _sendCommand(
-              Command.build(CommandType.getTxInfo), SessionState.waitTxInfo);
+          _sendCommand(Command.build(CommandType.getTxInfo, param: address),
+              SessionState.waitTxInfo);
           break;
 
         case SessionState.waitTxInfo:
           final List<String> fields = command.param.split(':');
-          _to = fields[0];
-          _amount = double.parse(fields[1]);
+          print('fields: $fields');
           _state.value = SessionState.waitUserConfirm;
-          onStateUpdate(_state.value, param: _amount);
-          confirmCompleter.future.then((_) {
-            _sendCommand(
-                Command.build(CommandType.setRawTx), SessionState.waitReceipt);
+          (await onSignPayment(fields[0], double.parse(fields[1])))
+              .ifPresent((signedTx) {
+            _sendCommand(Command.build(CommandType.setRawTx, param: signedTx),
+                SessionState.waitReceipt);
           });
           break;
 
@@ -175,6 +176,6 @@ class Session {
     _sendCommand(
         Command.build(CommandType.getPubKey), SessionState.waitPublicKeyAnswer);
 
-    return confirmCompleter;
+    return;
   }
 }

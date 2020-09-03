@@ -60,7 +60,6 @@ class _PaymentState extends State<Payment> {
     _blePeriphery.dataStream().listen((event) {
       final String peer = event['device'] as String;
       final Uint8List payload = event['data'] as Uint8List;
-      print('payee data coming: ${payload.length}');
       if (!_sessions.containsKey(peer)) {
         _sessions[peer] =
             Session(_blePeriphery, peer, widget.address, widget.amount);
