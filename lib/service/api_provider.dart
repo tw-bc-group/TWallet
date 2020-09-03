@@ -7,12 +7,21 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 class ApiProvider {
   final HttpClient _httpClient = getIt<HttpClient>();
+
+  Future<Optional<Dcep>> redeemDcepV2(String address, DcepType type) {
+    return _httpClient.post('/v2/token/mint', {
+      'address': address,
+      'moneyType': type.toString()
+    }).then((res) =>
+        Future.value(res.map((response) => Dcep.fromJson(response.data))));
+  }
 
   Future<Optional<TwBalance>> fetchPointV1(
       {@required String address, bool withLoading}) async {

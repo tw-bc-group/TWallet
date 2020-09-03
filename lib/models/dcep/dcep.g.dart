@@ -96,6 +96,9 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
     final result = <Object>[
       'serial_number',
       serializers.serialize(object.sn, specifiedType: const FullType(String)),
+      'owner',
+      serializers.serialize(object.owner,
+          specifiedType: const FullType(String)),
       'signature',
       serializers.serialize(object.signature,
           specifiedType: const FullType(String)),
@@ -125,6 +128,10 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
           result.sn = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'owner':
+          result.owner = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'signature':
           result.signature = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -148,6 +155,8 @@ class _$Dcep extends Dcep {
   @override
   final String sn;
   @override
+  final String owner;
+  @override
   final String signature;
   @override
   final DcepType type;
@@ -157,9 +166,13 @@ class _$Dcep extends Dcep {
   factory _$Dcep([void Function(DcepBuilder) updates]) =>
       (new DcepBuilder()..update(updates)).build();
 
-  _$Dcep._({this.sn, this.signature, this.type, this.createdAt}) : super._() {
+  _$Dcep._({this.sn, this.owner, this.signature, this.type, this.createdAt})
+      : super._() {
     if (sn == null) {
       throw new BuiltValueNullFieldError('Dcep', 'sn');
+    }
+    if (owner == null) {
+      throw new BuiltValueNullFieldError('Dcep', 'owner');
     }
     if (signature == null) {
       throw new BuiltValueNullFieldError('Dcep', 'signature');
@@ -184,6 +197,7 @@ class _$Dcep extends Dcep {
     if (identical(other, this)) return true;
     return other is Dcep &&
         sn == other.sn &&
+        owner == other.owner &&
         signature == other.signature &&
         type == other.type &&
         createdAt == other.createdAt;
@@ -192,7 +206,8 @@ class _$Dcep extends Dcep {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, sn.hashCode), signature.hashCode), type.hashCode),
+        $jc($jc($jc($jc(0, sn.hashCode), owner.hashCode), signature.hashCode),
+            type.hashCode),
         createdAt.hashCode));
   }
 
@@ -200,6 +215,7 @@ class _$Dcep extends Dcep {
   String toString() {
     return (newBuiltValueToStringHelper('Dcep')
           ..add('sn', sn)
+          ..add('owner', owner)
           ..add('signature', signature)
           ..add('type', type)
           ..add('createdAt', createdAt))
@@ -213,6 +229,10 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
   String _sn;
   String get sn => _$this._sn;
   set sn(String sn) => _$this._sn = sn;
+
+  String _owner;
+  String get owner => _$this._owner;
+  set owner(String owner) => _$this._owner = owner;
 
   String _signature;
   String get signature => _$this._signature;
@@ -231,6 +251,7 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
   DcepBuilder get _$this {
     if (_$v != null) {
       _sn = _$v.sn;
+      _owner = _$v.owner;
       _signature = _$v.signature;
       _type = _$v.type;
       _createdAt = _$v.createdAt;
@@ -256,7 +277,11 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
   _$Dcep build() {
     final _$result = _$v ??
         new _$Dcep._(
-            sn: sn, signature: signature, type: type, createdAt: createdAt);
+            sn: sn,
+            owner: owner,
+            signature: signature,
+            type: type,
+            createdAt: createdAt);
     replace(_$result);
     return _$result;
   }

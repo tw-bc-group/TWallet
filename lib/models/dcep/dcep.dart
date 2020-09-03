@@ -61,6 +61,8 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
   @BuiltValueField(wireName: 'serial_number')
   String get sn;
 
+  String get owner;
+
   String get signature;
 
   @BuiltValueField(wireName: 'money_type')
@@ -68,6 +70,12 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
 
   @BuiltValueField(wireName: 'create_time')
   DateTime get createdAt;
+
+  int get amount => type.amount;
+
+  Map<String, dynamic> toJson() {
+    return serializers.serialize(this) as Map<String, dynamic>;
+  }
 
   factory Dcep([void Function(DcepBuilder) updates]) = _$Dcep;
 
@@ -77,6 +85,4 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
   }
 
   Dcep._();
-
-  int get amount => type.amount;
 }

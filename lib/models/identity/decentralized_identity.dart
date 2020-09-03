@@ -2,6 +2,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/models/identity/account_info.dart';
 import 'package:tw_wallet_ui/models/identity/health_info.dart';
@@ -10,6 +11,7 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
@@ -72,6 +74,16 @@ abstract class DecentralizedIdentity extends Object
       }
       return success;
     });
+  }
+
+  Future<void> redeemDcep(DcepType type) {
+    return getIt<ApiProvider>()
+        .redeemDcepV2(address, type)
+        .then((res) => res.ifPresent((dcep) {
+              if (dcep.owner == address) {
+                getIt<DcepStore>().addOne(dcep);
+              }
+            }));
   }
 
   Future<String> signOfflinePayment(BigInt bill, String toAddress) {

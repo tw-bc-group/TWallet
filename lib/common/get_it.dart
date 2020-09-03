@@ -5,6 +5,7 @@ import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -18,6 +19,7 @@ Future<void> getItInit({@required bool isTest}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   getIt.registerSingletonAsync<EnvStore>(() => EnvStore.init(isTest: isTest));
+  getIt.registerSingletonAsync<DcepStore>(DcepStore.init);
   getIt.registerLazySingleton<ProgressDialog>(() => ProgressDialog());
 
   if (isTest) {
