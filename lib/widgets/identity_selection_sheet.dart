@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 
 import 'identity_card.dart';
 
 typedef SheetItemTapCallback = void Function(int index);
 
 class IdentitySelectionSheet extends StatelessWidget {
-  final List<Identity> identities;
+  final List<DecentralizedIdentity> identities;
   final SheetItemTapCallback onSheetItemTap;
+  final DecentralizedIdentity selectedIdentity;
 
   const IdentitySelectionSheet(
-      {@required this.identities, this.onSheetItemTap});
+      {@required this.identities, this.onSheetItemTap, this.selectedIdentity});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,10 @@ class IdentitySelectionSheet extends StatelessWidget {
                       GestureDetector(
                         onTap: () => onSheetItemTap(i),
                         child: IdentityCard(
-                          name: e.name,
+                          name: e.profileInfo.name,
                           did: e.did.toString(),
                           bgColor: WalletColor.identityCardBg,
-                          isSelected: e.isSelected ?? false,
+                          isSelected: e == selectedIdentity,
                         ),
                       )),
                 )

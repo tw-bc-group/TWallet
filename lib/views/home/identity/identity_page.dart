@@ -7,7 +7,7 @@ import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
@@ -22,7 +22,7 @@ class IdentityPage extends StatefulWidget {
 class _IdentityPageState extends State<IdentityPage> {
   final IdentityStore _store = getIt<IdentityStore>();
 
-  Widget _listItem(Identity identity) {
+  Widget _listItem(DecentralizedIdentity identity) {
     return Container(
         margin: const EdgeInsets.only(bottom: 24),
         child: GestureDetector(
@@ -48,7 +48,7 @@ class _IdentityPageState extends State<IdentityPage> {
                         child: Container(
                             margin: const EdgeInsets.only(left: 12),
                             child: Text(
-                              identity.name,
+                              identity.profileInfo.name,
                               style: WalletFont.font_18(),
                             )))
                   ]),
@@ -166,8 +166,8 @@ class _IdentityPageState extends State<IdentityPage> {
                 padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
                 child: ListView(
                   children: _store.identitiesWithoutDapp
-                          .where((identity) =>
-                              identity.name.contains(_store.searchName))
+                          .where((identity) => identity.profileInfo.name
+                              .contains(_store.searchName))
                           .map((identity) => _listItem(identity))
                           .toList() +
                       [buildNewIdentityCard()],

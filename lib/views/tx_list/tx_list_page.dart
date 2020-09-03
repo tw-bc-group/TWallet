@@ -38,14 +38,14 @@ class _TxListPageState extends State<TxListPage> {
           status: item.txType,
           fromAddress: item.fromAddress,
           toAddress: item.toAddress,
-          fromAddressName: iStore.myName,
+          fromAddressName: iStore.selectedIdentityName,
           isExpense: ie,
         ));
   }
 
   @override
   void initState() {
-    store.fetchList(iStore.myAddress);
+    store.fetchList(iStore.selectedIdentityAddress);
     super.initState();
   }
 
@@ -64,7 +64,7 @@ class _TxListPageState extends State<TxListPage> {
       margin: const EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        iStore.myBalance.humanReadableWithSymbol,
+        iStore.selectedIdentityBalance.humanReadableWithSymbol,
         style:
             WalletFont.font_24(textStyle: TextStyle(color: WalletColor.white)),
       ),
@@ -118,7 +118,8 @@ class _TxListPageState extends State<TxListPage> {
   }
 
   TxType _txType(String fromAddress) {
-    if (fromAddress.toLowerCase() == iStore.myAddress.toLowerCase()) {
+    if (fromAddress.toLowerCase() ==
+        iStore.selectedIdentityAddress.toLowerCase()) {
       return TxType.expense;
     } else {
       return TxType.credit;

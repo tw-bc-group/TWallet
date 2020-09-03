@@ -155,7 +155,6 @@ class Session {
 
         case SessionState.waitTxInfo:
           final List<String> fields = command.param.split(':');
-          print('fields: $fields');
           _state.value = SessionState.waitUserConfirm;
           (await onSignPayment(fields[0], double.parse(fields[1])))
               .ifPresent((signedTx) {
