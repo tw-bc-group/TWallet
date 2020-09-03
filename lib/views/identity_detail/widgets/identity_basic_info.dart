@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -17,13 +17,13 @@ class IdentityBasicInfoWidget extends StatelessWidget {
   IdentityBasicInfoWidget({this.id});
 
   void getPoints() {
-    final Identity identity = identityStore.getIdentityById(id);
+    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
     _apiProvider.issuePoints(identity.address);
   }
 
   @override
   Widget build(BuildContext context) {
-    final Identity identity = identityStore.getIdentityById(id);
+    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
 
     return Container(
       decoration: BoxDecoration(

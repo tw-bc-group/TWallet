@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage>
       );
 
   String get _name => _identityStore.selectedIdentity
-      .map((identity) => identity.name)
+      .map((identity) => identity.profileInfo.name)
       .orElse('');
 
   Widget get _avatar => const AvatarWidget(width: 80);
@@ -115,7 +116,8 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> _onChangeIdentityTap(BuildContext context) {
-    final ids = _identityStore.selectedFirstIdentities;
+    final ids = _identityStore.identitiesExceptSelected;
+    final selectedIdentity = _identityStore.selectedIdentity;
 
     return showModalBottomSheet(
       context: context,
@@ -124,15 +126,16 @@ class _HomePageState extends State<HomePage>
       builder: (BuildContext context) {
         return IdentitySelectionSheet(
           identities: ids,
-          onSheetItemTap: (index) =>
-              _onIdentityCardTap(context, ids[index].name),
+          onSheetItemTap: (index) => _onIdentityCardTap(context, ids[index]),
+          selectedIdentity: selectedIdentity.value,
         );
       },
     );
   }
 
-  void _onIdentityCardTap(BuildContext context, String selectedName) {
-    _identityStore.selectIdentity(selectedName);
+  void _onIdentityCardTap(
+      BuildContext context, DecentralizedIdentity identity) {
+    _identityStore.selectIdentity(identity);
     Navigator.pop(context);
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -11,8 +12,6 @@ import 'package:tw_wallet_ui/views/profile/widgets/profile_row.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-
-import '../../models/identity.dart';
 
 class ProfilePage extends StatelessWidget {
   final String id;
@@ -34,7 +33,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Identity identity = identityStore.getIdentityById(id);
+    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
     certStore.fetchHealthCertByDID(identity.did.toString());
 
     return CommonLayout(
@@ -57,19 +56,19 @@ class ProfilePage extends StatelessWidget {
               ProfileRowWidget(
                   assetIcon: 'assets/icons/name.svg',
                   name: '名称*',
-                  value: identity.name),
+                  value: identity.profileInfo.name),
               ProfileRowWidget(
                   assetIcon: 'assets/icons/email.svg',
                   name: '邮箱',
-                  value: identity.email),
+                  value: identity.profileInfo.email),
               ProfileRowWidget(
                   assetIcon: 'assets/icons/phone.svg',
                   name: '电话',
-                  value: identity.phone),
+                  value: identity.profileInfo.phone),
               ProfileRowWidget(
                   assetIcon: 'assets/icons/birth.svg',
                   name: '生日',
-                  value: identity.birthday ?? ''),
+                  value: identity.profileInfo.birthday ?? ''),
               GestureDetector(
                 onLongPress: () async {
                   return Clipboard.setData(
@@ -93,7 +92,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildQR(BuildContext context, Identity id) {
+  Widget _buildQR(BuildContext context, DecentralizedIdentity id) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () => Navigator.pushNamed(context, Routes.qrPage, arguments: id),

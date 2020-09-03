@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -32,10 +32,10 @@ class IdentityDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Identity identity = identityStore.getIdentityById(id);
+    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
     certStore.fetchHealthCertByDID(identity.did.toString());
     return CommonLayout(
-      title: identity.name,
+      title: identity.profileInfo.name,
       child: Container(
           margin: const EdgeInsets.only(top: 24),
           padding: const EdgeInsets.symmetric(horizontal: 24),

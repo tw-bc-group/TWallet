@@ -85,7 +85,8 @@ class _PointTabState extends State<PointTab> {
             amount = const Optional.empty();
             break;
           default:
-            amount = _identityStore.selectedIdentity.map((i) => i.balance);
+            amount = _identityStore.selectedIdentity
+                .map((i) => i.accountInfo.balance);
             break;
         }
 

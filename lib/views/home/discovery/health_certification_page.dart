@@ -11,7 +11,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -168,7 +168,7 @@ class HealthCertificationPage extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final ele = ids[index];
                 return IdentityCard(
-                  name: ele.name,
+                  name: ele.profileInfo.name,
                   did: ele.did.toString(),
                   onTap: () => _onIdentityTap(context, ele),
                 );
@@ -180,7 +180,8 @@ class HealthCertificationPage extends StatelessWidget {
     );
   }
 
-  Future _onIdentityTap(BuildContext context, Identity identity) async {
+  Future _onIdentityTap(
+      BuildContext context, DecentralizedIdentity identity) async {
     await certStore.fetchHealthCertByDID(identity.did.toString());
     await _identityStore.updateHealthCertLastSelected(identity);
 

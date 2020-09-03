@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/util.dart';
-import 'package:tw_wallet_ui/models/identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/home/identity/date_validator.dart';
@@ -84,7 +84,7 @@ abstract class _IdentityNewStore with Store {
     if (isNull(value) || value.isEmpty) {
       error.username = '不能为空';
     } else if (_identityStore.identities
-        .any((identity) => identity.name == value)) {
+        .any((identity) => identity.profileInfo.name == value)) {
       error.username = '此名称已存在';
     } else {
       error.username = null;
@@ -110,18 +110,18 @@ abstract class _IdentityNewStore with Store {
     final MnemonicsStore store = getIt<MnemonicsStore>();
 
     if (!error.hasErrors) {
-      return store.generateKeys(
-          (index, keys) => Future.value(Identity((identity) => identity
-                ..id = Uuid().v1()
-                ..name = name
-                ..index = index
-                ..pubKey = keys.first
-                ..priKey = keys.second
-                ..phone = phone
-                ..email = email
-                ..birthday = birthday)).then((identity) {
-                return identity.register();
-              }));
+      return store.generateKeys((index, keys) =>
+          Future.value(DecentralizedIdentity((identity) => identity
+            ..id = Uuid().v1()
+            ..profileInfo.name = name
+            ..accountInfo.index = index
+            ..accountInfo.pubKey = keys.first
+            ..accountInfo.priKey = keys.second
+            ..profileInfo.phone = phone
+            ..profileInfo.email = email
+            ..profileInfo.birthday = birthday)).then((identity) {
+            return identity.register();
+          }));
     }
     return false;
   }
