@@ -12,7 +12,12 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 class ApiProvider {
-  final HttpClient _httpClient = Get.find();
+  HttpClient _httpClient;
+
+  ApiProvider init(HttpClient httpClient) {
+    _httpClient = httpClient;
+    return this;
+  }
 
   Future<Optional<TwBalance>> fetchPointV1(
       {@required String address, bool withLoading}) async {

@@ -27,14 +27,16 @@ class _$WebviewSignTransactionSerializer
       'transactionInfo',
       serializers.serialize(object.transactionInfo,
           specifiedType: const FullType(WebviewTransactionInfo)),
-      'token',
-      serializers.serialize(object.token,
-          specifiedType: const FullType(String)),
       'pincodeDialogStyle',
       serializers.serialize(object.pincodeDialogStyle,
           specifiedType: const FullType(WebviewPincodeDialogStyle)),
     ];
-
+    if (object.token != null) {
+      result
+        ..add('token')
+        ..add(serializers.serialize(object.token,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -89,9 +91,6 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
     if (transactionInfo == null) {
       throw new BuiltValueNullFieldError(
           'WebviewSignTransaction', 'transactionInfo');
-    }
-    if (token == null) {
-      throw new BuiltValueNullFieldError('WebviewSignTransaction', 'token');
     }
     if (pincodeDialogStyle == null) {
       throw new BuiltValueNullFieldError(
