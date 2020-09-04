@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:optional/optional.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -47,7 +48,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
     final encrypt = encrypt_tool.Encrypter(
         encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc));
     final String encryptedString =
-        await SecureStorage.get(SecureStorageItem.masterKey);
+        await Get.find<SecureStorage>().get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
         encrypt_tool.Encrypted.fromBase64(encryptedString);
     try {

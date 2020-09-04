@@ -12,28 +12,27 @@ extension _SecureStorageItemExtension on SecureStorageItem {
 }
 
 class SecureStorage {
-  static const FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  static Future<String> get(SecureStorageItem item) async {
+  Future<String> get(SecureStorageItem item) async {
     return _storage.read(key: item.asKey());
   }
 
-  static Future<void> set(SecureStorageItem item, String value) {
+  Future<void> set(SecureStorageItem item, String value) {
     return _storage.write(key: item.asKey(), value: value);
   }
 
-  static Future<void> delete(SecureStorageItem item) {
+  Future<void> delete(SecureStorageItem item) {
     return _storage.delete(key: item.asKey());
   }
 
-  static Future<void> clearAll() async {
+  Future<void> clearAll() async {
     for (final item in SecureStorageItem.values) {
       await _storage.delete(key: item.asKey());
     }
   }
 
-  static Future<bool> hasMnemonics() {
-    return SecureStorage.get(SecureStorageItem.mnemonics)
-        .then((res) => res != null);
+  Future<bool> hasMnemonics() {
+    return get(SecureStorageItem.mnemonics).then((res) => res != null);
   }
 }

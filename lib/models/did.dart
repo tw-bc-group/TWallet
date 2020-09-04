@@ -1,4 +1,4 @@
-import 'package:tw_wallet_ui/store/env_store.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:web3dart/credentials.dart';
 
 class DID {
@@ -11,7 +11,7 @@ class DID {
       '${toString().substring(0, 10)}*${toString().substring(44)}';
 
   static String _withoutPrefixTag(String original) {
-    return original.substring(globalEnv().didPrefix.length);
+    return original.substring(Application.globalEnv.didPrefix.length);
   }
 
   factory DID.fromEthAddress(EthereumAddress ethAddress) {
@@ -19,16 +19,16 @@ class DID {
   }
 
   factory DID.parse(String did) {
-    if (did.startsWith(globalEnv().didPrefix)) {
+    if (did.startsWith(Application.globalEnv.didPrefix)) {
       return DID(EthereumAddress.fromHex('0x${_withoutPrefixTag(did)}'));
     } else {
-      throw ArgumentError.value(
-          did, 'strParse', 'DID must be start with ${globalEnv().didPrefix}');
+      throw ArgumentError.value(did, 'strParse',
+          'DID must be start with ${Application.globalEnv.didPrefix}');
     }
   }
 
   @override
   String toString() {
-    return '${globalEnv().didPrefix}${ethAddress.hexEip55.substring(2)}';
+    return '${Application.globalEnv.didPrefix}${ethAddress.hexEip55.substring(2)}';
   }
 }

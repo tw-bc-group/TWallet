@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 void showErrorDialog(DioError err) {
@@ -54,11 +54,10 @@ void showErrorDialog(DioError err) {
 Dio _initDio() {
   final LoadingInterceptor _loadingInterceptor = Get.find();
   final LogInterceptor _logInterceptor = Get.find();
-  print(_loadingInterceptor);
   final Dio _dio = Dio()
     ..options = BaseOptions(
-      baseUrl: globalEnv().apiGatewayBaseUrl,
-      connectTimeout: globalEnv().apiGatewayConnectTimeout,
+      baseUrl: Application.globalEnv.apiGatewayBaseUrl,
+      connectTimeout: Application.globalEnv.apiGatewayConnectTimeout,
     )
     ..interceptors.add(_loadingInterceptor);
 

@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:tw_wallet_ui/models/env.dart';
 
 enum ENV {
   production,
@@ -8,6 +9,10 @@ enum ENV {
 class Application {
   /// 通过Application设计环境变量
   static ENV env = ENV.dev;
+
+  static Env globalEnv = Env.fromDefault();
+
+  static String appName;
 
   static Router router;
 

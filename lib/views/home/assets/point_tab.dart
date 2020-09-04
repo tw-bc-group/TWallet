@@ -4,10 +4,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
 import 'home_list_item.dart';
@@ -18,7 +18,7 @@ Widget _pointItem({@required String point, BuildContext context}) {
       onTap: () => Navigator.pushNamed(context, Routes.txList),
       child: HomeListItem(
         leading: Text(
-          globalEnv().tokenName,
+          Application.globalEnv.tokenName,
           style: const TextStyle(
             fontFamily: 'OpenSans',
             color: Color(0xff111111),

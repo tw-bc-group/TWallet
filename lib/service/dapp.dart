@@ -228,8 +228,9 @@ class DAppService {
         encrypt_tool.Key.fromUtf8('${pin}abcdefghijklmnopqrstuvwxyz');
     final encrypt = encrypt_tool.Encrypter(
         encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc));
+    final SecureStorage _secureStorage = Get.find();
     final String encryptedString =
-        await SecureStorage.get(SecureStorageItem.masterKey);
+        await _secureStorage.get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
         encrypt_tool.Encrypted.fromBase64(encryptedString);
     try {
