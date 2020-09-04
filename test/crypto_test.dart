@@ -8,7 +8,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:more/tuple.dart';
 import 'package:random_string/random_string.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
+import 'package:tw_wallet_ui/service/rlp.dart';
 import 'package:web3dart/crypto.dart';
+import 'package:web3dart/src/utils/rlp.dart' as rlp;
 
 void main() {
   group('aes test', () {
@@ -41,26 +43,40 @@ void main() {
   });
 
   group('ecdsa test', () {
-    test(
-        'when use private key signed something, should verify valid and recover correct address',
-        () {
-      final BIP32 bip32 =
-          BlockChainService.generateHDWallet('1 2 3 4 5 6 7 8 9 10 11 12');
-      final Tuple2<String, String> keyPair =
-          BlockChainService.generateKeys(bip32);
+    final BIP32 bip32 =
+        BlockChainService.generateHDWallet('1 2 3 4 5 6 7 8 9 10 11 12');
+    final Tuple2<String, String> keyPair =
+        BlockChainService.generateKeys(bip32);
 
-      final publicKey =
-          decompressPublicKey(hexToBytes(keyPair.first)).sublist(1);
+    final publicKey = decompressPublicKey(hexToBytes(keyPair.first)).sublist(1);
 
-      final Uint8List messageHash =
-          keccak256(Uint8List.fromList(utf8.encode('hello world')));
+    final Uint8List messageHash =
+        keccak256(Uint8List.fromList(utf8.encode('hello world')));
 
-      final MsgSignature msgSignature =
-          sign(messageHash, hexToBytes(keyPair.second));
+    final MsgSignature msgSignature =
+        sign(messageHash, hexToBytes(keyPair.second));
 
+    final hexSignature = bytesToHex(
+        rlp.encode([msgSignature.v, msgSignature.r, msgSignature.s]));
+
+    test('when use private key signed something, should verify success', () {
       expect(isValidSignature(messageHash, msgSignature, publicKey), true);
+    });
 
+    test(
+        'when use private key signed something, should recovery the public key success',
+        () {
       expect(ecRecover(messageHash, msgSignature), publicKey);
+    });
+
+    test('when use rlp decode the signature, should return correct r, s v', () {
+      final List<Uint8List> decodeRlp = decode(hexToBytes(hexSignature));
+      final BigInt v = bytesToInt(decodeRlp[0]);
+      expect(v.toInt(), msgSignature.v);
+      final BigInt r = bytesToInt(decodeRlp[1]);
+      expect(r, msgSignature.r);
+      final BigInt s = bytesToInt(decodeRlp[2]);
+      expect(s, msgSignature.s);
     });
   });
 }
