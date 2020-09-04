@@ -70,6 +70,8 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..add(AmountSerializer())
       ..add(Iso8601DateTimeSerializer())
       ..addBuilderFactory(const FullType(Dcep), () => DcepBuilder())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(Dcep)]),
+          () => ListBuilder<Dcep>())
       ..addBuilderFactory(const FullType(Command), () => CommandBuilder())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Transaction)]),
           () => ListBuilder<Transaction>())
@@ -77,6 +79,11 @@ final Serializers serializers = (_$serializers.toBuilder()
           () => ApiResponseBuilder<Contract>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Dcep)]),
           () => ApiResponseBuilder<Dcep>())
+      ..addBuilderFactory(
+          const FullType(ApiResponse, [
+            FullType(BuiltList, [FullType(Dcep)])
+          ]),
+          () => ApiResponseBuilder<BuiltList<Dcep>>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Transaction)]),
           () => ApiResponseBuilder<Transaction>())
       ..addBuilderFactory(

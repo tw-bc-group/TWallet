@@ -24,6 +24,14 @@ class ApiProvider {
             as Dcep)));
   }
 
+  Future<Optional<List<Dcep>>> fetchTokenV2(String address) {
+    return _httpClient.get('/v2/token?address=$address').then((res) =>
+        Future.value(
+            res.map((response) => ApiResponse.fromJson(response.data, const [
+                  FullType(BuiltList, [FullType(Dcep)])
+                ]).result.toList() as List<Dcep>)));
+  }
+
   Future<Optional<TwBalance>> fetchPointV1(
       {@required String address, bool withLoading}) async {
     return _httpClient

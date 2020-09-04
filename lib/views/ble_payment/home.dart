@@ -6,6 +6,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
@@ -89,11 +90,10 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   Widget _buildMainPage(DecentralizedIdentity identity) {
     return Container(
       color: WalletColor.white,
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Obx(() => DropdownButton(
                   value: _redeemType.value,
                   items: DcepType.values
@@ -112,8 +112,25 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   .then((_) => showDialogSimple(DialogType.success, '兑换成功')),
             ),
           ]),
-        )
-      ]),
+          Expanded(
+            child: Obx(() => ListView(
+                  children: Get.find<DcepStore>()
+                      .items
+                      .map((item) =>
+                          Center(child: Text(item.type.humanReadable)))
+                      .toList(),
+                )),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(child: WalletTheme.button(text: '收款', onPressed: () {})),
+              Container(width: 20),
+              Expanded(child: WalletTheme.button(text: '付款', onPressed: () {}))
+            ],
+          )
+        ]),
+      ),
     );
   }
 

@@ -64,11 +64,17 @@ abstract class IdentityStoreBase with Store {
   IdentityStoreBase(this.identities, this.healthCertLastSelectIndex,
       String lastSelectedIdentityId) {
     _streamController = StreamController();
+    _selectStreamController = StreamController();
+
     fetchBalanceFutureStream = ObservableStream(_streamController.stream,
         initialValue: ObservableFuture(Future.value()));
+
+    selectedIdentityStream = ObservableStream(_selectStreamController.stream);
+
     _identitiesSort();
     selectedIdentity =
-        Optional.ofNullable(getIdentityById(lastSelectedIdentityId));
+        Optional.ofNullable(getIdentityById(lastSelectedIdentityId))
+          ..ifPresent((identity) => _selectStreamController.add(identity));
   }
 
   DecentralizedIdentity getIdentityById(String id) {
@@ -96,6 +102,9 @@ abstract class IdentityStoreBase with Store {
   StreamController<ObservableFuture<TwBalance>> _streamController;
 
   ObservableStream<ObservableFuture<TwBalance>> fetchBalanceFutureStream;
+
+  StreamController<DecentralizedIdentity> _selectStreamController;
+  ObservableStream<DecentralizedIdentity> selectedIdentityStream;
 
   @observable
   Optional<DecentralizedIdentity> selectedIdentity;
@@ -139,7 +148,8 @@ abstract class IdentityStoreBase with Store {
   }
 
   Future<void> dispose() async {
-    return _streamController.close();
+    await _streamController.close();
+    await _selectStreamController.close();
   }
 
   Future<int> restore() async {
@@ -207,12 +217,19 @@ abstract class IdentityStoreBase with Store {
       (_identity) => _identity.id == identity.id,
     );
 
+    final lastSelectedIdentity = selectedIdentity;
+
     if (index >= 0) {
       selectedIdentity = Optional.ofNullable(identities[index]);
       await _db.setItem(
           'lastSelectedIdentityId', selectedIdentity.value.toJson());
     } else {
       throw Exception('Identity selected not exist.');
+    }
+
+    if (lastSelectedIdentity != selectedIdentity) {
+      selectedIdentity
+          .ifPresent((identity) => _selectStreamController.add(identity));
     }
   }
 

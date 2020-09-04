@@ -11,7 +11,6 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
-import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
@@ -33,6 +32,7 @@ abstract class DecentralizedIdentity extends Object
   AccountInfo get accountInfo;
 
   HealthInfo get healthInfo;
+
 
   @nullable
   String get extra;
@@ -80,9 +80,7 @@ abstract class DecentralizedIdentity extends Object
     return Get.find<ApiProvider>()
         .redeemDcepV2(address, type)
         .then((res) => res.ifPresent((dcep) {
-              if (dcep.owner == address) {
-                Get.find<DcepStore>().addOne(dcep);
-              }
+              if (dcep.owner == address) {}
             }));
   }
 

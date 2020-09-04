@@ -74,6 +74,14 @@ class Contract {
     );
   }
 
+  void eventStream(String eventName, Function(List<dynamic>) onListen) {
+    final listenedEvent = contract.event(eventName);
+    web3Client
+        .events(FilterOptions.events(
+            contract: contract, event: contract.event(eventName)))
+        .listen((event) => onListen(listenedEvent.decodeResults(event.topics, event.data)));
+  }
+
   Future<List<dynamic>> callFunction(
       String publicKey, String functionName, List<dynamic> parameters) async {
     return web3Client

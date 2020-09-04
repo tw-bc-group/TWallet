@@ -1,37 +1,45 @@
 import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
+import 'package:tw_wallet_ui/service/contract.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:web3dart/web3dart.dart';
 
 const dcepPrefix = 'dcep';
 
 class DcepStore {
-  static final _db = JsonStore();
+  String owner;
+  final RxList<Dcep> items = RxList([]);
 
-  final RxList<Dcep> items;
+  static final JsonStore _db = JsonStore();
 
-  const DcepStore(this.items);
+  DcepStore() {
+    Get.find<IdentityStore>()
+        .selectedIdentityStream
+        .listen((identity) => _updateOwner(identity.address));
 
-  static Future<DcepStore> init() async {
-    final List<Dcep> items =
-        Optional.ofNullable(await _db.getListLike('$dcepPrefix: %'))
-            .map((listItems) => listItems.map((item) {
-                  return Dcep.fromJson(item);
-                }).toList())
-            .orElse([]);
-
-    return DcepStore(RxList(items));
+    Get.find<ContractService>().nftTokenContract.eventStream('TransferSingle',
+        (results) {
+      final EthereumAddress from = results[1] as EthereumAddress;
+      final EthereumAddress to = results[2] as EthereumAddress;
+      if (from.toString().toLowerCase() == owner ||
+          to.toString().toLowerCase() == owner) {
+        Get.find<ApiProvider>().fetchTokenV2(owner).then((res) {
+          print('res: $res');
+          res.ifPresent((list) => items.value = list);
+        });
+      }
+    });
   }
 
-  List<Dcep> getItems(String owner) {
-    return items.where((item) => item.owner == owner).toList();
-  }
-
-  void addOne(Dcep dcep) {
-    _db.setItem('$dcepPrefix: $dcep.owner: $dcep.sn', dcep.toJson());
-  }
-
-  void deleteOne(String owner, String sn) {
-    _db.deleteItem('$dcepPrefix: $owner: $sn');
+  void _updateOwner(String newOwner) {
+    owner = newOwner.toLowerCase();
+    _db.getListLike('$dcepPrefix: $owner %').then((list) {
+      print('updateOwner: $owner');
+      if (null != list) {
+        items.value = list.map((item) => Dcep.fromJson(item)).toList();
+      }
+    });
   }
 }

@@ -167,11 +167,11 @@ class _IdentityPageState extends State<IdentityPage> {
                 padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
                 child: ListView(
                   children: _store.identitiesWithoutDapp
-                          .where((identity) => identity.profileInfo.name
-                              .contains(_store.searchName))
-                          .map((identity) => _listItem(identity))
-                          .toList() +
-                      [buildNewIdentityCard()],
+                      .where((identity) =>
+                          identity.profileInfo.name.contains(_store.searchName))
+                      .map((identity) => _listItem(identity))
+                      .toList()
+                        ..add(buildNewIdentityCard()),
                 ));
           }))
         ]));
