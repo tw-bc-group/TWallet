@@ -51,7 +51,7 @@ class Contract {
             if (null != contract.decimal) {
               builder.tokenPrecision = contract.decimal;
             }
-            Application.env = builder.build() as ENV;
+            Application.globalEnv = builder.build();
           });
         }
       });
