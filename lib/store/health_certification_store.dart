@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:optional/optional.dart';
@@ -11,7 +12,7 @@ class HealthCertificationStore = _HealthCertificationStore
     with _$HealthCertificationStore;
 
 abstract class _HealthCertificationStore with Store {
-  final _apiProvider = ApiProvider();
+  final ApiProvider _apiProvider = Get.find();
   final _db = JsonStore(dbName: "HealthCertificationToken");
 
   @observable
