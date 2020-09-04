@@ -49,7 +49,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
         store.clearError();
         _dialog.dismiss();
         if (success as bool) {
-          showDialogSample(DialogType.success, '创建成功')
+          showDialogSimple(DialogType.success, '创建成功')
               .then((_) => Application.router.pop(context));
         }
         isAdding = false;

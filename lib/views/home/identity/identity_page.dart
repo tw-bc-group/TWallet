@@ -62,7 +62,7 @@ class _IdentityPageState extends State<IdentityPage> {
                       return Clipboard.setData(
                               ClipboardData(text: identity.did.toString()))
                           .then(
-                              (_) => showDialogSample(DialogType.none, '复制成功'));
+                              (_) => showDialogSimple(DialogType.none, '复制成功'));
                     },
                     child: Text(
                       identity.did.toString(),

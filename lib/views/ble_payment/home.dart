@@ -109,7 +109,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
               height: 28,
               onPressed: () => identity
                   .redeemDcep(_redeemType.value)
-                  .then((_) => showDialogSample(DialogType.success, '兑换成功')),
+                  .then((_) => showDialogSimple(DialogType.success, '兑换成功')),
             ),
           ]),
         )

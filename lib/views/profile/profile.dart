@@ -73,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                 onLongPress: () async {
                   return Clipboard.setData(
                           ClipboardData(text: identity.did.toString()))
-                      .then((_) => showDialogSample(DialogType.none, '复制成功'));
+                      .then((_) => showDialogSimple(DialogType.none, '复制成功'));
                 },
                 child: ProfileRowWidget(
                     assetIcon: 'assets/icons/eye.svg',
