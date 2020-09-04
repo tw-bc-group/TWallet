@@ -1,4 +1,5 @@
 import 'package:encrypt/encrypt.dart';
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:random_string/random_string.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -37,7 +38,7 @@ abstract class _InputPinStore with Store {
     final Key aesKey = Key.fromUtf8('${pin1}abcdefghijklmnopqrstuvwxyz');
     final encrypt = Encrypter(AES(aesKey, mode: AESMode.cbc));
 
-    return SecureStorage.set(SecureStorageItem.masterKey,
+    return Get.find<SecureStorage>().set(SecureStorageItem.masterKey,
         encrypt.encrypt(randomString(masterKeyLength), iv: iv).base64);
   }
 }

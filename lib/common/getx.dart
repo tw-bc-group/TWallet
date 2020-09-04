@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
@@ -12,6 +13,7 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 
 Future<void> initGlobalDependencies() async {
   await Get.putAsync(() => EnvStore.init());
+  Get.put(SecureStorage());
   Get.put(ProgressDialog());
   Get.put(LoadingInterceptor());
   Get.put(LogInterceptor(requestBody: true, responseBody: true));

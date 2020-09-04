@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/getx.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -25,7 +26,7 @@ class _SplashAppState extends State<SplashScreen> {
 
   Future<String> _initialRoute() async {
     await DeviceInfo.initialDeviceInfo();
-    if (await SecureStorage.hasMnemonics()) {
+    if (await Get.find<SecureStorage>().hasMnemonics()) {
       return Routes.home;
     } else {
       return Routes.inputPin;

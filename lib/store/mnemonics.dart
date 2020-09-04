@@ -1,4 +1,5 @@
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -57,7 +58,8 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
 
   static Future<MnemonicsStore> init() async {
     Tuple2<int, String> value;
-    final String saved = await SecureStorage.get(SecureStorageItem.mnemonics);
+    final SecureStorage _secureStorage = Get.find();
+    final String saved = await _secureStorage.get(SecureStorageItem.mnemonics);
 
     if (null != saved) {
       final List<String> splits = saved.split(saveSplitTag);
@@ -95,7 +97,8 @@ abstract class MnemonicsBase with Store {
       value = Tuple2(newIndex, value.second);
     }
 
-    await SecureStorage.set(
+    final SecureStorage _secureStorage = Get.find();
+    await _secureStorage.set(
         SecureStorageItem.mnemonics, '$index$saveSplitTag$mnemonics');
   }
 }
