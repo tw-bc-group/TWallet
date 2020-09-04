@@ -3,21 +3,22 @@ import 'package:json_store/json_store.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 
-const dcepStoreName = 'dcep_store';
+const dcepPrefix = 'dcep';
 
 class DcepStore {
-  static final _db = JsonStore(dbName: dcepStoreName);
+  static final _db = JsonStore();
 
   final RxList<Dcep> items;
 
   const DcepStore(this.items);
 
   static Future<DcepStore> init() async {
-    final List<Dcep> items = Optional.ofNullable(await _db.getListLike('%'))
-        .map((listItems) => listItems.map((item) {
-              return Dcep.fromJson(item);
-            }).toList())
-        .orElse([]);
+    final List<Dcep> items =
+        Optional.ofNullable(await _db.getListLike('$dcepPrefix: %'))
+            .map((listItems) => listItems.map((item) {
+                  return Dcep.fromJson(item);
+                }).toList())
+            .orElse([]);
 
     return DcepStore(RxList(items));
   }
@@ -27,10 +28,10 @@ class DcepStore {
   }
 
   void addOne(Dcep dcep) {
-    _db.setItem('$dcep.owner: $dcep.sn', dcep.toJson());
+    _db.setItem('$dcepPrefix: $dcep.owner: $dcep.sn', dcep.toJson());
   }
 
   void deleteOne(String owner, String sn) {
-    _db.deleteItem('$owner: $sn');
+    _db.deleteItem('$dcepPrefix: $owner: $sn');
   }
 }

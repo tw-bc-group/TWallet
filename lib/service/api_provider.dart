@@ -19,8 +19,9 @@ class ApiProvider {
     return _httpClient.post('/v2/token/mint', {
       'address': address,
       'moneyType': type.toString()
-    }).then((res) =>
-        Future.value(res.map((response) => Dcep.fromJson(response.data))));
+    }).then((res) => Future.value(res.map((response) =>
+        ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
+            as Dcep)));
   }
 
   Future<Optional<TwBalance>> fetchPointV1(

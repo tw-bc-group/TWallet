@@ -43,6 +43,8 @@ class DcepType extends EnumClass {
         return 5000;
       case DcepType.rmb010:
         return 1000;
+      case DcepType.rmb005:
+        return 500;
       case DcepType.rmb001:
         return 100;
       case DcepType.rmb000_50:
@@ -52,6 +54,32 @@ class DcepType extends EnumClass {
       default:
         return 0;
     }
+  }
+
+  String get humanReadable {
+    switch (this) {
+      case DcepType.rmb100:
+        return '100元';
+      case DcepType.rmb050:
+        return '50元';
+      case DcepType.rmb010:
+        return '10元';
+      case DcepType.rmb005:
+        return '5元';
+      case DcepType.rmb001:
+        return '1元';
+      case DcepType.rmb000_50:
+        return '5角';
+      case DcepType.rmb000_10:
+        return '1角';
+      default:
+        return '0元';
+    }
+  }
+
+  @override
+  String toString() {
+    return (serializers.serialize(this) as Map<String, dynamic>)[''] as String;
   }
 }
 

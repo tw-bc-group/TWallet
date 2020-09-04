@@ -15,6 +15,8 @@ void main() {
       };
 
       expect(Dcep.fromJson(serialized), isA<Dcep>());
+
+      print(DcepType.rmb100.toString());
     });
   });
 }

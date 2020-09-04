@@ -75,6 +75,8 @@ final Serializers serializers = (_$serializers.toBuilder()
           () => ListBuilder<Transaction>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Contract)]),
           () => ApiResponseBuilder<Contract>())
+      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Dcep)]),
+          () => ApiResponseBuilder<Dcep>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Transaction)]),
           () => ApiResponseBuilder<Transaction>())
       ..addBuilderFactory(

@@ -78,7 +78,7 @@ class HomeState extends State<Home> {
       HomePage(homeStore),
       DiscoveryPage(homeStore),
       IdentityPage(),
-      MyPage()
+      MyPage(homeStore)
     ];
   }
 

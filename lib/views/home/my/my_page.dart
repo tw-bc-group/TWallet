@@ -14,8 +14,8 @@ import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
-import 'package:tw_wallet_ui/views/ble_payment/payee/payee_confirm.dart';
-import 'package:tw_wallet_ui/views/ble_payment/payer/payee_list.dart';
+import 'package:tw_wallet_ui/views/ble_payment/home.dart';
+import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
   final ProgressDialog _dialog = Get.find();
@@ -43,6 +43,10 @@ Future<void> clearAllDappStorage(
 }
 
 class MyPage extends StatelessWidget {
+  final HomeStore homeStore;
+
+  const MyPage(this.homeStore);
+
   Widget _buildButton(String text, VoidCallback onTap) {
     final _screenUtil = ScreenUtil();
 
@@ -103,8 +107,8 @@ class MyPage extends StatelessWidget {
                 padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
                 child: ListView(
                   children: <Widget>[
-                    _buildButton('测试收款', () => Get.to(PayeeConfirm())),
-                    _buildButton('测试付款', () => Get.to(PayeeList())),
+                    _buildButton(
+                        '离线支付', () => Get.to(BlePaymentHome(homeStore))),
                     _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(
