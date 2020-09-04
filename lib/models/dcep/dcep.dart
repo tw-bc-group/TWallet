@@ -8,25 +8,25 @@ part 'dcep.g.dart';
 class DcepType extends EnumClass {
   static Serializer<DcepType> get serializer => _$dcepTypeSerializer;
 
-  @BuiltValueEnumConst(wireName: '100_00')
+  @BuiltValueEnumConst(wireName: 'RMB100_00')
   static const DcepType rmb100 = _$rmb100;
 
-  @BuiltValueEnumConst(wireName: '050_00')
+  @BuiltValueEnumConst(wireName: 'RMB050_00')
   static const DcepType rmb050 = _$rmb050;
 
-  @BuiltValueEnumConst(wireName: '010_00')
+  @BuiltValueEnumConst(wireName: 'RMB010_00')
   static const DcepType rmb010 = _$rmb010;
 
-  @BuiltValueEnumConst(wireName: '005_00')
+  @BuiltValueEnumConst(wireName: 'RMB005_00')
   static const DcepType rmb005 = _$rmb005;
 
-  @BuiltValueEnumConst(wireName: '001_00')
+  @BuiltValueEnumConst(wireName: 'RMB001_00')
   static const DcepType rmb001 = _$rmb001;
 
-  @BuiltValueEnumConst(wireName: '000_50')
+  @BuiltValueEnumConst(wireName: 'RMB000_50')
   static const DcepType rmb000_50 = _$rmb000_50;
 
-  @BuiltValueEnumConst(wireName: '000_10')
+  @BuiltValueEnumConst(wireName: 'RMB000_10')
   static const DcepType rmb000_10 = _$rmb000_10;
 
   static BuiltSet<DcepType> get values => _$values;

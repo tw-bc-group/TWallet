@@ -50,22 +50,22 @@ Serializer<Dcep> _$dcepSerializer = new _$DcepSerializer();
 
 class _$DcepTypeSerializer implements PrimitiveSerializer<DcepType> {
   static const Map<String, Object> _toWire = const <String, Object>{
-    'rmb100': '100_00',
-    'rmb050': '050_00',
-    'rmb010': '010_00',
-    'rmb005': '005_00',
-    'rmb001': '001_00',
-    'rmb000_50': '000_50',
-    'rmb000_10': '000_10',
+    'rmb100': 'RMB100_00',
+    'rmb050': 'RMB050_00',
+    'rmb010': 'RMB010_00',
+    'rmb005': 'RMB005_00',
+    'rmb001': 'RMB001_00',
+    'rmb000_50': 'RMB000_50',
+    'rmb000_10': 'RMB000_10',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
-    '100_00': 'rmb100',
-    '050_00': 'rmb050',
-    '010_00': 'rmb010',
-    '005_00': 'rmb005',
-    '001_00': 'rmb001',
-    '000_50': 'rmb000_50',
-    '000_10': 'rmb000_10',
+    'RMB100_00': 'rmb100',
+    'RMB050_00': 'rmb050',
+    'RMB010_00': 'rmb010',
+    'RMB005_00': 'rmb005',
+    'RMB001_00': 'rmb001',
+    'RMB000_50': 'rmb000_50',
+    'RMB000_10': 'rmb000_10',
   };
 
   @override
