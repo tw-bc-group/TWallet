@@ -10,7 +10,6 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 
 import 'input_pin_store.dart';
 
@@ -79,7 +78,7 @@ class PinInputWidget extends StatelessWidget {
                             )),
                             padding: const EdgeInsets.only(top: 94, bottom: 85),
                             child: Text(
-                              "欢迎来到 ${appName().replaceAll('\n', '')}",
+                              "欢迎来到 ${Application.appName.replaceAll('\n', '')}",
                               style: WalletFont.font_22(
                                   textStyle:
                                       TextStyle(color: WalletColor.white)),

@@ -1,26 +1,26 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/util.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 
 class Amount {
   const Amount(this.value);
   final Decimal value;
 
   Decimal get original =>
-      value * Decimal.fromInt(10).pow(globalEnv().tokenPrecision);
-  String get humanReadable =>
-      Util.formatDecimal(value, globalEnv().tokenHumanReadablePrecision);
+      value * Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision);
+  String get humanReadable => Util.formatDecimal(
+      value, Application.globalEnv.tokenHumanReadablePrecision);
 
   String get humanReadableWithSymbol =>
-      '${globalEnv().tokenSymbol}$humanReadable';
+      '${Application.globalEnv.tokenSymbol}$humanReadable';
 
   String get humanReadableWithSign {
     if (value.isNegative) {
-      return '-${globalEnv().tokenSymbol}${humanReadable.substring(1)}';
+      return '-${Application.globalEnv.tokenSymbol}${humanReadable.substring(1)}';
     }
-    return '+${globalEnv().tokenSymbol}$humanReadable';
+    return '+${Application.globalEnv.tokenSymbol}$humanReadable';
   }
 
   @override
@@ -30,7 +30,7 @@ class Amount {
 
   factory Amount.parse(String value) {
     return Amount(Decimal.parse(value) /
-        Decimal.fromInt(10).pow(globalEnv().tokenPrecision));
+        Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision));
   }
 
   static Amount zero = Amount(Decimal.zero);

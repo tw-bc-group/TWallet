@@ -2,10 +2,10 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/confirm_row.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/widgets/input_pin.dart';
@@ -43,7 +43,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         return Navigator.pushNamed(context, Routes.txListDetails,
             arguments: TxListDetailsPageArgs(
-              amount: '${globalEnv().tokenSymbol}${widget.amount}',
+              amount: '${Application.globalEnv.tokenSymbol}${widget.amount}',
               time: parseDate(DateTime.now()),
               status: TxStatus.transferring,
               fromAddress: identityStore.selectedIdentity.value.address,
@@ -66,7 +66,8 @@ class TransferConfirmState extends State<TransferConfirmPage> {
           child: Column(children: [
             ConfirmRowWidget(
               title: '金额',
-              contentLeft: '${globalEnv().tokenSymbol}${widget.amount}',
+              contentLeft:
+                  '${Application.globalEnv.tokenSymbol}${widget.amount}',
               contentRight: widget.currency,
             ),
             ConfirmRowWidget(

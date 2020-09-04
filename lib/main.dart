@@ -8,7 +8,6 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/views/splash_screen/splash_screen.dart';
 
 final SentryClient sentry = SentryClient(
@@ -65,7 +64,7 @@ class TWallet extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: appName(),
+      title: Application.appName,
       theme: ThemeData(
           primaryColor: WalletColor.white,
           textTheme: TextTheme(

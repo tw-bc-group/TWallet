@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/did.dart';
-import 'package:tw_wallet_ui/store/env_store.dart';
 
 part 'transfer_store.g.dart';
 
@@ -62,8 +62,9 @@ abstract class _TransferStore with Store {
         error.amount = '金额超过您目前的余额';
       } else if (indexOfDot >= 0 &&
           value.length - indexOfDot >
-              globalEnv().tokenHumanReadablePrecision + 1) {
-        error.amount = '金额仅支持 ${globalEnv().tokenHumanReadablePrecision} 位小数';
+              Application.globalEnv.tokenHumanReadablePrecision + 1) {
+        error.amount =
+            '金额仅支持 ${Application.globalEnv.tokenHumanReadablePrecision} 位小数';
       } else if (value.endsWith('.')) {
         throw Error();
       } else {
