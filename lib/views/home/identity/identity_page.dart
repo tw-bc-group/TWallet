@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -20,7 +21,7 @@ class IdentityPage extends StatefulWidget {
 }
 
 class _IdentityPageState extends State<IdentityPage> {
-  final IdentityStore _store = getIt<IdentityStore>();
+  final IdentityStore _store = Get.find<IdentityStore>();
 
   Widget _listItem(DecentralizedIdentity identity) {
     return Container(

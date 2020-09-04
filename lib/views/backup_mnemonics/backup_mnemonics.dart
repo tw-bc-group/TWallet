@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -15,7 +15,7 @@ class BackupMnemonicsPage extends StatefulWidget {
 }
 
 class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
-  final MnemonicsStore store = getIt<MnemonicsStore>();
+  final MnemonicsStore store = Get.find();
 
   @override
   void initState() {

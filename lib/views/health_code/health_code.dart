@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
@@ -29,7 +29,7 @@ class HealthCodePage extends StatefulWidget {
 }
 
 class HealthCodeState extends State<HealthCodePage> {
-  final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
+  final HealthCertificationStore certStore = Get.find();
   HealthCodeStore _certStore;
 
   DecentralizedIdentity identity;
@@ -43,7 +43,7 @@ class HealthCodeState extends State<HealthCodePage> {
   @override
   void initState() {
     super.initState();
-    identity = getIt<IdentityStore>().getIdentityById(widget.id);
+    identity = Get.find<IdentityStore>().getIdentityById(widget.id);
     _certStore = HealthCodeStore(identity.did, 60, widget.firstRefresh);
   }
 

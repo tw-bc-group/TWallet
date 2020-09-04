@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
 
 class LoadingInterceptor extends InterceptorsWrapper {
-  final ProgressDialog _dialog = getIt<ProgressDialog>();
+  final ProgressDialog _dialog = Get.find();
 
   @override
   Future onRequest(RequestOptions options) {

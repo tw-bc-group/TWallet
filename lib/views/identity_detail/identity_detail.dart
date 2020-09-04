@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
@@ -13,8 +13,8 @@ import 'package:tw_wallet_ui/views/identity_detail/widgets/identity_basic_info.d
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class IdentityDetailPage extends StatelessWidget {
-  final IdentityStore identityStore = getIt<IdentityStore>();
-  final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
+  final IdentityStore identityStore = Get.find();
+  final HealthCertificationStore certStore = Get.find();
   final String id;
 
   IdentityDetailPage({this.id});

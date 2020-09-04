@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -50,13 +49,12 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
         withBottomBtn: true,
         btnOnPressed: _isValidInput
             ? () async {
-                final ProgressDialog _progressDialog = getIt<ProgressDialog>();
+                final ProgressDialog _progressDialog = Get.find();
                 _progressDialog.show();
                 try {
-                  final MnemonicsStore _mnemonicsStore =
-                      getIt<MnemonicsStore>();
+                  final MnemonicsStore _mnemonicsStore = Get.find();
                   _mnemonicsStore.brandNew(mnemonics: _inputWords.join(' '));
-                  getIt<IdentityStore>().restore().then((maxIndex) {
+                  Get.find<IdentityStore>().restore().then((maxIndex) {
                     _mnemonicsStore.save(newIndex: maxIndex);
                   }).then((_) {
                     _progressDialog.dismiss();

@@ -1,6 +1,6 @@
+import 'package:get/get.dart';
 import 'package:http/http.dart' show Client;
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
@@ -40,7 +40,7 @@ class Contract {
       Web3Client(globalEnv().web3RpcGatewayUrl, Client());
 
   static Future<Optional<Contract>> fromApi(String contractName) async {
-    return getIt<ApiProvider>()
+    return Get.find<ApiProvider>()
         .fetchContractAbiV1(contractName: contractName)
         .then((res) {
       res.ifPresent((contract) {
@@ -53,7 +53,7 @@ class Contract {
             if (null != contract.decimal) {
               builder.tokenPrecision = contract.decimal;
             }
-            getIt<EnvStore>().env = builder.build();
+            Get.find<EnvStore>().env = builder.build();
           });
         }
       });

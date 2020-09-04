@@ -61,7 +61,7 @@ dependencies:
   convert: ^2.1.1
   package_info: ^0.4.0+18
   device_info: ^0.4.2+4
-  get: ^3.3.0
+  get: ^3.8.0
   intl: ^0.16.1
   webview_flutter: ^0.3.22+1
   sentry:

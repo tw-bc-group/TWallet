@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/did.dart';
@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
-import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
@@ -61,8 +61,8 @@ abstract class DecentralizedIdentity extends Object
         ..update(updates));
 
   Future<bool> register() async {
-    return getIt<ContractService>().identitiesContract.sendTransaction(
-        getIt<MnemonicsStore>().firstPrivateKey, 'registerIdentity', [
+    return Get.find<ContractService>().identitiesContract.sendTransaction(
+        Get.find<MnemonicsStore>().firstPrivateKey, 'registerIdentity', [
       profileInfo.name,
       did.toString(),
       dappId,
@@ -70,24 +70,24 @@ abstract class DecentralizedIdentity extends Object
       extra,
     ]).then((success) {
       if (success) {
-        getIt<IdentityStore>().addIdentity(identity: this);
+        Get.find<IdentityStore>().addIdentity(identity: this);
       }
       return success;
     });
   }
 
   Future<void> redeemDcep(DcepType type) {
-    return getIt<ApiProvider>()
+    return Get.find<ApiProvider>()
         .redeemDcepV2(address, type)
         .then((res) => res.ifPresent((dcep) {
               if (dcep.owner == address) {
-                getIt<DcepStore>().addOne(dcep);
+                Get.find<DcepStore>().addOne(dcep);
               }
             }));
   }
 
   Future<String> signOfflinePayment(BigInt bill, String toAddress) {
-    return getIt<ContractService>().nftTokenContract.signContractCall(
+    return Get.find<ContractService>().nftTokenContract.signContractCall(
         accountInfo.priKey, 'safeTransferFrom', [
       EthereumAddress.fromHex(address),
       EthereumAddress.fromHex(toAddress),
@@ -96,13 +96,13 @@ abstract class DecentralizedIdentity extends Object
   }
 
   Future<bool> transferPoint({String toAddress, Amount amount}) async {
-    return getIt<ContractService>()
+    return Get.find<ContractService>()
         .tokenContract
         .signContractCall(accountInfo.priKey, 'transfer', [
       EthereumAddress.fromHex(toAddress),
       BigInt.parse(amount.original.toString()),
     ]).then((signedRawTx) {
-      return getIt<ApiProvider>()
+      return Get.find<ApiProvider>()
           .transferPoint(address, accountInfo.pubKey, signedRawTx)
           .then((res) =>
               res.map((response) => response.statusCode == 200).orElse(false));

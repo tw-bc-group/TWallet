@@ -1,10 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 
 void main() {
-  getItInit(isTest: true);
-
   group('Amount', () {
     test('Amount human readable should be 1.00', () {
       expect(Amount.parse('100').humanReadable, '1.00');

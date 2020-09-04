@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 
@@ -29,7 +29,7 @@ abstract class HealthCertificationToken extends Object
   }
 
   Future<bool> verify() {
-    return getIt<ApiProvider>().verifyHealthCertificationToken(token).then(
+    return Get.find<ApiProvider>().verifyHealthCertificationToken(token).then(
         (res) =>
             res.map((response) => response.statusCode == 200).orElse(false));
   }

@@ -1,12 +1,9 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 void main() {
-  getItInit(isTest: true);
-
   group('TW Balance', () {
     test('Value should be 10000.00', () {
       final balance = TwBalance.fromJson({

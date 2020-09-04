@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -57,7 +56,8 @@ class PayeeConfirm extends StatelessWidget {
                 name: _payeeName.value,
                 amount: _payeeAmount.value,
                 //TODO:
-                address: getIt<IdentityStore>().selectedIdentity.value.address))
+                address:
+                    Get.find<IdentityStore>().selectedIdentity.value.address))
             : null,
         child: Container(
             color: WalletColor.white,

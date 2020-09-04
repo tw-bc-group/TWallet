@@ -2,8 +2,8 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -168,7 +168,7 @@ class TxListDetailsPage extends StatelessWidget {
       child: WalletTheme.button(
           text: '好的',
           onPressed: () {
-            getIt<IdentityStore>().fetchLatestPoint();
+            Get.find<IdentityStore>().fetchLatestPoint();
             Navigator.popUntil(
                 context,
                 (Route<dynamic> route) =>

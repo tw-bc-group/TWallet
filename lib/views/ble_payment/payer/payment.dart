@@ -5,7 +5,6 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:get/get.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -123,7 +122,7 @@ class _PaymentState extends State<Payment> {
     _amount.value = amount;
 
     if (await _confirmCompleter.future) {
-      return getIt<IdentityStore>()
+      return Get.find<IdentityStore>()
           .selectedIdentity
           .value
           .signOfflinePayment(BigInt.from(0x2222), toAddress)
@@ -154,7 +153,7 @@ class _PaymentState extends State<Payment> {
           res.ifPresent(
               (characteristics) => Session(
                       //TODO:
-                      getIt<IdentityStore>().selectedIdentity.value.address,
+                      Get.find<IdentityStore>().selectedIdentity.value.address,
                       characteristics.first,
                       characteristics.second)
                   .run(_onWaitSignPayment, _onStateUpdate),

@@ -2,9 +2,9 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -27,7 +27,7 @@ class TxListPage extends StatefulWidget {
 
 class _TxListPageState extends State<TxListPage> {
   final TxListStore store = TxListStore();
-  final IdentityStore iStore = getIt<IdentityStore>();
+  final IdentityStore iStore = Get.find();
 
   void _onTap(Transaction item) {
     final ie = _txType(item.fromAddress) == TxType.expense;

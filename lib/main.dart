@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sentry/sentry.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/env_store.dart';
 import 'package:tw_wallet_ui/views/splash_screen/splash_screen.dart';
@@ -65,28 +63,20 @@ class TWallet extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getIt.allReady(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: appName(),
-              theme: ThemeData(
-                  primaryColor: WalletColor.white,
-                  textTheme: TextTheme(
-                      bodyText2: WalletFont.font_14(
-                          textStyle: TextStyle(
-                              color: WalletColor.primary,
-                              fontWeight: FontWeight.w400))),
-                  disabledColor: Colors.grey,
-                  fontFamily: 'PingFangHK'),
-              initialRoute: initialRoute,
-              onGenerateRoute: Application.router.generator,
-            );
-          } else {
-            return Container(color: WalletTheme.mainBgColor);
-          }
-        });
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: appName(),
+      theme: ThemeData(
+          primaryColor: WalletColor.white,
+          textTheme: TextTheme(
+              bodyText2: WalletFont.font_14(
+                  textStyle: TextStyle(
+                      color: WalletColor.primary,
+                      fontWeight: FontWeight.w400))),
+          disabledColor: Colors.grey,
+          fontFamily: 'PingFangHK'),
+      initialRoute: initialRoute,
+      onGenerateRoute: Application.router.generator,
+    );
   }
 }

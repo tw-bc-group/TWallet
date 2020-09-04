@@ -7,7 +7,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -34,7 +33,7 @@ class TransferPageState extends State<TransferPage> {
   final GlobalKey<InputPinWidgetState> inputPinWidgetKey =
       GlobalKey<InputPinWidgetState>();
   final TransferStore _transferStore = TransferStore();
-  final IdentityStore iStore = getIt<IdentityStore>();
+  final IdentityStore iStore = Get.find();
   final TextEditingController _payeeAddressController = TextEditingController();
   YYDialog confirmDialogInstance;
   DecentralizedIdentity identity;
@@ -43,7 +42,7 @@ class TransferPageState extends State<TransferPage> {
   void initState() {
     super.initState();
     _transferStore.setupErrorDisposers();
-    identity = getIt<IdentityStore>().selectedIdentity.value;
+    identity = Get.find<IdentityStore>().selectedIdentity.value;
     _transferStore.payerDID = identity.did.toString();
     _transferStore.balance = identity.accountInfo.balance.humanReadable;
   }

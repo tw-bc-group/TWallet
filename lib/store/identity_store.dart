@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional_internal.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
-import 'package:tw_wallet_ui/service/smart_contract/contract.dart';
+import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
 
@@ -145,8 +145,8 @@ abstract class IdentityStoreBase with Store {
   Future<int> restore() async {
     int maxIndex = -1;
 
-    final MnemonicsStore _mnemonicsStore = getIt<MnemonicsStore>();
-    final List<dynamic> queryResult = await getIt<ContractService>()
+    final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
+    final List<dynamic> queryResult = await Get.find<ContractService>()
         .identitiesContract
         .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
 

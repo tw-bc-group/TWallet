@@ -1,24 +1,20 @@
+import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:package_info/package_info.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/models/env.dart';
 
 part 'env_store.g.dart';
 
-Env globalEnv() => getIt.get<EnvStore>().env;
-String appName() => getIt.get<EnvStore>().packageInfo?.appName ?? 'test-app';
+Env globalEnv() => Env.fromDefault();
+String appName() => Get.find<EnvStore>().packageInfo?.appName ?? 'test-app';
 
 class EnvStore extends _EnvStore with _$EnvStore {
   EnvStore(PackageInfo packageInfo) : super(packageInfo) {
     env = Env.fromDefault();
   }
 
-  static Future<EnvStore> init({bool isTest = false}) async {
-    PackageInfo packageInfo;
-    if (!isTest) {
-      packageInfo = await PackageInfo.fromPlatform();
-    }
-    return EnvStore(packageInfo);
+  static Future<EnvStore> init() async {
+    return EnvStore(await PackageInfo.fromPlatform());
   }
 }
 

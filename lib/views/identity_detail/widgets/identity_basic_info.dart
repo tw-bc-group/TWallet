@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
@@ -10,9 +10,9 @@ import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
 class IdentityBasicInfoWidget extends StatelessWidget {
-  final IdentityStore identityStore = getIt<IdentityStore>();
+  final IdentityStore identityStore = Get.find();
   final String id;
-  final ApiProvider _apiProvider = getIt<ApiProvider>();
+  final ApiProvider _apiProvider = Get.find();
 
   IdentityBasicInfoWidget({this.id});
 

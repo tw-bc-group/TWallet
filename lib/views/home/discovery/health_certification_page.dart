@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/get_it.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
@@ -23,8 +23,8 @@ import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import '../home.dart';
 
 class HealthCertificationPage extends StatelessWidget {
-  final IdentityStore _identityStore = getIt<IdentityStore>();
-  final HealthCertificationStore certStore = getIt<HealthCertificationStore>();
+  final IdentityStore _identityStore = Get.find();
+  final HealthCertificationStore certStore = Get.find();
 
   HealthCertificationPage();
 
