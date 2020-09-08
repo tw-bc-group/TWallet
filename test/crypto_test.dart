@@ -40,6 +40,19 @@ void main() {
       final String decrypted = keyPair.privateKey.decrypt(rsaEncrypted);
       expect(message, decrypted);
     });
+
+    test('when verify dcep signature, should verify success', () {
+      final RSAPublicKey publicKey = RSAPublicKey.fromString(
+          'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAI5SXpw1SSsM3FN43JVKn4gb+oGXfjL7rCDluqydAyHZ8vV7ySqi8oM1CoHRC9U2ST7IldydsQ+4cjC9xfzexxcCAwEAAQ==');
+
+      expect(
+          publicKey.verifySHA256Signature(
+              Uint8List.fromList(
+                  utf8.encode('CB_100_00_1005445100500696096768')),
+              base64.decode(
+                  'SvwfPo8ECILQMig/i89akHVMb7C/YML3ABPbIzzqYQDTYT/f5MyiGpfBWlnXPfT20Z1B2FIs3Kz6tKZlLhgLXg==')),
+          true);
+    });
   });
 
   group('ecdsa test', () {

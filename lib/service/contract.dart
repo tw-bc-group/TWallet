@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' show Client;
 import 'package:optional/optional.dart';
@@ -64,13 +66,25 @@ class Contract {
     });
   }
 
-  Transaction makeTransaction(String functionName, List<dynamic> parameters) {
+  List<dynamic> decodeParameters(String funcName, Uint8List data) {
+    return TupleType(contract
+            .function(funcName)
+            .parameters
+            .map((param) => param.type)
+            .toList())
+        .decode(data.buffer, 4)
+        .data;
+  }
+
+  Transaction makeTransaction(String functionName, List<dynamic> parameters,
+      {int nonce}) {
     return Transaction.callContract(
       contract: contract,
       function: contract.function(functionName),
       parameters: parameters,
       gasPrice: EtherAmount.zero(),
       maxGas: maxGas,
+      nonce: nonce,
     );
   }
 
@@ -79,7 +93,8 @@ class Contract {
     web3Client
         .events(FilterOptions.events(
             contract: contract, event: contract.event(eventName)))
-        .listen((event) => onListen(listenedEvent.decodeResults(event.topics, event.data)));
+        .listen((event) =>
+            onListen(listenedEvent.decodeResults(event.topics, event.data)));
   }
 
   Future<List<dynamic>> callFunction(
@@ -119,7 +134,10 @@ class Contract {
   }
 
   Future<String> signContractCall(
-      String privateKey, String functionName, List<dynamic> parameters) async {
+    String privateKey,
+    String functionName,
+    List<dynamic> parameters,
+  ) async {
     return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
       return web3Client
           .signTransaction(

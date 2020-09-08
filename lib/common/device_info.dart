@@ -14,6 +14,15 @@ class DeviceInfo {
     } catch (_) {}
   }
 
+  static bool get isPhysicalDevice {
+    if (null != androidDeviceInfo) {
+      return androidDeviceInfo.isPhysicalDevice;
+    } else if (null != iosDeviceInfo) {
+      return iosDeviceInfo.isPhysicalDevice;
+    }
+    return false;
+  }
+
   static bool isIOS() {
     return iosDeviceInfo != null;
   }

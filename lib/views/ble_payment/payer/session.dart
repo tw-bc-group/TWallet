@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/views/ble_payment/common/extension.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
 typedef WaitOnSignPayment = Future<Optional<String>> Function(
-    String toAddress, double amount);
+    String toAddress, int amount);
 
 typedef OnStateUpdate = void Function(SessionState state);
 
@@ -25,6 +25,7 @@ enum SessionState {
   waitUserConfirm,
   waitReceipt,
   success,
+  fail,
 }
 
 extension SessionStateExtension on SessionState {
@@ -44,6 +45,8 @@ extension SessionStateExtension on SessionState {
         return '等待付款成功回执';
       case SessionState.success:
         return '付款成功';
+      case SessionState.fail:
+        return '付款失败';
       default:
         return '未知状态';
     }
@@ -51,7 +54,7 @@ extension SessionStateExtension on SessionState {
 }
 
 class Session {
-  final String address;
+  final String address, publicKey;
   final Characteristic _readCharacteristic;
   final Characteristic _writeCharacteristic;
   final Queue<Completer> _readQueue = Queue();
@@ -59,11 +62,14 @@ class Session {
 
   SymmEncrypt _encrypter;
 
-  Session(this.address, this._readCharacteristic, this._writeCharacteristic);
+  Session(this.address, this.publicKey, this._readCharacteristic,
+      this._writeCharacteristic);
 
   Future<void> _sendCommand(Command command, SessionState newState) {
     Future sendFuture;
+
     _readQueue.add(Completer());
+
     if (_encrypter != null) {
       sendFuture =
           _writeCharacteristic.sendEncryptedCommand(_encrypter, command);
@@ -74,7 +80,10 @@ class Session {
     return Future.delayed(const Duration(milliseconds: 100))
         .then((_) => sendFuture.then((_) {
               _state.value = newState;
-              _readQueue.first.complete();
+              print('_readQueue length: ${_readQueue.length}');
+              if (_readQueue.isNotEmpty) {
+                _readQueue.first.complete();
+              }
             }));
   }
 
@@ -102,7 +111,8 @@ class Session {
         break;
 
       case SessionState.waitReceipt:
-        if (command.type != CommandType.setRawTxOk) {
+        if (command.type != CommandType.setRawTxOk &&
+            command.type != CommandType.setRawTxFail) {
           matched = false;
         }
         break;
@@ -123,7 +133,7 @@ class Session {
     _state.listen((newState) => onStateUpdate(newState));
 
     _readCharacteristic.monitor().listen((data) async {
-      await _readQueue.removeFirst().future;
+      await _readQueue.first.future.then((_) => _readQueue.removeFirst());
 
       Uint8List payload = data;
 
@@ -149,14 +159,16 @@ class Session {
           break;
 
         case SessionState.waitAesKeyAnswer:
-          _sendCommand(Command.build(CommandType.getTxInfo, param: address),
+          _sendCommand(
+              Command.build(CommandType.getTxInfo,
+                  param: '$address $publicKey'),
               SessionState.waitTxInfo);
           break;
 
         case SessionState.waitTxInfo:
           final List<String> fields = command.param.split(':');
           _state.value = SessionState.waitUserConfirm;
-          (await onSignPayment(fields[0], double.parse(fields[1])))
+          (await onSignPayment(fields[0], int.parse(fields[1])))
               .ifPresent((signedTx) {
             _sendCommand(Command.build(CommandType.setRawTx, param: signedTx),
                 SessionState.waitReceipt);
@@ -164,7 +176,11 @@ class Session {
           break;
 
         case SessionState.waitReceipt:
-          _state.value = SessionState.success;
+          if (command.type == CommandType.setRawTxOk) {
+            _state.value = SessionState.success;
+          } else {
+            _state.value = SessionState.fail;
+          }
           break;
 
         default:

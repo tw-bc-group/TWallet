@@ -2,24 +2,29 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:crypton/crypton.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
+import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/service/rlp.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
 
 typedef OnStateUpdate = void Function(String state);
+typedef OnSuccess = void Function(OfflineTx tx);
 
 class Session {
   final String peer;
   final String address;
-  final double amount;
+  final int amount;
   final BlePeriphery peripheral;
 
   RSAKeypair keyPair;
-  String fromAddress;
   SymmEncrypt encrypter;
+  String fromAddress, fromPublicKey;
 
   Session(this.peripheral, this.peer, this.address, this.amount);
 
@@ -36,7 +41,8 @@ class Session {
     return peripheral.sendData(peer, data);
   }
 
-  Future<void> onData(Uint8List data, OnStateUpdate onStateUpdate) async {
+  Future<void> onData(
+      Uint8List data, OnStateUpdate onStateUpdate, OnSuccess onSuccess) async {
     Uint8List cmdData;
 
     if (encrypter != null) {
@@ -47,6 +53,8 @@ class Session {
 
     final Command command =
         Command.fromJson(json.decode(String.fromCharCodes(cmdData)));
+
+    print('command: $command');
 
     switch (command.type) {
       case CommandType.getPubKey:
@@ -73,7 +81,9 @@ class Session {
 
       case CommandType.getTxInfo:
         onStateUpdate('收到交易信息请求');
-        fromAddress = command.param;
+        final List<String> fields = command.param.split(' ');
+        fromAddress = fields[0];
+        fromPublicKey = fields[1];
         _sendCommand(
                 Command.build(CommandType.setTxInfo, param: '$address:$amount'))
             .then((_) => onStateUpdate('发送交易信息'));
@@ -83,9 +93,23 @@ class Session {
         onStateUpdate('收款验证...');
         final EthTxInfo txInfo =
             EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param)));
-        if (txInfo.to != address) {
-          onStateUpdate('验证失败...');
+        final List<dynamic> params = Get.find<ContractService>()
+            .nftTokenContract
+            .decodeParameters('safeTransferFrom', txInfo.data);
+
+        if ((params[0] as EthereumAddress).toString().toLowerCase() !=
+                fromAddress.toLowerCase() ||
+            (params[1] as EthereumAddress).toString().toLowerCase() !=
+                address.toLowerCase()) {
+          onStateUpdate('交易验证失败...');
+          _sendCommand(Command.build(
+            CommandType.setRawTxFail,
+          )).then((_) => onStateUpdate('收款失败'));
         } else {
+          onSuccess(OfflineTx((builder) => builder
+            ..from = fromAddress
+            ..publicKey = fromPublicKey
+            ..tx = command.param));
           _sendCommand(Command.build(CommandType.setRawTxOk,
                   param: '$address:$amount'))
               .then((_) => onStateUpdate('收款成功'));

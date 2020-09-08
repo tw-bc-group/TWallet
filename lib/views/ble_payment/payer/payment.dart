@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
@@ -7,10 +8,13 @@ import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
+import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payer/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:web3dart/crypto.dart';
 
 import 'payee.dart';
 
@@ -21,6 +25,7 @@ enum PaymentProgress {
   waitUserConfirm,
   waitPaymentConfirm,
   success,
+  balanceNotEnough,
   notSupported,
   unknown,
 }
@@ -66,7 +71,7 @@ extension CharacteristicExtension on Characteristic {
 }
 
 class _PaymentState extends State<Payment> {
-  final RxDouble _amount = 0.0.obs;
+  final RxInt _amount = 0.obs;
   final RxString _hintText = RxString('');
   final Completer<bool> _confirmCompleter = Completer();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
@@ -118,18 +123,26 @@ class _PaymentState extends State<Payment> {
   }
 
   Future<Optional<String>> _onWaitSignPayment(
-      String toAddress, double amount) async {
+      String toAddress, int amount) async {
     _amount.value = amount;
 
     if (await _confirmCompleter.future) {
-      return Get.find<IdentityStore>()
-          .selectedIdentity
-          .value
-          .signOfflinePayment(BigInt.from(0x2222), toAddress)
-          .then((signedTx) => Optional.of(signedTx));
-    } else {
-      return const Optional.empty();
+      final Dcep dcep = Get.find<DcepStore>().items.firstWhere(
+          (item) => item.amount == amount * 100,
+          orElse: () => null);
+
+      if (null != dcep) {
+        final BigInt sn = bytesToInt(Uint8List.fromList(dcep.sn.codeUnits));
+        return Optional.of(await Get.find<IdentityStore>()
+            .selectedIdentity
+            .value
+            .signOfflinePayment(sn, toAddress));
+      } else {
+        _paymentProgress.value = PaymentProgress.balanceNotEnough;
+      }
     }
+
+    return const Optional.empty();
   }
 
   void _onStateUpdate(SessionState state) {
@@ -154,6 +167,11 @@ class _PaymentState extends State<Payment> {
               (characteristics) => Session(
                       //TODO:
                       Get.find<IdentityStore>().selectedIdentity.value.address,
+                      Get.find<IdentityStore>()
+                          .selectedIdentity
+                          .value
+                          .accountInfo
+                          .pubKey,
                       characteristics.first,
                       characteristics.second)
                   .run(_onWaitSignPayment, _onStateUpdate),
@@ -171,6 +189,11 @@ class _PaymentState extends State<Payment> {
               _confirmCompleter.complete(true);
               _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
             });
+
+      case PaymentProgress.balanceNotEnough:
+        return WalletTheme.button(
+            text: '余额不足，结束转账', onPressed: () => Get.back());
+        break;
 
       case PaymentProgress.waitUserConnect:
         return WalletTheme.button(text: '重新连接', onPressed: () => _doConnect());

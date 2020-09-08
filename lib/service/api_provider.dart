@@ -15,6 +15,15 @@ import 'package:tw_wallet_ui/models/tw_balance.dart';
 class ApiProvider {
   final HttpClient _httpClient = Get.find();
 
+  Future<void> transferDcepV2(
+      String from, String publicKey, String signedRawTx) {
+    return _httpClient.post('/v2/token/transfer', {
+      'fromAddress': from,
+      'fromPublicKey': publicKey,
+      'signedTransactionRawData': signedRawTx,
+    });
+  }
+
   Future<Optional<Dcep>> redeemDcepV2(String address, DcepType type) {
     return _httpClient.post('/v2/token/mint', {
       'address': address,
@@ -24,9 +33,11 @@ class ApiProvider {
             as Dcep)));
   }
 
-  Future<Optional<List<Dcep>>> fetchTokenV2(String address) {
-    return _httpClient.get('/v2/token?address=$address').then((res) =>
-        Future.value(
+  Future<Optional<List<Dcep>>> fetchTokenV2(
+    String address,
+  ) {
+    return _httpClient.get('/v2/token?address=$address', loading: false).then(
+        (res) => Future.value(
             res.map((response) => ApiResponse.fromJson(response.data, const [
                   FullType(BuiltList, [FullType(Dcep)])
                 ]).result.toList() as List<Dcep>)));

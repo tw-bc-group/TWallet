@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:json_store/json_store.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
@@ -12,7 +11,13 @@ class DcepStore {
   String owner;
   final RxList<Dcep> items = RxList([]);
 
-  static final JsonStore _db = JsonStore();
+  Future<void> refresh() {
+    return Get.find<ApiProvider>().fetchTokenV2(owner).then((res) {
+      res.ifPresent((list) async {
+        items.value = list;
+      });
+    });
+  }
 
   DcepStore() {
     Get.find<IdentityStore>()
@@ -25,21 +30,17 @@ class DcepStore {
       final EthereumAddress to = results[2] as EthereumAddress;
       if (from.toString().toLowerCase() == owner ||
           to.toString().toLowerCase() == owner) {
-        Get.find<ApiProvider>().fetchTokenV2(owner).then((res) {
-          print('res: $res');
-          res.ifPresent((list) => items.value = list);
-        });
+        refresh();
       }
     });
   }
 
+  void clear() {
+    items.clear();
+  }
+
   void _updateOwner(String newOwner) {
     owner = newOwner.toLowerCase();
-    _db.getListLike('$dcepPrefix: $owner %').then((list) {
-      print('updateOwner: $owner');
-      if (null != list) {
-        items.value = list.map((item) => Dcep.fromJson(item)).toList();
-      }
-    });
+    refresh();
   }
 }

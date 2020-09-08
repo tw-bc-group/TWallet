@@ -8,6 +8,8 @@ import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payee/payee_confirm.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/payee_list.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
@@ -87,6 +89,20 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
+  Widget _dcepListItem(String description) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+            color: WalletColor.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [BoxShadow(color: WalletColor.grey, blurRadius: 12)]),
+        child: Center(child: Text(description)),
+      ),
+    );
+  }
+
   Widget _buildMainPage(DecentralizedIdentity identity) {
     return Container(
       color: WalletColor.white,
@@ -113,20 +129,29 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             ),
           ]),
           Expanded(
-            child: Obx(() => ListView(
-                  children: Get.find<DcepStore>()
-                      .items
-                      .map((item) =>
-                          Center(child: Text(item.type.humanReadable)))
-                      .toList(),
+            child: Obx(() => Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: RefreshIndicator(
+                    onRefresh: () => Get.find<DcepStore>().refresh(),
+                    child: ListView(
+                      children: Get.find<DcepStore>()
+                          .items
+                          .map((item) => _dcepListItem(item.type.humanReadable))
+                          .toList(),
+                    ),
+                  ),
                 )),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(child: WalletTheme.button(text: '收款', onPressed: () {})),
+              Expanded(
+                  child: WalletTheme.button(
+                      text: '收款', onPressed: () => Get.to(PayeeConfirm()))),
               Container(width: 20),
-              Expanded(child: WalletTheme.button(text: '付款', onPressed: () {}))
+              Expanded(
+                  child: WalletTheme.button(
+                      text: '付款', onPressed: () => Get.to(PayeeList()))),
             ],
           )
         ]),

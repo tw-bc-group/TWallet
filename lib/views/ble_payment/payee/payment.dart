@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/tx_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class Payment extends StatefulWidget {
   final String name;
-  final double amount;
+  final int amount;
   final String address;
 
   const Payment({Key key, this.name, this.address, this.amount})
@@ -22,8 +24,9 @@ class Payment extends StatefulWidget {
 
 class _PaymentState extends State<Payment> {
   final RxString _hintText = RxString('');
-  final BlePeriphery _blePeriphery = BlePeriphery();
   final Map<String, Session> _sessions = {};
+  final BlePeriphery _blePeriphery = BlePeriphery();
+  final OfflineTxStore _txStore = Get.find<OfflineTxStore>();
 
   Widget _buildButton() {
     if (_hintText.value == '收款成功') {
@@ -65,8 +68,10 @@ class _PaymentState extends State<Payment> {
             Session(_blePeriphery, peer, widget.address, widget.amount);
       }
       try {
-        _sessions[peer]
-            .onData(payload, (state) => _hintText.value += '\n$state');
+        _sessions[peer].onData(
+            payload, (state) => _hintText.value += '\n$state', (OfflineTx tx) {
+          _txStore.addOne(tx);
+        });
       } catch (_) {
         _sessions.remove(peer);
       }

@@ -12,6 +12,7 @@ import 'package:tw_wallet_ui/models/identity/account_info.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/identity/health_info.dart';
 import 'package:tw_wallet_ui/models/identity/profile_info.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
@@ -64,11 +65,13 @@ part 'serializer.g.dart';
   CommandType,
   Dcep,
   DcepType,
+  OfflineTx,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
       ..add(AmountSerializer())
       ..add(Iso8601DateTimeSerializer())
+      ..addBuilderFactory(const FullType(OfflineTx), () => OfflineTxBuilder())
       ..addBuilderFactory(const FullType(Dcep), () => DcepBuilder())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Dcep)]),
           () => ListBuilder<Dcep>())

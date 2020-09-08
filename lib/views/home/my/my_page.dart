@@ -11,6 +11,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
+import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
@@ -22,8 +23,9 @@ Future<void> _cleanPrivateData(BuildContext context) async {
   _dialog.show();
   return Get.find<IdentityStore>()
       .clear()
+      .then((_) => Get.find<DcepStore>().clear())
       .then((_) => Get.find<HealthCertificationStore>().clear())
-      .then((_) => Get.find<SecureStorage>().clearAll())
+      //.then((_) => Get.find<SecureStorage>().clearAll())
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
       .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) {
             _dialog.dismiss();

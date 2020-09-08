@@ -14,6 +14,7 @@ const CommandType _$getTxInfo = const CommandType._('getTxInfo');
 const CommandType _$setTxInfo = const CommandType._('setTxInfo');
 const CommandType _$setRawTx = const CommandType._('setRawTx');
 const CommandType _$setRawTxOk = const CommandType._('setRawTxOk');
+const CommandType _$setRawTxFail = const CommandType._('setRawTxFail');
 
 CommandType _$valueOf(String name) {
   switch (name) {
@@ -33,6 +34,8 @@ CommandType _$valueOf(String name) {
       return _$setRawTx;
     case 'setRawTxOk':
       return _$setRawTxOk;
+    case 'setRawTxFail':
+      return _$setRawTxFail;
     default:
       throw new ArgumentError(name);
   }
@@ -48,6 +51,7 @@ final BuiltSet<CommandType> _$values =
   _$setTxInfo,
   _$setRawTx,
   _$setRawTxOk,
+  _$setRawTxFail,
 ]);
 
 Serializer<CommandType> _$commandTypeSerializer = new _$CommandTypeSerializer();

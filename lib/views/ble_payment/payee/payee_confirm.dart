@@ -8,8 +8,9 @@ import 'package:tw_wallet_ui/views/ble_payment/payee/payment.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class PayeeConfirm extends StatelessWidget {
-  final RxString _payeeName = RxString('');
-  final RxDouble _payeeAmount = RxDouble(0.0);
+  final RxInt _payeeAmount = 100.obs;
+  final RxString _payeeName = ''.obs;
+  final TextEditingController _amountController = TextEditingController();
 
   Widget buildInputField({Widget textFieldChild}) {
     return Container(
@@ -48,7 +49,7 @@ class PayeeConfirm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => CommonLayout(
-        title: '测试收款',
+        title: '收款信息',
         withBottomBtn: true,
         btnText: '开始收款',
         btnOnPressed: _payeeAmount.value > 0.0 && _payeeName.value.isNotEmpty
@@ -78,9 +79,12 @@ class PayeeConfirm extends StatelessWidget {
                 buildInputField(
                     textFieldChild: TextField(
                         maxLength: 16,
+                        readOnly: true,
+                        controller: _amountController
+                          ..text = _payeeAmount.value.toString(),
                         keyboardType: TextInputType.number,
-                        onChanged: (String value) =>
-                            _payeeAmount.value = double.parse(value.trim()),
+                        // onChanged: (String value) =>
+                        //     _payeeAmount.value = double.parse(value.trim()),
                         decoration: buildInputDecoration(
                           assetIcon: 'assets/icons/name.svg',
                           labelText: '金额*',

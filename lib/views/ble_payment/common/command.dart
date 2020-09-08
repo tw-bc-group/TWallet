@@ -19,6 +19,7 @@ class CommandType extends EnumClass {
   static const CommandType setTxInfo = _$setTxInfo;
   static const CommandType setRawTx = _$setRawTx;
   static const CommandType setRawTxOk = _$setRawTxOk;
+  static const CommandType setRawTxFail = _$setRawTxFail;
 
   static BuiltSet<CommandType> get values => _$values;
 
