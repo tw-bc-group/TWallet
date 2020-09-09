@@ -25,7 +25,7 @@ Future<void> _cleanPrivateData(BuildContext context) async {
       .clear()
       .then((_) => Get.find<DcepStore>().clear())
       .then((_) => Get.find<HealthCertificationStore>().clear())
-      //.then((_) => Get.find<SecureStorage>().clearAll())
+      .then((_) => Get.find<SecureStorage>().clearAll())
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
       .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) {
             _dialog.dismiss();
