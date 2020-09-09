@@ -33,6 +33,10 @@ class OfflineTxStore {
     });
   }
 
+  static String _itemKey(OfflineTx tx) {
+    return '$offlineTxPrefix: $tx.from';
+  }
+
   static Future<OfflineTxStore> init() async {
     final Queue<OfflineTx> _txQueue = Queue();
     final ReceivePort receivePort = ReceivePort();
@@ -44,7 +48,10 @@ class OfflineTxStore {
         final OfflineTx offlineTx = tx as OfflineTx;
         Get.find<ApiProvider>()
             .transferDcepV2(offlineTx.from, offlineTx.publicKey, offlineTx.tx)
-            .then((_) => _txQueue.remove(tx));
+            .then((_) async {
+          await _store.deleteItem(_itemKey(offlineTx));
+          _txQueue.remove(tx);
+        });
       }
     });
 
@@ -58,9 +65,7 @@ class OfflineTxStore {
   }
 
   Future<void> addOne(OfflineTx tx) async {
-    await _store
-        .setItem('$offlineTxPrefix: $tx.from', tx.toJson())
-        .then((_) async {
+    await _store.setItem(_itemKey(tx), tx.toJson()).then((_) async {
       _txQueue.add(tx);
       if (ConnectivityResult.none != await _connectivity.checkConnectivity()) {
         _sendPort.send(tx);
