@@ -21,8 +21,10 @@ class ProgressDialog {
     }
 
     if (count == 0) {
-      _dialog.dismiss();
-      _dialog = null;
+      if (null != _dialog) {
+        _dialog.dismiss();
+        _dialog = null;
+      }
     }
   }
 
