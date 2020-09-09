@@ -80,7 +80,6 @@ class Session {
     return Future.delayed(const Duration(milliseconds: 100))
         .then((_) => sendFuture.then((_) {
               _state.value = newState;
-              print('_readQueue length: ${_readQueue.length}');
               if (_readQueue.isNotEmpty) {
                 _readQueue.first.complete();
               }

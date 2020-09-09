@@ -7,6 +7,7 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import 'hex_painter.dart';
@@ -14,7 +15,7 @@ import 'payee.dart';
 import 'payment.dart';
 
 class PayeeListView extends ListView {
-  PayeeListView(RxList<Payee> payees)
+  PayeeListView(DecentralizedIdentity identity, RxList<Payee> payees)
       : super.separated(
             separatorBuilder: (context, index) => Divider(
                   color: Colors.grey[300],
@@ -23,7 +24,7 @@ class PayeeListView extends ListView {
                 ),
             itemCount: payees.length,
             itemBuilder: (context, i) {
-              return _buildRow(context, payees, payees[i]);
+              return _buildRow(context, payees, payees[i], identity);
             });
 
   static Widget _buildAvatar(BuildContext context, Payee device) {
@@ -53,10 +54,11 @@ class PayeeListView extends ListView {
     BuildContext context,
     RxList<Payee> payees,
     Payee payee,
+    DecentralizedIdentity identity,
   ) {
     return ListTile(
       onTap: () async {
-        final String payeeName = await Get.to(Payment(payee));
+        final String payeeName = await Get.to(Payment(payee, identity));
         payees.removeWhere((payee) => payee.name == payeeName);
       },
       leading: Padding(
@@ -85,6 +87,10 @@ class PayeeListView extends ListView {
 }
 
 class PayeeList extends StatefulWidget {
+  final DecentralizedIdentity _identity;
+
+  const PayeeList(this._identity);
+
   @override
   State<StatefulWidget> createState() => _PayeeListState();
 }
@@ -191,7 +197,7 @@ class _PayeeListState extends State<PayeeList> {
       bodyBackColor: WalletColor.white,
       child: RefreshIndicator(
         onRefresh: _refresh,
-        child: Obx(() => PayeeListView(_bleDevices)),
+        child: Obx(() => PayeeListView(widget._identity, _bleDevices)),
       ),
     );
   }

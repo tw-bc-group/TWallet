@@ -9,6 +9,7 @@ import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
@@ -57,8 +58,9 @@ extension PaymentProgressExtension on PaymentProgress {
 
 class Payment extends StatefulWidget {
   final Payee _bleDevice;
+  final DecentralizedIdentity _identity;
 
-  const Payment(this._bleDevice);
+  const Payment(this._bleDevice, this._identity);
 
   @override
   State<StatefulWidget> createState() => _PaymentState();
@@ -165,13 +167,8 @@ class _PaymentState extends State<Payment> {
     widget._bleDevice.connect().then((_) => discovery().then((res) {
           res.ifPresent(
               (characteristics) => Session(
-                      //TODO:
-                      Get.find<IdentityStore>().selectedIdentity.value.address,
-                      Get.find<IdentityStore>()
-                          .selectedIdentity
-                          .value
-                          .accountInfo
-                          .pubKey,
+                      widget._identity.address,
+                      widget._identity.accountInfo.pubKey,
                       characteristics.first,
                       characteristics.second)
                   .run(_onWaitSignPayment, _onStateUpdate),

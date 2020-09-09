@@ -54,8 +54,6 @@ class Session {
     final Command command =
         Command.fromJson(json.decode(String.fromCharCodes(cmdData)));
 
-    print('command: $command');
-
     switch (command.type) {
       case CommandType.getPubKey:
         onStateUpdate('对端请求会话公钥');

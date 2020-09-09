@@ -3,14 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/payment.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class PayeeConfirm extends StatelessWidget {
   final RxInt _payeeAmount = 100.obs;
   final RxString _payeeName = ''.obs;
+  final DecentralizedIdentity identity;
   final TextEditingController _amountController = TextEditingController();
+
+  PayeeConfirm(this.identity);
 
   Widget buildInputField({Widget textFieldChild}) {
     return Container(
@@ -56,9 +59,7 @@ class PayeeConfirm extends StatelessWidget {
             ? () => Get.to(Payment(
                 name: _payeeName.value,
                 amount: _payeeAmount.value,
-                //TODO:
-                address:
-                    Get.find<IdentityStore>().selectedIdentity.value.address))
+                address: identity.address))
             : null,
         child: Container(
             color: WalletColor.white,

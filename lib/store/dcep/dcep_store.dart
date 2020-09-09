@@ -12,11 +12,15 @@ class DcepStore {
   final RxList<Dcep> items = RxList([]);
 
   Future<void> refresh() {
-    return Get.find<ApiProvider>().fetchTokenV2(owner).then((res) {
-      res.ifPresent((list) async {
-        items.value = list;
+    if (null != owner) {
+      Get.find<ApiProvider>().fetchTokenV2(owner).then((res) {
+        res.ifPresent((list) {
+          items.value = list;
+        });
       });
-    });
+    }
+   
+    return Future.value();
   }
 
   DcepStore() {
@@ -26,17 +30,20 @@ class DcepStore {
 
     Get.find<ContractService>().nftTokenContract.eventStream('TransferSingle',
         (results) {
-      final EthereumAddress from = results[1] as EthereumAddress;
-      final EthereumAddress to = results[2] as EthereumAddress;
-      if (from.toString().toLowerCase() == owner ||
-          to.toString().toLowerCase() == owner) {
-        refresh();
+      if (null != owner) {
+        final EthereumAddress from = results[1] as EthereumAddress;
+        final EthereumAddress to = results[2] as EthereumAddress;
+        if (from.toString().toLowerCase() == owner ||
+            to.toString().toLowerCase() == owner) {
+          refresh();
+        }
       }
     });
   }
 
   void clear() {
     items.clear();
+    owner = null;
   }
 
   void _updateOwner(String newOwner) {

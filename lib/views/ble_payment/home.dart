@@ -147,11 +147,13 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             children: [
               Expanded(
                   child: WalletTheme.button(
-                      text: '收款', onPressed: () => Get.to(PayeeConfirm()))),
+                      text: '收款',
+                      onPressed: () => Get.to(PayeeConfirm(identity)))),
               Container(width: 20),
               Expanded(
                   child: WalletTheme.button(
-                      text: '付款', onPressed: () => Get.to(PayeeList()))),
+                      text: '付款',
+                      onPressed: () => Get.to(PayeeList(identity)))),
             ],
           )
         ]),
