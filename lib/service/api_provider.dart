@@ -17,11 +17,14 @@ class ApiProvider {
 
   Future<void> transferDcepV2(
       String from, String publicKey, String signedRawTx) {
-    return _httpClient.post('/v2/token/transfer', {
-      'fromAddress': from,
-      'fromPublicKey': publicKey,
-      'signedTransactionRawData': signedRawTx,
-    });
+    return _httpClient.post(
+        '/v2/token/transfer',
+        {
+          'fromAddress': from,
+          'fromPublicKey': publicKey,
+          'signedTransactionRawData': signedRawTx,
+        },
+        throwError: true);
   }
 
   Future<Optional<Dcep>> redeemDcepV2(String address, DcepType type) {

@@ -130,7 +130,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
-  Widget _buildMainScreen(DecentralizedIdentity identity, int nonce) {
+  Widget _buildMainScreen(DecentralizedIdentity identity) {
     return Container(
       color: WalletColor.white,
       child: Padding(
@@ -163,7 +163,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   child: RefreshIndicator(
                     onRefresh: () => _dcepStore.refresh(),
                     child: ListView(
-                      children: _dcepStore.itemsOwned
+                      children: _dcepStore.items
                           .map((item) => _dcepListItem(item.type.humanReadable))
                           .toList(),
                     ),
@@ -181,7 +181,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
               Expanded(
                   child: WalletTheme.button(
                       text: '付款',
-                      onPressed: () => Get.to(PayeeList(identity, nonce)))),
+                      onPressed: () => Get.to(PayeeList(identity)))),
             ],
           )
         ]),
@@ -217,7 +217,8 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                       builder:
                           (BuildContext context, AsyncSnapshot<int> snapshot) {
                         if (null != snapshot.data) {
-                          return _buildMainScreen(identity, snapshot.data);
+                          _dcepStore.nonce = snapshot.data;
+                          return _buildMainScreen(identity);
                         } else {
                           return Container();
                         }

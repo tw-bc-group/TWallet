@@ -27,7 +27,9 @@ class OfflineTxStore {
     _connectivity.onConnectivityChanged.listen((res) {
       if (res != ConnectivityResult.none) {
         if (_txQueue.isNotEmpty) {
-          _sendPort.send(_txQueue.first);
+          for (final OfflineTx tx in _txQueue) {
+            _sendPort.send(tx);
+          }
         }
       }
     });
@@ -46,12 +48,15 @@ class OfflineTxStore {
       if (!DeviceInfo.isPhysicalDevice ||
           ConnectivityResult.none != await _connectivity.checkConnectivity()) {
         final OfflineTx offlineTx = tx as OfflineTx;
-        Get.find<ApiProvider>()
-            .transferDcepV2(offlineTx.from, offlineTx.publicKey, offlineTx.tx)
-            .then((_) async {
-          await _store.deleteItem(_itemKey(offlineTx));
-          _txQueue.remove(tx);
-        });
+        try {
+          await Get.find<ApiProvider>().transferDcepV2(
+              offlineTx.from, offlineTx.publicKey, offlineTx.tx);
+        } catch (e) {
+          print('offlineTx transfer error: $e');
+        }
+
+        await _store.deleteItem(_itemKey(offlineTx));
+        _txQueue.remove(tx);
       }
     });
 

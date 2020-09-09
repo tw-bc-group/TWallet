@@ -9,7 +9,12 @@ const dcepPrefix = 'dcep';
 
 class DcepStore {
   String owner;
+  final RxInt rxNonce = 0.obs;
   final RxList<Dcep> items = RxList([]);
+
+  int get nonce => rxNonce.value;
+
+  set nonce(int newNonce) => rxNonce.value = newNonce;
 
   Future<void> refresh() {
     if (null != owner) {
@@ -19,7 +24,7 @@ class DcepStore {
         });
       });
     }
-   
+
     return Future.value();
   }
 

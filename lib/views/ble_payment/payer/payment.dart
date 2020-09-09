@@ -11,7 +11,6 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
-import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payer/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
@@ -57,11 +56,10 @@ extension PaymentProgressExtension on PaymentProgress {
 }
 
 class Payment extends StatefulWidget {
-  final int _nonce;
   final Payee _bleDevice;
   final DecentralizedIdentity _identity;
 
-  const Payment(this._bleDevice, this._identity, this._nonce);
+  const Payment(this._bleDevice, this._identity);
 
   @override
   State<StatefulWidget> createState() => _PaymentState();
@@ -74,11 +72,10 @@ extension CharacteristicExtension on Characteristic {
 }
 
 class _PaymentState extends State<Payment> {
-  int nonce;
-
   final RxInt _amount = 0.obs;
   final RxString _hintText = RxString('');
   final Completer<bool> _confirmCompleter = Completer();
+  final DcepStore _dcepStore = Get.find<DcepStore>();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
   StreamSubscription _dataMonitor;
@@ -132,18 +129,17 @@ class _PaymentState extends State<Payment> {
     _amount.value = amount;
 
     if (await _confirmCompleter.future) {
-      final Dcep dcep = Get.find<DcepStore>().items.firstWhere(
+      final Dcep dcep = _dcepStore.items.firstWhere(
           (item) => item.amount == amount * 100,
           orElse: () => null);
 
       if (null != dcep) {
         final BigInt sn = bytesToInt(Uint8List.fromList(dcep.sn.codeUnits));
-        return Optional.of(await Get.find<IdentityStore>()
-            .selectedIdentity
-            .value
-            .signOfflinePayment(sn, toAddress, nonce)
+        return Optional.of(await widget._identity
+            .signOfflinePayment(sn, toAddress, _dcepStore.nonce)
             .then((res) {
-          nonce++;
+          _dcepStore.nonce++;
+          _dcepStore.items.remove(dcep);
           return res;
         }));
       } else {
@@ -205,7 +201,10 @@ class _PaymentState extends State<Payment> {
       case PaymentProgress.success:
         return WalletTheme.button(
             text: '结束付款',
-            onPressed: () => Get.back(result: widget._bleDevice.name));
+            onPressed: () async {
+              await _doCleanup();
+              Get.back(result: widget._bleDevice.name);
+            });
 
       default:
         return Container();
@@ -220,7 +219,6 @@ class _PaymentState extends State<Payment> {
         _hintText.value = '连接中';
       }
     });
-    nonce = widget._nonce;
     _doConnect();
   }
 
