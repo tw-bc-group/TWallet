@@ -3,6 +3,9 @@ import 'dart:typed_data';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:web3dart/crypto.dart';
+// ignore: implementation_imports
+import 'package:web3dart/src/utils/rlp.dart' as rlp;
+
 
 part 'eth_tx_info.g.dart';
 
@@ -22,11 +25,27 @@ abstract class EthTxInfo extends Object
 
   Uint8List get data;
 
-  BigInt get v;
+  int get v;
 
   BigInt get r;
 
   BigInt get s;
+
+  MsgSignature get msgSignature => MsgSignature(r, s, v + 27 - 55);
+
+  Uint8List get messageHash {
+    return keccak256(Uint8List.fromList(rlp.encode([
+      nonce,
+      gasPrice,
+      gasLimit,
+      hexToBytes(to),
+      value,
+      data,
+      10,
+      BigInt.zero,
+      BigInt.zero
+    ])));
+  }
 
   factory EthTxInfo([void Function(EthTxInfoBuilder) updates]) = _$EthTxInfo;
 
@@ -38,7 +57,7 @@ abstract class EthTxInfo extends Object
       ..to = bytesToHex(decodedRlp[3])
       ..value = bytesToInt(decodedRlp[4])
       ..data = decodedRlp[5]
-      ..v = bytesToInt(decodedRlp[6])
+      ..v = bytesToInt(decodedRlp[6]).toInt()
       ..r = bytesToInt(decodedRlp[7])
       ..s = bytesToInt(decodedRlp[8]));
   }

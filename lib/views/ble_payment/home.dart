@@ -197,7 +197,6 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
           future: _connectivity.checkConnectivity(),
           builder: (BuildContext context,
               AsyncSnapshot<ConnectivityResult> snapshot) {
-            print('result: ${snapshot.data}');
             if (null != snapshot.data) {
               return StreamBuilder(
                 stream: _connectivity.onConnectivityChanged,
@@ -215,7 +214,6 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                               EthereumAddress.fromHex(identity.address)),
                       builder:
                           (BuildContext context, AsyncSnapshot<int> snapshot) {
-                        print('count: ${snapshot.data}');
                         if (null != snapshot.data) {
                           return _buildMainScreen(identity, snapshot.data);
                         } else {

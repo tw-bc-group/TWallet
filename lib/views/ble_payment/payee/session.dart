@@ -89,13 +89,26 @@ class Session {
 
       case CommandType.setRawTx:
         onStateUpdate('收款验证...');
-        final EthTxInfo txInfo =
+        final EthTxInfo ethTxInfo =
             EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param)));
+
         final List<dynamic> params = Get.find<ContractService>()
             .nftTokenContract
-            .decodeParameters('safeTransferFrom', txInfo.data);
+            .decodeParameters('safeTransferFrom', ethTxInfo.data);
 
-        if ((params[0] as EthereumAddress).toString().toLowerCase() !=
+        String recoverPubKey;
+        try {
+          recoverPubKey = bytesToHex(
+              ecRecover(ethTxInfo.messageHash, ethTxInfo.msgSignature));
+        } catch (_) {
+          recoverPubKey = 'nothing';
+        }
+
+        final String decompressedPubKey = bytesToHex(
+            decompressPublicKey(hexToBytes(fromPublicKey)).sublist(1));
+
+        if (recoverPubKey != decompressedPubKey ||
+            (params[0] as EthereumAddress).toString().toLowerCase() !=
                 fromAddress.toLowerCase() ||
             (params[1] as EthereumAddress).toString().toLowerCase() !=
                 address.toLowerCase()) {

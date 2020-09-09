@@ -36,7 +36,7 @@ class _$EthTxInfoSerializer implements StructuredSerializer<EthTxInfo> {
       serializers.serialize(object.data,
           specifiedType: const FullType(Uint8List)),
       'v',
-      serializers.serialize(object.v, specifiedType: const FullType(BigInt)),
+      serializers.serialize(object.v, specifiedType: const FullType(int)),
       'r',
       serializers.serialize(object.r, specifiedType: const FullType(BigInt)),
       's',
@@ -83,7 +83,7 @@ class _$EthTxInfoSerializer implements StructuredSerializer<EthTxInfo> {
           break;
         case 'v':
           result.v = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'r':
           result.r = serializers.deserialize(value,
@@ -114,7 +114,7 @@ class _$EthTxInfo extends EthTxInfo {
   @override
   final Uint8List data;
   @override
-  final BigInt v;
+  final int v;
   @override
   final BigInt r;
   @override
@@ -246,9 +246,9 @@ class EthTxInfoBuilder implements Builder<EthTxInfo, EthTxInfoBuilder> {
   Uint8List get data => _$this._data;
   set data(Uint8List data) => _$this._data = data;
 
-  BigInt _v;
-  BigInt get v => _$this._v;
-  set v(BigInt v) => _$this._v = v;
+  int _v;
+  int get v => _$this._v;
+  set v(int v) => _$this._v = v;
 
   BigInt _r;
   BigInt get r => _$this._r;
