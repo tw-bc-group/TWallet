@@ -30,6 +30,7 @@ class BlePaymentHome extends StatefulWidget {
 class _BlePaymentHomeState extends State<BlePaymentHome> {
   final Connectivity _connectivity = Connectivity();
   final Rx<DcepType> _redeemType = Rx(DcepType.rmb100);
+  final DcepStore _dcepStore = Get.find<DcepStore>();
 
   @override
   void initState() {
@@ -151,17 +152,18 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
               height: 28,
               onPressed: () => identity
                   .redeemDcep(_redeemType.value)
-                  .then((_) => showDialogSimple(DialogType.success, '兑换成功')),
+                  .then((_) => showDialogSimple(DialogType.success, '兑换成功'))
+                  .then((_) => Future.delayed(const Duration(seconds: 2))
+                      .then((_) => _dcepStore.refresh())),
             ),
           ]),
           Expanded(
             child: Obx(() => Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: RefreshIndicator(
-                    onRefresh: () => Get.find<DcepStore>().refresh(),
+                    onRefresh: () => _dcepStore.refresh(),
                     child: ListView(
-                      children: Get.find<DcepStore>()
-                          .items
+                      children: _dcepStore.itemsOwned
                           .map((item) => _dcepListItem(item.type.humanReadable))
                           .toList(),
                     ),
