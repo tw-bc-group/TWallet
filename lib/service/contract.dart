@@ -66,6 +66,10 @@ class Contract {
     });
   }
 
+  Future<int> getTransactionCount(EthereumAddress address) async {
+    return web3Client.getTransactionCount(address);
+  }
+
   List<dynamic> decodeParameters(String funcName, Uint8List data) {
     return TupleType(contract
             .function(funcName)
@@ -134,15 +138,15 @@ class Contract {
   }
 
   Future<String> signContractCall(
-    String privateKey,
-    String functionName,
-    List<dynamic> parameters,
-  ) async {
+      String privateKey, String functionName, List<dynamic> parameters,
+      {int nonce}) async {
     return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
       return web3Client
           .signTransaction(
-              credentials, makeTransaction(functionName, parameters),
-              fetchChainIdFromNetworkId: true)
+            credentials,
+            makeTransaction(functionName, parameters, nonce: nonce),
+            chainId: 10,
+          )
           .then((rawTx) => '0x${bytesToHex(rawTx)}');
     });
   }

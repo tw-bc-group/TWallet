@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/payee_confirm.dart';
@@ -14,6 +16,7 @@ import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:web3dart/web3dart.dart';
 
 class BlePaymentHome extends StatefulWidget {
   final HomeStore homeStore;
@@ -25,6 +28,7 @@ class BlePaymentHome extends StatefulWidget {
 }
 
 class _BlePaymentHomeState extends State<BlePaymentHome> {
+  final Connectivity _connectivity = Connectivity();
   final Rx<DcepType> _redeemType = Rx(DcepType.rmb100);
 
   @override
@@ -103,7 +107,29 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
-  Widget _buildMainPage(DecentralizedIdentity identity) {
+  Widget _buildNetworkOffScreen(ConnectivityResult result) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const Icon(
+            Icons.network_check,
+            size: 200.0,
+            color: Colors.white54,
+          ),
+          Text(
+            '网络已关闭，请打开网络同步 nonce',
+            style: Theme.of(context)
+                .primaryTextTheme
+                .subtitle1
+                .copyWith(color: Colors.white),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMainScreen(DecentralizedIdentity identity, int nonce) {
     return Container(
       color: WalletColor.white,
       child: Padding(
@@ -153,7 +179,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
               Expanded(
                   child: WalletTheme.button(
                       text: '付款',
-                      onPressed: () => Get.to(PayeeList(identity)))),
+                      onPressed: () => Get.to(PayeeList(identity, nonce)))),
             ],
           )
         ]),
@@ -161,13 +187,56 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
+  Widget _buildScreen() {
+    if (Get.find<IdentityStore>().selectedIdentity.isPresent) {
+      final DecentralizedIdentity identity =
+          Get.find<IdentityStore>().selectedIdentity.value;
+
+      return FutureBuilder(
+          initialData: null,
+          future: _connectivity.checkConnectivity(),
+          builder: (BuildContext context,
+              AsyncSnapshot<ConnectivityResult> snapshot) {
+            print('result: ${snapshot.data}');
+            if (null != snapshot.data) {
+              return StreamBuilder(
+                stream: _connectivity.onConnectivityChanged,
+                initialData: snapshot.data,
+                builder: (BuildContext context,
+                    AsyncSnapshot<ConnectivityResult> snapshot) {
+                  if (snapshot.data == ConnectivityResult.none) {
+                    return _buildNetworkOffScreen(snapshot.data);
+                  } else {
+                    return FutureBuilder(
+                      initialData: null,
+                      future: Get.find<ContractService>()
+                          .nftTokenContract
+                          .getTransactionCount(
+                              EthereumAddress.fromHex(identity.address)),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<int> snapshot) {
+                        print('count: ${snapshot.data}');
+                        if (null != snapshot.data) {
+                          return _buildMainScreen(identity, snapshot.data);
+                        } else {
+                          return Container();
+                        }
+                      },
+                    );
+                  }
+                },
+              );
+            } else {
+              return Container();
+            }
+          });
+    } else {
+      return _buildAddIdentityCard(context, widget.homeStore);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CommonLayout(
-        title: '离线支付演示',
-        child: Get.find<IdentityStore>()
-            .selectedIdentity
-            .map((identity) => _buildMainPage(identity))
-            .orElse(_buildAddIdentityCard(context, widget.homeStore)));
+    return CommonLayout(title: '离线支付演示', child: _buildScreen());
   }
 }

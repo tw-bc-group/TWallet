@@ -86,16 +86,16 @@ abstract class DecentralizedIdentity extends Object
             }));
   }
 
-  Future<String> signOfflinePayment(BigInt bill, String toAddress) {
+  Future<String> signOfflinePayment(BigInt bill, String toAddress, int nonce) {
     return Get.find<ContractService>().nftTokenContract.signContractCall(
-      accountInfo.priKey,
-      'safeTransferFrom',
-      [
-        EthereumAddress.fromHex(address),
-        EthereumAddress.fromHex(toAddress),
-        bill
-      ],
-    );
+        accountInfo.priKey,
+        'safeTransferFrom',
+        [
+          EthereumAddress.fromHex(address),
+          EthereumAddress.fromHex(toAddress),
+          bill
+        ],
+        nonce: nonce);
   }
 
   Future<bool> transferPoint({String toAddress, Amount amount}) async {

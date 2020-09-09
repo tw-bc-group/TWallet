@@ -57,10 +57,11 @@ extension PaymentProgressExtension on PaymentProgress {
 }
 
 class Payment extends StatefulWidget {
+  final int _nonce;
   final Payee _bleDevice;
   final DecentralizedIdentity _identity;
 
-  const Payment(this._bleDevice, this._identity);
+  const Payment(this._bleDevice, this._identity, this._nonce);
 
   @override
   State<StatefulWidget> createState() => _PaymentState();
@@ -73,6 +74,8 @@ extension CharacteristicExtension on Characteristic {
 }
 
 class _PaymentState extends State<Payment> {
+  int nonce;
+
   final RxInt _amount = 0.obs;
   final RxString _hintText = RxString('');
   final Completer<bool> _confirmCompleter = Completer();
@@ -138,7 +141,11 @@ class _PaymentState extends State<Payment> {
         return Optional.of(await Get.find<IdentityStore>()
             .selectedIdentity
             .value
-            .signOfflinePayment(sn, toAddress));
+            .signOfflinePayment(sn, toAddress, nonce)
+            .then((res) {
+          nonce++;
+          return res;
+        }));
       } else {
         _paymentProgress.value = PaymentProgress.balanceNotEnough;
       }
@@ -213,7 +220,7 @@ class _PaymentState extends State<Payment> {
         _hintText.value = '连接中';
       }
     });
-
+    nonce = widget._nonce;
     _doConnect();
   }
 

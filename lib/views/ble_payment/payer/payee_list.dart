@@ -15,7 +15,7 @@ import 'payee.dart';
 import 'payment.dart';
 
 class PayeeListView extends ListView {
-  PayeeListView(DecentralizedIdentity identity, RxList<Payee> payees)
+  PayeeListView(DecentralizedIdentity identity, RxList<Payee> payees, int nonce)
       : super.separated(
             separatorBuilder: (context, index) => Divider(
                   color: Colors.grey[300],
@@ -24,7 +24,7 @@ class PayeeListView extends ListView {
                 ),
             itemCount: payees.length,
             itemBuilder: (context, i) {
-              return _buildRow(context, payees, payees[i], identity);
+              return _buildRow(context, payees, payees[i], identity, nonce);
             });
 
   static Widget _buildAvatar(BuildContext context, Payee device) {
@@ -55,10 +55,11 @@ class PayeeListView extends ListView {
     RxList<Payee> payees,
     Payee payee,
     DecentralizedIdentity identity,
+    int nonce,
   ) {
     return ListTile(
       onTap: () async {
-        final String payeeName = await Get.to(Payment(payee, identity));
+        final String payeeName = await Get.to(Payment(payee, identity, nonce));
         payees.removeWhere((payee) => payee.name == payeeName);
       },
       leading: Padding(
@@ -87,9 +88,10 @@ class PayeeListView extends ListView {
 }
 
 class PayeeList extends StatefulWidget {
+  final int nonce;
   final DecentralizedIdentity _identity;
 
-  const PayeeList(this._identity);
+  const PayeeList(this._identity, this.nonce);
 
   @override
   State<StatefulWidget> createState() => _PayeeListState();
@@ -197,7 +199,8 @@ class _PayeeListState extends State<PayeeList> {
       bodyBackColor: WalletColor.white,
       child: RefreshIndicator(
         onRefresh: _refresh,
-        child: Obx(() => PayeeListView(widget._identity, _bleDevices)),
+        child: Obx(
+            () => PayeeListView(widget._identity, _bleDevices, widget.nonce)),
       ),
     );
   }
