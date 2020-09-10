@@ -180,7 +180,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
               Expanded(
                   child: WalletTheme.button(
                       text: '付款',
-                      onPressed: () => Get.to(PayeeList(identity)))),
+                      onPressed: () => Get.to(PayeeListPage(identity)))),
             ],
           )
         ]),
@@ -206,7 +206,8 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                 stream: _connectivity.onConnectivityChanged,
                 builder: (BuildContext context,
                     AsyncSnapshot<ConnectivityResult> snapshot) {
-                  if (!isNonceSynced && ConnectivityResult.none == snapshot.data) {
+                  if (!isNonceSynced &&
+                      ConnectivityResult.none == snapshot.data) {
                     return _buildNetworkOffScreen(snapshot.data);
                   } else if (!isNonceSynced &&
                       ConnectivityResult.none != snapshot.data) {
@@ -241,6 +242,6 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
 
   @override
   Widget build(BuildContext context) {
-    return CommonLayout(title: '离线支付演示', child: _buildScreen());
+    return CommonLayout(title: '离线支付', child: _buildScreen());
   }
 }

@@ -1,28 +1,29 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/bluetooth_off.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/tx_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-class Payment extends StatefulWidget {
-  final String name;
+class PaymentScreen extends StatefulWidget {
   final int amount;
+  final String name;
   final String address;
 
-  const Payment({Key key, this.name, this.address, this.amount})
-      : super(key: key);
+  const PaymentScreen(this.name, this.address, this.amount);
 
   @override
-  State<StatefulWidget> createState() => _PaymentState();
+  State<StatefulWidget> createState() => _PaymentScreenState();
 }
 
-class _PaymentState extends State<Payment> {
+class _PaymentScreenState extends State<PaymentScreen> {
   final RxString _hintText = RxString('');
   final Map<String, Session> _sessions = {};
   final BlePeriphery _blePeriphery = BlePeriphery();
@@ -103,5 +104,28 @@ class _PaymentState extends State<Payment> {
             ],
           ),
         ));
+  }
+}
+
+class PaymentPage extends StatelessWidget {
+  final int amount;
+  final String name;
+  final String address;
+
+  const PaymentPage(this.name, this.address, this.amount);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FlutterBlue.instance.state,
+      builder: (BuildContext context,
+          AsyncSnapshot<BluetoothState> snapshot) {
+        if (BluetoothState.on == snapshot.data) {
+          return PaymentScreen(name, address, amount);
+        } else {
+          return const BluetoothOffScreen();
+        }
+      },
+    );
   }
 }

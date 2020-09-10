@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
+import 'package:flutter_blue/flutter_blue.dart' as flutter_blue;
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/bluetooth_off.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import 'hex_painter.dart';
@@ -86,16 +88,16 @@ class PayeeListView extends ListView {
   }
 }
 
-class PayeeList extends StatefulWidget {
+class PayeeListScreen extends StatefulWidget {
   final DecentralizedIdentity _identity;
 
-  const PayeeList(this._identity);
+  const PayeeListScreen(this._identity);
 
   @override
-  State<StatefulWidget> createState() => _PayeeListState();
+  State<StatefulWidget> createState() => _PayeeListScreenState();
 }
 
-class _PayeeListState extends State<PayeeList> {
+class _PayeeListScreenState extends State<PayeeListScreen> {
   final BleManager _bleManager = BleManager();
   final RxList<Payee> _bleDevices = RxList([]);
   StreamSubscription<ScanResult> _scanSubscription;
@@ -197,9 +199,29 @@ class _PayeeListState extends State<PayeeList> {
       bodyBackColor: WalletColor.white,
       child: RefreshIndicator(
         onRefresh: _refresh,
-        child: Obx(
-            () => PayeeListView(widget._identity, _bleDevices)),
+        child: Obx(() => PayeeListView(widget._identity, _bleDevices)),
       ),
+    );
+  }
+}
+
+class PayeeListPage extends StatelessWidget {
+  final DecentralizedIdentity _identity;
+
+  const PayeeListPage(this._identity);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: flutter_blue.FlutterBlue.instance.state,
+      builder: (BuildContext context,
+          AsyncSnapshot<flutter_blue.BluetoothState> snapshot) {
+        if (flutter_blue.BluetoothState.on == snapshot.data) {
+          return PayeeListScreen(_identity);
+        } else {
+          return const BluetoothOffScreen();
+        }
+      },
     );
   }
 }

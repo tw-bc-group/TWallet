@@ -56,10 +56,11 @@ class PayeeConfirm extends StatelessWidget {
         withBottomBtn: true,
         btnText: '开始收款',
         btnOnPressed: _payeeAmount.value > 0.0 && _payeeName.value.isNotEmpty
-            ? () => Get.to(Payment(
-                name: _payeeName.value,
-                amount: _payeeAmount.value,
-                address: identity.address))
+            ? () => Get.to(PaymentPage(
+                  _payeeName.value,
+                  identity.address,
+                  _payeeAmount.value,
+                ))
             : null,
         child: Container(
             color: WalletColor.white,

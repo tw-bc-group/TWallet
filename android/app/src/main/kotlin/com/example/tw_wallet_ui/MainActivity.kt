@@ -188,10 +188,10 @@ class MainActivity : FlutterActivity() {
         _checkAdapterNameTimer = timer(initialDelay = 1000, period = 500) {
             val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
             Log.d(_tag, "checkAdapterName, name: ${(context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter.name}")
-            if (bluetoothAdapter.name == name) {
+            if (bluetoothAdapter.name == name || !bluetoothAdapter.isEnabled) {
                 _checkAdapterNameTimer!!.cancel()
                 _checkAdapterNameTimer = null
-                if (_bluetoothAdvertiser == null) {
+                if (_bluetoothAdvertiser == null && bluetoothAdapter.isEnabled) {
                     _bluetoothAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
                     _bluetoothAdvertiser!!.startAdvertising(buildAdvertiseSettings(), _advertiseData, _advertiseCallback)
                     Log.d(_tag, "startAdvertising, name: $name")
