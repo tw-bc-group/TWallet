@@ -99,6 +99,10 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
   @BuiltValueField(wireName: 'create_time')
   DateTime get createdAt;
 
+  int compareTo(Dcep ohs) {
+    return type.amount.compareTo(ohs.type.amount);
+  }
+
   int get amount => type.amount;
 
   Map<String, dynamic> toJson() {

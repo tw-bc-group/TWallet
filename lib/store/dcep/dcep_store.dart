@@ -20,7 +20,7 @@ class DcepStore {
     if (null != owner) {
       Get.find<ApiProvider>().fetchDcepV2(owner).then((res) {
         res.ifPresent((list) {
-          items.value = list;
+          items.value = list..sort((a, b) => b.compareTo(a));
         });
       });
     }
