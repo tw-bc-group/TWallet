@@ -65,14 +65,16 @@ part 'serializer.g.dart';
   CommandType,
   Dcep,
   DcepType,
-  OfflineTx,
+  TxReceive,
+  TxSend,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
       ..add(AmountSerializer())
       ..add(Iso8601DateTimeSerializer())
-      ..addBuilderFactory(const FullType(OfflineTx), () => OfflineTxBuilder())
       ..addBuilderFactory(const FullType(Dcep), () => DcepBuilder())
+      ..addBuilderFactory(const FullType(TxReceive), () => TxReceiveBuilder())
+      ..addBuilderFactory(const FullType(TxSend), () => TxSendBuilder())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Dcep)]),
           () => ListBuilder<Dcep>())
       ..addBuilderFactory(const FullType(Command), () => CommandBuilder())

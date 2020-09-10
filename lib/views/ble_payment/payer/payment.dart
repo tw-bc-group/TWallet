@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payer/session.dart';
@@ -124,7 +125,7 @@ class _PaymentState extends State<Payment> {
     }
   }
 
-  Future<Optional<String>> _onWaitSignPayment(
+  Future<Optional<List<TxSend>>> _onWaitSignPayment(
       String toAddress, int amount) async {
     _amount.value = amount;
 
@@ -137,10 +138,14 @@ class _PaymentState extends State<Payment> {
         final BigInt sn = bytesToInt(Uint8List.fromList(dcep.sn.codeUnits));
         return Optional.of(await widget._identity
             .signOfflinePayment(sn, toAddress, _dcepStore.nonce)
-            .then((res) {
+            .then((signedRawTx) {
           _dcepStore.nonce++;
           _dcepStore.items.remove(dcep);
-          return res;
+          return [
+            TxSend((builder) => builder
+              ..dcep = dcep.toBuilder()
+              ..signedRawTx = signedRawTx)
+          ];
         }));
       } else {
         _paymentProgress.value = PaymentProgress.balanceNotEnough;

@@ -8,7 +8,7 @@ import 'package:tw_wallet_ui/views/ble_payment/payee/payment.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class PayeeConfirm extends StatelessWidget {
-  final RxInt _payeeAmount = 100.obs;
+  final Rx<int> _payeeAmount = Rx(100);
   final RxString _payeeName = ''.obs;
   final DecentralizedIdentity identity;
   final TextEditingController _amountController = TextEditingController();

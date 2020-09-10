@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:crypton/crypton.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
@@ -14,7 +15,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 typedef OnStateUpdate = void Function(String state);
-typedef OnSuccess = void Function(OfflineTx tx);
+typedef OnSuccess = void Function(TxReceive tx);
 
 class Session {
   final String peer;
@@ -87,8 +88,26 @@ class Session {
             .then((_) => onStateUpdate('发送交易信息'));
         break;
 
+      case CommandType.setDcep:
+        final List<String> fields = command.param.split(':');
+        final int index = int.parse(fields[0]);
+        final int count = int.parse(fields[1]);
+        onStateUpdate('验证款项...');
+        if (!Application.globalEnv.centralBankPublicKey.verifySHA256Signature(
+            Uint8List.fromList(utf8.encode(fields[2])),
+            base64.decode(fields[3]))) {
+          _sendCommand(Command.build(
+            CommandType.setDcepFail,
+          )).then((_) => onStateUpdate('验证款项失败'));
+        } else if (index == count) {
+          _sendCommand(Command.build(
+            CommandType.setDcepFail,
+          )).then((_) => onStateUpdate('验证款项成功'));
+        }
+        break;
+
       case CommandType.setRawTx:
-        onStateUpdate('收款验证...');
+        onStateUpdate('收款交易验证...');
         final EthTxInfo ethTxInfo =
             EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param)));
 
@@ -117,7 +136,7 @@ class Session {
             CommandType.setRawTxFail,
           )).then((_) => onStateUpdate('收款失败'));
         } else {
-          onSuccess(OfflineTx((builder) => builder
+          onSuccess(TxReceive((builder) => builder
             ..from = fromAddress
             ..publicKey = fromPublicKey
             ..tx = command.param));

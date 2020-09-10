@@ -8,9 +8,10 @@ import 'package:web3dart/web3dart.dart';
 const dcepPrefix = 'dcep';
 
 class DcepStore {
-  String owner;
-  final RxInt rxNonce = 0.obs;
+  final Rx<int> rxNonce = Rx(0);
   final RxList<Dcep> items = RxList([]);
+
+  String owner;
 
   int get nonce => rxNonce.value;
 

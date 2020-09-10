@@ -6,16 +6,16 @@ part of 'offline_tx.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<OfflineTx> _$offlineTxSerializer = new _$OfflineTxSerializer();
+Serializer<TxReceive> _$txReceiveSerializer = new _$TxReceiveSerializer();
 
-class _$OfflineTxSerializer implements StructuredSerializer<OfflineTx> {
+class _$TxReceiveSerializer implements StructuredSerializer<TxReceive> {
   @override
-  final Iterable<Type> types = const [OfflineTx, _$OfflineTx];
+  final Iterable<Type> types = const [TxReceive, _$TxReceive];
   @override
-  final String wireName = 'OfflineTx';
+  final String wireName = 'TxReceive';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, OfflineTx object,
+  Iterable<Object> serialize(Serializers serializers, TxReceive object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'from',
@@ -31,9 +31,9 @@ class _$OfflineTxSerializer implements StructuredSerializer<OfflineTx> {
   }
 
   @override
-  OfflineTx deserialize(Serializers serializers, Iterable<Object> serialized,
+  TxReceive deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new OfflineTxBuilder();
+    final result = new TxReceiveBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -60,7 +60,7 @@ class _$OfflineTxSerializer implements StructuredSerializer<OfflineTx> {
   }
 }
 
-class _$OfflineTx extends OfflineTx {
+class _$TxReceive extends TxReceive {
   @override
   final String from;
   @override
@@ -68,32 +68,32 @@ class _$OfflineTx extends OfflineTx {
   @override
   final String tx;
 
-  factory _$OfflineTx([void Function(OfflineTxBuilder) updates]) =>
-      (new OfflineTxBuilder()..update(updates)).build();
+  factory _$TxReceive([void Function(TxReceiveBuilder) updates]) =>
+      (new TxReceiveBuilder()..update(updates)).build();
 
-  _$OfflineTx._({this.from, this.publicKey, this.tx}) : super._() {
+  _$TxReceive._({this.from, this.publicKey, this.tx}) : super._() {
     if (from == null) {
-      throw new BuiltValueNullFieldError('OfflineTx', 'from');
+      throw new BuiltValueNullFieldError('TxReceive', 'from');
     }
     if (publicKey == null) {
-      throw new BuiltValueNullFieldError('OfflineTx', 'publicKey');
+      throw new BuiltValueNullFieldError('TxReceive', 'publicKey');
     }
     if (tx == null) {
-      throw new BuiltValueNullFieldError('OfflineTx', 'tx');
+      throw new BuiltValueNullFieldError('TxReceive', 'tx');
     }
   }
 
   @override
-  OfflineTx rebuild(void Function(OfflineTxBuilder) updates) =>
+  TxReceive rebuild(void Function(TxReceiveBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OfflineTxBuilder toBuilder() => new OfflineTxBuilder()..replace(this);
+  TxReceiveBuilder toBuilder() => new TxReceiveBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is OfflineTx &&
+    return other is TxReceive &&
         from == other.from &&
         publicKey == other.publicKey &&
         tx == other.tx;
@@ -107,7 +107,7 @@ class _$OfflineTx extends OfflineTx {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('OfflineTx')
+    return (newBuiltValueToStringHelper('TxReceive')
           ..add('from', from)
           ..add('publicKey', publicKey)
           ..add('tx', tx))
@@ -115,8 +115,8 @@ class _$OfflineTx extends OfflineTx {
   }
 }
 
-class OfflineTxBuilder implements Builder<OfflineTx, OfflineTxBuilder> {
-  _$OfflineTx _$v;
+class TxReceiveBuilder implements Builder<TxReceive, TxReceiveBuilder> {
+  _$TxReceive _$v;
 
   String _from;
   String get from => _$this._from;
@@ -130,9 +130,9 @@ class OfflineTxBuilder implements Builder<OfflineTx, OfflineTxBuilder> {
   String get tx => _$this._tx;
   set tx(String tx) => _$this._tx = tx;
 
-  OfflineTxBuilder();
+  TxReceiveBuilder();
 
-  OfflineTxBuilder get _$this {
+  TxReceiveBuilder get _$this {
     if (_$v != null) {
       _from = _$v.from;
       _publicKey = _$v.publicKey;
@@ -143,22 +143,126 @@ class OfflineTxBuilder implements Builder<OfflineTx, OfflineTxBuilder> {
   }
 
   @override
-  void replace(OfflineTx other) {
+  void replace(TxReceive other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$OfflineTx;
+    _$v = other as _$TxReceive;
   }
 
   @override
-  void update(void Function(OfflineTxBuilder) updates) {
+  void update(void Function(TxReceiveBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$OfflineTx build() {
+  _$TxReceive build() {
     final _$result =
-        _$v ?? new _$OfflineTx._(from: from, publicKey: publicKey, tx: tx);
+        _$v ?? new _$TxReceive._(from: from, publicKey: publicKey, tx: tx);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$TxSend extends TxSend {
+  @override
+  final Dcep dcep;
+  @override
+  final String signedRawTx;
+
+  factory _$TxSend([void Function(TxSendBuilder) updates]) =>
+      (new TxSendBuilder()..update(updates)).build();
+
+  _$TxSend._({this.dcep, this.signedRawTx}) : super._() {
+    if (dcep == null) {
+      throw new BuiltValueNullFieldError('TxSend', 'dcep');
+    }
+    if (signedRawTx == null) {
+      throw new BuiltValueNullFieldError('TxSend', 'signedRawTx');
+    }
+  }
+
+  @override
+  TxSend rebuild(void Function(TxSendBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  TxSendBuilder toBuilder() => new TxSendBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is TxSend &&
+        dcep == other.dcep &&
+        signedRawTx == other.signedRawTx;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, dcep.hashCode), signedRawTx.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('TxSend')
+          ..add('dcep', dcep)
+          ..add('signedRawTx', signedRawTx))
+        .toString();
+  }
+}
+
+class TxSendBuilder implements Builder<TxSend, TxSendBuilder> {
+  _$TxSend _$v;
+
+  DcepBuilder _dcep;
+  DcepBuilder get dcep => _$this._dcep ??= new DcepBuilder();
+  set dcep(DcepBuilder dcep) => _$this._dcep = dcep;
+
+  String _signedRawTx;
+  String get signedRawTx => _$this._signedRawTx;
+  set signedRawTx(String signedRawTx) => _$this._signedRawTx = signedRawTx;
+
+  TxSendBuilder();
+
+  TxSendBuilder get _$this {
+    if (_$v != null) {
+      _dcep = _$v.dcep?.toBuilder();
+      _signedRawTx = _$v.signedRawTx;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(TxSend other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$TxSend;
+  }
+
+  @override
+  void update(void Function(TxSendBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$TxSend build() {
+    _$TxSend _$result;
+    try {
+      _$result =
+          _$v ?? new _$TxSend._(dcep: dcep.build(), signedRawTx: signedRawTx);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'dcep';
+        dcep.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'TxSend', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

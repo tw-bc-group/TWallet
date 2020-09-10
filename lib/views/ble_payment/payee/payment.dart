@@ -69,7 +69,7 @@ class _PaymentState extends State<Payment> {
       }
       try {
         _sessions[peer].onData(
-            payload, (state) => _hintText.value += '\n$state', (OfflineTx tx) {
+            payload, (state) => _hintText.value += '\n$state', (TxReceive tx) {
           _txStore.addOne(tx);
         });
       } catch (_) {

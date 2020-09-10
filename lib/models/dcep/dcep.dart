@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 
 part 'dcep.g.dart';
@@ -107,6 +111,11 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
 
   Map<String, dynamic> toJson() {
     return serializers.serialize(this) as Map<String, dynamic>;
+  }
+
+  bool verify() {
+    return Application.globalEnv.centralBankPublicKey.verifySHA256Signature(
+        Uint8List.fromList(utf8.encode(sn)), base64.decode(signature));
   }
 
   factory Dcep([void Function(DcepBuilder) updates]) = _$Dcep;

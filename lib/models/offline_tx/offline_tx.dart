@@ -1,27 +1,38 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 
 part 'offline_tx.g.dart';
 
-abstract class OfflineTx implements Built<OfflineTx, OfflineTxBuilder> {
+abstract class TxReceive implements Built<TxReceive, TxReceiveBuilder> {
   String get from;
 
   String get publicKey;
 
   String get tx;
 
-  factory OfflineTx([void Function(OfflineTxBuilder) updates]) = _$OfflineTx;
+  factory TxReceive([void Function(TxReceiveBuilder) updates]) = _$TxReceive;
 
   Map<String, dynamic> toJson() {
     return serializers.serialize(this) as Map<String, dynamic>;
   }
 
-  static OfflineTx fromJson(Map<String, dynamic> json) {
-    return serializers.deserializeWith(OfflineTx.serializer, json);
+  static TxReceive fromJson(Map<String, dynamic> json) {
+    return serializers.deserializeWith(TxReceive.serializer, json);
   }
 
-  static Serializer<OfflineTx> get serializer => _$offlineTxSerializer;
+  static Serializer<TxReceive> get serializer => _$txReceiveSerializer;
 
-  OfflineTx._();
+  TxReceive._();
+}
+
+abstract class TxSend implements Built<TxSend, TxSendBuilder> {
+  Dcep get dcep;
+
+  String get signedRawTx;
+
+  factory TxSend([void Function(TxSendBuilder) updates]) = _$TxSend;
+
+  TxSend._();
 }

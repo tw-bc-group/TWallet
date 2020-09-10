@@ -148,14 +148,11 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   },
                 )),
             WalletTheme.button(
-              text: '兑换',
-              height: 28,
-              onPressed: () => identity
-                  .redeemDcep(_redeemType.value)
-                  .then((_) => showDialogSimple(DialogType.success, '兑换成功'))
-                  .then((_) => Future.delayed(const Duration(seconds: 2))
-                      .then((_) => _dcepStore.refresh())),
-            ),
+                text: '兑换',
+                height: 28,
+                onPressed: () => identity
+                    .redeemDcep(_redeemType.value)
+                    .then((_) => showDialogSimple(DialogType.success, '兑换成功'))),
           ]),
           Expanded(
             child: Obx(() => Padding(

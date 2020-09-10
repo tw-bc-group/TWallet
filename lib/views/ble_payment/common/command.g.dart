@@ -12,6 +12,9 @@ const CommandType _$setAesKey = const CommandType._('setAesKey');
 const CommandType _$setAesOk = const CommandType._('setAesOk');
 const CommandType _$getTxInfo = const CommandType._('getTxInfo');
 const CommandType _$setTxInfo = const CommandType._('setTxInfo');
+const CommandType _$setDcep = const CommandType._('setDcep');
+const CommandType _$setDcepFail = const CommandType._('setDcepFail');
+const CommandType _$setDcepOk = const CommandType._('setDcepOk');
 const CommandType _$setRawTx = const CommandType._('setRawTx');
 const CommandType _$setRawTxOk = const CommandType._('setRawTxOk');
 const CommandType _$setRawTxFail = const CommandType._('setRawTxFail');
@@ -30,6 +33,12 @@ CommandType _$valueOf(String name) {
       return _$getTxInfo;
     case 'setTxInfo':
       return _$setTxInfo;
+    case 'setDcep':
+      return _$setDcep;
+    case 'setDcepFail':
+      return _$setDcepFail;
+    case 'setDcepOk':
+      return _$setDcepOk;
     case 'setRawTx':
       return _$setRawTx;
     case 'setRawTxOk':
@@ -49,6 +58,9 @@ final BuiltSet<CommandType> _$values =
   _$setAesOk,
   _$getTxInfo,
   _$setTxInfo,
+  _$setDcep,
+  _$setDcepFail,
+  _$setDcepOk,
   _$setRawTx,
   _$setRawTxOk,
   _$setRawTxFail,

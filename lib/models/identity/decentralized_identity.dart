@@ -80,8 +80,10 @@ abstract class DecentralizedIdentity extends Object
     return Get.find<ApiProvider>()
         .redeemDcepV2(address, type)
         .then((res) => res.ifPresent((dcep) {
-              if (dcep.owner == address) {
-                Get.find<DcepStore>().items.add(dcep);
+              if (dcep.verify()) {
+                if (dcep.owner == address) {
+                  Get.find<DcepStore>().items.add(dcep);
+                }
               }
             }));
   }

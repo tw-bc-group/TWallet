@@ -8,11 +8,12 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:get/get.dart';
 import 'package:optional/optional.dart';
 import 'package:random_string/random_string.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/extension.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
-typedef WaitOnSignPayment = Future<Optional<String>> Function(
+typedef WaitOnSignPayment = Future<Optional<List<TxSend>>> Function(
     String toAddress, int amount);
 
 typedef OnStateUpdate = void Function(SessionState state);
@@ -23,6 +24,7 @@ enum SessionState {
   waitAesKeyAnswer,
   waitTxInfo,
   waitUserConfirm,
+  waitDcepAnswer,
   waitReceipt,
   success,
   fail,
@@ -60,6 +62,7 @@ class Session {
   final Queue<Completer> _readQueue = Queue();
   final Rx<SessionState> _state = Rx(SessionState.initial);
 
+  List<TxSend> _txList;
   SymmEncrypt _encrypter;
 
   Session(this.address, this.publicKey, this._readCharacteristic,
@@ -105,6 +108,13 @@ class Session {
 
       case SessionState.waitTxInfo:
         if (command.type != CommandType.setTxInfo) {
+          matched = false;
+        }
+        break;
+
+      case SessionState.waitDcepAnswer:
+        if (command.type != CommandType.setDcepOk &&
+            command.type != CommandType.setDcepFail) {
           matched = false;
         }
         break;
@@ -168,10 +178,32 @@ class Session {
           final List<String> fields = command.param.split(':');
           _state.value = SessionState.waitUserConfirm;
           (await onSignPayment(fields[0], int.parse(fields[1])))
-              .ifPresent((signedTx) {
-            _sendCommand(Command.build(CommandType.setRawTx, param: signedTx),
-                SessionState.waitReceipt);
+              .ifPresent((txList) {
+            _txList = txList;
+            txList.asMap().forEach((index, tx) {
+              _sendCommand(
+                  Command.build(CommandType.setDcep,
+                      param:
+                          '${index + 1}:${txList.length}:${tx.dcep.sn}:${tx.dcep.signature}'),
+                  SessionState.waitDcepAnswer);
+            });
           });
+          break;
+
+        case SessionState.waitDcepAnswer:
+          if (command.type == CommandType.setDcepFail) {
+            _state.value = SessionState.fail;
+          } else {
+            for (final TxSend tx in _txList) {
+              _sendCommand(
+                  Command.build(
+                    CommandType.setRawTx,
+                    param: tx.signedRawTx,
+                  ),
+                  SessionState.waitReceipt);
+            }
+          }
+
           break;
 
         case SessionState.waitReceipt:
