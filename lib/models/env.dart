@@ -23,6 +23,8 @@ abstract class Env extends Object implements Built<Env, EnvBuilder> {
 
   int get tokenHumanReadablePrecision;
 
+  int get chainId;
+
   RSAPublicKey get centralBankPublicKey;
 
   factory Env([void Function(EnvBuilder) updates]) = _$Env;
@@ -37,6 +39,7 @@ abstract class Env extends Object implements Built<Env, EnvBuilder> {
       ..tokenSymbol = '￥'
       ..tokenPrecision = 2
       ..tokenHumanReadablePrecision = 2
+      ..chainId = 10
       ..centralBankPublicKey = RSAPublicKey.fromString(
           'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAI5SXpw1SSsM3FN43JVKn4gb+oGXfjL7rCDluqydAyHZ8vV7ySqi8oM1CoHRC9U2ST7IldydsQ+4cjC9xfzexxcCAwEAAQ=='));
   }

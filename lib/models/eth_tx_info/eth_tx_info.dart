@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:web3dart/crypto.dart';
 
 // ignore: implementation_imports
@@ -43,10 +45,18 @@ abstract class EthTxInfo extends Object
       hexToBytes(to),
       value,
       data,
-      10,
+      Application.globalEnv.chainId,
       BigInt.zero,
       BigInt.zero
     ])));
+  }
+
+  Optional<String> recoverPublicKey() {
+    try {
+      return Optional.of(bytesToHex(ecRecover(messageHash, msgSignature)));
+    } catch (_) {
+      return const Optional.empty();
+    }
   }
 
   factory EthTxInfo([void Function(EthTxInfoBuilder) updates]) = _$EthTxInfo;

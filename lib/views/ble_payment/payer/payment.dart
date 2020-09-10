@@ -25,6 +25,7 @@ enum PaymentProgress {
   askInfo,
   waitUserConfirm,
   waitPaymentConfirm,
+  fail,
   success,
   balanceNotEnough,
   notSupported,
@@ -161,6 +162,10 @@ class _PaymentState extends State<Payment> {
         _paymentProgress.value = PaymentProgress.waitUserConfirm;
         break;
 
+      case SessionState.fail:
+        _paymentProgress.value = PaymentProgress.fail;
+        break;
+
       case SessionState.success:
         _paymentProgress.value = PaymentProgress.success;
         break;
@@ -203,6 +208,7 @@ class _PaymentState extends State<Payment> {
       case PaymentProgress.waitUserConnect:
         return WalletTheme.button(text: '重新连接', onPressed: () => _doConnect());
 
+      case PaymentProgress.fail:
       case PaymentProgress.success:
         return WalletTheme.button(
             text: '结束付款',

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:crypton/crypton.dart';
 import 'package:get/get.dart';
+import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
@@ -101,7 +102,7 @@ class Session {
           )).then((_) => onStateUpdate('验证款项失败'));
         } else if (index == count) {
           _sendCommand(Command.build(
-            CommandType.setDcepFail,
+            CommandType.setDcepOk,
           )).then((_) => onStateUpdate('验证款项成功'));
         }
         break;
@@ -115,18 +116,12 @@ class Session {
             .nftTokenContract
             .decodeParameters('safeTransferFrom', ethTxInfo.data);
 
-        String recoverPubKey;
-        try {
-          recoverPubKey = bytesToHex(
-              ecRecover(ethTxInfo.messageHash, ethTxInfo.msgSignature));
-        } catch (_) {
-          recoverPubKey = 'nothing';
-        }
+        final Optional<String> recoverPubKey = ethTxInfo.recoverPublicKey();
 
         final String decompressedPubKey = bytesToHex(
             decompressPublicKey(hexToBytes(fromPublicKey)).sublist(1));
 
-        if (recoverPubKey != decompressedPubKey ||
+        if (recoverPubKey != Optional.of(decompressedPubKey) ||
             (params[0] as EthereumAddress).toString().toLowerCase() !=
                 fromAddress.toLowerCase() ||
             (params[1] as EthereumAddress).toString().toLowerCase() !=

@@ -107,8 +107,8 @@ void main() {
           ethTxInfo.messageHash,
           hexToBytes(
               '2ea7daed5c33bec3bd0bf8559f8e5f671fc38e927b4087dd2065db22f204ce99'));
-      expect(
-          bytesToHex(ecRecover(ethTxInfo.messageHash, ethTxInfo.msgSignature)),
+
+      expect(ethTxInfo.recoverPublicKey(),
           '85c26b6182946f3354174ade4c48fc769d07fb16839f8f58ce9a5f4f15354037fce9ce5b6e2bc413188c6ba201300265bdd1c075c4152dd3b01613b03a580a4d');
     });
   });
