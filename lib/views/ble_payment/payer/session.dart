@@ -184,7 +184,7 @@ class Session {
               _sendCommand(
                   Command.build(CommandType.setDcep,
                       param:
-                          '${index + 1}:${txList.length}:${tx.dcep.sn}:${tx.dcep.signature}'),
+                          '${index + 1} ${txList.length} ${json.encode(tx.dcep.toJson())}'),
                   SessionState.waitDcepAnswer);
             });
           });

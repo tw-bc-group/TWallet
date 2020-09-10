@@ -105,9 +105,6 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
       'money_type',
       serializers.serialize(object.type,
           specifiedType: const FullType(DcepType)),
-      'create_time',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(DateTime)),
     ];
 
     return result;
@@ -140,10 +137,6 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
           result.type = serializers.deserialize(value,
               specifiedType: const FullType(DcepType)) as DcepType;
           break;
-        case 'create_time':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
-          break;
       }
     }
 
@@ -160,14 +153,11 @@ class _$Dcep extends Dcep {
   final String signature;
   @override
   final DcepType type;
-  @override
-  final DateTime createdAt;
 
   factory _$Dcep([void Function(DcepBuilder) updates]) =>
       (new DcepBuilder()..update(updates)).build();
 
-  _$Dcep._({this.sn, this.owner, this.signature, this.type, this.createdAt})
-      : super._() {
+  _$Dcep._({this.sn, this.owner, this.signature, this.type}) : super._() {
     if (sn == null) {
       throw new BuiltValueNullFieldError('Dcep', 'sn');
     }
@@ -179,9 +169,6 @@ class _$Dcep extends Dcep {
     }
     if (type == null) {
       throw new BuiltValueNullFieldError('Dcep', 'type');
-    }
-    if (createdAt == null) {
-      throw new BuiltValueNullFieldError('Dcep', 'createdAt');
     }
   }
 
@@ -199,16 +186,14 @@ class _$Dcep extends Dcep {
         sn == other.sn &&
         owner == other.owner &&
         signature == other.signature &&
-        type == other.type &&
-        createdAt == other.createdAt;
+        type == other.type;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, sn.hashCode), owner.hashCode), signature.hashCode),
-            type.hashCode),
-        createdAt.hashCode));
+        $jc($jc($jc(0, sn.hashCode), owner.hashCode), signature.hashCode),
+        type.hashCode));
   }
 
   @override
@@ -217,8 +202,7 @@ class _$Dcep extends Dcep {
           ..add('sn', sn)
           ..add('owner', owner)
           ..add('signature', signature)
-          ..add('type', type)
-          ..add('createdAt', createdAt))
+          ..add('type', type))
         .toString();
   }
 }
@@ -242,10 +226,6 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
   DcepType get type => _$this._type;
   set type(DcepType type) => _$this._type = type;
 
-  DateTime _createdAt;
-  DateTime get createdAt => _$this._createdAt;
-  set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
-
   DcepBuilder();
 
   DcepBuilder get _$this {
@@ -254,7 +234,6 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
       _owner = _$v.owner;
       _signature = _$v.signature;
       _type = _$v.type;
-      _createdAt = _$v.createdAt;
       _$v = null;
     }
     return this;
@@ -276,12 +255,7 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
   @override
   _$Dcep build() {
     final _$result = _$v ??
-        new _$Dcep._(
-            sn: sn,
-            owner: owner,
-            signature: signature,
-            type: type,
-            createdAt: createdAt);
+        new _$Dcep._(sn: sn, owner: owner, signature: signature, type: type);
     replace(_$result);
     return _$result;
   }

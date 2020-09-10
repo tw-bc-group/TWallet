@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
@@ -26,6 +27,8 @@ class Session {
 
   RSAKeypair keyPair;
   SymmEncrypt encrypter;
+  int receivedAmount = 0;
+  List<String> dcepList = [];
   String fromAddress, fromPublicKey;
 
   Session(this.peripheral, this.peer, this.address, this.amount);
@@ -90,25 +93,40 @@ class Session {
         break;
 
       case CommandType.setDcep:
-        final List<String> fields = command.param.split(':');
+        final List<String> fields = command.param.split(' ');
         final int index = int.parse(fields[0]);
         final int count = int.parse(fields[1]);
+        final Dcep dcep = Dcep.fromJson(json.decode(fields[2]));
+
+        bool verifyOk = false;
+
+        dcepList.add(dcep.sn);
+
         onStateUpdate('验证款项...');
-        if (!Application.globalEnv.centralBankPublicKey.verifySHA256Signature(
-            Uint8List.fromList(utf8.encode(fields[2])),
-            base64.decode(fields[3]))) {
-          _sendCommand(Command.build(
-            CommandType.setDcepFail,
-          )).then((_) => onStateUpdate('验证款项失败'));
-        } else if (index == count) {
+
+        if (dcep.verify()) {
+          receivedAmount += dcep.amount;
+          if (index == count) {
+            if (receivedAmount == amount * 100) {
+              verifyOk = true;
+            }
+          }
+        }
+
+        if (verifyOk) {
           _sendCommand(Command.build(
             CommandType.setDcepOk,
           )).then((_) => onStateUpdate('验证款项成功'));
+        } else {
+          _sendCommand(Command.build(
+            CommandType.setDcepFail,
+          )).then((_) => onStateUpdate('验证款项失败'));
         }
         break;
 
       case CommandType.setRawTx:
         onStateUpdate('收款交易验证...');
+
         final EthTxInfo ethTxInfo =
             EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param)));
 
@@ -121,20 +139,30 @@ class Session {
         final String decompressedPubKey = bytesToHex(
             decompressPublicKey(hexToBytes(fromPublicKey)).sublist(1));
 
-        if (recoverPubKey != Optional.of(decompressedPubKey) ||
-            (params[0] as EthereumAddress).toString().toLowerCase() !=
-                fromAddress.toLowerCase() ||
-            (params[1] as EthereumAddress).toString().toLowerCase() !=
+        final String dcepSn =
+            String.fromCharCodes(intToBytes(params[2] as BigInt));
+
+        bool verifyOk = false;
+
+        dcepList.remove(dcepSn);
+
+        if (recoverPubKey == Optional.of(decompressedPubKey) &&
+            (params[0] as EthereumAddress).toString().toLowerCase() ==
+                fromAddress.toLowerCase() &&
+            (params[1] as EthereumAddress).toString().toLowerCase() ==
                 address.toLowerCase()) {
-          onStateUpdate('交易验证失败...');
-          _sendCommand(Command.build(
-            CommandType.setRawTxFail,
-          )).then((_) => onStateUpdate('收款失败'));
-        } else {
           onSuccess(TxReceive((builder) => builder
             ..from = fromAddress
             ..publicKey = fromPublicKey
             ..tx = command.param));
+          verifyOk = true;
+        }
+
+        if (!verifyOk) {
+          _sendCommand(Command.build(
+            CommandType.setRawTxFail,
+          )).then((_) => onStateUpdate('交易验证不通过，收款失败'));
+        } else if (dcepList.isEmpty) {
           _sendCommand(Command.build(CommandType.setRawTxOk,
                   param: '$address:$amount'))
               .then((_) => onStateUpdate('收款成功'));

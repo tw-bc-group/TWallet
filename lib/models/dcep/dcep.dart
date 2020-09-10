@@ -100,9 +100,6 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
   @BuiltValueField(wireName: 'money_type')
   DcepType get type;
 
-  @BuiltValueField(wireName: 'create_time')
-  DateTime get createdAt;
-
   int compareTo(Dcep ohs) {
     return type.amount.compareTo(ohs.type.amount);
   }
