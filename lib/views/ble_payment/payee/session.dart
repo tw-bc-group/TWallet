@@ -5,7 +5,6 @@ import 'package:crypton/crypton.dart';
 import 'package:get/get.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
-import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';

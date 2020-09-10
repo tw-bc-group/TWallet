@@ -28,6 +28,8 @@ class BlePaymentHome extends StatefulWidget {
 }
 
 class _BlePaymentHomeState extends State<BlePaymentHome> {
+  bool isNonceSynced = false;
+
   final Connectivity _connectivity = Connectivity();
   final Rx<DcepType> _redeemType = Rx(DcepType.rmb100);
   final DcepStore _dcepStore = Get.find<DcepStore>();
@@ -119,7 +121,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             color: Colors.white54,
           ),
           Text(
-            '网络已关闭，请打开网络同步 nonce',
+            '网络已关闭，请打开网络同步账户信息',
             style: Theme.of(context)
                 .primaryTextTheme
                 .subtitle1
@@ -196,15 +198,18 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
           future: _connectivity.checkConnectivity(),
           builder: (BuildContext context,
               AsyncSnapshot<ConnectivityResult> snapshot) {
-            if (null != snapshot.data) {
+            if (null == snapshot.data) {
+              return Container();
+            } else {
               return StreamBuilder(
-                stream: _connectivity.onConnectivityChanged,
                 initialData: snapshot.data,
+                stream: _connectivity.onConnectivityChanged,
                 builder: (BuildContext context,
                     AsyncSnapshot<ConnectivityResult> snapshot) {
-                  if (snapshot.data == ConnectivityResult.none) {
+                  if (!isNonceSynced && ConnectivityResult.none == snapshot.data) {
                     return _buildNetworkOffScreen(snapshot.data);
-                  } else {
+                  } else if (!isNonceSynced &&
+                      ConnectivityResult.none != snapshot.data) {
                     return FutureBuilder(
                       initialData: null,
                       future: Get.find<ContractService>()
@@ -214,6 +219,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                       builder:
                           (BuildContext context, AsyncSnapshot<int> snapshot) {
                         if (null != snapshot.data) {
+                          isNonceSynced = true;
                           _dcepStore.nonce = snapshot.data;
                           return _buildMainScreen(identity);
                         } else {
@@ -221,11 +227,11 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                         }
                       },
                     );
+                  } else {
+                    return _buildMainScreen(identity);
                   }
                 },
               );
-            } else {
-              return Container();
             }
           });
     } else {
