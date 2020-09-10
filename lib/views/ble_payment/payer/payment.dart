@@ -130,7 +130,7 @@ class _PaymentState extends State<Payment> {
     _amount.value = amount;
 
     if (await _confirmCompleter.future) {
-      final Dcep dcep = _dcepStore.items.firstWhere(
+      final Dcep dcep = _dcepStore.sortedItems.firstWhere(
           (item) => item.amount == amount * 100,
           orElse: () => null);
 
@@ -140,7 +140,7 @@ class _PaymentState extends State<Payment> {
             .signOfflinePayment(sn, toAddress, _dcepStore.nonce)
             .then((signedRawTx) {
           _dcepStore.nonce++;
-          _dcepStore.items.remove(dcep);
+          _dcepStore.remove(dcep);
           return [
             TxSend((builder) => builder
               ..dcep = dcep.toBuilder()

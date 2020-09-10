@@ -160,7 +160,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   child: RefreshIndicator(
                     onRefresh: () => _dcepStore.refresh(),
                     child: ListView(
-                      children: _dcepStore.items
+                      children: _dcepStore.sortedItems
                           .map((item) => _dcepListItem(item.type.humanReadable))
                           .toList(),
                     ),

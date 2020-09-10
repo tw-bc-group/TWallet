@@ -82,7 +82,7 @@ abstract class DecentralizedIdentity extends Object
         .then((res) => res.ifPresent((dcep) {
               if (dcep.verify()) {
                 if (dcep.owner == address) {
-                  Get.find<DcepStore>().items.add(dcep);
+                  Get.find<DcepStore>().add(dcep);
                 }
               }
             }));

@@ -9,11 +9,14 @@ const dcepPrefix = 'dcep';
 
 class DcepStore {
   final Rx<int> rxNonce = Rx(0);
-  final RxList<Dcep> items = RxList([]);
+  final RxList<Dcep> _items = RxList([]);
 
   String owner;
 
   int get nonce => rxNonce.value;
+
+  List<Dcep> get sortedItems =>
+      (_items..sort((a, b) => b.compareTo(a))).toList();
 
   set nonce(int newNonce) => rxNonce.value = newNonce;
 
@@ -21,7 +24,7 @@ class DcepStore {
     if (null != owner) {
       Get.find<ApiProvider>().fetchDcepV2(owner).then((res) {
         res.ifPresent((list) {
-          items.value = list..sort((a, b) => b.compareTo(a));
+          _items.value = list..sort((a, b) => b.compareTo(a));
         });
       });
     }
@@ -47,8 +50,16 @@ class DcepStore {
     });
   }
 
+  void add(Dcep dcep) {
+    _items.add(dcep);
+  }
+
+  void remove(Dcep dcep) {
+    _items.remove(dcep);
+  }
+
   void clear() {
-    items.clear();
+    _items.clear();
     owner = null;
   }
 
