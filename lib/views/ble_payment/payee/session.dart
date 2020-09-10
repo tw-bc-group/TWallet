@@ -28,6 +28,7 @@ class Session {
   SymmEncrypt encrypter;
   int receivedAmount = 0;
   List<String> dcepList = [];
+  List<TxReceive> txReceivedList = [];
   String fromAddress, fromPublicKey;
 
   Session(this.peripheral, this.peer, this.address, this.amount);
@@ -150,7 +151,7 @@ class Session {
                 fromAddress.toLowerCase() &&
             (params[1] as EthereumAddress).toString().toLowerCase() ==
                 address.toLowerCase()) {
-          onSuccess(TxReceive((builder) => builder
+          txReceivedList.add(TxReceive((builder) => builder
             ..from = fromAddress
             ..publicKey = fromPublicKey
             ..tx = command.param));
@@ -162,6 +163,9 @@ class Session {
             CommandType.setRawTxFail,
           )).then((_) => onStateUpdate('交易验证不通过，收款失败'));
         } else if (dcepList.isEmpty) {
+          for (final TxReceive txReceive in txReceivedList) {
+            onSuccess(txReceive);
+          }
           _sendCommand(Command.build(CommandType.setRawTxOk,
                   param: '$address:$amount'))
               .then((_) => onStateUpdate('收款成功'));
