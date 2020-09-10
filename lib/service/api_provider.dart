@@ -36,7 +36,7 @@ class ApiProvider {
             as Dcep)));
   }
 
-  Future<Optional<List<Dcep>>> fetchTokenV2(
+  Future<Optional<List<Dcep>>> fetchDcepV2(
     String address,
   ) {
     return _httpClient.get('/v2/token?address=$address', loading: false).then(

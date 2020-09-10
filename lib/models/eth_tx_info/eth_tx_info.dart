@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:web3dart/crypto.dart';
+
 // ignore: implementation_imports
 import 'package:web3dart/src/utils/rlp.dart' as rlp;
-
 
 part 'eth_tx_info.g.dart';
 
@@ -31,6 +31,8 @@ abstract class EthTxInfo extends Object
 
   BigInt get s;
 
+  // https://github.com/ethereumjs/ethereumjs-util/blob/8ffe697fafb33cefc7b7ec01c11e3a7da787fe0e/src/signature.ts#L26
+  // be aware that signature.v already is recovery + 27
   MsgSignature get msgSignature => MsgSignature(r, s, v + 27 - 55);
 
   Uint8List get messageHash {

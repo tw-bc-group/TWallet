@@ -18,7 +18,7 @@ class DcepStore {
 
   Future<void> refresh() {
     if (null != owner) {
-      Get.find<ApiProvider>().fetchTokenV2(owner).then((res) {
+      Get.find<ApiProvider>().fetchDcepV2(owner).then((res) {
         res.ifPresent((list) {
           items.value = list;
         });
