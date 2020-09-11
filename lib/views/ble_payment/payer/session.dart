@@ -71,7 +71,9 @@ class Session {
   Future<void> _sendCommand(Command command, SessionState newState) {
     Future sendFuture;
 
-    _readQueue.add(Completer());
+    Completer completer = Completer();
+
+    _readQueue.add(completer);
 
     if (_encrypter != null) {
       sendFuture =
@@ -83,9 +85,7 @@ class Session {
     return Future.delayed(const Duration(milliseconds: 100))
         .then((_) => sendFuture.then((_) {
               _state.value = newState;
-              if (_readQueue.isNotEmpty) {
-                _readQueue.first.complete();
-              }
+              completer.complete();
             }));
   }
 
