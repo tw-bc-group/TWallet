@@ -117,7 +117,7 @@ class Session {
           _sendCommand(Command.build(
             CommandType.setDcepOk,
           )).then((_) => onStateUpdate('验证款项成功'));
-        } else {
+        } else if (index == count) {
           _sendCommand(Command.build(
             CommandType.setDcepFail,
           )).then((_) => onStateUpdate('验证款项失败'));
