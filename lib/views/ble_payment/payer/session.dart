@@ -71,7 +71,7 @@ class Session {
   Future<void> _sendCommand(Command command, SessionState newState) {
     Future sendFuture;
 
-    Completer completer = Completer();
+    final Completer completer = Completer();
 
     _readQueue.add(completer);
 
