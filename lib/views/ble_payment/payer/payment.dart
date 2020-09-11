@@ -170,8 +170,9 @@ class _PaymentState extends State<Payment> {
             ..dcep = dcep.toBuilder()
             ..signedRawTx = signedRawTx));
         }
-
         return Optional.of(txList);
+      } else {
+        _paymentProgress.value = PaymentProgress.balanceNotEnough;
       }
     }
 
