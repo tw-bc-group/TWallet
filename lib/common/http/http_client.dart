@@ -48,7 +48,7 @@ void showErrorDialog(DioError err) {
       }
       break;
   }
-  showDialogSample(_hintType, '$errorMessage，请稍后再试。。。');
+  showDialogSimple(_hintType, '$errorMessage，请稍后再试。。。');
 }
 
 Dio _initDio() {

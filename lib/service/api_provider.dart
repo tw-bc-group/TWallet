@@ -7,12 +7,44 @@ import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 class ApiProvider {
   final HttpClient _httpClient = Get.find();
+
+  Future<void> transferDcepV2(
+      String from, String publicKey, String signedRawTx) {
+    return _httpClient.post(
+        '/v2/token/transfer',
+        {
+          'fromAddress': from,
+          'fromPublicKey': publicKey,
+          'signedTransactionRawData': signedRawTx,
+        },
+        throwError: true);
+  }
+
+  Future<Optional<Dcep>> redeemDcepV2(String address, DcepType type) {
+    return _httpClient.post('/v2/token/mint', {
+      'address': address,
+      'moneyType': type.toString()
+    }).then((res) => Future.value(res.map((response) =>
+        ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
+            as Dcep)));
+  }
+
+  Future<Optional<List<Dcep>>> fetchDcepV2(
+    String address,
+  ) {
+    return _httpClient.get('/v2/token?address=$address', loading: false).then(
+        (res) => Future.value(
+            res.map((response) => ApiResponse.fromJson(response.data, const [
+                  FullType(BuiltList, [FullType(Dcep)])
+                ]).result.toList() as List<Dcep>)));
+  }
 
   Future<Optional<TwBalance>> fetchPointV1(
       {@required String address, bool withLoading}) async {
@@ -50,12 +82,6 @@ class ApiProvider {
       },
     );
   }
-
-//  Future<Optional<Response>> identitiesRestore(String owner) {
-//    return _httpClient.get(
-//      '/v1/identities/$owner',
-//    );
-//  }
 
   Future<Optional<Response>> transferPoint(
       String fromAddress, String publicKey, String signedRawTx) {

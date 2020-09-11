@@ -88,6 +88,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
         Container(
           width: double.infinity,
           child: PinCodeTextField(
+              appContext: context,
               length: 6,
               obsecureText: true,
               animationType: AnimationType.fade,

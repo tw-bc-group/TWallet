@@ -4,6 +4,8 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
+typedef BeforeDispose = Future<void> Function();
+
 class CommonLayout extends StatelessWidget {
   final Widget child;
   final bool withBottomBtn;
@@ -12,6 +14,7 @@ class CommonLayout extends StatelessWidget {
   final String title;
   final Color bodyBackColor;
   final BackIcon backIcon;
+  final BeforeDispose beforeDispose;
   final List<Widget> appBarActions;
 
   const CommonLayout(
@@ -21,6 +24,7 @@ class CommonLayout extends StatelessWidget {
       this.btnOnPressed,
       this.title,
       this.bodyBackColor,
+      this.beforeDispose,
       this.backIcon = BackIcon.arrow,
       this.appBarActions});
 
@@ -36,6 +40,7 @@ class CommonLayout extends StatelessWidget {
           title: title,
           backIcon: backIcon,
           appBarActions: appBarActions,
+          beforeDispose: beforeDispose,
         ),
         textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.black,

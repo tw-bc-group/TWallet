@@ -42,6 +42,11 @@ class _$EnvSerializer implements StructuredSerializer<Env> {
       'tokenHumanReadablePrecision',
       serializers.serialize(object.tokenHumanReadablePrecision,
           specifiedType: const FullType(int)),
+      'chainId',
+      serializers.serialize(object.chainId, specifiedType: const FullType(int)),
+      'centralBankPublicKey',
+      serializers.serialize(object.centralBankPublicKey,
+          specifiedType: const FullType(RSAPublicKey)),
     ];
 
     return result;
@@ -90,6 +95,14 @@ class _$EnvSerializer implements StructuredSerializer<Env> {
           result.tokenHumanReadablePrecision = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'chainId':
+          result.chainId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'centralBankPublicKey':
+          result.centralBankPublicKey = serializers.deserialize(value,
+              specifiedType: const FullType(RSAPublicKey)) as RSAPublicKey;
+          break;
       }
     }
 
@@ -114,6 +127,10 @@ class _$Env extends Env {
   final int tokenPrecision;
   @override
   final int tokenHumanReadablePrecision;
+  @override
+  final int chainId;
+  @override
+  final RSAPublicKey centralBankPublicKey;
 
   factory _$Env([void Function(EnvBuilder) updates]) =>
       (new EnvBuilder()..update(updates)).build();
@@ -126,7 +143,9 @@ class _$Env extends Env {
       this.tokenName,
       this.tokenSymbol,
       this.tokenPrecision,
-      this.tokenHumanReadablePrecision})
+      this.tokenHumanReadablePrecision,
+      this.chainId,
+      this.centralBankPublicKey})
       : super._() {
     if (apiGatewayBaseUrl == null) {
       throw new BuiltValueNullFieldError('Env', 'apiGatewayBaseUrl');
@@ -152,6 +171,12 @@ class _$Env extends Env {
     if (tokenHumanReadablePrecision == null) {
       throw new BuiltValueNullFieldError('Env', 'tokenHumanReadablePrecision');
     }
+    if (chainId == null) {
+      throw new BuiltValueNullFieldError('Env', 'chainId');
+    }
+    if (centralBankPublicKey == null) {
+      throw new BuiltValueNullFieldError('Env', 'centralBankPublicKey');
+    }
   }
 
   @override
@@ -172,7 +197,9 @@ class _$Env extends Env {
         tokenName == other.tokenName &&
         tokenSymbol == other.tokenSymbol &&
         tokenPrecision == other.tokenPrecision &&
-        tokenHumanReadablePrecision == other.tokenHumanReadablePrecision;
+        tokenHumanReadablePrecision == other.tokenHumanReadablePrecision &&
+        chainId == other.chainId &&
+        centralBankPublicKey == other.centralBankPublicKey;
   }
 
   @override
@@ -183,14 +210,18 @@ class _$Env extends Env {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc(0, apiGatewayBaseUrl.hashCode),
-                                apiGatewayConnectTimeout.hashCode),
-                            web3RpcGatewayUrl.hashCode),
-                        didPrefix.hashCode),
-                    tokenName.hashCode),
-                tokenSymbol.hashCode),
-            tokenPrecision.hashCode),
-        tokenHumanReadablePrecision.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, apiGatewayBaseUrl.hashCode),
+                                        apiGatewayConnectTimeout.hashCode),
+                                    web3RpcGatewayUrl.hashCode),
+                                didPrefix.hashCode),
+                            tokenName.hashCode),
+                        tokenSymbol.hashCode),
+                    tokenPrecision.hashCode),
+                tokenHumanReadablePrecision.hashCode),
+            chainId.hashCode),
+        centralBankPublicKey.hashCode));
   }
 
   @override
@@ -203,7 +234,9 @@ class _$Env extends Env {
           ..add('tokenName', tokenName)
           ..add('tokenSymbol', tokenSymbol)
           ..add('tokenPrecision', tokenPrecision)
-          ..add('tokenHumanReadablePrecision', tokenHumanReadablePrecision))
+          ..add('tokenHumanReadablePrecision', tokenHumanReadablePrecision)
+          ..add('chainId', chainId)
+          ..add('centralBankPublicKey', centralBankPublicKey))
         .toString();
   }
 }
@@ -248,6 +281,15 @@ class EnvBuilder implements Builder<Env, EnvBuilder> {
   set tokenHumanReadablePrecision(int tokenHumanReadablePrecision) =>
       _$this._tokenHumanReadablePrecision = tokenHumanReadablePrecision;
 
+  int _chainId;
+  int get chainId => _$this._chainId;
+  set chainId(int chainId) => _$this._chainId = chainId;
+
+  RSAPublicKey _centralBankPublicKey;
+  RSAPublicKey get centralBankPublicKey => _$this._centralBankPublicKey;
+  set centralBankPublicKey(RSAPublicKey centralBankPublicKey) =>
+      _$this._centralBankPublicKey = centralBankPublicKey;
+
   EnvBuilder();
 
   EnvBuilder get _$this {
@@ -260,6 +302,8 @@ class EnvBuilder implements Builder<Env, EnvBuilder> {
       _tokenSymbol = _$v.tokenSymbol;
       _tokenPrecision = _$v.tokenPrecision;
       _tokenHumanReadablePrecision = _$v.tokenHumanReadablePrecision;
+      _chainId = _$v.chainId;
+      _centralBankPublicKey = _$v.centralBankPublicKey;
       _$v = null;
     }
     return this;
@@ -289,7 +333,9 @@ class EnvBuilder implements Builder<Env, EnvBuilder> {
             tokenName: tokenName,
             tokenSymbol: tokenSymbol,
             tokenPrecision: tokenPrecision,
-            tokenHumanReadablePrecision: tokenHumanReadablePrecision);
+            tokenHumanReadablePrecision: tokenHumanReadablePrecision,
+            chainId: chainId,
+            centralBankPublicKey: centralBankPublicKey);
     replace(_$result);
     return _$result;
   }

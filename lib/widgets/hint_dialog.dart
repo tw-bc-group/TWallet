@@ -155,7 +155,7 @@ class HintDialog extends Dialog {
   }
 }
 
-Future<void> showDialogSample(DialogType type, String text) {
+Future<void> showDialogSimple(DialogType type, String text) {
   return Get.dialog(HintDialogSample(type, text));
 }
 

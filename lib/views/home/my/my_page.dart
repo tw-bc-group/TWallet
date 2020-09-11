@@ -11,15 +11,19 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
+import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
+import 'package:tw_wallet_ui/views/ble_payment/home.dart';
+import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
   final ProgressDialog _dialog = Get.find();
   _dialog.show();
   return Get.find<IdentityStore>()
       .clear()
+      .then((_) => Get.find<DcepStore>().clear())
       .then((_) => Get.find<HealthCertificationStore>().clear())
       .then((_) => Get.find<SecureStorage>().clearAll())
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
@@ -41,43 +45,49 @@ Future<void> clearAllDappStorage(
 }
 
 class MyPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  final HomeStore homeStore;
+
+  const MyPage(this.homeStore);
+
+  Widget _buildButton(String text, VoidCallback onTap) {
     final _screenUtil = ScreenUtil();
 
-    Widget _buildButton(String text, VoidCallback onTap) {
-      return GestureDetector(
-        onTap: onTap,
-        child: Container(
-          margin: EdgeInsets.only(bottom: _screenUtil.setWidth(15).toDouble()),
-          height: _screenUtil.setWidth(90).toDouble(),
-          decoration: BoxDecoration(
-            color: WalletColor.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x0f000000),
-                offset: Offset(0, 4),
-                blurRadius: 12,
-              )
-            ],
-          ),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: _screenUtil.setWidth(20).toDouble()),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(text, style: WalletFont.font_18()),
-                  SvgPicture.asset('assets/icons/right-arrow.svg')
-                ],
-              ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(bottom: _screenUtil.setWidth(15).toDouble()),
+        height: _screenUtil.setWidth(90).toDouble(),
+        decoration: BoxDecoration(
+          color: WalletColor.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 12,
+            )
+          ],
+        ),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: _screenUtil.setWidth(20).toDouble()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(text, style: WalletFont.font_18()),
+                SvgPicture.asset('assets/icons/right-arrow.svg')
+              ],
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final _screenUtil = ScreenUtil();
 
     return Column(children: <Widget>[
       Container(
@@ -99,6 +109,8 @@ class MyPage extends StatelessWidget {
                 padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
                 child: ListView(
                   children: <Widget>[
+                    _buildButton(
+                        '离线支付', () => Get.to(BlePaymentHome(homeStore))),
                     _buildButton('清除数据', () => _cleanPrivateData(context)),
                     Padding(
                       padding: EdgeInsets.only(

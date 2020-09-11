@@ -5,6 +5,11 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - flutter_ble_lib (2.3.0):
+    - Flutter
+    - MultiplatformBleAdapter (~> 0.1.6)
+  - flutter_ble_peripheral (0.0.3):
+    - Flutter
   - flutter_custom_dialog (0.0.1):
     - Flutter
   - flutter_secure_storage (3.3.1):
@@ -15,6 +20,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - MTBBarcodeScanner (5.0.11)
+  - MultiplatformBleAdapter (0.1.6)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -31,6 +37,8 @@ DEPENDENCIES:
   - ai_barcode (from `.symlinks/plugins/ai_barcode/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
+  - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
+  - flutter_ble_peripheral (from `.symlinks/plugins/flutter_ble_peripheral/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
@@ -44,6 +52,7 @@ SPEC REPOS:
   trunk:
     - FMDB
     - MTBBarcodeScanner
+    - MultiplatformBleAdapter
 
 EXTERNAL SOURCES:
   ai_barcode:
@@ -52,6 +61,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
+  flutter_ble_lib:
+    :path: ".symlinks/plugins/flutter_ble_lib/ios"
+  flutter_ble_peripheral:
+    :path: ".symlinks/plugins/flutter_ble_peripheral/ios"
   flutter_custom_dialog:
     :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   flutter_secure_storage:
@@ -73,17 +86,20 @@ SPEC CHECKSUMS:
   ai_barcode: a415de3b4616800a963d265b292511f890a3649d
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_ble_lib: 1d400af3aa9ea4b069974cd06c2bafefe0289086
+  flutter_ble_peripheral: e12ab87914fc1690b22bb26649e4f6698625f425
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  MultiplatformBleAdapter: 652f47ecd7f5036756517cf66833210709a72eab
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: 1f1265311e864950d5f85b1aac9a07d3768eb575
+PODFILE CHECKSUM: 5f815016d139ed6929e933e0c3d2602df375d7c7
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0.beta.2

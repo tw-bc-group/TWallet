@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' show Client;
 import 'package:optional/optional.dart';
@@ -9,7 +11,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 const maxGas = 300000;
-const contractsOnChain = ['token', 'identities'];
+const contractsOnChain = ['token', 'identities', 'nft-dcep'];
 
 class ContractService {
   const ContractService(this.contracts);
@@ -19,6 +21,8 @@ class ContractService {
   Contract get tokenContract => contracts[contractsOnChain[0]];
 
   Contract get identitiesContract => contracts[contractsOnChain[1]];
+
+  Contract get nftTokenContract => contracts[contractsOnChain[2]];
 
   static Future<ContractService> init() async {
     final Map<String, Contract> contracts = {};
@@ -62,14 +66,39 @@ class Contract {
     });
   }
 
-  Transaction makeTransaction(String functionName, List<dynamic> parameters) {
+  Future<int> getTransactionCount(EthereumAddress address) async {
+    return web3Client.getTransactionCount(address);
+  }
+
+  List<dynamic> decodeParameters(String funcName, Uint8List data) {
+    return TupleType(contract
+            .function(funcName)
+            .parameters
+            .map((param) => param.type)
+            .toList())
+        .decode(data.buffer, 4)
+        .data;
+  }
+
+  Transaction makeTransaction(String functionName, List<dynamic> parameters,
+      {int nonce}) {
     return Transaction.callContract(
       contract: contract,
       function: contract.function(functionName),
       parameters: parameters,
       gasPrice: EtherAmount.zero(),
       maxGas: maxGas,
+      nonce: nonce,
     );
+  }
+
+  void eventStream(String eventName, Function(List<dynamic>) onListen) {
+    final listenedEvent = contract.event(eventName);
+    web3Client
+        .events(FilterOptions.events(
+            contract: contract, event: contract.event(eventName)))
+        .listen((event) =>
+            onListen(listenedEvent.decodeResults(event.topics, event.data)));
   }
 
   Future<List<dynamic>> callFunction(
@@ -109,12 +138,15 @@ class Contract {
   }
 
   Future<String> signContractCall(
-      String privateKey, String functionName, List<dynamic> parameters) async {
+      String privateKey, String functionName, List<dynamic> parameters,
+      {int nonce}) async {
     return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
       return web3Client
           .signTransaction(
-              credentials, makeTransaction(functionName, parameters),
-              fetchChainIdFromNetworkId: true)
+            credentials,
+            makeTransaction(functionName, parameters, nonce: nonce),
+            chainId: 10,
+          )
           .then((rawTx) => '0x${bytesToHex(rawTx)}');
     });
   }

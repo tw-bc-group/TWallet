@@ -21,6 +21,7 @@ void main() {
         'should return webview sign transaction method param model when given a correct json map',
         () {
       const Map<String, dynamic> serialized = {
+        'token': 'token',
         'transactionInfo': {
           'accountId': '883ebda0-aae4-11ea-d97e-79963447eb89',
           'rpcUrl': 'http://quorum.tw-wallet.in2e.com:22000',

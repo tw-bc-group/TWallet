@@ -39,7 +39,8 @@ class NewWalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonLayout(backIcon: BackIcon.none,
+    return CommonLayout(
+        backIcon: BackIcon.none,
         child: Container(
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(

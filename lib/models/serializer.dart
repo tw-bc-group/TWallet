@@ -2,13 +2,17 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
+import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity/account_info.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/identity/health_info.dart';
 import 'package:tw_wallet_ui/models/identity/profile_info.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
@@ -24,10 +28,8 @@ import 'package:tw_wallet_ui/models/webview/sign_transaction/sign_transaction.da
 import 'package:tw_wallet_ui/models/webview/sign_transaction/transaction_info.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/health_certificate/health_certificate_page_store.dart';
-
-import 'amount.dart';
-import 'health_certification_token.dart';
 
 part 'serializer.g.dart';
 
@@ -59,14 +61,34 @@ part 'serializer.g.dart';
   WebviewPincodeDialogInput,
   WebviewPincodeDialogTitle,
   CreateAccountParam,
+  Command,
+  CommandType,
+  Dcep,
+  DcepType,
+  TxReceive,
+  TxSend,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
-      ..add(Iso8601DateTimeSerializer())
+      ..addPlugin(StandardJsonPlugin())
       ..add(AmountSerializer())
+      ..add(Iso8601DateTimeSerializer())
+      ..addBuilderFactory(const FullType(Dcep), () => DcepBuilder())
+      ..addBuilderFactory(const FullType(TxReceive), () => TxReceiveBuilder())
+      ..addBuilderFactory(const FullType(TxSend), () => TxSendBuilder())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(Dcep)]),
+          () => ListBuilder<Dcep>())
+      ..addBuilderFactory(const FullType(Command), () => CommandBuilder())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Transaction)]),
           () => ListBuilder<Transaction>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Contract)]),
           () => ApiResponseBuilder<Contract>())
+      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Dcep)]),
+          () => ApiResponseBuilder<Dcep>())
+      ..addBuilderFactory(
+          const FullType(ApiResponse, [
+            FullType(BuiltList, [FullType(Dcep)])
+          ]),
+          () => ApiResponseBuilder<BuiltList<Dcep>>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Transaction)]),
           () => ApiResponseBuilder<Transaction>())
       ..addBuilderFactory(
@@ -108,6 +130,5 @@ final Serializers serializers = (_$serializers.toBuilder()
               FullType(WebviewPincodeDialogTitle)
             ],
           ),
-          () => WebviewPincodeDialogStyleBuilder)
-      ..addPlugin(StandardJsonPlugin()))
+          () => WebviewPincodeDialogStyleBuilder))
     .build();
