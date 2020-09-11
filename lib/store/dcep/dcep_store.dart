@@ -44,7 +44,7 @@ class DcepStore {
         final EthereumAddress to = results[2] as EthereumAddress;
         if (from.toString().toLowerCase() == owner ||
             to.toString().toLowerCase() == owner) {
-          refresh();
+          Future.delayed(const Duration(seconds: 2)).then((_) => refresh());
         }
       }
     });
