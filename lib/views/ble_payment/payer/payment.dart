@@ -126,30 +126,52 @@ class _PaymentState extends State<Payment> {
     }
   }
 
+  List<Dcep> _selectDcep(int destAmount, List<Dcep> dcepList) {
+    int temp = 0;
+    final List<Dcep> selectList = [];
+
+    for (final Dcep dcep in dcepList) {
+      if (dcep.amount <= destAmount && (temp + dcep.amount <= destAmount)) {
+        temp += dcep.amount;
+        selectList.add(dcep);
+      }
+
+      if (temp == destAmount) {
+        break;
+      }
+    }
+
+    if (temp == destAmount) {
+      return selectList;
+    } else {
+      return selectList..clear();
+    }
+  }
+
   Future<Optional<List<TxSend>>> _onWaitSignPayment(
       String toAddress, int amount) async {
     _amount.value = amount;
 
     if (await _confirmCompleter.future) {
-      final Dcep dcep = _dcepStore.sortedItems.firstWhere(
-          (item) => item.amount == amount * 100,
-          orElse: () => null);
+      final List<Dcep> dcepList =
+          _selectDcep(amount * 100, _dcepStore.sortedItems);
 
-      if (null != dcep) {
-        final BigInt sn = bytesToInt(Uint8List.fromList(dcep.sn.codeUnits));
-        return Optional.of(await widget._identity
-            .signOfflinePayment(sn, toAddress, _dcepStore.nonce)
-            .then((signedRawTx) {
+      if (dcepList.isNotEmpty) {
+        final List<TxSend> txList = [];
+        for (final Dcep dcep in dcepList) {
+          final BigInt sn = bytesToInt(Uint8List.fromList(dcep.sn.codeUnits));
+          final String signedRawTx = await widget._identity
+              .signOfflinePayment(sn, toAddress, _dcepStore.nonce);
+
           _dcepStore.nonce++;
           _dcepStore.remove(dcep);
-          return [
-            TxSend((builder) => builder
-              ..dcep = dcep.toBuilder()
-              ..signedRawTx = signedRawTx)
-          ];
-        }));
-      } else {
-        _paymentProgress.value = PaymentProgress.balanceNotEnough;
+
+          txList.add(TxSend((builder) => builder
+            ..dcep = dcep.toBuilder()
+            ..signedRawTx = signedRawTx));
+        }
+
+        return Optional.of(txList);
       }
     }
 
