@@ -24,14 +24,18 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  final RxBool success = false.obs;
   final RxString _hintText = RxString('');
   final Map<String, Session> _sessions = {};
   final BlePeriphery _blePeriphery = BlePeriphery();
   final OfflineTxStore _txStore = Get.find<OfflineTxStore>();
 
   Widget _buildButton() {
-    if (_hintText.value == '收款成功') {
-      return WalletTheme.button(text: '结束收款', onPressed: () => Get.back());
+    if (success.value) {
+      return WalletTheme.button(
+          text: '结束收款',
+          onPressed: () => Get.until((route) =>
+              (route as GetPageRoute).routeName == '/BlePaymentHome'));
     } else {
       return Container();
     }
@@ -69,9 +73,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Session(_blePeriphery, peer, widget.address, widget.amount);
       }
       try {
-        _sessions[peer].onData(
-            payload, (state) => _hintText.value += '\n$state', (TxReceive tx) {
-          _txStore.addOne(tx);
+        _sessions[peer]
+            .onData(payload, (state) => _hintText.value += '\n$state',
+                (List<TxReceive> txList) async {
+          for (final TxReceive tx in txList) {
+            await _txStore.addOne(tx);
+          }
+          success.value = true;
         });
       } catch (_) {
         _sessions.remove(peer);
@@ -118,8 +126,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FlutterBlue.instance.state,
-      builder: (BuildContext context,
-          AsyncSnapshot<BluetoothState> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<BluetoothState> snapshot) {
         if (BluetoothState.on == snapshot.data) {
           return PaymentScreen(name, address, amount);
         } else {

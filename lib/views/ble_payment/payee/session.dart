@@ -16,7 +16,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 typedef OnStateUpdate = void Function(String state);
-typedef OnSuccess = void Function(TxReceive tx);
+typedef OnSuccess = void Function(List<TxReceive> txList);
 
 class Session {
   final String peer;
@@ -102,7 +102,7 @@ class Session {
 
         dcepList.add(dcep.sn);
 
-        onStateUpdate('验证款项...');
+        onStateUpdate('收到款项${dcep.sn}...');
 
         if (dcep.verify()) {
           receivedAmount += dcep.amount;
@@ -116,11 +116,11 @@ class Session {
         if (verifyOk) {
           _sendCommand(Command.build(
             CommandType.setDcepOk,
-          )).then((_) => onStateUpdate('验证款项成功'));
+          )).then((_) => onStateUpdate('验证款项${dcep.sn}真伪成功'));
         } else if (index == count) {
           _sendCommand(Command.build(
             CommandType.setDcepFail,
-          )).then((_) => onStateUpdate('验证款项失败'));
+          )).then((_) => onStateUpdate('验证款项${dcep.sn}真伪失败'));
         }
         break;
 
@@ -163,12 +163,10 @@ class Session {
             CommandType.setRawTxFail,
           )).then((_) => onStateUpdate('交易验证不通过，收款失败'));
         } else if (dcepList.isEmpty) {
-          for (final TxReceive txReceive in txReceivedList) {
-            onSuccess(txReceive);
-          }
+          onSuccess(txReceivedList);
           _sendCommand(Command.build(CommandType.setRawTxOk,
                   param: '$address:$amount'))
-              .then((_) => onStateUpdate('收款成功'));
+              .then((_) => onStateUpdate('收款${amount}元成功'));
         }
         break;
     }
