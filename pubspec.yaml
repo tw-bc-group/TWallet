@@ -38,12 +38,12 @@ dependencies:
   get_it: ^4.0.2
   ethereum_address: ^1.0.1
   validators: ^2.0.0+1
-  cached_network_image: ^2.0.0
+  cached_network_image: ^2.3.2
   optional: ^5.0.0
   json_store: ^1.0.3
   more: ^2.5.0
   uuid: ^2.2.0
-  date_format: ^1.0.8
+  date_format: ^1.0.9
   web3dart: ^2.0.0-dev.7
   http: ^0.12.0+4
   built_value: ^7.0.9
@@ -55,13 +55,13 @@ dependencies:
   ai_barcode: ^1.0.5
   permission_handler: ^5.0.0+hotfix.5
   flushbar: ^1.10.2
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.19.0
   flutter_screenutil: ^2.3.0
   custom_radio_grouped_button: ^1.0.0
   convert: ^2.1.1
   package_info: ^0.4.0+18
   device_info: ^0.4.2+4
-  get: ^3.8.0
+  get: ^3.10.2
   intl: ^0.16.1
   webview_flutter: ^0.3.22+1
   sentry:

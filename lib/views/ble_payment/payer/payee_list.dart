@@ -59,10 +59,7 @@ class PayeeListView extends ListView {
     DecentralizedIdentity identity,
   ) {
     return ListTile(
-      onTap: () async {
-        final String payeeName = await Get.to(Payment(payee, identity));
-        payees.removeWhere((payee) => payee.name == payeeName);
-      },
+      onTap: () => Get.to(Payment(payee, identity)),
       leading: Padding(
         padding: const EdgeInsets.only(top: 8),
         child: _buildAvatar(context, payee),

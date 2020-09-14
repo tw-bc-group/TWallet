@@ -236,8 +236,8 @@ class _PaymentState extends State<Payment> {
         return WalletTheme.button(
             text: '结束付款',
             onPressed: () async {
-              await _doCleanup();
-              Get.back(result: widget._bleDevice.name);
+              await _doCleanup().then((_) => Get.until((route) =>
+                  (route as GetPageRoute).routeName == '/BlePaymentHome'));
             });
 
       default:
