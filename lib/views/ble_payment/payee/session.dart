@@ -27,7 +27,7 @@ class Session {
   RSAKeypair keyPair;
   SymmEncrypt encrypter;
   int receivedAmount = 0;
-  List<String> dcepList = [];
+  Map<String, String> dcepMap = {};
   List<TxReceive> txReceivedList = [];
   String fromAddress, fromPublicKey;
 
@@ -100,7 +100,7 @@ class Session {
 
         bool verifyOk = false;
 
-        dcepList.add(dcep.sn);
+        dcepMap[dcep.sn] = dcep.type.humanReadable;
 
         onStateUpdate('收到款项${dcep.sn}...');
 
@@ -144,16 +144,18 @@ class Session {
 
         bool verifyOk = false;
 
-        dcepList.remove(dcepSn);
+        final String description = dcepMap.remove(dcepSn);
 
         if (recoverPubKey == Optional.of(decompressedPubKey) &&
             (params[0] as EthereumAddress).toString().toLowerCase() ==
                 fromAddress.toLowerCase() &&
             (params[1] as EthereumAddress).toString().toLowerCase() ==
-                address.toLowerCase()) {
+                address.toLowerCase() &&
+            description != null) {
           txReceivedList.add(TxReceive((builder) => builder
             ..from = fromAddress
             ..publicKey = fromPublicKey
+            ..description = description
             ..tx = command.param));
           verifyOk = true;
         }
@@ -162,11 +164,11 @@ class Session {
           _sendCommand(Command.build(
             CommandType.setRawTxFail,
           )).then((_) => onStateUpdate('交易验证不通过，收款失败'));
-        } else if (dcepList.isEmpty) {
+        } else if (dcepMap.isEmpty) {
           onSuccess(txReceivedList);
           _sendCommand(Command.build(CommandType.setRawTxOk,
-                  param: '$address:$amount'))
-              .then((_) => onStateUpdate('收款${amount}元成功'));
+                  param: '$address:$description'))
+              .then((_) => onStateUpdate('收款${description}元成功'));
         }
         break;
     }

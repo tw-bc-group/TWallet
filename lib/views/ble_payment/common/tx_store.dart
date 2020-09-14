@@ -14,21 +14,21 @@ const offlineTxPrefix = 'offlineTx';
 
 class OfflineTxStore {
   final SendPort _sendPort;
-  final Queue<TxReceive> _txQueue;
   final Connectivity _connectivity;
+  final Rx<Queue<TxReceive>> txQueue;
 
   static final JsonStore _store = JsonStore();
 
-  OfflineTxStore(this._sendPort, this._txQueue, this._connectivity) {
-    if (_txQueue.isNotEmpty) {
+  OfflineTxStore(this._sendPort, this.txQueue, this._connectivity) {
+    if (txQueue.value.isNotEmpty) {
       Future.delayed(const Duration(seconds: 2))
-          .then((_) => _sendPort.send(_txQueue.first));
+          .then((_) => _sendPort.send(txQueue.value.first));
     }
 
     _connectivity.onConnectivityChanged.listen((res) {
       if (res != ConnectivityResult.none) {
-        if (_txQueue.isNotEmpty) {
-          for (final TxReceive tx in _txQueue) {
+        if (txQueue.value.isNotEmpty) {
+          for (final TxReceive tx in txQueue.value) {
             _sendPort.send(tx);
           }
         }
@@ -68,12 +68,13 @@ class OfflineTxStore {
       }
     });
 
-    return OfflineTxStore(receivePort.sendPort, _txQueue, _connectivity);
+    return OfflineTxStore(receivePort.sendPort, Rx(_txQueue), _connectivity);
   }
 
   Future<void> addOne(TxReceive tx) async {
     await _store.setItem(_itemKey(tx), tx.toJson()).then((_) async {
-      _txQueue.add(tx);
+      txQueue.value.add(tx);
+      txQueue.refresh();
       if (ConnectivityResult.none != await _connectivity.checkConnectivity()) {
         _sendPort.send(tx);
       }

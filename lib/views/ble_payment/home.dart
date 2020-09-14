@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -7,9 +9,11 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/tx_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payee/payee_confirm.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payer/payee_list.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
@@ -33,6 +37,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   final Connectivity _connectivity = Connectivity();
   final Rx<DcepType> _redeemType = Rx(DcepType.rmb100);
   final DcepStore _dcepStore = Get.find<DcepStore>();
+  final OfflineTxStore _txStore = Get.find<OfflineTxStore>();
 
   @override
   void initState() {
@@ -132,6 +137,12 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
+  List<Widget> _dcepListItems(List<Dcep> dcepList, Queue<TxReceive> txList) {
+    final items = dcepList.map((item) => item.type.humanReadable).toList()
+      ..addAll(txList.map((tx) => '${tx.description}(冻结，待确权)').toList());
+    return items.map((item) => _dcepListItem(item)).toList();
+  }
+
   Widget _buildMainScreen(DecentralizedIdentity identity) {
     return Container(
       color: WalletColor.white,
@@ -162,9 +173,8 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   child: RefreshIndicator(
                     onRefresh: () => _dcepStore.refresh(),
                     child: ListView(
-                      children: _dcepStore.sortedItems
-                          .map((item) => _dcepListItem(item.type.humanReadable))
-                          .toList(),
+                      children: _dcepListItems(
+                          _dcepStore.sortedItems, _txStore.txQueue.value),
                     ),
                   ),
                 )),

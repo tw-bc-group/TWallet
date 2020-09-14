@@ -6,11 +6,13 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 part 'offline_tx.g.dart';
 
 abstract class TxReceive implements Built<TxReceive, TxReceiveBuilder> {
+  String get tx;
+
   String get from;
 
   String get publicKey;
 
-  String get tx;
+  String get description;
 
   factory TxReceive([void Function(TxReceiveBuilder) updates]) = _$TxReceive;
 
