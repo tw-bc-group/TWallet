@@ -343,7 +343,7 @@ packages:
       name: encrypt
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   equatable:
     dependency: transitive
     description:
