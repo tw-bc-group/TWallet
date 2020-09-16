@@ -2,6 +2,9 @@ PODS:
   - ai_barcode (0.0.1):
     - Flutter
     - MTBBarcodeScanner
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -10,6 +13,12 @@ PODS:
     - MultiplatformBleAdapter (~> 0.1.6)
   - flutter_ble_peripheral (0.0.3):
     - Flutter
+  - flutter_blue (0.0.1):
+    - Flutter
+    - flutter_blue/Protos (= 0.0.1)
+  - flutter_blue/Protos (0.0.1):
+    - Flutter
+    - Protobuf (~> 3.11.4)
   - flutter_custom_dialog (0.0.1):
     - Flutter
   - flutter_secure_storage (3.3.1):
@@ -27,6 +36,10 @@ PODS:
     - Flutter
   - "permission_handler (5.0.1+1)":
     - Flutter
+  - Protobuf (3.11.4)
+  - Reachability (3.2)
+  - search_choices (0.0.1):
+    - Flutter
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
@@ -35,16 +48,19 @@ PODS:
 
 DEPENDENCIES:
   - ai_barcode (from `.symlinks/plugins/ai_barcode/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
   - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
   - flutter_ble_peripheral (from `.symlinks/plugins/flutter_ble_peripheral/ios`)
+  - flutter_blue (from `.symlinks/plugins/flutter_blue/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - search_choices (from `.symlinks/plugins/search_choices/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
@@ -53,10 +69,14 @@ SPEC REPOS:
     - FMDB
     - MTBBarcodeScanner
     - MultiplatformBleAdapter
+    - Protobuf
+    - Reachability
 
 EXTERNAL SOURCES:
   ai_barcode:
     :path: ".symlinks/plugins/ai_barcode/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
   device_info:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
@@ -65,6 +85,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_ble_lib/ios"
   flutter_ble_peripheral:
     :path: ".symlinks/plugins/flutter_ble_peripheral/ios"
+  flutter_blue:
+    :path: ".symlinks/plugins/flutter_blue/ios"
   flutter_custom_dialog:
     :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   flutter_secure_storage:
@@ -77,6 +99,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
+  search_choices:
+    :path: ".symlinks/plugins/search_choices/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   webview_flutter:
@@ -84,10 +108,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ai_barcode: a415de3b4616800a963d265b292511f890a3649d
+  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_ble_lib: 1d400af3aa9ea4b069974cd06c2bafefe0289086
   flutter_ble_peripheral: e12ab87914fc1690b22bb26649e4f6698625f425
+  flutter_blue: eeb381dc4727a0954dede73515f683865494b370
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
@@ -97,9 +123,12 @@ SPEC CHECKSUMS:
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  search_choices: b50731e8c425078048f681f39c34375c58d6ce8d
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
 PODFILE CHECKSUM: 5f815016d139ed6929e933e0c3d2602df375d7c7
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.9.1

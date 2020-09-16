@@ -18,16 +18,16 @@ class _$TxReceiveSerializer implements StructuredSerializer<TxReceive> {
   Iterable<Object> serialize(Serializers serializers, TxReceive object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'description',
-      serializers.serialize(object.description,
-          specifiedType: const FullType(String)),
+      'tx',
+      serializers.serialize(object.tx, specifiedType: const FullType(String)),
       'from',
       serializers.serialize(object.from, specifiedType: const FullType(String)),
       'publicKey',
       serializers.serialize(object.publicKey,
           specifiedType: const FullType(String)),
-      'tx',
-      serializers.serialize(object.tx, specifiedType: const FullType(String)),
+      'description',
+      serializers.serialize(object.description,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -44,8 +44,8 @@ class _$TxReceiveSerializer implements StructuredSerializer<TxReceive> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'description':
-          result.description = serializers.deserialize(value,
+        case 'tx':
+          result.tx = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'from':
@@ -56,8 +56,8 @@ class _$TxReceiveSerializer implements StructuredSerializer<TxReceive> {
           result.publicKey = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'tx':
-          result.tx = serializers.deserialize(value,
+        case 'description':
+          result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -69,21 +69,21 @@ class _$TxReceiveSerializer implements StructuredSerializer<TxReceive> {
 
 class _$TxReceive extends TxReceive {
   @override
-  final String description;
+  final String tx;
   @override
   final String from;
   @override
   final String publicKey;
   @override
-  final String tx;
+  final String description;
 
   factory _$TxReceive([void Function(TxReceiveBuilder) updates]) =>
       (new TxReceiveBuilder()..update(updates)).build();
 
-  _$TxReceive._({this.description, this.from, this.publicKey, this.tx})
+  _$TxReceive._({this.tx, this.from, this.publicKey, this.description})
       : super._() {
-    if (description == null) {
-      throw new BuiltValueNullFieldError('TxReceive', 'description');
+    if (tx == null) {
+      throw new BuiltValueNullFieldError('TxReceive', 'tx');
     }
     if (from == null) {
       throw new BuiltValueNullFieldError('TxReceive', 'from');
@@ -91,8 +91,8 @@ class _$TxReceive extends TxReceive {
     if (publicKey == null) {
       throw new BuiltValueNullFieldError('TxReceive', 'publicKey');
     }
-    if (tx == null) {
-      throw new BuiltValueNullFieldError('TxReceive', 'tx');
+    if (description == null) {
+      throw new BuiltValueNullFieldError('TxReceive', 'description');
     }
   }
 
@@ -107,27 +107,26 @@ class _$TxReceive extends TxReceive {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TxReceive &&
-        description == other.description &&
+        tx == other.tx &&
         from == other.from &&
         publicKey == other.publicKey &&
-        tx == other.tx;
+        description == other.description;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, description.hashCode), from.hashCode),
-            publicKey.hashCode),
-        tx.hashCode));
+        $jc($jc($jc(0, tx.hashCode), from.hashCode), publicKey.hashCode),
+        description.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('TxReceive')
-          ..add('description', description)
+          ..add('tx', tx)
           ..add('from', from)
           ..add('publicKey', publicKey)
-          ..add('tx', tx))
+          ..add('description', description))
         .toString();
   }
 }
@@ -135,9 +134,9 @@ class _$TxReceive extends TxReceive {
 class TxReceiveBuilder implements Builder<TxReceive, TxReceiveBuilder> {
   _$TxReceive _$v;
 
-  String _description;
-  String get description => _$this._description;
-  set description(String description) => _$this._description = description;
+  String _tx;
+  String get tx => _$this._tx;
+  set tx(String tx) => _$this._tx = tx;
 
   String _from;
   String get from => _$this._from;
@@ -147,18 +146,18 @@ class TxReceiveBuilder implements Builder<TxReceive, TxReceiveBuilder> {
   String get publicKey => _$this._publicKey;
   set publicKey(String publicKey) => _$this._publicKey = publicKey;
 
-  String _tx;
-  String get tx => _$this._tx;
-  set tx(String tx) => _$this._tx = tx;
+  String _description;
+  String get description => _$this._description;
+  set description(String description) => _$this._description = description;
 
   TxReceiveBuilder();
 
   TxReceiveBuilder get _$this {
     if (_$v != null) {
-      _description = _$v.description;
+      _tx = _$v.tx;
       _from = _$v.from;
       _publicKey = _$v.publicKey;
-      _tx = _$v.tx;
+      _description = _$v.description;
       _$v = null;
     }
     return this;
@@ -181,7 +180,7 @@ class TxReceiveBuilder implements Builder<TxReceive, TxReceiveBuilder> {
   _$TxReceive build() {
     final _$result = _$v ??
         new _$TxReceive._(
-            description: description, from: from, publicKey: publicKey, tx: tx);
+            tx: tx, from: from, publicKey: publicKey, description: description);
     replace(_$result);
     return _$result;
   }
