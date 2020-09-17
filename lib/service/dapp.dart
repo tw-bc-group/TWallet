@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:built_value/serializer.dart';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
@@ -14,11 +15,15 @@ import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/models/send_transaction_response.dart';
 import 'package:tw_wallet_ui/models/webview/create_account_param.dart';
+import 'package:tw_wallet_ui/models/webview/send_transaction_request.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/webview_request_method.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/pincode.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
@@ -45,6 +50,8 @@ class DAppService {
         return qrCode;
       case WebviewRequestMethod.signTransaction:
         return signTransaction;
+      case WebviewRequestMethod.sendTransaction:
+        return sendTransaction;
       case WebviewRequestMethod.getRootKey:
         return getRootKey;
       case WebviewRequestMethod.setStatusBarMode:
@@ -117,6 +124,24 @@ class DAppService {
     } catch (err) {
       reject(id, err.toString());
     }
+  }
+
+  static void sendTransaction(String id, String param) {
+    final SendTransactionRequest _sendTransactionRequest =
+        SendTransactionRequest.fromJson(json.decode(param));
+    Get.find<ApiProvider>()
+        .transferPoint(
+            _sendTransactionRequest.fromAddress,
+            _sendTransactionRequest.fromPublicKey,
+            _sendTransactionRequest.signedTransactionRawData)
+        .then((data) {
+      data.map((response) => resolve(
+          id,
+          ApiResponse.fromJson(
+                  response.data, [const FullType(SendTransactionResponse)])
+              .result
+              .hash));
+    }).catchError(() => reject(id, false));
   }
 
   static Future<void> qrCode(String id, _) async {

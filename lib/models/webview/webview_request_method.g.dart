@@ -12,6 +12,8 @@ const WebviewRequestMethod _$createAccount =
 const WebviewRequestMethod _$qrCode = const WebviewRequestMethod._('qrCode');
 const WebviewRequestMethod _$signTransaction =
     const WebviewRequestMethod._('signTransaction');
+const WebviewRequestMethod _$sendTransaction =
+    const WebviewRequestMethod._('sendTransaction');
 const WebviewRequestMethod _$getRootKey =
     const WebviewRequestMethod._('getRootKey');
 const WebviewRequestMethod _$setStatusBarMode =
@@ -39,6 +41,8 @@ WebviewRequestMethod _$valueOf(String name) {
       return _$qrCode;
     case 'signTransaction':
       return _$signTransaction;
+    case 'sendTransaction':
+      return _$sendTransaction;
     case 'getRootKey':
       return _$getRootKey;
     case 'setStatusBarMode':
@@ -66,6 +70,7 @@ final BuiltSet<WebviewRequestMethod> _$values =
   _$createAccount,
   _$qrCode,
   _$signTransaction,
+  _$sendTransaction,
   _$getRootKey,
   _$setStatusBarMode,
   _$setStatusBarBackgroundColor,

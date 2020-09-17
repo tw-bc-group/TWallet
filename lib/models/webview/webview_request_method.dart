@@ -12,6 +12,7 @@ class WebviewRequestMethod extends EnumClass {
   static const WebviewRequestMethod createAccount = _$createAccount;
   static const WebviewRequestMethod qrCode = _$qrCode;
   static const WebviewRequestMethod signTransaction = _$signTransaction;
+  static const WebviewRequestMethod sendTransaction = _$sendTransaction;
   static const WebviewRequestMethod getRootKey = _$getRootKey;
   static const WebviewRequestMethod setStatusBarMode = _$setStatusBarMode;
   static const WebviewRequestMethod setStatusBarBackgroundColor =

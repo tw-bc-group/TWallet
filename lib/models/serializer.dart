@@ -13,6 +13,7 @@ import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/identity/health_info.dart';
 import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
+import 'package:tw_wallet_ui/models/send_transaction_response.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
@@ -23,6 +24,7 @@ import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_hint.d
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_input.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_style.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_title.dart';
+import 'package:tw_wallet_ui/models/webview/send_transaction_request.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/parameter.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/sign_transaction.dart';
 import 'package:tw_wallet_ui/models/webview/sign_transaction/transaction_info.dart';
@@ -67,6 +69,8 @@ part 'serializer.g.dart';
   DcepType,
   TxReceive,
   TxSend,
+  SendTransactionRequest,
+  SendTransactionResponse
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -84,6 +88,9 @@ final Serializers serializers = (_$serializers.toBuilder()
           () => ApiResponseBuilder<Contract>())
       ..addBuilderFactory(const FullType(ApiResponse, [FullType(Dcep)]),
           () => ApiResponseBuilder<Dcep>())
+      ..addBuilderFactory(
+          const FullType(ApiResponse, [FullType(SendTransactionResponse)]),
+          () => ApiResponseBuilder<SendTransactionResponse>())
       ..addBuilderFactory(
           const FullType(ApiResponse, [
             FullType(BuiltList, [FullType(Dcep)])
