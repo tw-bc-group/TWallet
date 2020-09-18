@@ -90,7 +90,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
           child: PinCodeTextField(
               appContext: context,
               length: 6,
-              obsecureText: true,
+              obscureText: true,
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
@@ -130,7 +130,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
                 ),
               ),
               enableActiveFill: true,
-              textInputType: TextInputType.number,
+              keyboardType: TextInputType.number,
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               onChanged: onChanged,
               onCompleted: handlePinComplete),
