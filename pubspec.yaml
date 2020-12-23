@@ -64,8 +64,7 @@ dependencies:
   get: ^3.10.2
   intl: ^0.16.1
   webview_flutter: ^0.3.22+1
-  sentry:
-    git: https://github.com/flutter/sentry.git
+  sentry: "^3.0.1"
   crypto: ^2.1.4
   flutter_native_splash: ^0.1.9
   corsac_jwt: ^0.2.2
