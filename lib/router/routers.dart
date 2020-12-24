@@ -23,6 +23,7 @@ class Routes {
   static const String healthCode = '/health_code';
   static const String healthCertPage = '/dapp/health_cert';
   static const String dapp = '/dapp';
+  static const String ownVcPage = '/vc';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -44,6 +45,7 @@ class Routes {
     healthCertPage: healthCertificationPageHandler,
     identityDetail: identityDetailHandler,
     dapp: dappHandler,
+    ownVcPage: ownVcPageHandler,
   };
 
   static void configureRoutes(Router router) {

@@ -41,6 +41,13 @@ class DiscoveryPage extends StatelessWidget {
         child: const DiscoveryItem(text: '健康认证'),
       )
     ];
+
+    dappItemList.add(GestureDetector(
+      onTap: () => Navigator.pushNamed(context, Routes.ownVcPage,
+          arguments: homeStore),
+      child: const DiscoveryItem(text: '更多凭证'),
+    ));
+
     dappItemList.addAll(dappList.map((dapp) => GestureDetector(
           onTap: () => Application.router
               .navigateTo(context, '${Routes.dapp}?id=${dapp.id}'),
