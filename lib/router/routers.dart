@@ -24,7 +24,8 @@ class Routes {
   static const String healthCertPage = '/dapp/health_cert';
   static const String dapp = '/dapp';
   static const String ownVcPage = '/ssi/vc';
-  static const String composeVcPage = '/ssi/composeVcPage';
+  static const String composeVcPage = '/ssi/compose_vc_page';
+  static const String passPage = '/ssi/pass_page';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -48,6 +49,7 @@ class Routes {
     dapp: dappHandler,
     ownVcPage: ownVcPageHandler,
     composeVcPage: composeVcPageHandler,
+    passPage: passPageHandler,
   };
 
   static void configureRoutes(Router router) {

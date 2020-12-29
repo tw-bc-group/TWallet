@@ -36,7 +36,7 @@ class VerifiableCredentialCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 const VcIcon(width: 75),
-                _buildIdentityInfo(),
+                _buildVcInfo(),
               ],
             ),
           ),
@@ -45,7 +45,7 @@ class VerifiableCredentialCard extends StatelessWidget {
     );
   }
 
-  Widget _buildIdentityInfo() {
+  Widget _buildVcInfo() {
     return Expanded(
       child: Container(
         height: 100,

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
 
@@ -29,7 +31,7 @@ class ComposeVcPage extends StatelessWidget {
     vcs.forEach((vc) {
       list.add(VerifiableCredentialCard(vc: vc));
     });
-    list.add(_bottom);
+    list.add(_bottom(context));
 
     return CommonLayout(
       title: "选择凭据",
@@ -65,12 +67,14 @@ class ComposeVcPage extends StatelessWidget {
     );
   }
 
-  Widget get _bottom {
+  Widget _bottom(BuildContext context) {
     return Column(
       children: <Widget>[
         WalletTheme.button(
           text: '同意并生成验证二维码',
-          onPressed: () {},
+          onPressed: () {
+            Application.router.navigateTo(context, Routes.passPage);
+          },
         ),
         WalletTheme.button(
           text: '拒绝',
