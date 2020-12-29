@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/views/health_certificate/health_certificate.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
 import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart';
+import 'package:tw_wallet_ui/views/ssi/compose_vc_page.dart';
 import 'package:tw_wallet_ui/views/ssi/own_vc_page.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
@@ -155,5 +156,11 @@ Handler restoreMnemonicsHandler = Handler(
 Handler ownVcPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return OwnVcPage();
+  },
+);
+
+Handler composeVcPageHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ComposeVcPage();
   },
 );

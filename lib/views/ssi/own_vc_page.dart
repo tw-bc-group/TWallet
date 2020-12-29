@@ -92,6 +92,7 @@ class OwnVcPage extends StatelessWidget {
     return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
       try {
         await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
+        Application.router.navigateTo(context, Routes.composeVcPage);
       } catch (_) {
         await hintDialogHelper(context, DialogType.warning, '未识别到有效的二维码');
       }
