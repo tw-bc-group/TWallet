@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as g;
 import 'package:mockito/mockito.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
@@ -13,9 +13,9 @@ import 'package:tw_wallet_ui/service/api_provider.dart';
 class MockHttpClient extends Mock implements HttpClient {}
 
 void main() {
-  Get.put<HttpClient>(MockHttpClient());
+  g.Get.put<HttpClient>(MockHttpClient());
 
-  final HttpClient _httpClient = Get.find();
+  final HttpClient _httpClient = g.Get.find();
   final ApiProvider _apiProvider = ApiProvider();
   const address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 

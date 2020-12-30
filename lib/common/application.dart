@@ -14,7 +14,7 @@ class Application {
 
   static String appName;
 
-  static Router router;
+  static FluroRouter router;
 
   /// 所有获取配置的唯一入口
   Map<String, String> get config {

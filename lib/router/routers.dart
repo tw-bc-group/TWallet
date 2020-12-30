@@ -52,7 +52,7 @@ class Routes {
     passPage: passPageHandler,
   };
 
-  static void configureRoutes(Router router) {
+  static void configureRoutes(FluroRouter router) {
     final TransitionType transitionType =
         Platform.isIOS ? TransitionType.cupertino : TransitionType.material;
 

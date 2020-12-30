@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as g;
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
 class ApiProvider {
-  final HttpClient _httpClient = Get.find();
+  final HttpClient _httpClient = g.Get.find();
 
   Future<void> transferDcepV2(
       String from, String publicKey, String signedRawTx) {

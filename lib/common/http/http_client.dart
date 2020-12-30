@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as g;
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
@@ -52,8 +52,8 @@ void showErrorDialog(DioError err) {
 }
 
 Dio _initDio() {
-  final LoadingInterceptor _loadingInterceptor = Get.find();
-  final LogInterceptor _logInterceptor = Get.find();
+  final LoadingInterceptor _loadingInterceptor = g.Get.find();
+  final LogInterceptor _logInterceptor = g.Get.find();
   final Dio _dio = Dio()
     ..options = BaseOptions(
       baseUrl: Application.globalEnv.apiGatewayBaseUrl,

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fluro/fluro.dart' as fluro;
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sentry/sentry.dart';
@@ -54,7 +54,7 @@ class TWallet extends StatelessWidget {
   final String initialRoute;
 
   TWallet({@required this.initialRoute}) {
-    final router = fluro.Router();
+    final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
   }
