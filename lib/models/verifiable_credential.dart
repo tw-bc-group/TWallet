@@ -1,3 +1,6 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'verifiable_credential.g.dart';
+
 class VerifiableCredential {
   String name;
 
@@ -12,13 +15,21 @@ class VerifiableCredential {
   DateTime get applicationTime => DateTime(2020, 1, 1, 1, 1);
 }
 
-// TODO(SSI): VerifiableCredentialPresentationRequest
-/*
+@JsonSerializable()
 class VerifiableCredentialPresentationRequest {
-  VerifiableCredentialPresentationRequest()
+  int id;
+  String name;
+  List<String> vcTypes;
+
+  VerifiableCredentialPresentationRequest({this.id, this.name, this.vcTypes});
+
+  factory VerifiableCredentialPresentationRequest.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialPresentationRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VerifiableCredentialPresentationRequestToJson(this);
 }
 
 // TODO(SSI): VerifiableCredentialPresentation
+/*
 class VerifiableCredentialPresentation {
   VerifiableCredentialPresentation()
 }

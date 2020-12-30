@@ -1,18 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
 
 class ComposeVcPage extends StatelessWidget {
   ComposeVcPage();
 
+  final VcStore _store = Get.find();
+
+  get vcpr => _store.vcpr;
+
   @override
   Widget build(BuildContext context) {
+
+    print("find: ${vcpr.toJson()}");
+
     final List<VerifiableCredential> vcs = <VerifiableCredential>[
       VerifiableCredential(name: "行乘健康码", issuer: "中国移动"),
       VerifiableCredential(

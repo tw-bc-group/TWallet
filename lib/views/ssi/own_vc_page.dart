@@ -4,13 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/health_certification_store.dart';
+import 'package:tw_wallet_ui/service/ssi.dart';
+import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class OwnVcPage extends StatelessWidget {
-  final HealthCertificationStore certStore = Get.find();
+  final VcStore _store = Get.find();
 
   OwnVcPage();
 
@@ -92,9 +94,12 @@ class OwnVcPage extends StatelessWidget {
     return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
       try {
         await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
+        VerifiableCredentialPresentationRequest vpr = await SsiService.createVerifiableCredentialPresentationRequest(scanResult);
+        print(vpr.toJson());
+        _store.setRequest(vpr);
         Application.router.navigateTo(context, Routes.composeVcPage);
-      } catch (_) {
-        await hintDialogHelper(context, DialogType.warning, '未识别到有效的二维码');
+      } catch (e) {
+        await hintDialogHelper(context, DialogType.warning, e.toString());
       }
     });
   }
