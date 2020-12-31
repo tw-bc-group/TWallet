@@ -22,17 +22,32 @@ class ComposeVcPage extends StatelessWidget {
 
     print("find: ${vcpr.toJson()}");
 
-    final List<VerifiableCredential> vcs = <VerifiableCredential>[
-      VerifiableCredential(name: "行乘健康码", issuer: "中国移动"),
-      VerifiableCredential(
-        name: "核算检查",
-        issuer: "某某检测机构",
-      ),
-      VerifiableCredential(
-        name: "出境记录",
-        issuer: "出入境管理机构",
-      )
-    ];
+    List<VerifiableCredential> vcs = <VerifiableCredential>[];
+
+    for (final vcType in vcpr.vcTypes) {
+      switch(vcType.toString()) {
+        case "qSARS-CoV-2-Rapid-Test-Credential": {
+          vcs.add(VerifiableCredential(
+            name: "行乘健康码",
+            issuer: "中国移动",
+          ));
+        }
+        break;
+
+        case "ImmunoglobulinDetectionTestCard": {
+          vcs.add(VerifiableCredential(
+            name: "核算检查",
+            issuer: "某某检测机构",
+          ));
+        }
+        break;
+
+        default: {
+          print("unknow vc type id: ${vcType}");
+        }
+        break;
+      }
+    }
 
     final List<Widget> list = <Widget>[];
 
