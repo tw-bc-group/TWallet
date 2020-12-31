@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/vc_pass.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
@@ -77,7 +78,7 @@ class ComposeVcPage extends StatelessWidget {
       child: Column(
         children: const <Widget>[
           Center(
-            child: Text("【某医院患者通行】请求验证以下凭证\n请确认是否同意？",
+            child: Text("【地坛医院】请求验证以下凭证\n请确认是否同意？",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -96,7 +97,10 @@ class ComposeVcPage extends StatelessWidget {
       children: <Widget>[
         WalletTheme.button(
           text: '同意并生成验证二维码',
-          onPressed: () {
+          onPressed: () async {
+            const jwtTokenStr = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2MDkzOTk0NTIsImV4cCI6MTY0MDkzNTQ1MiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.Wmyf8ennODBbw7MZtzG7BUSOxSTMYzvl_F-mqIZhjds";
+            final vcPass = VcPass(name: _store.vcpr.name as String, token: jwtTokenStr);
+            await _store.setPass(vcPass);
             Application.router.navigateTo(context, Routes.passPage);
           },
         ),

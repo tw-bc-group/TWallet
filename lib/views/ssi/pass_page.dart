@@ -1,20 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:tw_wallet_ui/common/theme/font.dart';
-import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/models/vc_pass.dart';
+import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/qr_card.dart';
 
 class PassPage extends StatelessWidget {
   PassPage();
 
+  final VcStore _store = Get.find();
+
+  VcPass get vcPass => _store.vcPass;
+
   @override
   Widget build(BuildContext context) {
+
+    print(vcPass.toJson());
     return CommonLayout(
         child: Column(
-            children: <Widget>[_header, QrCard(data: "Demo Passcode", remainSeconds: 60,)]));
+            children: <Widget>[
+              if (vcPass.name != null) _header,
+              if (vcPass.token != null) QrCard(data: vcPass.token,)]));
   }
 
   Widget get _header {
@@ -25,7 +33,7 @@ class PassPage extends StatelessWidget {
       child: Column(
         children: const <Widget>[
           Center(
-            child: Text("请出示用于\n【某医院患者通行】",
+            child: Text("请出示用于\n【地坛医院】",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
