@@ -15,10 +15,11 @@ class VerifiableCredential {
   DateTime get applicationTime => DateTime(2020, 1, 1, 1, 1);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class VerifiableCredentialPresentationRequest {
   int id;
   String name;
+  @JsonKey(name: 'vc_types')
   List<String> vcTypes;
 
   VerifiableCredentialPresentationRequest({this.id, this.name, this.vcTypes});
