@@ -101,8 +101,7 @@ class OwnVcPage extends StatelessWidget {
       try {
         await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
         VerifiableCredentialPresentationRequest vpr = await SsiService.createVerifiableCredentialPresentationRequest(scanResult);
-        print(vpr.toJson());
-        _store.setRequest(vpr);
+        _store.vpReq = vpr;
         Application.router.navigateTo(context, Routes.composeVcPage);
       } catch (e) {
         await hintDialogHelper(context, DialogType.warning, e.toString());

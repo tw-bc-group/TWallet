@@ -1,24 +1,16 @@
-import 'package:mobx/mobx.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/vc_pass.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 
-part 'vc_store.g.dart';
+class VcStore {
+  final Rx<VerifiableCredentialPresentationRequest> rxVpReq = Rx();
+  final Rx<VcPass> rxVcPass = Rx();
 
-class VcStore = _VcStore
-    with _$VcStore;
+  VcStore();
 
-abstract class _VcStore with Store {
-  VerifiableCredentialPresentationRequest _vcpr;
-  VcPass _vcPass;
+  set vcPass(VcPass vcPass) => rxVcPass.value = vcPass;
+  VcPass get vcPass => rxVcPass.value;
 
-  Future<void> setRequest(VerifiableCredentialPresentationRequest vcpr) async {
-    _vcpr = vcpr;
-  }
-
-  Future<void> setPass(VcPass vcPass) async {
-    _vcPass = vcPass;
-  }
-
-  get vcpr => _vcpr;
-  get vcPass => _vcPass;
+  set vpReq(VerifiableCredentialPresentationRequest vcpr) => rxVpReq.value = vcpr;
+  VerifiableCredentialPresentationRequest get vpReq => rxVpReq.value;
 }
