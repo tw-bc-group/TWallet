@@ -23,3 +23,16 @@ Map<String, dynamic> _$VerifiableCredentialPresentationRequestToJson(
       'name': instance.name,
       'vc_types': instance.vcTypes,
     };
+
+VerifiableCredentialTokenResponse _$VerifiableCredentialTokenResponseFromJson(
+    Map<String, dynamic> json) {
+  return VerifiableCredentialTokenResponse(
+    token: json['token'] as String,
+  );
+}
+
+Map<String, dynamic> _$VerifiableCredentialTokenResponseToJson(
+        VerifiableCredentialTokenResponse instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+    };

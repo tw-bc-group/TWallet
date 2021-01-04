@@ -36,3 +36,12 @@ class VerifiableCredentialPresentation {
 }
 */
 
+@JsonSerializable(explicitToJson: true)
+class VerifiableCredentialTokenResponse {
+  String token;
+  VerifiableCredentialTokenResponse({this.token});
+
+  factory VerifiableCredentialTokenResponse.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialTokenResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VerifiableCredentialTokenResponseToJson(this);
+}
