@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
@@ -27,6 +28,7 @@ class OwnVcPage extends StatelessWidget {
       child: Column(
         children: [
           _tips,
+          _bottom(context),
         ],
       ),
     );
@@ -102,5 +104,19 @@ class OwnVcPage extends StatelessWidget {
         await hintDialogHelper(context, DialogType.warning, e.toString());
       }
     });
+  }
+
+  Widget _bottom(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        WalletTheme.button(
+          text: '申请新凭证',
+          onPressed: () {
+            //ToDo(SSI): route to create new vc page
+            print('click create new vc btn');
+          },
+        ),
+      ],
+    );
   }
 }
