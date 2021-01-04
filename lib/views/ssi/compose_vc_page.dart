@@ -79,7 +79,7 @@ class ComposeVcPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Center(
-            child: Text("【$name}请求验证以下凭证\n请确认是否同意？",
+            child: Text("【$name】请求验证以下凭证\n请确认是否同意？",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
