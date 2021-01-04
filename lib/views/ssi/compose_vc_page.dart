@@ -81,7 +81,7 @@ class ComposeVcPage extends StatelessWidget {
           Center(
             child: Text("【$name】请求验证以下凭证\n请确认是否同意？",
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -113,14 +113,9 @@ class ComposeVcPage extends StatelessWidget {
               _store.vcPass = vcPass;
               Application.router.navigateTo(context, Routes.passPage);
             } catch (err) {
-              print('Caught error: $err');
               await hintDialogHelper(context, DialogType.error, "$err");
             }
           },
-        ),
-        WalletTheme.button(
-          text: '拒绝',
-          onPressed: () {},
         ),
       ],
     );
