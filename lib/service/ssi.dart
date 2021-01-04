@@ -7,7 +7,7 @@ class SsiService {
   static Future<VerifiableCredentialPresentationRequest> createVerifiableCredentialPresentationRequest(String url) async {
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      final Map<String, dynamic> json = jsonDecode(utf8.decode(response.bodyBytes))['result'] as Map<String, dynamic>;
+      final Map<String, dynamic> json = jsonDecode(response.body)['result'] as Map<String, dynamic>;
       return VerifiableCredentialPresentationRequest.fromJson(json);
     } else {
       throw Exception('Failed to load data');
