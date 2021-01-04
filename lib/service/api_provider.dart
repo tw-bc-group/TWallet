@@ -9,6 +9,7 @@ import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
+import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 
@@ -141,5 +142,12 @@ class ApiProvider {
   Future<Optional<Response>> issuePoints(String address) {
     return _httpClient
         .post('/v1/token/reward', {'address': address, 'amount': 10});
+  }
+
+  Future<Optional<List<IssuerResponse>>> fetchIssuers() {
+    return _httpClient.get('/v2/vc-market/issuer').then((res) => Future.value(
+        res.map((response) => ApiResponse.fromJson(response.data, const [
+              FullType(BuiltList, [FullType(IssuerResponse)])
+            ]).result.toList() as List<IssuerResponse>)));
   }
 }
