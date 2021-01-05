@@ -8,22 +8,17 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
-import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class OwnVcPage extends StatelessWidget {
   final VcStore _store = Get.find();
-  final IssuerStore _issuerStore = Get.find();
 
   OwnVcPage();
 
   @override
   Widget build(BuildContext context) {
-    _issuerStore.fetchIssuers();
-    print(_issuerStore.issuers.toString());
-
     return CommonLayout(
       appBarActions: <Widget>[
         _buildScanIcon(context),
