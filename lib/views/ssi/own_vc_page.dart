@@ -118,7 +118,6 @@ class OwnVcPage extends StatelessWidget {
           text: '申请新凭证',
           onPressed: () {
             Application.router.navigateTo(context, Routes.applyVcPage);
-            print('click create new vc btn');
           },
         ),
       ],

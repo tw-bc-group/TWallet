@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
-import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
+import 'package:tw_wallet_ui/widgets/verifiable_credential_with_button_card.dart';
 
 class ApplyVcPage extends StatelessWidget {
 
@@ -28,11 +27,9 @@ class ApplyVcPage extends StatelessWidget {
   }
 
   Widget _vcCard(VcType vcType, VcStatus vcStatus) {
-    return VerifiableCredentialCard(
-        vc: VerifiableCredential(
-          name: vcType.name,
-          issuer: "某某检测机构",
-        )
+    return VerifiableCredentialWithButtonCard(
+        vcType: vcType,
+        vcStatus: vcStatus,
     );
   }
 
