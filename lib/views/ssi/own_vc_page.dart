@@ -8,14 +8,21 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
+import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class OwnVcPage extends StatelessWidget {
-  final VcStore _store = Get.find();
+  final VcStore _vcStore = Get.find();
+  final IssuerStore _issuerStore = Get.find();
 
-  OwnVcPage();
+  OwnVcPage() {
+    _issuerStore.fetchIssuers();
+    // ToDo(ssi): delete mock data
+    _vcStore.addVc(Vc('健康行程码', 'ItineraryHealthCode', 'aaaaaa'));
+    _vcStore.addVc(Vc('健康码', 'qSARS-CoV-2-Rapid-Test-Credential', 'aaaaaa'));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +103,7 @@ class OwnVcPage extends StatelessWidget {
       try {
         await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
         VerifiableCredentialPresentationRequest vpr = await SsiService.createVerifiableCredentialPresentationRequest(scanResult);
-        _store.vpReq = vpr;
+        _vcStore.vpReq = vpr;
         Application.router.navigateTo(context, Routes.composeVcPage);
       } catch (e) {
         await hintDialogHelper(context, DialogType.warning, e.toString());
@@ -110,7 +117,7 @@ class OwnVcPage extends StatelessWidget {
         WalletTheme.button(
           text: '申请新凭证',
           onPressed: () {
-            //ToDo(SSI): route to create new vc page
+            Application.router.navigateTo(context, Routes.applyVcPage);
             print('click create new vc btn');
           },
         ),

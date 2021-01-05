@@ -11,6 +11,7 @@ abstract class VcType extends Object
 
   String get id;
   String get name;
+  String get url;
   BuiltList<String> get content;
 
   Map<String, dynamic> toJson() {
@@ -26,4 +27,10 @@ abstract class VcType extends Object
   }
 
   VcType._();
+}
+
+enum VcStatus {
+  notApplied,
+  applied,
+  rejected,
 }

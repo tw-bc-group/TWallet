@@ -56,7 +56,7 @@ class ComposeVcPage extends StatelessWidget {
     list.add(_header(vpReq.name));
     for (final VerifiableCredential v in vcs) {
       list.add(VerifiableCredentialCard(vc: v));
-    };
+    }
     list.add(_bottom(context));
 
     return CommonLayout(

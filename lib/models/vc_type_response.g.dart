@@ -22,6 +22,8 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'url',
+      serializers.serialize(object.url, specifiedType: const FullType(String)),
       'content',
       serializers.serialize(object.content,
           specifiedType:
@@ -50,6 +52,10 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'url':
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'content':
           result.content.replace(serializers.deserialize(value,
                   specifiedType:
@@ -69,17 +75,22 @@ class _$VcType extends VcType {
   @override
   final String name;
   @override
+  final String url;
+  @override
   final BuiltList<String> content;
 
   factory _$VcType([void Function(VcTypeBuilder) updates]) =>
       (new VcTypeBuilder()..update(updates)).build();
 
-  _$VcType._({this.id, this.name, this.content}) : super._() {
+  _$VcType._({this.id, this.name, this.url, this.content}) : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('VcType', 'id');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('VcType', 'name');
+    }
+    if (url == null) {
+      throw new BuiltValueNullFieldError('VcType', 'url');
     }
     if (content == null) {
       throw new BuiltValueNullFieldError('VcType', 'content');
@@ -99,12 +110,14 @@ class _$VcType extends VcType {
     return other is VcType &&
         id == other.id &&
         name == other.name &&
+        url == other.url &&
         content == other.content;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, id.hashCode), name.hashCode), content.hashCode));
+    return $jf($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode),
+        content.hashCode));
   }
 
   @override
@@ -112,6 +125,7 @@ class _$VcType extends VcType {
     return (newBuiltValueToStringHelper('VcType')
           ..add('id', id)
           ..add('name', name)
+          ..add('url', url)
           ..add('content', content))
         .toString();
   }
@@ -128,6 +142,10 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
+  String _url;
+  String get url => _$this._url;
+  set url(String url) => _$this._url = url;
+
   ListBuilder<String> _content;
   ListBuilder<String> get content =>
       _$this._content ??= new ListBuilder<String>();
@@ -139,6 +157,7 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
+      _url = _$v.url;
       _content = _$v.content?.toBuilder();
       _$v = null;
     }
@@ -162,8 +181,9 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
   _$VcType build() {
     _$VcType _$result;
     try {
-      _$result =
-          _$v ?? new _$VcType._(id: id, name: name, content: content.build());
+      _$result = _$v ??
+          new _$VcType._(
+              id: id, name: name, url: url, content: content.build());
     } catch (_) {
       String _$failedField;
       try {

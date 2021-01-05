@@ -26,6 +26,7 @@ class Routes {
   static const String ownVcPage = '/ssi/vc';
   static const String composeVcPage = '/ssi/compose_vc_page';
   static const String passPage = '/ssi/pass_page';
+  static const String applyVcPage = '/ssi/apply_vc_page';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -50,6 +51,7 @@ class Routes {
     ownVcPage: ownVcPageHandler,
     composeVcPage: composeVcPageHandler,
     passPage: passPageHandler,
+    applyVcPage: applyVcPageHandler,
   };
 
   static void configureRoutes(FluroRouter router) {

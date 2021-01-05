@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
+import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 
 part 'issuer_store.g.dart';
@@ -25,4 +26,14 @@ abstract class _IssuerStore with Store {
   }
 
   List<IssuerResponse> get issuers => _issuers;
+
+  List<VcType> getVcTypes() {
+    List<VcType> res;
+    for (final IssuerResponse issuer in _issuers) {
+      for (final VcType vcType in issuer.vcTypes) {
+        res.add(vcType);
+      }
+    }
+    return res;
+  }
 }

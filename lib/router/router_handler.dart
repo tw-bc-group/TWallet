@@ -8,6 +8,7 @@ import 'package:tw_wallet_ui/views/health_certificate/health_certificate.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code.dart';
 import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
 import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart';
+import 'package:tw_wallet_ui/views/ssi/apply_vc_page.dart';
 import 'package:tw_wallet_ui/views/ssi/compose_vc_page.dart';
 import 'package:tw_wallet_ui/views/ssi/own_vc_page.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
@@ -167,7 +168,13 @@ Handler composeVcPageHandler = Handler(
 );
 
 Handler passPageHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return PassPage();
   }
+);
+
+Handler applyVcPageHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return ApplyVcPage();
+    }
 );
