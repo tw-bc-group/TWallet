@@ -21,6 +21,8 @@ import 'package:tw_wallet_ui/views/profile/profile.dart';
 import 'package:tw_wallet_ui/views/qr_scanner/qr_scanner.dart';
 import 'package:tw_wallet_ui/views/restore_mnemonics/restore_mnemonics.dart';
 import 'package:tw_wallet_ui/views/ssi/pass_page.dart';
+import 'package:tw_wallet_ui/views/ssi/verification_scenario_page.dart';
+import 'package:tw_wallet_ui/views/ssi/verification_scenario_qr_page.dart';
 import 'package:tw_wallet_ui/views/transfer/transfer.dart';
 import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
@@ -168,7 +170,7 @@ Handler composeVcPageHandler = Handler(
 );
 
 Handler passPageHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
     return PassPage();
   }
 );
@@ -176,5 +178,18 @@ Handler passPageHandler = Handler(
 Handler applyVcPageHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return ApplyVcPage();
+    }
+);
+
+Handler verificationScenarioPageHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+      return VerificationScenarioPage();
+    }
+);
+
+Handler verificationScenarioQrPageHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+      final name = context.settings.arguments as String;
+      return VerificationScenarioQrPage(name: name);
     }
 );

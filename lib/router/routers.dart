@@ -27,6 +27,8 @@ class Routes {
   static const String composeVcPage = '/ssi/compose_vc_page';
   static const String passPage = '/ssi/pass_page';
   static const String applyVcPage = '/ssi/apply_vc_page';
+  static const String verificationScenarioPage = '/ssi/verification_scenario_page';
+  static const String verificationScenarioQrPage = '/ssi/verification_scenario_page/qr';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -52,6 +54,8 @@ class Routes {
     composeVcPage: composeVcPageHandler,
     passPage: passPageHandler,
     applyVcPage: applyVcPageHandler,
+    verificationScenarioPage: verificationScenarioPageHandler,
+    verificationScenarioQrPage: verificationScenarioQrPageHandler,
   };
 
   static void configureRoutes(FluroRouter router) {
