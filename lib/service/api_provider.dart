@@ -150,4 +150,15 @@ class ApiProvider {
               FullType(BuiltList, [FullType(IssuerResponse)])
             ]).result.toList() as List<IssuerResponse>)));
   }
+
+  Future<Optional<HealthCertificationToken>> applyVc(
+      String url, String did, String name, String phone) {
+    return _httpClient.post(url, {
+      'did': did,
+      'name': name,
+      'phone': phone,
+    }).then((res) => Future.value(res.map((response) => ApiResponse.fromJson(
+            response.data, [const FullType(HealthCertificationToken)]).result
+        as HealthCertificationToken)));
+  }
 }

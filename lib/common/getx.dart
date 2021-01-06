@@ -6,6 +6,7 @@ import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
+import 'package:tw_wallet_ui/store/apply_vc_info_store.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -28,5 +29,6 @@ Future<void> initGlobalDependencies() async {
   Get.put(HealthCertificationStore());
   Get.put(VcStore());
   Get.put(IssuerStore());
+  Get.put(ApplyVcInfoStore());
   await Get.putAsync(OfflineTxStore.init);
 }
