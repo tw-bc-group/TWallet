@@ -12,6 +12,7 @@ import 'package:tw_wallet_ui/store/apply_vc_info_store.dart';
 class VerifiableCredentialWithButtonCard extends StatelessWidget {
   final VcType vcType;
   final VcStatus vcStatus;
+  final dynamic onFinish;
   final Color bgColor;
   final bool isSelected;
   final GestureTapCallback onTap;
@@ -19,6 +20,7 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
   VerifiableCredentialWithButtonCard({
     @required this.vcType,
     @required this.vcStatus,
+    @required this.onFinish,
     this.bgColor = Colors.white,
     this.isSelected = false,
     this.onTap,
@@ -75,11 +77,11 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
       case VcStatus.applied:
         {
           return const Text("已申请",
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.green,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
                 letterSpacing: 1.5,
               ));
         }
@@ -87,11 +89,11 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
       case VcStatus.rejected:
         {
           return const Text("已拒绝",
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.red,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
                 letterSpacing: 1.5,
               ));
         }
@@ -104,8 +106,7 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
                 text: '申请',
                 onPressed: () {
                   applyStore.vcType = vcType;
-                  Application.router.navigateTo(context, Routes.newVcPage);
-                  print('apply this vc');
+                  Application.router.navigateTo(context, Routes.newVcPage).then((value) => onFinish());
                 },
               ),
             ],
