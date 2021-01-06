@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/vc_pass.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/service/ssi.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
+import 'package:tw_wallet_ui/widgets/header.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
@@ -53,7 +52,7 @@ class ComposeVcPage extends StatelessWidget {
 
     final List<Widget> list = <Widget>[];
 
-    list.add(_header(vpReq.name));
+    list.add(Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"));
     for (final VerifiableCredential v in vcs) {
       list.add(VerifiableCredentialCard(vc: v));
     }
@@ -66,28 +65,6 @@ class ComposeVcPage extends StatelessWidget {
           ListView(
               padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
               children: list),
-        ],
-      ),
-    );
-  }
-
-  Widget _header(String name) {
-    return Container(
-      height: 70,
-      color: WalletColor.primary,
-      padding: const EdgeInsets.only(top: 10),
-      child: Column(
-        children: <Widget>[
-          Center(
-            child: Text("【$name】请求验证以下凭证\n请确认是否同意？",
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 1.5,
-                )),
-          ),
         ],
       ),
     );
