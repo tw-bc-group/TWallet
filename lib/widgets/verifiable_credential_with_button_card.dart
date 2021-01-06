@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:get/get.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/apply_vc_info_store.dart';
 
 class VerifiableCredentialWithButtonCard extends StatelessWidget {
   final VcType vcType;
@@ -12,13 +16,15 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
   final bool isSelected;
   final GestureTapCallback onTap;
 
-  const VerifiableCredentialWithButtonCard({
+  VerifiableCredentialWithButtonCard({
     @required this.vcType,
     @required this.vcStatus,
     this.bgColor = Colors.white,
     this.isSelected = false,
     this.onTap,
   });
+
+  final ApplyVcInfoStore applyStore = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 _buildVcInfo(),
-                _applyStatusInfo(),
+                _applyStatusInfo(context),
               ],
             ),
           ),
@@ -64,7 +70,7 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
     );
   }
 
-  Widget _applyStatusInfo() {
+  Widget _applyStatusInfo(BuildContext context) {
     switch (vcStatus) {
       case VcStatus.applied:
         {
@@ -97,6 +103,8 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
               WalletTheme.button(
                 text: '申请',
                 onPressed: () {
+                  applyStore.vcType = vcType;
+                  Application.router.navigateTo(context, Routes.newVcPage);
                   print('apply this vc');
                 },
               ),

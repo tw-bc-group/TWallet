@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
 import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart';
 import 'package:tw_wallet_ui/views/ssi/apply_vc_page.dart';
 import 'package:tw_wallet_ui/views/ssi/compose_vc_page.dart';
+import 'package:tw_wallet_ui/views/ssi/new_vc_page.dart';
 import 'package:tw_wallet_ui/views/ssi/own_vc_page.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
@@ -191,5 +192,11 @@ Handler verificationScenarioQrPageHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
       final name = context.settings.arguments as String;
       return VerificationScenarioQrPage(name: name);
+    }
+);
+
+Handler newVcPageHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return NewVcPage();
     }
 );

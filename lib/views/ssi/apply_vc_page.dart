@@ -4,16 +4,16 @@ import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
+import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_with_button_card.dart';
 
 class ApplyVcPage extends StatelessWidget {
 
-  final IssuerStore _store = Get.find();
+  final IssuerStore _issuerStore = Get.find();
+  final VcStore _vcStore = Get.find();
 
-  ApplyVcPage() {
-    print(_store.getVcTypes());
-  }
+  ApplyVcPage();
 
   Widget _issuerTitle(String name) {
     return Text(name,
@@ -36,13 +36,17 @@ class ApplyVcPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> list = <Widget>[];
-    for (final IssuerResponse issuer in _store.issuers) {
+    for (final IssuerResponse issuer in _issuerStore.issuers) {
       if (issuer.vcTypes.isEmpty) {
         continue;
       }
       list.add(_issuerTitle(issuer.name));
       for (final VcType vcType in issuer.vcTypes) {
-        list.add(_vcCard(vcType, VcStatus.notApplied));
+        if (_vcStore.findVc(vcType.id).isPresent) {
+          list.add(_vcCard(vcType, VcStatus.applied));
+        } else {
+          list.add(_vcCard(vcType, VcStatus.notApplied));
+        }
       }
     }
 

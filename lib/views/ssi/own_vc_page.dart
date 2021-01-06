@@ -19,9 +19,6 @@ class OwnVcPage extends StatelessWidget {
 
   OwnVcPage() {
     _issuerStore.fetchIssuers();
-    // ToDo(ssi): delete mock data
-    _vcStore.addVc(Vc('健康行程码', 'ItineraryHealthCode', 'aaaaaa'));
-    _vcStore.addVc(Vc('健康码', 'qSARS-CoV-2-Rapid-Test-Credential', 'aaaaaa'));
   }
 
   @override
