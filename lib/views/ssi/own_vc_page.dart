@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
@@ -12,6 +10,7 @@ import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/scan_icon.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
 
 class OwnVcPage extends StatefulWidget {
@@ -44,7 +43,7 @@ class _OwnVcPageState extends State<OwnVcPage> {
 
     return CommonLayout(
       appBarActions: <Widget>[
-        _buildScanIcon(context),
+        ScanIcon(onTap: () => _handleScan(context))
       ],
       title: "我的凭证",
       child: Column(
@@ -85,21 +84,6 @@ class _OwnVcPageState extends State<OwnVcPage> {
             _noVcHint(),
           ],
         ));
-  }
-
-  Widget _buildScanIcon(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 24, top: 6),
-      child: GestureDetector(
-        onTap: () => _handleScan(context),
-        child: SvgPicture.asset(
-          'assets/icons/scan.svg',
-          color: WalletColor.white,
-          width: 32,
-          height: 32,
-        ),
-      ),
-    );
   }
 
   Future<void> _handleScan(BuildContext context) async {
