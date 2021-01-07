@@ -12,6 +12,7 @@ import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
 
 class OwnVcPage extends StatelessWidget {
   final VcStore _vcStore = Get.find();
@@ -23,6 +24,12 @@ class OwnVcPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final List<Widget> list = <Widget>[];
+    for (final vc in _vcStore.vcs) {
+      list.add(VerifiableCredentialCard(vc: vc));
+    }
+
     return CommonLayout(
       appBarActions: <Widget>[
         _buildScanIcon(context),

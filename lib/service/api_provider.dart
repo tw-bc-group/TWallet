@@ -145,18 +145,20 @@ class ApiProvider {
   }
 
   Future<Optional<List<IssuerResponse>>> fetchIssuers() {
-    return _httpClient.get('/v2/vc-market/issuer').then((res) => Future.value(
+    return _httpClient.get('/v2/vc-market/issuers').then((res) => Future.value(
         res.map((response) => ApiResponse.fromJson(response.data, const [
               FullType(BuiltList, [FullType(IssuerResponse)])
             ]).result.toList() as List<IssuerResponse>)));
   }
 
   Future<Optional<HealthCertificationToken>> applyVc(
-      String url, String did, String name, String phone) {
-    return _httpClient.post(url, {
+      String vcTypeId, String issuerId, String did, String name, String phone) {
+    return _httpClient.post('/v2/vc-market/vcs', {
       'did': did,
+      'issueId': issuerId,
       'name': name,
       'phone': phone,
+      'vcType': vcTypeId,
     }).then((res) => Future.value(res.map((response) => ApiResponse.fromJson(
             response.data, [const FullType(HealthCertificationToken)]).result
         as HealthCertificationToken)));

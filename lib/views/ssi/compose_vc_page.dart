@@ -22,33 +22,7 @@ class ComposeVcPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<VerifiableCredential> vcs = <VerifiableCredential>[];
-
-    for (final vcType in vpReq.vcTypes) {
-      switch(vcType.toString()) {
-        case "qSARS-CoV-2-Rapid-Test-Credential": {
-          vcs.add(VerifiableCredential(
-            name: "行乘健康码",
-            issuer: "中国移动",
-          ));
-        }
-        break;
-
-        case "ImmunoglobulinDetectionTestCard": {
-          vcs.add(VerifiableCredential(
-            name: "核酸检查",
-            issuer: "某某检测机构",
-          ));
-        }
-        break;
-
-        default: {
-          // ignore: avoid_print
-          print("unknow vc type id: ${vcType}");
-        }
-        break;
-      }
-    }
+    List<VerifiableCredential> vcs = _store.vcs;
 
     final List<Widget> list = <Widget>[];
 

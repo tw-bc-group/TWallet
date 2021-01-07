@@ -59,7 +59,7 @@ class VerifiableCredentialCard extends StatelessWidget {
           TextSpan(
               text:
                   "申请时间：${DateFormat('yyyy-MM-dd kk:mm').format(vc.applicationTime)}\n"),
-          TextSpan(text: "凭证信息：${vc.fields.join("、")}\n", style: const TextStyle(textBaseline: TextBaseline.alphabetic)),
+          TextSpan(text: "凭证信息：${vc.content.join("、")}\n", style: const TextStyle(textBaseline: TextBaseline.alphabetic)),
         ])),
       ),
     );

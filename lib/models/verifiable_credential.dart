@@ -1,18 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tw_wallet_ui/models/vc_type_response.dart';
 part 'verifiable_credential.g.dart';
 
 class VerifiableCredential {
   String name;
-
   String issuer;
+  String vcTypeId;
+  String token;
+  List<String> content;
+  DateTime applicationTime;
 
-  VerifiableCredential({this.name, this.issuer});
-
-  // TODO(SSI): vc fields
-  List<String> get fields => ["个人信息", "mock"];
-
-  // TODO(SSI): vc application time
-  DateTime get applicationTime => DateTime(2020, 1, 1, 1, 1);
+  VerifiableCredential({
+    this.name,
+    this.issuer,
+    this.vcTypeId,
+    this.token,
+    this.content,
+    this.applicationTime,
+  });
 }
 
 @JsonSerializable(explicitToJson: true)

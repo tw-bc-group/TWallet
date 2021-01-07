@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
+import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
@@ -19,7 +20,7 @@ class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
   final VcStore _vcStore = Get.find();
 
   List<IssuerResponse> _issuers = <IssuerResponse>[];
-  List<Vc> _vcs = <Vc>[];
+  List<VerifiableCredential> _vcs = <VerifiableCredential>[];
 
   @override
   void initState() {
@@ -62,7 +63,7 @@ class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
       }
       list.add(_issuerTitle(issuer.name));
       for (final VcType vcType in issuer.vcTypes) {
-        if (_vcs.where((vc) => vc.vcType == vcType.id).toList().isEmpty) {
+        if (_vcs.where((vc) => vc.vcTypeId == vcType.id).toList().isEmpty) {
           list.add(_vcCard(vcType, VcStatus.notApplied));
         } else {
           list.add(_vcCard(vcType, VcStatus.applied));

@@ -36,4 +36,16 @@ abstract class _IssuerStore with Store {
     }
     return res;
   }
+
+  String getIssuerNameByVcTypeId(String vcTypeId) {
+    for (final IssuerResponse issuer in _issuers) {
+      if (issuer.vcTypes
+          .where((vcType) => vcType.id == vcTypeId)
+          .toList()
+          .isNotEmpty) {
+        return issuer.name;
+      }
+    }
+    return "";
+  }
 }
