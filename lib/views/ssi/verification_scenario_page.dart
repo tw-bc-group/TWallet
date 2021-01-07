@@ -13,6 +13,7 @@ import 'package:tw_wallet_ui/widgets/card_group.dart';
 import 'package:tw_wallet_ui/widgets/header.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/widgets/scan_icon.dart';
 import 'package:tw_wallet_ui/widgets/vc_type_card.dart';
 
 class VerificationScenarioPage extends StatefulWidget {
@@ -50,6 +51,11 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         btnText: "确定并生成二维码",
         btnOnPressed: () => _handleVsSubmit(),
         errorText: errorText,
+        appBarActions: <Widget>[
+          ScanIcon(scanCallBack: (scanResult) async {
+            await hintDialogHelper(context, DialogType.warning, scanResult);
+          }),
+        ],
         child: ListView(
           children: <Widget>[
             Header(
