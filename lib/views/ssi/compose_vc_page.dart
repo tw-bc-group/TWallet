@@ -29,14 +29,17 @@ class ComposeVcPage extends StatelessWidget {
 
     final List<Widget> list = <Widget>[];
     list.add(Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"));
-    print(_store.vpReq);
     for (final String vcTypeId in _store.vpReq.vcTypes) {
-      final List<VerifiableCredential> relatedVcs = vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
+      final List<VerifiableCredential> relatedVcs =
+          vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
       if (relatedVcs.isNotEmpty) {
         list.add(VerifiableCredentialCard(vc: relatedVcs.last));
         _acquiredVcs.add(relatedVcs.last);
       } else {
-        final String vcName = _issuerStore.getVcTypes().firstWhere((vcType) => vcType.id == vcTypeId).name;
+        final String vcName = _issuerStore
+            .getVcTypes()
+            .firstWhere((vcType) => vcType.id == vcTypeId)
+            .name;
         list.add(_lackVc(vcName));
       }
     }

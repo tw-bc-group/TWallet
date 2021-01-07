@@ -20,7 +20,6 @@ class OwnVcPage extends StatefulWidget {
 }
 
 class _OwnVcPageState extends State<OwnVcPage> {
-
   List<VerifiableCredential> _vcs = <VerifiableCredential>[];
 
   @override
@@ -38,7 +37,6 @@ class _OwnVcPageState extends State<OwnVcPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final List<Widget> list = <Widget>[];
     for (final vc in _vcs) {
       list.add(VerifiableCredentialCard(vc: vc));
@@ -114,10 +112,12 @@ class _OwnVcPageState extends State<OwnVcPage> {
 
     return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
       try {
-        await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
-        VerifiableCredentialPresentationRequest vpr = await SsiService.createVerifiableCredentialPresentationRequest(scanResult);
+        await hintDialogHelper(context, DialogType.success, scanResult,
+            subText: "二维码原始内容");
+        VerifiableCredentialPresentationRequest vpr =
+            await SsiService.createVerifiableCredentialPresentationRequest(
+                scanResult);
         Get.find<VcStore>().vpReq = vpr;
-        print(vpr.toJson());
         Application.router.navigateTo(context, Routes.composeVcPage);
       } catch (e) {
         await hintDialogHelper(context, DialogType.warning, e.toString());
