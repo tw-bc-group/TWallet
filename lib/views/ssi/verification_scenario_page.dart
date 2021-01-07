@@ -52,9 +52,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         btnOnPressed: () => _handleVsSubmit(),
         errorText: errorText,
         appBarActions: <Widget>[
-          ScanIcon(scanCallBack: (scanResult) async {
-            await hintDialogHelper(context, DialogType.warning, scanResult);
-          }),
+          ScanIcon(scanCallBack: _handleScanResult),
         ],
         child: ListView(
           children: <Widget>[
@@ -148,6 +146,17 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
           routeSettings: RouteSettings(arguments: name));
     } catch (err) {
       await hintDialogHelper(context, DialogType.error, "$err");
+    }
+  }
+
+  Future<void> _handleScanResult(String scanResult) async {
+    final op = await _apiProvider.verifierTravelBadgeVerify(
+        scanResult);
+    final res = op.first;
+    if (res.statusCode == 200) {
+      await hintDialogHelper(context, DialogType.success, "验证成功");
+    } else {
+      await hintDialogHelper(context, DialogType.error, "验证失败");
     }
   }
 }

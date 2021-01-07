@@ -176,4 +176,10 @@ class ApiProvider {
       "vcTypes": vcTypesList,
     });
   }
+
+  Future<Optional<Response>> verifierTravelBadgeVerify(String token) {
+    return _httpClient.post('/v2/verifier/travel-badge/verify', {
+      "token": token,
+    });
+  }
 }
