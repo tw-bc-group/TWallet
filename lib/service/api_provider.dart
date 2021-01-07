@@ -166,14 +166,13 @@ class ApiProvider {
         as HealthCertificationToken)));
   }
 
-  Future<Optional<Response>> pathVerifier(String name, List<VcType> vcTypes) {
+  Future<Optional<Response>> pacthVerifier(String name, List<VcType> vcTypes) {
     throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
     throwIf(name.isEmpty, ArgumentError("Must provide name"));
 
     final List<String> vcTypesList = vcTypes.map((v) => v.name).toList();
     return _httpClient.patch('/v2/vc-market/verifiers/1', {
-      // TODO: backend need to add name
-      // "name": name,
+      "name": name,
       "vcTypes": vcTypesList,
     });
   }

@@ -11,6 +11,7 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/widgets/card_group.dart';
 import 'package:tw_wallet_ui/widgets/header.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/vc_type_card.dart';
 
@@ -29,6 +30,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   final TextEditingController _controller = TextEditingController();
 
   Set<VcType> selectedVcTypes;
+  String errorText;
 
   String get name => _controller.text;
   List<IssuerResponse> get issuers => _issuerStore.issuers;
@@ -47,6 +49,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         bodyBackColor: bgColor,
         btnText: "确定并生成二维码",
         btnOnPressed: () => _handleVsSubmit(),
+        errorText: errorText,
         child: ListView(
           children: <Widget>[
             Header(
@@ -112,9 +115,33 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   Future<void> _handleVsSubmit() async {
     final List<VcType> vcTypes = selectedVcTypes.toList();
 
-    await _apiProvider.pathVerifier(name, vcTypes);
-    Application.router.navigateTo(
-        context, Routes.verificationScenarioQrPage,
-        routeSettings: RouteSettings(arguments: name));
+    if (vcTypes.isEmpty) {
+      setState(() {
+        errorText = "请选择VC类型";
+      });
+      return ;
+    }
+    if (name.isEmpty) {
+      setState(() {
+        errorText = "请填写场景名称";
+      });
+      return ;
+    }
+
+    if (errorText != null) {
+      setState(() {
+        errorText = null;
+      });
+    }
+
+
+    try {
+      await _apiProvider.pacthVerifier(name, vcTypes);
+      Application.router.navigateTo(
+          context, Routes.verificationScenarioQrPage,
+          routeSettings: RouteSettings(arguments: name));
+    } catch (err) {
+      await hintDialogHelper(context, DialogType.error, "$err");
+    }
   }
 }

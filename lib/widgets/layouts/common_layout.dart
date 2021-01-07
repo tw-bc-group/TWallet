@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/widgets/error_row.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
 typedef BeforeDispose = Future<void> Function();
@@ -16,6 +17,7 @@ class CommonLayout extends StatelessWidget {
   final BackIcon backIcon;
   final BeforeDispose beforeDispose;
   final List<Widget> appBarActions;
+  final String errorText;
 
   const CommonLayout(
       {this.child,
@@ -26,6 +28,7 @@ class CommonLayout extends StatelessWidget {
       this.bodyBackColor,
       this.beforeDispose,
       this.backIcon = BackIcon.arrow,
+      this.errorText,
       this.appBarActions});
 
   @override
@@ -69,10 +72,13 @@ class CommonLayout extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Expanded(child: Container(child: child)),
+                    if (errorText !=null && errorText.isNotEmpty)
+                      _bottomContainer(
+                        child: ErrorRowWidget(
+                            errorText: errorText),
+                      ),
                     if (withBottomBtn)
-                      Container(
-                          color: WalletColor.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                      _bottomContainer(
                           child: WalletTheme.button(
                               text: btnText, onPressed: btnOnPressed)),
                     Container(height: DeviceInfo.isIphoneXSeries() ? 34 : 20)
@@ -80,5 +86,12 @@ class CommonLayout extends StatelessWidget {
                 ),
               ))),
     );
+  }
+
+  Widget _bottomContainer({Widget child}) {
+    return Container(
+        color: WalletColor.white,
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: child);
   }
 }
