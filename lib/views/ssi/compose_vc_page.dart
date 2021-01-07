@@ -7,6 +7,7 @@ import 'package:tw_wallet_ui/models/vc_pass.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
+import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:tw_wallet_ui/widgets/header.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
@@ -17,18 +18,27 @@ class ComposeVcPage extends StatelessWidget {
   ComposeVcPage();
 
   final VcStore _store = Get.find();
+  final IssuerStore _issuerStore = Get.find();
+  final List<VerifiableCredential> _acquiredVcs = <VerifiableCredential>[];
 
   VerifiableCredentialPresentationRequest get vpReq => _store.vpReq;
 
   @override
   Widget build(BuildContext context) {
-    List<VerifiableCredential> vcs = _store.vcs;
+    final List<VerifiableCredential> vcs = _store.vcs;
 
     final List<Widget> list = <Widget>[];
-
     list.add(Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"));
-    for (final VerifiableCredential v in vcs) {
-      list.add(VerifiableCredentialCard(vc: v));
+    print(_store.vpReq);
+    for (final String vcTypeId in _store.vpReq.vcTypes) {
+      final List<VerifiableCredential> relatedVcs = vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
+      if (relatedVcs.isNotEmpty) {
+        list.add(VerifiableCredentialCard(vc: relatedVcs.last));
+        _acquiredVcs.add(relatedVcs.last);
+      } else {
+        final String vcName = _issuerStore.getVcTypes().firstWhere((vcType) => vcType.id == vcTypeId).name;
+        list.add(_lackVc(vcName));
+      }
     }
     list.add(_bottom(context));
 
@@ -52,7 +62,7 @@ class ComposeVcPage extends StatelessWidget {
           onPressed: () async {
             try {
               final List<String> vcTokens =
-                  _store.vcs.map((vc) => vc.token).toList();
+                  _acquiredVcs.map((vc) => vc.token).toList();
               final VerifiableCredentialTokenResponse vctr =
                   await SsiService.verifyAndGetPassport(vcTokens);
               final vcPass = VcPass(name: vpReq.name, token: vctr.token);
@@ -64,6 +74,20 @@ class ComposeVcPage extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  Widget _lackVc(String name) {
+    return Text(
+      "缺少凭证：$name",
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+        height: 1.5,
+      ),
     );
   }
 }

@@ -84,17 +84,7 @@ class _OwnVcPageState extends State<OwnVcPage> {
                 width: 167,
                 height: 1,
                 decoration: const BoxDecoration(color: Color(0xffffffff))),
-            const Text(
-              "管理你所申请的凭证\n也可以点击申新的凭证",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0,
-                height: 1.5,
-              ),
-            ),
+            _noVcHint(),
           ],
         ));
   }
@@ -127,6 +117,7 @@ class _OwnVcPageState extends State<OwnVcPage> {
         await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
         VerifiableCredentialPresentationRequest vpr = await SsiService.createVerifiableCredentialPresentationRequest(scanResult);
         Get.find<VcStore>().vpReq = vpr;
+        print(vpr.toJson());
         Application.router.navigateTo(context, Routes.composeVcPage);
       } catch (e) {
         await hintDialogHelper(context, DialogType.warning, e.toString());
@@ -147,5 +138,22 @@ class _OwnVcPageState extends State<OwnVcPage> {
         ),
       ],
     );
+  }
+
+  Widget _noVcHint() {
+    if (_vcs.isEmpty) {
+      return const Text(
+        "管理你所申请的凭证\n也可以点击申新的凭证",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0,
+          height: 1.5,
+        ),
+      );
+    }
+    return const Text('');
   }
 }
