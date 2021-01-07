@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
@@ -20,6 +21,7 @@ class VerificationScenarioPage extends StatefulWidget {
 
 class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   final IssuerStore _issuerStore = Get.find();
+  final ApiProvider _apiProvider = Get.find();
 
   static Color bgColor = WalletColor.white;
   static TextStyle textStyle = WalletFont.font_14();
@@ -34,7 +36,6 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   @override
   void initState() {
     super.initState();
-    _issuerStore.fetchIssuers();
     selectedVcTypes = <VcType>{};
   }
 
@@ -45,9 +46,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         withBottomBtn: true,
         bodyBackColor: bgColor,
         btnText: "确定并生成二维码",
-        btnOnPressed: () => Application.router.navigateTo(
-            context, Routes.verificationScenarioQrPage,
-            routeSettings: RouteSettings(arguments: name)),
+        btnOnPressed: () => _handleVsSubmit(),
         child: ListView(
           children: <Widget>[
             Header(
@@ -72,31 +71,35 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   }
 
   List<Widget> get _form {
+    if (issuers == null) {
+      return <Widget>[];
+    }
+
     final List<Widget> list = <Widget>[];
     for (final IssuerResponse issuer in issuers) {
       if (issuer.vcTypes.isEmpty) {
         continue;
       }
-      list.add(issuerVcGroup(issuer));
+      list.add(_issuerVcGroup(issuer));
     }
 
     return list;
   }
 
-  Widget issuerVcGroup(IssuerResponse issuer) {
+  Widget _issuerVcGroup(IssuerResponse issuer) {
     final List<Widget> vcList = <Widget>[];
 
     for (final VcType vcType in issuer.vcTypes) {
       vcList.add(VcTypeCard(
           vcType: vcType,
           isSelected: selectedVcTypes.contains(vcType),
-          onTap: () => toggleVcType(vcType)));
+          onTap: () => _toggleVcType(vcType)));
     }
 
     return CardGroup(name: issuer.name, children: vcList);
   }
 
-  void toggleVcType(VcType vcType) {
+  void _toggleVcType(VcType vcType) {
     setState(() {
       if (selectedVcTypes.contains(vcType)) {
         selectedVcTypes.remove(vcType);
@@ -104,5 +107,14 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         selectedVcTypes.add(vcType);
       }
     });
+  }
+
+  Future<void> _handleVsSubmit() async {
+    final List<VcType> vcTypes = selectedVcTypes.toList();
+
+    await _apiProvider.pathVerifier(name, vcTypes);
+    Application.router.navigateTo(
+        context, Routes.verificationScenarioQrPage,
+        routeSettings: RouteSettings(arguments: name));
   }
 }

@@ -3,6 +3,7 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as g;
+import 'package:get_it/get_it.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
@@ -12,6 +13,7 @@ import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
+import 'package:tw_wallet_ui/models/vc_type_response.dart';
 
 class ApiProvider {
   final HttpClient _httpClient = g.Get.find();
@@ -162,5 +164,17 @@ class ApiProvider {
     }).then((res) => Future.value(res.map((response) => ApiResponse.fromJson(
             response.data, [const FullType(HealthCertificationToken)]).result
         as HealthCertificationToken)));
+  }
+
+  Future<Optional<Response>> pathVerifier(String name, List<VcType> vcTypes) {
+    throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
+    throwIf(name.isEmpty, ArgumentError("Must provide name"));
+
+    final List<String> vcTypesList = vcTypes.map((v) => v.name).toList();
+    return _httpClient.patch('/v2/vc-market/verifiers/1', {
+      // TODO: backend need to add name
+      // "name": name,
+      "vcTypes": vcTypesList,
+    });
   }
 }

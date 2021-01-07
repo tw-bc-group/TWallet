@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/widgets/header.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/qr_card.dart';
 
-const String verifierUrl = "https://wallet.cn.blockchain.thoughtworks.cn/v2/verifier/1/vc";
+const String verifierUrl = "https://wallet.cn.blockchain.thoughtworks.cn/v2/vc-market/verifiers/1/vc";
 
 @immutable
 class VerificationScenarioQrPage extends StatelessWidget {
