@@ -14,19 +14,33 @@ import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
 
-class OwnVcPage extends StatelessWidget {
-  final VcStore _vcStore = Get.find();
-  final IssuerStore _issuerStore = Get.find();
+class OwnVcPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _OwnVcPageState();
+}
 
-  OwnVcPage() {
-    _issuerStore.fetchIssuers();
+class _OwnVcPageState extends State<OwnVcPage> {
+
+  List<VerifiableCredential> _vcs = <VerifiableCredential>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _vcs = Get.find<VcStore>().vcs;
+    Get.find<IssuerStore>().fetchIssuers();
+  }
+
+  void updateVcs() {
+    setState(() {
+      _vcs = Get.find<VcStore>().vcs;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
 
     final List<Widget> list = <Widget>[];
-    for (final vc in _vcStore.vcs) {
+    for (final vc in _vcs) {
       list.add(VerifiableCredentialCard(vc: vc));
     }
 
@@ -38,6 +52,11 @@ class OwnVcPage extends StatelessWidget {
       child: Column(
         children: [
           _tips,
+          Expanded(
+            child: ListView(
+                padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+                children: list),
+          ),
           _bottom(context),
         ],
       ),
@@ -107,7 +126,7 @@ class OwnVcPage extends StatelessWidget {
       try {
         await hintDialogHelper(context, DialogType.success, scanResult, subText: "二维码原始内容");
         VerifiableCredentialPresentationRequest vpr = await SsiService.createVerifiableCredentialPresentationRequest(scanResult);
-        _vcStore.vpReq = vpr;
+        Get.find<VcStore>().vpReq = vpr;
         Application.router.navigateTo(context, Routes.composeVcPage);
       } catch (e) {
         await hintDialogHelper(context, DialogType.warning, e.toString());
@@ -121,7 +140,9 @@ class OwnVcPage extends StatelessWidget {
         WalletTheme.button(
           text: '申请新凭证',
           onPressed: () {
-            Application.router.navigateTo(context, Routes.applyVcPage);
+            Application.router
+                .navigateTo(context, Routes.applyVcPage)
+                .then((value) => updateVcs());
           },
         ),
       ],
