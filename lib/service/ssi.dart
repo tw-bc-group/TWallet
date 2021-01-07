@@ -7,8 +7,16 @@ class SsiService {
   static Future<VerifiableCredentialPresentationRequest> createVerifiableCredentialPresentationRequest(String url) async {
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      final Map<String, dynamic> json = jsonDecode(response.body)['result'] as Map<String, dynamic>;
-      return VerifiableCredentialPresentationRequest.fromJson(json);
+      try {
+        final Map<String, dynamic> json = jsonDecode(response.body)['result'] as Map<String, dynamic>;
+        final List<dynamic> vcTypes = json['vc']['object']['itemListElement'] as List<dynamic>;
+        return VerifiableCredentialPresentationRequest(
+          name: json['vc']['agent']['legalName'] as String,
+          vcTypes: vcTypes.map((vcType) => vcType.toString()).toList(),
+        );
+      } catch (error) {
+        throw Exception('Failed to parse data: $error');
+      }
     } else {
       throw Exception('Failed to load data');
     }
