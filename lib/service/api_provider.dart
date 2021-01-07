@@ -170,7 +170,7 @@ class ApiProvider {
     throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
     throwIf(name.isEmpty, ArgumentError("Must provide name"));
 
-    final List<String> vcTypesList = vcTypes.map((v) => v.name).toList();
+    final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
     return _httpClient.patch('/v2/vc-market/verifiers/1', {
       "name": name,
       "vcTypes": vcTypesList,
