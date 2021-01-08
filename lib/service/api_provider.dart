@@ -171,7 +171,8 @@ class ApiProvider {
     throwIf(name.isEmpty, ArgumentError("Must provide name"));
 
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
-    return _httpClient.patch('/v2/vc-market/verifiers/1', {
+    //ToDo(ssi): change hard encode num
+    return _httpClient.patch('/v2/vc-market/verifiers/6', {
       "name": name,
       "vcTypes": vcTypesList,
     });
