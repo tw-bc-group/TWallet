@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/vc_pass.dart';
+import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
@@ -37,11 +38,18 @@ class ComposeVcPage extends StatelessWidget {
         list.add(VerifiableCredentialCard(vc: relatedVcs.last));
         _acquiredVcs.add(relatedVcs.last);
       } else {
-        final String vcName = _issuerStore
+        final VcType vcType = _issuerStore
             .getVcTypes()
-            .firstWhere((vcType) => vcType.id == vcTypeId)
-            .name;
-        list.add(_lackVc(vcName));
+            .firstWhere((vcType) => vcType.id == vcTypeId);
+        list.add(VerifiableCredentialCard(
+          vc: VerifiableCredential(
+            name: vcType.name,
+            issuer: _issuerStore.getIssuerNameByVcTypeId(vcTypeId),
+            content: vcType.content.toList(),
+          ),
+          isMissing: true,
+        ));
+        // list.add(_lackVc(vcName));
         _hasAllNeededVcs = false;
       }
     }
@@ -73,10 +81,9 @@ class ComposeVcPage extends StatelessWidget {
 
   Future<void> _verifyAndGetTravelBadge(BuildContext context) async {
     try {
-      final List<String> vcTokens =
-      _acquiredVcs.map((vc) => vc.token).toList();
+      final List<String> vcTokens = _acquiredVcs.map((vc) => vc.token).toList();
       final VerifiableCredentialTokenResponse vctr =
-      await SsiService.verifyAndGetPassport(vcTokens);
+          await SsiService.verifyAndGetPassport(vcTokens);
       final vcPass = VcPass(name: vpReq.name, token: vctr.token);
       _store.vcPass = vcPass;
       Application.router.navigateTo(context, Routes.passPage);
