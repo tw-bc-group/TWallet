@@ -22,6 +22,7 @@ class ComposeVcPage extends StatelessWidget {
   final List<VerifiableCredential> _acquiredVcs = <VerifiableCredential>[];
 
   VerifiableCredentialPresentationRequest get vpReq => _store.vpReq;
+  bool _hasAllNeededVcs = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class ComposeVcPage extends StatelessWidget {
             .firstWhere((vcType) => vcType.id == vcTypeId)
             .name;
         list.add(_lackVc(vcName));
+        _hasAllNeededVcs = false;
       }
     }
     list.add(_bottom(context));
@@ -61,23 +63,26 @@ class ComposeVcPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         WalletTheme.button(
-          text: '同意并生成验证二维码',
-          onPressed: () async {
-            try {
-              final List<String> vcTokens =
-                  _acquiredVcs.map((vc) => vc.token).toList();
-              final VerifiableCredentialTokenResponse vctr =
-                  await SsiService.verifyAndGetPassport(vcTokens);
-              final vcPass = VcPass(name: vpReq.name, token: vctr.token);
-              _store.vcPass = vcPass;
-              Application.router.navigateTo(context, Routes.passPage);
-            } catch (err) {
-              await hintDialogHelper(context, DialogType.error, "$err");
-            }
-          },
+          text: _hasAllNeededVcs ? '同意并生成验证二维码' : '缺少部分凭证，请返回申请',
+          onPressed:
+              _hasAllNeededVcs ? () => _verifyAndGetTravelBadge(context) : null,
         ),
       ],
     );
+  }
+
+  Future<void> _verifyAndGetTravelBadge(BuildContext context) async {
+    try {
+      final List<String> vcTokens =
+      _acquiredVcs.map((vc) => vc.token).toList();
+      final VerifiableCredentialTokenResponse vctr =
+      await SsiService.verifyAndGetPassport(vcTokens);
+      final vcPass = VcPass(name: vpReq.name, token: vctr.token);
+      _store.vcPass = vcPass;
+      Application.router.navigateTo(context, Routes.passPage);
+    } catch (err) {
+      await hintDialogHelper(context, DialogType.error, "$err");
+    }
   }
 
   Widget _lackVc(String name) {
