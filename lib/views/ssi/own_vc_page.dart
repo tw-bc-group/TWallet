@@ -8,7 +8,6 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
-import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/scan_icon.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
@@ -42,9 +41,7 @@ class _OwnVcPageState extends State<OwnVcPage> {
     }
 
     return CommonLayout(
-      appBarActions: <Widget>[
-        ScanIcon(onTap: () => _handleScan(context))
-      ],
+      appBarActions: <Widget>[ScanIcon(scanCallBack: _handleScanResult)],
       title: "我的凭证",
       child: Column(
         children: [
@@ -86,27 +83,12 @@ class _OwnVcPageState extends State<OwnVcPage> {
         ));
   }
 
-  Future<void> _handleScan(BuildContext context) async {
-    final String scanResult = await Application.router
-        .navigateTo(context, Routes.qrScanner) as String;
-
-    if (null == scanResult) {
-      return;
-    }
-
-    return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
-      try {
-        await hintDialogHelper(context, DialogType.success, scanResult,
-            subText: "二维码原始内容");
-        VerifiableCredentialPresentationRequest vpr =
-            await SsiService.createVerifiableCredentialPresentationRequest(
-                scanResult);
-        Get.find<VcStore>().vpReq = vpr;
-        Application.router.navigateTo(context, Routes.composeVcPage);
-      } catch (e) {
-        await hintDialogHelper(context, DialogType.warning, e.toString());
-      }
-    });
+  Future<void> _handleScanResult(String scanResult) async {
+    VerifiableCredentialPresentationRequest vpr =
+        await SsiService.createVerifiableCredentialPresentationRequest(
+            scanResult);
+    Get.find<VcStore>().vpReq = vpr;
+    Application.router.navigateTo(context, Routes.composeVcPage);
   }
 
   Widget _bottom(BuildContext context) {
