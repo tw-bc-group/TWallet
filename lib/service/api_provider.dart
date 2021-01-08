@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as g;
 import 'package:get_it/get_it.dart';
 import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
@@ -17,6 +18,9 @@ import 'package:tw_wallet_ui/models/vc_type_response.dart';
 
 class ApiProvider {
   final HttpClient _httpClient = g.Get.find();
+
+  // TODO: this should not been hardcode
+  static String verifiersVcPath = '/v2/vc-market/verifiers/6';
 
   Future<void> transferDcepV2(
       String from, String publicKey, String signedRawTx) {
@@ -172,10 +176,14 @@ class ApiProvider {
 
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
     //ToDo(ssi): change hard encode num
-    return _httpClient.patch('/v2/vc-market/verifiers/6', {
+    return _httpClient.patch(verifiersVcPath, {
       "name": name,
       "vcTypes": vcTypesList,
     });
+  }
+
+  String get verifiersVcQrPath {
+    return "${Application.globalEnv.apiGatewayBaseUrl}/${verifiersVcPath}/vc";
   }
 
   Future<Optional<Response>> verifierTravelBadgeVerify(String token) {

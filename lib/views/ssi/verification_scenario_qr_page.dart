@@ -1,30 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/widgets/header.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/qr_card.dart';
 
-//ToDo(ssi): change hard code num
-const String verifierUrl = "https://wallet.cn.blockchain.thoughtworks.cn/v2/vc-market/verifiers/6/vc";
-
-@immutable
 class VerificationScenarioQrPage extends StatelessWidget {
   final String name;
 
+  final ApiProvider _apiProvider = Get.find<ApiProvider>();
 
-  const VerificationScenarioQrPage({ this.name });
+  VerificationScenarioQrPage({this.name});
 
   @override
   Widget build(BuildContext context) {
-
     return CommonLayout(
-        child: Column(
-            children: <Widget>[
-              Header(title: name),
-              const QrCard(data: verifierUrl)
-            ]
-        )
-    );
+        child: Column(children: <Widget>[
+      Header(title: name),
+      QrCard(data: _apiProvider.verifiersVcQrPath)
+    ]));
   }
-
 }

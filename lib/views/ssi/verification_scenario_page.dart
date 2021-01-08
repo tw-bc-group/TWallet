@@ -34,12 +34,20 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   String errorText;
 
   String get name => _controller.text;
-  List<IssuerResponse> get issuers => _issuerStore.issuers;
+  List<IssuerResponse> issuers = [];
 
   @override
   void initState() {
     super.initState();
     selectedVcTypes = <VcType>{};
+    reload();
+  }
+
+  Future<void> reload() async {
+    await _issuerStore.fetchIssuers();
+    setState(() {
+      issuers = _issuerStore.issuers;
+    });
   }
 
   @override
