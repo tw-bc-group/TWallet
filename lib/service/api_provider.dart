@@ -166,7 +166,7 @@ class ApiProvider {
         as HealthCertificationToken)));
   }
 
-  Future<Optional<Response>> pacthVerifier(String name, List<VcType> vcTypes) {
+  Future<Optional<Response>> patchVerifier(String name, List<VcType> vcTypes) {
     throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
     throwIf(name.isEmpty, ArgumentError("Must provide name"));
 
@@ -180,6 +180,6 @@ class ApiProvider {
   Future<Optional<Response>> verifierTravelBadgeVerify(String token) {
     return _httpClient.post('/v2/verifier/travel-badge/verify', {
       "token": token,
-    });
+    }, throwError: true);
   }
 }

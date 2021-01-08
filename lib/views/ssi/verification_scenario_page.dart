@@ -140,7 +140,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
 
     try {
-      await _apiProvider.pacthVerifier(name, vcTypes);
+      await _apiProvider.patchVerifier(name, vcTypes);
       Application.router.navigateTo(
           context, Routes.verificationScenarioQrPage,
           routeSettings: RouteSettings(arguments: name));
@@ -150,12 +150,17 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   }
 
   Future<void> _handleScanResult(String scanResult) async {
-    final op = await _apiProvider.verifierTravelBadgeVerify(
-        scanResult);
-    final res = op.first;
-    if (res.statusCode == 200) {
-      await hintDialogHelper(context, DialogType.success, "验证成功");
-    } else {
+    try {
+      final op = await _apiProvider.verifierTravelBadgeVerify(
+          scanResult);
+      final res = op.first;
+      if (res.statusCode >= 200 && res.statusCode < 300 ) {
+        await hintDialogHelper(context, DialogType.success, "验证成功");
+      } else {
+        await hintDialogHelper(context, DialogType.error, "验证失败", subText: res.statusMessage);
+      }
+    } catch (err) {
+      printError(info: "$err");
       await hintDialogHelper(context, DialogType.error, "验证失败");
     }
   }
