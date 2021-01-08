@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -163,6 +165,14 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
           scanResult);
       final res = op.first;
       if (res.statusCode >= 200 && res.statusCode < 300 ) {
+        if (res.data['result']['overdue'] as String != 'FALSE') {
+          await hintDialogHelper(context, DialogType.error, "验证失败", subText: "通行证已过期");
+          return;
+        }
+        if (res.data['result']['verify_signature'] as String != 'TRUE') {
+          await hintDialogHelper(context, DialogType.error, "验证失败", subText: "验证签名失败");
+          return;
+        }
         await hintDialogHelper(context, DialogType.success, "验证成功");
       } else {
         await hintDialogHelper(context, DialogType.error, "验证失败", subText: res.statusMessage);
