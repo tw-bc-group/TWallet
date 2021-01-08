@@ -25,7 +25,7 @@ class SsiService {
   static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(List<String> tokens) async {
     const String baseUrl = "https://wallet.cn.blockchain.thoughtworks.cn";
     final response = await http.post(
-      '$baseUrl/v2/verifier/health-certification/verify',
+      '$baseUrl/v2/verifier/health-certification/verify?simple=true',
       headers: <String, String> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
