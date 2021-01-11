@@ -16,11 +16,18 @@ abstract class _IssuerStore with Store {
     _issuers = issuers;
   }
   
-  Future<void> fetchIssuers() {
+  Future<void> fetchIssuers({dynamic onFinish}) {
     Get.find<ApiProvider>().fetchIssuers().then((res) {
       res.ifPresent((list) {
         _issuers = list;
       });
+    }).then((_) {
+      if (onFinish == null) {
+        return;
+      }
+      try {
+        onFinish();
+      } catch (_) {}
     });
     return Future.value();
   }
