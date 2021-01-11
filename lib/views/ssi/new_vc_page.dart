@@ -100,6 +100,7 @@ class _NewVcPageState extends State<NewVcPage> {
     return Observer(
       builder: (_) => CommonLayout(
         title: '个人信息',
+        bottomBackColor: WalletColor.white,
         child: Column(
           children: <Widget>[
             Container(
