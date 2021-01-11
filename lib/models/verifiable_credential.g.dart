@@ -10,7 +10,7 @@ VerifiableCredentialPresentationRequest
     _$VerifiableCredentialPresentationRequestFromJson(
         Map<String, dynamic> json) {
   return VerifiableCredentialPresentationRequest(
-    id: json['id'] as int,
+    id: json['id'] as String,
     name: json['name'] as String,
     vcTypes: (json['vc_types'] as List)?.map((e) => e as String)?.toList(),
   );
