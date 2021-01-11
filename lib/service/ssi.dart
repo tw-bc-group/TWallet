@@ -26,7 +26,7 @@ class SsiService {
   
   static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(String verifierId, List<String> tokens) async {
     final response = await http.post(
-      '${Application.globalEnv.apiGatewayBaseUrl}/v2/verifier/health-certification/verify?simple=true',
+      '${Application.globalEnv.apiGatewayBaseUrl}v2/verifier/health-certification/verify?simple=true',
       headers: <String, String> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
