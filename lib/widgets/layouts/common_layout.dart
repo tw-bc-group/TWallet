@@ -14,6 +14,7 @@ class CommonLayout extends StatelessWidget {
   final VoidCallback btnOnPressed;
   final String title;
   final Color bodyBackColor;
+  final Color bottomBackColor;
   final BackIcon backIcon;
   final BeforeDispose beforeDispose;
   final List<Widget> appBarActions;
@@ -26,6 +27,7 @@ class CommonLayout extends StatelessWidget {
       this.btnOnPressed,
       this.title,
       this.bodyBackColor,
+      this.bottomBackColor,
       this.beforeDispose,
       this.backIcon = BackIcon.arrow,
       this.errorText,
@@ -81,7 +83,10 @@ class CommonLayout extends StatelessWidget {
                       _bottomContainer(
                           child: WalletTheme.button(
                               text: btnText, onPressed: btnOnPressed)),
-                    Container(height: DeviceInfo.isIphoneXSeries() ? 34 : 20)
+                    Container(
+                        color: bottomBackColor,
+                        height: DeviceInfo.isIphoneXSeries() ? 34 : 20
+                    )
                   ],
                 ),
               ))),
