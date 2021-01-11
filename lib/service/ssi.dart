@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:tw_wallet_ui/common/application.dart';
 
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 
@@ -24,9 +25,8 @@ class SsiService {
   }
   
   static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(String verifierId, List<String> tokens) async {
-    const String baseUrl = "https://wallet.cn.blockchain.thoughtworks.cn";
     final response = await http.post(
-      '$baseUrl/v2/verifier/health-certification/verify?simple=true',
+      '${Application.globalEnv.apiGatewayBaseUrl}/v2/verifier/health-certification/verify?simple=true',
       headers: <String, String> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
