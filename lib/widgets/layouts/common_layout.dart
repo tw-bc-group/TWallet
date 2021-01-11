@@ -81,7 +81,10 @@ class CommonLayout extends StatelessWidget {
                       _bottomContainer(
                           child: WalletTheme.button(
                               text: btnText, onPressed: btnOnPressed)),
-                    Container(height: DeviceInfo.isIphoneXSeries() ? 34 : 20)
+                    Container(
+                        color: WalletColor.white,
+                        height: DeviceInfo.isIphoneXSeries() ? 34 : 20
+                    )
                   ],
                 ),
               ))),
