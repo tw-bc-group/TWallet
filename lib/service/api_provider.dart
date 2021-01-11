@@ -170,13 +170,12 @@ class ApiProvider {
         as HealthCertificationToken)));
   }
 
-  Future<Optional<Response>> patchVerifier(String name, List<VcType> vcTypes) {
+  Future<Optional<Response>> patchVerifier(String id, String name, List<VcType> vcTypes) {
     throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
     throwIf(name.isEmpty, ArgumentError("Must provide name"));
 
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
-    //ToDo(ssi): change hard encode num
-    return _httpClient.patch(verifiersVcPath, {
+    return _httpClient.patch('/v2/vc-market/verifiers/${id}', {
       "name": name,
       "vcTypes": vcTypesList,
     });
@@ -186,8 +185,9 @@ class ApiProvider {
     return "${Application.globalEnv.apiGatewayBaseUrl}/${verifiersVcPath}/vc";
   }
 
-  Future<Optional<Response>> verifierTravelBadgeVerify(String token) {
+  Future<Optional<Response>> verifierTravelBadgeVerify(String verifierId, String token) {
     return _httpClient.post('/v2/verifier/travel-badge/verify', {
+      "verifierId": verifierId,
       "token": token,
     }, throwError: true);
   }

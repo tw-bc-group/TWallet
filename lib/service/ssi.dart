@@ -11,6 +11,7 @@ class SsiService {
         final Map<String, dynamic> json = jsonDecode(response.body)['result'] as Map<String, dynamic>;
         final List<dynamic> vcTypes = json['vc']['object']['itemListElement'] as List<dynamic>;
         return VerifiableCredentialPresentationRequest(
+          id: json['vc']['target']['identifier'] as String,
           name: json['vc']['agent']['legalName'] as String,
           vcTypes: vcTypes.map((vcType) => vcType.toString()).toList(),
         );
@@ -22,14 +23,15 @@ class SsiService {
     }
   }
   
-  static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(List<String> tokens) async {
+  static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(String verifierId, List<String> tokens) async {
     const String baseUrl = "https://wallet.cn.blockchain.thoughtworks.cn";
     final response = await http.post(
       '$baseUrl/v2/verifier/health-certification/verify?simple=true',
       headers: <String, String> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, List<String>> {
+      body: jsonEncode(<String, dynamic> {
+        'verifierId': verifierId,
         'tokens': tokens,
       }),
     );

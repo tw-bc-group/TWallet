@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -10,6 +11,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/widgets/card_group.dart';
 import 'package:tw_wallet_ui/widgets/header.dart';
@@ -25,6 +27,7 @@ class VerificationScenarioPage extends StatefulWidget {
 
 class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   final IssuerStore _issuerStore = Get.find();
+  final IdentityStore _identityStore = Get.find();
   final ApiProvider _apiProvider = Get.find();
 
   static Color bgColor = WalletColor.white;
@@ -128,6 +131,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   Future<void> _handleVsSubmit() async {
     final List<VcType> vcTypes = selectedVcTypes.toList();
+    final IdentityStore _identityStore = Get.find<IdentityStore>();
 
     if (vcTypes.isEmpty) {
       setState(() {
@@ -148,9 +152,16 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
       });
     }
 
-
     try {
-      await _apiProvider.patchVerifier(name, vcTypes);
+      final List<DecentralizedIdentity> identities =
+          _identityStore.identitiesWithoutDapp;
+      if (identities.isEmpty) {
+        throw Exception('no did found');
+      }
+      final String did = identities[0].toString();
+      print('get did: ${did}');
+
+      await _apiProvider.patchVerifier(did, name, vcTypes);
       Application.router.navigateTo(
           context, Routes.verificationScenarioQrPage,
           routeSettings: RouteSettings(arguments: name));
@@ -161,7 +172,12 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   Future<void> _handleScanResult(String scanResult) async {
     try {
+      final identities = _identityStore.identitiesWithoutDapp;
+      if (identities.isEmpty) {
+        throw Exception('未找到did');
+      }
       final op = await _apiProvider.verifierTravelBadgeVerify(
+          identities[0].id,
           scanResult);
       final res = op.first;
       if (res.statusCode >= 200 && res.statusCode < 300 ) {

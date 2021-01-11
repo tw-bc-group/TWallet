@@ -27,7 +27,7 @@ class VerifiableCredential {
 
 @JsonSerializable(explicitToJson: true)
 class VerifiableCredentialPresentationRequest {
-  int id;
+  String id;
   String name;
   @JsonKey(name: 'vc_types')
   List<String> vcTypes;

@@ -82,7 +82,7 @@ class ComposeVcPage extends StatelessWidget {
     try {
       final List<String> vcTokens = _acquiredVcs.map((vc) => vc.token).toList();
       final VerifiableCredentialTokenResponse vctr =
-          await SsiService.verifyAndGetPassport(vcTokens);
+          await SsiService.verifyAndGetPassport(_store.vpReq.id, vcTokens);
       final vcPass = VcPass(name: vpReq.name, token: vctr.token);
       _store.vcPass = vcPass;
       Application.router.navigateTo(context, Routes.passPage);
