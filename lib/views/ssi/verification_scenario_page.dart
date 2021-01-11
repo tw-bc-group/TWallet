@@ -153,15 +153,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
     }
 
     try {
-      final List<DecentralizedIdentity> identities =
-          _identityStore.identitiesWithoutDapp;
-      if (identities.isEmpty) {
-        throw Exception('no did found');
-      }
-      final String did = identities[0].toString();
-      print('get did: ${did}');
-
-      await _apiProvider.patchVerifier(did, name, vcTypes);
+      await _apiProvider.patchVerifier(_getDid(), name, vcTypes);
       Application.router.navigateTo(
           context, Routes.verificationScenarioQrPage,
           routeSettings: RouteSettings(arguments: name));
@@ -172,12 +164,8 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   Future<void> _handleScanResult(String scanResult) async {
     try {
-      final identities = _identityStore.identitiesWithoutDapp;
-      if (identities.isEmpty) {
-        throw Exception('未找到did');
-      }
       final op = await _apiProvider.verifierTravelBadgeVerify(
-          identities[0].id,
+          _getDid(),
           scanResult);
       final res = op.first;
       if (res.statusCode >= 200 && res.statusCode < 300 ) {
@@ -197,5 +185,13 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
       printError(info: "$err");
       await hintDialogHelper(context, DialogType.error, "验证失败");
     }
+  }
+
+  String _getDid() {
+    final identities = _identityStore.identitiesWithoutDapp;
+    if (identities.isEmpty) {
+      throw Exception('未找到did');
+    }
+    return identities[0].id;
   }
 }
