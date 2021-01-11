@@ -11,18 +11,16 @@ class VerifiableCredentialCard extends StatelessWidget {
   final VerifiableCredential vc;
   final bool isSelected;
   final GestureTapCallback onTap;
-  final bool isMissing;
 
   const VerifiableCredentialCard({
     @required this.vc,
     this.isSelected = false,
     this.onTap,
-    this.isMissing = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = isMissing ? Colors.grey : Colors.white;
+    final Color bgColor = vc.isMissing() ? Colors.grey : Colors.white;
     return GestureDetector(
       onTap: onTap,
       child: Stack(
@@ -68,7 +66,7 @@ class VerifiableCredentialCard extends StatelessWidget {
   }
 
   TextSpan _applicationTime() {
-    if (isMissing) {
+    if (vc.isMissing()) {
       return TextSpan(
         text: "申请时间：未申请该凭证，可返回申请\n",
         style: WalletFont.font_12(textStyle: TextStyle(color: WalletColor.red, height: 2)),

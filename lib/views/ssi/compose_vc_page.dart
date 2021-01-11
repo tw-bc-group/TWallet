@@ -47,7 +47,6 @@ class ComposeVcPage extends StatelessWidget {
             issuer: _issuerStore.getIssuerNameByVcTypeId(vcTypeId),
             content: vcType.content.toList(),
           ),
-          isMissing: true,
         ));
         // list.add(_lackVc(vcName));
         _hasAllNeededVcs = false;
@@ -90,19 +89,5 @@ class ComposeVcPage extends StatelessWidget {
     } catch (err) {
       await hintDialogHelper(context, DialogType.error, "$err");
     }
-  }
-
-  Widget _lackVc(String name) {
-    return Text(
-      "缺少凭证：$name",
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0,
-        height: 1.5,
-      ),
-    );
   }
 }

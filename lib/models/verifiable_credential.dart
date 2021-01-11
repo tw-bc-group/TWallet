@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tw_wallet_ui/models/vc_type_response.dart';
+import 'package:validators/validators.dart';
+
 part 'verifiable_credential.g.dart';
 
 class VerifiableCredential {
@@ -18,6 +19,10 @@ class VerifiableCredential {
     this.content,
     this.applicationTime,
   });
+
+  bool isMissing() {
+    return isNull(token) || token.isEmpty || applicationTime == null;
+  }
 }
 
 @JsonSerializable(explicitToJson: true)
