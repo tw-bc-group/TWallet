@@ -91,6 +91,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     context, '/home?index=${HomeState.identityIndex}',
                     transition: TransitionType.native, clearStack: true));
               },
+        bottomBackColor: WalletColor.white,
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

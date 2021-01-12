@@ -67,6 +67,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                 }
               }
             : null,
+        bottomBackColor: WalletColor.white,
         child: Container(
           decoration: BoxDecoration(
             color: WalletColor.white,

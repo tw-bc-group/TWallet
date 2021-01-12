@@ -57,6 +57,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
         btnOnPressed: () =>
             Application.router.navigateTo(context, Routes.confirmMnemonics),
         btnText: '下一步',
+        bottomBackColor: WalletColor.white,
         child: Container(
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
