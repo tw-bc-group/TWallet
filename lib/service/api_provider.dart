@@ -181,8 +181,8 @@ class ApiProvider {
     });
   }
 
-  String get verifiersVcQrPath {
-    return "${Application.globalEnv.apiGatewayBaseUrl}/${verifiersVcPath}/vc";
+  String verifiersVcQrPath(String verifierId) {
+    return "${Application.globalEnv.apiGatewayBaseUrl}/v2/vc-market/verifiers/${verifierId}/vc";
   }
 
   Future<Optional<Response>> verifierTravelBadgeVerify(String verifierId, String token) {
