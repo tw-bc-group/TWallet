@@ -67,6 +67,8 @@ abstract class _ApplyVcInfoStore with Store {
   void validateUsername(String value) {
     if (isNull(value) || value.isEmpty) {
       error.username = '不能为空';
+    } else if (value.length < 2) {
+      error.username = '长度至少为2';
     } else {
       error.username = null;
     }
