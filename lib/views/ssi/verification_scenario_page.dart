@@ -49,13 +49,10 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   }
 
   Future<void> reload() async {
-    _issuerStore.fetchIssuers(
-      onFinish: () {
-        setState(() {
-          issuers = _issuerStore.issuers;
-        });
-      }
-    );
+    await _issuerStore.fetchIssuers();
+    setState(() {
+      issuers = _issuerStore.issuers;
+    });
   }
 
   @override
