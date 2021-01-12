@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/util.dart';
-import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
-import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/service/ssi.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:validators/validators.dart';
 
@@ -84,25 +83,16 @@ abstract class _ApplyVcInfoStore with Store {
 
   @action
   Future<dynamic> applyNewVc() async {
-    final IdentityStore _identityStore = Get.find<IdentityStore>();
     final ApiProvider _apiProvider = Get.find<ApiProvider>();
     final VcStore _vcStore = Get.find();
     final IssuerStore _issuerStore = Get.find();
 
     const MOCK_ISSUER_ID = 'did:tw:mockIssuerId';
 
-    final List<DecentralizedIdentity> identities =
-        _identityStore.identitiesWithoutDapp;
-    String did;
-    if (identities.isEmpty) {
-      throw Exception('未找到did，请注册身份');
-    }
-    did = identities[0].did.toString();
-
-    print("applying vc by did: $did, name: $name, phone: $phone");
-    print("applying vc type: ${vcType.toString()}");
-
-    return _apiProvider.applyVc(vcType.id, MOCK_ISSUER_ID, did, name, phone).then((res) {
+    return _apiProvider
+        .applyVc(
+            vcType.id, MOCK_ISSUER_ID, SsiService.getSelectDid(), name, phone)
+        .then((res) {
       bool success = false;
       res.ifPresent((tokenResponse) {
         _vcStore.addVc(VerifiableCredential(

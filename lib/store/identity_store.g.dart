@@ -40,6 +40,13 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
           Computed<String>(() => super.selectedIdentityAddress,
               name: 'IdentityStoreBase.selectedIdentityAddress'))
       .value;
+  Computed<String> _$selectedIdentityDidComputed;
+
+  @override
+  String get selectedIdentityDid => (_$selectedIdentityDidComputed ??=
+          Computed<String>(() => super.selectedIdentityDid,
+              name: 'IdentityStoreBase.selectedIdentityDid'))
+      .value;
   Computed<Amount> _$selectedIdentityBalanceComputed;
 
   @override
@@ -199,6 +206,7 @@ identitiesWithoutDapp: ${identitiesWithoutDapp},
 identitiesWithDapp: ${identitiesWithDapp},
 selectedIdentityName: ${selectedIdentityName},
 selectedIdentityAddress: ${selectedIdentityAddress},
+selectedIdentityDid: ${selectedIdentityDid},
 selectedIdentityBalance: ${selectedIdentityBalance},
 identitiesExceptSelected: ${identitiesExceptSelected},
 selectedFirstIdentitiesInHealthDApp: ${selectedFirstIdentitiesInHealthDApp}

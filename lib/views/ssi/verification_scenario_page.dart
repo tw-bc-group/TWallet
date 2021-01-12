@@ -8,7 +8,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
-import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/service/ssi.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/widgets/card_group.dart';
 import 'package:tw_wallet_ui/widgets/header.dart';
@@ -24,7 +24,6 @@ class VerificationScenarioPage extends StatefulWidget {
 
 class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   final IssuerStore _issuerStore = Get.find();
-  final IdentityStore _identityStore = Get.find();
   final ApiProvider _apiProvider = Get.find();
 
   static Color bgColor = WalletColor.white;
@@ -149,9 +148,9 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
     }
 
     try {
-      await _apiProvider.patchVerifier(_getDid(), name, vcTypes);
-      Application.router.navigateTo(
-          context, Routes.verificationScenarioQrPage,
+      await _apiProvider.patchVerifier(
+          SsiService.getSelectDid(), name, vcTypes);
+      Application.router.navigateTo(context, Routes.verificationScenarioQrPage,
           routeSettings: RouteSettings(arguments: name));
     } catch (err) {
       await hintDialogHelper(context, DialogType.error, "$err");
@@ -161,7 +160,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   Future<void> _handleScanResult(String scanResult) async {
     try {
       final op = await _apiProvider.verifierTravelBadgeVerify(
-          _getDid(),
+          SsiService.getSelectDid(),
           scanResult);
       final res = op.first;
       if (res.statusCode >= 200 && res.statusCode < 300 ) {
@@ -181,13 +180,5 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
       printError(info: "$err");
       await hintDialogHelper(context, DialogType.error, "验证失败");
     }
-  }
-
-  String _getDid() {
-    final identities = _identityStore.identitiesWithoutDapp;
-    if (identities.isEmpty) {
-      throw Exception('未找到did，请注册身份');
-    }
-    return identities[0].did.toString();
   }
 }
