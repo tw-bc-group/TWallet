@@ -73,6 +73,7 @@ class ApiProvider {
     });
   }
 
+  @Deprecated("Replaced by DecentralizedIdentity.register")
   Future<Optional<Response>> identityRegister(String name, String publicKey,
       String address, String did, String signedRawTx) {
     return _httpClient.post(
