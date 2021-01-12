@@ -84,7 +84,7 @@ class _OwnVcPageState extends State<OwnVcPage> {
   }
 
   Future<void> _handleScanResult(String scanResult) async {
-    VerifiableCredentialPresentationRequest vpr =
+    final VerifiableCredentialPresentationRequest vpr =
         await SsiService.createVerifiableCredentialPresentationRequest(
             scanResult);
     Get.find<VcStore>().vpReq = vpr;

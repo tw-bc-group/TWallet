@@ -27,7 +27,7 @@ abstract class _IssuerStore with Store {
   List<IssuerResponse> get issuers => _issuers;
 
   List<VcType> getVcTypes() {
-    List<VcType> res = <VcType>[];
+    final List<VcType> res = <VcType>[];
     for (final IssuerResponse issuer in _issuers) {
       for (final VcType vcType in issuer.vcTypes) {
         res.add(vcType);

@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -131,7 +128,6 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   Future<void> _handleVsSubmit() async {
     final List<VcType> vcTypes = selectedVcTypes.toList();
-    final IdentityStore _identityStore = Get.find<IdentityStore>();
 
     if (vcTypes.isEmpty) {
       setState(() {

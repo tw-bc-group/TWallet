@@ -18,10 +18,9 @@ class PassPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    JWT jwt = JWT.parse(vcPass.token);
+    final JWT jwt = JWT.parse(vcPass.token);
     try {
       final exp = jwt.getClaim("exp") as int;
-      print(exp);
       return CommonLayout(
           child: Column(
               children: <Widget>[
