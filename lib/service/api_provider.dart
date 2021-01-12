@@ -19,9 +19,6 @@ import 'package:tw_wallet_ui/models/vc_type_response.dart';
 class ApiProvider {
   final HttpClient _httpClient = g.Get.find();
 
-  // TODO: this should not been hardcode
-  static String verifiersVcPath = '/v2/vc-market/verifiers/6';
-
   Future<void> transferDcepV2(
       String from, String publicKey, String signedRawTx) {
     return _httpClient.post(
