@@ -188,6 +188,6 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
     if (identities.isEmpty) {
       throw Exception('未找到did，请注册身份');
     }
-    return identities[0].id;
+    return identities[0].did.toString();
   }
 }
