@@ -27,7 +27,7 @@ class VerificationScenarioQrPage extends StatelessWidget {
   String _getDid() {
     final identities = _identityStore.identitiesWithoutDapp;
     if (identities.isEmpty) {
-      throw Exception('未找到did');
+      throw Exception('未找到did，请注册身份');
     }
     return identities[0].id;
   }

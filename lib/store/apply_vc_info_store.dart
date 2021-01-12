@@ -95,11 +95,10 @@ abstract class _ApplyVcInfoStore with Store {
         _identityStore.identitiesWithoutDapp;
     String did;
     if (identities.isEmpty) {
-      print("can not find did, use mock did");
-      did = "did:tw:mock";
-    } else {
-      did = identities[0].did.toString();
+      throw Exception('未找到did，请注册身份');
     }
+    did = identities[0].did.toString();
+
     print("applying vc by did: $did, name: $name, phone: $phone");
     print("applying vc type: ${vcType.toString()}");
 
