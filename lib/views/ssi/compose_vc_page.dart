@@ -15,33 +15,36 @@ import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/verifiable_credential_card.dart';
 
-class ComposeVcPage extends StatelessWidget {
-  ComposeVcPage();
+class ComposeVcPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ComposeVcPageState();
+}
 
+class _ComposeVcPageState extends State<ComposeVcPage> {
   final VcStore _store = Get.find();
   final IssuerStore _issuerStore = Get.find();
   final List<VerifiableCredential> _acquiredVcs = <VerifiableCredential>[];
 
   VerifiableCredentialPresentationRequest get vpReq => _store.vpReq;
   bool _hasAllNeededVcs = true;
+  final List<Widget> _vcCards = <Widget>[];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     final List<VerifiableCredential> vcs = _store.vcs;
 
-    final List<Widget> list = <Widget>[];
-    list.add(Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"));
     for (final String vcTypeId in _store.vpReq.vcTypes) {
       final List<VerifiableCredential> relatedVcs =
-          vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
+      vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
       if (relatedVcs.isNotEmpty) {
-        list.add(VerifiableCredentialCard(vc: relatedVcs.last));
+        _vcCards.add(VerifiableCredentialCard(vc: relatedVcs.last));
         _acquiredVcs.add(relatedVcs.last);
       } else {
         final VcType vcType = _issuerStore
             .getVcTypes()
             .firstWhere((vcType) => vcType.id == vcTypeId);
-        list.add(VerifiableCredentialCard(
+        _vcCards.add(VerifiableCredentialCard(
           vc: VerifiableCredential(
             name: vcType.name,
             issuer: _issuerStore.getIssuerNameByVcTypeId(vcTypeId),
@@ -52,15 +55,21 @@ class ComposeVcPage extends StatelessWidget {
         _hasAllNeededVcs = false;
       }
     }
-    list.add(_bottom(context));
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return CommonLayout(
       title: "选择凭据",
       child: Stack(
         children: <Widget>[
           ListView(
               padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-              children: list),
+              children: <Widget>[
+                Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"),
+                ..._vcCards,
+                _bottom(context),
+              ]),
         ],
       ),
     );
