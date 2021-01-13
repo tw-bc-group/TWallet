@@ -4,6 +4,7 @@ import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CountdownTimer extends StatefulWidget {
   const CountdownTimer({
@@ -21,26 +22,19 @@ class CountdownTimer extends StatefulWidget {
 
 class _CountdownTimerState extends State<CountdownTimer> {
   Timer _timer;
-  Duration remainTime;
+  Rx<Duration> remainTime = Rx(Duration.zero);
 
   @override
   void initState() {
     super.initState();
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      update();
-    });
-  }
-
-  void update() {
-    setState(() {
-      remainTime = widget.before.difference(DateTime.now());
-    });
-
-    if (remainTime <= const Duration()) {
-      if (widget.atExpiration != null) {
-        widget.atExpiration();
+      remainTime.value = widget.before.difference(DateTime.now());
+      if (remainTime.value <= const Duration()) {
+        if (widget.atExpiration != null) {
+          widget.atExpiration();
+        }
       }
-    }
+    });
   }
 
   @override
@@ -51,15 +45,11 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
-    final remainTimeTxt = printDuration(
-        remainTime,
-        locale: DurationLocale.fromLanguageCode('zh')
-    );
-
-    if(remainTime !=null) {
-      return Text("剩余 $remainTimeTxt");
-    } else {
-      return const Text("");
-    }
+    return Obx(() {
+      final String hintText = remainTime.value == Duration.zero
+          ? ""
+          : "剩余 ${printDuration(remainTime.value, locale: DurationLocale.fromLanguageCode('zh'))}";
+      return Text(hintText);
+    });
   }
 }
