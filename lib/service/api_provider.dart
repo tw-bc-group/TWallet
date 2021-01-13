@@ -3,7 +3,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as g;
-import 'package:get_it/get_it.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
@@ -169,9 +168,6 @@ class ApiProvider {
   }
 
   Future<Optional<Response>> patchVerifier(String id, String name, List<VcType> vcTypes) {
-    throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
-    throwIf(name.isEmpty, ArgumentError("Must provide name"));
-
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
     return _httpClient.patch('/v2/vc-market/verifiers/${id}', {
       "name": name,
