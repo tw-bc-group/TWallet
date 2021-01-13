@@ -87,11 +87,11 @@ abstract class _ApplyVcInfoStore with Store {
     final VcStore _vcStore = Get.find();
     final IssuerStore _issuerStore = Get.find();
 
-    const MOCK_ISSUER_ID = 'did:tw:mockIssuerId';
+    const mockIssuerId = 'did:tw:mockIssuerId';
 
     return _apiProvider
         .applyVc(
-            vcType.id, MOCK_ISSUER_ID, SsiService.getSelectDid(), name, phone)
+            vcType.id, mockIssuerId, SsiService.getSelectDid(), name, phone)
         .then((res) {
       bool success = false;
       res.ifPresent((tokenResponse) {
@@ -104,7 +104,6 @@ abstract class _ApplyVcInfoStore with Store {
           applicationTime: DateTime.now(),
         ));
         success = true;
-        print("applied vc token: ${tokenResponse.token}");
       });
       return success;
     });
