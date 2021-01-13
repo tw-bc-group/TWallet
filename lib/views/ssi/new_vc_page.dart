@@ -8,20 +8,20 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
-import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
+import 'package:tw_wallet_ui/store/apply_vc_info_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
-class IdentityNewPage extends StatefulWidget {
+class NewVcPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _IdentityNewPageState();
+  State<StatefulWidget> createState() => _NewVcPageState();
 }
 
-class _IdentityNewPageState extends State<IdentityNewPage> {
+class _NewVcPageState extends State<NewVcPage> {
   bool isAdding = false;
-  final IdentityNewStore store = IdentityNewStore();
+  final ApplyVcInfoStore store = Get.find();
   final ProgressDialog _dialog = Get.find();
 
   @override
@@ -37,7 +37,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   }
 
   bool btnDisabled() {
-    return store.name.isEmpty;
+    return store.name.isEmpty || store.phone.isEmpty;
   }
 
   Future<void> _addOnPressed() async {
@@ -45,11 +45,11 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     if (!store.error.hasErrors && !isAdding) {
       isAdding = true;
       _dialog.show();
-      await store.addIdentity().then((success) {
+      await store.applyNewVc().then((success) {
         store.clearError();
         _dialog.dismiss();
         if (success as bool) {
-          showDialogSimple(DialogType.success, '创建成功')
+          showDialogSimple(DialogType.success, '申请成功')
               .then((_) => Application.router.pop(context));
         }
         isAdding = false;
@@ -63,7 +63,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
       icon: SvgPicture.asset(assetIcon),
       labelText: labelText,
       labelStyle:
-          WalletFont.font_14(textStyle: TextStyle(color: WalletColor.grey)),
+      WalletFont.font_14(textStyle: TextStyle(color: WalletColor.grey)),
       hintText: hintText,
       counterText: '',
       border: InputBorder.none,
@@ -123,47 +123,27 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                                   maxLength: 16,
                                   keyboardType: TextInputType.text,
                                   onChanged: (String value) =>
-                                      store.name = value.trim(),
+                                  store.name = value.trim(),
                                   decoration: buildInputDecoration(
                                     assetIcon: 'assets/icons/name.svg',
-                                    labelText: '名称*',
-                                    hintText: '输入名称',
+                                    labelText: '姓名*',
+                                    hintText: '输入姓名',
                                   )),
                               errorText: store.error.username),
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  onChanged: (value) => store.email = value,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/email.svg',
-                                    labelText: '邮箱',
-                                    hintText: '输入邮箱',
-                                  )),
-                              errorText: store.error.email),
                           buildInputField(
                               textFieldChild: TextField(
                                   onChanged: (value) => store.phone = value,
                                   keyboardType: TextInputType.phone,
                                   decoration: buildInputDecoration(
                                     assetIcon: 'assets/icons/phone.svg',
-                                    labelText: '手机',
+                                    labelText: '手机*',
                                     hintText: '输入手机号',
                                   )),
                               errorText: store.error.phone),
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  onChanged: (value) => store.birthday = value,
-                                  keyboardType: TextInputType.datetime,
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/birth.svg',
-                                    labelText: '生日',
-                                    hintText: 'YYYY-MM-DD',
-                                  )),
-                              errorText: store.error.birthday),
                           Container(
                               margin: const EdgeInsets.only(top: 100),
                               child: WalletTheme.button(
-                                  text: '确定创建身份',
+                                  text: '确定申请VC',
                                   onPressed: btnDisabled() || isAdding
                                       ? null
                                       : _addOnPressed))

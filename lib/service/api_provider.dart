@@ -2,18 +2,22 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as g;
+import 'package:get_it/get_it.dart';
 import 'package:optional/optional.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
+import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
+import 'package:tw_wallet_ui/models/vc_type_response.dart';
 
 class ApiProvider {
-  final HttpClient _httpClient = Get.find();
+  final HttpClient _httpClient = g.Get.find();
 
   Future<void> transferDcepV2(
       String from, String publicKey, String signedRawTx) {
@@ -69,6 +73,7 @@ class ApiProvider {
     });
   }
 
+  @Deprecated("Replaced by DecentralizedIdentity.register")
   Future<Optional<Response>> identityRegister(String name, String publicKey,
       String address, String did, String signedRawTx) {
     return _httpClient.post(
@@ -141,5 +146,47 @@ class ApiProvider {
   Future<Optional<Response>> issuePoints(String address) {
     return _httpClient
         .post('/v1/token/reward', {'address': address, 'amount': 10});
+  }
+
+  Future<Optional<List<IssuerResponse>>> fetchIssuers() {
+    return _httpClient.get('/v2/vc-market/issuers').then((res) => Future.value(
+        res.map((response) => ApiResponse.fromJson(response.data, const [
+              FullType(BuiltList, [FullType(IssuerResponse)])
+            ]).result.toList() as List<IssuerResponse>)));
+  }
+
+  Future<Optional<HealthCertificationToken>> applyVc(
+      String vcTypeId, String issuerId, String did, String name, String phone) {
+    return _httpClient.post('/v2/vc-market/vcs', {
+      'did': did,
+      'issueId': issuerId,
+      'name': name,
+      'phone': phone,
+      'vcType': vcTypeId,
+    }).then((res) => Future.value(res.map((response) => ApiResponse.fromJson(
+            response.data, [const FullType(HealthCertificationToken)]).result
+        as HealthCertificationToken)));
+  }
+
+  Future<Optional<Response>> patchVerifier(String id, String name, List<VcType> vcTypes) {
+    throwIf(vcTypes.isEmpty, ArgumentError("Must provide vc types"));
+    throwIf(name.isEmpty, ArgumentError("Must provide name"));
+
+    final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
+    return _httpClient.patch('/v2/vc-market/verifiers/${id}', {
+      "name": name,
+      "vcTypes": vcTypesList,
+    });
+  }
+
+  String verifiersVcQrPath(String verifierId) {
+    return "${Application.globalEnv.apiGatewayBaseUrl}/v2/vc-market/verifiers/${verifierId}/vc";
+  }
+
+  Future<Optional<Response>> verifierTravelBadgeVerify(String verifierId, String token) {
+    return _httpClient.post('/v2/verifier/travel-badge/verify', {
+      "verifierId": verifierId,
+      "token": token,
+    }, throwError: true);
   }
 }

@@ -21,6 +21,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(HealthCertificationToken.serializer)
       ..add(HealthInfo.serializer)
       ..add(HealthyStatus.serializer)
+      ..add(IssuerResponse.serializer)
       ..add(ProfileInfo.serializer)
       ..add(SelectOption.serializer)
       ..add(SendTransactionRequest.serializer)
@@ -29,6 +30,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(TwBalance.serializer)
       ..add(TxReceive.serializer)
       ..add(TxStatus.serializer)
+      ..add(VcType.serializer)
       ..add(WebviewParameter.serializer)
       ..add(WebviewParameterType.serializer)
       ..add(WebviewPincodeDialogClose.serializer)
@@ -47,6 +49,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(VcType)]),
+          () => new ListBuilder<VcType>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(WebviewParameter)]),
           () => new ListBuilder<WebviewParameter>()))

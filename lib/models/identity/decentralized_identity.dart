@@ -68,6 +68,7 @@ abstract class DecentralizedIdentity extends Object
       dappId,
       BigInt.from(accountInfo.index),
       extra,
+      accountInfo.pubKey,
     ]).then((success) {
       if (success) {
         Get.find<IdentityStore>().addIdentity(identity: this);

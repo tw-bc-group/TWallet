@@ -54,7 +54,7 @@ class TWallet extends StatelessWidget {
   final String initialRoute;
 
   TWallet({@required this.initialRoute}) {
-    final router = Router();
+    final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
   }

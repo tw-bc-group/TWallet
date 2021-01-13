@@ -12,11 +12,13 @@ import 'package:tw_wallet_ui/models/identity/account_info.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/identity/health_info.dart';
 import 'package:tw_wallet_ui/models/identity/profile_info.dart';
+import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/models/send_transaction_response.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
+import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/models/webview/create_account_param.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_close.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_error_msg.dart';
@@ -70,7 +72,9 @@ part 'serializer.g.dart';
   TxReceive,
   TxSend,
   SendTransactionRequest,
-  SendTransactionResponse
+  SendTransactionResponse,
+  IssuerResponse,
+  VcType,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -137,5 +141,24 @@ final Serializers serializers = (_$serializers.toBuilder()
               FullType(WebviewPincodeDialogTitle)
             ],
           ),
-          () => WebviewPincodeDialogStyleBuilder))
+          () => WebviewPincodeDialogStyleBuilder)
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(IssuerResponse)]),
+          () => ListBuilder<IssuerResponse>())
+      ..addBuilderFactory(
+          const FullType(ApiResponse, [FullType(IssuerResponse)]),
+          () => ApiResponseBuilder<IssuerResponse>())
+      ..addBuilderFactory(
+          const FullType(ApiResponse, [
+            FullType(BuiltList, [FullType(IssuerResponse)])
+          ]),
+          () => ApiResponseBuilder<BuiltList<IssuerResponse>>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(VcType)]),
+          () => ListBuilder<VcType>())
+      ..addBuilderFactory(const FullType(ApiResponse, [FullType(VcType)]),
+          () => ApiResponseBuilder<VcType>())
+      ..addBuilderFactory(
+          const FullType(ApiResponse, [
+            FullType(BuiltList, [FullType(VcType)])
+          ]),
+          () => ApiResponseBuilder<BuiltList<VcType>>()))
     .build();

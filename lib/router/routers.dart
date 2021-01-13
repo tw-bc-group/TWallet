@@ -23,6 +23,13 @@ class Routes {
   static const String healthCode = '/health_code';
   static const String healthCertPage = '/dapp/health_cert';
   static const String dapp = '/dapp';
+  static const String ownVcPage = '/ssi/vc';
+  static const String composeVcPage = '/ssi/compose_vc_page';
+  static const String passPage = '/ssi/pass_page';
+  static const String applyVcPage = '/ssi/apply_vc_page';
+  static const String verificationScenarioPage = '/ssi/verification_scenario_page';
+  static const String verificationScenarioQrPage = '/ssi/verification_scenario_page/qr';
+  static const String newVcPage = '/ssi/new_vc_page';
 
   static final Map<String, Handler> routers = {
     home: homeHandler,
@@ -44,9 +51,16 @@ class Routes {
     healthCertPage: healthCertificationPageHandler,
     identityDetail: identityDetailHandler,
     dapp: dappHandler,
+    ownVcPage: ownVcPageHandler,
+    composeVcPage: composeVcPageHandler,
+    passPage: passPageHandler,
+    applyVcPage: applyVcPageHandler,
+    verificationScenarioPage: verificationScenarioPageHandler,
+    verificationScenarioQrPage: verificationScenarioQrPageHandler,
+    newVcPage: newVcPageHandler,
   };
 
-  static void configureRoutes(Router router) {
+  static void configureRoutes(FluroRouter router) {
     final TransitionType transitionType =
         Platform.isIOS ? TransitionType.cupertino : TransitionType.material;
 

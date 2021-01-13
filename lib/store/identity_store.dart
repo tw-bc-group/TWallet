@@ -118,6 +118,10 @@ abstract class IdentityStoreBase with Store {
       selectedIdentity.map((identity) => identity.address).orElse('');
 
   @computed
+  String get selectedIdentityDid =>
+      selectedIdentity.map((identity) => identity.did.toString()).orElse('');
+
+  @computed
   Amount get selectedIdentityBalance => selectedIdentity
       .map((identity) => identity.accountInfo.balance)
       .orElse(Amount.zero);
