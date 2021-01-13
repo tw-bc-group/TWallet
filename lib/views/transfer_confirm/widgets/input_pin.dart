@@ -85,11 +85,12 @@ class InputPinWidgetState extends State<InputPinWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
+        SizedBox(
           width: double.infinity,
           child: PinCodeTextField(
               appContext: context,
               length: 6,
+              showCursor: false,
               obscureText: true,
               animationType: AnimationType.fade,
               pinTheme: PinTheme(

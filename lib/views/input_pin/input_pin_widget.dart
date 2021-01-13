@@ -23,6 +23,7 @@ class PinInputWidget extends StatelessWidget {
   Widget _inputPinField(TextEditingController textEditingController,
       ValueChanged<String> onChanged) {
     return PinCodeTextField(
+      showCursor: false,
       appContext: Get.overlayContext,
       pinTheme: PinTheme(
         activeColor: WalletColor.black,
