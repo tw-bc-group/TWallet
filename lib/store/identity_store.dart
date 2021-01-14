@@ -255,11 +255,11 @@ abstract class IdentityStoreBase with Store {
   void fetchLatestPoint({bool withLoading}) {
     selectedIdentity.ifPresent((identity) {
       TwBalance.fetchBalance(
-              address: selectedIdentity.value.address, withLoading: withLoading)
+              address: identity.address, withLoading: withLoading)
           .then((res) {
         res.ifPresent((balance) {
-          selectedIdentity.value.rebuild(
-              (identity) => identity..accountInfo.balance = balance.amount);
+          selectedIdentity = Optional.of(identity.rebuild(
+              (builder) => builder.accountInfo.balance = balance.amount));
           updateIdentity(selectedIdentity.value);
           _streamController.add(ObservableFuture(Future.value(balance)));
         });
