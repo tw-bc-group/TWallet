@@ -54,6 +54,7 @@ class PayeeConfirm extends StatelessWidget {
     return Obx(() => CommonLayout(
         title: '收款信息',
         withBottomBtn: true,
+        bottomBackColor: WalletColor.white,
         btnText: '开始收款',
         btnOnPressed: _payeeAmount.value > 0.0 && _payeeName.value.isNotEmpty
             ? () => Get.to(PaymentPage(

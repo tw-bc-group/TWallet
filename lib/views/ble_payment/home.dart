@@ -252,6 +252,10 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
 
   @override
   Widget build(BuildContext context) {
-    return CommonLayout(title: '离线支付', child: _buildScreen());
+    return CommonLayout(
+      title: '离线支付',
+      bottomBackColor: WalletColor.white,
+      child: _buildScreen(),
+    );
   }
 }
