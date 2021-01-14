@@ -7,7 +7,6 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'hint_dialog.dart';
 
 class ScanIcon extends StatelessWidget {
-
   const ScanIcon({
     this.onTap,
     this.scanCallBack,

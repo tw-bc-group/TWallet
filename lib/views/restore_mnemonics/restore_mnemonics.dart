@@ -122,11 +122,12 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                           ],
                           decoration: const InputDecoration(
                               border: InputBorder.none, counterText: ''),
-                          onChanged: (String value) => _inputWords.value = value
-                              .trim()
-                              .split(' ')
-                              .where((e) => e.isNotEmpty)
-                              .toList()),
+                          onChanged: (String value) => _inputWords.assignAll(
+                              value
+                                  .trim()
+                                  .split(' ')
+                                  .where((e) => e.isNotEmpty)
+                                  .toList())),
                     )),
               ),
               Padding(

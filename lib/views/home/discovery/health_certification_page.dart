@@ -33,9 +33,7 @@ class HealthCertificationPage extends StatelessWidget {
     final homeStore = ModalRoute.of(context).settings.arguments as HomeStore;
 
     return CommonLayout(
-      appBarActions: <Widget>[
-        ScanIcon(onTap: () => _handleScan(context))
-      ],
+      appBarActions: <Widget>[ScanIcon(onTap: () => _handleScan(context))],
       title: "健康认证",
       child: Column(
         children: [

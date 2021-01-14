@@ -48,15 +48,19 @@ class DiscoveryPage extends StatelessWidget {
     ];
 
     dappItemList.add(GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.ownVcPage,
-          arguments: homeStore),
-      child: const DiscoveryItem(text: '更多凭证', svgAsset: 'assets/icons/vc.svg',),
+      onTap: () =>
+          Navigator.pushNamed(context, Routes.ownVcPage, arguments: homeStore),
+      child: const DiscoveryItem(
+        text: '更多凭证',
+        svgAsset: 'assets/icons/vc.svg',
+      ),
     ));
 
     dappItemList.add(GestureDetector(
       onTap: () => Navigator.pushNamed(context, Routes.verificationScenarioPage,
           arguments: homeStore),
-      child: const DiscoveryItem(text: '验证场景', svgAsset: 'assets/icons/verification-scenario.svg'),
+      child: const DiscoveryItem(
+          text: '验证场景', svgAsset: 'assets/icons/verification-scenario.svg'),
     ));
 
     dappItemList.addAll(dappList.map((dapp) => GestureDetector(

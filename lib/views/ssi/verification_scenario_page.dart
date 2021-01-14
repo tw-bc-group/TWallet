@@ -132,13 +132,13 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
       setState(() {
         errorText = "请选择VC类型";
       });
-      return ;
+      return;
     }
     if (name.isEmpty) {
       setState(() {
         errorText = "请填写场景名称";
       });
-      return ;
+      return;
     }
 
     if (errorText != null) {
@@ -160,21 +160,23 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   Future<void> _handleScanResult(String scanResult) async {
     try {
       final op = await _apiProvider.verifierTravelBadgeVerify(
-          SsiService.getSelectDid(),
-          scanResult);
+          SsiService.getSelectDid(), scanResult);
       final res = op.first;
-      if (res.statusCode >= 200 && res.statusCode < 300 ) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
         if (res.data['result']['overdue'] as String != 'FALSE') {
-          await hintDialogHelper(context, DialogType.error, "验证失败", subText: "通行证已过期");
+          await hintDialogHelper(context, DialogType.error, "验证失败",
+              subText: "通行证已过期");
           return;
         }
         if (res.data['result']['verify_signature'] as String != 'TRUE') {
-          await hintDialogHelper(context, DialogType.error, "验证失败", subText: "验证签名失败");
+          await hintDialogHelper(context, DialogType.error, "验证失败",
+              subText: "验证签名失败");
           return;
         }
         await hintDialogHelper(context, DialogType.success, "验证成功");
       } else {
-        await hintDialogHelper(context, DialogType.error, "验证失败", subText: res.statusMessage);
+        await hintDialogHelper(context, DialogType.error, "验证失败",
+            subText: res.statusMessage);
       }
     } catch (err) {
       printError(info: "$err");

@@ -74,10 +74,9 @@ class CommonLayout extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Expanded(child: Container(child: child)),
-                    if (errorText !=null && errorText.isNotEmpty)
+                    if (errorText != null && errorText.isNotEmpty)
                       _bottomContainer(
-                        child: ErrorRowWidget(
-                            errorText: errorText),
+                        child: ErrorRowWidget(errorText: errorText),
                       ),
                     if (withBottomBtn)
                       _bottomContainer(
@@ -85,8 +84,7 @@ class CommonLayout extends StatelessWidget {
                               text: btnText, onPressed: btnOnPressed)),
                     Container(
                         color: bottomBackColor,
-                        height: DeviceInfo.isIphoneXSeries() ? 34 : 20
-                    )
+                        height: DeviceInfo.isIphoneXSeries() ? 34 : 20)
                   ],
                 ),
               ))),

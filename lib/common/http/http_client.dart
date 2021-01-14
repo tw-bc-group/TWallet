@@ -106,7 +106,7 @@ class HttpClient {
       {bool loading = true, bool throwError = false}) async {
     return _dio
         .patch(url,
-        data: data, options: Options(extra: {'withoutLoading': !loading}))
+            data: data, options: Options(extra: {'withoutLoading': !loading}))
         .then((response) => Optional.of(response))
         .catchError((error) {
       if (throwError) {

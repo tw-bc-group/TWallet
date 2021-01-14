@@ -5,8 +5,7 @@ import 'package:tw_wallet_ui/models/serializer.dart';
 
 part 'vc_type_response.g.dart';
 
-abstract class VcType extends Object
-    implements Built<VcType, VcTypeBuilder> {
+abstract class VcType extends Object implements Built<VcType, VcTypeBuilder> {
   static Serializer<VcType> get serializer => _$vcTypeSerializer;
 
   String get id;
@@ -18,8 +17,7 @@ abstract class VcType extends Object
     return serializers.serialize(this) as Map<String, dynamic>;
   }
 
-  factory VcType([void Function(VcTypeBuilder) updates]) =
-  _$VcType;
+  factory VcType([void Function(VcTypeBuilder) updates]) = _$VcType;
 
   factory VcType.fromJson(dynamic serialized) {
     return serializers.deserialize(serialized,

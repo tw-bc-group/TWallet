@@ -179,7 +179,7 @@ class QrScannerPageState extends State<QrScannerPage>
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       const double lineStrokeWidth = 5.0;
 
-      return Container(
+      return SizedBox(
         width: borderWidth,
         height: borderHeight,
         child: Stack(

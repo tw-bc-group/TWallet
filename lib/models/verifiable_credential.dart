@@ -34,9 +34,12 @@ class VerifiableCredentialPresentationRequest {
 
   VerifiableCredentialPresentationRequest({this.id, this.name, this.vcTypes});
 
-  factory VerifiableCredentialPresentationRequest.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialPresentationRequestFromJson(json);
+  factory VerifiableCredentialPresentationRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$VerifiableCredentialPresentationRequestFromJson(json);
 
-  Map<String, dynamic> toJson() => _$VerifiableCredentialPresentationRequestToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$VerifiableCredentialPresentationRequestToJson(this);
 }
 
 // TODO(SSI): VerifiableCredentialPresentation
@@ -51,7 +54,10 @@ class VerifiableCredentialTokenResponse {
   String token;
   VerifiableCredentialTokenResponse({this.token});
 
-  factory VerifiableCredentialTokenResponse.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialTokenResponseFromJson(json);
+  factory VerifiableCredentialTokenResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$VerifiableCredentialTokenResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$VerifiableCredentialTokenResponseToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$VerifiableCredentialTokenResponseToJson(this);
 }

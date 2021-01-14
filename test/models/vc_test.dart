@@ -5,12 +5,9 @@ void main() {
   group('VC', () {
     test('Create vcpr', () {
       final vcpr = VerifiableCredentialPresentationRequest.fromJson({
-        "id":1,
-        "name":"地坛医院",
-        "vc_types":[
-          "ItineraryHealthCode",
-          "ImmunoglobulinDetection"
-        ]
+        "id": 1,
+        "name": "地坛医院",
+        "vc_types": ["ItineraryHealthCode", "ImmunoglobulinDetection"]
       });
 
       expect(vcpr, isA<VerifiableCredentialPresentationRequest>());

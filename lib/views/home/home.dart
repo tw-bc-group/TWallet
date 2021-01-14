@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
@@ -51,19 +50,19 @@ class HomeState extends State<Home> {
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['home']['unselected']),
         activeIcon: svgIcon(iconPaths['home']['selected']),
-        title: const Text('首页')),
+        label: '首页'),
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['discovery']['unselected']),
         activeIcon: svgIcon(iconPaths['discovery']['selected']),
-        title: const Text('发现')),
+        label: '发现'),
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['identity']['unselected']),
         activeIcon: svgIcon(iconPaths['identity']['selected']),
-        title: const Text('身份')),
+        label: '身份'),
     BottomNavigationBarItem(
         icon: svgIcon(iconPaths['me']['unselected']),
         activeIcon: svgIcon(iconPaths['me']['selected']),
-        title: const Text('我')),
+        label: '我'),
   ];
 
   final HomeStore homeStore = HomeStore();

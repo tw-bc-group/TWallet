@@ -106,7 +106,9 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
                 text: '申请',
                 onPressed: () {
                   applyStore.vcType = vcType;
-                  Application.router.navigateTo(context, Routes.newVcPage).then((value) => onFinish());
+                  Application.router
+                      .navigateTo(context, Routes.newVcPage)
+                      .then((value) => onFinish());
                 },
               ),
             ],

@@ -171,6 +171,8 @@ class Session {
               .then((_) => onStateUpdate('收款${description}元成功'));
         }
         break;
+      default:
+        break;
     }
     return;
   }

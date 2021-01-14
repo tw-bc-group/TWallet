@@ -167,7 +167,8 @@ class ApiProvider {
         as HealthCertificationToken)));
   }
 
-  Future<Optional<Response>> patchVerifier(String id, String name, List<VcType> vcTypes) {
+  Future<Optional<Response>> patchVerifier(
+      String id, String name, List<VcType> vcTypes) {
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
     return _httpClient.patch('/v2/vc-market/verifiers/${id}', {
       "name": name,
@@ -179,10 +180,14 @@ class ApiProvider {
     return "${Application.globalEnv.apiGatewayBaseUrl}/v2/vc-market/verifiers/${verifierId}/vc";
   }
 
-  Future<Optional<Response>> verifierTravelBadgeVerify(String verifierId, String token) {
-    return _httpClient.post('/v2/verifier/travel-badge/verify', {
-      "verifierId": verifierId,
-      "token": token,
-    }, throwError: true);
+  Future<Optional<Response>> verifierTravelBadgeVerify(
+      String verifierId, String token) {
+    return _httpClient.post(
+        '/v2/verifier/travel-badge/verify',
+        {
+          "verifierId": verifierId,
+          "token": token,
+        },
+        throwError: true);
   }
 }

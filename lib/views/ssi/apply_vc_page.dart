@@ -15,7 +15,6 @@ class ApplyVcPage extends StatefulWidget {
 }
 
 class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
-
   final IssuerStore _issuerStore = Get.find();
   final VcStore _vcStore = Get.find();
 
@@ -48,9 +47,9 @@ class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
 
   Widget _vcCard(VcType vcType, VcStatus vcStatus) {
     return VerifiableCredentialWithButtonCard(
-        vcType: vcType,
-        vcStatus: vcStatus,
-        onFinish: _updateVc,
+      vcType: vcType,
+      vcStatus: vcStatus,
+      onFinish: _updateVc,
     );
   }
 
@@ -82,5 +81,4 @@ class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
       ),
     );
   }
-
 }

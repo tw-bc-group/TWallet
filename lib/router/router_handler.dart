@@ -171,32 +171,27 @@ Handler composeVcPageHandler = Handler(
 );
 
 Handler passPageHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
-    return PassPage();
-  }
-);
+    handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+  return PassPage();
+});
 
 Handler applyVcPageHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      return ApplyVcPage();
-    }
-);
+  return ApplyVcPage();
+});
 
 Handler verificationScenarioPageHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
-      return VerificationScenarioPage();
-    }
-);
+  return VerificationScenarioPage();
+});
 
 Handler verificationScenarioQrPageHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
-      final name = context.settings.arguments as String;
-      return VerificationScenarioQrPage(name: name);
-    }
-);
+  final name = context.settings.arguments as String;
+  return VerificationScenarioQrPage(name: name);
+});
 
 Handler newVcPageHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      return NewVcPage();
-    }
-);
+  return NewVcPage();
+});

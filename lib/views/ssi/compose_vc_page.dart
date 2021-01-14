@@ -36,7 +36,7 @@ class _ComposeVcPageState extends State<ComposeVcPage> {
 
     for (final String vcTypeId in _store.vpReq.vcTypes) {
       final List<VerifiableCredential> relatedVcs =
-      vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
+          vcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
       if (relatedVcs.isNotEmpty) {
         _vcCards.add(VerifiableCredentialCard(vc: relatedVcs.last));
         _acquiredVcs.add(relatedVcs.last);

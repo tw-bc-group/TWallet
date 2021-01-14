@@ -13,7 +13,8 @@ class VcStore {
   set vcPass(VcPass vcPass) => rxVcPass.value = vcPass;
   VcPass get vcPass => rxVcPass.value;
 
-  set vpReq(VerifiableCredentialPresentationRequest vcpr) => rxVpReq.value = vcpr;
+  set vpReq(VerifiableCredentialPresentationRequest vcpr) =>
+      rxVpReq.value = vcpr;
   VerifiableCredentialPresentationRequest get vpReq => rxVpReq.value;
 
   set vcs(List<VerifiableCredential> vcs) => rxVcs.assignAll(vcs);

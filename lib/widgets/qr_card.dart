@@ -22,7 +22,6 @@ class QrCard extends StatefulWidget {
 }
 
 class _QrCardState extends State<QrCard> {
-
   bool isExpired = false;
 
   @override
@@ -47,9 +46,14 @@ class _QrCardState extends State<QrCard> {
       margin: const EdgeInsets.only(left: 18, right: 18, top: 18),
       padding: const EdgeInsets.only(top: 60, bottom: 60, left: 60, right: 60),
       child: Column(children: [
-        QrImage(data: widget.data, foregroundColor: isExpired ? WalletColor.red : WalletColor.black),
-        if (before !=null && !isExpired) CountdownTimer(before: before, atExpiration: handleAtExpiration),
-        if (before !=null && isExpired) ErrorRowWidget(errorText: "已于${DateFormat('yyyy-MM-dd kk:mm').format(before)}过期")
+        QrImage(
+            data: widget.data,
+            foregroundColor: isExpired ? WalletColor.red : WalletColor.black),
+        if (before != null && !isExpired)
+          CountdownTimer(before: before, atExpiration: handleAtExpiration),
+        if (before != null && isExpired)
+          ErrorRowWidget(
+              errorText: "已于${DateFormat('yyyy-MM-dd kk:mm').format(before)}过期")
       ]),
     );
   }

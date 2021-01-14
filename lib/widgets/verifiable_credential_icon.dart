@@ -14,13 +14,12 @@ class VcIcon extends StatelessWidget {
     final num _width = ScreenUtil().setWidth(width);
 
     return SizedBox(
+        width: _width.toDouble(),
+        height: _width.toDouble(),
+        child: SvgPicture.asset(
+          'assets/icons/vc.svg',
           width: _width.toDouble(),
           height: _width.toDouble(),
-          child: SvgPicture.asset(
-                'assets/icons/vc.svg',
-                width: _width.toDouble(),
-                height: _width.toDouble(),
-              )
-    );
+        ));
   }
 }

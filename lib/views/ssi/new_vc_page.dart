@@ -63,7 +63,7 @@ class _NewVcPageState extends State<NewVcPage> {
       icon: SvgPicture.asset(assetIcon),
       labelText: labelText,
       labelStyle:
-      WalletFont.font_14(textStyle: TextStyle(color: WalletColor.grey)),
+          WalletFont.font_14(textStyle: TextStyle(color: WalletColor.grey)),
       hintText: hintText,
       counterText: '',
       border: InputBorder.none,
@@ -123,7 +123,7 @@ class _NewVcPageState extends State<NewVcPage> {
                                   maxLength: 16,
                                   keyboardType: TextInputType.text,
                                   onChanged: (String value) =>
-                                  store.name = value.trim(),
+                                      store.name = value.trim(),
                                   decoration: buildInputDecoration(
                                     assetIcon: 'assets/icons/name.svg',
                                     labelText: '姓名*',

@@ -8,7 +8,8 @@ part 'issuer_response.g.dart';
 
 abstract class IssuerResponse extends Object
     implements Built<IssuerResponse, IssuerResponseBuilder> {
-  static Serializer<IssuerResponse> get serializer => _$issuerResponseSerializer;
+  static Serializer<IssuerResponse> get serializer =>
+      _$issuerResponseSerializer;
 
   int get id;
   String get name;

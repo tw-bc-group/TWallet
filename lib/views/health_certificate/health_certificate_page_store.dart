@@ -73,7 +73,9 @@ abstract class _HealthCertificatePageStore with Store {
   void validatePhone() {
     error.phone = phone.isEmpty
         ? '手机号码不能为空'
-        : Util.isValidPhone(phone) ? null : '请输入有效的手机号';
+        : Util.isValidPhone(phone)
+            ? null
+            : '请输入有效的手机号';
   }
 
   @action

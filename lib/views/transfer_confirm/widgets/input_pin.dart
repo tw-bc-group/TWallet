@@ -132,7 +132,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
               ),
               enableActiveFill: true,
               keyboardType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               onChanged: onChanged,
               onCompleted: handlePinComplete),
         ),

@@ -69,7 +69,8 @@ class VerifiableCredentialCard extends StatelessWidget {
     if (vc.isMissing()) {
       return TextSpan(
         text: "申请时间：未申请该凭证，可返回申请\n",
-        style: WalletFont.font_12(textStyle: TextStyle(color: WalletColor.red, height: 2)),
+        style: WalletFont.font_12(
+            textStyle: TextStyle(color: WalletColor.red, height: 2)),
       );
     }
     return TextSpan(

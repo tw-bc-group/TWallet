@@ -43,7 +43,7 @@ class PinInputWidget extends StatelessWidget {
       animationDuration: const Duration(milliseconds: 300),
       enableActiveFill: true,
       keyboardType: TextInputType.number,
-      inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       controller: textEditingController,
       onChanged: onChanged,
     );
@@ -66,7 +66,7 @@ class PinInputWidget extends StatelessWidget {
                 },
                 child: SafeArea(
                     maintainBottomViewPadding: true,
-                    child: Container(
+                    child: SizedBox(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       child: Column(

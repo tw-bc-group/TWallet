@@ -27,7 +27,7 @@ class TransferRowWidget extends StatelessWidget {
           if (errorMsg == null)
             Container()
           else
-            Container(
+            SizedBox(
               width: 200,
               child: Align(
                 alignment: Alignment.bottomRight,

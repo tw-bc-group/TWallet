@@ -92,17 +92,27 @@ abstract class _IdentityNewStore with Store {
   }
 
   void validatePhone(String value) {
-    error.phone =
-        value.isNotEmpty ? Util.isValidPhone(phone) ? null : '不是有效的手机号' : null;
+    error.phone = value.isNotEmpty
+        ? Util.isValidPhone(phone)
+            ? null
+            : '不是有效的手机号'
+        : null;
   }
 
   void validateEmail(String value) {
-    error.email = value.isNotEmpty ? isEmail(value) ? null : '不是有效的电子邮件' : null;
+    error.email = value.isNotEmpty
+        ? isEmail(value)
+            ? null
+            : '不是有效的电子邮件'
+        : null;
   }
 
   void validateBirthday(String value) {
-    error.birthday =
-        value.isNotEmpty ? isValidDate(value) ? null : '不是有效的日期' : null;
+    error.birthday = value.isNotEmpty
+        ? isValidDate(value)
+            ? null
+            : '不是有效的日期'
+        : null;
   }
 
   @action
