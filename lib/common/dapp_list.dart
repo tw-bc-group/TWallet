@@ -55,9 +55,9 @@ List<DAppInfo> dappList = [
       'M. Enterprise',
       'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
       'assets/icons/dapp/loyalty-enterprise.svg'),
-  DAppInfo(
-      'cac-management',
-      'CAC Management',
-      'http://cac-management.cn.blockchain.thoughtworks.cn',
-      'assets/icons/cac.svg')
+  // DAppInfo(
+  //     'cac-management',
+  //     'CAC Management',
+  //     'http://cac-management.cn.blockchain.thoughtworks.cn',
+  //     'assets/icons/cac.svg')
 ];
