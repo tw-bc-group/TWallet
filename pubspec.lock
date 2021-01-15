@@ -405,13 +405,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.1"
-  flutter_ble_peripheral:
-    dependency: "direct main"
-    description:
-      name: flutter_ble_peripheral
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   flutter_blue:
     dependency: "direct main"
     description:

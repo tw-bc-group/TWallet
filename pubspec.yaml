@@ -70,9 +70,8 @@ dependencies:
   path_provider: ^1.6.11
   flutter_webview_plugin: ^0.3.11
   collection: ^1.15.0-nullsafety.3
-  flutter_ble_lib: ^2.3.0
+  flutter_ble_lib: ^2.3.1
   crypton: ^1.1.1
-  flutter_ble_peripheral: ^0.2.0
   search_choices: ^1.0.17
   connectivity: ^2.0.2
   quick_log: ^2.0.0
