@@ -46,12 +46,12 @@ class _SplashAppState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Splash Screen',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: _buildBody(),
-    );
+        title: 'Splash Screen',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: _buildBody(),);
   }
 
   Widget _buildBody() {
