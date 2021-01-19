@@ -22,6 +22,7 @@ class HomeListItem extends StatelessWidget {
         ],
       ),
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
           Row(

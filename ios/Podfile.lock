@@ -11,8 +11,6 @@ PODS:
   - flutter_ble_lib (2.3.1):
     - Flutter
     - MultiplatformBleAdapter (~> 0.1.7)
-  - flutter_ble_peripheral (0.0.3):
-    - Flutter
   - flutter_blue (0.0.1):
     - Flutter
     - flutter_blue/Protos (= 0.0.1)
@@ -52,7 +50,6 @@ DEPENDENCIES:
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
   - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
-  - flutter_ble_peripheral (from `.symlinks/plugins/flutter_ble_peripheral/ios`)
   - flutter_blue (from `.symlinks/plugins/flutter_blue/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -83,8 +80,6 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_ble_lib:
     :path: ".symlinks/plugins/flutter_ble_lib/ios"
-  flutter_ble_peripheral:
-    :path: ".symlinks/plugins/flutter_ble_peripheral/ios"
   flutter_blue:
     :path: ".symlinks/plugins/flutter_blue/ios"
   flutter_custom_dialog:
@@ -112,7 +107,6 @@ SPEC CHECKSUMS:
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_ble_lib: 12143505774d055781b836052cf0b2c2a2257b0b
-  flutter_ble_peripheral: e12ab87914fc1690b22bb26649e4f6698625f425
   flutter_blue: eeb381dc4727a0954dede73515f683865494b370
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
@@ -129,6 +123,6 @@ SPEC CHECKSUMS:
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: f76ef6e928fd696ac8175485a2c90343cf8b86c2
+PODFILE CHECKSUM: 9bec71b03e9ffcc99f9f888f80d5b8bb6cb5302a
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.9.1

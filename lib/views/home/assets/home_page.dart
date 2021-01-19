@@ -7,6 +7,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/home/assets/certification_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage>
 
   static const _tabs = [
     HomePageTab(
-        text: '资产',
+        text: 'CBDC',
         icon: ImageIcon(AssetImage('assets/icons/tab-assets.png'), size: 32)),
     HomePageTab(
         text: '票券',
@@ -43,11 +44,16 @@ class _HomePageState extends State<HomePage>
         text: '证书',
         icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
     HomePageTab(
-        text: '收藏',
+        text: '资产',
         icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
   ];
 
-  static final _tabViews = [PointTab(), EmptyPage(), EmptyPage(), EmptyPage()];
+  static final _tabViews = [
+    PointTab(),
+    EmptyPage(),
+    const CertificationTab(),
+    EmptyPage()
+  ];
 
   TabController _tabController;
 

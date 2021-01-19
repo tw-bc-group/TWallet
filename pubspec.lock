@@ -105,7 +105,7 @@ packages:
       name: build_daemon
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.5"
+    version: "2.1.6"
   build_resolvers:
     dependency: transitive
     description:
@@ -196,7 +196,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.5.0"
+    version: "3.6.0"
   collection:
     dependency: "direct main"
     description:
@@ -425,7 +425,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   flutter_custom_dialog:
     dependency: "direct main"
     description:
@@ -446,7 +446,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.5"
+    version: "0.2.7"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -575,7 +575,7 @@ packages:
       name: js
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.3-nullsafety.2"
+    version: "0.6.2"
   json_annotation:
     dependency: transitive
     description:
@@ -771,7 +771,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.0-nullsafety.2"
+    version: "1.9.2"
   permission_handler:
     dependency: "direct main"
     description:
@@ -827,7 +827,7 @@ packages:
       name: pool
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.0-nullsafety.2"
+    version: "1.4.0"
   process:
     dependency: transitive
     description:
