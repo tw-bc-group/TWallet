@@ -7,6 +7,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/home/assets/asset_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/certification_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage>
     PointTab(),
     EmptyPage(),
     const CertificationTab(),
-    EmptyPage()
+    const AssetTab()
   ];
 
   TabController _tabController;
