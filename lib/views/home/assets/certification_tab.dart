@@ -8,11 +8,7 @@ import 'package:tw_wallet_ui/views/home/assets/home_list_view.dart';
 class CertificationTab extends StatelessWidget {
   const CertificationTab({Key key}) : super(key: key);
 
-  void showCertification(String name) {
-    const nameUrlMap = {
-      'yanqian': 'https://cac-file.thoughtworks.cn/6ef1435323db384e04c2.png',
-      'liujiwei': 'https://cac-file.thoughtworks.cn/98a7a5119e01e9ca4bc8.png'
-    };
+  void showCertification() {
     YYDialog().build()
       ..borderRadius = 4
       ..margin = const EdgeInsets.symmetric(horizontal: 24, vertical: 144)
@@ -20,7 +16,7 @@ class CertificationTab extends StatelessWidget {
       ..widget(CachedNetworkImage(
         placeholder: (context, url) => CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
-        imageUrl: nameUrlMap[name],
+        imageUrl: 'https://cac-file.thoughtworks.cn/6ef1435323db384e04c2.png',
       ))
       ..show();
   }
@@ -30,7 +26,7 @@ class CertificationTab extends StatelessWidget {
     return HomeListView(
       children: [
         GestureDetector(
-            onTap: () => showCertification('yanqian'),
+            onTap: () => showCertification(),
             child: const HomeListItem(
               leading: Text(
                 'CAC',
@@ -55,32 +51,30 @@ class CertificationTab extends StatelessWidget {
                 ),
               ),
             )),
-        GestureDetector(
-            onTap: () => showCertification('liujiwei'),
-            child: const HomeListItem(
-              leading: Text(
-                '学历证书',
-                style: TextStyle(
-                  fontFamily: 'OpenSans',
-                  color: Color(0xff111111),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 0,
-                ),
-              ),
-              trailing: Text(
-                '0x707e***',
-                style: TextStyle(
-                  fontFamily: 'PingFangSC',
-                  color: Color(0xff4200d4),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 0,
-                ),
-              ),
-            ))
+        const HomeListItem(
+          leading: Text(
+            '学历证书',
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              color: Color(0xff111111),
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              fontStyle: FontStyle.normal,
+              letterSpacing: 0,
+            ),
+          ),
+          trailing: Text(
+            '0x707e***',
+            style: TextStyle(
+              fontFamily: 'PingFangSC',
+              color: Color(0xff4200d4),
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              letterSpacing: 0,
+            ),
+          ),
+        )
       ],
     );
   }
