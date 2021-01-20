@@ -10,10 +10,10 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/asset_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/certification_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
+import 'package:tw_wallet_ui/views/home/assets/ticket_tab.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
-import 'package:tw_wallet_ui/widgets/empty_page.dart';
 import 'package:tw_wallet_ui/widgets/identity_selection_sheet.dart';
 
 import 'home_page_header.dart';
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage>
 
   static final _tabViews = [
     PointTab(),
-    EmptyPage(),
+    const TicketTab(),
     const CertificationTab(),
     const AssetTab()
   ];
