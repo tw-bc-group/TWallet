@@ -54,7 +54,7 @@ class PinInputWidget extends StatelessWidget {
     final ScreenUtil _screenUtil = ScreenUtil();
 
     return Scaffold(
-        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomInset: true,
         backgroundColor: WalletColor.primary,
         bottomNavigationBar:
             Theme(data: Theme.of(context), child: Container(height: 0)),
