@@ -54,7 +54,7 @@ dependencies:
   ai_barcode: ^1.1.4
   permission_handler: ^5.0.0+hotfix.5
   flushbar: ^1.10.2
-  flutter_svg: ^0.19.1
+  flutter_svg: ^0.18.1
   flutter_screenutil: ^4.0.2+5
   custom_radio_grouped_button: ^1.0.0
   convert: ^2.1.1

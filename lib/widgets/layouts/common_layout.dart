@@ -36,7 +36,7 @@ class CommonLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       backgroundColor: bodyBackColor ?? WalletColor.primary,
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
