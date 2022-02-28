@@ -184,7 +184,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       ActionController(name: 'IdentityStoreBase');
 
   @override
-  void fetchLatestPoint({bool withLoading}) {
+  void fetchLatestPoint({bool? withLoading}) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.fetchLatestPoint');
     try {

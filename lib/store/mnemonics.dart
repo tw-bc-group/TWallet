@@ -99,7 +99,7 @@ abstract class MnemonicsBase with Store {
   String get mnemonics => value.second;
 
   @action
-  Future<void> save({required int newIndex}) async {
+  Future<void> save({int? newIndex}) async {
     value = Tuple2(newIndex, value.second);
 
     final SecureStorage _secureStorage = Get.find();

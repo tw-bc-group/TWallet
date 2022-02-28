@@ -15,10 +15,10 @@ class ApplyVcInfoStore = _ApplyVcInfoStore with _$ApplyVcInfoStore;
 
 abstract class _ApplyVcInfoStore with Store {
   final FormErrorState error = FormErrorState();
-  final Rx<VcType> rxVcType = Rx();
+  final Rx<VcType?> rxVcType = Rx(null);
 
   set vcType(VcType vcType) => rxVcType.value = vcType;
-  VcType get vcType => rxVcType.value;
+  VcType get vcType => rxVcType.value!;
 
   @observable
   String name = '';
@@ -90,18 +90,25 @@ abstract class _ApplyVcInfoStore with Store {
 
     return _apiProvider
         .applyVc(
-            vcType.id, mockIssuerId, SsiService.getSelectDid(), name, phone)
+      vcType.id,
+      mockIssuerId,
+      SsiService.getSelectDid(),
+      name,
+      phone,
+    )
         .then((res) {
       bool success = false;
       res.ifPresent((tokenResponse) {
-        _vcStore.addVc(VerifiableCredential(
-          name: vcType.name,
-          issuer: _issuerStore.getIssuerNameByVcTypeId(vcType.id),
-          vcTypeId: vcType.id,
-          token: tokenResponse.token,
-          content: vcType.content.toList(),
-          applicationTime: DateTime.now(),
-        ));
+        _vcStore.addVc(
+          VerifiableCredential(
+            name: vcType.name,
+            issuer: _issuerStore.getIssuerNameByVcTypeId(vcType.id),
+            vcTypeId: vcType.id,
+            token: tokenResponse.token,
+            content: vcType.content.toList(),
+            applicationTime: DateTime.now(),
+          ),
+        );
         success = true;
       });
       return success;

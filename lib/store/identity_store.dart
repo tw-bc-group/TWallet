@@ -270,11 +270,11 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  void fetchLatestPoint({required bool withLoading}) {
+  void fetchLatestPoint({bool? withLoading}) {
     selectedIdentity.ifPresent((identity) {
       TwBalance.fetchBalance(
         address: identity.address,
-        withLoading: withLoading,
+        withLoading: withLoading!,
       ).then((res) {
         res.ifPresent((balance) {
           selectedIdentity = Optional.of(
