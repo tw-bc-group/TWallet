@@ -25,11 +25,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   flutter_mobx: ^2.0.4
-  flutter_secure_storage: ^3.3.5
+  flutter_secure_storage: ^4.2.0
   mobx: ^2.0.5
   pin_code_fields: ^6.0.2
   random_string: ^2.0.1
-  encrypt: ^4.0.0
+  encrypt: ^5.0.0
   fluro: ^1.3.4
   decimal: ^0.3.5
   dio: ^4.0.4
@@ -39,7 +39,7 @@ dependencies:
   validators: ^3.0.0
   cached_network_image: ^3.2.0
   optional: ^5.0.0
-  json_store: ^1.4.0
+  json_store: ^2.0.0-nullsafety.0
   more: ^2.5.0
   uuid: ^3.0.6
   date_format: ^1.0.9
@@ -66,12 +66,12 @@ dependencies:
   sentry: ^4.0.1
   crypto: ^2.1.5
   flutter_native_splash: ^2.0.5
-  corsac_jwt: ^0.4.0
+  corsac_jwt: ^1.0.0-nullsafety.1
   path_provider: ^1.6.27
   flutter_webview_plugin: ^0.4.0
   collection: ^1.14.13
   flutter_ble_lib: ^2.3.2
-  crypton: ^1.1.1
+  crypton: ^2.0.3
   search_choices: ^1.0.17
   connectivity: ^2.0.2
   quick_log: ^2.0.0

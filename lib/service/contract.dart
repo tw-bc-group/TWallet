@@ -102,7 +102,7 @@ class Contract {
   }
 
   Future<List<dynamic>> callFunction(
-      String publicKey, String functionName, List<dynamic> parameters) async {
+      String publicKey, String functionName, List<dynamic>? parameters) async {
     return web3Client
         .call(
             sender: EthereumAddress.fromHex(
