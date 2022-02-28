@@ -9,11 +9,11 @@ class IdentityCard extends StatelessWidget {
   final String did;
   final Color bgColor;
   final bool isSelected;
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   const IdentityCard({
-    @required this.name,
-    @required this.did,
+    required this.name,
+    required this.did,
     this.bgColor = Colors.white,
     this.isSelected = false,
     this.onTap,
@@ -24,7 +24,7 @@ class IdentityCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
           Container(
             margin: const EdgeInsets.only(bottom: 20),

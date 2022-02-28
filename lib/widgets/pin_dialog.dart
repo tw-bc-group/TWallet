@@ -15,57 +15,66 @@ class PinDialogWidget extends StatelessWidget {
   final GlobalKey<InputPinWidgetState> inputPinWidgetKey =
       GlobalKey<InputPinWidgetState>();
 
-  PinDialogWidget({this.completer, this.pincodeDialogStyle});
+  PinDialogWidget({required this.completer, required this.pincodeDialogStyle});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding:
-            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 50),
-        color: WalletColor.white,
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () => PincodeService.dismissPincodeDialog(),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: SvgPicture.asset('assets/icons/pin-code-close.svg',
-                    width: pincodeDialogStyle.closeIcon.size,
-                    height: pincodeDialogStyle.closeIcon.size,
-                    color: WalletTheme.rgbColor(
-                        pincodeDialogStyle.closeIcon.color)),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 50),
+      color: WalletColor.white,
+      child: Column(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () => PincodeService.dismissPincodeDialog(),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: SvgPicture.asset(
+                'assets/icons/pin-code-close.svg',
+                width: pincodeDialogStyle.closeIcon.size,
+                height: pincodeDialogStyle.closeIcon.size,
+                color: WalletTheme.rgbColor(
+                  pincodeDialogStyle.closeIcon.color,
+                ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Text(
-                pincodeDialogStyle.title.text,
-                textAlign: TextAlign.center,
-                style: WalletFont.font_16(
-                    textStyle: TextStyle(
-                        color: WalletTheme.rgbColor(
-                            pincodeDialogStyle.title.color))),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: Text(
+              pincodeDialogStyle.title.text,
+              textAlign: TextAlign.center,
+              style: WalletFont.font_16(
+                textStyle: TextStyle(
+                  color: WalletTheme.rgbColor(
+                    pincodeDialogStyle.title.color,
+                  ),
+                ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 16),
-              child: Text(
-                pincodeDialogStyle.hintMsg.text,
-                textAlign: TextAlign.center,
-                style: WalletFont.font_12(
-                    textStyle: TextStyle(
-                        color: WalletTheme.rgbColor(
-                            pincodeDialogStyle.hintMsg.color))),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 20, bottom: 16),
+            child: Text(
+              pincodeDialogStyle.hintMsg.text,
+              textAlign: TextAlign.center,
+              style: WalletFont.font_12(
+                textStyle: TextStyle(
+                  color: WalletTheme.rgbColor(
+                    pincodeDialogStyle.hintMsg.color,
+                  ),
+                ),
               ),
             ),
-            InputPinWidget(
-              key: inputPinWidgetKey,
-              autoValidate: true,
-              completer: completer,
-              pincodeDialogInput: pincodeDialogStyle.inputFields,
-              pincodeDialogErrorMsg: pincodeDialogStyle.errorMsg,
-            ),
-          ],
-        ));
+          ),
+          InputPinWidget(
+            key: inputPinWidgetKey,
+            autoValidate: true,
+            completer: completer,
+            pincodeDialogInput: pincodeDialogStyle.inputFields,
+            pincodeDialogErrorMsg: pincodeDialogStyle.errorMsg,
+          ),
+        ],
+      ),
+    );
   }
 }

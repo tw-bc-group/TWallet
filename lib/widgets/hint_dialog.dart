@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:optional/optional.dart';
@@ -19,8 +18,8 @@ enum DialogType {
   none,
 }
 
-Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {num width}) {
-  String asset;
+Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {required num width}) {
+  String? asset;
 
   switch (type) {
     case DialogType.success:
@@ -42,15 +41,26 @@ Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {num width}) {
       break;
   }
 
-  return Optional.ofNullable(asset).map((asset) => SvgPicture.asset(asset,
-      width: width.toDouble(), height: width.toDouble()));
+  return Optional.ofNullable(asset).map(
+    (asset) => SvgPicture.asset(
+      asset,
+      width: width.toDouble(),
+      height: width.toDouble(),
+    ),
+  );
 }
 
 Future<void> hintDialogHelper(
     BuildContext context, DialogType type, String text,
     {String title = '', String subText = ''}) async {
-  return hintDialogFull(context, type, title, text,
-      subText: subText, buttonText: '知道了');
+  return hintDialogFull(
+    context,
+    type,
+    title,
+    text,
+    subText: subText,
+    buttonText: '知道了',
+  );
 }
 
 Future<void> hintDialogFull(
@@ -80,77 +90,98 @@ class HintDialog extends Dialog {
 
     final List<Widget> children = [
       Padding(
-          padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
-          child: Text(title.isEmpty ? '提示' : title,
-              textAlign: TextAlign.center,
-              style: WalletFont.font_18(
-                  textStyle: const TextStyle(fontWeight: FontWeight.w600)))),
+        padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
+        child: Text(
+          title.isEmpty ? '提示' : title,
+          textAlign: TextAlign.center,
+          style: WalletFont.font_18(
+            textStyle: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
       Padding(
         padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
         child: Divider(color: WalletColor.grey),
       ),
       Padding(
         padding: EdgeInsets.only(
-            top: screenUtil.setHeight(20).toDouble(),
-            left: screenUtil.setHeight(20).toDouble(),
-            right: screenUtil.setHeight(20).toDouble()),
-        child: Text(text,
-            textAlign: TextAlign.center,
-            style: WalletFont.font_14(
-                textStyle: const TextStyle(fontWeight: FontWeight.w600))),
+          top: screenUtil.setHeight(20).toDouble(),
+          left: screenUtil.setHeight(20).toDouble(),
+          right: screenUtil.setHeight(20).toDouble(),
+        ),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: WalletFont.font_14(
+            textStyle: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
       ),
       Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: screenUtil.setWidth(20).toDouble(),
-            vertical: screenUtil.setHeight(20).toDouble()),
+          horizontal: screenUtil.setWidth(20).toDouble(),
+          vertical: screenUtil.setHeight(20).toDouble(),
+        ),
         child: WalletTheme.button(
-            height: screenUtil.setHeight(44).toDouble(),
-            text: buttonText.isEmpty ? '知道了' : buttonText,
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+          height: screenUtil.setHeight(44).toDouble(),
+          text: buttonText.isEmpty ? '知道了' : buttonText,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       )
     ];
 
-    _dialogTypeToSvg(type, width: screenUtil.setWidth(44))
-        .ifPresent((svgPicture) => children.insert(
-            2,
-            Padding(
-              padding:
-                  EdgeInsets.only(top: screenUtil.setHeight(20).toDouble()),
-              child: svgPicture,
-            )));
+    _dialogTypeToSvg(type, width: screenUtil.setWidth(44)).ifPresent(
+      (svgPicture) => children.insert(
+        2,
+        Padding(
+          padding: EdgeInsets.only(top: screenUtil.setHeight(20).toDouble()),
+          child: svgPicture,
+        ),
+      ),
+    );
 
     if (subText.isNotEmpty) {
       children.insert(
-          4,
-          Padding(
-            padding: EdgeInsets.only(
-                top: screenUtil.setWidth(20).toDouble(),
-                left: screenUtil.setWidth(20).toDouble(),
-                right: screenUtil.setWidth(20).toDouble()),
-            child: Text(subText,
-                textAlign: TextAlign.center,
-                style: WalletFont.font_10(
-                    textStyle: TextStyle(
-                        color: WalletColor.grey,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0.7))),
-          ));
+        4,
+        Padding(
+          padding: EdgeInsets.only(
+            top: screenUtil.setWidth(20).toDouble(),
+            left: screenUtil.setWidth(20).toDouble(),
+            right: screenUtil.setWidth(20).toDouble(),
+          ),
+          child: Text(
+            subText,
+            textAlign: TextAlign.center,
+            style: WalletFont.font_10(
+              textStyle: TextStyle(
+                color: WalletColor.grey,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.7,
+              ),
+            ),
+          ),
+        ),
+      );
     }
 
     return Material(
       type: MaterialType.transparency,
       child: Center(
-          child: Container(
-              width: screenUtil.setWidth(280).toDouble(),
-              decoration: BoxDecoration(
-                  color: WalletColor.white,
-                  borderRadius: BorderRadius.circular(12)),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: children))),
+        child: Container(
+          width: screenUtil.setWidth(280).toDouble(),
+          decoration: BoxDecoration(
+            color: WalletColor.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: children,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -167,9 +198,11 @@ class HintDialogSample extends Dialog {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      Timer(const Duration(seconds: 1, milliseconds: 500),
-          () => Navigator.pop(context));
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      Timer(
+        const Duration(seconds: 1, milliseconds: 500),
+        () => Navigator.pop(context),
+      );
     });
 
     final ScreenUtil screenUtil = ScreenUtil();
@@ -180,43 +213,53 @@ class HintDialogSample extends Dialog {
             .map((svgPicture) {
       return [
         Padding(
-            padding: EdgeInsets.only(top: screenUtil.setHeight(32).toDouble()),
-            child: svgPicture)
+          padding: EdgeInsets.only(top: screenUtil.setHeight(32).toDouble()),
+          child: svgPicture,
+        )
       ];
     }).orElse([]);
 
-    children.add(Padding(
+    children.add(
+      Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: screenUtil.setWidth(20).toDouble(),
-            vertical: screenUtil.setHeight(textVerticalPadding).toDouble()),
-        child: Text(text,
-            textAlign: TextAlign.center,
-            style: WalletFont.font_14(
-                textStyle: const TextStyle(fontWeight: FontWeight.w600)))));
+          horizontal: screenUtil.setWidth(20).toDouble(),
+          vertical: screenUtil.setHeight(textVerticalPadding).toDouble(),
+        ),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: WalletFont.font_14(
+            textStyle: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    );
 
     return Material(
-        type: MaterialType.transparency,
-        child: Center(
-          child: Container(
-            width: screenUtil
-                .setWidth(type == DialogType.none ? 120 : 160)
-                .toDouble(),
-            decoration: BoxDecoration(
-                color: WalletColor.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x0f000000),
-                    offset: Offset(0, 4),
-                    blurRadius: 12,
-                  )
-                ]),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
+      type: MaterialType.transparency,
+      child: Center(
+        child: Container(
+          width: screenUtil
+              .setWidth(type == DialogType.none ? 120 : 160)
+              .toDouble(),
+          decoration: BoxDecoration(
+            color: WalletColor.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0f000000),
+                offset: Offset(0, 4),
+                blurRadius: 12,
+              )
+            ],
           ),
-        ));
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: children,
+          ),
+        ),
+      ),
+    );
   }
 }

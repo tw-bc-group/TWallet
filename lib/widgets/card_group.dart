@@ -6,7 +6,7 @@ import 'header.dart';
 
 class CardGroup extends StatelessWidget {
   const CardGroup({
-    @required this.name,
+    required this.name,
     this.children = const <Widget>[],
   });
 
@@ -16,18 +16,22 @@ class CardGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(left: 24, right: 24),
-        child: Column(
-          children: [
-            Row(children: [
+      padding: const EdgeInsets.only(left: 24, right: 24),
+      child: Column(
+        children: [
+          Row(
+            children: [
               Header(
-                  title: name,
-                  height: 50,
-                  bgColor: WalletColor.white,
-                  textStyle: WalletFont.font_14())
-            ]),
-            Column(children: children)
-          ],
-        ));
+                title: name,
+                height: 50,
+                bgColor: WalletColor.white,
+                textStyle: WalletFont.font_14(),
+              )
+            ],
+          ),
+          Column(children: children)
+        ],
+      ),
+    );
   }
 }

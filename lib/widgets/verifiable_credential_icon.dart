@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class VcIcon extends StatelessWidget {
@@ -14,12 +14,13 @@ class VcIcon extends StatelessWidget {
     final num _width = ScreenUtil().setWidth(width);
 
     return SizedBox(
+      width: _width.toDouble(),
+      height: _width.toDouble(),
+      child: SvgPicture.asset(
+        'assets/icons/vc.svg',
         width: _width.toDouble(),
         height: _width.toDouble(),
-        child: SvgPicture.asset(
-          'assets/icons/vc.svg',
-          width: _width.toDouble(),
-          height: _width.toDouble(),
-        ));
+      ),
+    );
   }
 }

@@ -78,7 +78,7 @@ class Session {
       case CommandType.setAesKey:
         onStateUpdate('收到会话加密密钥');
         final List<String> aesParam =
-            keyPair!.privateKey.decrypt(command.param).split(' ');
+            keyPair!.privateKey.decrypt(command.param!).split(' ');
         encrypter = SymmEncrypt(aesParam[0], aesParam[1]);
         keyPair = null;
         _sendCommand(Command.build(CommandType.setAesOk))

@@ -8,20 +8,20 @@ import 'package:get/get.dart';
 
 class CountdownTimer extends StatefulWidget {
   const CountdownTimer({
-    Key key,
-    @required this.before,
+    Key? key,
+    required this.before,
     this.atExpiration,
   }) : super(key: key);
 
   final DateTime before;
-  final Function atExpiration;
+  final Function? atExpiration;
 
   @override
   _CountdownTimerState createState() => _CountdownTimerState();
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  Timer _timer;
+  Timer? _timer;
   Rx<Duration> remainTime = Rx(Duration.zero);
 
   @override
@@ -31,7 +31,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
       remainTime.value = widget.before.difference(DateTime.now());
       if (remainTime.value <= const Duration()) {
         if (widget.atExpiration != null) {
-          widget.atExpiration();
+          widget.atExpiration!();
         }
       }
     });
@@ -40,7 +40,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
+    _timer!.cancel();
   }
 
   @override

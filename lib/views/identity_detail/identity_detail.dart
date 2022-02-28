@@ -32,8 +32,8 @@ class IdentityDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
-    certStore.fetchHealthCertByDID(identity.did.toString());
+    final DecentralizedIdentity? identity = identityStore.getIdentityById(id);
+    certStore.fetchHealthCertByDID(identity!.did.toString());
     return CommonLayout(
       title: identity.profileInfo.name,
       child: Container(

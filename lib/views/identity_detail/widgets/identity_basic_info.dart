@@ -17,13 +17,13 @@ class IdentityBasicInfoWidget extends StatelessWidget {
   IdentityBasicInfoWidget({required this.id});
 
   void getPoints() {
-    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
-    _apiProvider.issuePoints(identity.address);
+    final DecentralizedIdentity? identity = identityStore.getIdentityById(id);
+    _apiProvider.issuePoints(identity!.address);
   }
 
   @override
   Widget build(BuildContext context) {
-    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
+    final DecentralizedIdentity? identity = identityStore.getIdentityById(id);
 
     return Container(
       decoration: BoxDecoration(
@@ -98,7 +98,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          identity.did.shorthandValue,
+                          identity!.did.shorthandValue,
                           style: WalletFont.font_14(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,

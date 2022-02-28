@@ -11,9 +11,11 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/splash_screen/splash_screen.dart';
 
-final SentryClient sentry = SentryClient(SentryOptions()
-  ..dsn =
-      "https://cbc45c2b4f0f400797ca489f4f117699@o402661.ingest.sentry.io/5264109");
+final SentryClient sentry = SentryClient(
+  SentryOptions()
+    ..dsn =
+        "https://cbc45c2b4f0f400797ca489f4f117699@o402661.ingest.sentry.io/5264109",
+);
 
 bool get isInDebugMode {
   bool inDebugMode = false;
@@ -21,7 +23,7 @@ bool get isInDebugMode {
   return inDebugMode;
 }
 
-Future<void> _reportError(dynamic error, dynamic stackTrace) async {
+Future<Future<SentryId>> _reportError(dynamic error, dynamic stackTrace) async {
   return sentry.captureException(
     false,
     stackTrace: stackTrace,
@@ -37,9 +39,11 @@ Future<void> main() async {
     }
   };
 
-  runApp(const SplashScreen(
-    onInitializationComplete: runMainApp,
-  ));
+  runApp(
+    const SplashScreen(
+      onInitializationComplete: runMainApp,
+    ),
+  );
 }
 
 void runMainApp(String initialRoute) {
@@ -54,7 +58,7 @@ void runMainApp(String initialRoute) {
 class TWallet extends StatelessWidget {
   final String initialRoute;
 
-  TWallet({@required this.initialRoute}) {
+  TWallet({required this.initialRoute}) {
     final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
@@ -65,18 +69,22 @@ class TWallet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      child: GetMaterialApp(
+      builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: Application.appName,
         theme: ThemeData(
-            primaryColor: WalletColor.white,
-            textTheme: TextTheme(
-                bodyText2: WalletFont.font_14(
-                    textStyle: TextStyle(
-                        color: WalletColor.primary,
-                        fontWeight: FontWeight.w400))),
-            disabledColor: Colors.grey,
-            fontFamily: 'PingFangHK'),
+          primaryColor: WalletColor.white,
+          textTheme: TextTheme(
+            bodyText2: WalletFont.font_14(
+              textStyle: TextStyle(
+                color: WalletColor.primary,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          disabledColor: Colors.grey,
+          fontFamily: 'PingFangHK',
+        ),
         initialRoute: initialRoute,
         onGenerateRoute: Application.router.generator,
       ),

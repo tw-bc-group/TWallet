@@ -33,8 +33,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DecentralizedIdentity identity = identityStore.getIdentityById(id);
-    certStore.fetchHealthCertByDID(identity.did.toString());
+    final DecentralizedIdentity? identity = identityStore.getIdentityById(id);
+    certStore.fetchHealthCertByDID(identity!.did.toString());
 
     return CommonLayout(
       title: '个人信息',

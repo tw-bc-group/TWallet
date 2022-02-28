@@ -6,7 +6,11 @@ class Button extends StatefulWidget {
   final double width;
   final double height;
 
-  const Button({this.text, this.onPressed, this.width, this.height});
+  const Button(
+      {required this.text,
+      required this.onPressed,
+      required this.width,
+      required this.height});
 
   @override
   State<StatefulWidget> createState() => ButtonBase();
@@ -17,41 +21,44 @@ class ButtonBase extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.width != null) {
-      return Center(
-          child: Container(
-              width: widget.width,
-              height: widget.height,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                disabledColor: Theme.of(context).disabledColor,
-                onPressed: widget.onPressed,
-                child: Center(
-                    child: Text(
-                  widget.text,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                )),
-              )));
-    }
+    return Center(
+        child: Container(
+            width: widget.width,
+            height: widget.height,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: FlatButton(
+              disabledColor: Theme.of(context).disabledColor,
+              onPressed: widget.onPressed,
+              child: Center(
+                  child: Text(
+                widget.text,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              )),
+            )));
     return Container(
-        height: widget.height,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-        ),
-        child: FlatButton(
-          disabledColor: Theme.of(context).disabledColor,
-          onPressed: widget.onPressed,
-          child: Center(
-              child: Text(
+      height: widget.height,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+      ),
+      child: FlatButton(
+        disabledColor: Theme.of(context).disabledColor,
+        onPressed: widget.onPressed,
+        child: Center(
+          child: Text(
             widget.text,
             style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          )),
-        ));
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

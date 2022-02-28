@@ -16,8 +16,8 @@ class ScanIcon extends StatelessWidget {
 
   final double width;
   final double height;
-  final GestureTapCallback onTap;
-  final Future<void> Function(String) scanCallBack;
+  final GestureTapCallback? onTap;
+  final Future<void> Function(String)? scanCallBack;
 
   static const String _svg = 'assets/icons/scan.svg';
 
@@ -47,7 +47,7 @@ class ScanIcon extends StatelessWidget {
 
     return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
       try {
-        await scanCallBack(scanResult);
+        await scanCallBack!(scanResult);
       } catch (e) {
         await hintDialogHelper(context, DialogType.warning, e.toString());
       }

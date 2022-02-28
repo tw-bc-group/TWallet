@@ -8,10 +8,10 @@ import 'package:tw_wallet_ui/models/vc_type_response.dart';
 class VcTypeCard extends StatelessWidget {
   final VcType vcType;
   final bool isSelected;
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   const VcTypeCard({
-    @required this.vcType,
+    required this.vcType,
     this.isSelected = true,
     this.onTap,
   });
@@ -24,7 +24,7 @@ class VcTypeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
           Container(
             margin: const EdgeInsets.only(bottom: 12),
@@ -48,18 +48,24 @@ class VcTypeCard extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.only(left: 10),
-        child: Text.rich(TextSpan(
+        child: Text.rich(
+          TextSpan(
             style: WalletFont.font_12(textStyle: TextStyle(color: fontColor)),
             children: <TextSpan>[
               TextSpan(
-                  text: "${vcType.name}\n",
-                  style: WalletFont.font_16(
-                      textStyle: TextStyle(
-                          height: 2,
-                          fontWeight: FontWeight.w600,
-                          color: fontColor))),
+                text: "${vcType.name}\n",
+                style: WalletFont.font_16(
+                  textStyle: TextStyle(
+                    height: 2,
+                    fontWeight: FontWeight.w600,
+                    color: fontColor,
+                  ),
+                ),
+              ),
               TextSpan(text: "    ${vcType.content.join("、")}\n")
-            ])),
+            ],
+          ),
+        ),
       ),
     );
   }

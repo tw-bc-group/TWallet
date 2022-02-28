@@ -10,10 +10,10 @@ import 'package:tw_wallet_ui/widgets/verifiable_credential_icon.dart';
 class VerifiableCredentialCard extends StatelessWidget {
   final VerifiableCredential vc;
   final bool isSelected;
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   const VerifiableCredentialCard({
-    @required this.vc,
+    required this.vc,
     this.isSelected = false,
     this.onTap,
   });
@@ -24,7 +24,7 @@ class VerifiableCredentialCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
           Container(
             margin: const EdgeInsets.only(bottom: 24),
@@ -51,16 +51,23 @@ class VerifiableCredentialCard extends StatelessWidget {
         height: 100,
         margin: const EdgeInsets.only(left: 10),
         child: Text.rich(
-            TextSpan(style: WalletFont.font_12(), children: <TextSpan>[
           TextSpan(
-              text: "${vc.name}\n",
-              style: WalletFont.font_16(textStyle: const TextStyle(height: 2))),
-          TextSpan(text: "颁发者：${vc.issuer}\n"),
-          _applicationTime(),
-          TextSpan(
-              text: "凭证信息：${vc.content.join("、")}\n",
-              style: const TextStyle(textBaseline: TextBaseline.alphabetic)),
-        ])),
+            style: WalletFont.font_12(),
+            children: <TextSpan>[
+              TextSpan(
+                text: "${vc.name}\n",
+                style:
+                    WalletFont.font_16(textStyle: const TextStyle(height: 2)),
+              ),
+              TextSpan(text: "颁发者：${vc.issuer}\n"),
+              _applicationTime(),
+              TextSpan(
+                text: "凭证信息：${vc.content.join("、")}\n",
+                style: const TextStyle(textBaseline: TextBaseline.alphabetic),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -70,11 +77,13 @@ class VerifiableCredentialCard extends StatelessWidget {
       return TextSpan(
         text: "申请时间：未申请该凭证，可返回申请\n",
         style: WalletFont.font_12(
-            textStyle: TextStyle(color: WalletColor.red, height: 2)),
+          textStyle: TextStyle(color: WalletColor.red, height: 2),
+        ),
       );
     }
     return TextSpan(
-        text:
-            "申请时间：${DateFormat('yyyy-MM-dd kk:mm').format(vc.applicationTime)}\n");
+      text:
+          "申请时间：${DateFormat('yyyy-MM-dd kk:mm').format(vc.applicationTime)}\n",
+    );
   }
 }

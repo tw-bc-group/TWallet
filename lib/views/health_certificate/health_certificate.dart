@@ -1,7 +1,5 @@
 import 'package:custom_radio_grouped_button/CustomButtons/CustomRadioButton.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -61,7 +59,10 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     } else {
       return Get.find<HealthCertificationStore>()
           .bindHealthCert(
-            Get.find<IdentityStore>().getIdentityById(widget.id).did.toString(),
+            Get.find<IdentityStore>()
+                .getIdentityById(widget.id)!
+                .did
+                .toString(),
             _pageStore.phone,
             double.parse(_pageStore.temperature),
             _pageStore.contactOption.toString(),

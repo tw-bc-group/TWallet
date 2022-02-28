@@ -10,11 +10,11 @@ enum BackIcon { none, arrow }
 class PageTitleWidget extends StatelessWidget {
   final String title;
   final BackIcon backIcon;
-  final List<Widget> appBarActions;
-  final BeforeDispose beforeDispose;
+  final List<Widget>? appBarActions;
+  final BeforeDispose? beforeDispose;
 
   const PageTitleWidget({
-    this.title,
+    required this.title,
     this.backIcon = BackIcon.arrow,
     this.appBarActions,
     this.beforeDispose,
@@ -31,9 +31,12 @@ class PageTitleWidget extends StatelessWidget {
               height: 48,
             ),
             if (title != null)
-              Text(title,
-                  style: WalletFont.font_18(
-                      textStyle: TextStyle(color: WalletColor.white))),
+              Text(
+                title,
+                style: WalletFont.font_18(
+                  textStyle: TextStyle(color: WalletColor.white),
+                ),
+              ),
           ],
         ),
         if (backIcon != BackIcon.none)
@@ -49,7 +52,7 @@ class PageTitleWidget extends StatelessWidget {
               color: WalletColor.white,
               onPressed: () async {
                 if (null != beforeDispose) {
-                  await beforeDispose();
+                  await beforeDispose!();
                 }
                 Application.router.pop(context);
               },
@@ -60,7 +63,7 @@ class PageTitleWidget extends StatelessWidget {
             top: 0,
             right: 0,
             child: Row(
-              children: appBarActions,
+              children: appBarActions!,
             ),
           ),
       ],

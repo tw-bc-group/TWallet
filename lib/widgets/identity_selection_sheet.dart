@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
@@ -9,11 +8,11 @@ typedef SheetItemTapCallback = void Function(int index);
 
 class IdentitySelectionSheet extends StatelessWidget {
   final List<DecentralizedIdentity> identities;
-  final SheetItemTapCallback onSheetItemTap;
-  final DecentralizedIdentity selectedIdentity;
+  final SheetItemTapCallback? onSheetItemTap;
+  final DecentralizedIdentity? selectedIdentity;
 
   const IdentitySelectionSheet(
-      {@required this.identities, this.onSheetItemTap, this.selectedIdentity});
+      {required this.identities, this.onSheetItemTap, this.selectedIdentity});
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +33,17 @@ class IdentitySelectionSheet extends StatelessWidget {
                 .asMap()
                 .map(
                   (i, e) => MapEntry(
-                      i,
-                      GestureDetector(
-                        onTap: () => onSheetItemTap(i),
-                        child: IdentityCard(
-                          name: e.profileInfo.name,
-                          did: e.did.toString(),
-                          bgColor: WalletColor.identityCardBg,
-                          isSelected: e == selectedIdentity,
-                        ),
-                      )),
+                    i,
+                    GestureDetector(
+                      onTap: () => onSheetItemTap!(i),
+                      child: IdentityCard(
+                        name: e.profileInfo.name,
+                        did: e.did.toString(),
+                        bgColor: WalletColor.identityCardBg,
+                        isSelected: e == selectedIdentity,
+                      ),
+                    ),
+                  ),
                 )
                 .values
                 .toList(),
@@ -54,11 +54,11 @@ class IdentitySelectionSheet extends StatelessWidget {
   }
 
   // TODO: get height dynamic
-  // ignore: missing_return
-  double _calBottomSheetHeight(BuildContext context, int itemCount) {
+  double? _calBottomSheetHeight(BuildContext context, int itemCount) {
     final double height = MediaQuery.of(context).size.height * 0.7;
     const everyCardHeight = 110.0;
     final int marginHeight = (itemCount - 1) * 20 + 24 + 22;
     if (height < everyCardHeight * itemCount + marginHeight) return height;
+    return null;
   }
 }

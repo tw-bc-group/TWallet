@@ -164,8 +164,8 @@ class Session {
           _sendCommand(
             Command.build(
               CommandType.setAesKey,
-              param:
-                  RSAPublicKey.fromString(command.param).encrypt('$aesKey $iv'),
+              param: RSAPublicKey.fromString(command.param!)
+                  .encrypt('$aesKey $iv'),
             ),
             SessionState.waitAesKeyAnswer,
           ).then((_) => _encrypter = SymmEncrypt(aesKey, iv));
