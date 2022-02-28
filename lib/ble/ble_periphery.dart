@@ -33,39 +33,38 @@ class BleCentralState extends EnumClass {
 }
 
 class BlePeriphery {
-  static BlePeriphery _instance;
+  static final BlePeriphery _instance = BlePeriphery();
   final EventChannel _dataChannel;
   final EventChannel _stateChannel;
   final MethodChannel _methodChannel;
 
   factory BlePeriphery() {
-    if (_instance == null) {
-      const EventChannel _dataChannel =
-          EventChannel('matrix.ble_periphery/data');
-      const EventChannel _stateChannel =
-          EventChannel('matrix.ble_periphery/state');
-      const MethodChannel _methodChannel =
-          MethodChannel('matrix.ble_periphery/method');
-
-      _instance =
-          BlePeriphery.private(_methodChannel, _stateChannel, _dataChannel);
-    }
-    return _instance;
+    const EventChannel _dataChannel = EventChannel('matrix.ble_periphery/data');
+    const EventChannel _stateChannel =
+        EventChannel('matrix.ble_periphery/state');
+    const MethodChannel _methodChannel =
+        MethodChannel('matrix.ble_periphery/method');
+    return BlePeriphery.private(_methodChannel, _stateChannel, _dataChannel);
   }
 
   BlePeriphery.private(
-      this._methodChannel, this._stateChannel, this._dataChannel);
+    this._methodChannel,
+    this._stateChannel,
+    this._dataChannel,
+  );
 
   Stream<Map<String, dynamic>> stateStream() {
-    return _stateChannel.receiveBroadcastStream().asyncMap((state) =>
-        (state as Map<dynamic, dynamic>)
-            .map((key, value) => MapEntry(key as String, value)));
+    return _stateChannel.receiveBroadcastStream().asyncMap(
+          (state) => (state as Map<dynamic, dynamic>)
+              .map((key, value) => MapEntry(key as String, value)),
+        );
   }
 
   Stream<Map<String, dynamic>> dataStream() {
-    return _dataChannel.receiveBroadcastStream().asyncMap((data) =>
-        (data as Map<dynamic, dynamic>)
-            .map((key, value) => MapEntry(key as String, value)));
+    return _dataChannel.receiveBroadcastStream().asyncMap(
+          (data) => (data as Map<dynamic, dynamic>)
+              .map((key, value) => MapEntry(key as String, value)),
+        );
   }
 
   Future<void> startAdvertising(String name) {

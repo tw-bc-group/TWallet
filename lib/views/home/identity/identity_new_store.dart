@@ -28,7 +28,7 @@ abstract class _IdentityNewStore with Store {
   @observable
   String birthday = '';
 
-  List<ReactionDisposer> _disposers;
+  List<ReactionDisposer>? _disposers;
 
   void setErrorResetDispatchers() {
     _disposers = [
@@ -40,7 +40,7 @@ abstract class _IdentityNewStore with Store {
   }
 
   void dispose() {
-    for (final d in _disposers) {
+    for (final d in _disposers!) {
       d();
     }
   }
@@ -120,18 +120,23 @@ abstract class _IdentityNewStore with Store {
     final MnemonicsStore store = Get.find();
 
     if (!error.hasErrors) {
-      return store.generateKeys((index, keys) =>
-          Future.value(DecentralizedIdentity((identity) => identity
-            ..id = Uuid().v1()
-            ..profileInfo.name = name
-            ..accountInfo.index = index
-            ..accountInfo.pubKey = keys.first
-            ..accountInfo.priKey = keys.second
-            ..profileInfo.phone = phone
-            ..profileInfo.email = email
-            ..profileInfo.birthday = birthday)).then((identity) {
-            return identity.register();
-          }));
+      return store.generateKeys(
+        (index, keys) => Future.value(
+          DecentralizedIdentity(
+            (identity) => identity
+              ..id = const Uuid().v1()
+              ..profileInfo.name = name
+              ..accountInfo.index = index
+              ..accountInfo.pubKey = keys.first
+              ..accountInfo.priKey = keys.second
+              ..profileInfo.phone = phone
+              ..profileInfo.email = email
+              ..profileInfo.birthday = birthday,
+          ),
+        ).then((identity) {
+          return identity.register();
+        }),
+      );
     }
     return false;
   }
@@ -141,16 +146,16 @@ class FormErrorState = _FormErrorState with _$FormErrorState;
 
 abstract class _FormErrorState with Store {
   @observable
-  String username;
+  String? username;
 
   @observable
-  String phone;
+  String? phone;
 
   @observable
-  String email;
+  String? email;
 
   @observable
-  String birthday;
+  String? birthday;
 
   @computed
   bool get hasErrors =>

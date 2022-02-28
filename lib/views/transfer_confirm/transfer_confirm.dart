@@ -18,7 +18,8 @@ class TransferConfirmPage extends StatefulWidget {
   final String amount;
   final String toAddress;
 
-  const TransferConfirmPage({this.currency, this.amount, this.toAddress});
+  const TransferConfirmPage(
+      {required this.currency, required this.amount, required this.toAddress});
 
   @override
   State<StatefulWidget> createState() => TransferConfirmState();
@@ -31,39 +32,45 @@ class TransferConfirmState extends State<TransferConfirmPage> {
 
   TransferConfirmState();
 
-  Future<void> handleConfirm() async {
+  Future<Object?> handleConfirm() async {
     final bool pinValidation =
-        await inputPinWidgetKey.currentState.validatePin();
+        await inputPinWidgetKey.currentState!.validatePin();
     if (pinValidation) {
-      final bool transferSuccess = await identityStore.selectedIdentity.value
-          .transferPoint(
-              toAddress: widget.toAddress,
-              amount: Amount(Decimal.parse(widget.amount.toString())));
+      final bool transferSuccess =
+          await identityStore.selectedIdentity.value.transferPoint(
+        toAddress: widget.toAddress,
+        amount: Amount(Decimal.parse(widget.amount.toString())),
+      );
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
-        return Navigator.pushNamed(context, Routes.txListDetails,
-            arguments: TxListDetailsPageArgs(
-              amount: '${Application.globalEnv.tokenSymbol}${widget.amount}',
-              time: parseDate(DateTime.now()),
-              status: TxStatus.transferring,
-              fromAddress: identityStore.selectedIdentity.value.address,
-              toAddress: widget.toAddress,
-              fromAddressName: identityStore.selectedIdentityName,
-              isExpense: true,
-            ));
+        return Navigator.pushNamed(
+          context,
+          Routes.txListDetails,
+          arguments: TxListDetailsPageArgs(
+            amount: '${Application.globalEnv.tokenSymbol}${widget.amount}',
+            time: parseDate(DateTime.now()),
+            status: TxStatus.transferring,
+            fromAddress: identityStore.selectedIdentity.value.address,
+            toAddress: widget.toAddress,
+            fromAddressName: identityStore.selectedIdentityName,
+            isExpense: true,
+          ),
+        );
       }
     }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-        title: '确认转出',
-        withBottomBtn: true,
-        btnText: '确认转出',
-        btnOnPressed: handleConfirm,
-        child: SingleChildScrollView(
-          child: Column(children: [
+      title: '确认转出',
+      withBottomBtn: true,
+      btnText: '确认转出',
+      btnOnPressed: handleConfirm,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
             ConfirmRowWidget(
               title: '金额',
               contentLeft:
@@ -75,9 +82,12 @@ class TransferConfirmState extends State<TransferConfirmPage> {
               contentLeft: widget.toAddress,
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: InputPinWidget(key: inputPinWidgetKey))
-          ]),
-        ));
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: InputPinWidget(key: inputPinWidgetKey),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

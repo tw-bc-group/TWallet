@@ -71,11 +71,11 @@ abstract class _HealthCertificatePageStore with Store {
 
   @action
   void validatePhone() {
-    error.phone = phone.isEmpty
+    error.phone = (phone.isEmpty
         ? '手机号码不能为空'
         : Util.isValidPhone(phone)
             ? null
-            : '请输入有效的手机号';
+            : '请输入有效的手机号')!;
   }
 
   @action
@@ -123,10 +123,10 @@ class FormErrorState = _FormErrorState with _$FormErrorState;
 
 abstract class _FormErrorState with Store {
   @observable
-  String phone;
+  String? phone;
 
   @observable
-  String temperature;
+  String? temperature;
 
   @computed
   bool get hasErrors => phone != null || temperature != null;

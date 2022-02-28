@@ -5,8 +5,8 @@ class HexPainter extends CustomPainter {
   final Color _backgroundColor;
 
   HexPainter({
-    Color backgroundColor,
-    Color foregroundColor,
+    Color? backgroundColor,
+    Color? foregroundColor,
   })  : _backgroundColor = backgroundColor ?? Colors.white,
         _foregroundColor = foregroundColor ?? Colors.black,
         super();
@@ -25,14 +25,17 @@ class HexPainter extends CustomPainter {
     paint.strokeJoin = StrokeJoin.round;
     paint.style = PaintingStyle.stroke;
     final path = Path();
-    path.addPolygon([
-      Offset(size.width * 0.25, size.height * 0.375),
-      Offset(size.width * 0.5, size.height * 0.25),
-      Offset(size.width * 0.75, size.height * 0.375),
-      Offset(size.width * 0.75, size.height * 0.625),
-      Offset(size.width * 0.5, size.height * 0.75),
-      Offset(size.width * 0.25, size.height * 0.625)
-    ], true);
+    path.addPolygon(
+      [
+        Offset(size.width * 0.25, size.height * 0.375),
+        Offset(size.width * 0.5, size.height * 0.25),
+        Offset(size.width * 0.75, size.height * 0.375),
+        Offset(size.width * 0.75, size.height * 0.625),
+        Offset(size.width * 0.5, size.height * 0.75),
+        Offset(size.width * 0.25, size.height * 0.625)
+      ],
+      true,
+    );
     canvas.drawPath(path, paint);
   }
 
@@ -40,8 +43,11 @@ class HexPainter extends CustomPainter {
   void drawButton(Canvas canvas, Size size, Paint paint) {
     paint.color = _foregroundColor;
     paint.style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.23),
-        size.height * 0.08, paint);
+    canvas.drawCircle(
+      Offset(size.width * 0.5, size.height * 0.23),
+      size.height * 0.08,
+      paint,
+    );
   }
 
   @override

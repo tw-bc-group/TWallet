@@ -48,26 +48,30 @@ class HomeState extends State<Home> {
 
   static final List<BottomNavigationBarItem> _barItems = [
     BottomNavigationBarItem(
-        icon: svgIcon(iconPaths['home']['unselected']),
-        activeIcon: svgIcon(iconPaths['home']['selected']),
-        label: '首页'),
+      icon: svgIcon(iconPaths['home']!['unselected']!),
+      activeIcon: svgIcon(iconPaths['home']!['selected']!),
+      label: '首页',
+    ),
     BottomNavigationBarItem(
-        icon: svgIcon(iconPaths['discovery']['unselected']),
-        activeIcon: svgIcon(iconPaths['discovery']['selected']),
-        label: '发现'),
+      icon: svgIcon(iconPaths['discovery']!['unselected']!),
+      activeIcon: svgIcon(iconPaths['discovery']!['selected']!),
+      label: '发现',
+    ),
     BottomNavigationBarItem(
-        icon: svgIcon(iconPaths['identity']['unselected']),
-        activeIcon: svgIcon(iconPaths['identity']['selected']),
-        label: '身份'),
+      icon: svgIcon(iconPaths['identity']!['unselected']!),
+      activeIcon: svgIcon(iconPaths['identity']!['selected']!),
+      label: '身份',
+    ),
     BottomNavigationBarItem(
-        icon: svgIcon(iconPaths['me']['unselected']),
-        activeIcon: svgIcon(iconPaths['me']['selected']),
-        label: '我'),
+      icon: svgIcon(iconPaths['me']!['unselected']!),
+      activeIcon: svgIcon(iconPaths['me']!['selected']!),
+      label: '我',
+    ),
   ];
 
   final HomeStore homeStore = HomeStore();
 
-  List<Widget> _pages;
+  List<Widget>? _pages;
 
   @override
   void initState() {
@@ -89,18 +93,20 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: WalletColor.primary,
       body: Observer(
-          builder: (_) => SafeArea(child: _pages[homeStore.currentPage])),
+        builder: (_) => SafeArea(child: _pages![homeStore.currentPage]),
+      ),
       bottomNavigationBar: Observer(
-          builder: (_) => BottomNavigationBar(
-                items: _barItems,
-                currentIndex: homeStore.currentPage,
-                type: BottomNavigationBarType.fixed,
-                fixedColor: WalletColor.primary,
-                selectedFontSize: 12,
-                onTap: (int index) {
-                  homeStore.currentPage = index;
-                },
-              )),
+        builder: (_) => BottomNavigationBar(
+          items: _barItems,
+          currentIndex: homeStore.currentPage,
+          type: BottomNavigationBarType.fixed,
+          fixedColor: WalletColor.primary,
+          selectedFontSize: 12,
+          onTap: (int index) {
+            homeStore.currentPage = index;
+          },
+        ),
+      ),
     );
   }
 }

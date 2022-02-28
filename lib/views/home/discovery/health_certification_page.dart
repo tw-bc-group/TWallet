@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -30,7 +30,7 @@ class HealthCertificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeStore = ModalRoute.of(context).settings.arguments as HomeStore;
+    final homeStore = ModalRoute.of(context)!.settings.arguments as HomeStore;
 
     return CommonLayout(
       appBarActions: <Widget>[ScanIcon(onTap: () => _handleScan(context))],
@@ -49,35 +49,37 @@ class HealthCertificationPage extends StatelessWidget {
 
   Widget get _tips {
     return Container(
-        padding: const EdgeInsets.only(top: 10, bottom: 10),
-        child: Column(
-          children: <Widget>[
-            const Text(
-              "选择右上角进行健康码扫码验证",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0,
-              ),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      child: Column(
+        children: <Widget>[
+          const Text(
+            "选择右上角进行健康码扫码验证",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0,
             ),
-            Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 15),
-                width: 167,
-                height: 1,
-                decoration: const BoxDecoration(color: Color(0xffffffff))),
-            _hint,
-            const Text(
-              "进行健康认证或查看健康码",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0,
-              ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 20, bottom: 15),
+            width: 167,
+            height: 1,
+            decoration: const BoxDecoration(color: Color(0xffffffff)),
+          ),
+          _hint,
+          const Text(
+            "进行健康认证或查看健康码",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0,
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
   Text get _hint {
@@ -100,15 +102,17 @@ class HealthCertificationPage extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: EdgeInsets.only(
-            left: _screenUtil.setWidth(24).toDouble(),
-            right: _screenUtil.setWidth(24).toDouble(),
-            top: _screenUtil.setHeight(10).toDouble(),
-            bottom: _screenUtil.setHeight(147).toDouble()),
+          left: _screenUtil.setWidth(24).toDouble(),
+          right: _screenUtil.setWidth(24).toDouble(),
+          top: _screenUtil.setHeight(10).toDouble(),
+          bottom: _screenUtil.setHeight(147).toDouble(),
+        ),
         padding: EdgeInsets.only(
-            left: _screenUtil.setWidth(20).toDouble(),
-            right: _screenUtil.setWidth(20).toDouble(),
-            top: _screenUtil.setHeight(90).toDouble(),
-            bottom: _screenUtil.setHeight(46).toDouble()),
+          left: _screenUtil.setWidth(20).toDouble(),
+          right: _screenUtil.setWidth(20).toDouble(),
+          top: _screenUtil.setHeight(90).toDouble(),
+          bottom: _screenUtil.setHeight(46).toDouble(),
+        ),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -121,22 +125,26 @@ class HealthCertificationPage extends StatelessWidget {
             ),
             Column(
               children: const <Widget>[
-                Text("您还没有添加身份",
-                    style: TextStyle(
-                      color: Color(0xff111111),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 0,
-                    )),
-                Text("请前往“身份”页面添加身份。",
-                    style: TextStyle(
-                      color: Color(0xff111111),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 0,
-                    )),
+                Text(
+                  "您还没有添加身份",
+                  style: TextStyle(
+                    color: Color(0xff111111),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: 0,
+                  ),
+                ),
+                Text(
+                  "请前往“身份”页面添加身份。",
+                  style: TextStyle(
+                    color: Color(0xff111111),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: 0,
+                  ),
+                ),
               ],
             ),
             WalletTheme.button(
@@ -213,8 +221,12 @@ class HealthCertificationPage extends StatelessWidget {
           final String _subHintText =
               '该健康码和持有人身份相符。\n\n身份信息：${token.healthCertification.sub.id}\n\n该健康认证结果由防疫中心（${token.healthCertification.iss}）提供。';
 
-          await hintDialogHelper(context, _hintType, _hintText,
-              subText: _subHintText);
+          await hintDialogHelper(
+            context,
+            _hintType,
+            _hintText,
+            subText: _subHintText,
+          );
         } else {
           await hintDialogHelper(context, DialogType.warning, '该健康码与持有人身份不符');
         }

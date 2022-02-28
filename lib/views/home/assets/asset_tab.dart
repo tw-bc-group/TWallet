@@ -4,25 +4,26 @@ import 'package:tw_wallet_ui/views/home/assets/home_list_item.dart';
 import 'package:tw_wallet_ui/views/home/assets/home_list_view.dart';
 
 class AssetTab extends StatelessWidget {
-  const AssetTab({Key key}) : super(key: key);
+  const AssetTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return HomeListView(
       children: [
         Container(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: const Text(
-              '数字货币',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-                color: Color(0xff111111),
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                fontStyle: FontStyle.normal,
-                letterSpacing: 0,
-              ),
-            )),
+          padding: const EdgeInsets.only(bottom: 16),
+          child: const Text(
+            '数字货币',
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              color: Color(0xff111111),
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              fontStyle: FontStyle.normal,
+              letterSpacing: 0,
+            ),
+          ),
+        ),
         const HomeListItem(
           leading: Text(
             'BTC',
@@ -73,18 +74,19 @@ class AssetTab extends StatelessWidget {
         ),
         Divider(color: WalletColor.grey, height: 20),
         Container(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: const Text(
-              '房产证',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-                color: Color(0xff111111),
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                fontStyle: FontStyle.normal,
-                letterSpacing: 0,
-              ),
-            )),
+          padding: const EdgeInsets.only(bottom: 16),
+          child: const Text(
+            '房产证',
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              color: Color(0xff111111),
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              fontStyle: FontStyle.normal,
+              letterSpacing: 0,
+            ),
+          ),
+        ),
         const HomeListItem(
           leading: Text(
             '上海浦东***',

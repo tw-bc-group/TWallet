@@ -6,7 +6,8 @@ class TransferRowWidget extends StatelessWidget {
   final String errorMsg;
   final Widget child;
 
-  const TransferRowWidget({this.title, this.errorMsg, this.child});
+  const TransferRowWidget(
+      {required this.title, required this.errorMsg, required this.child});
 
   Widget buildLabel() {
     return Container(
@@ -22,7 +23,9 @@ class TransferRowWidget extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                  fontSize: 10, color: WalletTheme.rgbColor('#aaaaaa')),
+                fontSize: 10,
+                color: WalletTheme.rgbColor('#aaaaaa'),
+              ),
             ),
           if (errorMsg == null)
             Container()
@@ -36,8 +39,9 @@ class TransferRowWidget extends StatelessWidget {
                     : Text(
                         '* $errorMsg',
                         style: TextStyle(
-                            fontSize: 10,
-                            color: WalletTheme.rgbColor('#dd5757')),
+                          fontSize: 10,
+                          color: WalletTheme.rgbColor('#dd5757'),
+                        ),
                       ),
               ),
             )
@@ -48,14 +52,15 @@ class TransferRowWidget extends StatelessWidget {
 
   Widget buildContent() {
     return Container(
-        height: 91,
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        decoration: BoxDecoration(color: WalletTheme.rgbColor('#fafafa')),
-        child: Row(
-          children: <Widget>[
-            Expanded(child: child),
-          ],
-        ));
+      height: 91,
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      decoration: BoxDecoration(color: WalletTheme.rgbColor('#fafafa')),
+      child: Row(
+        children: <Widget>[
+          Expanded(child: child),
+        ],
+      ),
+    );
   }
 
   @override

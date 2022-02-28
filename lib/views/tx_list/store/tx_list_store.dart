@@ -15,13 +15,13 @@ abstract class _TxListStore with Store {
       ObservableFuture.value(<Transaction>[]);
 
   @observable
-  ObservableFuture<Optional<Transaction>> tx;
+  late ObservableFuture<Optional<Transaction>> tx;
 
   @observable
-  List<Transaction> list;
+  late List<Transaction> list;
 
   @observable
-  String errorMessage;
+  late String errorMessage;
 
   @computed
   bool get loading => listFuture.status == FutureStatus.pending;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:get/get.dart';
@@ -27,11 +27,13 @@ Future<void> _cleanPrivateData(BuildContext context) async {
       .then((_) => Get.find<HealthCertificationStore>().clear())
       .then((_) => Get.find<SecureStorage>().clearAll())
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
-      .then((_) => Future.delayed(const Duration(seconds: 1)).then((_) {
-            _dialog.dismiss();
-            Application.router
-                .navigateTo(context, Routes.inputPin, clearStack: true);
-          }));
+      .then(
+        (_) => Future.delayed(const Duration(seconds: 1)).then((_) {
+          _dialog.dismiss();
+          Application.router
+              .navigateTo(context, Routes.inputPin, clearStack: true);
+        }),
+      );
 }
 
 Future<void> clearAllDappStorage(
@@ -71,7 +73,8 @@ class MyPage extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: _screenUtil.setWidth(20).toDouble()),
+              horizontal: _screenUtil.setWidth(20).toDouble(),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -89,37 +92,52 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenUtil = ScreenUtil();
 
-    return Column(children: <Widget>[
-      Container(
-        height: _screenUtil.setHeight(244).toDouble(),
-        decoration: const BoxDecoration(
+    return Column(
+      children: <Widget>[
+        Container(
+          height: _screenUtil.setHeight(244).toDouble(),
+          decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
-                fit: BoxFit.cover)),
-        child: Center(
-            child: Text('我的',
-                style: WalletFont.font_24(
-                    textStyle: TextStyle(
-                        color: WalletColor.white, letterSpacing: 1.2)))),
-      ),
-      Expanded(
-          child: Container(
-              color: WalletColor.lightGrey,
-              child: Padding(
-                padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
-                child: ListView(
-                  children: <Widget>[
-                    _buildButton(
-                        '离线支付', () => Get.to(BlePaymentHome(homeStore))),
-                    _buildButton('清除数据', () => _cleanPrivateData(context)),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: _screenUtil.setWidth(5).toDouble()),
-                      child: const Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
-                    )
-                  ],
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Text(
+              '我的',
+              style: WalletFont.font_24(
+                textStyle: TextStyle(
+                  color: WalletColor.white,
+                  letterSpacing: 1.2,
                 ),
-              )))
-    ]);
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: WalletColor.lightGrey,
+            child: Padding(
+              padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
+              child: ListView(
+                children: <Widget>[
+                  _buildButton(
+                    '离线支付',
+                    () => Get.to(BlePaymentHome(homeStore)),
+                  ),
+                  _buildButton('清除数据', () => _cleanPrivateData(context)),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: _screenUtil.setWidth(5).toDouble(),
+                    ),
+                    child: const Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
+                  )
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }

@@ -17,7 +17,7 @@ class IdentityDetailPage extends StatelessWidget {
   final HealthCertificationStore certStore = Get.find();
   final String id;
 
-  IdentityDetailPage({this.id});
+  IdentityDetailPage({required this.id});
 
   String certTitle() {
     return certStore.currentToken.isPresent ? '健康码' : '健康认证';
@@ -37,27 +37,31 @@ class IdentityDetailPage extends StatelessWidget {
     return CommonLayout(
       title: identity.profileInfo.name,
       child: Container(
-          margin: const EdgeInsets.only(top: 24),
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: ListView(
-            children: <Widget>[
-              IdentityBasicInfoWidget(id: id),
-              Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: Text(
-                  '- 认证 -',
-                  style: WalletFont.font_18(
-                      textStyle: TextStyle(color: WalletColor.white)),
-                  textAlign: TextAlign.center,
+        margin: const EdgeInsets.only(top: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: ListView(
+          children: <Widget>[
+            IdentityBasicInfoWidget(id: id),
+            Container(
+              margin: const EdgeInsets.only(top: 40),
+              child: Text(
+                '- 认证 -',
+                style: WalletFont.font_18(
+                  textStyle: TextStyle(color: WalletColor.white),
                 ),
+                textAlign: TextAlign.center,
               ),
-              Observer(
-                  builder: (context) => CertificateCardWidget(
-                      title: '健康认证',
-                      onTap: () => onHealthBtnTap(context),
-                      routeTitle: certTitle()))
-            ],
-          )),
+            ),
+            Observer(
+              builder: (context) => CertificateCardWidget(
+                title: '健康认证',
+                onTap: () => onHealthBtnTap(context),
+                routeTitle: certTitle(),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

@@ -11,9 +11,9 @@ class QrScannerPage extends StatefulWidget {
 
 class QrScannerPageState extends State<QrScannerPage>
     with WidgetsBindingObserver {
-  ScannerController _scannerController;
+  late ScannerController _scannerController;
 
-  Future<bool> checkAndRequirePermission() async {
+  Future checkAndRequirePermission() async {
     final PermissionStatus status = await Permission.camera.status;
     if (!status.isGranted) {
       if (status.isDenied ||
@@ -53,10 +53,10 @@ class QrScannerPageState extends State<QrScannerPage>
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
       return Future.delayed(const Duration(milliseconds: 500)).then((_) {
         checkAndRequirePermission().then((isGranted) {
-          if (isGranted) {
+          if (isGranted is bool && isGranted) {
             _scannerController.startCamera();
             _scannerController.startCameraPreview();
           } else {
@@ -66,7 +66,7 @@ class QrScannerPageState extends State<QrScannerPage>
       });
     });
 
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     _scannerController = ScannerController(
       scannerResult: (String result) {
         Navigator.pop(context, result);
@@ -93,7 +93,7 @@ class QrScannerPageState extends State<QrScannerPage>
 
   @override
   Widget build(BuildContext context) {
-    final Color buttonColor = Colors.grey[800];
+    final Color buttonColor = Colors.grey[800]!;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -123,21 +123,23 @@ class QrScannerPageState extends State<QrScannerPage>
                   ),
                 ),
                 Positioned(
-                    top: 15,
-                    child: SizedBox(
-                      width: constraints.maxWidth,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: RaisedButton(
-                                color: buttonColor,
-                                shape: const CircleBorder(),
-                                onPressed: () =>
-                                    Application.router.pop(context),
-                                child: const Icon(Icons.close,
-                                    color: Colors.white)),
+                  top: 15,
+                  child: SizedBox(
+                    width: constraints.maxWidth,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: RaisedButton(
+                            color: buttonColor,
+                            shape: const CircleBorder(),
+                            onPressed: () => Application.router.pop(context),
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ),
                           ),
+                        ),
 //                          Expanded(child: Container()),
 //                          RaisedButton(
 //                              color: buttonColor,
@@ -161,9 +163,10 @@ class QrScannerPageState extends State<QrScannerPage>
 //                                  });
 //                                }),
 //                          ),
-                        ],
-                      ),
-                    )),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             );
           },
@@ -173,8 +176,8 @@ class QrScannerPageState extends State<QrScannerPage>
   }
 
   Widget _recognitionBorder({
-    @required double borderWidth,
-    @required double borderHeight,
+    required double borderWidth,
+    required double borderHeight,
   }) {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       const double lineStrokeWidth = 5.0;

@@ -56,14 +56,15 @@ extension SessionStateExtension on SessionState {
 }
 
 class Session {
-  final String address, publicKey;
-  final Characteristic _readCharacteristic;
-  final Characteristic _writeCharacteristic;
+  final String? address;
+  final String? publicKey;
+  final Characteristic? _readCharacteristic;
+  final Characteristic? _writeCharacteristic;
   final Queue<Completer> _readQueue = Queue();
   final Rx<SessionState> _state = Rx(SessionState.initial);
 
-  List<TxSend> _txList;
-  SymmEncrypt _encrypter;
+  List<TxSend>? _txList;
+  SymmEncrypt? _encrypter;
 
   Session(this.address, this.publicKey, this._readCharacteristic,
       this._writeCharacteristic);
@@ -77,16 +78,17 @@ class Session {
 
     if (_encrypter != null) {
       sendFuture =
-          _writeCharacteristic.sendEncryptedCommand(_encrypter, command);
+          _writeCharacteristic!.sendEncryptedCommand(_encrypter!, command);
     } else {
-      sendFuture = _writeCharacteristic.sendCommand(command);
+      sendFuture = _writeCharacteristic!.sendCommand(command);
     }
 
-    return Future.delayed(const Duration(milliseconds: 100))
-        .then((_) => sendFuture.then((_) {
-              _state.value = newState;
-              completer.complete();
-            }));
+    return Future.delayed(const Duration(milliseconds: 100)).then(
+      (_) => sendFuture.then((_) {
+        _state.value = newState;
+        completer.complete();
+      }),
+    );
   }
 
   Future<Command> _checkCommand(Command command) {
@@ -95,7 +97,7 @@ class Session {
       case SessionState.waitPublicKeyAnswer:
         if (command.type != CommandType.setPubKey) {
           matched = false;
-        } else if (command.param.isEmpty) {
+        } else if (command.param!.isEmpty) {
           throw Exception('The public key params is empty');
         }
         break;
@@ -141,13 +143,13 @@ class Session {
       WaitOnSignPayment onSignPayment, OnStateUpdate onStateUpdate) async {
     _state.listen((newState) => onStateUpdate(newState));
 
-    _readCharacteristic.monitor().listen((data) async {
+    _readCharacteristic!.monitor().listen((data) async {
       await _readQueue.first.future.then((_) => _readQueue.removeFirst());
 
       Uint8List payload = data;
 
       if (_encrypter != null) {
-        payload = _encrypter.decrypt(data);
+        payload = _encrypter!.decrypt(data);
       }
 
       final Command command =
@@ -160,32 +162,40 @@ class Session {
           final String aesKey = randomString(16);
           final String iv = randomString(16);
           _sendCommand(
-                  Command.build(CommandType.setAesKey,
-                      param: RSAPublicKey.fromString(command.param)
-                          .encrypt('$aesKey $iv')),
-                  SessionState.waitAesKeyAnswer)
-              .then((_) => _encrypter = SymmEncrypt(aesKey, iv));
+            Command.build(
+              CommandType.setAesKey,
+              param:
+                  RSAPublicKey.fromString(command.param).encrypt('$aesKey $iv'),
+            ),
+            SessionState.waitAesKeyAnswer,
+          ).then((_) => _encrypter = SymmEncrypt(aesKey, iv));
           break;
 
         case SessionState.waitAesKeyAnswer:
           _sendCommand(
-              Command.build(CommandType.getTxInfo,
-                  param: '$address $publicKey'),
-              SessionState.waitTxInfo);
+            Command.build(
+              CommandType.getTxInfo,
+              param: '$address $publicKey',
+            ),
+            SessionState.waitTxInfo,
+          );
           break;
 
         case SessionState.waitTxInfo:
-          final List<String> fields = command.param.split(':');
+          final List<String> fields = command.param!.split(':');
           _state.value = SessionState.waitUserConfirm;
           (await onSignPayment(fields[0], int.parse(fields[1])))
               .ifPresent((txList) {
             _txList = txList;
             txList.asMap().forEach((index, tx) {
               _sendCommand(
-                  Command.build(CommandType.setDcep,
-                      param:
-                          '${index + 1} ${txList.length} ${json.encode(tx.dcep.toJson())}'),
-                  SessionState.waitDcepAnswer);
+                Command.build(
+                  CommandType.setDcep,
+                  param:
+                      '${index + 1} ${txList.length} ${json.encode(tx.dcep.toJson())}',
+                ),
+                SessionState.waitDcepAnswer,
+              );
             });
           });
           break;
@@ -194,13 +204,14 @@ class Session {
           if (command.type == CommandType.setDcepFail) {
             _state.value = SessionState.fail;
           } else {
-            for (final TxSend tx in _txList) {
+            for (final TxSend tx in _txList!) {
               _sendCommand(
-                  Command.build(
-                    CommandType.setRawTx,
-                    param: tx.signedRawTx,
-                  ),
-                  SessionState.waitReceipt);
+                Command.build(
+                  CommandType.setRawTx,
+                  param: tx.signedRawTx,
+                ),
+                SessionState.waitReceipt,
+              );
             }
           }
 
@@ -220,7 +231,9 @@ class Session {
     });
 
     _sendCommand(
-        Command.build(CommandType.getPubKey), SessionState.waitPublicKeyAnswer);
+      Command.build(CommandType.getPubKey),
+      SessionState.waitPublicKeyAnswer,
+    );
 
     return;
   }

@@ -5,7 +5,7 @@ class HomeListItem extends StatelessWidget {
   final Widget leading;
   final Widget trailing;
 
-  const HomeListItem({@required this.leading, @required this.trailing});
+  const HomeListItem({required this.leading, required this.trailing});
 
   @override
   Widget build(BuildContext context) {

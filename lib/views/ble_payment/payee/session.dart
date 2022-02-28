@@ -24,12 +24,13 @@ class Session {
   final int amount;
   final BlePeriphery peripheral;
 
-  RSAKeypair keyPair;
-  SymmEncrypt encrypter;
+  RSAKeypair? keyPair;
+  SymmEncrypt? encrypter;
   int receivedAmount = 0;
   Map<String, String> dcepMap = {};
   List<TxReceive> txReceivedList = [];
-  String fromAddress, fromPublicKey;
+  String? fromAddress;
+  String? fromPublicKey;
 
   Session(this.peripheral, this.peer, this.address, this.amount);
 
@@ -38,7 +39,7 @@ class Session {
     final Uint8List encoded = command.encode();
 
     if (encrypter != null) {
-      data = encrypter.encrypt(encoded);
+      data = encrypter!.encrypt(encoded);
     } else {
       data = encoded;
     }
@@ -51,7 +52,7 @@ class Session {
     Uint8List cmdData;
 
     if (encrypter != null) {
-      cmdData = encrypter.decrypt(data);
+      cmdData = encrypter!.decrypt(data);
     } else {
       cmdData = data;
     }
@@ -65,17 +66,19 @@ class Session {
         keyPair = RSAKeypair.fromRandom();
         peripheral
             .sendData(
-                peer,
-                Command.build(CommandType.setPubKey,
-                        param: keyPair.publicKey.toString())
-                    .encode())
+              peer,
+              Command.build(
+                CommandType.setPubKey,
+                param: keyPair!.publicKey.toString(),
+              ).encode(),
+            )
             .then((_) => onStateUpdate('发送随机会话公钥'));
         break;
 
       case CommandType.setAesKey:
         onStateUpdate('收到会话加密密钥');
         final List<String> aesParam =
-            keyPair.privateKey.decrypt(command.param).split(' ');
+            keyPair!.privateKey.decrypt(command.param).split(' ');
         encrypter = SymmEncrypt(aesParam[0], aesParam[1]);
         keyPair = null;
         _sendCommand(Command.build(CommandType.setAesOk))
@@ -84,16 +87,16 @@ class Session {
 
       case CommandType.getTxInfo:
         onStateUpdate('收到交易信息请求');
-        final List<String> fields = command.param.split(' ');
+        final List<String> fields = command.param!.split(' ');
         fromAddress = fields[0];
         fromPublicKey = fields[1];
         _sendCommand(
-                Command.build(CommandType.setTxInfo, param: '$address:$amount'))
-            .then((_) => onStateUpdate('发送交易信息'));
+          Command.build(CommandType.setTxInfo, param: '$address:$amount'),
+        ).then((_) => onStateUpdate('发送交易信息'));
         break;
 
       case CommandType.setDcep:
-        final List<String> fields = command.param.split(' ');
+        final List<String> fields = command.param!.split(' ');
         final int index = int.parse(fields[0]);
         final int count = int.parse(fields[1]);
         final Dcep dcep = Dcep.fromJson(json.decode(fields[2]));
@@ -114,13 +117,17 @@ class Session {
         }
 
         if (verifyOk) {
-          _sendCommand(Command.build(
-            CommandType.setDcepOk,
-          )).then((_) => onStateUpdate('验证款项${dcep.sn}真伪成功'));
+          _sendCommand(
+            Command.build(
+              CommandType.setDcepOk,
+            ),
+          ).then((_) => onStateUpdate('验证款项${dcep.sn}真伪成功'));
         } else if (index == count) {
-          _sendCommand(Command.build(
-            CommandType.setDcepFail,
-          )).then((_) => onStateUpdate('验证款项${dcep.sn}真伪失败'));
+          _sendCommand(
+            Command.build(
+              CommandType.setDcepFail,
+            ),
+          ).then((_) => onStateUpdate('验证款项${dcep.sn}真伪失败'));
         }
         break;
 
@@ -128,7 +135,7 @@ class Session {
         onStateUpdate('收款交易验证...');
 
         final EthTxInfo ethTxInfo =
-            EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param)));
+            EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param!)));
 
         final List<dynamic> params = Get.find<ContractService>()
             .nftTokenContract
@@ -137,38 +144,47 @@ class Session {
         final Optional<String> recoverPubKey = ethTxInfo.recoverPublicKey();
 
         final String decompressedPubKey = bytesToHex(
-            decompressPublicKey(hexToBytes(fromPublicKey)).sublist(1));
+          decompressPublicKey(hexToBytes(fromPublicKey!)).sublist(1),
+        );
 
         final String dcepSn =
             String.fromCharCodes(intToBytes(params[2] as BigInt));
 
         bool verifyOk = false;
 
-        final String description = dcepMap.remove(dcepSn);
+        final String? description = dcepMap.remove(dcepSn);
 
         if (recoverPubKey == Optional.of(decompressedPubKey) &&
             (params[0] as EthereumAddress).toString().toLowerCase() ==
-                fromAddress.toLowerCase() &&
+                fromAddress!.toLowerCase() &&
             (params[1] as EthereumAddress).toString().toLowerCase() ==
-                address.toLowerCase() &&
-            description != null) {
-          txReceivedList.add(TxReceive((builder) => builder
-            ..from = fromAddress
-            ..publicKey = fromPublicKey
-            ..description = description
-            ..tx = command.param));
+                address.toLowerCase()) {
+          txReceivedList.add(
+            TxReceive(
+              (builder) => builder
+                ..from = fromAddress
+                ..publicKey = fromPublicKey
+                ..description = description
+                ..tx = command.param,
+            ),
+          );
           verifyOk = true;
         }
 
         if (!verifyOk) {
-          _sendCommand(Command.build(
-            CommandType.setRawTxFail,
-          )).then((_) => onStateUpdate('交易验证不通过，收款失败'));
+          _sendCommand(
+            Command.build(
+              CommandType.setRawTxFail,
+            ),
+          ).then((_) => onStateUpdate('交易验证不通过，收款失败'));
         } else if (dcepMap.isEmpty) {
           onSuccess(txReceivedList);
-          _sendCommand(Command.build(CommandType.setRawTxOk,
-                  param: '$address:$description'))
-              .then((_) => onStateUpdate('收款${description}元成功'));
+          _sendCommand(
+            Command.build(
+              CommandType.setRawTxOk,
+              param: '$address:$description',
+            ),
+          ).then((_) => onStateUpdate('收款${description}元成功'));
         }
         break;
       default:

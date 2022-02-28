@@ -33,9 +33,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget _buildButton() {
     if (success.value) {
       return WalletTheme.button(
-          text: '结束收款',
-          onPressed: () => Get.until((route) =>
-              (route as GetPageRoute).routeName == '/BlePaymentHome'));
+        text: '结束收款',
+        onPressed: () => Get.until(
+          (route) => (route as GetPageRoute).routeName == '/BlePaymentHome',
+        ),
+      );
     } else {
       return Container();
     }
@@ -73,7 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Session(_blePeriphery, peer, widget.address, widget.amount);
       }
       try {
-        _sessions[peer]
+        _sessions[peer]!
             .onData(payload, (state) => _hintText.value += '\n$state',
                 (List<TxReceive> txList) async {
           for (final TxReceive tx in txList) {
@@ -96,22 +98,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-        bodyBackColor: WalletColor.white,
-        title: '收款 ${widget.amount}',
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Obx(
-                      () => Text(_hintText.value, textAlign: TextAlign.center)),
+      bodyBackColor: WalletColor.white,
+      title: '收款 ${widget.amount}',
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Obx(
+                  () => Text(_hintText.value, textAlign: TextAlign.center),
                 ),
               ),
-              Obx(() => _buildButton()),
-            ],
-          ),
-        ));
+            ),
+            Obx(() => _buildButton()),
+          ],
+        ),
+      ),
+    );
   }
 }
 

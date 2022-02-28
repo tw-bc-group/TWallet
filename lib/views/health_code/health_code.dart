@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -30,232 +30,273 @@ class HealthCodePage extends StatefulWidget {
 
 class HealthCodeState extends State<HealthCodePage> {
   final HealthCertificationStore certStore = Get.find();
-  HealthCodeStore _certStore;
+  HealthCodeStore? _certStore;
 
-  DecentralizedIdentity identity;
+  DecentralizedIdentity? identity;
 
   HealthCodeState();
 
   Future onRefresh() async {
-    return _certStore.fetchLatestHealthCode();
+    return _certStore!.fetchLatestHealthCode();
   }
 
   @override
   void initState() {
     super.initState();
     identity = Get.find<IdentityStore>().getIdentityById(widget.id);
-    _certStore = HealthCodeStore(identity.did, 60, widget.firstRefresh);
+    _certStore = HealthCodeStore(identity!.did, 60, widget.firstRefresh);
   }
 
   @override
   void dispose() {
-    _certStore.dispose();
+    _certStore!.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => Observer(builder: (_) {
-        final ScreenUtil _screenUtil = ScreenUtil();
-        final num _avatarWidth = _screenUtil.setWidth(70);
-        final ObservableFuture<void> _future =
-            _certStore.fetchHealthCodeStream.value;
+  Widget build(BuildContext context) => Observer(
+        builder: (_) {
+          final ScreenUtil _screenUtil = ScreenUtil();
+          final num _avatarWidth = _screenUtil.setWidth(70);
+          final ObservableFuture<void> _future =
+              _certStore!.fetchHealthCodeStream!.value!;
 
-        return CommonLayout(
-          title: '健康码',
-          // ignore: missing_return
-          child: Observer(builder: (_) {
-            switch (_future.status) {
-              case FutureStatus.rejected:
-                return Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          '加载健康码失败',
-                          style: TextStyle(color: WalletColor.white),
-                        ),
-                        RaisedButton(
-                          onPressed: onRefresh,
-                          child: const Text('点击重试'),
-                        )
-                      ]),
-                );
-              case FutureStatus.pending:
-              case FutureStatus.fulfilled:
-                return RefreshIndicator(
-                  color: WalletColor.primary,
-                  onRefresh: onRefresh,
-                  child: ListView(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                          left: _screenUtil.setWidth(24).toDouble(),
-                          right: _screenUtil.setWidth(24).toDouble(),
-                          top: _screenUtil.setHeight(20).toDouble(),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: _avatarWidth / 2),
-                              child: Container(
-                                  padding: EdgeInsets.only(
+          return CommonLayout(
+            title: '健康码',
+            // ignore: missing_return
+            child: Observer(
+              builder: (_) {
+                switch (_future.status) {
+                  case FutureStatus.rejected:
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '加载健康码失败',
+                            style: TextStyle(color: WalletColor.white),
+                          ),
+                          RaisedButton(
+                            onPressed: onRefresh,
+                            child: const Text('点击重试'),
+                          )
+                        ],
+                      ),
+                    );
+                  case FutureStatus.pending:
+                  case FutureStatus.fulfilled:
+                    return RefreshIndicator(
+                      color: WalletColor.primary,
+                      onRefresh: onRefresh,
+                      child: ListView(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: _screenUtil.setWidth(24).toDouble(),
+                              right: _screenUtil.setWidth(24).toDouble(),
+                              top: _screenUtil.setHeight(20).toDouble(),
+                            ),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(top: _avatarWidth / 2),
+                                  child: Container(
+                                    padding: EdgeInsets.only(
                                       bottom:
-                                          _screenUtil.setHeight(91).toDouble()),
-                                  decoration: BoxDecoration(
+                                          _screenUtil.setHeight(91).toDouble(),
+                                    ),
+                                    decoration: BoxDecoration(
                                       color: WalletColor.white,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: _screenUtil
-                                            .setWidth(20)
-                                            .toDouble()),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            _screenUtil.setWidth(20).toDouble(),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
                                             padding: EdgeInsets.only(
-                                                top: _avatarWidth / 2 +
-                                                    _screenUtil.setHeight(20)),
+                                              top: _avatarWidth / 2 +
+                                                  _screenUtil.setHeight(20),
+                                            ),
                                             child: Center(
                                               child: Text(
-                                                  identity.profileInfo.name,
-                                                  style: WalletFont.font_18(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600))),
-                                            )),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: _screenUtil
-                                                  .setHeight(28)
-                                                  .toDouble()),
-                                          child: Center(
-                                            child: observeQrImage(_screenUtil
-                                                .setWidth(200)
-                                                .toDouble()),
+                                                identity!.profileInfo.name,
+                                                style: WalletFont.font_18(
+                                                  textStyle: const TextStyle(
+                                                    letterSpacing: 0,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
+                                          Padding(
+                                            padding: EdgeInsets.only(
                                               top: _screenUtil
                                                   .setHeight(28)
-                                                  .toDouble()),
-                                          child: Center(
-                                            child: Text(
-                                                _certStore.currentCountDown
-                                                    .map((countDown) =>
-                                                        '$countDown s')
+                                                  .toDouble(),
+                                            ),
+                                            child: Center(
+                                              child: observeQrImage(
+                                                _screenUtil
+                                                    .setWidth(200)
+                                                    .toDouble(),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: _screenUtil
+                                                  .setHeight(28)
+                                                  .toDouble(),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                _certStore!.currentCountDown
+                                                    .map(
+                                                      (countDown) =>
+                                                          '$countDown s',
+                                                    )
                                                     .orElse(''),
                                                 style: WalletFont.font_14(
-                                                    textStyle: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600))),
+                                                  textStyle: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
+                                          Padding(
+                                            padding: EdgeInsets.only(
                                               top: _screenUtil
                                                   .setHeight(28)
-                                                  .toDouble()),
-                                          child: Divider(
+                                                  .toDouble(),
+                                            ),
+                                            child: Divider(
                                               color: WalletColor.grey,
-                                              height: 1),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
+                                              height: 1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
                                               top: _screenUtil
                                                   .setHeight(32)
-                                                  .toDouble()),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text('绿码：',
+                                                  .toDouble(),
+                                            ),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  '绿码：',
                                                   textAlign: TextAlign.left,
                                                   style: WalletFont.font_14(
-                                                      textStyle: TextStyle(
-                                                          color:
-                                                              WalletColor.green,
-                                                          letterSpacing: 0,
-                                                          fontWeight: FontWeight
-                                                              .w400))),
-                                              Expanded(
-                                                child: Text(
+                                                    textStyle: TextStyle(
+                                                      color: WalletColor.green,
+                                                      letterSpacing: 0,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
                                                     '截止到当前，该身份的持有者没有暴露在病毒污染的环境中。',
                                                     textAlign: TextAlign.left,
                                                     style: WalletFont.font_14(
-                                                        textStyle: TextStyle(
-                                                            color: WalletColor
-                                                                .green,
-                                                            letterSpacing: 0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400))),
-                                              ),
-                                            ],
+                                                      textStyle: TextStyle(
+                                                        color:
+                                                            WalletColor.green,
+                                                        letterSpacing: 0,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
+                                          Padding(
+                                            padding: EdgeInsets.only(
                                               top: _screenUtil
                                                   .setHeight(20)
-                                                  .toDouble()),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text('红码：',
+                                                  .toDouble(),
+                                            ),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Text(
+                                                  '红码：',
                                                   textAlign: TextAlign.left,
                                                   style: WalletFont.font_14(
-                                                      textStyle: TextStyle(
-                                                          color:
-                                                              WalletColor.red,
-                                                          letterSpacing: 0,
-                                                          fontWeight: FontWeight
-                                                              .w400))),
-                                              Expanded(
-                                                child: Text('该身份的持有者有病毒污染暴露风险。',
+                                                    textStyle: TextStyle(
+                                                      color: WalletColor.red,
+                                                      letterSpacing: 0,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '该身份的持有者有病毒污染暴露风险。',
                                                     textAlign: TextAlign.left,
                                                     style: WalletFont.font_14(
-                                                        textStyle: TextStyle(
-                                                            color:
-                                                                WalletColor.red,
-                                                            letterSpacing: 0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400))),
-                                              ),
-                                            ],
+                                                      textStyle: TextStyle(
+                                                        color: WalletColor.red,
+                                                        letterSpacing: 0,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  )),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 0,
+                                  child: AvatarWidget(width: _avatarWidth),
+                                ),
+                              ],
                             ),
-                            Positioned(
-                                top: 0,
-                                child: AvatarWidget(width: _avatarWidth)),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-            }
-          }),
-        );
-      });
+                          )
+                        ],
+                      ),
+                    );
+                }
+              },
+            ),
+          );
+        },
+      );
 
   Widget observeQrImage(double width) {
-    return Observer(builder: (BuildContext context) {
-      return certStore.currentToken
-          .map((token) =>
-              _buildQrImage(encodeQRData(token), certStore.isHealthy, width))
-          .orElse(Container());
-    });
+    return Observer(
+      builder: (BuildContext context) {
+        return certStore.currentToken
+            .map(
+              (token) => _buildQrImage(
+                encodeQRData(token),
+                certStore.isHealthy,
+                width,
+              ),
+            )
+            .orElse(Container());
+      },
+    );
   }
 
   String encodeQRData(HealthCertificationToken token) {

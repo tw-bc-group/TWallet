@@ -16,68 +16,83 @@ final Map<TxInfoCardType, Color> cardTypeBackColorMap = {
 
 class TxInfoCardWidget extends StatelessWidget {
   final TxInfoCardType txInfoCardType;
-  final String name;
-  final String did;
+  final String? name;
+  final String? did;
 
-  const TxInfoCardWidget({this.txInfoCardType, this.name, this.did});
+  const TxInfoCardWidget(
+      {required this.txInfoCardType, required this.name, required this.did});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      Container(
-        padding:
-            const EdgeInsets.only(top: 44, left: 20, right: 20, bottom: 12),
-        decoration: BoxDecoration(
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding:
+              const EdgeInsets.only(top: 44, left: 20, right: 20, bottom: 12),
+          decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(12)),
-            color: cardTypeBackColorMap[txInfoCardType]),
-        child: Column(
-          children: <Widget>[
-            if (name != null)
-              Row(
+            color: cardTypeBackColorMap[txInfoCardType],
+          ),
+          child: Column(
+            children: <Widget>[
+              if (name != null)
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(right: 30),
-                        child: Text('姓名',
-                            style: WalletFont.font_12(
-                                textStyle:
-                                    TextStyle(color: WalletColor.grey)))),
+                      margin: const EdgeInsets.only(right: 30),
+                      child: Text(
+                        '姓名',
+                        style: WalletFont.font_12(
+                          textStyle: TextStyle(color: WalletColor.grey),
+                        ),
+                      ),
+                    ),
                     Expanded(
-                        child: Text(
-                      name,
-                      style: WalletFont.font_12(
+                      child: Text(
+                        name!,
+                        style: WalletFont.font_12(
                           textStyle:
-                              const TextStyle(fontWeight: FontWeight.w600)),
-                      textAlign: TextAlign.right,
-                    ))
-                  ]),
-            if (name != null)
-              Container(
-                height: 1,
-                margin: const EdgeInsets.only(top: 16, bottom: 7),
-                color: WalletColor.middleGrey,
-              ),
-            Row(
+                              const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
+                    )
+                  ],
+                ),
+              if (name != null)
+                Container(
+                  height: 1,
+                  margin: const EdgeInsets.only(top: 16, bottom: 7),
+                  color: WalletColor.middleGrey,
+                ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: Text('DID',
-                          style: WalletFont.font_12(
-                              textStyle: TextStyle(color: WalletColor.grey)))),
+                    margin: const EdgeInsets.only(right: 30),
+                    child: Text(
+                      'DID',
+                      style: WalletFont.font_12(
+                        textStyle: TextStyle(color: WalletColor.grey),
+                      ),
+                    ),
+                  ),
                   Expanded(
-                      child: Text(
-                    did,
-                    style: WalletFont.font_12(
-                        textStyle:
-                            const TextStyle(fontWeight: FontWeight.w600)),
-                    textAlign: TextAlign.right,
-                  ))
-                ]),
-          ],
+                    child: Text(
+                      did!,
+                      style: WalletFont.font_12(
+                        textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      Positioned(
+        Positioned(
           top: 12,
           child: Row(
             children: <Widget>[
@@ -88,12 +103,15 @@ class TxInfoCardWidget extends StatelessWidget {
                 margin: const EdgeInsets.only(right: 12),
               ),
               Text(
-                cardTypeTitleMap[txInfoCardType],
+                cardTypeTitleMap[txInfoCardType]!,
                 style: WalletFont.font_14(
-                    textStyle: const TextStyle(fontWeight: FontWeight.w600)),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                ),
               ),
             ],
-          ))
-    ]);
+          ),
+        )
+      ],
+    );
   }
 }

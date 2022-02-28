@@ -12,14 +12,18 @@ class VerificationScenarioQrPage extends StatelessWidget {
 
   final ApiProvider _apiProvider = Get.find<ApiProvider>();
 
-  VerificationScenarioQrPage({this.name});
+  VerificationScenarioQrPage({required this.name});
 
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-        child: Column(children: <Widget>[
-      Header(title: name),
-      QrCard(data: _apiProvider.verifiersVcQrPath(SsiService.getSelectDid())),
-    ]));
+      child: Column(
+        children: <Widget>[
+          Header(title: name),
+          QrCard(
+              data: _apiProvider.verifiersVcQrPath(SsiService.getSelectDid())),
+        ],
+      ),
+    );
   }
 }

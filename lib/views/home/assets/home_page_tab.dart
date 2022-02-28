@@ -5,7 +5,7 @@ class HomePageTab extends StatelessWidget {
   final Widget icon;
   final String text;
 
-  const HomePageTab({@required this.icon, @required this.text});
+  const HomePageTab({required this.icon, required this.text});
 
   Widget _buildLabelText() {
     return Text(
@@ -26,8 +26,9 @@ class HomePageTab extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 14, right: 20, top: 2, bottom: 2),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: Colors.white, width: 2)),
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: Colors.white, width: 2),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[icon, _buildLabelText()],

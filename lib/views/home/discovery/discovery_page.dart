@@ -38,36 +38,52 @@ class DiscoveryPage extends StatelessWidget {
     );
   }
 
-  Widget _dappList({BuildContext context}) {
+  Widget _dappList({required BuildContext context}) {
     final List<Widget> dappItemList = <Widget>[
       GestureDetector(
-        onTap: () => Navigator.pushNamed(context, Routes.healthCertPage,
-            arguments: homeStore),
+        onTap: () => Navigator.pushNamed(
+          context,
+          Routes.healthCertPage,
+          arguments: homeStore,
+        ),
         child: const DiscoveryItem(text: '健康认证'),
       )
     ];
 
-    dappItemList.add(GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, Routes.ownVcPage, arguments: homeStore),
-      child: const DiscoveryItem(
-        text: '更多凭证',
-        svgAsset: 'assets/icons/vc.svg',
+    dappItemList.add(
+      GestureDetector(
+        onTap: () => Navigator.pushNamed(context, Routes.ownVcPage,
+            arguments: homeStore),
+        child: const DiscoveryItem(
+          text: '更多凭证',
+          svgAsset: 'assets/icons/vc.svg',
+        ),
       ),
-    ));
+    );
 
-    dappItemList.add(GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.verificationScenarioPage,
-          arguments: homeStore),
-      child: const DiscoveryItem(
-          text: '验证场景', svgAsset: 'assets/icons/verification-scenario.svg'),
-    ));
+    dappItemList.add(
+      GestureDetector(
+        onTap: () => Navigator.pushNamed(
+          context,
+          Routes.verificationScenarioPage,
+          arguments: homeStore,
+        ),
+        child: const DiscoveryItem(
+          text: '验证场景',
+          svgAsset: 'assets/icons/verification-scenario.svg',
+        ),
+      ),
+    );
 
-    dappItemList.addAll(dappList.map((dapp) => GestureDetector(
+    dappItemList.addAll(
+      dappList.map(
+        (dapp) => GestureDetector(
           onTap: () => Application.router
               .navigateTo(context, '${Routes.dapp}?id=${dapp.id}'),
           child: DiscoveryItem(text: dapp.name, svgAsset: dapp.iconAsset),
-        )));
+        ),
+      ),
+    );
     return ListView(
       children: dappItemList,
     );

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:flutter_blue/flutter_blue.dart' as flutter_blue;
 import 'package:get/get.dart';
@@ -11,45 +10,47 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/bluetooth_off.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/hex_painter.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/payee.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/payment.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-
-import 'hex_painter.dart';
-import 'payee.dart';
-import 'payment.dart';
 
 class PayeeListView extends ListView {
   PayeeListView(DecentralizedIdentity identity, RxList<Payee> payees)
       : super.separated(
-            separatorBuilder: (context, index) => Divider(
-                  color: Colors.grey[300],
-                  height: 0,
-                  indent: 0,
-                ),
-            itemCount: payees.length,
-            itemBuilder: (context, i) {
-              return _buildRow(context, payees, payees[i], identity);
-            });
+          separatorBuilder: (context, index) => Divider(
+            color: Colors.grey[300],
+            height: 0,
+            indent: 0,
+          ),
+          itemCount: payees.length,
+          itemBuilder: (context, i) {
+            return _buildRow(context, payees, payees[i], identity);
+          },
+        );
 
   static Widget _buildAvatar(BuildContext context, Payee device) {
     switch (device.category) {
       case DeviceCategory.sensorTag:
         return CircleAvatar(
-            backgroundColor: Theme.of(context).accentColor,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset('assets/icons/ti_logo.png'),
-            ));
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('assets/icons/ti_logo.png'),
+          ),
+        );
       case DeviceCategory.hex:
         return CircleAvatar(
-            backgroundColor: Colors.black,
-            child:
-                CustomPaint(painter: HexPainter(), size: const Size(20, 24)));
+          backgroundColor: Colors.black,
+          child: CustomPaint(painter: HexPainter(), size: const Size(20, 24)),
+        );
       case DeviceCategory.other:
       default:
         return CircleAvatar(
-            backgroundColor: WalletColor.primary,
-            foregroundColor: WalletColor.white,
-            child: const Icon(Icons.attach_money));
+          backgroundColor: WalletColor.primary,
+          foregroundColor: WalletColor.white,
+          child: const Icon(Icons.attach_money),
+        );
     }
   }
 
@@ -74,7 +75,7 @@ class PayeeListView extends ListView {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            payee.id.toString(),
+            payee.id,
             style: const TextStyle(fontSize: 10),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
@@ -98,10 +99,10 @@ class PayeeListScreen extends StatefulWidget {
 class _PayeeListScreenState extends State<PayeeListScreen> {
   final BleManager _bleManager = BleManager();
   final RxList<Payee> _bleDevices = RxList([]);
-  StreamSubscription<ScanResult> _scanSubscription;
+  late StreamSubscription<ScanResult> _scanSubscription;
 
-  Future<bool> _checkAndRequirePermissions() async {
-    final Permission _permission = Permission.locationWhenInUse;
+  Future<Future> _checkAndRequirePermissions() async {
+    const Permission _permission = Permission.locationWhenInUse;
     final PermissionStatus status = await _permission.status;
 
     if (!status.isGranted && (Platform.isIOS && !status.isUndetermined)) {
@@ -141,13 +142,13 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   Future<void> _waitForBluetoothPoweredOn() async {
     final Completer completer = Completer();
 
-    StreamSubscription<BluetoothState> subscription;
+    StreamSubscription<BluetoothState>? subscription;
 
     subscription =
         _bleManager.observeBluetoothState().listen((bluetoothState) async {
       if (bluetoothState == BluetoothState.POWERED_ON &&
           !completer.isCompleted) {
-        await subscription.cancel();
+        await subscription!.cancel();
         completer.complete();
       }
     });
@@ -167,7 +168,7 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   }
 
   Future<void> _refresh() {
-    return Future.value(_scanSubscription?.cancel())
+    return Future.value(_scanSubscription.cancel())
         .then((_) => _bleManager.stopPeripheralScan())
         .then((_) => _bleDevices.clear())
         .then((_) => _checkAndRequirePermissions())
@@ -187,7 +188,7 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   @override
   void dispose() {
     super.dispose();
-    _scanSubscription?.cancel()?.then((_) => _bleManager.destroyClient());
+    _scanSubscription.cancel().then((_) => _bleManager.destroyClient());
   }
 
   @override
@@ -212,8 +213,10 @@ class PayeeListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: flutter_blue.FlutterBlue.instance.state,
-      builder: (BuildContext context,
-          AsyncSnapshot<flutter_blue.BluetoothState> snapshot) {
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<flutter_blue.BluetoothState> snapshot,
+      ) {
         if (flutter_blue.BluetoothState.on == snapshot.data) {
           return PayeeListScreen(_identity);
         } else {

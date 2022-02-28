@@ -3,7 +3,7 @@ import 'package:tw_wallet_ui/views/home/assets/home_list_item.dart';
 import 'package:tw_wallet_ui/views/home/assets/home_list_view.dart';
 
 class TicketTab extends StatelessWidget {
-  const TicketTab({Key key}) : super(key: key);
+  const TicketTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

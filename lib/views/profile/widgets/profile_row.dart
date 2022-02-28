@@ -10,8 +10,8 @@ class ProfileRowWidget extends StatelessWidget {
   final bool withoutBottomBorder;
 
   const ProfileRowWidget(
-      {this.assetIcon,
-      this.name,
+      {required this.assetIcon,
+      required this.name,
       this.value,
       this.withoutBottomBorder = false});
 
@@ -20,9 +20,10 @@ class ProfileRowWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
-          border: withoutBottomBorder
-              ? null
-              : Border(bottom: BorderSide(color: WalletColor.middleGrey))),
+        border: withoutBottomBorder
+            ? null
+            : Border(bottom: BorderSide(color: WalletColor.middleGrey)),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -39,7 +40,8 @@ class ProfileRowWidget extends StatelessWidget {
                   Text(
                     name,
                     style: WalletFont.font_14(
-                        textStyle: TextStyle(color: WalletColor.grey)),
+                      textStyle: TextStyle(color: WalletColor.grey),
+                    ),
                   ),
               ],
             ),
@@ -53,8 +55,9 @@ class ProfileRowWidget extends StatelessWidget {
                     : Text(
                         value as String,
                         style: WalletFont.font_14(
-                            textStyle:
-                                const TextStyle(fontWeight: FontWeight.w600)),
+                          textStyle:
+                              const TextStyle(fontWeight: FontWeight.w600),
+                        ),
                       ),
               ),
             )

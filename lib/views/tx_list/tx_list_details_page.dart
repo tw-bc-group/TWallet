@@ -29,13 +29,13 @@ class TxListDetailsPageArgs {
   final bool shouldBackToHome;
 
   TxListDetailsPageArgs(
-      {this.amount,
-      this.fromAddressName,
-      this.isExpense,
-      this.time,
-      this.status,
-      this.fromAddress,
-      this.toAddress,
+      {required this.amount,
+      required this.fromAddressName,
+      required this.isExpense,
+      required this.time,
+      required this.status,
+      required this.fromAddress,
+      required this.toAddress,
       this.shouldBackToHome = false});
 }
 
@@ -43,15 +43,16 @@ class TxListDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TxListDetailsPageArgs args =
-        ModalRoute.of(context).settings.arguments as TxListDetailsPageArgs;
+        ModalRoute.of(context)!.settings.arguments as TxListDetailsPageArgs;
 
     return WillPopScope(
-        onWillPop: args.shouldBackToHome ? () async => false : null,
-        child: CommonLayout(
-          title: '交易状态',
-          backIcon: args.shouldBackToHome ? BackIcon.none : BackIcon.arrow,
-          child: _buildMainContent(context, args),
-        ));
+      onWillPop: args.shouldBackToHome ? () async => false : null,
+      child: CommonLayout(
+        title: '交易状态',
+        backIcon: args.shouldBackToHome ? BackIcon.none : BackIcon.arrow,
+        child: _buildMainContent(context, args),
+      ),
+    );
   }
 
   Container _buildMainContent(
@@ -72,13 +73,17 @@ class TxListDetailsPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: WalletColor.white),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        color: WalletColor.white,
+      ),
       child: Column(
         children: <Widget>[
           ColorMoneyText(
-            amount: Amount(Decimal.parse(
-                args.isExpense ? '-${args.amount}' : args.amount)),
+            amount: Amount(
+              Decimal.parse(
+                args.isExpense ? '-${args.amount}' : args.amount,
+              ),
+            ),
             status: args.status,
             isExpense: args.isExpense,
             textStyle: WalletFont.font_24(),
@@ -106,25 +111,32 @@ class TxListDetailsPage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 24),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: WalletColor.white),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        color: WalletColor.white,
+      ),
       child: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                  margin: const EdgeInsets.only(right: 30),
-                  child: Text('交易时间',
-                      style: WalletFont.font_14(
-                          textStyle: TextStyle(color: WalletColor.grey)))),
+                margin: const EdgeInsets.only(right: 30),
+                child: Text(
+                  '交易时间',
+                  style: WalletFont.font_14(
+                    textStyle: TextStyle(color: WalletColor.grey),
+                  ),
+                ),
+              ),
               Expanded(
-                  child: Text(
-                args.time,
-                style: WalletFont.font_14(
-                    textStyle: const TextStyle(fontWeight: FontWeight.w600)),
-                textAlign: TextAlign.right,
-              ))
+                child: Text(
+                  args.time,
+                  style: WalletFont.font_14(
+                    textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  textAlign: TextAlign.right,
+                ),
+              )
             ],
           ),
           Container(
@@ -133,18 +145,20 @@ class TxListDetailsPage extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 20),
           ),
           TxInfoCardWidget(
-              txInfoCardType: TxInfoCardType.sender,
-              name: args.isExpense ? args.fromAddressName : null,
-              did: DID
-                  .fromEthAddress(EthereumAddress.fromHex(args.fromAddress))
-                  .toString()),
+            txInfoCardType: TxInfoCardType.sender,
+            name: args.isExpense ? args.fromAddressName : null,
+            did: DID
+                .fromEthAddress(EthereumAddress.fromHex(args.fromAddress))
+                .toString(),
+          ),
           const SizedBox(height: 20),
           TxInfoCardWidget(
-              txInfoCardType: TxInfoCardType.receiver,
-              name: args.isExpense ? null : args.fromAddressName,
-              did: DID
-                  .fromEthAddress(EthereumAddress.fromHex(args.toAddress))
-                  .toString()),
+            txInfoCardType: TxInfoCardType.receiver,
+            name: args.isExpense ? null : args.fromAddressName,
+            did: DID
+                .fromEthAddress(EthereumAddress.fromHex(args.toAddress))
+                .toString(),
+          ),
         ],
       ),
     );
@@ -166,16 +180,17 @@ class TxListDetailsPage extends StatelessWidget {
         color: WalletColor.white,
       ),
       child: WalletTheme.button(
-          text: '好的',
-          onPressed: () {
-            Get.find<IdentityStore>().fetchLatestPoint();
-            Navigator.popUntil(
-                context,
-                (Route<dynamic> route) =>
-                    Optional.ofNullable(route.settings.name)
-                        .map((name) => name.startsWith(Routes.home))
-                        .orElse(false));
-          }),
+        text: '好的',
+        onPressed: () {
+          Get.find<IdentityStore>().fetchLatestPoint();
+          Navigator.popUntil(
+            context,
+            (Route<dynamic> route) => Optional.ofNullable(route.settings.name)
+                .map((name) => name.startsWith(Routes.home))
+                .orElse(false),
+          );
+        },
+      ),
     );
   }
 }

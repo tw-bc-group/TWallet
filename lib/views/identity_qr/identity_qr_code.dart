@@ -10,7 +10,7 @@ class IdentityQRPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DecentralizedIdentity identity =
-        ModalRoute.of(context).settings.arguments as DecentralizedIdentity;
+        ModalRoute.of(context)!.settings.arguments as DecentralizedIdentity;
 
     return CommonLayout(
       title: '身份二维码',
@@ -27,23 +27,31 @@ class IdentityQRPage extends StatelessWidget {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    color: WalletColor.white),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  color: WalletColor.white,
+                ),
                 margin: const EdgeInsets.only(left: 18, right: 18, top: 40),
                 padding: const EdgeInsets.only(
-                    top: 74, bottom: 41, left: 60, right: 60),
+                  top: 74,
+                  bottom: 41,
+                  left: 60,
+                  right: 60,
+                ),
                 child: Column(
                   children: <Widget>[
                     Text(
                       identity.profileInfo.name,
                       style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     _buildQRCode(identity.did.toString()),
                     Container(
-                        height: 1,
-                        margin: const EdgeInsets.only(top: 60, bottom: 40),
-                        color: WalletColor.middleGrey),
+                      height: 1,
+                      margin: const EdgeInsets.only(top: 60, bottom: 40),
+                      color: WalletColor.middleGrey,
+                    ),
                     Text(
                       identity.did.toString(),
                       style: WalletFont.font_14(),

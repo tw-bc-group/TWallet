@@ -5,7 +5,7 @@ class PageTitle extends StatelessWidget {
   final String title;
   final String desc;
 
-  const PageTitle({this.title, this.desc});
+  const PageTitle({required this.title, required this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +17,14 @@ class PageTitle extends StatelessWidget {
         color: WalletTheme.rgbColor('#38508c'),
       ),
     );
-    if (title != null) {
-      titleWidget = Text(
-        title,
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: WalletTheme.rgbColor('#38508c'),
-        ),
-      );
-    }
+    titleWidget = Text(
+      title,
+      style: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: WalletTheme.rgbColor('#38508c'),
+      ),
+    );
 
     Widget descWidget = Text(
       '',
@@ -35,15 +33,13 @@ class PageTitle extends StatelessWidget {
         color: Colors.grey[700],
       ),
     );
-    if (desc != null) {
-      descWidget = Text(
-        desc,
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.grey[700],
-        ),
-      );
-    }
+    descWidget = Text(
+      desc,
+      style: TextStyle(
+        fontSize: 14,
+        color: Colors.grey[700],
+      ),
+    );
 
     return Container(
       margin: const EdgeInsets.only(top: 30, left: 30, right: 30),
@@ -54,8 +50,9 @@ class PageTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: titleWidget),
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: titleWidget,
+                ),
                 descWidget
               ],
             ),

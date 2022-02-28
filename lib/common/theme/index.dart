@@ -10,11 +10,11 @@ class WalletTheme {
   static Color get listItemBgColor => rgbColor('0xf6f6f6');
 
   static Widget button(
-      {String text,
-      VoidCallback onPressed,
+      {String? text,
+      VoidCallback? onPressed,
       ButtonType buttonType = ButtonType.defaultType,
       double height = 45,
-      Color outlineColor}) {
+      Color? outlineColor}) {
     final RaisedButton raisedButton = RaisedButton(
       color: WalletColor.primary,
       disabledColor: WalletColor.middleGrey,
@@ -22,9 +22,13 @@ class WalletTheme {
       onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Center(
-          child: Text(text,
-              style: WalletFont.font_16(
-                  textStyle: TextStyle(color: WalletColor.white)))),
+        child: Text(
+          text!,
+          style: WalletFont.font_16(
+            textStyle: TextStyle(color: WalletColor.white),
+          ),
+        ),
+      ),
     );
     final OutlineButton outlineButton = OutlineButton(
       textColor: outlineColor ?? WalletColor.primary,
@@ -35,13 +39,17 @@ class WalletTheme {
       onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Center(
-          child: Text(text,
-              style: const TextStyle(
-                  fontSize: 16,
-                  height: 1.38,
-                  fontFamily: 'PingFangHK',
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1))),
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 16,
+            height: 1.38,
+            fontFamily: 'PingFangHK',
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
     );
     return ButtonTheme(
       height: height,

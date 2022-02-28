@@ -241,13 +241,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$phoneAtom = Atom(name: '_FormErrorState.phone');
 
   @override
-  String get phone {
+  String? get phone {
     _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
-  set phone(String value) {
+  set phone(String? value) {
     _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
     });
@@ -256,13 +256,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$temperatureAtom = Atom(name: '_FormErrorState.temperature');
 
   @override
-  String get temperature {
+  String? get temperature {
     _$temperatureAtom.reportRead();
     return super.temperature;
   }
 
   @override
-  set temperature(String value) {
+  set temperature(String? value) {
     _$temperatureAtom.reportWrite(value, super.temperature, () {
       super.temperature = value;
     });

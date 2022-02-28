@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -49,15 +49,17 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
 
     return Container(
       margin: EdgeInsets.only(
-          left: _screenUtil.setWidth(24).toDouble(),
-          right: _screenUtil.setWidth(24).toDouble(),
-          top: _screenUtil.setHeight(10).toDouble(),
-          bottom: _screenUtil.setHeight(147).toDouble()),
+        left: _screenUtil.setWidth(24).toDouble(),
+        right: _screenUtil.setWidth(24).toDouble(),
+        top: _screenUtil.setHeight(10).toDouble(),
+        bottom: _screenUtil.setHeight(147).toDouble(),
+      ),
       padding: EdgeInsets.only(
-          left: _screenUtil.setWidth(20).toDouble(),
-          right: _screenUtil.setWidth(20).toDouble(),
-          top: _screenUtil.setHeight(90).toDouble(),
-          bottom: _screenUtil.setHeight(46).toDouble()),
+        left: _screenUtil.setWidth(20).toDouble(),
+        right: _screenUtil.setWidth(20).toDouble(),
+        top: _screenUtil.setHeight(90).toDouble(),
+        bottom: _screenUtil.setHeight(46).toDouble(),
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -70,22 +72,26 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
           ),
           Column(
             children: const <Widget>[
-              Text("您还没有添加身份",
-                  style: TextStyle(
-                    color: Color(0xff111111),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0,
-                  )),
-              Text("请前往“身份”页面添加身份。",
-                  style: TextStyle(
-                    color: Color(0xff111111),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0,
-                  )),
+              Text(
+                "您还没有添加身份",
+                style: TextStyle(
+                  color: Color(0xff111111),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: 0,
+                ),
+              ),
+              Text(
+                "请前往“身份”页面添加身份。",
+                style: TextStyle(
+                  color: Color(0xff111111),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: 0,
+                ),
+              ),
             ],
           ),
           WalletTheme.button(
@@ -107,15 +113,16 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-            color: WalletColor.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [BoxShadow(color: WalletColor.grey, blurRadius: 12)]),
+          color: WalletColor.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [BoxShadow(color: WalletColor.grey, blurRadius: 12)],
+        ),
         child: Center(child: Text(description)),
       ),
     );
   }
 
-  Widget _buildNetworkOffScreen(ConnectivityResult result) {
+  Widget _buildNetworkOffScreen(ConnectivityResult? result) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -129,7 +136,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             '网络已关闭，请打开网络同步账户信息',
             style: Theme.of(context)
                 .primaryTextTheme
-                .subtitle1
+                .subtitle1!
                 .copyWith(color: Colors.white),
           ),
         ],
@@ -148,52 +155,72 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
       color: WalletColor.white,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Obx(() => DropdownButton(
-                  value: _redeemType.value,
-                  items: DcepType.values
-                      .map((type) => DropdownMenuItem(
-                          value: type, child: Text(type.humanReadable)))
-                      .toList(),
-                  onChanged: (DcepType value) {
-                    _redeemType.value = value;
-                  },
-                )),
-            WalletTheme.button(
-                text: '兑换',
-                height: 28,
-                onPressed: () => identity
-                    .redeemDcep(_redeemType.value)
-                    .then((_) => showDialogSimple(DialogType.success, '兑换成功'))),
-          ]),
-          Expanded(
-            child: Obx(() => Padding(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Obx(
+                  () => DropdownButton(
+                    value: _redeemType.value,
+                    items: DcepType.values
+                        .map(
+                          (type) => DropdownMenuItem(
+                            value: type,
+                            child: Text(type.humanReadable),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (DcepType? value) {
+                      _redeemType.value = value!;
+                    },
+                  ),
+                ),
+                WalletTheme.button(
+                  text: '兑换',
+                  height: 28,
+                  onPressed: () => identity.redeemDcep(_redeemType.value).then(
+                        (_) => showDialogSimple(DialogType.success, '兑换成功'),
+                      ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: Obx(
+                () => Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: RefreshIndicator(
                     onRefresh: () => _dcepStore.refresh(),
                     child: ListView(
                       children: _dcepListItems(
-                          _dcepStore.sortedItems, _txStore.txQueue.value),
+                        _dcepStore.sortedItems,
+                        _txStore.txQueue.value,
+                      ),
                     ),
                   ),
-                )),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
                   child: WalletTheme.button(
-                      text: '收款',
-                      onPressed: () => Get.to(PayeeConfirm(identity)))),
-              Container(width: 20),
-              Expanded(
+                    text: '收款',
+                    onPressed: () => Get.to(PayeeConfirm(identity)),
+                  ),
+                ),
+                Container(width: 20),
+                Expanded(
                   child: WalletTheme.button(
-                      text: '付款',
-                      onPressed: () => Get.to(PayeeListPage(identity)))),
-            ],
-          )
-        ]),
+                    text: '付款',
+                    onPressed: () => Get.to(PayeeListPage(identity)),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -204,47 +231,49 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
           Get.find<IdentityStore>().selectedIdentity.value;
 
       return FutureBuilder(
-          initialData: null,
-          future: _connectivity.checkConnectivity(),
-          builder: (BuildContext context,
-              AsyncSnapshot<ConnectivityResult> snapshot) {
-            if (null == snapshot.data) {
-              return Container();
-            } else {
-              return StreamBuilder(
-                initialData: snapshot.data,
-                stream: _connectivity.onConnectivityChanged,
-                builder: (BuildContext context,
-                    AsyncSnapshot<ConnectivityResult> snapshot) {
-                  if (!isNonceSynced &&
-                      ConnectivityResult.none == snapshot.data) {
-                    return _buildNetworkOffScreen(snapshot.data);
-                  } else if (!isNonceSynced &&
-                      ConnectivityResult.none != snapshot.data) {
-                    return FutureBuilder(
-                      initialData: null,
-                      future: Get.find<ContractService>()
-                          .nftTokenContract
-                          .getTransactionCount(
-                              EthereumAddress.fromHex(identity.address)),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<int> snapshot) {
-                        if (null != snapshot.data) {
-                          isNonceSynced = true;
-                          _dcepStore.nonce = snapshot.data;
-                          return _buildMainScreen(identity);
-                        } else {
-                          return Container();
-                        }
-                      },
-                    );
-                  } else {
-                    return _buildMainScreen(identity);
-                  }
-                },
-              );
-            }
-          });
+        initialData: null,
+        future: _connectivity.checkConnectivity(),
+        builder:
+            (BuildContext context, AsyncSnapshot<ConnectivityResult> snapshot) {
+          if (null == snapshot.data) {
+            return Container();
+          } else {
+            return StreamBuilder(
+              initialData: snapshot.data,
+              stream: _connectivity.onConnectivityChanged,
+              builder: (BuildContext context,
+                  AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (!isNonceSynced &&
+                    ConnectivityResult.none == snapshot.data) {
+                  return _buildNetworkOffScreen(snapshot.data);
+                } else if (!isNonceSynced &&
+                    ConnectivityResult.none != snapshot.data) {
+                  return FutureBuilder(
+                    initialData: null,
+                    future: Get.find<ContractService>()
+                        .nftTokenContract
+                        .getTransactionCount(
+                          EthereumAddress.fromHex(identity.address),
+                        ),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<int?> snapshot) {
+                      if (null != snapshot.data) {
+                        isNonceSynced = true;
+                        _dcepStore.nonce = snapshot.data!;
+                        return _buildMainScreen(identity);
+                      } else {
+                        return Container();
+                      }
+                    },
+                  );
+                } else {
+                  return _buildMainScreen(identity);
+                }
+              },
+            );
+          }
+        },
+      );
     } else {
       return _buildAddIdentityCard(context, widget.homeStore);
     }

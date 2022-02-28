@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
   final IdentityStore identityStore = Get.find();
   final HealthCertificationStore certStore = Get.find();
 
-  ProfilePage({this.id});
+  ProfilePage({required this.id});
 
   String certTitle() {
     return certStore.isBoundCert ? '健康码' : '健康认证';
@@ -38,57 +38,69 @@ class ProfilePage extends StatelessWidget {
 
     return CommonLayout(
       title: '个人信息',
-      child: Column(children: <Widget>[
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 40),
-          alignment: Alignment.center,
-          child: const AvatarWidget(),
-        ),
-        Expanded(
-            child: Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              color: WalletColor.white),
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: ListView(
-            children: <Widget>[
-              ProfileRowWidget(
-                  assetIcon: 'assets/icons/name.svg',
-                  name: '名称*',
-                  value: identity.profileInfo.name),
-              ProfileRowWidget(
-                  assetIcon: 'assets/icons/email.svg',
-                  name: '邮箱',
-                  value: identity.profileInfo.email),
-              ProfileRowWidget(
-                  assetIcon: 'assets/icons/phone.svg',
-                  name: '电话',
-                  value: identity.profileInfo.phone),
-              ProfileRowWidget(
-                  assetIcon: 'assets/icons/birth.svg',
-                  name: '生日',
-                  value: identity.profileInfo.birthday ?? ''),
-              GestureDetector(
-                onLongPress: () async {
-                  return Clipboard.setData(
-                          ClipboardData(text: identity.did.toString()))
-                      .then((_) => showDialogSimple(DialogType.none, '复制成功'));
-                },
-                child: ProfileRowWidget(
-                    assetIcon: 'assets/icons/eye.svg',
-                    name: 'DID',
-                    value: identity.did.toString()),
-              ),
-              ProfileRowWidget(
-                  assetIcon: 'assets/icons/qrcode.svg',
-                  name: '二维码名片',
-                  value: _buildQR(context, identity),
-                  withoutBottomBorder: true),
-            ],
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 40),
+            alignment: Alignment.center,
+            child: const AvatarWidget(),
           ),
-        ))
-      ]),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+                color: WalletColor.white,
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ListView(
+                children: <Widget>[
+                  ProfileRowWidget(
+                    assetIcon: 'assets/icons/name.svg',
+                    name: '名称*',
+                    value: identity.profileInfo.name,
+                  ),
+                  ProfileRowWidget(
+                    assetIcon: 'assets/icons/email.svg',
+                    name: '邮箱',
+                    value: identity.profileInfo.email,
+                  ),
+                  ProfileRowWidget(
+                    assetIcon: 'assets/icons/phone.svg',
+                    name: '电话',
+                    value: identity.profileInfo.phone,
+                  ),
+                  ProfileRowWidget(
+                    assetIcon: 'assets/icons/birth.svg',
+                    name: '生日',
+                    value: identity.profileInfo.birthday ?? '',
+                  ),
+                  GestureDetector(
+                    onLongPress: () async {
+                      return Clipboard.setData(
+                        ClipboardData(text: identity.did.toString()),
+                      ).then((_) => showDialogSimple(DialogType.none, '复制成功'));
+                    },
+                    child: ProfileRowWidget(
+                      assetIcon: 'assets/icons/eye.svg',
+                      name: 'DID',
+                      value: identity.did.toString(),
+                    ),
+                  ),
+                  ProfileRowWidget(
+                    assetIcon: 'assets/icons/qrcode.svg',
+                    name: '二维码名片',
+                    value: _buildQR(context, identity),
+                    withoutBottomBorder: true,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -101,8 +113,10 @@ class ProfilePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            SvgPicture.asset('assets/icons/right-arrow.svg',
-                color: WalletColor.grey)
+            SvgPicture.asset(
+              'assets/icons/right-arrow.svg',
+              color: WalletColor.grey,
+            )
           ],
         ),
       ),

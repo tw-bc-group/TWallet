@@ -51,7 +51,7 @@ class PointTab extends StatefulWidget {
 class _PointTabState extends State<PointTab> {
   final IdentityStore _identityStore = Get.find();
 
-  ReactionDisposer reactionDispose;
+  ReactionDisposer? reactionDispose;
 
   Future<void> _refresh() async {
     _identityStore.fetchLatestPoint();
@@ -60,7 +60,7 @@ class _PointTabState extends State<PointTab> {
   @override
   void dispose() {
     super.dispose();
-    reactionDispose();
+    reactionDispose!();
   }
 
   @override
@@ -78,7 +78,7 @@ class _PointTabState extends State<PointTab> {
         builder: (_) {
           Optional<Amount> amount;
           final ObservableFuture<TwBalance> future =
-              _identityStore.fetchBalanceFutureStream.value;
+              _identityStore.fetchBalanceFutureStream.value!;
 
           switch (future.status) {
             case FutureStatus.fulfilled:
@@ -90,7 +90,7 @@ class _PointTabState extends State<PointTab> {
               break;
             default:
               amount = _identityStore.selectedIdentity
-                  .map((i) => i.accountInfo.balance);
+                  .map((i) => i.accountInfo.balance!);
               break;
           }
 

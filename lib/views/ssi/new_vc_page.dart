@@ -58,7 +58,9 @@ class _NewVcPageState extends State<NewVcPage> {
   }
 
   InputDecoration buildInputDecoration(
-      {String assetIcon, String labelText, String hintText}) {
+      {required String assetIcon,
+      required String labelText,
+      required String hintText}) {
     return InputDecoration(
       icon: SvgPicture.asset(assetIcon),
       labelText: labelText,
@@ -70,28 +72,31 @@ class _NewVcPageState extends State<NewVcPage> {
     );
   }
 
-  Widget buildInputField({Widget textFieldChild, String errorText}) {
+  Widget buildInputField(
+      {required Widget textFieldChild, required String errorText}) {
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        child: Column(
-          children: <Widget>[
-            Stack(children: <Widget>[
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
               Row(
                 children: <Widget>[
                   Expanded(child: textFieldChild),
                 ],
               ),
-            ]),
-            Container(
-              height: 1,
-              color: errorText != null
-                  ? WalletColor.accent
-                  : WalletColor.middleGrey,
-              margin: const EdgeInsets.only(top: 6),
-            ),
-            if (errorText != null) ErrorRowWidget(errorText: errorText)
-          ],
-        ));
+            ],
+          ),
+          Container(
+            height: 1,
+            color:
+                errorText != null ? WalletColor.accent : WalletColor.middleGrey,
+            margin: const EdgeInsets.only(top: 6),
+          ),
+          if (errorText != null) ErrorRowWidget(errorText: errorText)
+        ],
+      ),
+    );
   }
 
   @override
@@ -108,48 +113,57 @@ class _NewVcPageState extends State<NewVcPage> {
               child: const AvatarWidget(width: 80),
             ),
             Expanded(
-                child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12)),
-                        color: WalletColor.white),
-                    child: Form(
-                      child: ListView(
-                        children: <Widget>[
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  maxLength: 16,
-                                  keyboardType: TextInputType.text,
-                                  onChanged: (String value) =>
-                                      store.name = value.trim(),
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/name.svg',
-                                    labelText: '姓名*',
-                                    hintText: '输入姓名',
-                                  )),
-                              errorText: store.error.username),
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  onChanged: (value) => store.phone = value,
-                                  keyboardType: TextInputType.phone,
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/phone.svg',
-                                    labelText: '手机*',
-                                    hintText: '输入手机号',
-                                  )),
-                              errorText: store.error.phone),
-                          Container(
-                              margin: const EdgeInsets.only(top: 100),
-                              child: WalletTheme.button(
-                                  text: '确定申请VC',
-                                  onPressed: btnDisabled() || isAdding
-                                      ? null
-                                      : _addOnPressed))
-                        ],
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                  color: WalletColor.white,
+                ),
+                child: Form(
+                  child: ListView(
+                    children: <Widget>[
+                      buildInputField(
+                        textFieldChild: TextField(
+                          maxLength: 16,
+                          keyboardType: TextInputType.text,
+                          onChanged: (String value) =>
+                              store.name = value.trim(),
+                          decoration: buildInputDecoration(
+                            assetIcon: 'assets/icons/name.svg',
+                            labelText: '姓名*',
+                            hintText: '输入姓名',
+                          ),
+                        ),
+                        errorText: store.error.username,
                       ),
-                    )))
+                      buildInputField(
+                        textFieldChild: TextField(
+                          onChanged: (value) => store.phone = value,
+                          keyboardType: TextInputType.phone,
+                          decoration: buildInputDecoration(
+                            assetIcon: 'assets/icons/phone.svg',
+                            labelText: '手机*',
+                            hintText: '输入手机号',
+                          ),
+                        ),
+                        errorText: store.error.phone,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 100),
+                        child: WalletTheme.button(
+                          text: '确定申请VC',
+                          onPressed:
+                              btnDisabled() || isAdding ? null : _addOnPressed,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

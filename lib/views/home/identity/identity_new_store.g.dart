@@ -157,13 +157,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$usernameAtom = Atom(name: '_FormErrorState.username');
 
   @override
-  String get username {
+  String? get username {
     _$usernameAtom.reportRead();
     return super.username;
   }
 
   @override
-  set username(String value) {
+  set username(String? value) {
     _$usernameAtom.reportWrite(value, super.username, () {
       super.username = value;
     });
@@ -172,13 +172,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$phoneAtom = Atom(name: '_FormErrorState.phone');
 
   @override
-  String get phone {
+  String? get phone {
     _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
-  set phone(String value) {
+  set phone(String? value) {
     _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
     });
@@ -187,13 +187,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$emailAtom = Atom(name: '_FormErrorState.email');
 
   @override
-  String get email {
+  String? get email {
     _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
-  set email(String value) {
+  set email(String? value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
     });
@@ -202,13 +202,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$birthdayAtom = Atom(name: '_FormErrorState.birthday');
 
   @override
-  String get birthday {
+  String? get birthday {
     _$birthdayAtom.reportRead();
     return super.birthday;
   }
 
   @override
-  set birthday(String value) {
+  set birthday(String? value) {
     _$birthdayAtom.reportWrite(value, super.birthday, () {
       super.birthday = value;
     });

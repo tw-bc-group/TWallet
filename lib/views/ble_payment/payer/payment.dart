@@ -13,11 +13,10 @@ import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
+import 'package:tw_wallet_ui/views/ble_payment/payer/payee.dart';
 import 'package:tw_wallet_ui/views/ble_payment/payer/session.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:web3dart/crypto.dart';
-
-import 'payee.dart';
 
 enum PaymentProgress {
   connecting,
@@ -80,17 +79,19 @@ class _PaymentState extends State<Payment> {
   final DcepStore _dcepStore = Get.find<DcepStore>();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
-  StreamSubscription _dataMonitor;
-  Characteristic _readCharacteristic;
-  Characteristic _writeCharacteristic;
+  late StreamSubscription _dataMonitor;
+  late Characteristic _readCharacteristic;
+  late Characteristic _writeCharacteristic;
 
   Future<Optional<Tuple2<Characteristic, Characteristic>>> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
 
     final Service service = await widget._bleDevice.peripheral.services().then(
-        (services) => services.firstWhere(
+          (services) => services.firstWhere(
             (service) => service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0",
-            orElse: () => null));
+            orElse: () => null!,
+          ),
+        );
 
     if (null == service) {
       return const Optional.empty();
@@ -99,13 +100,17 @@ class _PaymentState extends State<Payment> {
     final List<Characteristic> characteristics =
         await service.characteristics();
 
-    _readCharacteristic = characteristics.firstWhere((characteristic) =>
-        characteristic.uuid == "0ac637b0-9c14-4741-8f9f-b0baae77d0b4");
+    _readCharacteristic = characteristics.firstWhere(
+      (characteristic) =>
+          characteristic.uuid == "0ac637b0-9c14-4741-8f9f-b0baae77d0b4",
+    );
 
-    _writeCharacteristic = characteristics.firstWhere((characteristic) =>
-        characteristic.uuid == "4fec0357-2493-4901-b1a2-9e2ec21b9676");
+    _writeCharacteristic = characteristics.firstWhere(
+      (characteristic) =>
+          characteristic.uuid == "4fec0357-2493-4901-b1a2-9e2ec21b9676",
+    );
 
-    if (_readCharacteristic == null || _writeCharacteristic == null) {
+    if (_writeCharacteristic == null) {
       return const Optional.empty();
     }
 
@@ -117,9 +122,7 @@ class _PaymentState extends State<Payment> {
       _confirmCompleter.complete(false);
     }
 
-    if (null != _dataMonitor) {
-      await _dataMonitor.cancel();
-    }
+    await _dataMonitor.cancel();
 
     if (await widget._bleDevice.isConnected()) {
       await widget._bleDevice.disconnect();
@@ -166,9 +169,13 @@ class _PaymentState extends State<Payment> {
           _dcepStore.nonce++;
           _dcepStore.remove(dcep);
 
-          txList.add(TxSend((builder) => builder
-            ..dcep = dcep.toBuilder()
-            ..signedRawTx = signedRawTx));
+          txList.add(
+            TxSend(
+              (builder) => builder
+                ..dcep = dcep.toBuilder()
+                ..signedRawTx = signedRawTx,
+            ),
+          );
         }
         return Optional.of(txList);
       } else {
@@ -200,32 +207,38 @@ class _PaymentState extends State<Payment> {
   }
 
   void _doConnect() {
-    widget._bleDevice.connect().then((_) => discovery().then((res) {
-          res.ifPresent(
+    widget._bleDevice.connect().then(
+          (_) => discovery().then((res) {
+            res.ifPresent(
               (characteristics) => Session(
-                      widget._identity.address,
-                      widget._identity.accountInfo.pubKey,
-                      characteristics.first,
-                      characteristics.second)
-                  .run(_onWaitSignPayment, _onStateUpdate),
+                widget._identity.address,
+                widget._identity.accountInfo.pubKey,
+                characteristics.first,
+                characteristics.second,
+              ).run(_onWaitSignPayment, _onStateUpdate),
               orElse: () =>
-                  _paymentProgress.value = PaymentProgress.notSupported);
-        }));
+                  _paymentProgress.value = PaymentProgress.notSupported,
+            );
+          }),
+        );
   }
 
   Widget _buildButton() {
     switch (_paymentProgress.value) {
       case PaymentProgress.waitUserConfirm:
         return WalletTheme.button(
-            text: '确认付款 ${_amount.value}',
-            onPressed: () async {
-              _confirmCompleter.complete(true);
-              _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
-            });
+          text: '确认付款 ${_amount.value}',
+          onPressed: () async {
+            _confirmCompleter.complete(true);
+            _paymentProgress.value = PaymentProgress.waitPaymentConfirm;
+          },
+        );
 
       case PaymentProgress.balanceNotEnough:
         return WalletTheme.button(
-            text: '余额不足，结束转账', onPressed: () => Get.back());
+          text: '余额不足，结束转账',
+          onPressed: () => Get.back(),
+        );
         break;
 
       case PaymentProgress.waitUserConnect:
@@ -234,11 +247,16 @@ class _PaymentState extends State<Payment> {
       case PaymentProgress.fail:
       case PaymentProgress.success:
         return WalletTheme.button(
-            text: '结束付款',
-            onPressed: () async {
-              await _doCleanup().then((_) => Get.until((route) =>
-                  (route as GetPageRoute).routeName == '/BlePaymentHome'));
-            });
+          text: '结束付款',
+          onPressed: () async {
+            await _doCleanup().then(
+              (_) => Get.until(
+                (route) =>
+                    (route as GetPageRoute).routeName == '/BlePaymentHome',
+              ),
+            );
+          },
+        );
 
       default:
         return Container();
@@ -258,22 +276,28 @@ class _PaymentState extends State<Payment> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => CommonLayout(
+    return Obx(
+      () => CommonLayout(
         title: widget._bleDevice.name,
         bodyBackColor: WalletColor.white,
         beforeDispose: _doCleanup,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: <Widget>[
-            Expanded(
+          child: Column(
+            children: <Widget>[
+              Expanded(
                 child: Center(
-              child: Text(
-                _hintText.value,
-                textAlign: TextAlign.center,
+                  child: Text(
+                    _hintText.value,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
-            )),
-            _buildButton()
-          ]),
-        )));
+              _buildButton()
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

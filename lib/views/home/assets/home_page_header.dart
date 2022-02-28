@@ -6,17 +6,17 @@ class HomePageHeader extends StatelessWidget {
   final Widget avatar;
   final String name;
   final TabBar tabBar;
-  final GestureTapCallback onAvatarTap;
-  final GestureTapCallback onChangeIdentityTap;
+  final GestureTapCallback? onAvatarTap;
+  final GestureTapCallback? onChangeIdentityTap;
   final ImageProvider bgImage =
       const AssetImage('assets/images/background.png');
   final SvgPicture changeImg =
       SvgPicture.asset('assets/icons/change-identity.svg');
 
   HomePageHeader(
-      {@required this.avatar,
-      @required this.name,
-      @required this.tabBar,
+      {required this.avatar,
+      required this.name,
+      required this.tabBar,
       this.onAvatarTap,
       this.onChangeIdentityTap});
 
@@ -26,21 +26,26 @@ class HomePageHeader extends StatelessWidget {
       margin: const EdgeInsets.only(top: 26),
       padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-          color: WalletColor.primary,
-          image: DecorationImage(
-            alignment: Alignment.bottomCenter,
-            fit: BoxFit.fitWidth,
-            image: bgImage,
-          )),
+        color: WalletColor.primary,
+        image: DecorationImage(
+          alignment: Alignment.bottomCenter,
+          fit: BoxFit.fitWidth,
+          image: bgImage,
+        ),
+      ),
       child: Column(
         children: <Widget>[
           GestureDetector(
-              onTap: onAvatarTap,
-              child: Container(
-                  margin: const EdgeInsets.only(bottom: 14), child: avatar)),
+            onTap: onAvatarTap,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 14),
+              child: avatar,
+            ),
+          ),
           Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              child: _buildName(name)),
+            margin: const EdgeInsets.only(bottom: 8),
+            child: _buildName(name),
+          ),
           GestureDetector(
             onTap: onChangeIdentityTap,
             child: _buildChangeIdentityButton(),

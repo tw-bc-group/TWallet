@@ -12,7 +12,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class DAppPage extends StatefulWidget {
   final String id;
-  const DAppPage({this.id});
+  const DAppPage({required this.id});
 
   @override
   State<StatefulWidget> createState() {
@@ -39,21 +39,24 @@ class DAppPageState extends State<DAppPage> {
 
   JavascriptChannel _nativeJavascriptChannel(BuildContext context) {
     return JavascriptChannel(
-        name: 'TWalletNative',
-        onMessageReceived: (JavascriptMessage message) {
-          try {
-            final Map<String, dynamic> requestJson =
-                jsonDecode(message.message) as Map<String, dynamic>;
-            final WebviewRequest webviewRequest =
-                WebviewRequest.fromJson(requestJson);
-            DAppService.getOperator(webviewRequest.method)
-                .call(webviewRequest.id, webviewRequest.param);
-          } catch (e) {
-            _controller.future.then((webviewController) =>
-                webviewController.evaluateJavascript(
-                    'window.TWallet.rejectPromise(${json.encode(json.encode(e.toString()))});'));
-          }
-        });
+      name: 'TWalletNative',
+      onMessageReceived: (JavascriptMessage message) {
+        try {
+          final Map<String, dynamic> requestJson =
+              jsonDecode(message.message) as Map<String, dynamic>;
+          final WebviewRequest webviewRequest =
+              WebviewRequest.fromJson(requestJson);
+          DAppService.getOperator(webviewRequest.method)
+              .call(webviewRequest.id, webviewRequest.param!);
+        } catch (e) {
+          _controller.future.then(
+            (webviewController) => webviewController.evaluateJavascript(
+              'window.TWallet.rejectPromise(${json.encode(json.encode(e.toString()))});',
+            ),
+          );
+        }
+      },
+    );
   }
 
   Future<bool> onBack() async {
@@ -80,64 +83,73 @@ class DAppPageState extends State<DAppPage> {
 
   void resetToAppStatusBar() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: WalletColor.primary,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: WalletColor.primary,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: onBack,
-        child: Scaffold(
-            backgroundColor: backgroundColor,
-            bottomNavigationBar: Theme(
-              data: Theme.of(context),
-              child: Container(
-                height: DeviceInfo.isIphoneXSeries() ? 34 : 0,
-                color: WalletColor.white,
+      onWillPop: onBack,
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        bottomNavigationBar: Theme(
+          data: Theme.of(context),
+          child: Container(
+            height: DeviceInfo.isIphoneXSeries() ? 34 : 0,
+            color: WalletColor.white,
+          ),
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              Builder(
+                builder: (BuildContext context) {
+                  return WebView(
+                    initialUrl: getDappById(widget.id).url,
+                    javascriptMode: JavascriptMode.unrestricted,
+                    onWebViewCreated: (WebViewController webViewController) {
+                      _controller.complete(webViewController);
+                      DAppService.webviewController = webViewController;
+                      DAppService.dappid = widget.id;
+                    },
+                    javascriptChannels: <JavascriptChannel>{
+                      _nativeJavascriptChannel(context),
+                    },
+                    onPageStarted: (String url) {
+                      _controller.future.then((webViewController) {
+                        webViewController.evaluateJavascript(
+                          'window._wallet_dapp_id = ${json.encode(widget.id)}',
+                        );
+                      });
+                    },
+                    onPageFinished: (String url) {
+                      finishLoading();
+                      // _controller.future.then((webViewController) {
+                      //   webViewController.evaluateJavascript(
+                      //       'document.body.style.overflow = "hidden";');
+                      // });
+                    },
+                    gestureNavigationEnabled: true,
+                  );
+                },
               ),
-            ),
-            body: SafeArea(
-              child: Stack(
-                children: <Widget>[
-                  Builder(builder: (BuildContext context) {
-                    return WebView(
-                      initialUrl: getDappById(widget.id)?.url,
-                      javascriptMode: JavascriptMode.unrestricted,
-                      onWebViewCreated: (WebViewController webViewController) {
-                        _controller.complete(webViewController);
-                        DAppService.webviewController = webViewController;
-                        DAppService.dappid = widget.id;
-                      },
-                      javascriptChannels: <JavascriptChannel>{
-                        _nativeJavascriptChannel(context),
-                      },
-                      onPageStarted: (String url) {
-                        _controller.future.then((webViewController) {
-                          webViewController.evaluateJavascript(
-                              'window._wallet_dapp_id = ${json.encode(widget.id)}');
-                        });
-                      },
-                      onPageFinished: (String url) {
-                        finishLoading();
-                        // _controller.future.then((webViewController) {
-                        //   webViewController.evaluateJavascript(
-                        //       'document.body.style.overflow = "hidden";');
-                        // });
-                      },
-                      gestureNavigationEnabled: true,
-                    );
-                  }),
-                  if (isLoadingPage)
-                    Container(
-                      alignment: FractionalOffset.center,
-                      child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                              WalletColor.primary)),
-                    )
-                ],
-              ),
-            )));
+              if (isLoadingPage)
+                Container(
+                  alignment: FractionalOffset.center,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      WalletColor.primary,
+                    ),
+                  ),
+                )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

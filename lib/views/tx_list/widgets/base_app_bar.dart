@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-AppBar baseAppBar({String title, PreferredSizeWidget bottom}) {
+AppBar baseAppBar(
+    {required String title, required PreferredSizeWidget bottom}) {
   return AppBar(
     iconTheme: const IconThemeData(color: Colors.black),
     title: Text(title, style: const TextStyle(color: Colors.black)),
-    brightness: Brightness.light,
     backgroundColor: Colors.white,
     bottom: bottom,
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
   );
 }

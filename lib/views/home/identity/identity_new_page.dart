@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,7 +57,9 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   }
 
   InputDecoration buildInputDecoration(
-      {String assetIcon, String labelText, String hintText}) {
+      {required String assetIcon,
+      required String labelText,
+      required String hintText}) {
     return InputDecoration(
       icon: SvgPicture.asset(assetIcon),
       labelText: labelText,
@@ -70,28 +71,31 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     );
   }
 
-  Widget buildInputField({Widget textFieldChild, String errorText}) {
+  Widget buildInputField(
+      {required Widget textFieldChild, required String errorText}) {
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        child: Column(
-          children: <Widget>[
-            Stack(children: <Widget>[
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
               Row(
                 children: <Widget>[
                   Expanded(child: textFieldChild),
                 ],
               ),
-            ]),
-            Container(
-              height: 1,
-              color: errorText != null
-                  ? WalletColor.accent
-                  : WalletColor.middleGrey,
-              margin: const EdgeInsets.only(top: 6),
-            ),
-            if (errorText != null) ErrorRowWidget(errorText: errorText)
-          ],
-        ));
+            ],
+          ),
+          Container(
+            height: 1,
+            color:
+                errorText != null ? WalletColor.accent : WalletColor.middleGrey,
+            margin: const EdgeInsets.only(top: 6),
+          ),
+          if (errorText != null) ErrorRowWidget(errorText: errorText)
+        ],
+      ),
+    );
   }
 
   @override
@@ -108,68 +112,81 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
               child: const AvatarWidget(width: 80),
             ),
             Expanded(
-                child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12)),
-                        color: WalletColor.white),
-                    child: Form(
-                      child: ListView(
-                        children: <Widget>[
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  maxLength: 16,
-                                  keyboardType: TextInputType.text,
-                                  onChanged: (String value) =>
-                                      store.name = value.trim(),
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/name.svg',
-                                    labelText: '名称*',
-                                    hintText: '输入名称',
-                                  )),
-                              errorText: store.error.username),
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  onChanged: (value) => store.email = value,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/email.svg',
-                                    labelText: '邮箱',
-                                    hintText: '输入邮箱',
-                                  )),
-                              errorText: store.error.email),
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  onChanged: (value) => store.phone = value,
-                                  keyboardType: TextInputType.phone,
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/phone.svg',
-                                    labelText: '手机',
-                                    hintText: '输入手机号',
-                                  )),
-                              errorText: store.error.phone),
-                          buildInputField(
-                              textFieldChild: TextField(
-                                  onChanged: (value) => store.birthday = value,
-                                  keyboardType: TextInputType.datetime,
-                                  decoration: buildInputDecoration(
-                                    assetIcon: 'assets/icons/birth.svg',
-                                    labelText: '生日',
-                                    hintText: 'YYYY-MM-DD',
-                                  )),
-                              errorText: store.error.birthday),
-                          Container(
-                              margin: const EdgeInsets.only(top: 100),
-                              child: WalletTheme.button(
-                                  text: '确定创建身份',
-                                  onPressed: btnDisabled() || isAdding
-                                      ? null
-                                      : _addOnPressed))
-                        ],
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                  color: WalletColor.white,
+                ),
+                child: Form(
+                  child: ListView(
+                    children: <Widget>[
+                      buildInputField(
+                        textFieldChild: TextField(
+                          maxLength: 16,
+                          keyboardType: TextInputType.text,
+                          onChanged: (String value) =>
+                              store.name = value.trim(),
+                          decoration: buildInputDecoration(
+                            assetIcon: 'assets/icons/name.svg',
+                            labelText: '名称*',
+                            hintText: '输入名称',
+                          ),
+                        ),
+                        errorText: store.error.username!,
                       ),
-                    )))
+                      buildInputField(
+                        textFieldChild: TextField(
+                          onChanged: (value) => store.email = value,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: buildInputDecoration(
+                            assetIcon: 'assets/icons/email.svg',
+                            labelText: '邮箱',
+                            hintText: '输入邮箱',
+                          ),
+                        ),
+                        errorText: store.error.email!,
+                      ),
+                      buildInputField(
+                        textFieldChild: TextField(
+                          onChanged: (value) => store.phone = value,
+                          keyboardType: TextInputType.phone,
+                          decoration: buildInputDecoration(
+                            assetIcon: 'assets/icons/phone.svg',
+                            labelText: '手机',
+                            hintText: '输入手机号',
+                          ),
+                        ),
+                        errorText: store.error.phone!,
+                      ),
+                      buildInputField(
+                        textFieldChild: TextField(
+                          onChanged: (value) => store.birthday = value,
+                          keyboardType: TextInputType.datetime,
+                          decoration: buildInputDecoration(
+                            assetIcon: 'assets/icons/birth.svg',
+                            labelText: '生日',
+                            hintText: 'YYYY-MM-DD',
+                          ),
+                        ),
+                        errorText: store.error.birthday!,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 100),
+                        child: WalletTheme.button(
+                          text: '确定创建身份',
+                          onPressed:
+                              btnDisabled() || isAdding ? null : _addOnPressed,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

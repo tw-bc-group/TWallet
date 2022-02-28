@@ -12,13 +12,13 @@ mixin _$TransferStore on _TransferStore, Store {
   final _$payerDIDAtom = Atom(name: '_TransferStore.payerDID');
 
   @override
-  String get payerDID {
+  String? get payerDID {
     _$payerDIDAtom.reportRead();
     return super.payerDID;
   }
 
   @override
-  set payerDID(String value) {
+  set payerDID(String? value) {
     _$payerDIDAtom.reportWrite(value, super.payerDID, () {
       super.payerDID = value;
     });
@@ -27,13 +27,13 @@ mixin _$TransferStore on _TransferStore, Store {
   final _$balanceAtom = Atom(name: '_TransferStore.balance');
 
   @override
-  String get balance {
+  String? get balance {
     _$balanceAtom.reportRead();
     return super.balance;
   }
 
   @override
-  set balance(String value) {
+  set balance(String? value) {
     _$balanceAtom.reportWrite(value, super.balance, () {
       super.balance = value;
     });
@@ -42,13 +42,13 @@ mixin _$TransferStore on _TransferStore, Store {
   final _$amountAtom = Atom(name: '_TransferStore.amount');
 
   @override
-  String get amount {
+  String? get amount {
     _$amountAtom.reportRead();
     return super.amount;
   }
 
   @override
-  set amount(String value) {
+  set amount(String? value) {
     _$amountAtom.reportWrite(value, super.amount, () {
       super.amount = value;
     });
@@ -57,13 +57,13 @@ mixin _$TransferStore on _TransferStore, Store {
   final _$payeeDIDAtom = Atom(name: '_TransferStore.payeeDID');
 
   @override
-  String get payeeDID {
+  String? get payeeDID {
     _$payeeDIDAtom.reportRead();
     return super.payeeDID;
   }
 
   @override
-  set payeeDID(String value) {
+  set payeeDID(String? value) {
     _$payeeDIDAtom.reportWrite(value, super.payeeDID, () {
       super.payeeDID = value;
     });
@@ -73,7 +73,7 @@ mixin _$TransferStore on _TransferStore, Store {
       ActionController(name: '_TransferStore');
 
   @override
-  void resetAmountError(String value) {
+  void resetAmountError(String? value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
         name: '_TransferStore.resetAmountError');
     try {
@@ -84,7 +84,7 @@ mixin _$TransferStore on _TransferStore, Store {
   }
 
   @override
-  void resetAddressError(String value) {
+  void resetAddressError(String? value) {
     final _$actionInfo = _$_TransferStoreActionController.startAction(
         name: '_TransferStore.resetAddressError');
     try {
@@ -139,13 +139,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$amountAtom = Atom(name: '_FormErrorState.amount');
 
   @override
-  String get amount {
+  String? get amount {
     _$amountAtom.reportRead();
     return super.amount;
   }
 
   @override
-  set amount(String value) {
+  set amount(String? value) {
     _$amountAtom.reportWrite(value, super.amount, () {
       super.amount = value;
     });
@@ -154,13 +154,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$payeeDIDAtom = Atom(name: '_FormErrorState.payeeDID');
 
   @override
-  String get payeeDID {
+  String? get payeeDID {
     _$payeeDIDAtom.reportRead();
     return super.payeeDID;
   }
 
   @override
-  set payeeDID(String value) {
+  set payeeDID(String? value) {
     _$payeeDIDAtom.reportWrite(value, super.payeeDID, () {
       super.payeeDID = value;
     });

@@ -36,17 +36,21 @@ class _HomePageState extends State<HomePage>
 
   static const _tabs = [
     HomePageTab(
-        text: 'CBDC',
-        icon: ImageIcon(AssetImage('assets/icons/tab-assets.png'), size: 32)),
+      text: 'CBDC',
+      icon: ImageIcon(AssetImage('assets/icons/tab-assets.png'), size: 32),
+    ),
     HomePageTab(
-        text: '票券',
-        icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
+      text: '票券',
+      icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
+    ),
     HomePageTab(
-        text: '证书',
-        icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
+      text: '证书',
+      icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
+    ),
     HomePageTab(
-        text: '资产',
-        icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32)),
+      text: '资产',
+      icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
+    ),
   ];
 
   static final _tabViews = [
@@ -56,7 +60,7 @@ class _HomePageState extends State<HomePage>
     const AssetTab()
   ];
 
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   void initState() {

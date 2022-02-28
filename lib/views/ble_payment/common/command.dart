@@ -58,10 +58,12 @@ abstract class Command implements Built<Command, CommandBuilder> {
 
   factory Command([Function(CommandBuilder) updates]) = _$Command;
 
-  factory Command.build(CommandType type, {String param}) {
-    return Command((builder) => builder
-      ..type = type
-      ..param = param);
+  factory Command.build(CommandType type, {String? param}) {
+    return Command(
+      (builder) => builder
+        ..type = type
+        ..param = param,
+    );
   }
 
   Command._();

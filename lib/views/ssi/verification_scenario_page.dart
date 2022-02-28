@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
 import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/widgets/card_group.dart';
@@ -31,8 +31,8 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   final TextEditingController _controller = TextEditingController();
 
-  Set<VcType> selectedVcTypes;
-  String errorText;
+  late Set<VcType> selectedVcTypes;
+  String? errorText;
 
   String get name => _controller.text;
   List<IssuerResponse> issuers = [];
@@ -54,36 +54,39 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-        title: '需验证凭证',
-        withBottomBtn: true,
-        bodyBackColor: bgColor,
-        btnText: "确定并生成二维码",
-        btnOnPressed: () => _handleVsSubmit(),
-        errorText: errorText,
-        appBarActions: <Widget>[
-          ScanIcon(scanCallBack: _handleScanResult),
+      title: '需验证凭证',
+      withBottomBtn: true,
+      bodyBackColor: bgColor,
+      btnText: "确定并生成二维码",
+      btnOnPressed: () => _handleVsSubmit(),
+      errorText: errorText,
+      appBarActions: <Widget>[
+        ScanIcon(scanCallBack: _handleScanResult),
+      ],
+      child: ListView(
+        children: <Widget>[
+          Header(
+            title: '从以下凭证提供方选择需要验证的凭证',
+            textStyle: textStyle,
+            bgColor: bgColor,
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 50, right: 50),
+            width: 270,
+            height: 34,
+            child: TextField(
+              textAlign: TextAlign.center,
+              controller: _controller,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(3),
+                hintText: '请输入该场景名称',
+              ),
+            ),
+          ),
+          ..._form,
         ],
-        child: ListView(
-          children: <Widget>[
-            Header(
-                title: '从以下凭证提供方选择需要验证的凭证',
-                textStyle: textStyle,
-                bgColor: bgColor),
-            Container(
-                padding: const EdgeInsets.only(left: 50, right: 50),
-                width: 270,
-                height: 34,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  controller: _controller,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.all(3),
-                    hintText: '请输入该场景名称',
-                  ),
-                )),
-            ..._form,
-          ],
-        ));
+      ),
+    );
   }
 
   List<Widget> get _form {
@@ -106,10 +109,13 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
     final List<Widget> vcList = <Widget>[];
 
     for (final VcType vcType in issuer.vcTypes) {
-      vcList.add(VcTypeCard(
+      vcList.add(
+        VcTypeCard(
           vcType: vcType,
           isSelected: selectedVcTypes.contains(vcType),
-          onTap: () => _toggleVcType(vcType)));
+          onTap: () => _toggleVcType(vcType),
+        ),
+      );
     }
 
     return CardGroup(name: issuer.name, children: vcList);
@@ -141,17 +147,21 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
       return;
     }
 
-    if (errorText != null) {
-      setState(() {
-        errorText = null;
-      });
-    }
+    setState(() {
+      errorText = null;
+    });
 
     try {
       await _apiProvider.patchVerifier(
-          SsiService.getSelectDid(), name, vcTypes);
-      Application.router.navigateTo(context, Routes.verificationScenarioQrPage,
-          routeSettings: RouteSettings(arguments: name));
+        SsiService.getSelectDid(),
+        name,
+        vcTypes,
+      );
+      Application.router.navigateTo(
+        context,
+        Routes.verificationScenarioQrPage,
+        routeSettings: RouteSettings(arguments: name),
+      );
     } catch (err) {
       await hintDialogHelper(context, DialogType.error, "$err");
     }
@@ -160,23 +170,37 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   Future<void> _handleScanResult(String scanResult) async {
     try {
       final op = await _apiProvider.verifierTravelBadgeVerify(
-          SsiService.getSelectDid(), scanResult);
+        SsiService.getSelectDid(),
+        scanResult,
+      );
       final res = op.first;
-      if (res.statusCode >= 200 && res.statusCode < 300) {
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
         if (res.data['result']['overdue'] as String != 'FALSE') {
-          await hintDialogHelper(context, DialogType.error, "验证失败",
-              subText: "通行证已过期");
+          await hintDialogHelper(
+            context,
+            DialogType.error,
+            "验证失败",
+            subText: "通行证已过期",
+          );
           return;
         }
         if (res.data['result']['verify_signature'] as String != 'TRUE') {
-          await hintDialogHelper(context, DialogType.error, "验证失败",
-              subText: "验证签名失败");
+          await hintDialogHelper(
+            context,
+            DialogType.error,
+            "验证失败",
+            subText: "验证签名失败",
+          );
           return;
         }
         await hintDialogHelper(context, DialogType.success, "验证成功");
       } else {
-        await hintDialogHelper(context, DialogType.error, "验证失败",
-            subText: res.statusMessage);
+        await hintDialogHelper(
+          context,
+          DialogType.error,
+          "验证失败",
+          subText: res.statusMessage!,
+        );
       }
     } catch (err) {
       printError(info: "$err");

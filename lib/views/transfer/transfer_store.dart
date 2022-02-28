@@ -10,18 +10,18 @@ abstract class _TransferStore with Store {
   final FormErrorState error = FormErrorState();
 
   @observable
-  String payerDID;
+  String? payerDID;
 
   @observable
-  String balance;
+  String? balance;
 
   @observable
-  String amount;
+  String? amount;
 
   @observable
-  String payeeDID;
+  String? payeeDID;
 
-  List<ReactionDisposer> _disposers;
+  List<ReactionDisposer>? _disposers;
 
   void setupErrorDisposers() {
     _disposers = [
@@ -31,23 +31,23 @@ abstract class _TransferStore with Store {
   }
 
   void dispose() {
-    for (final d in _disposers) {
+    for (final d in _disposers!) {
       d();
     }
   }
 
   void validateAll() {
-    validateAmount(amount);
-    validatePayeeDID(payeeDID);
+    validateAmount(amount!);
+    validatePayeeDID(payeeDID!);
   }
 
   @action
-  void resetAmountError(String value) {
+  void resetAmountError(String? value) {
     error.amount = null;
   }
 
   @action
-  void resetAddressError(String value) {
+  void resetAddressError(String? value) {
     error.payeeDID = null;
   }
 
@@ -58,7 +58,7 @@ abstract class _TransferStore with Store {
       final int indexOfDot = value.indexOf('.');
       if (res <= 0) {
         error.amount = '请输入大于 0 的金额';
-      } else if (res > double.parse(balance)) {
+      } else if (res > double.parse(balance!)) {
         error.amount = '金额超过您目前的余额';
       } else if (indexOfDot >= 0 &&
           value.length - indexOfDot >
@@ -95,10 +95,10 @@ class FormErrorState = _FormErrorState with _$FormErrorState;
 
 abstract class _FormErrorState with Store {
   @observable
-  String amount;
+  String? amount;
 
   @observable
-  String payeeDID;
+  String? payeeDID;
 
   @computed
   bool get hasErrors => amount != null || payeeDID != null;
