@@ -20,7 +20,7 @@ abstract class TxReceive implements Built<TxReceive, TxReceiveBuilder> {
     return serializers.serialize(this) as Map<String, dynamic>;
   }
 
-  static TxReceive fromJson(Map<String, dynamic> json) {
+  static TxReceive? fromJson(Map<String, dynamic> json) {
     return serializers.deserializeWith(TxReceive.serializer, json);
   }
 

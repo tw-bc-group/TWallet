@@ -6,7 +6,7 @@ import 'package:tw_wallet_ui/views/home/assets/home_list_item.dart';
 import 'package:tw_wallet_ui/views/home/assets/home_list_view.dart';
 
 class CertificationTab extends StatelessWidget {
-  const CertificationTab({required Key key}) : super(key: key);
+  const CertificationTab({Key? key}) : super(key: key);
 
   void showCertification() {
     YYDialog().build()
