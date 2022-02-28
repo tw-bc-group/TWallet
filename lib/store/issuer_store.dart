@@ -9,7 +9,7 @@ part 'issuer_store.g.dart';
 class IssuerStore = _IssuerStore with _$IssuerStore;
 
 abstract class _IssuerStore with Store {
-  List<IssuerResponse> _issuers;
+  late List<IssuerResponse> _issuers;
 
   Future<void> setIssuer(IssuerResponse issuer) async {
     _issuers = issuers;

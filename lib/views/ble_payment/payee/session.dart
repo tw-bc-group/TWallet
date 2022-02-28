@@ -138,7 +138,7 @@ class Session {
             EthTxInfo.fromDecodedRlp(decode(hexToBytes(command.param!)));
 
         final List<dynamic> params = Get.find<ContractService>()
-            .nftTokenContract
+            .nftTokenContract!
             .decodeParameters('safeTransferFrom', ethTxInfo.data);
 
         final Optional<String> recoverPubKey = ethTxInfo.recoverPublicKey();

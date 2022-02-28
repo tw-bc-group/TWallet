@@ -12,9 +12,9 @@ class Application {
 
   static Env globalEnv = Env.fromDefault();
 
-  static String appName;
+  static String appName = '';
 
-  static FluroRouter router;
+  static FluroRouter router = FluroRouter.appRouter;
 
   /// 所有获取配置的唯一入口
   Map<String, String> get config {

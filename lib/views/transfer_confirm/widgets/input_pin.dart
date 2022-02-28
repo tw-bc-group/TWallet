@@ -48,10 +48,10 @@ class InputPinWidgetState extends State<InputPinWidget> {
     final encrypt = encrypt_tool.Encrypter(
       encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc),
     );
-    final String encryptedString =
+    final String? encryptedString =
         await Get.find<SecureStorage>().get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
-        encrypt_tool.Encrypted.fromBase64(encryptedString);
+        encrypt_tool.Encrypted.fromBase64(encryptedString!);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       widget.completer!.complete(PincodeService.createToken());

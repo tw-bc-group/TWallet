@@ -21,7 +21,7 @@ class VcStore {
   List<VerifiableCredential> get vcs => rxVcs.toList();
 
   void addVc(VerifiableCredential vc) {
-    removeVc(vc.vcTypeId);
+    removeVc(vc.vcTypeId!);
     rxVcs.add(vc);
   }
 

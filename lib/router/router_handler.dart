@@ -36,17 +36,22 @@ Handler newWalletHandler = Handler(
 );
 
 Handler newIdentityHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return IdentityNewPage();
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return IdentityNewPage();
+  },
+);
 
 Handler homeHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return Home(
-      defaultIndex: int.parse(Optional.ofNullable(params['index'])
-          .map((indexes) => indexes.first)
-          .orElse('0')));
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return Home(
+      defaultIndex: int.parse(
+        Optional.ofNullable(params['index'])
+            .map((indexes) => indexes.first)
+            .orElse('0'),
+      ),
+    );
+  },
+);
 
 Handler inputPinHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -67,10 +72,11 @@ Handler confirmMnemonicsHandler = Handler(
 );
 
 Handler profileHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  final String id = params['id'].first;
-  return ProfilePage(id: id);
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    final String id = params['id']!.first;
+    return ProfilePage(id: id);
+  },
+);
 
 Handler transferTwPointsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -85,23 +91,27 @@ Handler txListHandler = Handler(
 );
 
 Handler txListDetailsHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return TxListDetailsPage();
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return TxListDetailsPage();
+  },
+);
 
 Handler transferConfirmHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    final String amount = params['amount'].first;
-    final String toAddress = params['toAddress'].first;
-    final String currency = params['currency'].first;
+    final String amount = params['amount']!.first;
+    final String toAddress = params['toAddress']!.first;
+    final String currency = params['currency']!.first;
     return TransferConfirmPage(
-        currency: currency, amount: amount, toAddress: toAddress);
+      currency: currency,
+      amount: amount,
+      toAddress: toAddress,
+    );
   },
 );
 
 Handler certificateHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    final String id = params['id'].first;
+    final String id = params['id']!.first;
     return HealthCertificatePage(id: id);
   },
 );
@@ -121,16 +131,17 @@ Handler qrScannerHandler = Handler(
 Handler healthCodeHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return HealthCodePage(
-        params['id'].first,
-        Optional.ofNullable(params['firstRefresh'])
-            .flatMap((v) => Optional.ofNullable(v[0]))
-            .map((v) {
-          if (v.toLowerCase() == 'true') {
-            return FirstRefreshState.enabled;
-          } else {
-            return FirstRefreshState.disabled;
-          }
-        }).orElse(FirstRefreshState.enabled));
+      params['id']!.first,
+      Optional.ofNullable(params['firstRefresh'])
+          .flatMap((v) => Optional.ofNullable(v[0]))
+          .map((v) {
+        if (v.toLowerCase() == 'true') {
+          return FirstRefreshState.enabled;
+        } else {
+          return FirstRefreshState.disabled;
+        }
+      }).orElse(FirstRefreshState.enabled),
+    );
   },
 );
 
@@ -142,13 +153,13 @@ Handler healthCertificationPageHandler = Handler(
 
 Handler identityDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return IdentityDetailPage(id: params['id'].first);
+    return IdentityDetailPage(id: params['id']!.first);
   },
 );
 
 Handler dappHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return DAppPage(id: params['id'].first);
+    return DAppPage(id: params['id']!.first);
   },
 );
 
@@ -171,27 +182,32 @@ Handler composeVcPageHandler = Handler(
 );
 
 Handler passPageHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
-  return PassPage();
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+    return PassPage();
+  },
+);
 
 Handler applyVcPageHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return ApplyVcPage();
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ApplyVcPage();
+  },
+);
 
 Handler verificationScenarioPageHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
-  return VerificationScenarioPage();
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+    return VerificationScenarioPage();
+  },
+);
 
 Handler verificationScenarioQrPageHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
-  final name = context.settings.arguments as String;
-  return VerificationScenarioQrPage(name: name);
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> parms) {
+    final name = context.settings.arguments as String;
+    return VerificationScenarioQrPage(name: name);
+  },
+);
 
 Handler newVcPageHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return NewVcPage();
-});
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return NewVcPage();
+  },
+);

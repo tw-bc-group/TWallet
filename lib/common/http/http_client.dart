@@ -10,39 +10,39 @@ void showErrorDialog(DioError err) {
   String errorMessage = '未知错误';
   DialogType _hintType = DialogType.error;
 
-  if (err.type == DioErrorType.CONNECT_TIMEOUT ||
-      err.type == DioErrorType.SEND_TIMEOUT ||
-      err.type == DioErrorType.RECEIVE_TIMEOUT) {
+  if (err.type == DioErrorType.connectTimeout ||
+      err.type == DioErrorType.sendTimeout ||
+      err.type == DioErrorType.receiveTimeout) {
     _hintType = DialogType.network;
   }
 
   switch (err.type) {
-    case DioErrorType.CONNECT_TIMEOUT:
+    case DioErrorType.connectTimeout:
       errorMessage = '连接超时';
       break;
 
-    case DioErrorType.SEND_TIMEOUT:
+    case DioErrorType.sendTimeout:
       errorMessage = '发送超时';
       break;
 
-    case DioErrorType.RECEIVE_TIMEOUT:
+    case DioErrorType.receiveTimeout:
       errorMessage = '接收超时';
       break;
 
-    case DioErrorType.CANCEL:
+    case DioErrorType.cancel:
       errorMessage = '用户取消';
       break;
 
     default:
       if (err.response != null) {
-        if (err.response.statusCode == 400) {
-          if (err.response.data['code'] == 40000) {
-            errorMessage = err.response.data['msg'] as String;
+        if (err.response!.statusCode == 400) {
+          if (err.response!.data['code'] == 40000) {
+            errorMessage = err.response!.data['msg'] as String;
           } else {
             errorMessage = '请求失败';
           }
         }
-        if (err.response.statusCode >= 500) {
+        if (err.response!.statusCode! >= 500) {
           errorMessage = '服务端不响应';
         }
       }
@@ -89,8 +89,11 @@ class HttpClient {
   Future<Optional<Response>> post(String url, Map<String, dynamic> data,
       {bool loading = true, bool throwError = false}) async {
     return _dio
-        .post(url,
-            data: data, options: Options(extra: {'withoutLoading': !loading}))
+        .post(
+          url,
+          data: data,
+          options: Options(extra: {'withoutLoading': !loading}),
+        )
         .then((response) => Optional.of(response))
         .catchError((error) {
       if (throwError) {
@@ -105,8 +108,11 @@ class HttpClient {
   Future<Optional<Response>> patch(String url, Map<String, dynamic> data,
       {bool loading = true, bool throwError = false}) async {
     return _dio
-        .patch(url,
-            data: data, options: Options(extra: {'withoutLoading': !loading}))
+        .patch(
+          url,
+          data: data,
+          options: Options(extra: {'withoutLoading': !loading}),
+        )
         .then((response) => Optional.of(response))
         .catchError((error) {
       if (throwError) {

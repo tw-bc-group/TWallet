@@ -14,7 +14,7 @@ extension _SecureStorageItemExtension on SecureStorageItem {
 class SecureStorage {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  Future<String> get(SecureStorageItem item) async {
+  Future<String?> get(SecureStorageItem item) async {
     return _storage.read(key: item.asKey());
   }
 

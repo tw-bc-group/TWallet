@@ -44,13 +44,15 @@ class _ComposeVcPageState extends State<ComposeVcPage> {
         final VcType vcType = _issuerStore
             .getVcTypes()
             .firstWhere((vcType) => vcType.id == vcTypeId);
-        _vcCards.add(VerifiableCredentialCard(
-          vc: VerifiableCredential(
-            name: vcType.name,
-            issuer: _issuerStore.getIssuerNameByVcTypeId(vcTypeId),
-            content: vcType.content.toList(),
+        _vcCards.add(
+          VerifiableCredentialCard(
+            vc: VerifiableCredential(
+              name: vcType.name,
+              issuer: _issuerStore.getIssuerNameByVcTypeId(vcTypeId),
+              content: vcType.content.toList(),
+            ),
           ),
-        ));
+        );
         // list.add(_lackVc(vcName));
         _hasAllNeededVcs = false;
       }
@@ -64,12 +66,13 @@ class _ComposeVcPageState extends State<ComposeVcPage> {
       child: Stack(
         children: <Widget>[
           ListView(
-              padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-              children: <Widget>[
-                Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"),
-                ..._vcCards,
-                _bottom(context),
-              ]),
+            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            children: <Widget>[
+              Header(title: "【${vpReq.name}】请求验证以下凭证\n请确认是否同意？"),
+              ..._vcCards,
+              _bottom(context),
+            ],
+          ),
         ],
       ),
     );
@@ -89,7 +92,8 @@ class _ComposeVcPageState extends State<ComposeVcPage> {
 
   Future<void> _verifyAndGetTravelBadge(BuildContext context) async {
     try {
-      final List<String> vcTokens = _acquiredVcs.map((vc) => vc.token).toList();
+      final List<String?> vcTokens =
+          _acquiredVcs.map((vc) => vc.token).toList();
       final VerifiableCredentialTokenResponse vctr =
           await SsiService.verifyAndGetPassport(_store.vpReq.id, vcTokens);
       final vcPass = VcPass(name: vpReq.name, token: vctr.token);

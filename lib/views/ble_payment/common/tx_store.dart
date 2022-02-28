@@ -52,7 +52,10 @@ class OfflineTxStore {
         final TxReceive offlineTx = tx as TxReceive;
         try {
           await Get.find<ApiProvider>().transferDcepV2(
-              offlineTx.from, offlineTx.publicKey, offlineTx.tx);
+            offlineTx.from,
+            offlineTx.publicKey,
+            offlineTx.tx,
+          );
         } catch (e) {
           log.error('offlineTx transfer error: $e');
         }
@@ -64,7 +67,7 @@ class OfflineTxStore {
 
     await _store.getListLike('$offlineTxPrefix: %').then((list) {
       if (null != list && list.isNotEmpty) {
-        _txQueue.addAll(list.map((item) => TxReceive.fromJson(item)));
+        _txQueue.addAll(list.map((item) => TxReceive.fromJson(item)!));
       }
     });
 

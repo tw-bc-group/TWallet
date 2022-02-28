@@ -21,54 +21,73 @@ class ApiProvider {
   Future<void> transferDcepV2(
       String from, String publicKey, String signedRawTx) {
     return _httpClient.post(
-        '/v2/token/transfer',
-        {
-          'fromAddress': from,
-          'fromPublicKey': publicKey,
-          'signedTransactionRawData': signedRawTx,
-        },
-        throwError: true);
+      '/v2/token/transfer',
+      {
+        'fromAddress': from,
+        'fromPublicKey': publicKey,
+        'signedTransactionRawData': signedRawTx,
+      },
+      throwError: true,
+    );
   }
 
   Future<Optional<Dcep>> redeemDcepV2(String address, DcepType type) {
-    return _httpClient.post('/v2/token/mint', {
-      'address': address,
-      'moneyType': type.toString()
-    }).then((res) => Future.value(res.map((response) =>
-        ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
-            as Dcep)));
+    return _httpClient.post(
+      '/v2/token/mint',
+      {'address': address, 'moneyType': type.toString()},
+    ).then(
+      (res) => Future.value(
+        res.map(
+          (response) =>
+              ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
+                  as Dcep,
+        ),
+      ),
+    );
   }
 
   Future<Optional<List<Dcep>>> fetchDcepV2(
     String address,
   ) {
     return _httpClient.get('/v2/token?address=$address', loading: false).then(
-        (res) => Future.value(
-            res.map((response) => ApiResponse.fromJson(response.data, const [
-                  FullType(BuiltList, [FullType(Dcep)])
-                ]).result.toList() as List<Dcep>)));
+          (res) => Future.value(
+            res.map(
+              (response) => ApiResponse.fromJson(response.data, const [
+                FullType(BuiltList, [FullType(Dcep)])
+              ]).result.toList() as List<Dcep>,
+            ),
+          ),
+        );
   }
 
   Future<Optional<TwBalance>> fetchPointV1(
-      {@required String address, bool withLoading}) async {
+      {required String address, bool? withLoading}) async {
     return _httpClient
         .get('/v1/token/$address', loading: withLoading ?? true)
         .then((res) {
-      return Future.value(res.map((response) => ApiResponse.fromJson(
+      return Future.value(
+        res.map(
+          (response) => ApiResponse.fromJson(
             response.data,
             const [FullType(TwBalance)],
-          ).result as TwBalance));
+          ).result as TwBalance,
+        ),
+      );
     });
   }
 
   Future<Optional<Contract>> fetchContractAbiV1(
-      {@required String contractName}) async {
+      {required String contractName}) async {
     return _httpClient
         .get('/v1/contracts/$contractName', loading: false, throwError: true)
         .then((res) {
-      return Future.value(res.map((response) =>
-          ApiResponse.fromJson(response.data, const [FullType(Contract)]).result
-              as Contract));
+      return Future.value(
+        res.map(
+          (response) =>
+              ApiResponse.fromJson(response.data, const [FullType(Contract)])
+                  .result as Contract,
+        ),
+      );
     });
   }
 
@@ -101,18 +120,24 @@ class ApiProvider {
         .get('/v1/transactions?from_addr=$fromAddress', throwError: true)
         .then((res) {
       return Future.value(
-          res.map((response) => ApiResponse.fromJson(response.data, const [
-                FullType(BuiltList, [FullType(Transaction)])
-              ]).result.toList() as List<Transaction>));
+        res.map(
+          (response) => ApiResponse.fromJson(response.data, const [
+            FullType(BuiltList, [FullType(Transaction)])
+          ]).result.toList() as List<Transaction>,
+        ),
+      );
     });
   }
 
-  Future<Optional<Transaction>> fetchTxDetails(
-      {@required String txHash}) async {
+  Future<Optional<Transaction>> fetchTxDetails({required String txHash}) async {
     return _httpClient.get('/v1/transactions/$txHash').then((res) {
-      return Future.value(res.map((response) =>
-          ApiResponse.fromJson(response.data, [const FullType(Transaction)])
-              .result as Transaction));
+      return Future.value(
+        res.map(
+          (response) =>
+              ApiResponse.fromJson(response.data, [const FullType(Transaction)])
+                  .result as Transaction,
+        ),
+      );
     });
   }
 
@@ -124,17 +149,30 @@ class ApiProvider {
       'temperature': temperature,
       'contact': contact,
       "symptoms": symptoms
-    }).then((res) => Future.value(res.map((response) => ApiResponse.fromJson(
-            response.data, [const FullType(HealthCertificationToken)]).result
-        as HealthCertificationToken)));
+    }).then(
+      (res) => Future.value(
+        res.map(
+          (response) => ApiResponse.fromJson(
+            response.data,
+            [const FullType(HealthCertificationToken)],
+          ).result as HealthCertificationToken,
+        ),
+      ),
+    );
   }
 
   Future<Optional<HealthCertificationToken>> fetchHealthCertificate(
       String did) {
-    return _httpClient.get('/v1/health-certifications/$did').then((res) =>
-        Future.value(res.map((response) => ApiResponse.fromJson(
-                response.data, [const FullType(HealthCertificationToken)])
-            .result as HealthCertificationToken)));
+    return _httpClient.get('/v1/health-certifications/$did').then(
+          (res) => Future.value(
+            res.map(
+              (response) => ApiResponse.fromJson(
+                response.data,
+                [const FullType(HealthCertificationToken)],
+              ).result as HealthCertificationToken,
+            ),
+          ),
+        );
   }
 
   Future<Optional<Response>> verifyHealthCertificationToken(String token) {
@@ -148,10 +186,15 @@ class ApiProvider {
   }
 
   Future<Optional<List<IssuerResponse>>> fetchIssuers() {
-    return _httpClient.get('/v2/vc-market/issuers').then((res) => Future.value(
-        res.map((response) => ApiResponse.fromJson(response.data, const [
-              FullType(BuiltList, [FullType(IssuerResponse)])
-            ]).result.toList() as List<IssuerResponse>)));
+    return _httpClient.get('/v2/vc-market/issuers').then(
+          (res) => Future.value(
+            res.map(
+              (response) => ApiResponse.fromJson(response.data, const [
+                FullType(BuiltList, [FullType(IssuerResponse)])
+              ]).result.toList() as List<IssuerResponse>,
+            ),
+          ),
+        );
   }
 
   Future<Optional<HealthCertificationToken>> applyVc(
@@ -162,9 +205,16 @@ class ApiProvider {
       'name': name,
       'phone': phone,
       'vcType': vcTypeId,
-    }).then((res) => Future.value(res.map((response) => ApiResponse.fromJson(
-            response.data, [const FullType(HealthCertificationToken)]).result
-        as HealthCertificationToken)));
+    }).then(
+      (res) => Future.value(
+        res.map(
+          (response) => ApiResponse.fromJson(
+            response.data,
+            [const FullType(HealthCertificationToken)],
+          ).result as HealthCertificationToken,
+        ),
+      ),
+    );
   }
 
   Future<Optional<Response>> patchVerifier(
@@ -183,11 +233,12 @@ class ApiProvider {
   Future<Optional<Response>> verifierTravelBadgeVerify(
       String verifierId, String token) {
     return _httpClient.post(
-        '/v2/verifier/travel-badge/verify',
-        {
-          "verifierId": verifierId,
-          "token": token,
-        },
-        throwError: true);
+      '/v2/verifier/travel-badge/verify',
+      {
+        "verifierId": verifierId,
+        "token": token,
+      },
+      throwError: true,
+    );
   }
 }

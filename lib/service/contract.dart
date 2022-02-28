@@ -6,7 +6,6 @@ import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
-import 'package:web3dart/contracts.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -18,11 +17,11 @@ class ContractService {
 
   final Map<String, Contract> contracts;
 
-  Contract get tokenContract => contracts[contractsOnChain[0]];
+  Contract? get tokenContract => contracts[contractsOnChain[0]];
 
-  Contract get identitiesContract => contracts[contractsOnChain[1]];
+  Contract? get identitiesContract => contracts[contractsOnChain[1]];
 
-  Contract get nftTokenContract => contracts[contractsOnChain[2]];
+  Contract? get nftTokenContract => contracts[contractsOnChain[2]];
 
   static Future<ContractService> init() async {
     final Map<String, Contract> contracts = {};
@@ -60,9 +59,14 @@ class Contract {
         }
       });
 
-      return res.map((contract) => Contract(DeployedContract(
-          ContractAbi.fromJson(contract.abi, contractName),
-          EthereumAddress.fromHex(contract.address))));
+      return res.map(
+        (contract) => Contract(
+          DeployedContract(
+            ContractAbi.fromJson(contract.abi, contractName),
+            EthereumAddress.fromHex(contract.address),
+          ),
+        ),
+      );
     });
   }
 
@@ -71,17 +75,17 @@ class Contract {
   }
 
   List<dynamic> decodeParameters(String funcName, Uint8List data) {
-    return TupleType(contract
-            .function(funcName)
-            .parameters
-            .map((param) => param.type)
-            .toList())
-        .decode(data.buffer, 4)
-        .data;
+    return TupleType(
+      contract
+          .function(funcName)
+          .parameters
+          .map((param) => param.type)
+          .toList(),
+    ).decode(data.buffer, 4).data;
   }
 
   Transaction makeTransaction(String functionName, List<dynamic> parameters,
-      {int nonce}) {
+      {int? nonce}) {
     return Transaction.callContract(
       contract: contract,
       function: contract.function(functionName),
@@ -95,21 +99,29 @@ class Contract {
   void eventStream(String eventName, Function(List<dynamic>) onListen) {
     final listenedEvent = contract.event(eventName);
     web3Client
-        .events(FilterOptions.events(
-            contract: contract, event: contract.event(eventName)))
-        .listen((event) =>
-            onListen(listenedEvent.decodeResults(event.topics, event.data)));
+        .events(
+          FilterOptions.events(
+            contract: contract,
+            event: contract.event(eventName),
+          ),
+        )
+        .listen(
+          (event) =>
+              onListen(listenedEvent.decodeResults(event.topics!, event.data!)),
+        );
   }
 
   Future<List<dynamic>> callFunction(
       String publicKey, String functionName, List<dynamic>? parameters) async {
     return web3Client
         .call(
-            sender: EthereumAddress.fromHex(
-                BlockChainService.publicKeyToAddress(publicKey.substring(2))),
-            contract: contract,
-            function: contract.function(functionName),
-            params: parameters ?? [])
+      sender: EthereumAddress.fromHex(
+        BlockChainService.publicKeyToAddress(publicKey.substring(2)),
+      ),
+      contract: contract,
+      function: contract.function(functionName),
+      params: parameters ?? [],
+    )
         .then((res) {
       return res;
     });
@@ -117,29 +129,30 @@ class Contract {
 
   Future<bool> sendTransaction(
       String privateKey, String functionName, List<dynamic> parameters) async {
-    TransactionReceipt receipt;
-    final String hash = await web3Client
-        .credentialsFromPrivateKey(privateKey)
-        .then((credentials) => web3Client.sendTransaction(
-            credentials, makeTransaction(functionName, parameters ?? []),
-            fetchChainIdFromNetworkId: true));
+    TransactionReceipt? receipt;
+    final String hash =
+        await web3Client.credentialsFromPrivateKey(privateKey).then(
+              (credentials) => web3Client.sendTransaction(
+                credentials,
+                makeTransaction(functionName, parameters ?? []),
+                fetchChainIdFromNetworkId: true,
+              ),
+            );
 
     while (true) {
       await Future.delayed(const Duration(seconds: 2)).then((_) async {
-        receipt = await web3Client.getTransactionReceipt(hash);
+        receipt = (await web3Client.getTransactionReceipt(hash))!;
       });
 
-      if (receipt != null) {
-        break;
-      }
+      break;
     }
 
-    return receipt.status;
+    return receipt!.status!;
   }
 
   Future<String> signContractCall(
       String privateKey, String functionName, List<dynamic> parameters,
-      {int nonce}) async {
+      {int? nonce}) async {
     return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
       return web3Client
           .signTransaction(

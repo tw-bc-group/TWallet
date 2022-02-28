@@ -35,10 +35,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 typedef OperatorFunction = void Function(String id, String param);
 
 class DAppService {
-  static BuildContext context;
-  static WebViewController webviewController;
-  static DAppPageState dappPageStateInstance;
-  static String dappid;
+  static BuildContext? context;
+  static WebViewController? webviewController;
+  static DAppPageState? dappPageStateInstance;
+  static String? dappid;
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
     switch (method) {
@@ -84,22 +84,27 @@ class DAppService {
       final WebviewSignTransaction _signTransaction =
           WebviewSignTransaction.fromJson(json.decode(param));
       final pincodeValidate = await PincodeService.validate(
-          _signTransaction.token, _signTransaction.pincodeDialogStyle);
+        _signTransaction.token!,
+        _signTransaction.pincodeDialogStyle,
+      );
       if (pincodeValidate == null) {
         return reject(id, '');
       }
       final _transactionInfo = _signTransaction.transactionInfo;
       final Web3Client _web3Client =
           Web3Client(_transactionInfo.rpcUrl, Client());
-      final DecentralizedIdentity _identity =
+      final DecentralizedIdentity? _identity =
           Get.find<IdentityStore>().getIdentityById(_transactionInfo.accountId);
       final DeployedContract _contract = DeployedContract(
-          ContractAbi.fromJson(
-              _transactionInfo.contractAbi, _transactionInfo.contractName),
-          EthereumAddress.fromHex(_transactionInfo.contractAddress));
+        ContractAbi.fromJson(
+          _transactionInfo.contractAbi,
+          _transactionInfo.contractName,
+        ),
+        EthereumAddress.fromHex(_transactionInfo.contractAddress),
+      );
 
       final credentials = await _web3Client
-          .credentialsFromPrivateKey(_identity.accountInfo.priKey);
+          .credentialsFromPrivateKey(_identity!.accountInfo.priKey);
       final rawTx = await _web3Client.signTransaction(
         credentials,
         Transaction.callContract(
@@ -131,36 +136,42 @@ class DAppService {
         SendTransactionRequest.fromJson(json.decode(param));
     Get.find<ApiProvider>()
         .transferPoint(
-            _sendTransactionRequest.fromAddress,
-            _sendTransactionRequest.fromPublicKey,
-            _sendTransactionRequest.signedTransactionRawData)
+      _sendTransactionRequest.fromAddress,
+      _sendTransactionRequest.fromPublicKey,
+      _sendTransactionRequest.signedTransactionRawData,
+    )
         .then((data) {
-      data.map((response) => resolve(
+      data.map(
+        (response) => resolve(
           id,
           ApiResponse.fromJson(
-                  response.data, [const FullType(SendTransactionResponse)])
-              .result
-              .hash));
+            response.data,
+            [const FullType(SendTransactionResponse)],
+          ).result.hash,
+        ),
+      );
     }).catchError(() => reject(id, false));
   }
 
   static Future<void> qrCode(String id, _) async {
     resolve(
-        id,
-        Optional.ofNullable(
-                await Application.router.navigateTo(context, Routes.qrScanner))
-            .orElse(''));
+      id,
+      Optional.ofNullable(
+        await Application.router.navigateTo(context, Routes.qrScanner),
+      ).orElse(''),
+    );
   }
 
   static void peekAccount(String id, _) {
     final Tuple3<int, String, String> _keyPair =
         Get.find<MnemonicsStore>().peekKeys();
-    final DecentralizedIdentity _identity =
-        DecentralizedIdentity((builder) => builder
-          ..profileInfo.name = id
-          ..accountInfo.index = _keyPair.first
-          ..accountInfo.pubKey = _keyPair.second
-          ..accountInfo.priKey = _keyPair.third);
+    final DecentralizedIdentity _identity = DecentralizedIdentity(
+      (builder) => builder
+        ..profileInfo.name = id
+        ..accountInfo.index = _keyPair.first
+        ..accountInfo.pubKey = _keyPair.second
+        ..accountInfo.priKey = _keyPair.third,
+    );
     resolve(id, _identity.basicInfo());
   }
 
@@ -168,19 +179,26 @@ class DAppService {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param));
     final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
-    _mnemonicsStore.generateKeys((index, keys) =>
-        Future.value(DecentralizedIdentity((identity) => identity
-          ..profileInfo.name = DateTime.now().millisecondsSinceEpoch.toString()
-          ..accountInfo.pubKey = keys.first
-          ..accountInfo.priKey = keys.second
-          ..dappId = dappid
-          ..extra = createAccountParam.extra
-          ..accountInfo.index = index)).then(
-            (identity) => identity.register().then((success) {
-                  if (success) {
-                    resolve(id, identity.basicInfo());
-                  }
-                })));
+    _mnemonicsStore.generateKeys(
+      (index, keys) => Future.value(
+        DecentralizedIdentity(
+          (identity) => identity
+            ..profileInfo.name =
+                DateTime.now().millisecondsSinceEpoch.toString()
+            ..accountInfo.pubKey = keys.first
+            ..accountInfo.priKey = keys.second
+            ..dappId = dappid
+            ..extra = createAccountParam.extra
+            ..accountInfo.index = index,
+        ),
+      ).then(
+        (identity) => identity.register().then((success) {
+          if (success) {
+            resolve(id, identity.basicInfo());
+          }
+        }),
+      ),
+    );
   }
 
   static void getRootKey(String id, _) {
@@ -198,25 +216,28 @@ class DAppService {
 
   static void setStatusBarBackgroundColor(String id, String param) {
     if (DeviceInfo.isIOS()) {
-      return dappPageStateInstance
+      return dappPageStateInstance!
           .changeBackgroundColor(WalletTheme.rgbColor(param));
     }
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: WalletTheme.rgbColor(param),
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: WalletTheme.rgbColor(param),
+      ),
+    );
   }
 
   static void getAccounts(String id, _) {
-    if (dappid.isEmpty) {
+    if (dappid!.isEmpty) {
       resolve(id, null);
     } else {
       resolve(
-          id,
-          Get.find<IdentityStore>()
-              .identitiesWithDapp
-              .where((identity) => identity.dappId == dappid)
-              .map((identity) => identity.basicInfo())
-              .toList());
+        id,
+        Get.find<IdentityStore>()
+            .identitiesWithDapp
+            .where((identity) => identity.dappId == dappid)
+            .map((identity) => identity.basicInfo())
+            .toList(),
+      );
     }
   }
 
@@ -225,7 +246,7 @@ class DAppService {
       return resolve(id, null);
     }
 
-    resolve(id, Get.find<IdentityStore>().getIdentityById(param).basicInfo());
+    resolve(id, Get.find<IdentityStore>().getIdentityById(param)!.basicInfo());
   }
 
   static void getAccountByIds(String id, String param) {
@@ -238,7 +259,7 @@ class DAppService {
     param.split(',').forEach((accountId) {
       final identity = _identityStore.getIdentityById(accountId);
       result.add({
-        'id': identity.id,
+        'id': identity!.id,
         'address': identity.address,
         'publicKey': identity.accountInfo.pubKey,
         'index': identity.accountInfo.index
@@ -252,12 +273,13 @@ class DAppService {
     final encrypt_tool.Key aesKey =
         encrypt_tool.Key.fromUtf8('${pin}abcdefghijklmnopqrstuvwxyz');
     final encrypt = encrypt_tool.Encrypter(
-        encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc));
+      encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc),
+    );
     final SecureStorage _secureStorage = Get.find();
-    final String encryptedString =
+    final String? encryptedString =
         await _secureStorage.get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
-        encrypt_tool.Encrypted.fromBase64(encryptedString);
+        encrypt_tool.Encrypted.fromBase64(encryptedString!);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       resolve(id, true);
@@ -267,14 +289,16 @@ class DAppService {
   }
 
   static void resolve(String id, dynamic data) {
-    webviewController.evaluateJavascript(
-        'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})');
+    webviewController!.evaluateJavascript(
+      'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})',
+    );
   }
 
   static void reject(String id, dynamic data) {
-    webviewController
+    webviewController!
         // ignore: avoid_escaping_inner_quotes
         .evaluateJavascript(
-            'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});');
+      'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});',
+    );
   }
 }

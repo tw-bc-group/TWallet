@@ -52,15 +52,17 @@ abstract class DecentralizedIdentity extends Object
       };
 
   factory DecentralizedIdentity(
-          [void Function(DecentralizedIdentityBuilder) updates]) =>
-      _$DecentralizedIdentity((builder) => builder
-        ..id = Uuid().v1()
-        ..dappId = ""
-        ..extra = ""
-        ..update(updates));
+          [void Function(DecentralizedIdentityBuilder)? updates]) =>
+      _$DecentralizedIdentity(
+        (builder) => builder
+          ..id = const Uuid().v1()
+          ..dappId = ""
+          ..extra = ""
+          ..update(updates),
+      );
 
   Future<bool> register() async {
-    return Get.find<ContractService>().identitiesContract.sendTransaction(
+    return Get.find<ContractService>().identitiesContract!.sendTransaction(
         Get.find<MnemonicsStore>().firstPrivateKey, 'registerIdentity', [
       profileInfo.name,
       did.toString(),
@@ -77,40 +79,44 @@ abstract class DecentralizedIdentity extends Object
   }
 
   Future<void> redeemDcep(DcepType type) {
-    return Get.find<ApiProvider>()
-        .redeemDcepV2(address, type)
-        .then((res) => res.ifPresent((dcep) {
-              if (dcep.verify()) {
-                if (dcep.owner == address) {
-                  Get.find<DcepStore>().add(dcep);
-                }
+    return Get.find<ApiProvider>().redeemDcepV2(address, type).then(
+          (res) => res.ifPresent((dcep) {
+            if (dcep.verify()) {
+              if (dcep.owner == address) {
+                Get.find<DcepStore>().add(dcep);
               }
-            }));
+            }
+          }),
+        );
   }
 
   Future<String> signOfflinePayment(BigInt bill, String toAddress, int nonce) {
-    return Get.find<ContractService>().nftTokenContract.signContractCall(
-        accountInfo.priKey,
-        'safeTransferFrom',
-        [
-          EthereumAddress.fromHex(address),
-          EthereumAddress.fromHex(toAddress),
-          bill
-        ],
-        nonce: nonce);
+    return Get.find<ContractService>().nftTokenContract!.signContractCall(
+          accountInfo.priKey,
+          'safeTransferFrom',
+          [
+            EthereumAddress.fromHex(address),
+            EthereumAddress.fromHex(toAddress),
+            bill
+          ],
+          nonce: nonce,
+        );
   }
 
-  Future<bool> transferPoint({String toAddress, Amount amount}) async {
+  Future<bool> transferPoint(
+      {required String toAddress, required Amount amount}) async {
     return Get.find<ContractService>()
-        .tokenContract
+        .tokenContract!
         .signContractCall(accountInfo.priKey, 'transfer', [
       EthereumAddress.fromHex(toAddress),
       BigInt.parse(amount.original.toString()),
     ]).then((signedRawTx) {
       return Get.find<ApiProvider>()
           .transferPoint(address, accountInfo.pubKey, signedRawTx)
-          .then((res) =>
-              res.map((response) => response.statusCode == 200).orElse(false));
+          .then(
+            (res) =>
+                res.map((response) => response.statusCode == 200).orElse(false),
+          );
     });
   }
 
@@ -119,9 +125,10 @@ abstract class DecentralizedIdentity extends Object
   }
 
   factory DecentralizedIdentity.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-            specifiedType: const FullType(DecentralizedIdentity))
-        as DecentralizedIdentity;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(DecentralizedIdentity),
+    ) as DecentralizedIdentity;
   }
 
   DecentralizedIdentity._();

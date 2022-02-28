@@ -23,12 +23,14 @@ abstract class TwBalance extends Object
   TwBalance._();
 
   factory TwBalance.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(TwBalance)) as TwBalance;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(TwBalance),
+    ) as TwBalance;
   }
 
   static Future<Optional<TwBalance>> fetchBalance(
-      {String address, bool withLoading}) async {
+      {required String address, required bool withLoading}) async {
     return Get.find<ApiProvider>()
         .fetchPointV1(address: address, withLoading: withLoading);
   }

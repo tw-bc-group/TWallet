@@ -22,7 +22,7 @@ class DcepStore {
 
   Future<void> refresh() {
     if (null != owner) {
-      Get.find<ApiProvider>().fetchDcepV2(owner).then((res) {
+      Get.find<ApiProvider>().fetchDcepV2(owner!).then((res) {
         res.ifPresent((list) {
           _items.assignAll(list..sort((a, b) => b.compareTo(a)));
         });
@@ -37,7 +37,7 @@ class DcepStore {
         .selectedIdentityStream
         .listen((identity) => _updateOwner(identity.address));
 
-    Get.find<ContractService>().nftTokenContract.eventStream('TransferSingle',
+    Get.find<ContractService>().nftTokenContract!.eventStream('TransferSingle',
         (results) {
       if (null != owner) {
         final EthereumAddress from = results[1] as EthereumAddress;

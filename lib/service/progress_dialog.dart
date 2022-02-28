@@ -5,7 +5,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 
 class ProgressDialog {
   int count = 0;
-  YYDialog _dialog;
+  YYDialog? _dialog;
 
   void show() {
     count++;
@@ -22,7 +22,7 @@ class ProgressDialog {
 
     if (count == 0) {
       if (null != _dialog) {
-        _dialog.dismiss();
+        _dialog!.dismiss();
         _dialog = null;
       }
     }
@@ -35,14 +35,17 @@ class ProgressDialog {
       ..backgroundColor = WalletColor.white
       ..width = 160
       ..height = 160
-      ..widget(Container(
-        width: 60,
-        height: 60,
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(top: 50),
-        child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary)),
-      ))
+      ..widget(
+        Container(
+          width: 60,
+          height: 60,
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(top: 50),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(WalletColor.primary),
+          ),
+        ),
+      )
       ..show();
   }
 }

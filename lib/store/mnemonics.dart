@@ -14,7 +14,7 @@ const saveSplitTag = '|';
 const identityStartIndex = 1;
 
 class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
-  Tuple2<String, String> indexZeroKeys;
+  late Tuple2<String, String> indexZeroKeys;
 
   MnemonicsStore(Tuple2<int, String> value) : super(value) {
     generateIndexZeroKeys(value.second);
@@ -26,31 +26,38 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
 
   void generateIndexZeroKeys(String mnemonics) {
     indexZeroKeys = BlockChainService.generateKeys(
-        BlockChainService.generateHDWallet(mnemonics));
+      BlockChainService.generateHDWallet(mnemonics),
+    );
   }
 
   Tuple3<int, String, String> peekKeys() {
     final int nextIndex = index + 1;
     final keyPair = BlockChainService.generateKeys(
-        BlockChainService.generateHDWallet(mnemonics), nextIndex);
+      BlockChainService.generateHDWallet(mnemonics),
+      nextIndex,
+    );
     return Tuple3(nextIndex, keyPair.first, keyPair.second);
   }
 
   Tuple2<String, String> indexKeys(int index) {
     return BlockChainService.generateKeys(
-        BlockChainService.generateHDWallet(mnemonics), index);
+      BlockChainService.generateHDWallet(mnemonics),
+      index,
+    );
   }
 
   Future<dynamic> generateKeys(GenerateKeysCallback callBack) async {
-    return Future.value(BlockChainService.generateKeys(
-            BlockChainService.generateHDWallet(mnemonics), ++index))
-        .then((keys) => callBack(index, keys))
-        .then((res) {
+    return Future.value(
+      BlockChainService.generateKeys(
+        BlockChainService.generateHDWallet(mnemonics),
+        ++index,
+      ),
+    ).then((keys) => callBack(index, keys)).then((res) {
       return save().then((_) => res);
     });
   }
 
-  void brandNew({String mnemonics}) {
+  void brandNew({String? mnemonics}) {
     //the index 0 is used to call save identities contract
     value = Tuple2(identityStartIndex, mnemonics ?? bip39.generateMnemonic());
     generateIndexZeroKeys(value.second);
@@ -59,7 +66,7 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
   static Future<MnemonicsStore> init() async {
     Tuple2<int, String> value;
     final SecureStorage _secureStorage = Get.find();
-    final String saved = await _secureStorage.get(SecureStorageItem.mnemonics);
+    final String? saved = await _secureStorage.get(SecureStorageItem.mnemonics);
 
     if (null != saved) {
       final List<String> splits = saved.split(saveSplitTag);
@@ -92,13 +99,13 @@ abstract class MnemonicsBase with Store {
   String get mnemonics => value.second;
 
   @action
-  Future<void> save({int newIndex}) async {
-    if (newIndex != null) {
-      value = Tuple2(newIndex, value.second);
-    }
+  Future<void> save({required int newIndex}) async {
+    value = Tuple2(newIndex, value.second);
 
     final SecureStorage _secureStorage = Get.find();
     await _secureStorage.set(
-        SecureStorageItem.mnemonics, '$index$saveSplitTag$mnemonics');
+      SecureStorageItem.mnemonics,
+      '$index$saveSplitTag$mnemonics',
+    );
   }
 }

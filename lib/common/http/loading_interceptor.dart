@@ -6,26 +6,26 @@ class LoadingInterceptor extends InterceptorsWrapper {
   final ProgressDialog _dialog = g.Get.find();
 
   @override
-  Future onRequest(RequestOptions options) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (options.extra['withoutLoading'] != true) {
       _dialog.show();
     }
-    return super.onRequest(options);
+    super.onRequest(options, handler);
   }
 
   @override
-  Future onResponse(Response response) {
-    if (response.request.extra['withoutLoading'] != true) {
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    if (response.requestOptions.extra['withoutLoading'] != true) {
       _dialog.dismiss();
     }
-    return super.onResponse(response);
+    super.onResponse(response, handler);
   }
 
   @override
-  Future onError(DioError err) {
-    if (err.request.extra['withoutLoading'] != true) {
+  void onError(DioError err, ErrorInterceptorHandler handler) {
+    if (err.requestOptions.extra['withoutLoading'] != true) {
       _dialog.dismiss();
     }
-    return super.onError(err);
+    super.onError(err, handler);
   }
 }

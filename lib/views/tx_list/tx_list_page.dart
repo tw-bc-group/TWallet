@@ -1,5 +1,4 @@
 import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
@@ -31,16 +30,19 @@ class _TxListPageState extends State<TxListPage> {
 
   void _onTap(Transaction item) {
     final ie = _txType(item.fromAddress) == TxType.expense;
-    Navigator.pushNamed(context, Routes.txListDetails,
-        arguments: TxListDetailsPageArgs(
-          amount: item.amount.value.toString(),
-          time: parseDateTime(item.createTime),
-          status: item.txType,
-          fromAddress: item.fromAddress,
-          toAddress: item.toAddress,
-          fromAddressName: iStore.selectedIdentityName,
-          isExpense: ie,
-        ));
+    Navigator.pushNamed(
+      context,
+      Routes.txListDetails,
+      arguments: TxListDetailsPageArgs(
+        amount: item.amount.value.toString(),
+        time: parseDateTime(item.createTime),
+        status: item.txType,
+        fromAddress: item.fromAddress,
+        toAddress: item.toAddress,
+        fromAddressName: iStore.selectedIdentityName,
+        isExpense: ie,
+      ),
+    );
   }
 
   @override
@@ -52,11 +54,13 @@ class _TxListPageState extends State<TxListPage> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
-        title: 'DC/EP',
-        child: Observer(
-            builder: (context) => Column(
-                  children: <Widget>[buildHeader(), buildBody(), buildFooter()],
-                )));
+      title: 'DC/EP',
+      child: Observer(
+        builder: (context) => Column(
+          children: <Widget>[buildHeader(), buildBody(), buildFooter()],
+        ),
+      ),
+    );
   }
 
   Widget buildHeader() {
@@ -74,13 +78,17 @@ class _TxListPageState extends State<TxListPage> {
   Widget buildBody() {
     return Expanded(
       child: Container(
-          margin: const EdgeInsets.only(top: 34),
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              color: WalletColor.white),
-          child: buildListView()),
+        margin: const EdgeInsets.only(top: 34),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+          ),
+          color: WalletColor.white,
+        ),
+        child: buildListView(),
+      ),
     );
   }
 
@@ -96,22 +104,29 @@ class _TxListPageState extends State<TxListPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
-              child: WalletTheme.button(
-                  text: '转账',
-                  onPressed: () => Application.router
-                      .navigateTo(context, Routes.transferTwPoints),
-                  buttonType: ButtonType.outlineType,
-                  outlineColor: WalletColor.white)),
+            child: WalletTheme.button(
+              text: '转账',
+              onPressed: () => Application.router
+                  .navigateTo(context, Routes.transferTwPoints),
+              buttonType: ButtonType.outlineType,
+              outlineColor: WalletColor.white,
+            ),
+          ),
           const SizedBox(
             width: 15,
           ),
           Expanded(
-              child: WalletTheme.button(
-                  text: '收款',
-                  onPressed: () => Navigator.pushNamed(context, Routes.qrPage,
-                      arguments: iStore.selectedIdentity.value),
-                  buttonType: ButtonType.outlineType,
-                  outlineColor: WalletColor.white))
+            child: WalletTheme.button(
+              text: '收款',
+              onPressed: () => Navigator.pushNamed(
+                context,
+                Routes.qrPage,
+                arguments: iStore.selectedIdentity.value,
+              ),
+              buttonType: ButtonType.outlineType,
+              outlineColor: WalletColor.white,
+            ),
+          )
         ],
       ),
     );
@@ -129,25 +144,28 @@ class _TxListPageState extends State<TxListPage> {
   Widget buildListView() {
     final txList = store.list;
 
-    if (txList == null || txList.isEmpty) {
+    if (txList.isEmpty) {
       return const Center(child: Text("no content"));
     }
 
     return ListView.separated(
       padding: const EdgeInsets.all(8),
-      itemCount: txList?.length ?? 0,
+      itemCount: txList.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
         final item = txList[index];
         return TxListItem(
-            _txType(item.fromAddress) == TxType.expense
-                ? item.toAddress
-                : item.fromAddress,
-            item.txType,
-            _amountWithSignal(
-                _txType(item.fromAddress) == TxType.expense, item.amount.value),
-            item.createTime,
-            () => _onTap(item),
-            _txType(item.fromAddress));
+          _txType(item.fromAddress) == TxType.expense
+              ? item.toAddress
+              : item.fromAddress,
+          item.txType,
+          _amountWithSignal(
+            _txType(item.fromAddress) == TxType.expense,
+            item.amount.value,
+          ),
+          item.createTime,
+          () => _onTap(item),
+          _txType(item.fromAddress),
+        );
       },
       separatorBuilder: (BuildContext context, int index) => Divider(
         height: 1,

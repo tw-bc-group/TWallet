@@ -10,8 +10,8 @@ import 'package:tw_wallet_ui/widgets/pin_dialog.dart';
 const tokenSecret = 'tokenSecret';
 
 class PincodeService {
-  static YYDialog dialogInstance;
-  static Completer completer;
+  static YYDialog? dialogInstance;
+  static Completer? completer;
 
   static Future<dynamic> validate(
     String token,
@@ -29,16 +29,18 @@ class PincodeService {
       ..width = 1000
       ..widget(
         PinDialogWidget(
-            completer: completer, pincodeDialogStyle: pincodeDialogStyle),
+          completer: completer!,
+          pincodeDialogStyle: pincodeDialogStyle,
+        ),
       )
       ..dismissCallBack = () {
-        if (!completer.isCompleted) {
-          completer.complete();
+        if (!completer!.isCompleted) {
+          completer!.complete();
         }
       }
       ..show();
-    return completer.future.then((value) {
-      dialogInstance.dismiss();
+    return completer!.future.then((value) {
+      dialogInstance!.dismiss();
       dialogInstance = null;
       return value;
     });
@@ -46,7 +48,7 @@ class PincodeService {
 
   static void dismissPincodeDialog() {
     if (dialogInstance != null) {
-      dialogInstance.dismiss();
+      dialogInstance!.dismiss();
     }
   }
 

@@ -251,7 +251,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   return FutureBuilder(
                     initialData: null,
                     future: Get.find<ContractService>()
-                        .nftTokenContract
+                        .nftTokenContract!
                         .getTransactionCount(
                           EthereumAddress.fromHex(identity.address),
                         ),

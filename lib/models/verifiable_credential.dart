@@ -6,22 +6,22 @@ part 'verifiable_credential.g.dart';
 class VerifiableCredential {
   String name;
   String issuer;
-  String vcTypeId;
-  String token;
+  String? vcTypeId;
+  String? token;
   List<String> content;
-  DateTime applicationTime;
+  DateTime? applicationTime;
 
   VerifiableCredential({
-    this.name,
-    this.issuer,
+    required this.name,
+    required this.issuer,
     this.vcTypeId,
     this.token,
-    this.content,
+    required this.content,
     this.applicationTime,
   });
 
   bool isMissing() {
-    return isNull(token) || token.isEmpty || applicationTime == null;
+    return isNull(token) || token!.isEmpty || applicationTime == null;
   }
 }
 
@@ -32,7 +32,8 @@ class VerifiableCredentialPresentationRequest {
   @JsonKey(name: 'vc_types')
   List<String> vcTypes;
 
-  VerifiableCredentialPresentationRequest({this.id, this.name, this.vcTypes});
+  VerifiableCredentialPresentationRequest(
+      {required this.id, required this.name, required this.vcTypes});
 
   factory VerifiableCredentialPresentationRequest.fromJson(
           Map<String, dynamic> json) =>
@@ -52,7 +53,7 @@ class VerifiableCredentialPresentation {
 @JsonSerializable(explicitToJson: true)
 class VerifiableCredentialTokenResponse {
   String token;
-  VerifiableCredentialTokenResponse({this.token});
+  VerifiableCredentialTokenResponse({required this.token});
 
   factory VerifiableCredentialTokenResponse.fromJson(
           Map<String, dynamic> json) =>

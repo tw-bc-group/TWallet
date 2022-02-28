@@ -3,7 +3,7 @@ part 'vc_pass.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class VcPass {
-  VcPass({this.name, this.token});
+  VcPass({required this.name, required this.token});
 
   String name;
   String token;
