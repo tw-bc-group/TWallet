@@ -11,7 +11,7 @@ class DcepStore {
   final Rx<int> rxNonce = Rx(0);
   final RxList<Dcep> _items = RxList([]);
 
-  String owner;
+  String? owner;
 
   int get nonce => rxNonce.value;
 

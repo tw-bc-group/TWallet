@@ -5,10 +5,9 @@ import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/ssi.dart';
+import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
 import 'package:validators/validators.dart';
-
-import 'issuer_store.dart';
 
 part 'apply_vc_info_store.g.dart';
 
@@ -27,7 +26,7 @@ abstract class _ApplyVcInfoStore with Store {
   @observable
   String phone = '';
 
-  List<ReactionDisposer> _disposers;
+  late List<ReactionDisposer> _disposers;
 
   void setErrorResetDispatchers() {
     _disposers = [
@@ -114,10 +113,10 @@ class FormErrorState = _FormErrorState with _$FormErrorState;
 
 abstract class _FormErrorState with Store {
   @observable
-  String username;
+  String? username;
 
   @observable
-  String phone;
+  String? phone;
 
   @computed
   bool get hasErrors => username != null || phone != null;

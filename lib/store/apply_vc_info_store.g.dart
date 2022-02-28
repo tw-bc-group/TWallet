@@ -103,13 +103,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$usernameAtom = Atom(name: '_FormErrorState.username');
 
   @override
-  String get username {
+  String? get username {
     _$usernameAtom.reportRead();
     return super.username;
   }
 
   @override
-  set username(String value) {
+  set username(String? value) {
     _$usernameAtom.reportWrite(value, super.username, () {
       super.username = value;
     });
@@ -118,13 +118,13 @@ mixin _$FormErrorState on _FormErrorState, Store {
   final _$phoneAtom = Atom(name: '_FormErrorState.phone');
 
   @override
-  String get phone {
+  String? get phone {
     _$phoneAtom.reportRead();
     return super.phone;
   }
 
   @override
-  set phone(String value) {
+  set phone(String? value) {
     _$phoneAtom.reportWrite(value, super.phone, () {
       super.phone = value;
     });
