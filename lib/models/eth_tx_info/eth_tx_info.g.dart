@@ -15,9 +15,9 @@ class _$EthTxInfoSerializer implements StructuredSerializer<EthTxInfo> {
   final String wireName = 'EthTxInfo';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, EthTxInfo object,
+  Iterable<Object?> serialize(Serializers serializers, EthTxInfo object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'nonce',
       serializers.serialize(object.nonce,
           specifiedType: const FullType(BigInt)),
@@ -47,7 +47,7 @@ class _$EthTxInfoSerializer implements StructuredSerializer<EthTxInfo> {
   }
 
   @override
-  EthTxInfo deserialize(Serializers serializers, Iterable<Object> serialized,
+  EthTxInfo deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new EthTxInfoBuilder();
 
@@ -55,7 +55,7 @@ class _$EthTxInfoSerializer implements StructuredSerializer<EthTxInfo> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'nonce':
           result.nonce = serializers.deserialize(value,
@@ -120,47 +120,29 @@ class _$EthTxInfo extends EthTxInfo {
   @override
   final BigInt s;
 
-  factory _$EthTxInfo([void Function(EthTxInfoBuilder) updates]) =>
+  factory _$EthTxInfo([void Function(EthTxInfoBuilder)? updates]) =>
       (new EthTxInfoBuilder()..update(updates)).build();
 
   _$EthTxInfo._(
-      {this.nonce,
-      this.gasPrice,
-      this.gasLimit,
-      this.to,
-      this.value,
-      this.data,
-      this.v,
-      this.r,
-      this.s})
+      {required this.nonce,
+      required this.gasPrice,
+      required this.gasLimit,
+      required this.to,
+      required this.value,
+      required this.data,
+      required this.v,
+      required this.r,
+      required this.s})
       : super._() {
-    if (nonce == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'nonce');
-    }
-    if (gasPrice == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'gasPrice');
-    }
-    if (gasLimit == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'gasLimit');
-    }
-    if (to == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'to');
-    }
-    if (value == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'value');
-    }
-    if (data == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'data');
-    }
-    if (v == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'v');
-    }
-    if (r == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 'r');
-    }
-    if (s == null) {
-      throw new BuiltValueNullFieldError('EthTxInfo', 's');
-    }
+    BuiltValueNullFieldError.checkNotNull(nonce, 'EthTxInfo', 'nonce');
+    BuiltValueNullFieldError.checkNotNull(gasPrice, 'EthTxInfo', 'gasPrice');
+    BuiltValueNullFieldError.checkNotNull(gasLimit, 'EthTxInfo', 'gasLimit');
+    BuiltValueNullFieldError.checkNotNull(to, 'EthTxInfo', 'to');
+    BuiltValueNullFieldError.checkNotNull(value, 'EthTxInfo', 'value');
+    BuiltValueNullFieldError.checkNotNull(data, 'EthTxInfo', 'data');
+    BuiltValueNullFieldError.checkNotNull(v, 'EthTxInfo', 'v');
+    BuiltValueNullFieldError.checkNotNull(r, 'EthTxInfo', 'r');
+    BuiltValueNullFieldError.checkNotNull(s, 'EthTxInfo', 's');
   }
 
   @override
@@ -220,57 +202,58 @@ class _$EthTxInfo extends EthTxInfo {
 }
 
 class EthTxInfoBuilder implements Builder<EthTxInfo, EthTxInfoBuilder> {
-  _$EthTxInfo _$v;
+  _$EthTxInfo? _$v;
 
-  BigInt _nonce;
-  BigInt get nonce => _$this._nonce;
-  set nonce(BigInt nonce) => _$this._nonce = nonce;
+  BigInt? _nonce;
+  BigInt? get nonce => _$this._nonce;
+  set nonce(BigInt? nonce) => _$this._nonce = nonce;
 
-  BigInt _gasPrice;
-  BigInt get gasPrice => _$this._gasPrice;
-  set gasPrice(BigInt gasPrice) => _$this._gasPrice = gasPrice;
+  BigInt? _gasPrice;
+  BigInt? get gasPrice => _$this._gasPrice;
+  set gasPrice(BigInt? gasPrice) => _$this._gasPrice = gasPrice;
 
-  BigInt _gasLimit;
-  BigInt get gasLimit => _$this._gasLimit;
-  set gasLimit(BigInt gasLimit) => _$this._gasLimit = gasLimit;
+  BigInt? _gasLimit;
+  BigInt? get gasLimit => _$this._gasLimit;
+  set gasLimit(BigInt? gasLimit) => _$this._gasLimit = gasLimit;
 
-  String _to;
-  String get to => _$this._to;
-  set to(String to) => _$this._to = to;
+  String? _to;
+  String? get to => _$this._to;
+  set to(String? to) => _$this._to = to;
 
-  BigInt _value;
-  BigInt get value => _$this._value;
-  set value(BigInt value) => _$this._value = value;
+  BigInt? _value;
+  BigInt? get value => _$this._value;
+  set value(BigInt? value) => _$this._value = value;
 
-  Uint8List _data;
-  Uint8List get data => _$this._data;
-  set data(Uint8List data) => _$this._data = data;
+  Uint8List? _data;
+  Uint8List? get data => _$this._data;
+  set data(Uint8List? data) => _$this._data = data;
 
-  int _v;
-  int get v => _$this._v;
-  set v(int v) => _$this._v = v;
+  int? _v;
+  int? get v => _$this._v;
+  set v(int? v) => _$this._v = v;
 
-  BigInt _r;
-  BigInt get r => _$this._r;
-  set r(BigInt r) => _$this._r = r;
+  BigInt? _r;
+  BigInt? get r => _$this._r;
+  set r(BigInt? r) => _$this._r = r;
 
-  BigInt _s;
-  BigInt get s => _$this._s;
-  set s(BigInt s) => _$this._s = s;
+  BigInt? _s;
+  BigInt? get s => _$this._s;
+  set s(BigInt? s) => _$this._s = s;
 
   EthTxInfoBuilder();
 
   EthTxInfoBuilder get _$this {
-    if (_$v != null) {
-      _nonce = _$v.nonce;
-      _gasPrice = _$v.gasPrice;
-      _gasLimit = _$v.gasLimit;
-      _to = _$v.to;
-      _value = _$v.value;
-      _data = _$v.data;
-      _v = _$v.v;
-      _r = _$v.r;
-      _s = _$v.s;
+    final $v = _$v;
+    if ($v != null) {
+      _nonce = $v.nonce;
+      _gasPrice = $v.gasPrice;
+      _gasLimit = $v.gasLimit;
+      _to = $v.to;
+      _value = $v.value;
+      _data = $v.data;
+      _v = $v.v;
+      _r = $v.r;
+      _s = $v.s;
       _$v = null;
     }
     return this;
@@ -278,14 +261,12 @@ class EthTxInfoBuilder implements Builder<EthTxInfo, EthTxInfoBuilder> {
 
   @override
   void replace(EthTxInfo other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EthTxInfo;
   }
 
   @override
-  void update(void Function(EthTxInfoBuilder) updates) {
+  void update(void Function(EthTxInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -293,18 +274,23 @@ class EthTxInfoBuilder implements Builder<EthTxInfo, EthTxInfoBuilder> {
   _$EthTxInfo build() {
     final _$result = _$v ??
         new _$EthTxInfo._(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: v,
-            r: r,
-            s: s);
+            nonce: BuiltValueNullFieldError.checkNotNull(
+                nonce, 'EthTxInfo', 'nonce'),
+            gasPrice: BuiltValueNullFieldError.checkNotNull(
+                gasPrice, 'EthTxInfo', 'gasPrice'),
+            gasLimit: BuiltValueNullFieldError.checkNotNull(
+                gasLimit, 'EthTxInfo', 'gasLimit'),
+            to: BuiltValueNullFieldError.checkNotNull(to, 'EthTxInfo', 'to'),
+            value: BuiltValueNullFieldError.checkNotNull(
+                value, 'EthTxInfo', 'value'),
+            data: BuiltValueNullFieldError.checkNotNull(
+                data, 'EthTxInfo', 'data'),
+            v: BuiltValueNullFieldError.checkNotNull(v, 'EthTxInfo', 'v'),
+            r: BuiltValueNullFieldError.checkNotNull(r, 'EthTxInfo', 'r'),
+            s: BuiltValueNullFieldError.checkNotNull(s, 'EthTxInfo', 's'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

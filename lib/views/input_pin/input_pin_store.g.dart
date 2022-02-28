@@ -9,14 +9,14 @@ part of 'input_pin_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InputPinStore on _InputPinStore, Store {
-  Computed<bool> _$isCompletedComputed;
+  Computed<bool>? _$isCompletedComputed;
 
   @override
   bool get isCompleted =>
       (_$isCompletedComputed ??= Computed<bool>(() => super.isCompleted,
               name: '_InputPinStore.isCompleted'))
           .value;
-  Computed<bool> _$isUnequalComputed;
+  Computed<bool>? _$isUnequalComputed;
 
   @override
   bool get isUnequal =>

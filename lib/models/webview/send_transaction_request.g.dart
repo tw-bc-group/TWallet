@@ -20,10 +20,10 @@ class _$SendTransactionRequestSerializer
   final String wireName = 'SendTransactionRequest';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, SendTransactionRequest object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'fromAddress',
       serializers.serialize(object.fromAddress,
           specifiedType: const FullType(String)),
@@ -40,7 +40,7 @@ class _$SendTransactionRequestSerializer
 
   @override
   SendTransactionRequest deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SendTransactionRequestBuilder();
 
@@ -48,7 +48,7 @@ class _$SendTransactionRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'fromAddress':
           result.fromAddress = serializers.deserialize(value,
@@ -78,24 +78,20 @@ class _$SendTransactionRequest extends SendTransactionRequest {
   final String signedTransactionRawData;
 
   factory _$SendTransactionRequest(
-          [void Function(SendTransactionRequestBuilder) updates]) =>
+          [void Function(SendTransactionRequestBuilder)? updates]) =>
       (new SendTransactionRequestBuilder()..update(updates)).build();
 
   _$SendTransactionRequest._(
-      {this.fromAddress, this.fromPublicKey, this.signedTransactionRawData})
+      {required this.fromAddress,
+      required this.fromPublicKey,
+      required this.signedTransactionRawData})
       : super._() {
-    if (fromAddress == null) {
-      throw new BuiltValueNullFieldError(
-          'SendTransactionRequest', 'fromAddress');
-    }
-    if (fromPublicKey == null) {
-      throw new BuiltValueNullFieldError(
-          'SendTransactionRequest', 'fromPublicKey');
-    }
-    if (signedTransactionRawData == null) {
-      throw new BuiltValueNullFieldError(
-          'SendTransactionRequest', 'signedTransactionRawData');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        fromAddress, 'SendTransactionRequest', 'fromAddress');
+    BuiltValueNullFieldError.checkNotNull(
+        fromPublicKey, 'SendTransactionRequest', 'fromPublicKey');
+    BuiltValueNullFieldError.checkNotNull(signedTransactionRawData,
+        'SendTransactionRequest', 'signedTransactionRawData');
   }
 
   @override
@@ -134,29 +130,30 @@ class _$SendTransactionRequest extends SendTransactionRequest {
 
 class SendTransactionRequestBuilder
     implements Builder<SendTransactionRequest, SendTransactionRequestBuilder> {
-  _$SendTransactionRequest _$v;
+  _$SendTransactionRequest? _$v;
 
-  String _fromAddress;
-  String get fromAddress => _$this._fromAddress;
-  set fromAddress(String fromAddress) => _$this._fromAddress = fromAddress;
+  String? _fromAddress;
+  String? get fromAddress => _$this._fromAddress;
+  set fromAddress(String? fromAddress) => _$this._fromAddress = fromAddress;
 
-  String _fromPublicKey;
-  String get fromPublicKey => _$this._fromPublicKey;
-  set fromPublicKey(String fromPublicKey) =>
+  String? _fromPublicKey;
+  String? get fromPublicKey => _$this._fromPublicKey;
+  set fromPublicKey(String? fromPublicKey) =>
       _$this._fromPublicKey = fromPublicKey;
 
-  String _signedTransactionRawData;
-  String get signedTransactionRawData => _$this._signedTransactionRawData;
-  set signedTransactionRawData(String signedTransactionRawData) =>
+  String? _signedTransactionRawData;
+  String? get signedTransactionRawData => _$this._signedTransactionRawData;
+  set signedTransactionRawData(String? signedTransactionRawData) =>
       _$this._signedTransactionRawData = signedTransactionRawData;
 
   SendTransactionRequestBuilder();
 
   SendTransactionRequestBuilder get _$this {
-    if (_$v != null) {
-      _fromAddress = _$v.fromAddress;
-      _fromPublicKey = _$v.fromPublicKey;
-      _signedTransactionRawData = _$v.signedTransactionRawData;
+    final $v = _$v;
+    if ($v != null) {
+      _fromAddress = $v.fromAddress;
+      _fromPublicKey = $v.fromPublicKey;
+      _signedTransactionRawData = $v.signedTransactionRawData;
       _$v = null;
     }
     return this;
@@ -164,14 +161,12 @@ class SendTransactionRequestBuilder
 
   @override
   void replace(SendTransactionRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SendTransactionRequest;
   }
 
   @override
-  void update(void Function(SendTransactionRequestBuilder) updates) {
+  void update(void Function(SendTransactionRequestBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -179,12 +174,17 @@ class SendTransactionRequestBuilder
   _$SendTransactionRequest build() {
     final _$result = _$v ??
         new _$SendTransactionRequest._(
-            fromAddress: fromAddress,
-            fromPublicKey: fromPublicKey,
-            signedTransactionRawData: signedTransactionRawData);
+            fromAddress: BuiltValueNullFieldError.checkNotNull(
+                fromAddress, 'SendTransactionRequest', 'fromAddress'),
+            fromPublicKey: BuiltValueNullFieldError.checkNotNull(
+                fromPublicKey, 'SendTransactionRequest', 'fromPublicKey'),
+            signedTransactionRawData: BuiltValueNullFieldError.checkNotNull(
+                signedTransactionRawData,
+                'SendTransactionRequest',
+                'signedTransactionRawData'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

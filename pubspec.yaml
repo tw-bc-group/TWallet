@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 0.4.0+1
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ^2.10.2
 
 dependencies:
@@ -43,7 +43,7 @@ dependencies:
   more: ^2.5.0
   uuid: ^3.0.6
   date_format: ^1.0.9
-  web3dart: ^2.0.0-dev.9
+  web3dart: ^2.3.5
   http: ^0.13.4
   built_value: ^8.1.4
   built_value_generator: ^8.1.4
@@ -60,7 +60,7 @@ dependencies:
   convert: ^2.1.1
   package_info: ^0.4.0+18
   device_info: ^1.0.0
-  get: ^3.10.2
+  get: ^4.6.1
   intl: ^0.16.1
   webview_flutter: ^1.0.7
   sentry: ^4.0.1
@@ -68,9 +68,9 @@ dependencies:
   flutter_native_splash: ^2.0.5
   corsac_jwt: ^0.4.0
   path_provider: ^1.6.27
-  flutter_webview_plugin: ^0.3.11
+  flutter_webview_plugin: ^0.4.0
   collection: ^1.14.13
-  flutter_ble_lib: ^2.3.1
+  flutter_ble_lib: ^2.3.2
   crypton: ^1.1.1
   search_choices: ^1.0.17
   connectivity: ^2.0.2
@@ -87,7 +87,7 @@ dev_dependencies:
   lint: ^1.2.0
 
 dependency_overrides:
-  pointycastle: ^2.0.0
+  pointycastle: ^3.5.1
   crypto: ^3.0.0
   convert: ^3.0.0
   logging: ^1.0.0

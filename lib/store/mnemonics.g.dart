@@ -9,13 +9,13 @@ part of 'mnemonics.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MnemonicsStore on MnemonicsBase, Store {
-  Computed<int> _$indexComputed;
+  Computed<int>? _$indexComputed;
 
   @override
   int get index => (_$indexComputed ??=
           Computed<int>(() => super.index, name: 'MnemonicsBase.index'))
       .value;
-  Computed<String> _$mnemonicsComputed;
+  Computed<String>? _$mnemonicsComputed;
 
   @override
   String get mnemonics =>

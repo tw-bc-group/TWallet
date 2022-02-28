@@ -498,7 +498,7 @@ packages:
       name: flutter_webview_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.11"
+    version: "0.4.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -512,7 +512,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.26.0"
+    version: "4.6.1"
   glob:
     dependency: transitive
     description:
@@ -834,7 +834,7 @@ packages:
       name: pointycastle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "3.5.1"
   pool:
     dependency: transitive
     description:

@@ -7,11 +7,9 @@ part 'health_info.g.dart';
 abstract class HealthInfo implements Built<HealthInfo, HealthInfoBuilder> {
   static Serializer<HealthInfo> get serializer => _$healthInfoSerializer;
 
-  @nullable
-  String get healthCertificateStatus;
+  String? get healthCertificateStatus;
 
-  @nullable
-  String get healthStatus;
+  String? get healthStatus;
 
   static HealthInfo fromJson(dynamic serialized) {
     try {

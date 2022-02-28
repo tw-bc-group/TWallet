@@ -15,9 +15,9 @@ class _$EnvSerializer implements StructuredSerializer<Env> {
   final String wireName = 'Env';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Env object,
+  Iterable<Object?> serialize(Serializers serializers, Env object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'apiGatewayBaseUrl',
       serializers.serialize(object.apiGatewayBaseUrl,
           specifiedType: const FullType(String)),
@@ -53,7 +53,7 @@ class _$EnvSerializer implements StructuredSerializer<Env> {
   }
 
   @override
-  Env deserialize(Serializers serializers, Iterable<Object> serialized,
+  Env deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new EnvBuilder();
 
@@ -61,7 +61,7 @@ class _$EnvSerializer implements StructuredSerializer<Env> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'apiGatewayBaseUrl':
           result.apiGatewayBaseUrl = serializers.deserialize(value,
@@ -132,51 +132,37 @@ class _$Env extends Env {
   @override
   final RSAPublicKey centralBankPublicKey;
 
-  factory _$Env([void Function(EnvBuilder) updates]) =>
+  factory _$Env([void Function(EnvBuilder)? updates]) =>
       (new EnvBuilder()..update(updates)).build();
 
   _$Env._(
-      {this.apiGatewayBaseUrl,
-      this.apiGatewayConnectTimeout,
-      this.web3RpcGatewayUrl,
-      this.didPrefix,
-      this.tokenName,
-      this.tokenSymbol,
-      this.tokenPrecision,
-      this.tokenHumanReadablePrecision,
-      this.chainId,
-      this.centralBankPublicKey})
+      {required this.apiGatewayBaseUrl,
+      required this.apiGatewayConnectTimeout,
+      required this.web3RpcGatewayUrl,
+      required this.didPrefix,
+      required this.tokenName,
+      required this.tokenSymbol,
+      required this.tokenPrecision,
+      required this.tokenHumanReadablePrecision,
+      required this.chainId,
+      required this.centralBankPublicKey})
       : super._() {
-    if (apiGatewayBaseUrl == null) {
-      throw new BuiltValueNullFieldError('Env', 'apiGatewayBaseUrl');
-    }
-    if (apiGatewayConnectTimeout == null) {
-      throw new BuiltValueNullFieldError('Env', 'apiGatewayConnectTimeout');
-    }
-    if (web3RpcGatewayUrl == null) {
-      throw new BuiltValueNullFieldError('Env', 'web3RpcGatewayUrl');
-    }
-    if (didPrefix == null) {
-      throw new BuiltValueNullFieldError('Env', 'didPrefix');
-    }
-    if (tokenName == null) {
-      throw new BuiltValueNullFieldError('Env', 'tokenName');
-    }
-    if (tokenSymbol == null) {
-      throw new BuiltValueNullFieldError('Env', 'tokenSymbol');
-    }
-    if (tokenPrecision == null) {
-      throw new BuiltValueNullFieldError('Env', 'tokenPrecision');
-    }
-    if (tokenHumanReadablePrecision == null) {
-      throw new BuiltValueNullFieldError('Env', 'tokenHumanReadablePrecision');
-    }
-    if (chainId == null) {
-      throw new BuiltValueNullFieldError('Env', 'chainId');
-    }
-    if (centralBankPublicKey == null) {
-      throw new BuiltValueNullFieldError('Env', 'centralBankPublicKey');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        apiGatewayBaseUrl, 'Env', 'apiGatewayBaseUrl');
+    BuiltValueNullFieldError.checkNotNull(
+        apiGatewayConnectTimeout, 'Env', 'apiGatewayConnectTimeout');
+    BuiltValueNullFieldError.checkNotNull(
+        web3RpcGatewayUrl, 'Env', 'web3RpcGatewayUrl');
+    BuiltValueNullFieldError.checkNotNull(didPrefix, 'Env', 'didPrefix');
+    BuiltValueNullFieldError.checkNotNull(tokenName, 'Env', 'tokenName');
+    BuiltValueNullFieldError.checkNotNull(tokenSymbol, 'Env', 'tokenSymbol');
+    BuiltValueNullFieldError.checkNotNull(
+        tokenPrecision, 'Env', 'tokenPrecision');
+    BuiltValueNullFieldError.checkNotNull(
+        tokenHumanReadablePrecision, 'Env', 'tokenHumanReadablePrecision');
+    BuiltValueNullFieldError.checkNotNull(chainId, 'Env', 'chainId');
+    BuiltValueNullFieldError.checkNotNull(
+        centralBankPublicKey, 'Env', 'centralBankPublicKey');
   }
 
   @override
@@ -242,68 +228,69 @@ class _$Env extends Env {
 }
 
 class EnvBuilder implements Builder<Env, EnvBuilder> {
-  _$Env _$v;
+  _$Env? _$v;
 
-  String _apiGatewayBaseUrl;
-  String get apiGatewayBaseUrl => _$this._apiGatewayBaseUrl;
-  set apiGatewayBaseUrl(String apiGatewayBaseUrl) =>
+  String? _apiGatewayBaseUrl;
+  String? get apiGatewayBaseUrl => _$this._apiGatewayBaseUrl;
+  set apiGatewayBaseUrl(String? apiGatewayBaseUrl) =>
       _$this._apiGatewayBaseUrl = apiGatewayBaseUrl;
 
-  int _apiGatewayConnectTimeout;
-  int get apiGatewayConnectTimeout => _$this._apiGatewayConnectTimeout;
-  set apiGatewayConnectTimeout(int apiGatewayConnectTimeout) =>
+  int? _apiGatewayConnectTimeout;
+  int? get apiGatewayConnectTimeout => _$this._apiGatewayConnectTimeout;
+  set apiGatewayConnectTimeout(int? apiGatewayConnectTimeout) =>
       _$this._apiGatewayConnectTimeout = apiGatewayConnectTimeout;
 
-  String _web3RpcGatewayUrl;
-  String get web3RpcGatewayUrl => _$this._web3RpcGatewayUrl;
-  set web3RpcGatewayUrl(String web3RpcGatewayUrl) =>
+  String? _web3RpcGatewayUrl;
+  String? get web3RpcGatewayUrl => _$this._web3RpcGatewayUrl;
+  set web3RpcGatewayUrl(String? web3RpcGatewayUrl) =>
       _$this._web3RpcGatewayUrl = web3RpcGatewayUrl;
 
-  String _didPrefix;
-  String get didPrefix => _$this._didPrefix;
-  set didPrefix(String didPrefix) => _$this._didPrefix = didPrefix;
+  String? _didPrefix;
+  String? get didPrefix => _$this._didPrefix;
+  set didPrefix(String? didPrefix) => _$this._didPrefix = didPrefix;
 
-  String _tokenName;
-  String get tokenName => _$this._tokenName;
-  set tokenName(String tokenName) => _$this._tokenName = tokenName;
+  String? _tokenName;
+  String? get tokenName => _$this._tokenName;
+  set tokenName(String? tokenName) => _$this._tokenName = tokenName;
 
-  String _tokenSymbol;
-  String get tokenSymbol => _$this._tokenSymbol;
-  set tokenSymbol(String tokenSymbol) => _$this._tokenSymbol = tokenSymbol;
+  String? _tokenSymbol;
+  String? get tokenSymbol => _$this._tokenSymbol;
+  set tokenSymbol(String? tokenSymbol) => _$this._tokenSymbol = tokenSymbol;
 
-  int _tokenPrecision;
-  int get tokenPrecision => _$this._tokenPrecision;
-  set tokenPrecision(int tokenPrecision) =>
+  int? _tokenPrecision;
+  int? get tokenPrecision => _$this._tokenPrecision;
+  set tokenPrecision(int? tokenPrecision) =>
       _$this._tokenPrecision = tokenPrecision;
 
-  int _tokenHumanReadablePrecision;
-  int get tokenHumanReadablePrecision => _$this._tokenHumanReadablePrecision;
-  set tokenHumanReadablePrecision(int tokenHumanReadablePrecision) =>
+  int? _tokenHumanReadablePrecision;
+  int? get tokenHumanReadablePrecision => _$this._tokenHumanReadablePrecision;
+  set tokenHumanReadablePrecision(int? tokenHumanReadablePrecision) =>
       _$this._tokenHumanReadablePrecision = tokenHumanReadablePrecision;
 
-  int _chainId;
-  int get chainId => _$this._chainId;
-  set chainId(int chainId) => _$this._chainId = chainId;
+  int? _chainId;
+  int? get chainId => _$this._chainId;
+  set chainId(int? chainId) => _$this._chainId = chainId;
 
-  RSAPublicKey _centralBankPublicKey;
-  RSAPublicKey get centralBankPublicKey => _$this._centralBankPublicKey;
-  set centralBankPublicKey(RSAPublicKey centralBankPublicKey) =>
+  RSAPublicKey? _centralBankPublicKey;
+  RSAPublicKey? get centralBankPublicKey => _$this._centralBankPublicKey;
+  set centralBankPublicKey(RSAPublicKey? centralBankPublicKey) =>
       _$this._centralBankPublicKey = centralBankPublicKey;
 
   EnvBuilder();
 
   EnvBuilder get _$this {
-    if (_$v != null) {
-      _apiGatewayBaseUrl = _$v.apiGatewayBaseUrl;
-      _apiGatewayConnectTimeout = _$v.apiGatewayConnectTimeout;
-      _web3RpcGatewayUrl = _$v.web3RpcGatewayUrl;
-      _didPrefix = _$v.didPrefix;
-      _tokenName = _$v.tokenName;
-      _tokenSymbol = _$v.tokenSymbol;
-      _tokenPrecision = _$v.tokenPrecision;
-      _tokenHumanReadablePrecision = _$v.tokenHumanReadablePrecision;
-      _chainId = _$v.chainId;
-      _centralBankPublicKey = _$v.centralBankPublicKey;
+    final $v = _$v;
+    if ($v != null) {
+      _apiGatewayBaseUrl = $v.apiGatewayBaseUrl;
+      _apiGatewayConnectTimeout = $v.apiGatewayConnectTimeout;
+      _web3RpcGatewayUrl = $v.web3RpcGatewayUrl;
+      _didPrefix = $v.didPrefix;
+      _tokenName = $v.tokenName;
+      _tokenSymbol = $v.tokenSymbol;
+      _tokenPrecision = $v.tokenPrecision;
+      _tokenHumanReadablePrecision = $v.tokenHumanReadablePrecision;
+      _chainId = $v.chainId;
+      _centralBankPublicKey = $v.centralBankPublicKey;
       _$v = null;
     }
     return this;
@@ -311,14 +298,12 @@ class EnvBuilder implements Builder<Env, EnvBuilder> {
 
   @override
   void replace(Env other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Env;
   }
 
   @override
-  void update(void Function(EnvBuilder) updates) {
+  void update(void Function(EnvBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -326,19 +311,28 @@ class EnvBuilder implements Builder<Env, EnvBuilder> {
   _$Env build() {
     final _$result = _$v ??
         new _$Env._(
-            apiGatewayBaseUrl: apiGatewayBaseUrl,
-            apiGatewayConnectTimeout: apiGatewayConnectTimeout,
-            web3RpcGatewayUrl: web3RpcGatewayUrl,
-            didPrefix: didPrefix,
-            tokenName: tokenName,
-            tokenSymbol: tokenSymbol,
-            tokenPrecision: tokenPrecision,
-            tokenHumanReadablePrecision: tokenHumanReadablePrecision,
-            chainId: chainId,
-            centralBankPublicKey: centralBankPublicKey);
+            apiGatewayBaseUrl: BuiltValueNullFieldError.checkNotNull(
+                apiGatewayBaseUrl, 'Env', 'apiGatewayBaseUrl'),
+            apiGatewayConnectTimeout: BuiltValueNullFieldError.checkNotNull(
+                apiGatewayConnectTimeout, 'Env', 'apiGatewayConnectTimeout'),
+            web3RpcGatewayUrl: BuiltValueNullFieldError.checkNotNull(
+                web3RpcGatewayUrl, 'Env', 'web3RpcGatewayUrl'),
+            didPrefix: BuiltValueNullFieldError.checkNotNull(
+                didPrefix, 'Env', 'didPrefix'),
+            tokenName: BuiltValueNullFieldError.checkNotNull(
+                tokenName, 'Env', 'tokenName'),
+            tokenSymbol: BuiltValueNullFieldError.checkNotNull(
+                tokenSymbol, 'Env', 'tokenSymbol'),
+            tokenPrecision: BuiltValueNullFieldError.checkNotNull(
+                tokenPrecision, 'Env', 'tokenPrecision'),
+            tokenHumanReadablePrecision: BuiltValueNullFieldError.checkNotNull(
+                tokenHumanReadablePrecision, 'Env', 'tokenHumanReadablePrecision'),
+            chainId:
+                BuiltValueNullFieldError.checkNotNull(chainId, 'Env', 'chainId'),
+            centralBankPublicKey: BuiltValueNullFieldError.checkNotNull(centralBankPublicKey, 'Env', 'centralBankPublicKey'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

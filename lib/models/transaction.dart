@@ -16,23 +16,20 @@ abstract class Transaction extends Object
   @BuiltValueField(wireName: 'create_time')
   DateTime get createTime;
 
-  @nullable
   @BuiltValueField(wireName: 'confirm_time')
-  DateTime get confirmTime;
+  DateTime? get confirmTime;
 
   @BuiltValueField(wireName: 'from_address')
   String get fromAddress;
 
-  @nullable
   @BuiltValueField(wireName: 'from_address_name')
-  String get fromAddressName;
+  String? get fromAddressName;
 
   @BuiltValueField(wireName: 'to_address')
   String get toAddress;
 
-  @nullable
   @BuiltValueField(wireName: 'to_address_name')
-  String get toAddressName;
+  String? get toAddressName;
 
   @BuiltValueField(wireName: 'tx_type')
   TxStatus get txType;

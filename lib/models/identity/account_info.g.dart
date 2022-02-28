@@ -15,9 +15,9 @@ class _$AccountInfoSerializer implements StructuredSerializer<AccountInfo> {
   final String wireName = 'AccountInfo';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AccountInfo object,
+  Iterable<Object?> serialize(Serializers serializers, AccountInfo object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'index',
       serializers.serialize(object.index, specifiedType: const FullType(int)),
       'pubKey',
@@ -27,17 +27,19 @@ class _$AccountInfoSerializer implements StructuredSerializer<AccountInfo> {
       serializers.serialize(object.priKey,
           specifiedType: const FullType(String)),
     ];
-    if (object.balance != null) {
+    Object? value;
+    value = object.balance;
+    if (value != null) {
       result
         ..add('balance')
-        ..add(serializers.serialize(object.balance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Amount)));
     }
     return result;
   }
 
   @override
-  AccountInfo deserialize(Serializers serializers, Iterable<Object> serialized,
+  AccountInfo deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AccountInfoBuilder();
 
@@ -45,7 +47,7 @@ class _$AccountInfoSerializer implements StructuredSerializer<AccountInfo> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'index':
           result.index = serializers.deserialize(value,
@@ -61,7 +63,7 @@ class _$AccountInfoSerializer implements StructuredSerializer<AccountInfo> {
           break;
         case 'balance':
           result.balance = serializers.deserialize(value,
-              specifiedType: const FullType(Amount)) as Amount;
+              specifiedType: const FullType(Amount)) as Amount?;
           break;
       }
     }
@@ -78,22 +80,20 @@ class _$AccountInfo extends AccountInfo {
   @override
   final String priKey;
   @override
-  final Amount balance;
+  final Amount? balance;
 
-  factory _$AccountInfo([void Function(AccountInfoBuilder) updates]) =>
+  factory _$AccountInfo([void Function(AccountInfoBuilder)? updates]) =>
       (new AccountInfoBuilder()..update(updates)).build();
 
-  _$AccountInfo._({this.index, this.pubKey, this.priKey, this.balance})
+  _$AccountInfo._(
+      {required this.index,
+      required this.pubKey,
+      required this.priKey,
+      this.balance})
       : super._() {
-    if (index == null) {
-      throw new BuiltValueNullFieldError('AccountInfo', 'index');
-    }
-    if (pubKey == null) {
-      throw new BuiltValueNullFieldError('AccountInfo', 'pubKey');
-    }
-    if (priKey == null) {
-      throw new BuiltValueNullFieldError('AccountInfo', 'priKey');
-    }
+    BuiltValueNullFieldError.checkNotNull(index, 'AccountInfo', 'index');
+    BuiltValueNullFieldError.checkNotNull(pubKey, 'AccountInfo', 'pubKey');
+    BuiltValueNullFieldError.checkNotNull(priKey, 'AccountInfo', 'priKey');
   }
 
   @override
@@ -132,32 +132,33 @@ class _$AccountInfo extends AccountInfo {
 }
 
 class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
-  _$AccountInfo _$v;
+  _$AccountInfo? _$v;
 
-  int _index;
-  int get index => _$this._index;
-  set index(int index) => _$this._index = index;
+  int? _index;
+  int? get index => _$this._index;
+  set index(int? index) => _$this._index = index;
 
-  String _pubKey;
-  String get pubKey => _$this._pubKey;
-  set pubKey(String pubKey) => _$this._pubKey = pubKey;
+  String? _pubKey;
+  String? get pubKey => _$this._pubKey;
+  set pubKey(String? pubKey) => _$this._pubKey = pubKey;
 
-  String _priKey;
-  String get priKey => _$this._priKey;
-  set priKey(String priKey) => _$this._priKey = priKey;
+  String? _priKey;
+  String? get priKey => _$this._priKey;
+  set priKey(String? priKey) => _$this._priKey = priKey;
 
-  Amount _balance;
-  Amount get balance => _$this._balance;
-  set balance(Amount balance) => _$this._balance = balance;
+  Amount? _balance;
+  Amount? get balance => _$this._balance;
+  set balance(Amount? balance) => _$this._balance = balance;
 
   AccountInfoBuilder();
 
   AccountInfoBuilder get _$this {
-    if (_$v != null) {
-      _index = _$v.index;
-      _pubKey = _$v.pubKey;
-      _priKey = _$v.priKey;
-      _balance = _$v.balance;
+    final $v = _$v;
+    if ($v != null) {
+      _index = $v.index;
+      _pubKey = $v.pubKey;
+      _priKey = $v.priKey;
+      _balance = $v.balance;
       _$v = null;
     }
     return this;
@@ -165,14 +166,12 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
 
   @override
   void replace(AccountInfo other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AccountInfo;
   }
 
   @override
-  void update(void Function(AccountInfoBuilder) updates) {
+  void update(void Function(AccountInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -180,10 +179,16 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
   _$AccountInfo build() {
     final _$result = _$v ??
         new _$AccountInfo._(
-            index: index, pubKey: pubKey, priKey: priKey, balance: balance);
+            index: BuiltValueNullFieldError.checkNotNull(
+                index, 'AccountInfo', 'index'),
+            pubKey: BuiltValueNullFieldError.checkNotNull(
+                pubKey, 'AccountInfo', 'pubKey'),
+            priKey: BuiltValueNullFieldError.checkNotNull(
+                priKey, 'AccountInfo', 'priKey'),
+            balance: balance);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

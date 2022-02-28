@@ -20,10 +20,10 @@ class _$WebviewPincodeDialogStyleSerializer
   final String wireName = 'WebviewPincodeDialogStyle';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, WebviewPincodeDialogStyle object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'closeIcon',
       serializers.serialize(object.closeIcon,
           specifiedType: const FullType(WebviewPincodeDialogClose)),
@@ -46,7 +46,7 @@ class _$WebviewPincodeDialogStyleSerializer
 
   @override
   WebviewPincodeDialogStyle deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewPincodeDialogStyleBuilder();
 
@@ -54,31 +54,31 @@ class _$WebviewPincodeDialogStyleSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'closeIcon':
           result.closeIcon.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeDialogClose))
+                  specifiedType: const FullType(WebviewPincodeDialogClose))!
               as WebviewPincodeDialogClose);
           break;
         case 'errorMsg':
           result.errorMsg.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeDialogErrorMsg))
+                  specifiedType: const FullType(WebviewPincodeDialogErrorMsg))!
               as WebviewPincodeDialogErrorMsg);
           break;
         case 'hintMsg':
           result.hintMsg.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeDialogHint))
+                  specifiedType: const FullType(WebviewPincodeDialogHint))!
               as WebviewPincodeDialogHint);
           break;
         case 'inputFields':
           result.inputFields.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeDialogInput))
+                  specifiedType: const FullType(WebviewPincodeDialogInput))!
               as WebviewPincodeDialogInput);
           break;
         case 'title':
           result.title.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeDialogTitle))
+                  specifiedType: const FullType(WebviewPincodeDialogTitle))!
               as WebviewPincodeDialogTitle);
           break;
       }
@@ -101,35 +101,26 @@ class _$WebviewPincodeDialogStyle extends WebviewPincodeDialogStyle {
   final WebviewPincodeDialogTitle title;
 
   factory _$WebviewPincodeDialogStyle(
-          [void Function(WebviewPincodeDialogStyleBuilder) updates]) =>
+          [void Function(WebviewPincodeDialogStyleBuilder)? updates]) =>
       (new WebviewPincodeDialogStyleBuilder()..update(updates)).build();
 
   _$WebviewPincodeDialogStyle._(
-      {this.closeIcon,
-      this.errorMsg,
-      this.hintMsg,
-      this.inputFields,
-      this.title})
+      {required this.closeIcon,
+      required this.errorMsg,
+      required this.hintMsg,
+      required this.inputFields,
+      required this.title})
       : super._() {
-    if (closeIcon == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogStyle', 'closeIcon');
-    }
-    if (errorMsg == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogStyle', 'errorMsg');
-    }
-    if (hintMsg == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogStyle', 'hintMsg');
-    }
-    if (inputFields == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogStyle', 'inputFields');
-    }
-    if (title == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeDialogStyle', 'title');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        closeIcon, 'WebviewPincodeDialogStyle', 'closeIcon');
+    BuiltValueNullFieldError.checkNotNull(
+        errorMsg, 'WebviewPincodeDialogStyle', 'errorMsg');
+    BuiltValueNullFieldError.checkNotNull(
+        hintMsg, 'WebviewPincodeDialogStyle', 'hintMsg');
+    BuiltValueNullFieldError.checkNotNull(
+        inputFields, 'WebviewPincodeDialogStyle', 'inputFields');
+    BuiltValueNullFieldError.checkNotNull(
+        title, 'WebviewPincodeDialogStyle', 'title');
   }
 
   @override
@@ -177,46 +168,47 @@ class _$WebviewPincodeDialogStyle extends WebviewPincodeDialogStyle {
 class WebviewPincodeDialogStyleBuilder
     implements
         Builder<WebviewPincodeDialogStyle, WebviewPincodeDialogStyleBuilder> {
-  _$WebviewPincodeDialogStyle _$v;
+  _$WebviewPincodeDialogStyle? _$v;
 
-  WebviewPincodeDialogCloseBuilder _closeIcon;
+  WebviewPincodeDialogCloseBuilder? _closeIcon;
   WebviewPincodeDialogCloseBuilder get closeIcon =>
       _$this._closeIcon ??= new WebviewPincodeDialogCloseBuilder();
-  set closeIcon(WebviewPincodeDialogCloseBuilder closeIcon) =>
+  set closeIcon(WebviewPincodeDialogCloseBuilder? closeIcon) =>
       _$this._closeIcon = closeIcon;
 
-  WebviewPincodeDialogErrorMsgBuilder _errorMsg;
+  WebviewPincodeDialogErrorMsgBuilder? _errorMsg;
   WebviewPincodeDialogErrorMsgBuilder get errorMsg =>
       _$this._errorMsg ??= new WebviewPincodeDialogErrorMsgBuilder();
-  set errorMsg(WebviewPincodeDialogErrorMsgBuilder errorMsg) =>
+  set errorMsg(WebviewPincodeDialogErrorMsgBuilder? errorMsg) =>
       _$this._errorMsg = errorMsg;
 
-  WebviewPincodeDialogHintBuilder _hintMsg;
+  WebviewPincodeDialogHintBuilder? _hintMsg;
   WebviewPincodeDialogHintBuilder get hintMsg =>
       _$this._hintMsg ??= new WebviewPincodeDialogHintBuilder();
-  set hintMsg(WebviewPincodeDialogHintBuilder hintMsg) =>
+  set hintMsg(WebviewPincodeDialogHintBuilder? hintMsg) =>
       _$this._hintMsg = hintMsg;
 
-  WebviewPincodeDialogInputBuilder _inputFields;
+  WebviewPincodeDialogInputBuilder? _inputFields;
   WebviewPincodeDialogInputBuilder get inputFields =>
       _$this._inputFields ??= new WebviewPincodeDialogInputBuilder();
-  set inputFields(WebviewPincodeDialogInputBuilder inputFields) =>
+  set inputFields(WebviewPincodeDialogInputBuilder? inputFields) =>
       _$this._inputFields = inputFields;
 
-  WebviewPincodeDialogTitleBuilder _title;
+  WebviewPincodeDialogTitleBuilder? _title;
   WebviewPincodeDialogTitleBuilder get title =>
       _$this._title ??= new WebviewPincodeDialogTitleBuilder();
-  set title(WebviewPincodeDialogTitleBuilder title) => _$this._title = title;
+  set title(WebviewPincodeDialogTitleBuilder? title) => _$this._title = title;
 
   WebviewPincodeDialogStyleBuilder();
 
   WebviewPincodeDialogStyleBuilder get _$this {
-    if (_$v != null) {
-      _closeIcon = _$v.closeIcon?.toBuilder();
-      _errorMsg = _$v.errorMsg?.toBuilder();
-      _hintMsg = _$v.hintMsg?.toBuilder();
-      _inputFields = _$v.inputFields?.toBuilder();
-      _title = _$v.title?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _closeIcon = $v.closeIcon.toBuilder();
+      _errorMsg = $v.errorMsg.toBuilder();
+      _hintMsg = $v.hintMsg.toBuilder();
+      _inputFields = $v.inputFields.toBuilder();
+      _title = $v.title.toBuilder();
       _$v = null;
     }
     return this;
@@ -224,14 +216,12 @@ class WebviewPincodeDialogStyleBuilder
 
   @override
   void replace(WebviewPincodeDialogStyle other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewPincodeDialogStyle;
   }
 
   @override
-  void update(void Function(WebviewPincodeDialogStyleBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogStyleBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -247,7 +237,7 @@ class WebviewPincodeDialogStyleBuilder
               inputFields: inputFields.build(),
               title: title.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'closeIcon';
         closeIcon.build();
@@ -270,4 +260,4 @@ class WebviewPincodeDialogStyleBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

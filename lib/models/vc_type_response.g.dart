@@ -15,9 +15,9 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
   final String wireName = 'VcType';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, VcType object,
+  Iterable<Object?> serialize(Serializers serializers, VcType object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
@@ -34,7 +34,7 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
   }
 
   @override
-  VcType deserialize(Serializers serializers, Iterable<Object> serialized,
+  VcType deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new VcTypeBuilder();
 
@@ -42,7 +42,7 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -58,9 +58,9 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
           break;
         case 'content':
           result.content.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -79,22 +79,19 @@ class _$VcType extends VcType {
   @override
   final BuiltList<String> content;
 
-  factory _$VcType([void Function(VcTypeBuilder) updates]) =>
+  factory _$VcType([void Function(VcTypeBuilder)? updates]) =>
       (new VcTypeBuilder()..update(updates)).build();
 
-  _$VcType._({this.id, this.name, this.url, this.content}) : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('VcType', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('VcType', 'name');
-    }
-    if (url == null) {
-      throw new BuiltValueNullFieldError('VcType', 'url');
-    }
-    if (content == null) {
-      throw new BuiltValueNullFieldError('VcType', 'content');
-    }
+  _$VcType._(
+      {required this.id,
+      required this.name,
+      required this.url,
+      required this.content})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, 'VcType', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, 'VcType', 'name');
+    BuiltValueNullFieldError.checkNotNull(url, 'VcType', 'url');
+    BuiltValueNullFieldError.checkNotNull(content, 'VcType', 'content');
   }
 
   @override
@@ -132,33 +129,34 @@ class _$VcType extends VcType {
 }
 
 class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
-  _$VcType _$v;
+  _$VcType? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _url;
-  String get url => _$this._url;
-  set url(String url) => _$this._url = url;
+  String? _url;
+  String? get url => _$this._url;
+  set url(String? url) => _$this._url = url;
 
-  ListBuilder<String> _content;
+  ListBuilder<String>? _content;
   ListBuilder<String> get content =>
       _$this._content ??= new ListBuilder<String>();
-  set content(ListBuilder<String> content) => _$this._content = content;
+  set content(ListBuilder<String>? content) => _$this._content = content;
 
   VcTypeBuilder();
 
   VcTypeBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _url = _$v.url;
-      _content = _$v.content?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _url = $v.url;
+      _content = $v.content.toBuilder();
       _$v = null;
     }
     return this;
@@ -166,14 +164,12 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
 
   @override
   void replace(VcType other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$VcType;
   }
 
   @override
-  void update(void Function(VcTypeBuilder) updates) {
+  void update(void Function(VcTypeBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -183,9 +179,13 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
     try {
       _$result = _$v ??
           new _$VcType._(
-              id: id, name: name, url: url, content: content.build());
+              id: BuiltValueNullFieldError.checkNotNull(id, 'VcType', 'id'),
+              name:
+                  BuiltValueNullFieldError.checkNotNull(name, 'VcType', 'name'),
+              url: BuiltValueNullFieldError.checkNotNull(url, 'VcType', 'url'),
+              content: content.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'content';
         content.build();
@@ -200,4 +200,4 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

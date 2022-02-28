@@ -15,9 +15,9 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
   final String wireName = 'Contract';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Contract object,
+  Iterable<Object?> serialize(Serializers serializers, Contract object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'address',
@@ -26,23 +26,25 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
       'abi',
       serializers.serialize(object.abi, specifiedType: const FullType(String)),
     ];
-    if (object.symbol != null) {
+    Object? value;
+    value = object.symbol;
+    if (value != null) {
       result
         ..add('symbol')
-        ..add(serializers.serialize(object.symbol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.decimal != null) {
+    value = object.decimal;
+    if (value != null) {
       result
         ..add('decimal')
-        ..add(serializers.serialize(object.decimal,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
 
   @override
-  Contract deserialize(Serializers serializers, Iterable<Object> serialized,
+  Contract deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ContractBuilder();
 
@@ -50,7 +52,7 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
@@ -66,11 +68,11 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
           break;
         case 'symbol':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'decimal':
           result.decimal = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
       }
     }
@@ -87,24 +89,23 @@ class _$Contract extends Contract {
   @override
   final String abi;
   @override
-  final String symbol;
+  final String? symbol;
   @override
-  final int decimal;
+  final int? decimal;
 
-  factory _$Contract([void Function(ContractBuilder) updates]) =>
+  factory _$Contract([void Function(ContractBuilder)? updates]) =>
       (new ContractBuilder()..update(updates)).build();
 
-  _$Contract._({this.name, this.address, this.abi, this.symbol, this.decimal})
+  _$Contract._(
+      {required this.name,
+      required this.address,
+      required this.abi,
+      this.symbol,
+      this.decimal})
       : super._() {
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Contract', 'name');
-    }
-    if (address == null) {
-      throw new BuiltValueNullFieldError('Contract', 'address');
-    }
-    if (abi == null) {
-      throw new BuiltValueNullFieldError('Contract', 'abi');
-    }
+    BuiltValueNullFieldError.checkNotNull(name, 'Contract', 'name');
+    BuiltValueNullFieldError.checkNotNull(address, 'Contract', 'address');
+    BuiltValueNullFieldError.checkNotNull(abi, 'Contract', 'abi');
   }
 
   @override
@@ -146,37 +147,38 @@ class _$Contract extends Contract {
 }
 
 class ContractBuilder implements Builder<Contract, ContractBuilder> {
-  _$Contract _$v;
+  _$Contract? _$v;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _abi;
-  String get abi => _$this._abi;
-  set abi(String abi) => _$this._abi = abi;
+  String? _abi;
+  String? get abi => _$this._abi;
+  set abi(String? abi) => _$this._abi = abi;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  int _decimal;
-  int get decimal => _$this._decimal;
-  set decimal(int decimal) => _$this._decimal = decimal;
+  int? _decimal;
+  int? get decimal => _$this._decimal;
+  set decimal(int? decimal) => _$this._decimal = decimal;
 
   ContractBuilder();
 
   ContractBuilder get _$this {
-    if (_$v != null) {
-      _name = _$v.name;
-      _address = _$v.address;
-      _abi = _$v.abi;
-      _symbol = _$v.symbol;
-      _decimal = _$v.decimal;
+    final $v = _$v;
+    if ($v != null) {
+      _name = $v.name;
+      _address = $v.address;
+      _abi = $v.abi;
+      _symbol = $v.symbol;
+      _decimal = $v.decimal;
       _$v = null;
     }
     return this;
@@ -184,14 +186,12 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
 
   @override
   void replace(Contract other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Contract;
   }
 
   @override
-  void update(void Function(ContractBuilder) updates) {
+  void update(void Function(ContractBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -199,9 +199,11 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
   _$Contract build() {
     final _$result = _$v ??
         new _$Contract._(
-            name: name,
-            address: address,
-            abi: abi,
+            name:
+                BuiltValueNullFieldError.checkNotNull(name, 'Contract', 'name'),
+            address: BuiltValueNullFieldError.checkNotNull(
+                address, 'Contract', 'address'),
+            abi: BuiltValueNullFieldError.checkNotNull(abi, 'Contract', 'abi'),
             symbol: symbol,
             decimal: decimal);
     replace(_$result);
@@ -209,4 +211,4 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

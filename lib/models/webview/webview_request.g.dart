@@ -17,19 +17,21 @@ class _$WebviewRequestSerializer
   final String wireName = 'WebviewRequest';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, WebviewRequest object,
+  Iterable<Object?> serialize(Serializers serializers, WebviewRequest object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'method',
       serializers.serialize(object.method,
           specifiedType: const FullType(WebviewRequestMethod)),
     ];
-    if (object.param != null) {
+    Object? value;
+    value = object.param;
+    if (value != null) {
       result
         ..add('param')
-        ..add(serializers.serialize(object.param,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -37,7 +39,7 @@ class _$WebviewRequestSerializer
 
   @override
   WebviewRequest deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewRequestBuilder();
 
@@ -45,7 +47,7 @@ class _$WebviewRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -58,7 +60,7 @@ class _$WebviewRequestSerializer
           break;
         case 'param':
           result.param = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -73,18 +75,15 @@ class _$WebviewRequest extends WebviewRequest {
   @override
   final WebviewRequestMethod method;
   @override
-  final String param;
+  final String? param;
 
-  factory _$WebviewRequest([void Function(WebviewRequestBuilder) updates]) =>
+  factory _$WebviewRequest([void Function(WebviewRequestBuilder)? updates]) =>
       (new WebviewRequestBuilder()..update(updates)).build();
 
-  _$WebviewRequest._({this.id, this.method, this.param}) : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('WebviewRequest', 'id');
-    }
-    if (method == null) {
-      throw new BuiltValueNullFieldError('WebviewRequest', 'method');
-    }
+  _$WebviewRequest._({required this.id, required this.method, this.param})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, 'WebviewRequest', 'id');
+    BuiltValueNullFieldError.checkNotNull(method, 'WebviewRequest', 'method');
   }
 
   @override
@@ -121,27 +120,28 @@ class _$WebviewRequest extends WebviewRequest {
 
 class WebviewRequestBuilder
     implements Builder<WebviewRequest, WebviewRequestBuilder> {
-  _$WebviewRequest _$v;
+  _$WebviewRequest? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  WebviewRequestMethod _method;
-  WebviewRequestMethod get method => _$this._method;
-  set method(WebviewRequestMethod method) => _$this._method = method;
+  WebviewRequestMethod? _method;
+  WebviewRequestMethod? get method => _$this._method;
+  set method(WebviewRequestMethod? method) => _$this._method = method;
 
-  String _param;
-  String get param => _$this._param;
-  set param(String param) => _$this._param = param;
+  String? _param;
+  String? get param => _$this._param;
+  set param(String? param) => _$this._param = param;
 
   WebviewRequestBuilder();
 
   WebviewRequestBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _method = _$v.method;
-      _param = _$v.param;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _method = $v.method;
+      _param = $v.param;
       _$v = null;
     }
     return this;
@@ -149,24 +149,27 @@ class WebviewRequestBuilder
 
   @override
   void replace(WebviewRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewRequest;
   }
 
   @override
-  void update(void Function(WebviewRequestBuilder) updates) {
+  void update(void Function(WebviewRequestBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$WebviewRequest build() {
-    final _$result =
-        _$v ?? new _$WebviewRequest._(id: id, method: method, param: param);
+    final _$result = _$v ??
+        new _$WebviewRequest._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, 'WebviewRequest', 'id'),
+            method: BuiltValueNullFieldError.checkNotNull(
+                method, 'WebviewRequest', 'method'),
+            param: param);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

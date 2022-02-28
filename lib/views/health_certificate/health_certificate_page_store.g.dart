@@ -58,10 +58,11 @@ class _$SelectOptionSerializer implements PrimitiveSerializer<SelectOption> {
   @override
   SelectOption deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      SelectOption.valueOf(_fromWire[serialized] ?? serialized as String);
+      SelectOption.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
 
 // **************************************************************************
 // StoreGenerator
@@ -70,7 +71,7 @@ class _$SelectOptionSerializer implements PrimitiveSerializer<SelectOption> {
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
-  Computed<bool> _$hasEmptyComputed;
+  Computed<bool>? _$hasEmptyComputed;
 
   @override
   bool get hasEmpty =>
@@ -229,7 +230,7 @@ hasEmpty: ${hasEmpty}
 }
 
 mixin _$FormErrorState on _FormErrorState, Store {
-  Computed<bool> _$hasErrorsComputed;
+  Computed<bool>? _$hasErrorsComputed;
 
   @override
   bool get hasErrors =>

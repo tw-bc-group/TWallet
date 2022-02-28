@@ -93,24 +93,26 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
   final String wireName = 'Command';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Command object,
+  Iterable<Object?> serialize(Serializers serializers, Command object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'type',
       serializers.serialize(object.type,
           specifiedType: const FullType(CommandType)),
     ];
-    if (object.param != null) {
+    Object? value;
+    value = object.param;
+    if (value != null) {
       result
         ..add('param')
-        ..add(serializers.serialize(object.param,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  Command deserialize(Serializers serializers, Iterable<Object> serialized,
+  Command deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CommandBuilder();
 
@@ -118,7 +120,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'type':
           result.type = serializers.deserialize(value,
@@ -126,7 +128,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
           break;
         case 'param':
           result.param = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -139,15 +141,13 @@ class _$Command extends Command {
   @override
   final CommandType type;
   @override
-  final String param;
+  final String? param;
 
-  factory _$Command([void Function(CommandBuilder) updates]) =>
+  factory _$Command([void Function(CommandBuilder)? updates]) =>
       (new CommandBuilder()..update(updates)).build();
 
-  _$Command._({this.type, this.param}) : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('Command', 'type');
-    }
+  _$Command._({required this.type, this.param}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(type, 'Command', 'type');
   }
 
   @override
@@ -178,22 +178,23 @@ class _$Command extends Command {
 }
 
 class CommandBuilder implements Builder<Command, CommandBuilder> {
-  _$Command _$v;
+  _$Command? _$v;
 
-  CommandType _type;
-  CommandType get type => _$this._type;
-  set type(CommandType type) => _$this._type = type;
+  CommandType? _type;
+  CommandType? get type => _$this._type;
+  set type(CommandType? type) => _$this._type = type;
 
-  String _param;
-  String get param => _$this._param;
-  set param(String param) => _$this._param = param;
+  String? _param;
+  String? get param => _$this._param;
+  set param(String? param) => _$this._param = param;
 
   CommandBuilder();
 
   CommandBuilder get _$this {
-    if (_$v != null) {
-      _type = _$v.type;
-      _param = _$v.param;
+    final $v = _$v;
+    if ($v != null) {
+      _type = $v.type;
+      _param = $v.param;
       _$v = null;
     }
     return this;
@@ -201,23 +202,25 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
 
   @override
   void replace(Command other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Command;
   }
 
   @override
-  void update(void Function(CommandBuilder) updates) {
+  void update(void Function(CommandBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Command build() {
-    final _$result = _$v ?? new _$Command._(type: type, param: param);
+    final _$result = _$v ??
+        new _$Command._(
+            type:
+                BuiltValueNullFieldError.checkNotNull(type, 'Command', 'type'),
+            param: param);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -20,10 +20,10 @@ class _$WebviewSignTransactionSerializer
   final String wireName = 'WebviewSignTransaction';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, WebviewSignTransaction object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'transactionInfo',
       serializers.serialize(object.transactionInfo,
           specifiedType: const FullType(WebviewTransactionInfo)),
@@ -31,10 +31,12 @@ class _$WebviewSignTransactionSerializer
       serializers.serialize(object.pincodeDialogStyle,
           specifiedType: const FullType(WebviewPincodeDialogStyle)),
     ];
-    if (object.token != null) {
+    Object? value;
+    value = object.token;
+    if (value != null) {
       result
         ..add('token')
-        ..add(serializers.serialize(object.token,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -42,7 +44,7 @@ class _$WebviewSignTransactionSerializer
 
   @override
   WebviewSignTransaction deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewSignTransactionBuilder();
 
@@ -50,20 +52,20 @@ class _$WebviewSignTransactionSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'transactionInfo':
           result.transactionInfo.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewTransactionInfo))
+                  specifiedType: const FullType(WebviewTransactionInfo))!
               as WebviewTransactionInfo);
           break;
         case 'token':
           result.token = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'pincodeDialogStyle':
           result.pincodeDialogStyle.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewPincodeDialogStyle))
+                  specifiedType: const FullType(WebviewPincodeDialogStyle))!
               as WebviewPincodeDialogStyle);
           break;
       }
@@ -77,25 +79,23 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
   @override
   final WebviewTransactionInfo transactionInfo;
   @override
-  final String token;
+  final String? token;
   @override
   final WebviewPincodeDialogStyle pincodeDialogStyle;
 
   factory _$WebviewSignTransaction(
-          [void Function(WebviewSignTransactionBuilder) updates]) =>
+          [void Function(WebviewSignTransactionBuilder)? updates]) =>
       (new WebviewSignTransactionBuilder()..update(updates)).build();
 
   _$WebviewSignTransaction._(
-      {this.transactionInfo, this.token, this.pincodeDialogStyle})
+      {required this.transactionInfo,
+      this.token,
+      required this.pincodeDialogStyle})
       : super._() {
-    if (transactionInfo == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'transactionInfo');
-    }
-    if (pincodeDialogStyle == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewSignTransaction', 'pincodeDialogStyle');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        transactionInfo, 'WebviewSignTransaction', 'transactionInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        pincodeDialogStyle, 'WebviewSignTransaction', 'pincodeDialogStyle');
   }
 
   @override
@@ -134,31 +134,33 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
 
 class WebviewSignTransactionBuilder
     implements Builder<WebviewSignTransaction, WebviewSignTransactionBuilder> {
-  _$WebviewSignTransaction _$v;
+  _$WebviewSignTransaction? _$v;
 
-  WebviewTransactionInfoBuilder _transactionInfo;
+  WebviewTransactionInfoBuilder? _transactionInfo;
   WebviewTransactionInfoBuilder get transactionInfo =>
       _$this._transactionInfo ??= new WebviewTransactionInfoBuilder();
-  set transactionInfo(WebviewTransactionInfoBuilder transactionInfo) =>
+  set transactionInfo(WebviewTransactionInfoBuilder? transactionInfo) =>
       _$this._transactionInfo = transactionInfo;
 
-  String _token;
-  String get token => _$this._token;
-  set token(String token) => _$this._token = token;
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
 
-  WebviewPincodeDialogStyleBuilder _pincodeDialogStyle;
+  WebviewPincodeDialogStyleBuilder? _pincodeDialogStyle;
   WebviewPincodeDialogStyleBuilder get pincodeDialogStyle =>
       _$this._pincodeDialogStyle ??= new WebviewPincodeDialogStyleBuilder();
-  set pincodeDialogStyle(WebviewPincodeDialogStyleBuilder pincodeDialogStyle) =>
+  set pincodeDialogStyle(
+          WebviewPincodeDialogStyleBuilder? pincodeDialogStyle) =>
       _$this._pincodeDialogStyle = pincodeDialogStyle;
 
   WebviewSignTransactionBuilder();
 
   WebviewSignTransactionBuilder get _$this {
-    if (_$v != null) {
-      _transactionInfo = _$v.transactionInfo?.toBuilder();
-      _token = _$v.token;
-      _pincodeDialogStyle = _$v.pincodeDialogStyle?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _transactionInfo = $v.transactionInfo.toBuilder();
+      _token = $v.token;
+      _pincodeDialogStyle = $v.pincodeDialogStyle.toBuilder();
       _$v = null;
     }
     return this;
@@ -166,14 +168,12 @@ class WebviewSignTransactionBuilder
 
   @override
   void replace(WebviewSignTransaction other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewSignTransaction;
   }
 
   @override
-  void update(void Function(WebviewSignTransactionBuilder) updates) {
+  void update(void Function(WebviewSignTransactionBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -187,7 +187,7 @@ class WebviewSignTransactionBuilder
               token: token,
               pincodeDialogStyle: pincodeDialogStyle.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'transactionInfo';
         transactionInfo.build();
@@ -205,4 +205,4 @@ class WebviewSignTransactionBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

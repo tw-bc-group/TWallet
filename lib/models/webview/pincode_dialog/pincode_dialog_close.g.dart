@@ -20,10 +20,10 @@ class _$WebviewPincodeDialogCloseSerializer
   final String wireName = 'WebviewPincodeDialogClose';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, WebviewPincodeDialogClose object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'color',
       serializers.serialize(object.color,
           specifiedType: const FullType(String)),
@@ -36,7 +36,7 @@ class _$WebviewPincodeDialogCloseSerializer
 
   @override
   WebviewPincodeDialogClose deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewPincodeDialogCloseBuilder();
 
@@ -44,7 +44,7 @@ class _$WebviewPincodeDialogCloseSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'color':
           result.color = serializers.deserialize(value,
@@ -68,16 +68,15 @@ class _$WebviewPincodeDialogClose extends WebviewPincodeDialogClose {
   final double size;
 
   factory _$WebviewPincodeDialogClose(
-          [void Function(WebviewPincodeDialogCloseBuilder) updates]) =>
+          [void Function(WebviewPincodeDialogCloseBuilder)? updates]) =>
       (new WebviewPincodeDialogCloseBuilder()..update(updates)).build();
 
-  _$WebviewPincodeDialogClose._({this.color, this.size}) : super._() {
-    if (color == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeDialogClose', 'color');
-    }
-    if (size == null) {
-      throw new BuiltValueNullFieldError('WebviewPincodeDialogClose', 'size');
-    }
+  _$WebviewPincodeDialogClose._({required this.color, required this.size})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        color, 'WebviewPincodeDialogClose', 'color');
+    BuiltValueNullFieldError.checkNotNull(
+        size, 'WebviewPincodeDialogClose', 'size');
   }
 
   @override
@@ -114,24 +113,25 @@ class _$WebviewPincodeDialogClose extends WebviewPincodeDialogClose {
 class WebviewPincodeDialogCloseBuilder
     implements
         Builder<WebviewPincodeDialogClose, WebviewPincodeDialogCloseBuilder> {
-  _$WebviewPincodeDialogClose _$v;
+  _$WebviewPincodeDialogClose? _$v;
 
-  String _color;
-  String get color => _$this._color;
-  set color(String color) => _$this._color = color;
+  String? _color;
+  String? get color => _$this._color;
+  set color(String? color) => _$this._color = color;
 
-  double _size;
-  double get size => _$this._size;
-  set size(double size) => _$this._size = size;
+  double? _size;
+  double? get size => _$this._size;
+  set size(double? size) => _$this._size = size;
 
   WebviewPincodeDialogCloseBuilder() {
     WebviewPincodeDialogClose._initializeBuilder(this);
   }
 
   WebviewPincodeDialogCloseBuilder get _$this {
-    if (_$v != null) {
-      _color = _$v.color;
-      _size = _$v.size;
+    final $v = _$v;
+    if ($v != null) {
+      _color = $v.color;
+      _size = $v.size;
       _$v = null;
     }
     return this;
@@ -139,24 +139,26 @@ class WebviewPincodeDialogCloseBuilder
 
   @override
   void replace(WebviewPincodeDialogClose other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewPincodeDialogClose;
   }
 
   @override
-  void update(void Function(WebviewPincodeDialogCloseBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogCloseBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$WebviewPincodeDialogClose build() {
-    final _$result =
-        _$v ?? new _$WebviewPincodeDialogClose._(color: color, size: size);
+    final _$result = _$v ??
+        new _$WebviewPincodeDialogClose._(
+            color: BuiltValueNullFieldError.checkNotNull(
+                color, 'WebviewPincodeDialogClose', 'color'),
+            size: BuiltValueNullFieldError.checkNotNull(
+                size, 'WebviewPincodeDialogClose', 'size'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

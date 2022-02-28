@@ -36,8 +36,7 @@ abstract class Command implements Built<Command, CommandBuilder> {
 
   CommandType get type;
 
-  @nullable
-  String get param;
+  String? get param;
 
   Uint8List encode() {
     return Uint8List.fromList(

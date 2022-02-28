@@ -81,7 +81,8 @@ class _$DcepTypeSerializer implements PrimitiveSerializer<DcepType> {
   @override
   DcepType deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      DcepType.valueOf(_fromWire[serialized] ?? serialized as String);
+      DcepType.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$DcepSerializer implements StructuredSerializer<Dcep> {
@@ -91,9 +92,9 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
   final String wireName = 'Dcep';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Dcep object,
+  Iterable<Object?> serialize(Serializers serializers, Dcep object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'serial_number',
       serializers.serialize(object.sn, specifiedType: const FullType(String)),
       'owner',
@@ -111,7 +112,7 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
   }
 
   @override
-  Dcep deserialize(Serializers serializers, Iterable<Object> serialized,
+  Dcep deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new DcepBuilder();
 
@@ -119,7 +120,7 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'serial_number':
           result.sn = serializers.deserialize(value,
@@ -154,22 +155,19 @@ class _$Dcep extends Dcep {
   @override
   final DcepType type;
 
-  factory _$Dcep([void Function(DcepBuilder) updates]) =>
+  factory _$Dcep([void Function(DcepBuilder)? updates]) =>
       (new DcepBuilder()..update(updates)).build();
 
-  _$Dcep._({this.sn, this.owner, this.signature, this.type}) : super._() {
-    if (sn == null) {
-      throw new BuiltValueNullFieldError('Dcep', 'sn');
-    }
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('Dcep', 'owner');
-    }
-    if (signature == null) {
-      throw new BuiltValueNullFieldError('Dcep', 'signature');
-    }
-    if (type == null) {
-      throw new BuiltValueNullFieldError('Dcep', 'type');
-    }
+  _$Dcep._(
+      {required this.sn,
+      required this.owner,
+      required this.signature,
+      required this.type})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(sn, 'Dcep', 'sn');
+    BuiltValueNullFieldError.checkNotNull(owner, 'Dcep', 'owner');
+    BuiltValueNullFieldError.checkNotNull(signature, 'Dcep', 'signature');
+    BuiltValueNullFieldError.checkNotNull(type, 'Dcep', 'type');
   }
 
   @override
@@ -208,32 +206,33 @@ class _$Dcep extends Dcep {
 }
 
 class DcepBuilder implements Builder<Dcep, DcepBuilder> {
-  _$Dcep _$v;
+  _$Dcep? _$v;
 
-  String _sn;
-  String get sn => _$this._sn;
-  set sn(String sn) => _$this._sn = sn;
+  String? _sn;
+  String? get sn => _$this._sn;
+  set sn(String? sn) => _$this._sn = sn;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _signature;
-  String get signature => _$this._signature;
-  set signature(String signature) => _$this._signature = signature;
+  String? _signature;
+  String? get signature => _$this._signature;
+  set signature(String? signature) => _$this._signature = signature;
 
-  DcepType _type;
-  DcepType get type => _$this._type;
-  set type(DcepType type) => _$this._type = type;
+  DcepType? _type;
+  DcepType? get type => _$this._type;
+  set type(DcepType? type) => _$this._type = type;
 
   DcepBuilder();
 
   DcepBuilder get _$this {
-    if (_$v != null) {
-      _sn = _$v.sn;
-      _owner = _$v.owner;
-      _signature = _$v.signature;
-      _type = _$v.type;
+    final $v = _$v;
+    if ($v != null) {
+      _sn = $v.sn;
+      _owner = $v.owner;
+      _signature = $v.signature;
+      _type = $v.type;
       _$v = null;
     }
     return this;
@@ -241,24 +240,28 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
 
   @override
   void replace(Dcep other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Dcep;
   }
 
   @override
-  void update(void Function(DcepBuilder) updates) {
+  void update(void Function(DcepBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Dcep build() {
     final _$result = _$v ??
-        new _$Dcep._(sn: sn, owner: owner, signature: signature, type: type);
+        new _$Dcep._(
+            sn: BuiltValueNullFieldError.checkNotNull(sn, 'Dcep', 'sn'),
+            owner:
+                BuiltValueNullFieldError.checkNotNull(owner, 'Dcep', 'owner'),
+            signature: BuiltValueNullFieldError.checkNotNull(
+                signature, 'Dcep', 'signature'),
+            type: BuiltValueNullFieldError.checkNotNull(type, 'Dcep', 'type'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

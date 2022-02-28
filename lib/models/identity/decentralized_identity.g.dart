@@ -20,10 +20,10 @@ class _$DecentralizedIdentitySerializer
   final String wireName = 'DecentralizedIdentity';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, DecentralizedIdentity object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'dappId',
@@ -39,10 +39,12 @@ class _$DecentralizedIdentitySerializer
       serializers.serialize(object.healthInfo,
           specifiedType: const FullType(HealthInfo)),
     ];
-    if (object.extra != null) {
+    Object? value;
+    value = object.extra;
+    if (value != null) {
       result
         ..add('extra')
-        ..add(serializers.serialize(object.extra,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -50,7 +52,7 @@ class _$DecentralizedIdentitySerializer
 
   @override
   DecentralizedIdentity deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new DecentralizedIdentityBuilder();
 
@@ -58,7 +60,7 @@ class _$DecentralizedIdentitySerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -70,19 +72,19 @@ class _$DecentralizedIdentitySerializer
           break;
         case 'profileInfo':
           result.profileInfo.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ProfileInfo)) as ProfileInfo);
+              specifiedType: const FullType(ProfileInfo))! as ProfileInfo);
           break;
         case 'accountInfo':
           result.accountInfo.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AccountInfo)) as AccountInfo);
+              specifiedType: const FullType(AccountInfo))! as AccountInfo);
           break;
         case 'healthInfo':
           result.healthInfo.replace(serializers.deserialize(value,
-              specifiedType: const FullType(HealthInfo)) as HealthInfo);
+              specifiedType: const FullType(HealthInfo))! as HealthInfo);
           break;
         case 'extra':
           result.extra = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -103,39 +105,31 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
   @override
   final HealthInfo healthInfo;
   @override
-  final String extra;
-  String __address;
-  DID __did;
+  final String? extra;
+  String? __address;
+  DID? __did;
 
   factory _$DecentralizedIdentity(
-          [void Function(DecentralizedIdentityBuilder) updates]) =>
+          [void Function(DecentralizedIdentityBuilder)? updates]) =>
       (new DecentralizedIdentityBuilder()..update(updates)).build();
 
   _$DecentralizedIdentity._(
-      {this.id,
-      this.dappId,
-      this.profileInfo,
-      this.accountInfo,
-      this.healthInfo,
+      {required this.id,
+      required this.dappId,
+      required this.profileInfo,
+      required this.accountInfo,
+      required this.healthInfo,
       this.extra})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('DecentralizedIdentity', 'id');
-    }
-    if (dappId == null) {
-      throw new BuiltValueNullFieldError('DecentralizedIdentity', 'dappId');
-    }
-    if (profileInfo == null) {
-      throw new BuiltValueNullFieldError(
-          'DecentralizedIdentity', 'profileInfo');
-    }
-    if (accountInfo == null) {
-      throw new BuiltValueNullFieldError(
-          'DecentralizedIdentity', 'accountInfo');
-    }
-    if (healthInfo == null) {
-      throw new BuiltValueNullFieldError('DecentralizedIdentity', 'healthInfo');
-    }
+    BuiltValueNullFieldError.checkNotNull(id, 'DecentralizedIdentity', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        dappId, 'DecentralizedIdentity', 'dappId');
+    BuiltValueNullFieldError.checkNotNull(
+        profileInfo, 'DecentralizedIdentity', 'profileInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        accountInfo, 'DecentralizedIdentity', 'accountInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        healthInfo, 'DecentralizedIdentity', 'healthInfo');
   }
 
   @override
@@ -192,48 +186,49 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
 
 class DecentralizedIdentityBuilder
     implements Builder<DecentralizedIdentity, DecentralizedIdentityBuilder> {
-  _$DecentralizedIdentity _$v;
+  _$DecentralizedIdentity? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _dappId;
-  String get dappId => _$this._dappId;
-  set dappId(String dappId) => _$this._dappId = dappId;
+  String? _dappId;
+  String? get dappId => _$this._dappId;
+  set dappId(String? dappId) => _$this._dappId = dappId;
 
-  ProfileInfoBuilder _profileInfo;
+  ProfileInfoBuilder? _profileInfo;
   ProfileInfoBuilder get profileInfo =>
       _$this._profileInfo ??= new ProfileInfoBuilder();
-  set profileInfo(ProfileInfoBuilder profileInfo) =>
+  set profileInfo(ProfileInfoBuilder? profileInfo) =>
       _$this._profileInfo = profileInfo;
 
-  AccountInfoBuilder _accountInfo;
+  AccountInfoBuilder? _accountInfo;
   AccountInfoBuilder get accountInfo =>
       _$this._accountInfo ??= new AccountInfoBuilder();
-  set accountInfo(AccountInfoBuilder accountInfo) =>
+  set accountInfo(AccountInfoBuilder? accountInfo) =>
       _$this._accountInfo = accountInfo;
 
-  HealthInfoBuilder _healthInfo;
+  HealthInfoBuilder? _healthInfo;
   HealthInfoBuilder get healthInfo =>
       _$this._healthInfo ??= new HealthInfoBuilder();
-  set healthInfo(HealthInfoBuilder healthInfo) =>
+  set healthInfo(HealthInfoBuilder? healthInfo) =>
       _$this._healthInfo = healthInfo;
 
-  String _extra;
-  String get extra => _$this._extra;
-  set extra(String extra) => _$this._extra = extra;
+  String? _extra;
+  String? get extra => _$this._extra;
+  set extra(String? extra) => _$this._extra = extra;
 
   DecentralizedIdentityBuilder();
 
   DecentralizedIdentityBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _dappId = _$v.dappId;
-      _profileInfo = _$v.profileInfo?.toBuilder();
-      _accountInfo = _$v.accountInfo?.toBuilder();
-      _healthInfo = _$v.healthInfo?.toBuilder();
-      _extra = _$v.extra;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _dappId = $v.dappId;
+      _profileInfo = $v.profileInfo.toBuilder();
+      _accountInfo = $v.accountInfo.toBuilder();
+      _healthInfo = $v.healthInfo.toBuilder();
+      _extra = $v.extra;
       _$v = null;
     }
     return this;
@@ -241,14 +236,12 @@ class DecentralizedIdentityBuilder
 
   @override
   void replace(DecentralizedIdentity other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DecentralizedIdentity;
   }
 
   @override
-  void update(void Function(DecentralizedIdentityBuilder) updates) {
+  void update(void Function(DecentralizedIdentityBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -258,14 +251,16 @@ class DecentralizedIdentityBuilder
     try {
       _$result = _$v ??
           new _$DecentralizedIdentity._(
-              id: id,
-              dappId: dappId,
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, 'DecentralizedIdentity', 'id'),
+              dappId: BuiltValueNullFieldError.checkNotNull(
+                  dappId, 'DecentralizedIdentity', 'dappId'),
               profileInfo: profileInfo.build(),
               accountInfo: accountInfo.build(),
               healthInfo: healthInfo.build(),
               extra: extra);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'profileInfo';
         profileInfo.build();
@@ -284,4 +279,4 @@ class DecentralizedIdentityBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

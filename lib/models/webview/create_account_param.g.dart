@@ -17,13 +17,16 @@ class _$CreateAccountParamSerializer
   final String wireName = 'CreateAccountParam';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CreateAccountParam object,
+  Iterable<Object?> serialize(
+      Serializers serializers, CreateAccountParam object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.extra != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.extra;
+    if (value != null) {
       result
         ..add('extra')
-        ..add(serializers.serialize(object.extra,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -31,7 +34,7 @@ class _$CreateAccountParamSerializer
 
   @override
   CreateAccountParam deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CreateAccountParamBuilder();
 
@@ -39,11 +42,11 @@ class _$CreateAccountParamSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'extra':
           result.extra = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -54,10 +57,10 @@ class _$CreateAccountParamSerializer
 
 class _$CreateAccountParam extends CreateAccountParam {
   @override
-  final String extra;
+  final String? extra;
 
   factory _$CreateAccountParam(
-          [void Function(CreateAccountParamBuilder) updates]) =>
+          [void Function(CreateAccountParamBuilder)? updates]) =>
       (new CreateAccountParamBuilder()..update(updates)).build();
 
   _$CreateAccountParam._({this.extra}) : super._();
@@ -92,19 +95,20 @@ class _$CreateAccountParam extends CreateAccountParam {
 
 class CreateAccountParamBuilder
     implements Builder<CreateAccountParam, CreateAccountParamBuilder> {
-  _$CreateAccountParam _$v;
+  _$CreateAccountParam? _$v;
 
-  String _extra;
-  String get extra => _$this._extra;
-  set extra(String extra) => _$this._extra = extra;
+  String? _extra;
+  String? get extra => _$this._extra;
+  set extra(String? extra) => _$this._extra = extra;
 
   CreateAccountParamBuilder() {
     CreateAccountParam._initializeBuilder(this);
   }
 
   CreateAccountParamBuilder get _$this {
-    if (_$v != null) {
-      _extra = _$v.extra;
+    final $v = _$v;
+    if ($v != null) {
+      _extra = $v.extra;
       _$v = null;
     }
     return this;
@@ -112,14 +116,12 @@ class CreateAccountParamBuilder
 
   @override
   void replace(CreateAccountParam other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateAccountParam;
   }
 
   @override
-  void update(void Function(CreateAccountParamBuilder) updates) {
+  void update(void Function(CreateAccountParamBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -131,4 +133,4 @@ class CreateAccountParamBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

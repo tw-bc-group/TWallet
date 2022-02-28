@@ -62,9 +62,9 @@ class _$WebviewParameterSerializer
   final String wireName = 'WebviewParameter';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, WebviewParameter object,
+  Iterable<Object?> serialize(Serializers serializers, WebviewParameter object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'type',
       serializers.serialize(object.type,
           specifiedType: const FullType(WebviewParameterType)),
@@ -78,7 +78,7 @@ class _$WebviewParameterSerializer
 
   @override
   WebviewParameter deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewParameterBuilder();
 
@@ -86,7 +86,7 @@ class _$WebviewParameterSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'type':
           result.type = serializers.deserialize(value,
@@ -111,16 +111,12 @@ class _$WebviewParameter extends WebviewParameter {
   final String value;
 
   factory _$WebviewParameter(
-          [void Function(WebviewParameterBuilder) updates]) =>
+          [void Function(WebviewParameterBuilder)? updates]) =>
       (new WebviewParameterBuilder()..update(updates)).build();
 
-  _$WebviewParameter._({this.type, this.value}) : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('WebviewParameter', 'type');
-    }
-    if (value == null) {
-      throw new BuiltValueNullFieldError('WebviewParameter', 'value');
-    }
+  _$WebviewParameter._({required this.type, required this.value}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(type, 'WebviewParameter', 'type');
+    BuiltValueNullFieldError.checkNotNull(value, 'WebviewParameter', 'value');
   }
 
   @override
@@ -155,22 +151,23 @@ class _$WebviewParameter extends WebviewParameter {
 
 class WebviewParameterBuilder
     implements Builder<WebviewParameter, WebviewParameterBuilder> {
-  _$WebviewParameter _$v;
+  _$WebviewParameter? _$v;
 
-  WebviewParameterType _type;
-  WebviewParameterType get type => _$this._type;
-  set type(WebviewParameterType type) => _$this._type = type;
+  WebviewParameterType? _type;
+  WebviewParameterType? get type => _$this._type;
+  set type(WebviewParameterType? type) => _$this._type = type;
 
-  String _value;
-  String get value => _$this._value;
-  set value(String value) => _$this._value = value;
+  String? _value;
+  String? get value => _$this._value;
+  set value(String? value) => _$this._value = value;
 
   WebviewParameterBuilder();
 
   WebviewParameterBuilder get _$this {
-    if (_$v != null) {
-      _type = _$v.type;
-      _value = _$v.value;
+    final $v = _$v;
+    if ($v != null) {
+      _type = $v.type;
+      _value = $v.value;
       _$v = null;
     }
     return this;
@@ -178,23 +175,26 @@ class WebviewParameterBuilder
 
   @override
   void replace(WebviewParameter other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewParameter;
   }
 
   @override
-  void update(void Function(WebviewParameterBuilder) updates) {
+  void update(void Function(WebviewParameterBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$WebviewParameter build() {
-    final _$result = _$v ?? new _$WebviewParameter._(type: type, value: value);
+    final _$result = _$v ??
+        new _$WebviewParameter._(
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, 'WebviewParameter', 'type'),
+            value: BuiltValueNullFieldError.checkNotNull(
+                value, 'WebviewParameter', 'value'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

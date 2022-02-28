@@ -14,8 +14,7 @@ abstract class AccountInfo implements Built<AccountInfo, AccountInfoBuilder> {
 
   String get priKey;
 
-  @nullable
-  Amount get balance;
+  Amount? get balance;
 
   static AccountInfo fromJson(dynamic serialized) {
     try {

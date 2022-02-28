@@ -15,9 +15,9 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
   final String wireName = 'Transaction';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Transaction object,
+  Iterable<Object?> serialize(Serializers serializers, Transaction object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'hash',
       serializers.serialize(object.hash, specifiedType: const FullType(String)),
       'amount',
@@ -36,29 +36,33 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
       serializers.serialize(object.txType,
           specifiedType: const FullType(TxStatus)),
     ];
-    if (object.confirmTime != null) {
+    Object? value;
+    value = object.confirmTime;
+    if (value != null) {
       result
         ..add('confirm_time')
-        ..add(serializers.serialize(object.confirmTime,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.fromAddressName != null) {
+    value = object.fromAddressName;
+    if (value != null) {
       result
         ..add('from_address_name')
-        ..add(serializers.serialize(object.fromAddressName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.toAddressName != null) {
+    value = object.toAddressName;
+    if (value != null) {
       result
         ..add('to_address_name')
-        ..add(serializers.serialize(object.toAddressName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  Transaction deserialize(Serializers serializers, Iterable<Object> serialized,
+  Transaction deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TransactionBuilder();
 
@@ -66,7 +70,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'hash':
           result.hash = serializers.deserialize(value,
@@ -82,7 +86,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
           break;
         case 'confirm_time':
           result.confirmTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'from_address':
           result.fromAddress = serializers.deserialize(value,
@@ -90,7 +94,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
           break;
         case 'from_address_name':
           result.fromAddressName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'to_address':
           result.toAddress = serializers.deserialize(value,
@@ -98,7 +102,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
           break;
         case 'to_address_name':
           result.toAddressName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'tx_type':
           result.txType = serializers.deserialize(value,
@@ -119,50 +123,41 @@ class _$Transaction extends Transaction {
   @override
   final DateTime createTime;
   @override
-  final DateTime confirmTime;
+  final DateTime? confirmTime;
   @override
   final String fromAddress;
   @override
-  final String fromAddressName;
+  final String? fromAddressName;
   @override
   final String toAddress;
   @override
-  final String toAddressName;
+  final String? toAddressName;
   @override
   final TxStatus txType;
 
-  factory _$Transaction([void Function(TransactionBuilder) updates]) =>
+  factory _$Transaction([void Function(TransactionBuilder)? updates]) =>
       (new TransactionBuilder()..update(updates)).build();
 
   _$Transaction._(
-      {this.hash,
-      this.amount,
-      this.createTime,
+      {required this.hash,
+      required this.amount,
+      required this.createTime,
       this.confirmTime,
-      this.fromAddress,
+      required this.fromAddress,
       this.fromAddressName,
-      this.toAddress,
+      required this.toAddress,
       this.toAddressName,
-      this.txType})
+      required this.txType})
       : super._() {
-    if (hash == null) {
-      throw new BuiltValueNullFieldError('Transaction', 'hash');
-    }
-    if (amount == null) {
-      throw new BuiltValueNullFieldError('Transaction', 'amount');
-    }
-    if (createTime == null) {
-      throw new BuiltValueNullFieldError('Transaction', 'createTime');
-    }
-    if (fromAddress == null) {
-      throw new BuiltValueNullFieldError('Transaction', 'fromAddress');
-    }
-    if (toAddress == null) {
-      throw new BuiltValueNullFieldError('Transaction', 'toAddress');
-    }
-    if (txType == null) {
-      throw new BuiltValueNullFieldError('Transaction', 'txType');
-    }
+    BuiltValueNullFieldError.checkNotNull(hash, 'Transaction', 'hash');
+    BuiltValueNullFieldError.checkNotNull(amount, 'Transaction', 'amount');
+    BuiltValueNullFieldError.checkNotNull(
+        createTime, 'Transaction', 'createTime');
+    BuiltValueNullFieldError.checkNotNull(
+        fromAddress, 'Transaction', 'fromAddress');
+    BuiltValueNullFieldError.checkNotNull(
+        toAddress, 'Transaction', 'toAddress');
+    BuiltValueNullFieldError.checkNotNull(txType, 'Transaction', 'txType');
   }
 
   @override
@@ -222,59 +217,60 @@ class _$Transaction extends Transaction {
 }
 
 class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
-  _$Transaction _$v;
+  _$Transaction? _$v;
 
-  String _hash;
-  String get hash => _$this._hash;
-  set hash(String hash) => _$this._hash = hash;
+  String? _hash;
+  String? get hash => _$this._hash;
+  set hash(String? hash) => _$this._hash = hash;
 
-  Amount _amount;
-  Amount get amount => _$this._amount;
-  set amount(Amount amount) => _$this._amount = amount;
+  Amount? _amount;
+  Amount? get amount => _$this._amount;
+  set amount(Amount? amount) => _$this._amount = amount;
 
-  DateTime _createTime;
-  DateTime get createTime => _$this._createTime;
-  set createTime(DateTime createTime) => _$this._createTime = createTime;
+  DateTime? _createTime;
+  DateTime? get createTime => _$this._createTime;
+  set createTime(DateTime? createTime) => _$this._createTime = createTime;
 
-  DateTime _confirmTime;
-  DateTime get confirmTime => _$this._confirmTime;
-  set confirmTime(DateTime confirmTime) => _$this._confirmTime = confirmTime;
+  DateTime? _confirmTime;
+  DateTime? get confirmTime => _$this._confirmTime;
+  set confirmTime(DateTime? confirmTime) => _$this._confirmTime = confirmTime;
 
-  String _fromAddress;
-  String get fromAddress => _$this._fromAddress;
-  set fromAddress(String fromAddress) => _$this._fromAddress = fromAddress;
+  String? _fromAddress;
+  String? get fromAddress => _$this._fromAddress;
+  set fromAddress(String? fromAddress) => _$this._fromAddress = fromAddress;
 
-  String _fromAddressName;
-  String get fromAddressName => _$this._fromAddressName;
-  set fromAddressName(String fromAddressName) =>
+  String? _fromAddressName;
+  String? get fromAddressName => _$this._fromAddressName;
+  set fromAddressName(String? fromAddressName) =>
       _$this._fromAddressName = fromAddressName;
 
-  String _toAddress;
-  String get toAddress => _$this._toAddress;
-  set toAddress(String toAddress) => _$this._toAddress = toAddress;
+  String? _toAddress;
+  String? get toAddress => _$this._toAddress;
+  set toAddress(String? toAddress) => _$this._toAddress = toAddress;
 
-  String _toAddressName;
-  String get toAddressName => _$this._toAddressName;
-  set toAddressName(String toAddressName) =>
+  String? _toAddressName;
+  String? get toAddressName => _$this._toAddressName;
+  set toAddressName(String? toAddressName) =>
       _$this._toAddressName = toAddressName;
 
-  TxStatus _txType;
-  TxStatus get txType => _$this._txType;
-  set txType(TxStatus txType) => _$this._txType = txType;
+  TxStatus? _txType;
+  TxStatus? get txType => _$this._txType;
+  set txType(TxStatus? txType) => _$this._txType = txType;
 
   TransactionBuilder();
 
   TransactionBuilder get _$this {
-    if (_$v != null) {
-      _hash = _$v.hash;
-      _amount = _$v.amount;
-      _createTime = _$v.createTime;
-      _confirmTime = _$v.confirmTime;
-      _fromAddress = _$v.fromAddress;
-      _fromAddressName = _$v.fromAddressName;
-      _toAddress = _$v.toAddress;
-      _toAddressName = _$v.toAddressName;
-      _txType = _$v.txType;
+    final $v = _$v;
+    if ($v != null) {
+      _hash = $v.hash;
+      _amount = $v.amount;
+      _createTime = $v.createTime;
+      _confirmTime = $v.confirmTime;
+      _fromAddress = $v.fromAddress;
+      _fromAddressName = $v.fromAddressName;
+      _toAddress = $v.toAddress;
+      _toAddressName = $v.toAddressName;
+      _txType = $v.txType;
       _$v = null;
     }
     return this;
@@ -282,14 +278,12 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
 
   @override
   void replace(Transaction other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Transaction;
   }
 
   @override
-  void update(void Function(TransactionBuilder) updates) {
+  void update(void Function(TransactionBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -297,18 +291,24 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
   _$Transaction build() {
     final _$result = _$v ??
         new _$Transaction._(
-            hash: hash,
-            amount: amount,
-            createTime: createTime,
+            hash: BuiltValueNullFieldError.checkNotNull(
+                hash, 'Transaction', 'hash'),
+            amount: BuiltValueNullFieldError.checkNotNull(
+                amount, 'Transaction', 'amount'),
+            createTime: BuiltValueNullFieldError.checkNotNull(
+                createTime, 'Transaction', 'createTime'),
             confirmTime: confirmTime,
-            fromAddress: fromAddress,
+            fromAddress: BuiltValueNullFieldError.checkNotNull(
+                fromAddress, 'Transaction', 'fromAddress'),
             fromAddressName: fromAddressName,
-            toAddress: toAddress,
+            toAddress: BuiltValueNullFieldError.checkNotNull(
+                toAddress, 'Transaction', 'toAddress'),
             toAddressName: toAddressName,
-            txType: txType);
+            txType: BuiltValueNullFieldError.checkNotNull(
+                txType, 'Transaction', 'txType'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

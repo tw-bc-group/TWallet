@@ -21,10 +21,10 @@ class _$WebviewPincodeDialogErrorMsgSerializer
   final String wireName = 'WebviewPincodeDialogErrorMsg';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, WebviewPincodeDialogErrorMsg object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'text',
       serializers.serialize(object.text, specifiedType: const FullType(String)),
       'color',
@@ -40,7 +40,7 @@ class _$WebviewPincodeDialogErrorMsgSerializer
 
   @override
   WebviewPincodeDialogErrorMsg deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewPincodeDialogErrorMsgBuilder();
 
@@ -48,7 +48,7 @@ class _$WebviewPincodeDialogErrorMsgSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'text':
           result.text = serializers.deserialize(value,
@@ -78,23 +78,18 @@ class _$WebviewPincodeDialogErrorMsg extends WebviewPincodeDialogErrorMsg {
   final double fontSize;
 
   factory _$WebviewPincodeDialogErrorMsg(
-          [void Function(WebviewPincodeDialogErrorMsgBuilder) updates]) =>
+          [void Function(WebviewPincodeDialogErrorMsgBuilder)? updates]) =>
       (new WebviewPincodeDialogErrorMsgBuilder()..update(updates)).build();
 
-  _$WebviewPincodeDialogErrorMsg._({this.text, this.color, this.fontSize})
+  _$WebviewPincodeDialogErrorMsg._(
+      {required this.text, required this.color, required this.fontSize})
       : super._() {
-    if (text == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogErrorMsg', 'text');
-    }
-    if (color == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogErrorMsg', 'color');
-    }
-    if (fontSize == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewPincodeDialogErrorMsg', 'fontSize');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        text, 'WebviewPincodeDialogErrorMsg', 'text');
+    BuiltValueNullFieldError.checkNotNull(
+        color, 'WebviewPincodeDialogErrorMsg', 'color');
+    BuiltValueNullFieldError.checkNotNull(
+        fontSize, 'WebviewPincodeDialogErrorMsg', 'fontSize');
   }
 
   @override
@@ -135,29 +130,30 @@ class WebviewPincodeDialogErrorMsgBuilder
     implements
         Builder<WebviewPincodeDialogErrorMsg,
             WebviewPincodeDialogErrorMsgBuilder> {
-  _$WebviewPincodeDialogErrorMsg _$v;
+  _$WebviewPincodeDialogErrorMsg? _$v;
 
-  String _text;
-  String get text => _$this._text;
-  set text(String text) => _$this._text = text;
+  String? _text;
+  String? get text => _$this._text;
+  set text(String? text) => _$this._text = text;
 
-  String _color;
-  String get color => _$this._color;
-  set color(String color) => _$this._color = color;
+  String? _color;
+  String? get color => _$this._color;
+  set color(String? color) => _$this._color = color;
 
-  double _fontSize;
-  double get fontSize => _$this._fontSize;
-  set fontSize(double fontSize) => _$this._fontSize = fontSize;
+  double? _fontSize;
+  double? get fontSize => _$this._fontSize;
+  set fontSize(double? fontSize) => _$this._fontSize = fontSize;
 
   WebviewPincodeDialogErrorMsgBuilder() {
     WebviewPincodeDialogErrorMsg._initializeBuilder(this);
   }
 
   WebviewPincodeDialogErrorMsgBuilder get _$this {
-    if (_$v != null) {
-      _text = _$v.text;
-      _color = _$v.color;
-      _fontSize = _$v.fontSize;
+    final $v = _$v;
+    if ($v != null) {
+      _text = $v.text;
+      _color = $v.color;
+      _fontSize = $v.fontSize;
       _$v = null;
     }
     return this;
@@ -165,14 +161,12 @@ class WebviewPincodeDialogErrorMsgBuilder
 
   @override
   void replace(WebviewPincodeDialogErrorMsg other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewPincodeDialogErrorMsg;
   }
 
   @override
-  void update(void Function(WebviewPincodeDialogErrorMsgBuilder) updates) {
+  void update(void Function(WebviewPincodeDialogErrorMsgBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -180,10 +174,15 @@ class WebviewPincodeDialogErrorMsgBuilder
   _$WebviewPincodeDialogErrorMsg build() {
     final _$result = _$v ??
         new _$WebviewPincodeDialogErrorMsg._(
-            text: text, color: color, fontSize: fontSize);
+            text: BuiltValueNullFieldError.checkNotNull(
+                text, 'WebviewPincodeDialogErrorMsg', 'text'),
+            color: BuiltValueNullFieldError.checkNotNull(
+                color, 'WebviewPincodeDialogErrorMsg', 'color'),
+            fontSize: BuiltValueNullFieldError.checkNotNull(
+                fontSize, 'WebviewPincodeDialogErrorMsg', 'fontSize'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

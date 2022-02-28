@@ -6,12 +6,10 @@ part of 'vc_pass.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-VcPass _$VcPassFromJson(Map<String, dynamic> json) {
-  return VcPass(
-    name: json['name'] as String,
-    token: json['token'] as String,
-  );
-}
+VcPass _$VcPassFromJson(Map<String, dynamic> json) => VcPass(
+      name: json['name'] as String,
+      token: json['token'] as String,
+    );
 
 Map<String, dynamic> _$VcPassToJson(VcPass instance) => <String, dynamic>{
       'name': instance.name,

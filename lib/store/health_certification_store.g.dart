@@ -9,14 +9,14 @@ part of 'health_certification_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
-  Computed<bool> _$isBoundCertComputed;
+  Computed<bool>? _$isBoundCertComputed;
 
   @override
   bool get isBoundCert =>
       (_$isBoundCertComputed ??= Computed<bool>(() => super.isBoundCert,
               name: '_HealthCertificationStore.isBoundCert'))
           .value;
-  Computed<bool> _$isHealthyComputed;
+  Computed<bool>? _$isHealthyComputed;
 
   @override
   bool get isHealthy =>

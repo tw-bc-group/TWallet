@@ -20,10 +20,10 @@ class _$WebviewTransactionInfoSerializer
   final String wireName = 'WebviewTransactionInfo';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, WebviewTransactionInfo object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'accountId',
       serializers.serialize(object.accountId,
           specifiedType: const FullType(String)),
@@ -58,7 +58,7 @@ class _$WebviewTransactionInfoSerializer
 
   @override
   WebviewTransactionInfo deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WebviewTransactionInfoBuilder();
 
@@ -66,7 +66,7 @@ class _$WebviewTransactionInfoSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'accountId':
           result.accountId = serializers.deserialize(value,
@@ -103,8 +103,8 @@ class _$WebviewTransactionInfoSerializer
         case 'parameters':
           result.parameters.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(WebviewParameter)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(WebviewParameter)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -134,52 +134,38 @@ class _$WebviewTransactionInfo extends WebviewTransactionInfo {
   final BuiltList<WebviewParameter> parameters;
 
   factory _$WebviewTransactionInfo(
-          [void Function(WebviewTransactionInfoBuilder) updates]) =>
+          [void Function(WebviewTransactionInfoBuilder)? updates]) =>
       (new WebviewTransactionInfoBuilder()..update(updates)).build();
 
   _$WebviewTransactionInfo._(
-      {this.accountId,
-      this.rpcUrl,
-      this.contractName,
-      this.contractAddress,
-      this.contractAbi,
-      this.functionName,
-      this.gasPrice,
-      this.maxGas,
-      this.parameters})
+      {required this.accountId,
+      required this.rpcUrl,
+      required this.contractName,
+      required this.contractAddress,
+      required this.contractAbi,
+      required this.functionName,
+      required this.gasPrice,
+      required this.maxGas,
+      required this.parameters})
       : super._() {
-    if (accountId == null) {
-      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'accountId');
-    }
-    if (rpcUrl == null) {
-      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'rpcUrl');
-    }
-    if (contractName == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewTransactionInfo', 'contractName');
-    }
-    if (contractAddress == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewTransactionInfo', 'contractAddress');
-    }
-    if (contractAbi == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewTransactionInfo', 'contractAbi');
-    }
-    if (functionName == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewTransactionInfo', 'functionName');
-    }
-    if (gasPrice == null) {
-      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'gasPrice');
-    }
-    if (maxGas == null) {
-      throw new BuiltValueNullFieldError('WebviewTransactionInfo', 'maxGas');
-    }
-    if (parameters == null) {
-      throw new BuiltValueNullFieldError(
-          'WebviewTransactionInfo', 'parameters');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        accountId, 'WebviewTransactionInfo', 'accountId');
+    BuiltValueNullFieldError.checkNotNull(
+        rpcUrl, 'WebviewTransactionInfo', 'rpcUrl');
+    BuiltValueNullFieldError.checkNotNull(
+        contractName, 'WebviewTransactionInfo', 'contractName');
+    BuiltValueNullFieldError.checkNotNull(
+        contractAddress, 'WebviewTransactionInfo', 'contractAddress');
+    BuiltValueNullFieldError.checkNotNull(
+        contractAbi, 'WebviewTransactionInfo', 'contractAbi');
+    BuiltValueNullFieldError.checkNotNull(
+        functionName, 'WebviewTransactionInfo', 'functionName');
+    BuiltValueNullFieldError.checkNotNull(
+        gasPrice, 'WebviewTransactionInfo', 'gasPrice');
+    BuiltValueNullFieldError.checkNotNull(
+        maxGas, 'WebviewTransactionInfo', 'maxGas');
+    BuiltValueNullFieldError.checkNotNull(
+        parameters, 'WebviewTransactionInfo', 'parameters');
   }
 
   @override
@@ -244,60 +230,61 @@ class _$WebviewTransactionInfo extends WebviewTransactionInfo {
 
 class WebviewTransactionInfoBuilder
     implements Builder<WebviewTransactionInfo, WebviewTransactionInfoBuilder> {
-  _$WebviewTransactionInfo _$v;
+  _$WebviewTransactionInfo? _$v;
 
-  String _accountId;
-  String get accountId => _$this._accountId;
-  set accountId(String accountId) => _$this._accountId = accountId;
+  String? _accountId;
+  String? get accountId => _$this._accountId;
+  set accountId(String? accountId) => _$this._accountId = accountId;
 
-  String _rpcUrl;
-  String get rpcUrl => _$this._rpcUrl;
-  set rpcUrl(String rpcUrl) => _$this._rpcUrl = rpcUrl;
+  String? _rpcUrl;
+  String? get rpcUrl => _$this._rpcUrl;
+  set rpcUrl(String? rpcUrl) => _$this._rpcUrl = rpcUrl;
 
-  String _contractName;
-  String get contractName => _$this._contractName;
-  set contractName(String contractName) => _$this._contractName = contractName;
+  String? _contractName;
+  String? get contractName => _$this._contractName;
+  set contractName(String? contractName) => _$this._contractName = contractName;
 
-  String _contractAddress;
-  String get contractAddress => _$this._contractAddress;
-  set contractAddress(String contractAddress) =>
+  String? _contractAddress;
+  String? get contractAddress => _$this._contractAddress;
+  set contractAddress(String? contractAddress) =>
       _$this._contractAddress = contractAddress;
 
-  String _contractAbi;
-  String get contractAbi => _$this._contractAbi;
-  set contractAbi(String contractAbi) => _$this._contractAbi = contractAbi;
+  String? _contractAbi;
+  String? get contractAbi => _$this._contractAbi;
+  set contractAbi(String? contractAbi) => _$this._contractAbi = contractAbi;
 
-  String _functionName;
-  String get functionName => _$this._functionName;
-  set functionName(String functionName) => _$this._functionName = functionName;
+  String? _functionName;
+  String? get functionName => _$this._functionName;
+  set functionName(String? functionName) => _$this._functionName = functionName;
 
-  BigInt _gasPrice;
-  BigInt get gasPrice => _$this._gasPrice;
-  set gasPrice(BigInt gasPrice) => _$this._gasPrice = gasPrice;
+  BigInt? _gasPrice;
+  BigInt? get gasPrice => _$this._gasPrice;
+  set gasPrice(BigInt? gasPrice) => _$this._gasPrice = gasPrice;
 
-  int _maxGas;
-  int get maxGas => _$this._maxGas;
-  set maxGas(int maxGas) => _$this._maxGas = maxGas;
+  int? _maxGas;
+  int? get maxGas => _$this._maxGas;
+  set maxGas(int? maxGas) => _$this._maxGas = maxGas;
 
-  ListBuilder<WebviewParameter> _parameters;
+  ListBuilder<WebviewParameter>? _parameters;
   ListBuilder<WebviewParameter> get parameters =>
       _$this._parameters ??= new ListBuilder<WebviewParameter>();
-  set parameters(ListBuilder<WebviewParameter> parameters) =>
+  set parameters(ListBuilder<WebviewParameter>? parameters) =>
       _$this._parameters = parameters;
 
   WebviewTransactionInfoBuilder();
 
   WebviewTransactionInfoBuilder get _$this {
-    if (_$v != null) {
-      _accountId = _$v.accountId;
-      _rpcUrl = _$v.rpcUrl;
-      _contractName = _$v.contractName;
-      _contractAddress = _$v.contractAddress;
-      _contractAbi = _$v.contractAbi;
-      _functionName = _$v.functionName;
-      _gasPrice = _$v.gasPrice;
-      _maxGas = _$v.maxGas;
-      _parameters = _$v.parameters?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _accountId = $v.accountId;
+      _rpcUrl = $v.rpcUrl;
+      _contractName = $v.contractName;
+      _contractAddress = $v.contractAddress;
+      _contractAbi = $v.contractAbi;
+      _functionName = $v.functionName;
+      _gasPrice = $v.gasPrice;
+      _maxGas = $v.maxGas;
+      _parameters = $v.parameters.toBuilder();
       _$v = null;
     }
     return this;
@@ -305,14 +292,12 @@ class WebviewTransactionInfoBuilder
 
   @override
   void replace(WebviewTransactionInfo other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebviewTransactionInfo;
   }
 
   @override
-  void update(void Function(WebviewTransactionInfoBuilder) updates) {
+  void update(void Function(WebviewTransactionInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -322,17 +307,25 @@ class WebviewTransactionInfoBuilder
     try {
       _$result = _$v ??
           new _$WebviewTransactionInfo._(
-              accountId: accountId,
-              rpcUrl: rpcUrl,
-              contractName: contractName,
-              contractAddress: contractAddress,
-              contractAbi: contractAbi,
-              functionName: functionName,
-              gasPrice: gasPrice,
-              maxGas: maxGas,
+              accountId: BuiltValueNullFieldError.checkNotNull(
+                  accountId, 'WebviewTransactionInfo', 'accountId'),
+              rpcUrl: BuiltValueNullFieldError.checkNotNull(
+                  rpcUrl, 'WebviewTransactionInfo', 'rpcUrl'),
+              contractName: BuiltValueNullFieldError.checkNotNull(
+                  contractName, 'WebviewTransactionInfo', 'contractName'),
+              contractAddress: BuiltValueNullFieldError.checkNotNull(
+                  contractAddress, 'WebviewTransactionInfo', 'contractAddress'),
+              contractAbi: BuiltValueNullFieldError.checkNotNull(
+                  contractAbi, 'WebviewTransactionInfo', 'contractAbi'),
+              functionName: BuiltValueNullFieldError.checkNotNull(
+                  functionName, 'WebviewTransactionInfo', 'functionName'),
+              gasPrice: BuiltValueNullFieldError.checkNotNull(
+                  gasPrice, 'WebviewTransactionInfo', 'gasPrice'),
+              maxGas: BuiltValueNullFieldError.checkNotNull(
+                  maxGas, 'WebviewTransactionInfo', 'maxGas'),
               parameters: parameters.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'parameters';
         parameters.build();
@@ -347,4 +340,4 @@ class WebviewTransactionInfoBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

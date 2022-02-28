@@ -20,10 +20,10 @@ class _$HealthCertificationTokenSerializer
   final String wireName = 'HealthCertificationToken';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, HealthCertificationToken object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'token',
       serializers.serialize(object.token,
           specifiedType: const FullType(String)),
@@ -34,7 +34,7 @@ class _$HealthCertificationTokenSerializer
 
   @override
   HealthCertificationToken deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new HealthCertificationTokenBuilder();
 
@@ -42,7 +42,7 @@ class _$HealthCertificationTokenSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'token':
           result.token = serializers.deserialize(value,
@@ -58,16 +58,15 @@ class _$HealthCertificationTokenSerializer
 class _$HealthCertificationToken extends HealthCertificationToken {
   @override
   final String token;
-  HealthCertification __healthCertification;
+  HealthCertification? __healthCertification;
 
   factory _$HealthCertificationToken(
-          [void Function(HealthCertificationTokenBuilder) updates]) =>
+          [void Function(HealthCertificationTokenBuilder)? updates]) =>
       (new HealthCertificationTokenBuilder()..update(updates)).build();
 
-  _$HealthCertificationToken._({this.token}) : super._() {
-    if (token == null) {
-      throw new BuiltValueNullFieldError('HealthCertificationToken', 'token');
-    }
+  _$HealthCertificationToken._({required this.token}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        token, 'HealthCertificationToken', 'token');
   }
 
   @override
@@ -98,17 +97,18 @@ class _$HealthCertificationToken extends HealthCertificationToken {
 class HealthCertificationTokenBuilder
     implements
         Builder<HealthCertificationToken, HealthCertificationTokenBuilder> {
-  _$HealthCertificationToken _$v;
+  _$HealthCertificationToken? _$v;
 
-  String _token;
-  String get token => _$this._token;
-  set token(String token) => _$this._token = token;
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
 
   HealthCertificationTokenBuilder();
 
   HealthCertificationTokenBuilder get _$this {
-    if (_$v != null) {
-      _token = _$v.token;
+    final $v = _$v;
+    if ($v != null) {
+      _token = $v.token;
       _$v = null;
     }
     return this;
@@ -116,23 +116,24 @@ class HealthCertificationTokenBuilder
 
   @override
   void replace(HealthCertificationToken other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HealthCertificationToken;
   }
 
   @override
-  void update(void Function(HealthCertificationTokenBuilder) updates) {
+  void update(void Function(HealthCertificationTokenBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$HealthCertificationToken build() {
-    final _$result = _$v ?? new _$HealthCertificationToken._(token: token);
+    final _$result = _$v ??
+        new _$HealthCertificationToken._(
+            token: BuiltValueNullFieldError.checkNotNull(
+                token, 'HealthCertificationToken', 'token'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

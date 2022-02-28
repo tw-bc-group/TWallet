@@ -9,14 +9,11 @@ abstract class ProfileInfo implements Built<ProfileInfo, ProfileInfoBuilder> {
 
   String get name;
 
-  @nullable
-  String get phone;
+  String? get phone;
 
-  @nullable
-  String get email;
+  String? get email;
 
-  @nullable
-  String get birthday;
+  String? get birthday;
 
   static ProfileInfo fromJson(dynamic serialized) {
     try {

@@ -34,8 +34,7 @@ abstract class DecentralizedIdentity extends Object
 
   HealthInfo get healthInfo;
 
-  @nullable
-  String get extra;
+  String? get extra;
 
   @memoized
   String get address =>

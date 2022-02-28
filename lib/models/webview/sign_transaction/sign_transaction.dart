@@ -12,8 +12,7 @@ abstract class WebviewSignTransaction
       _$webviewSignTransactionSerializer;
 
   WebviewTransactionInfo get transactionInfo;
-  @nullable
-  String get token;
+  String? get token;
   WebviewPincodeDialogStyle get pincodeDialogStyle;
 
   static WebviewSignTransaction fromJson(dynamic serialized) {

@@ -146,7 +146,7 @@ birthday: ${birthday}
 }
 
 mixin _$FormErrorState on _FormErrorState, Store {
-  Computed<bool> _$hasErrorsComputed;
+  Computed<bool>? _$hasErrorsComputed;
 
   @override
   bool get hasErrors =>

@@ -17,9 +17,9 @@ class _$IssuerResponseSerializer
   final String wireName = 'IssuerResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, IssuerResponse object,
+  Iterable<Object?> serialize(Serializers serializers, IssuerResponse object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(int)),
       'name',
@@ -35,7 +35,7 @@ class _$IssuerResponseSerializer
 
   @override
   IssuerResponse deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new IssuerResponseBuilder();
 
@@ -43,7 +43,7 @@ class _$IssuerResponseSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -55,9 +55,9 @@ class _$IssuerResponseSerializer
           break;
         case 'vc_types':
           result.vcTypes.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(VcType)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(VcType)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -74,19 +74,15 @@ class _$IssuerResponse extends IssuerResponse {
   @override
   final BuiltList<VcType> vcTypes;
 
-  factory _$IssuerResponse([void Function(IssuerResponseBuilder) updates]) =>
+  factory _$IssuerResponse([void Function(IssuerResponseBuilder)? updates]) =>
       (new IssuerResponseBuilder()..update(updates)).build();
 
-  _$IssuerResponse._({this.id, this.name, this.vcTypes}) : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('IssuerResponse', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('IssuerResponse', 'name');
-    }
-    if (vcTypes == null) {
-      throw new BuiltValueNullFieldError('IssuerResponse', 'vcTypes');
-    }
+  _$IssuerResponse._(
+      {required this.id, required this.name, required this.vcTypes})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, 'IssuerResponse', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, 'IssuerResponse', 'name');
+    BuiltValueNullFieldError.checkNotNull(vcTypes, 'IssuerResponse', 'vcTypes');
   }
 
   @override
@@ -123,28 +119,29 @@ class _$IssuerResponse extends IssuerResponse {
 
 class IssuerResponseBuilder
     implements Builder<IssuerResponse, IssuerResponseBuilder> {
-  _$IssuerResponse _$v;
+  _$IssuerResponse? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  ListBuilder<VcType> _vcTypes;
+  ListBuilder<VcType>? _vcTypes;
   ListBuilder<VcType> get vcTypes =>
       _$this._vcTypes ??= new ListBuilder<VcType>();
-  set vcTypes(ListBuilder<VcType> vcTypes) => _$this._vcTypes = vcTypes;
+  set vcTypes(ListBuilder<VcType>? vcTypes) => _$this._vcTypes = vcTypes;
 
   IssuerResponseBuilder();
 
   IssuerResponseBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _vcTypes = _$v.vcTypes?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _vcTypes = $v.vcTypes.toBuilder();
       _$v = null;
     }
     return this;
@@ -152,14 +149,12 @@ class IssuerResponseBuilder
 
   @override
   void replace(IssuerResponse other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IssuerResponse;
   }
 
   @override
-  void update(void Function(IssuerResponseBuilder) updates) {
+  void update(void Function(IssuerResponseBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -168,9 +163,14 @@ class IssuerResponseBuilder
     _$IssuerResponse _$result;
     try {
       _$result = _$v ??
-          new _$IssuerResponse._(id: id, name: name, vcTypes: vcTypes.build());
+          new _$IssuerResponse._(
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, 'IssuerResponse', 'id'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, 'IssuerResponse', 'name'),
+              vcTypes: vcTypes.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vcTypes';
         vcTypes.build();
@@ -185,4 +185,4 @@ class IssuerResponseBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

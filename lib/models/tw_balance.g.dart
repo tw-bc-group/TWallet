@@ -15,9 +15,9 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
   final String wireName = 'TwBalance';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, TwBalance object,
+  Iterable<Object?> serialize(Serializers serializers, TwBalance object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'balance',
       serializers.serialize(object.amount,
           specifiedType: const FullType(Amount)),
@@ -27,7 +27,7 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
   }
 
   @override
-  TwBalance deserialize(Serializers serializers, Iterable<Object> serialized,
+  TwBalance deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TwBalanceBuilder();
 
@@ -35,7 +35,7 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'balance':
           result.amount = serializers.deserialize(value,
@@ -51,15 +51,13 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
 class _$TwBalance extends TwBalance {
   @override
   final Amount amount;
-  Decimal __original;
+  Decimal? __original;
 
-  factory _$TwBalance([void Function(TwBalanceBuilder) updates]) =>
+  factory _$TwBalance([void Function(TwBalanceBuilder)? updates]) =>
       (new TwBalanceBuilder()..update(updates)).build();
 
-  _$TwBalance._({this.amount}) : super._() {
-    if (amount == null) {
-      throw new BuiltValueNullFieldError('TwBalance', 'amount');
-    }
+  _$TwBalance._({required this.amount}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(amount, 'TwBalance', 'amount');
   }
 
   @override
@@ -91,17 +89,18 @@ class _$TwBalance extends TwBalance {
 }
 
 class TwBalanceBuilder implements Builder<TwBalance, TwBalanceBuilder> {
-  _$TwBalance _$v;
+  _$TwBalance? _$v;
 
-  Amount _amount;
-  Amount get amount => _$this._amount;
-  set amount(Amount amount) => _$this._amount = amount;
+  Amount? _amount;
+  Amount? get amount => _$this._amount;
+  set amount(Amount? amount) => _$this._amount = amount;
 
   TwBalanceBuilder();
 
   TwBalanceBuilder get _$this {
-    if (_$v != null) {
-      _amount = _$v.amount;
+    final $v = _$v;
+    if ($v != null) {
+      _amount = $v.amount;
       _$v = null;
     }
     return this;
@@ -109,23 +108,24 @@ class TwBalanceBuilder implements Builder<TwBalance, TwBalanceBuilder> {
 
   @override
   void replace(TwBalance other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TwBalance;
   }
 
   @override
-  void update(void Function(TwBalanceBuilder) updates) {
+  void update(void Function(TwBalanceBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$TwBalance build() {
-    final _$result = _$v ?? new _$TwBalance._(amount: amount);
+    final _$result = _$v ??
+        new _$TwBalance._(
+            amount: BuiltValueNullFieldError.checkNotNull(
+                amount, 'TwBalance', 'amount'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

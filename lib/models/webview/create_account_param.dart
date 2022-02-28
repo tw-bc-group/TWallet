@@ -13,8 +13,7 @@ abstract class CreateAccountParam
           CreateAccountParamBuilder webviewPincodeDialogCloseBuilder) =>
       webviewPincodeDialogCloseBuilder..extra = '{}';
 
-  @nullable
-  String get extra;
+  String? get extra;
 
   static CreateAccountParam fromJson(dynamic serialized) {
     try {
