@@ -8,9 +8,9 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
-  - flutter_ble_lib (2.3.1):
+  - flutter_ble_lib (2.3.2):
     - Flutter
-    - MultiplatformBleAdapter (~> 0.1.7)
+    - MultiplatformBleAdapter (~> 0.1.8)
   - flutter_blue (0.0.1):
     - Flutter
     - flutter_blue/Protos (= 0.0.1)
@@ -18,6 +18,8 @@ PODS:
     - Flutter
     - Protobuf (~> 3.11.4)
   - flutter_custom_dialog (0.0.1):
+    - Flutter
+  - flutter_native_splash (0.0.1):
     - Flutter
   - flutter_secure_storage (3.3.1):
     - Flutter
@@ -27,12 +29,12 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - MTBBarcodeScanner (5.0.11)
-  - MultiplatformBleAdapter (0.1.7)
+  - MultiplatformBleAdapter (0.1.9)
   - package_info (0.0.1):
     - Flutter
-  - path_provider (0.0.1):
+  - path_provider_ios (0.0.1):
     - Flutter
-  - "permission_handler (5.0.1+1)":
+  - "permission_handler (5.1.0+2)":
     - Flutter
   - Protobuf (3.11.4)
   - Reachability (3.2)
@@ -52,10 +54,11 @@ DEPENDENCIES:
   - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
   - flutter_blue (from `.symlinks/plugins/flutter_blue/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
-  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - search_choices (from `.symlinks/plugins/search_choices/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -84,14 +87,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_blue/ios"
   flutter_custom_dialog:
     :path: ".symlinks/plugins/flutter_custom_dialog/ios"
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   flutter_webview_plugin:
     :path: ".symlinks/plugins/flutter_webview_plugin/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
-  path_provider:
-    :path: ".symlinks/plugins/path_provider/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
   search_choices:
@@ -102,21 +107,22 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
-  ai_barcode: a415de3b4616800a963d265b292511f890a3649d
+  ai_barcode: 67fb0a7b732dbb87e92b59bb90a438db9383fa2f
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_ble_lib: 12143505774d055781b836052cf0b2c2a2257b0b
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_ble_lib: 675f6ceaa6cd6a675bba408b705042458a782101
   flutter_blue: eeb381dc4727a0954dede73515f683865494b370
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
+  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
-  MultiplatformBleAdapter: 975cfb2a333b2c42b7a11628bd100ccb61872da2
+  MultiplatformBleAdapter: 5a6a897b006764392f9cef785e4360f54fb9477d
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   search_choices: b50731e8c425078048f681f39c34375c58d6ce8d
