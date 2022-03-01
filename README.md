@@ -59,7 +59,7 @@ Please don't be stingy to give us feedback. You can go to [issues page](https://
 
 1. make sure you have ```flutter``` installed
 2. ```flutter doctor``` to check your `flutter` environment and find which device you can use to build the app
-3. ```flutter run -d device``` run the project in specific device
+3. ```flutter run --no-sound-null-safety -d device``` run the project in specific device
 
 ### Contributing
 
