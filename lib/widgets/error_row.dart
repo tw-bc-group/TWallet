@@ -28,7 +28,7 @@ class ErrorRowWidget extends StatelessWidget {
               pincodeDialogErrorMsg?.text ?? errorText,
               style: WalletFont.font_12(
                 textStyle: TextStyle(
-                  color: pincodeDialogErrorMsg!.color == null
+                  color: pincodeDialogErrorMsg?.color == null
                       ? WalletColor.accent
                       : WalletTheme.rgbColor(pincodeDialogErrorMsg!.color),
                 ),

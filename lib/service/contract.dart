@@ -135,6 +135,7 @@ class Contract {
               (credentials) => web3Client.sendTransaction(
                 credentials,
                 makeTransaction(functionName, parameters),
+                chainId: null,
                 fetchChainIdFromNetworkId: true,
               ),
             );
