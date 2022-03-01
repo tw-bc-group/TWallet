@@ -100,7 +100,7 @@ abstract class MnemonicsBase with Store {
 
   @action
   Future<void> save({int? newIndex}) async {
-    value = Tuple2(newIndex, value.second);
+    value = Tuple2(newIndex!, value.second);
 
     final SecureStorage _secureStorage = Get.find();
     await _secureStorage.set(

@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:ai_barcode/ai_barcode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ class QrScannerPage extends StatefulWidget {
 
 class QrScannerPageState extends State<QrScannerPage>
     with WidgetsBindingObserver {
-  late ScannerController _scannerController;
+  ScannerController _scannerController;
 
   Future checkAndRequirePermission() async {
     final PermissionStatus status = await Permission.camera.status;
@@ -53,7 +55,7 @@ class QrScannerPageState extends State<QrScannerPage>
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       return Future.delayed(const Duration(milliseconds: 500)).then((_) {
         checkAndRequirePermission().then((isGranted) {
           if (isGranted is bool && isGranted) {
@@ -93,7 +95,7 @@ class QrScannerPageState extends State<QrScannerPage>
 
   @override
   Widget build(BuildContext context) {
-    final Color buttonColor = Colors.grey[800]!;
+    final Color buttonColor = Colors.grey[800];
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -176,8 +178,8 @@ class QrScannerPageState extends State<QrScannerPage>
   }
 
   Widget _recognitionBorder({
-    required double borderWidth,
-    required double borderHeight,
+    @required double borderWidth,
+    @required double borderHeight,
   }) {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       const double lineStrokeWidth = 5.0;

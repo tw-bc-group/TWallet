@@ -48,7 +48,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     return Obx(() {
       final String hintText = remainTime.value == Duration.zero
           ? ""
-          : "剩余 ${printDuration(remainTime.value, locale: DurationLocale.fromLanguageCode('zh'))}";
+          : "剩余 ${printDuration(remainTime.value, locale: DurationLocale.fromLanguageCode('zh')!)}";
       return Text(hintText);
     });
   }

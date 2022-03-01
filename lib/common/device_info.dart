@@ -1,8 +1,10 @@
+// @dart=2.9
+
 import 'package:device_info/device_info.dart';
 
 class DeviceInfo {
-  static AndroidDeviceInfo? androidDeviceInfo;
-  static IosDeviceInfo? iosDeviceInfo;
+  static AndroidDeviceInfo androidDeviceInfo;
+  static IosDeviceInfo iosDeviceInfo;
 
   static Future<void> initialDeviceInfo() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -16,9 +18,9 @@ class DeviceInfo {
 
   static bool get isPhysicalDevice {
     if (null != androidDeviceInfo) {
-      return androidDeviceInfo!.isPhysicalDevice;
+      return androidDeviceInfo.isPhysicalDevice;
     } else if (null != iosDeviceInfo) {
-      return iosDeviceInfo!.isPhysicalDevice;
+      return iosDeviceInfo.isPhysicalDevice;
     }
     return false;
   }
@@ -29,7 +31,7 @@ class DeviceInfo {
 
   static bool isIphoneXSeries() {
     if (isIOS()) {
-      final iphoneName = iosDeviceInfo!.utsname.machine;
+      final iphoneName = iosDeviceInfo.utsname.machine;
       if (iphoneName.startsWith('iPhone1')) {
         return true;
       }

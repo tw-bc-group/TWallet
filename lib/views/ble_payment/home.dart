@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'dart:collection';
 
 import 'package:connectivity/connectivity.dart';
@@ -122,7 +124,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
-  Widget _buildNetworkOffScreen(ConnectivityResult? result) {
+  Widget _buildNetworkOffScreen(ConnectivityResult result) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -136,7 +138,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             '网络已关闭，请打开网络同步账户信息',
             style: Theme.of(context)
                 .primaryTextTheme
-                .subtitle1!
+                .subtitle1
                 .copyWith(color: Colors.white),
           ),
         ],
@@ -171,8 +173,8 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                           ),
                         )
                         .toList(),
-                    onChanged: (DcepType? value) {
-                      _redeemType.value = value!;
+                    onChanged: (DcepType value) {
+                      _redeemType.value = value;
                     },
                   ),
                 ),
@@ -251,15 +253,15 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   return FutureBuilder(
                     initialData: null,
                     future: Get.find<ContractService>()
-                        .nftTokenContract!
+                        .nftTokenContract
                         .getTransactionCount(
                           EthereumAddress.fromHex(identity.address),
                         ),
                     builder:
-                        (BuildContext context, AsyncSnapshot<int?> snapshot) {
+                        (BuildContext context, AsyncSnapshot<int> snapshot) {
                       if (null != snapshot.data) {
                         isNonceSynced = true;
-                        _dcepStore.nonce = snapshot.data!;
+                        _dcepStore.nonce = snapshot.data;
                         return _buildMainScreen(identity);
                       } else {
                         return Container();

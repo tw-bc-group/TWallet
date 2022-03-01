@@ -1,9 +1,11 @@
+// @dart=2.9
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ble_lib/flutter_ble_lib.dart';
+import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:flutter_blue/flutter_blue.dart' as flutter_blue;
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -99,9 +101,9 @@ class PayeeListScreen extends StatefulWidget {
 class _PayeeListScreenState extends State<PayeeListScreen> {
   final BleManager _bleManager = BleManager();
   final RxList<Payee> _bleDevices = RxList([]);
-  late StreamSubscription<ScanResult> _scanSubscription;
+  StreamSubscription<ScanResult> _scanSubscription;
 
-  Future<Future> _checkAndRequirePermissions() async {
+  Future<bool> _checkAndRequirePermissions() async {
     const Permission _permission = Permission.locationWhenInUse;
     final PermissionStatus status = await _permission.status;
 
@@ -142,13 +144,13 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   Future<void> _waitForBluetoothPoweredOn() async {
     final Completer completer = Completer();
 
-    StreamSubscription<BluetoothState>? subscription;
+    StreamSubscription<BluetoothState> subscription;
 
     subscription =
         _bleManager.observeBluetoothState().listen((bluetoothState) async {
       if (bluetoothState == BluetoothState.POWERED_ON &&
           !completer.isCompleted) {
-        await subscription!.cancel();
+        await subscription.cancel();
         completer.complete();
       }
     });

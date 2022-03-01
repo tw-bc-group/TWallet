@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
@@ -12,7 +14,7 @@ class SplashScreen extends StatefulWidget {
   final Function onInitializationComplete;
 
   const SplashScreen({
-    required this.onInitializationComplete,
+    this.onInitializationComplete,
   });
 
   @override

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
@@ -83,7 +81,7 @@ class VerifiableCredentialCard extends StatelessWidget {
     }
     return TextSpan(
       text:
-          "申请时间：${DateFormat('yyyy-MM-dd kk:mm').format(vc.applicationTime)}\n",
+          "申请时间：${DateFormat('yyyy-MM-dd kk:mm').format(vc.applicationTime!)}\n",
     );
   }
 }

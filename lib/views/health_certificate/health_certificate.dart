@@ -1,4 +1,4 @@
-import 'package:custom_radio_grouped_button/CustomButtons/CustomRadioButton.dart';
+import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

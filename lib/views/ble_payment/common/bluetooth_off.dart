@@ -1,11 +1,13 @@
+// @dart=2.9
+
 import 'package:flutter/material.dart';
-import 'package:flutter_ble_lib/flutter_ble_lib.dart';
+import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class BluetoothOffScreen extends StatelessWidget {
-  const BluetoothOffScreen({Key? key, this.state}) : super(key: key);
+  const BluetoothOffScreen({Key key, this.state}) : super(key: key);
 
-  final BluetoothState? state;
+  final BluetoothState state;
 
   @override
   Widget build(BuildContext context) {

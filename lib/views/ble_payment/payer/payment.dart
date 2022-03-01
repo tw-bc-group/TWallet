@@ -1,8 +1,10 @@
+// @dart=2.9
+
 import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ble_lib/flutter_ble_lib.dart';
+import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:get/get.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
@@ -79,9 +81,9 @@ class _PaymentState extends State<Payment> {
   final DcepStore _dcepStore = Get.find<DcepStore>();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
-  late StreamSubscription _dataMonitor;
-  late Characteristic _readCharacteristic;
-  late Characteristic _writeCharacteristic;
+  StreamSubscription _dataMonitor;
+  Characteristic _readCharacteristic;
+  Characteristic _writeCharacteristic;
 
   Future<Optional<Tuple2<Characteristic, Characteristic>>> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
@@ -89,7 +91,7 @@ class _PaymentState extends State<Payment> {
     final Service service = await widget._bleDevice.peripheral.services().then(
           (services) => services.firstWhere(
             (service) => service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0",
-            orElse: () => null!,
+            orElse: () => null,
           ),
         );
 

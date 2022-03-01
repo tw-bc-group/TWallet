@@ -11,13 +11,15 @@ class Amount {
   Decimal get original =>
       value * Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision);
   String get humanReadable => Util.formatDecimal(
-      value, Application.globalEnv.tokenHumanReadablePrecision);
+        value,
+        Application.globalEnv.tokenHumanReadablePrecision,
+      );
 
   String get humanReadableWithSymbol =>
       '${Application.globalEnv.tokenSymbol}$humanReadable';
 
   String get humanReadableWithSign {
-    if (value.isNegative) {
+    if (value < Decimal.zero) {
       return '-${Application.globalEnv.tokenSymbol}${humanReadable.substring(1)}';
     }
     return '+${Application.globalEnv.tokenSymbol}$humanReadable';
@@ -29,8 +31,11 @@ class Amount {
   }
 
   factory Amount.parse(String value) {
-    return Amount(Decimal.parse(value) /
-        Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision));
+    return Amount(
+      Decimal.parse(value) /
+              Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision)
+          as Decimal,
+    );
   }
 
   static Amount zero = Amount(Decimal.zero);

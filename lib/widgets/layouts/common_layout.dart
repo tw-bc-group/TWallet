@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
@@ -12,17 +14,17 @@ class CommonLayout extends StatelessWidget {
   final Widget child;
   final bool withBottomBtn;
   final String btnText;
-  final VoidCallback? btnOnPressed;
-  final String? title;
-  final Color? bodyBackColor;
-  final Color? bottomBackColor;
+  final VoidCallback btnOnPressed;
+  final String title;
+  final Color bodyBackColor;
+  final Color bottomBackColor;
   final BackIcon backIcon;
-  final BeforeDispose? beforeDispose;
-  final List<Widget>? appBarActions;
-  final String? errorText;
+  final BeforeDispose beforeDispose;
+  final List<Widget> appBarActions;
+  final String errorText;
 
   const CommonLayout(
-      {required this.child,
+      {this.child,
       this.withBottomBtn = false,
       this.btnText = '完成',
       this.btnOnPressed,
@@ -42,10 +44,10 @@ class CommonLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
         title: PageTitleWidget(
-          title: title!,
+          title: title,
           backIcon: backIcon,
-          appBarActions: appBarActions!,
-          beforeDispose: beforeDispose!,
+          appBarActions: appBarActions,
+          beforeDispose: beforeDispose,
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -87,15 +89,15 @@ class CommonLayout extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Expanded(child: Container(child: child)),
-                if (errorText!.isNotEmpty)
+                if (errorText.isNotEmpty)
                   _bottomContainer(
-                    child: ErrorRowWidget(errorText: errorText!),
+                    child: ErrorRowWidget(errorText: errorText),
                   ),
                 if (withBottomBtn)
                   _bottomContainer(
                     child: WalletTheme.button(
                       text: btnText,
-                      onPressed: btnOnPressed!,
+                      onPressed: btnOnPressed,
                     ),
                   ),
                 Container(
@@ -110,7 +112,7 @@ class CommonLayout extends StatelessWidget {
     );
   }
 
-  Widget _bottomContainer({required Widget child}) {
+  Widget _bottomContainer({Widget child}) {
     return Container(
       color: WalletColor.white,
       padding: const EdgeInsets.symmetric(horizontal: 30),

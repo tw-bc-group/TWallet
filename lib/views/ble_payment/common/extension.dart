@@ -1,7 +1,9 @@
+// @dart=2.9
+
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flutter_ble_lib/flutter_ble_lib.dart';
+import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
 import 'command.dart';
@@ -24,8 +26,11 @@ extension CharacteristicExtension on Characteristic {
   }
 
   Future<Command> receiveEncryptedCommand(SymmEncrypt encrypter) {
-    return read().then((Uint8List data) => Command.fromJson(
-        json.decode(String.fromCharCodes(encrypter.decrypt(data)))));
+    return read().then(
+      (Uint8List data) => Command.fromJson(
+        json.decode(String.fromCharCodes(encrypter.decrypt(data))),
+      ),
+    );
   }
 
   Future<void> sendEncryptedCommand(SymmEncrypt encrypter, Command command) {

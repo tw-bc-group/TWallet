@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -12,7 +14,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class DAppPage extends StatefulWidget {
   final String id;
-  const DAppPage({required this.id});
+  const DAppPage({this.id});
 
   @override
   State<StatefulWidget> createState() {
@@ -47,7 +49,7 @@ class DAppPageState extends State<DAppPage> {
           final WebviewRequest webviewRequest =
               WebviewRequest.fromJson(requestJson);
           DAppService.getOperator(webviewRequest.method)
-              .call(webviewRequest.id, webviewRequest.param!);
+              .call(webviewRequest.id, webviewRequest.param);
         } catch (e) {
           _controller.future.then(
             (webviewController) => webviewController.evaluateJavascript(

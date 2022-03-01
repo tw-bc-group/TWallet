@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'dart:convert';
 
 import 'package:bip39/bip39.dart' as bip39;
@@ -5,9 +7,9 @@ import 'package:built_value/serializer.dart';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt_tool;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:flutter/services.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -35,10 +37,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 typedef OperatorFunction = void Function(String id, String param);
 
 class DAppService {
-  static BuildContext? context;
-  static WebViewController? webviewController;
-  static DAppPageState? dappPageStateInstance;
-  static String? dappid;
+  static BuildContext context;
+  static WebViewController webviewController;
+  static DAppPageState dappPageStateInstance;
+  static String dappid;
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
     switch (method) {
@@ -84,7 +86,7 @@ class DAppService {
       final WebviewSignTransaction _signTransaction =
           WebviewSignTransaction.fromJson(json.decode(param));
       final pincodeValidate = await PincodeService.validate(
-        _signTransaction.token!,
+        _signTransaction.token,
         _signTransaction.pincodeDialogStyle,
       );
       if (pincodeValidate == null) {
@@ -93,7 +95,7 @@ class DAppService {
       final _transactionInfo = _signTransaction.transactionInfo;
       final Web3Client _web3Client =
           Web3Client(_transactionInfo.rpcUrl, Client());
-      final DecentralizedIdentity? _identity =
+      final DecentralizedIdentity _identity =
           Get.find<IdentityStore>().getIdentityById(_transactionInfo.accountId);
       final DeployedContract _contract = DeployedContract(
         ContractAbi.fromJson(
@@ -104,7 +106,7 @@ class DAppService {
       );
 
       final credentials = await _web3Client
-          .credentialsFromPrivateKey(_identity!.accountInfo.priKey);
+          .credentialsFromPrivateKey(_identity.accountInfo.priKey);
       final rawTx = await _web3Client.signTransaction(
         credentials,
         Transaction.callContract(
@@ -216,7 +218,7 @@ class DAppService {
 
   static void setStatusBarBackgroundColor(String id, String param) {
     if (DeviceInfo.isIOS()) {
-      return dappPageStateInstance!
+      return dappPageStateInstance
           .changeBackgroundColor(WalletTheme.rgbColor(param));
     }
     SystemChrome.setSystemUIOverlayStyle(
@@ -227,7 +229,7 @@ class DAppService {
   }
 
   static void getAccounts(String id, _) {
-    if (dappid!.isEmpty) {
+    if (dappid.isEmpty) {
       resolve(id, null);
     } else {
       resolve(
@@ -246,7 +248,7 @@ class DAppService {
       return resolve(id, null);
     }
 
-    resolve(id, Get.find<IdentityStore>().getIdentityById(param)!.basicInfo());
+    resolve(id, Get.find<IdentityStore>().getIdentityById(param).basicInfo());
   }
 
   static void getAccountByIds(String id, String param) {
@@ -259,7 +261,7 @@ class DAppService {
     param.split(',').forEach((accountId) {
       final identity = _identityStore.getIdentityById(accountId);
       result.add({
-        'id': identity!.id,
+        'id': identity.id,
         'address': identity.address,
         'publicKey': identity.accountInfo.pubKey,
         'index': identity.accountInfo.index
@@ -276,10 +278,10 @@ class DAppService {
       encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc),
     );
     final SecureStorage _secureStorage = Get.find();
-    final String? encryptedString =
+    final String encryptedString =
         await _secureStorage.get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
-        encrypt_tool.Encrypted.fromBase64(encryptedString!);
+        encrypt_tool.Encrypted.fromBase64(encryptedString);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       resolve(id, true);
@@ -289,13 +291,13 @@ class DAppService {
   }
 
   static void resolve(String id, dynamic data) {
-    webviewController!.evaluateJavascript(
+    webviewController.evaluateJavascript(
       'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})',
     );
   }
 
   static void reject(String id, dynamic data) {
-    webviewController!
+    webviewController
         // ignore: avoid_escaping_inner_quotes
         .evaluateJavascript(
       'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});',

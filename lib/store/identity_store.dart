@@ -134,7 +134,7 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   Amount get selectedIdentityBalance => selectedIdentity
-      .map((identity) => identity.accountInfo.balance)
+      .map((identity) => identity.accountInfo.balance!)
       .orElse(Amount.zero);
 
   @computed

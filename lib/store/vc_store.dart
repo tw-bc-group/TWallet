@@ -30,7 +30,7 @@ class VcStore {
     if (vcs.isEmpty) {
       return const Optional.empty();
     }
-    return Optional.of(vcs.last.token);
+    return Optional.of(vcs.last.token!);
   }
 
   void removeVc(String vcTypeId) {
