@@ -134,7 +134,7 @@ class Contract {
         await web3Client.credentialsFromPrivateKey(privateKey).then(
               (credentials) => web3Client.sendTransaction(
                 credentials,
-                makeTransaction(functionName, parameters ?? []),
+                makeTransaction(functionName, parameters),
                 fetchChainIdFromNetworkId: true,
               ),
             );

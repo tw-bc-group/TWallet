@@ -29,7 +29,7 @@ class CertificateCardWidget extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  routeTitle ?? '去认证',
+                  routeTitle,
                   style: WalletFont.font_14(
                     textStyle: TextStyle(
                       fontWeight: FontWeight.w600,

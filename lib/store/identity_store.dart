@@ -93,7 +93,7 @@ abstract class IdentityStoreBase with Store {
   }
 
   @observable
-  int healthCertLastSelectIndex;
+  int healthCertLastSelectIndex = 0;
 
   @observable
   ObservableList<DecentralizedIdentity> identities =
@@ -153,7 +153,7 @@ abstract class IdentityStoreBase with Store {
     final List<DecentralizedIdentity> ids =
         identities.where((identity) => identity.dappId.isEmpty).toList();
     final DecentralizedIdentity selectedIdentity =
-        ids.removeAt(healthCertLastSelectIndex ?? 0);
+        ids.removeAt(healthCertLastSelectIndex);
     return [selectedIdentity] + ids;
   }
 

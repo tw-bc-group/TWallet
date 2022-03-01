@@ -71,6 +71,7 @@ dependencies:
   flutter_webview_plugin: ^0.4.0
   collection: ^1.14.13
   flutter_ble_lib_ios_15: ^2.5.2
+  flutter_ble_peripheral: ^0.2.0
   crypton: ^2.0.3
   search_choices: ^1.0.17
   connectivity: ^2.0.2
