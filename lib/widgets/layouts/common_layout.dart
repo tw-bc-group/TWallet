@@ -33,7 +33,7 @@ class CommonLayout extends StatelessWidget {
       this.bottomBackColor,
       this.beforeDispose,
       this.backIcon = BackIcon.arrow,
-      this.errorText,
+      this.errorText = '',
       this.appBarActions});
 
   @override

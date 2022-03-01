@@ -26,7 +26,7 @@ class PinInputWidget extends StatelessWidget {
       ValueChanged<String> onChanged) {
     return PinCodeTextField(
       showCursor: false,
-      appContext: Get.overlayContext,
+      appContext: Get.context,
       pinTheme: PinTheme(
         activeColor: WalletColor.black,
         inactiveColor: WalletColor.black,

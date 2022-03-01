@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -46,7 +48,7 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
     )
         .orElse([]);
 
-    final Map<String, dynamic>? lastSelectedIdentityIdItem =
+    final Map<String, dynamic> lastSelectedIdentityIdItem =
         await IdentityStoreBase._db.getItem('lastSelectedIdentityId');
     final lastSelectedIdentityId = (lastSelectedIdentityIdItem != null
         ? lastSelectedIdentityIdItem['id']
@@ -85,11 +87,18 @@ abstract class IdentityStoreBase with Store {
     _identitiesSort();
     selectedIdentity =
         Optional.ofNullable(getIdentityById(lastSelectedIdentityId))
-          ..ifPresent((identity) => _selectStreamController.add(identity));
+          ..ifPresent((identity) {
+            if (identity.id.isNotEmpty) {
+              _selectStreamController.add(identity);
+            }
+          });
   }
 
-  DecentralizedIdentity? getIdentityById(String id) {
-    return identities.firstWhere((e) => e.id == id);
+  DecentralizedIdentity getIdentityById(String id) {
+    return identities.firstWhere(
+      (e) => e.id == id,
+      orElse: () => null,
+    );
   }
 
   @observable
@@ -110,15 +119,15 @@ abstract class IdentityStoreBase with Store {
   @observable
   String searchName = '';
 
-  late StreamController<ObservableFuture<TwBalance>> _streamController;
+  StreamController<ObservableFuture<TwBalance>> _streamController;
 
-  late ObservableStream<ObservableFuture<TwBalance>> fetchBalanceFutureStream;
+  ObservableStream<ObservableFuture<TwBalance>> fetchBalanceFutureStream;
 
-  late StreamController<DecentralizedIdentity> _selectStreamController;
-  late ObservableStream<DecentralizedIdentity> selectedIdentityStream;
+  StreamController<DecentralizedIdentity> _selectStreamController;
+  ObservableStream<DecentralizedIdentity> selectedIdentityStream;
 
   @observable
-  late Optional<DecentralizedIdentity> selectedIdentity;
+  Optional<DecentralizedIdentity> selectedIdentity;
 
   @computed
   String get selectedIdentityName =>
@@ -134,7 +143,7 @@ abstract class IdentityStoreBase with Store {
 
   @computed
   Amount get selectedIdentityBalance => selectedIdentity
-      .map((identity) => identity.accountInfo.balance!)
+      .map((identity) => identity.accountInfo.balance)
       .orElse(Amount.zero);
 
   @computed
@@ -174,7 +183,7 @@ abstract class IdentityStoreBase with Store {
 
     final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
     final List<dynamic> queryResult = await Get.find<ContractService>()
-        .identitiesContract!
+        .identitiesContract
         .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
 
     if (queryResult.isNotEmpty) {
@@ -211,9 +220,9 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future<DecentralizedIdentity> addIdentity(
-      {@required DecentralizedIdentity? identity}) async {
+      {@required DecentralizedIdentity identity}) async {
     return _db
-        .setItem(_itemKey(identity!.profileInfo.name), identity.toJson())
+        .setItem(_itemKey(identity.profileInfo.name), identity.toJson())
         .then((_) {
       final isFirstIdentity = identities
               .where((identity) => identity.dappId.isEmpty)
@@ -270,11 +279,11 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  void fetchLatestPoint({bool? withLoading}) {
+  void fetchLatestPoint({bool withLoading}) {
     selectedIdentity.ifPresent((identity) {
       TwBalance.fetchBalance(
         address: identity.address,
-        withLoading: withLoading!,
+        withLoading: withLoading,
       ).then((res) {
         res.ifPresent((balance) {
           selectedIdentity = Optional.of(

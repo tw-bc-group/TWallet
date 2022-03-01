@@ -71,8 +71,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     );
   }
 
-  Widget buildInputField(
-      {required Widget textFieldChild, required String errorText}) {
+  Widget buildInputField({required Widget textFieldChild, String? errorText}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
@@ -136,7 +135,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                             hintText: '输入名称',
                           ),
                         ),
-                        errorText: store.error.username!,
+                        errorText: store.error.username,
                       ),
                       buildInputField(
                         textFieldChild: TextField(
@@ -148,7 +147,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                             hintText: '输入邮箱',
                           ),
                         ),
-                        errorText: store.error.email!,
+                        errorText: store.error.email,
                       ),
                       buildInputField(
                         textFieldChild: TextField(
@@ -160,7 +159,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                             hintText: '输入手机号',
                           ),
                         ),
-                        errorText: store.error.phone!,
+                        errorText: store.error.phone,
                       ),
                       buildInputField(
                         textFieldChild: TextField(
@@ -172,7 +171,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                             hintText: 'YYYY-MM-DD',
                           ),
                         ),
-                        errorText: store.error.birthday!,
+                        errorText: store.error.birthday,
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 100),

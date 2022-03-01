@@ -30,18 +30,22 @@ abstract class Env extends Object implements Built<Env, EnvBuilder> {
   factory Env([void Function(EnvBuilder) updates]) = _$Env;
 
   factory Env.fromDefault() {
-    return Env((builder) => builder
-      ..apiGatewayBaseUrl = 'https://wallet.cn.blockchain.thoughtworks.cn/'
-      ..apiGatewayConnectTimeout = 30 * 1000
-      ..web3RpcGatewayUrl = 'http://node1.quorum.cn.blockchain.thoughtworks.cn'
-      ..didPrefix = 'did:tw:'
-      ..tokenName = 'TW Point'
-      ..tokenSymbol = '￥'
-      ..tokenPrecision = 2
-      ..tokenHumanReadablePrecision = 2
-      ..chainId = 10
-      ..centralBankPublicKey = RSAPublicKey.fromString(
-          'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAI5SXpw1SSsM3FN43JVKn4gb+oGXfjL7rCDluqydAyHZ8vV7ySqi8oM1CoHRC9U2ST7IldydsQ+4cjC9xfzexxcCAwEAAQ=='));
+    return Env(
+      (builder) => builder
+        ..apiGatewayBaseUrl = 'https://wallet.cn.blockchain.thoughtworks.cn/'
+        ..apiGatewayConnectTimeout = 30 * 1000
+        ..web3RpcGatewayUrl =
+            'http://node1.quorum.cn.blockchain.thoughtworks.cn'
+        ..didPrefix = 'did:tw:'
+        ..tokenName = 'TW Point'
+        ..tokenSymbol = '￥'
+        ..tokenPrecision = 2
+        ..tokenHumanReadablePrecision = 2
+        ..chainId = 10
+        ..centralBankPublicKey = RSAPublicKey.fromString(
+          'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAI5SXpw1SSsM3FN43JVKn4gb+oGXfjL7rCDluqydAyHZ8vV7ySqi8oM1CoHRC9U2ST7IldydsQ+4cjC9xfzexxcCAwEAAQ==',
+        ),
+    );
   }
 
   Env._();

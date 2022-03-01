@@ -11,7 +11,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 class SplashScreen extends StatefulWidget {
-  final Function onInitializationComplete;
+  final Function(String) onInitializationComplete;
 
   const SplashScreen({
     this.onInitializationComplete,
