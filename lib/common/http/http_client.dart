@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as g;
@@ -63,14 +60,6 @@ Dio _initDio() {
       connectTimeout: Application.globalEnv.apiGatewayConnectTimeout,
     )
     ..interceptors.add(_loadingInterceptor);
-  (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-      (client) {
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) {
-      return true;
-    };
-    return client;
-  };
 
   if (kDebugMode) {
     _dio.interceptors.add(_logInterceptor);
