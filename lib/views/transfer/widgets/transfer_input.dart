@@ -7,7 +7,7 @@ import 'package:tw_wallet_ui/widgets/error_row.dart';
 class TransferInputWidget extends StatelessWidget {
   final bool withPrefix;
   final ValueChanged<String> onChange;
-  final String errorText;
+  final String? errorText;
   final TextInputType keyboardType;
   final List<TextInputFormatter> inputFormatters;
   final TextEditingController? controller;
@@ -15,7 +15,7 @@ class TransferInputWidget extends StatelessWidget {
   const TransferInputWidget(
       {this.withPrefix = true,
       required this.onChange,
-      required this.errorText,
+      this.errorText,
       required this.keyboardType,
       required this.inputFormatters,
       this.controller});
@@ -66,7 +66,7 @@ class TransferInputWidget extends StatelessWidget {
             ],
           ),
         ),
-        if (errorText != null) ErrorRowWidget(errorText: errorText)
+        if (errorText != null) ErrorRowWidget(errorText: errorText!)
       ],
     );
   }

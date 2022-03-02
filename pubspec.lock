@@ -913,7 +913,7 @@ packages:
     source: hosted
     version: "2.3.1"
   rational:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rational
       url: "https://pub.dartlang.org"

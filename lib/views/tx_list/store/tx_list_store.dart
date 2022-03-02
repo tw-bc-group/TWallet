@@ -18,10 +18,10 @@ abstract class _TxListStore with Store {
   late ObservableFuture<Optional<Transaction>> tx;
 
   @observable
-  late List<Transaction> list;
+  List<Transaction> list = [];
 
   @observable
-  late String errorMessage;
+  String? errorMessage = '';
 
   @computed
   bool get loading => listFuture.status == FutureStatus.pending;

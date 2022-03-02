@@ -64,13 +64,13 @@ mixin _$TxListStore on _TxListStore, Store {
   final _$errorMessageAtom = Atom(name: '_TxListStore.errorMessage');
 
   @override
-  String get errorMessage {
+  String? get errorMessage {
     _$errorMessageAtom.reportRead();
     return super.errorMessage;
   }
 
   @override
-  set errorMessage(String value) {
+  set errorMessage(String? value) {
     _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
       super.errorMessage = value;
     });

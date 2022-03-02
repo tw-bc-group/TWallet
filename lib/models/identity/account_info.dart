@@ -18,8 +18,10 @@ abstract class AccountInfo implements Built<AccountInfo, AccountInfoBuilder> {
 
   static AccountInfo fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-          specifiedType: const FullType(AccountInfo)) as AccountInfo;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(AccountInfo),
+      ) as AccountInfo;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

@@ -78,6 +78,7 @@ dependencies:
   quick_log: ^5.2.1
   flutter_blue: ^0.8.0
   duration: ^3.0.10
+  rational: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -30,11 +30,11 @@ class Amount {
     return humanReadable;
   }
 
-  factory Amount.parse(String value) {
+  factory Amount.parse(dynamic value) {
     return Amount(
-      Decimal.parse(value) /
-              Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision)
-          as Decimal,
+      (Decimal.parse(value as String) /
+              Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision))
+          .toDecimal(),
     );
   }
 
@@ -45,7 +45,7 @@ class AmountSerializer implements PrimitiveSerializer<Amount> {
   @override
   Amount deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return Amount.parse(serialized as String);
+    return Amount.parse(serialized);
   }
 
   @override

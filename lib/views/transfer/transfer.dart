@@ -44,7 +44,7 @@ class TransferPageState extends State<TransferPage> {
     _transferStore.setupErrorDisposers();
     identity = Get.find<IdentityStore>().selectedIdentity.value;
     _transferStore.payerDID = identity.did.toString();
-    _transferStore.balance = identity.accountInfo.balance!.humanReadable;
+    _transferStore.balance = identity.accountInfo.balance?.humanReadable;
   }
 
   @override
@@ -205,7 +205,10 @@ class TransferPageState extends State<TransferPage> {
   }
 
   bool btnDisabled() {
-    return _transferStore.amount!.isEmpty || _transferStore.payeeDID!.isEmpty;
+    return _transferStore.amount == null ||
+        _transferStore.amount!.isEmpty ||
+        _transferStore.payeeDID == null ||
+        _transferStore.payeeDID!.isEmpty;
   }
 
   @override
@@ -260,7 +263,7 @@ class TransferPageState extends State<TransferPage> {
               textAlign: TextAlign.left,
             ),
             TransferInputWidget(
-              errorText: _transferStore.error.amount!,
+              errorText: _transferStore.error.amount,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: <TextInputFormatter>[
@@ -314,7 +317,7 @@ class TransferPageState extends State<TransferPage> {
             ),
             TransferInputWidget(
               withPrefix: false,
-              errorText: _transferStore.error.payeeDID!,
+              errorText: _transferStore.error.payeeDID,
               keyboardType: TextInputType.text,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\:]+'))

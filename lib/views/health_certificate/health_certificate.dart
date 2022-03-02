@@ -81,7 +81,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   Widget _inputFiled(
       ScreenUtil _screenUtil,
       String title,
-      String errorText,
+      String? errorText,
       TextEditingController controller,
       TextInputType inputType,
       ValueChanged<String> onChanged) {
@@ -126,7 +126,9 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       ),
     ];
 
-    columnChildren.add(ErrorRowWidget(errorText: errorText));
+    if (errorText != null) {
+      columnChildren.add(ErrorRowWidget(errorText: errorText));
+    }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -205,7 +207,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
               child: _inputFiled(
                 _screenUtil,
                 '手机号',
-                _pageStore.error.phone!,
+                _pageStore.error.phone,
                 _phoneInputController!,
                 TextInputType.phone,
                 (String value) => _pageStore.updatePhone(value),
@@ -216,7 +218,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
               child: _inputFiled(
                 _screenUtil,
                 '今日体温（℃）',
-                _pageStore.error.temperature!,
+                _pageStore.error.temperature,
                 _temperatureInputController!,
                 const TextInputType.numberWithOptions(decimal: true),
                 (String value) => _pageStore.updateTemperature(value),
