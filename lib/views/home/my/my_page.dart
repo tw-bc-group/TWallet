@@ -125,6 +125,10 @@ class MyPage extends StatelessWidget {
                     '离线支付',
                     () => Get.to(BlePaymentHome(homeStore)),
                   ),
+                  _buildButton(
+                      '我的聊天',
+                      () => Application.router
+                          .navigateTo(context, Routes.messagePage)),
                   _buildButton('清除数据', () => _cleanPrivateData(context)),
                   Padding(
                     padding: EdgeInsets.only(

@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
 import 'package:tw_wallet_ui/views/home/discovery/health_certification_page.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_page.dart';
+import 'package:tw_wallet_ui/views/home/my/message_page.dart';
 import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
 import 'package:tw_wallet_ui/views/identity_qr/identity_qr_code.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
@@ -148,6 +149,12 @@ Handler healthCodeHandler = Handler(
 Handler healthCertificationPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return HealthCertificationPage();
+  },
+);
+
+Handler messagePageHandler = Handler(
+  handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
+    return const MessagePage();
   },
 );
 
