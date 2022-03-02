@@ -24,6 +24,8 @@ class WalletColor {
   static const String RED = '#ff5164';
 // ignore: constant_identifier_names
   static const String BLUE = '#306fff';
+  // ignore: constant_identifier_names
+  static const String MESSAGE_BG = '#0b002d';
 
   static final Color primary = WalletTheme.rgbColor(PRIMARY);
   static final Color accent = WalletTheme.rgbColor(ACCENT);
@@ -39,4 +41,5 @@ class WalletColor {
   static final Color identityCardBg = WalletTheme.rgbColor("#f2f4fa");
   static final Color boxShadow = WalletTheme.rgbColor("#0f0000");
   static final Color blue = WalletTheme.rgbColor(BLUE);
+  static final Color messageBg = WalletTheme.rgbColor(MESSAGE_BG);
 }
