@@ -54,7 +54,9 @@ class InputPinWidgetState extends State<InputPinWidget> {
         encrypt_tool.Encrypted.fromBase64(encryptedString!);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
-      widget.completer!.complete(PincodeService.createToken());
+      if (widget.completer != null) {
+        widget.completer!.complete(PincodeService.createToken());
+      }
       return true;
     } catch (error) {
       setState(() {
