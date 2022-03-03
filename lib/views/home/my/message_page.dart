@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/models/message_users.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/models/message_user.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage();
@@ -13,13 +12,6 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-  List<MessageUsers> chatUsers = [
-    MessageUsers(name: "Jane Russel", time: "Now"),
-    MessageUsers(name: "Glady's Murphy", time: "Yesterday"),
-    MessageUsers(name: "Jorge Henry", time: "31 Mar"),
-    MessageUsers(name: "Philip Fox", time: "28 Mar"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
@@ -28,8 +20,18 @@ class _MessagePageState extends State<MessagePage> {
       appBarActions: [
         IconButton(icon: const Icon(Icons.search), onPressed: () {})
       ],
+      floatingBtn: FloatingActionButton(
+        backgroundColor: WalletColor.red,
+        child: const Icon(Icons.person_add_alt_1),
+        onPressed: () {},
+      ),
       child: Column(
-        children: [_buildMessageEmpty(context)],
+        children: [
+          if (chatData.isEmpty)
+            _buildMessageEmpty(context)
+          else
+            _buildMessageList(context)
+        ],
       ),
     );
   }
@@ -81,14 +83,80 @@ class _MessagePageState extends State<MessagePage> {
   Widget _buildMessageList(BuildContext context) {
     return Expanded(
       child: Container(
-          decoration: BoxDecoration(
-            color: WalletColor.messageBg,
+        decoration: BoxDecoration(
+          color: WalletColor.messageBg,
+        ),
+        child: ListView.builder(
+          itemCount: chatData.length,
+          itemBuilder: (context, index) =>
+              charCard(chat: chatData[index] as MessageUser, press: () {}),
+        ),
+      ),
+    );
+  }
+}
+
+class charCard extends StatelessWidget {
+  const charCard({Key? key, required this.chat, required this.press})
+      : super(key: key);
+
+  final MessageUser chat;
+  final VoidCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: WalletColor.messageBg,
+      child: InkWell(
+        onTap: press,
+        hoverColor: WalletColor.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+          child: Row(
+            children: [
+              const CircleAvatar(
+                radius: 24,
+                backgroundImage: AssetImage('assets/images/edit.png'),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        chat.name,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: WalletColor.white,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Opacity(
+                        opacity: 0.64,
+                        child: Text(
+                          chat.lastMessage.toString(),
+                          style: TextStyle(color: WalletColor.white),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Opacity(
+                opacity: 0.64,
+                child: Text(
+                  chat.time.toString(),
+                  style: TextStyle(color: WalletColor.white),
+                ),
+              ),
+            ],
           ),
-          child: ListView.builder(
-              itemCount: chatData.length,
-              itemBuilder: (context, index) => Row(
-                    children: [Text('Test')],
-                  ))),
+        ),
+      ),
     );
   }
 }

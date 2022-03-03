@@ -22,19 +22,22 @@ class CommonLayout extends StatelessWidget {
   final BeforeDispose beforeDispose;
   final List<Widget> appBarActions;
   final String errorText;
+  final Widget floatingBtn;
 
-  const CommonLayout(
-      {this.child,
-      this.withBottomBtn = false,
-      this.btnText = '完成',
-      this.btnOnPressed,
-      this.title,
-      this.bodyBackColor,
-      this.bottomBackColor,
-      this.beforeDispose,
-      this.backIcon = BackIcon.arrow,
-      this.errorText = '',
-      this.appBarActions});
+  const CommonLayout({
+    this.child,
+    this.withBottomBtn = false,
+    this.btnText = '完成',
+    this.btnOnPressed,
+    this.title,
+    this.bodyBackColor,
+    this.bottomBackColor,
+    this.beforeDispose,
+    this.backIcon = BackIcon.arrow,
+    this.errorText = '',
+    this.appBarActions,
+    this.floatingBtn,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +112,7 @@ class CommonLayout extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: floatingBtn,
     );
   }
 
