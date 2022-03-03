@@ -23,6 +23,7 @@ class CommonLayout extends StatelessWidget {
   final List<Widget> appBarActions;
   final String errorText;
   final Widget floatingBtn;
+  final bool withFloatingBtn;
 
   const CommonLayout({
     this.child,
@@ -37,6 +38,7 @@ class CommonLayout extends StatelessWidget {
     this.errorText = '',
     this.appBarActions,
     this.floatingBtn,
+    this.withFloatingBtn = false,
   });
 
   @override
@@ -112,7 +114,12 @@ class CommonLayout extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: floatingBtn,
+
+      floatingActionButton: () {
+        if (withFloatingBtn) {
+          return floatingBtn;
+        }
+      }(),
     );
   }
 
