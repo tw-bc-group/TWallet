@@ -1,7 +1,6 @@
 // @dart=2.9
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +106,7 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
     const Permission _permission = Permission.locationWhenInUse;
     final PermissionStatus status = await _permission.status;
 
-    if (!status.isGranted && (Platform.isIOS && !status.isUndetermined)) {
+    if (!status.isGranted) {
       if (status.isDenied ||
           status.isRestricted ||
           status.isPermanentlyDenied) {
