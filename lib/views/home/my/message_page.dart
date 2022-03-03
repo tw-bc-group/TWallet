@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/message_user.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+
+import '../../../router/routers.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage();
@@ -16,14 +19,20 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return CommonLayout(
       title: "Message",
+      withFloatingBtn: true,
       bottomBackColor: WalletColor.messageBg,
       appBarActions: [
-        IconButton(icon: const Icon(Icons.search), onPressed: () {})
+        IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {},
+        )
       ],
       floatingBtn: FloatingActionButton(
         backgroundColor: WalletColor.red,
         child: const Icon(Icons.person_add_alt_1),
-        onPressed: () {},
+        onPressed: () {
+          _handleScan(context);
+        },
       ),
       child: Column(
         children: [
@@ -89,15 +98,15 @@ class _MessagePageState extends State<MessagePage> {
         child: ListView.builder(
           itemCount: chatData.length,
           itemBuilder: (context, index) =>
-              charCard(chat: chatData[index] as MessageUser, press: () {}),
+              CharCard(chat: chatData[index] as MessageUser, press: () {}),
         ),
       ),
     );
   }
 }
 
-class charCard extends StatelessWidget {
-  const charCard({Key? key, required this.chat, required this.press})
+class CharCard extends StatelessWidget {
+  const CharCard({Key? key, required this.chat, required this.press})
       : super(key: key);
 
   final MessageUser chat;
@@ -105,6 +114,8 @@ class charCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _whiteColor = TextStyle(color: WalletColor.white);
+
     return Material(
       color: WalletColor.messageBg,
       child: InkWell(
@@ -116,7 +127,7 @@ class charCard extends StatelessWidget {
             children: [
               const CircleAvatar(
                 radius: 24,
-                backgroundImage: AssetImage('assets/images/edit.png'),
+                backgroundImage: NetworkImage('https://picsum.photos/150'),
               ),
               Expanded(
                 child: Padding(
@@ -137,7 +148,7 @@ class charCard extends StatelessWidget {
                         opacity: 0.64,
                         child: Text(
                           chat.lastMessage.toString(),
-                          style: TextStyle(color: WalletColor.white),
+                          style: _whiteColor,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -150,7 +161,7 @@ class charCard extends StatelessWidget {
                 opacity: 0.64,
                 child: Text(
                   chat.time.toString(),
-                  style: TextStyle(color: WalletColor.white),
+                  style: _whiteColor,
                 ),
               ),
             ],
@@ -159,4 +170,13 @@ class charCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _handleScan(BuildContext context) async {
+  final String scanResult =
+      await Application.router.navigateTo(context, Routes.qrScanner) as String;
+
+  return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
+    try {} catch (_) {}
+  });
 }

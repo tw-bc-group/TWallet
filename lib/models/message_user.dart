@@ -11,24 +11,24 @@ List chatData = [
     name: "Jane Russel",
     lastMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     time: "Now",
-    imageURL: 'assets/images/edit.png',
+    imageURL: 'https://picsum.photos/150',
   ),
   MessageUser(
     name: "Glady's Murphy",
     lastMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     time: "Yesterday",
-    imageURL: 'assets/images/edit.png',
+    imageURL: 'https://picsum.photos/150',
   ),
   MessageUser(
     name: "Jorge Henry",
     lastMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     time: "31 Mar",
-    imageURL: 'assets/images/edit.png',
+    imageURL: 'https://picsum.photos/150',
   ),
   MessageUser(
     name: "Philip Fox",
     lastMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     time: "22 Mar",
-    imageURL: 'assets/images/edit.png',
+    imageURL: 'https://picsum.photos/150',
   ),
 ];

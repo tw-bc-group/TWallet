@@ -114,7 +114,6 @@ class CommonLayout extends StatelessWidget {
           ),
         ),
       ),
-
       floatingActionButton: () {
         if (withFloatingBtn) {
           return floatingBtn;
