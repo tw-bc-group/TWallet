@@ -23,6 +23,7 @@ class Routes {
   static const String healthCode = '/health_code';
   static const String healthCertPage = '/dapp/health_cert';
   static const String messagePage = '/dapp/message';
+  static const String chatDetailPage = '/dapp/chatDetail';
   static const String dapp = '/dapp';
   static const String ownVcPage = '/ssi/vc';
   static const String composeVcPage = '/ssi/compose_vc_page';
@@ -62,6 +63,7 @@ class Routes {
     verificationScenarioQrPage: verificationScenarioQrPageHandler,
     newVcPage: newVcPageHandler,
     messagePage: messagePageHandler,
+    chatDetailPage: chatDetailPageHandler,
   };
 
   static void configureRoutes(FluroRouter router) {

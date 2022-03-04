@@ -30,6 +30,8 @@ import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
+import '../views/home/my/chat.dart';
+
 Handler newWalletHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return NewWalletWidget();
@@ -155,6 +157,13 @@ Handler healthCertificationPageHandler = Handler(
 Handler messagePageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return const MessagePage();
+  },
+);
+Handler chatDetailPageHandler = Handler(
+  handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
+    return const ChatPage(
+      username: '',
+    );
   },
 );
 

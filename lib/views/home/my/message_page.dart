@@ -64,7 +64,7 @@ class _MessagePageState extends State<MessagePage> {
             Column(
               children: <Widget>[
                 Text(
-                  "暂无聊天信息",
+                  "没有联系人",
                   style: TextStyle(
                     color: WalletColor.white,
                     fontSize: 14,
@@ -74,7 +74,7 @@ class _MessagePageState extends State<MessagePage> {
                   ),
                 ),
                 Text(
-                  "请前往添加新聊天",
+                  "新启聊天",
                   style: TextStyle(
                     color: WalletColor.lightGrey,
                     fontSize: 9,
@@ -99,8 +99,11 @@ class _MessagePageState extends State<MessagePage> {
         ),
         child: ListView.builder(
           itemCount: chatData.length,
-          itemBuilder: (context, index) =>
-              CharCard(chat: chatData[index] as MessageUser, press: () {}),
+          itemBuilder: (context, index) => CharCard(
+            chat: chatData[index] as MessageUser,
+            press: () => Application.router
+                .navigateTo(context, '${'routes-to-room'}?id=${index}'),
+          ),
         ),
       ),
     );
@@ -127,9 +130,9 @@ class CharCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
           child: Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 24,
-                backgroundImage: NetworkImage('https://picsum.photos/150'),
+                backgroundImage: NetworkImage(chat.imageURL!),
               ),
               Expanded(
                 child: Padding(

@@ -3,7 +3,14 @@ class MessageUser {
   final String? lastMessage;
   final String? imageURL;
   final String? time;
-  MessageUser({required this.name, this.lastMessage, this.imageURL, this.time});
+  // unread message numebr, unread flag
+  MessageUser({
+    required this.name,
+    this.lastMessage,
+    // set default avatar image
+    this.imageURL = 'https://picsum.photos/150',
+    this.time,
+  });
 }
 
 List chatData = [
