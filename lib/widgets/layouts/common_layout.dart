@@ -24,6 +24,7 @@ class CommonLayout extends StatelessWidget {
   final String errorText;
   final Widget floatingBtn;
   final bool withFloatingBtn;
+  final Widget customTitle;
 
   const CommonLayout({
     this.child,
@@ -39,6 +40,7 @@ class CommonLayout extends StatelessWidget {
     this.appBarActions,
     this.floatingBtn,
     this.withFloatingBtn = false,
+    this.customTitle,
   });
 
   @override
@@ -48,7 +50,7 @@ class CommonLayout extends StatelessWidget {
       backgroundColor: bodyBackColor ?? WalletColor.primary,
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
-        title: PageTitleWidget(
+        title: customTitle ?? PageTitleWidget(
           title: title,
           backIcon: backIcon,
           appBarActions: appBarActions,

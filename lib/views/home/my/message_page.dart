@@ -7,6 +7,8 @@ import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 import '../../../router/routers.dart';
 
+import 'package:get/get.dart';
+import 'package:tw_wallet_ui/views/home/my/chat.dart';
 class MessagePage extends StatefulWidget {
   const MessagePage();
 
@@ -119,7 +121,7 @@ class CharCard extends StatelessWidget {
     return Material(
       color: WalletColor.messageBg,
       child: InkWell(
-        onTap: press,
+        onTap: () => Get.to(ChatPage(username:chat.name)),
         hoverColor: WalletColor.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
