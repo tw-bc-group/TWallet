@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>919319918438-tdr1dnjoiikok0ma7e1q80756qogr7lj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.919319918438-tdr1dnjoiikok0ma7e1q80756qogr7lj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCbJtBcXeRNYaWBeO_tAMZ5kXT-iEFSwFw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>919319918438</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.thoughtworks.blockchain.tw-wallet</string>
+	<key>PROJECT_ID</key>
+	<string>twallet-firebase</string>
+	<key>STORAGE_BUCKET</key>
+	<string>twallet-firebase.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:919319918438:ios:dc5900d7ca7c9033563aa7</string>
+</dict>
+</plist>
