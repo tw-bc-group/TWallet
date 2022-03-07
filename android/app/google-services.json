@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "919319918438",
+    "project_id": "twallet-firebase",
+    "storage_bucket": "twallet-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919319918438:android:39244af4845c812e563aa7",
+        "android_client_info": {
+          "package_name": "com.thoughtworks.tw_wallet_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919319918438-h1i8h9e5801mfsqut0noq2j92jr8f1av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMYvmHgxI4XxnqMzb0-J0iVpTCtgKfEEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919319918438-h1i8h9e5801mfsqut0noq2j92jr8f1av.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "919319918438-tdr1dnjoiikok0ma7e1q80756qogr7lj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thoughtworks.blockchain.tw-wallet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
