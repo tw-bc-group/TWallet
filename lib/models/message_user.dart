@@ -1,5 +1,6 @@
 class MessageUser {
   final String name;
+  final String? did;
   final String? lastMessage;
   final String? imageURL;
   final String? time;
@@ -7,6 +8,7 @@ class MessageUser {
   MessageUser({
     required this.name,
     this.lastMessage,
+    this.did,
     // set default avatar image
     this.imageURL = 'https://picsum.photos/150',
     this.time,

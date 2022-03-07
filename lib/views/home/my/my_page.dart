@@ -18,6 +18,8 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/views/ble_payment/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+
 Future<void> _cleanPrivateData(BuildContext context) async {
   final ProgressDialog _dialog = Get.find();
   _dialog.show();

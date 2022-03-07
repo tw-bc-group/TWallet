@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/message_user.dart';
+import 'package:tw_wallet_ui/service/firbaseHelper.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
@@ -19,17 +20,37 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  bool _initialized = false;
+
   final IdentityStore _identityStore = Get.find();
+  final FirebaseService firebaseService = FirebaseService();
+  String get _dId => _identityStore.selectedIdentityDid;
 
   String get _name => _identityStore.selectedIdentity
       .map((identity) => identity.profileInfo.name)
       .orElse('');
 
   @override
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
+  }
+
+  void initializeFlutterFire() async {
+    try {
+      await firebaseService.initFirebase();
+      final messageUser = MessageUser(name: _name, did: _dId);
+      await firebaseService.findOrCreateUser(messageUser);
+      setState(() {
+        _initialized = true;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: removed debug log message
-    print('**********_name**********');
-    print(_name);
     return CommonLayout(
       title: "Message",
       withFloatingBtn: true,

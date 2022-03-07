@@ -80,7 +80,8 @@ dependencies:
   duration: ^3.0.10
   rational: ^2.1.0
   flutter_chat_ui: ^1.5.5
-  firebase_core: ^0.4.0+9
+  firebase_core: ^1.13.1
+  flutter_firebase_chat_core: ^1.5.2
 
 dev_dependencies:
   flutter_test:
