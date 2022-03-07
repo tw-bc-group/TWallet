@@ -4,11 +4,13 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/message_user.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:tw_wallet_ui/store/identity_store.dart';
 
 import '../../../router/routers.dart';
 
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
+
 class MessagePage extends StatefulWidget {
   const MessagePage();
 
@@ -17,8 +19,17 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  final IdentityStore _identityStore = Get.find();
+
+  String get _name => _identityStore.selectedIdentity
+      .map((identity) => identity.profileInfo.name)
+      .orElse('');
+
   @override
   Widget build(BuildContext context) {
+    // TODO: removed debug log message
+    print('**********_name**********');
+    print(_name);
     return CommonLayout(
       title: "Message",
       withFloatingBtn: true,
@@ -124,7 +135,7 @@ class CharCard extends StatelessWidget {
     return Material(
       color: WalletColor.messageBg,
       child: InkWell(
-        onTap: () => Get.to(ChatPage(username:chat.name)),
+        onTap: () => Get.to(ChatPage(username: chat.name)),
         hoverColor: WalletColor.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
