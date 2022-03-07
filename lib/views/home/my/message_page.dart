@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/message_user.dart';
@@ -20,16 +22,33 @@ class MessagePage extends StatefulWidget {
 
 class _MessagePageState extends State<MessagePage> {
   final IdentityStore _identityStore = Get.find();
-
+  bool _error = false;
   String get _name => _identityStore.selectedIdentity
       .map((identity) => identity.profileInfo.name)
       .orElse('');
+
+  @override
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
+  }
+
+  void initializeFlutterFire() async {
+    try {
+      await Firebase.initializeApp();
+    } catch (e) {
+      setState(() {
+        _error = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: removed debug log message
     print('**********_name**********');
     print(_name);
+    initializeFlutterFire();
     return CommonLayout(
       title: "Message",
       withFloatingBtn: true,
