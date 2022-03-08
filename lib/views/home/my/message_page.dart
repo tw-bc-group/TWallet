@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/message_user.dart';
-import 'package:tw_wallet_ui/views/home/my/firebase_chat_core.dart';
+import 'package:tw_wallet_ui/views/home/my/util.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
@@ -11,11 +12,9 @@ import '../../../router/routers.dart';
 
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
-
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/my/users.dart';
-import 'package:tw_wallet_ui/views/home/my/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class MessagePage extends StatefulWidget {
   const MessagePage();
