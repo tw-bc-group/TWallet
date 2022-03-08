@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/message_user.dart';
@@ -18,6 +19,7 @@ import 'package:tw_wallet_ui/views/home/my/users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../service/firbaseService.dart';
+import 'package:intl/intl.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage();
@@ -81,16 +83,16 @@ class _MessagePageState extends State<MessagePage> {
           },
         )
       ],
-      floatingBtn: FloatingActionButton(
-        backgroundColor: WalletColor.red,
-        child: const Icon(Icons.person_add_alt_1),
-        onPressed: () {
-          _handleScan(context);
-        },
-      ),
+      // floatingBtn: FloatingActionButton(
+      //   backgroundColor: WalletColor.red,
+      //   child: const Icon(Icons.person_add_alt_1),
+      //   onPressed: () {
+      //     _handleScan(context);
+      //   },
+      // ),
       child: Column(
         children: [
-          if (!_initialized || chatData.isEmpty || _user == null)
+          if (!_initialized || _user == null)
             _buildMessageEmpty(context)
           else
             _buildMessageList(context)
@@ -154,41 +156,86 @@ class _MessagePageState extends State<MessagePage> {
           initialData: const [],
           builder: (context, snapshot) {
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(
-                  bottom: 200,
-                ),
-                child: const Text('No rooms'),
-              );
+              return _buildMessageEmpty(context);
             }
 
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final room = snapshot.data![index];
+                final lastMessage = room.lastMessages?.last;
 
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ChatPage(
-                          room: room,
+                return Material(
+                  color: WalletColor.messageBg,
+                  child: InkWell(
+                    hoverColor: WalletColor.white,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ChatPage(
+                              room: room,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 15,
+                        ),
+                        child: Row(
+                          children: [
+                            _buildAvatar(room),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      room.name ?? '',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: WalletColor.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Opacity(
+                                      opacity: 0.64,
+                                      child: lastMessage != null
+                                          ? Text(
+                                              lastMessage.toString(),
+                                              style: TextStyle(
+                                                  color: WalletColor.white),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                          : null,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Opacity(
+                              opacity: 0.64,
+                              child: room.updatedAt != null
+                                  ? Text(
+                                      DateFormat('hh:mm a').format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                          room.updatedAt!,
+                                        ).toLocal(),
+                                      ),
+                                      style:
+                                          TextStyle(color: WalletColor.white),
+                                    )
+                                  : null,
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    child: Row(
-                      children: [
-                        _buildAvatar(room),
-                        Text(room.name ?? '',
-                            style: TextStyle(color: Colors.white)),
-                      ],
                     ),
                   ),
                 );
@@ -223,82 +270,13 @@ class _MessagePageState extends State<MessagePage> {
       child: CircleAvatar(
         backgroundColor: hasImage ? Colors.transparent : color,
         backgroundImage: hasImage ? NetworkImage(room.imageUrl!) : null,
-        radius: 20,
+        radius: 24,
         child: !hasImage
             ? Text(
                 name.isEmpty ? '' : name[0].toUpperCase(),
                 style: const TextStyle(color: Colors.white),
               )
             : null,
-      ),
-    );
-  }
-}
-
-class CharCard extends StatelessWidget {
-  const CharCard({Key? key, required this.chat, required this.press})
-      : super(key: key);
-
-  final MessageUser chat;
-  final VoidCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    final _whiteColor = TextStyle(color: WalletColor.white);
-
-    return Material(
-      color: WalletColor.messageBg,
-      child: InkWell(
-        // onTap: () => Get.to(ChatPage(
-        //     roomId: 'J80yKQudpLxIXHXrSabM',
-        //     userId: Get.find<IdentityStore>().selectedIdentityDid )),
-        hoverColor: WalletColor.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: NetworkImage(chat.imageURL!),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        chat.name,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: WalletColor.white,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Opacity(
-                        opacity: 0.64,
-                        child: Text(
-                          chat.lastMessage.toString(),
-                          style: _whiteColor,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Opacity(
-                opacity: 0.64,
-                child: Text(
-                  chat.time.toString(),
-                  style: _whiteColor,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
