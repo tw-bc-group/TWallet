@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
 import 'package:tw_wallet_ui/views/home/my/util.dart';
+import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class UsersPage extends StatefulWidget {
   @override
@@ -65,7 +67,9 @@ class _UsersPageState extends State<UsersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: WalletColor.messageBg,
       appBar: AppBar(
+        backgroundColor: WalletColor.primary,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: TextField(
           controller: _controller,
@@ -74,7 +78,7 @@ class _UsersPageState extends State<UsersPage> {
           ),
           decoration: const InputDecoration(
               prefixIcon: const Icon(Icons.search, color: Colors.white),
-              hintText: "Search...",
+              hintText: "搜索...",
               hintStyle: const TextStyle(color: Colors.white)),
         ),
       ),
@@ -90,7 +94,15 @@ class _UsersPageState extends State<UsersPage> {
               margin: const EdgeInsets.only(
                 bottom: 200,
               ),
-              child: const Text('No users'),
+              child: Text(
+                '暂无用户，请搜索用户名',
+                style: TextStyle(
+                  color: WalletColor.lightGrey,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
+                ),
+              ),
             );
           }
           final result = snapshot.data!
@@ -112,13 +124,20 @@ class _UsersPageState extends State<UsersPage> {
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                    horizontal: 25,
+                    vertical: 15,
                   ),
                   child: Row(
                     children: [
                       _buildAvatar(user),
-                      Text(getUserName(user)),
+                      Text(
+                        getUserName(user),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: WalletColor.white,
+                        ),
+                      ),
                     ],
                   ),
                 ),
