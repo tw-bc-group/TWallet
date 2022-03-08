@@ -24,14 +24,10 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 enum BackIcon { none, arrow }
 
 class ChatPage extends StatefulWidget {
-  final String username;
-  final String roomId;
-  final String userId;
+  final types.Room room;
 
   const ChatPage({
-    this.username = 'Test user',
-    required this.roomId,
-    required this.userId,
+    required this.room,
   });
 
   @override
@@ -40,7 +36,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
-  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
+  // final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
 
   @override
   void initState() {
@@ -52,7 +48,7 @@ class _ChatPageState extends State<ChatPage> {
     print('_handleSendPressed');
     FirebaseChatCore.instance.sendMessage(
       message,
-      widget.roomId,
+      widget.room.id,
     );
   }
 
@@ -71,16 +67,16 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     print('room id');
-    print(widget.roomId);
+    print(widget.room.id);
     // print(FirebaseChatCore.instance.room(widget.roomId));
     return CommonLayout(
-      customTitle: ChatTitleBar(user: widget.username, phone: '23456789'),
+      customTitle: ChatTitleBar(user: 'Test', phone: '23456789'),
       bottomBackColor: WalletColor.white,
       child: Scaffold(
         body: StreamBuilder<types.Room>(
           // initialData: null,
           // initialData: widget.room,
-          stream: FirebaseChatCore.instance.room(widget.roomId),
+          stream: FirebaseChatCore.instance.room(widget.room.id),
           builder: (context, snapshot) {
             print(snapshot.data);
             return StreamBuilder<List<types.Message>>(

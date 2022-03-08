@@ -161,9 +161,9 @@ Handler messagePageHandler = Handler(
 );
 Handler chatDetailPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-    return const ChatPage(
-      username: '',
-    );
+    // return const ChatPage(
+    //   username: '',
+    // );
   },
 );
 
