@@ -183,7 +183,7 @@ class _MessagePageState extends State<MessagePage> {
                         child: Row(
                           children: [
                             _buildAvatar(room),
-                            Text(room.name ?? ''),
+                            Text(room.name ?? '', style: TextStyle(color:Colors.white)),
                           ],
                         ),
                       ),
