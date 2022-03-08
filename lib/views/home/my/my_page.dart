@@ -136,13 +136,8 @@ class MyPage extends StatelessWidget {
                   _buildButton(
                     '我的聊天',
                     () => {
-                      _login(),
                       Application.router.navigateTo(context, Routes.messagePage)
                     },
-                  ),
-                  _buildButton(
-                    'Test firebase action',
-                    () => _login(),
                   ),
                   _buildButton('清除数据', () => _cleanPrivateData(context)),
                   Padding(
@@ -160,50 +155,3 @@ class MyPage extends StatelessWidget {
     );
   }
 }
-
-void _login() async {
-  await Firebase.initializeApp();
-  if (Get.find<IdentityStore>().selectedIdentity.isPresent) {
-    final DecentralizedIdentity identity =
-        Get.find<IdentityStore>().selectedIdentity.value;
-
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: identity.profileInfo.email ?? '',
-        password: identity.profileInfo.phone ?? '',
-      );
-      print(identity.profileInfo.email);
-      print('User logged in to firebase');
-    } catch (e) {
-      print('Create user in firebase');
-      _createUser();
-    }
-
-  } else {
-    print('DID role not found');
-  }
-}
-
-void _createUser() async {
-  if (Get.find<IdentityStore>().selectedIdentity.isPresent) {
-    final DecentralizedIdentity identity =
-        Get.find<IdentityStore>().selectedIdentity.value;
-
-    final credential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: identity.profileInfo.email ?? '',
-      password: identity.profileInfo.phone ?? '',
-    );
-    await FirebaseChatCore.instance.createUserInFirestore(
-      types.User(
-        firstName: identity.profileInfo.name,
-        id: credential.user!.uid,
-        imageUrl: '',
-      ),
-    );
-    print('User created');
-  } else {
-    print('no user created');
-  }
-}
-

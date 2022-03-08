@@ -16,14 +16,19 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/my/users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../service/firbaseService.dart';
+
 class MessagePage extends StatefulWidget {
   const MessagePage();
 
   @override
   State<StatefulWidget> createState() => _MessagePageState();
 }
+
 class _MessagePageState extends State<MessagePage> {
   final IdentityStore _identityStore = Get.find();
+  final FirebaseService firebaseService = FirebaseService();
   bool _error = false;
   bool _initialized = false;
   User? _user;
@@ -34,11 +39,13 @@ class _MessagePageState extends State<MessagePage> {
     super.initState();
   }
 
-  void initializeFlutterFire() async {
+  Future<void> initializeFlutterFire() async {
     try {
+      await firebaseService.initFirebase();
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
+          print(_user);
         });
       });
       setState(() {
@@ -57,9 +64,6 @@ class _MessagePageState extends State<MessagePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: removed debug log message
-    print('**********_name**********');
-    print(_name);
     return CommonLayout(
       title: "Message",
       withFloatingBtn: true,
@@ -71,7 +75,7 @@ class _MessagePageState extends State<MessagePage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 fullscreenDialog: true,
-                builder: (context) => const UsersPage(),
+                builder: (context) => UsersPage(),
               ),
             );
           },
@@ -86,7 +90,7 @@ class _MessagePageState extends State<MessagePage> {
       ),
       child: Column(
         children: [
-          if (chatData.isEmpty)
+          if (!_initialized || chatData.isEmpty || _user == null)
             _buildMessageEmpty(context)
           else
             _buildMessageList(context)
@@ -146,51 +150,52 @@ class _MessagePageState extends State<MessagePage> {
           color: WalletColor.messageBg,
         ),
         child: StreamBuilder<List<types.Room>>(
-              stream: FirebaseChatCore.instance.rooms(),
-              initialData: const [],
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      bottom: 200,
-                    ),
-                    child: const Text('No rooms'),
-                  );
-                }
+          stream: FirebaseChatCore.instance.rooms(),
+          initialData: const [],
+          builder: (context, snapshot) {
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(
+                  bottom: 200,
+                ),
+                child: const Text('No rooms'),
+              );
+            }
 
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    final room = snapshot.data![index];
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final room = snapshot.data![index];
 
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              room: room,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Row(
-                          children: [
-                            _buildAvatar(room),
-                            Text(room.name ?? '', style: TextStyle(color:Colors.white)),
-                          ],
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                          room: room,
                         ),
                       ),
                     );
                   },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: Row(
+                      children: [
+                        _buildAvatar(room),
+                        Text(room.name ?? '',
+                            style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ),
                 );
               },
-            ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -307,4 +312,3 @@ Future<void> _handleScan(BuildContext context) async {
     try {} catch (_) {}
   });
 }
-

@@ -2,11 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:tw_wallet_ui/views/home/my/util.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
+import 'package:tw_wallet_ui/views/home/my/util.dart';
 
-class UsersPage extends StatelessWidget {
-  const UsersPage({Key? key}) : super(key: key);
+class UsersPage extends StatefulWidget {
+  @override
+  _UsersPageState createState() => new _UsersPageState();
+}
+
+class _UsersPageState extends State<UsersPage> {
+  final TextEditingController _controller = new TextEditingController();
+  String _searchText = "";
+
+  _UsersPageState() {
+    _controller.addListener(() {
+      if (_controller.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+        });
+      } else {
+        setState(() {
+          _searchText = _controller.text;
+        });
+      }
+    });
+  }
 
   void _handlePressed(types.User otherUser, BuildContext context) async {
     final room = await FirebaseChatCore.instance.createRoom(otherUser);
@@ -47,13 +67,24 @@ class UsersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
-        title: const Text('Users'),
+        title: TextField(
+          controller: _controller,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+          decoration: const InputDecoration(
+              prefixIcon: const Icon(Icons.search, color: Colors.white),
+              hintText: "Search...",
+              hintStyle: const TextStyle(color: Colors.white)),
+        ),
       ),
       body: StreamBuilder<List<types.User>>(
         stream: FirebaseChatCore.instance.users(),
         initialData: const [],
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          if (!snapshot.hasData ||
+              snapshot.data!.isEmpty ||
+              _searchText.isEmpty) {
             return Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.only(
@@ -62,11 +93,18 @@ class UsersPage extends StatelessWidget {
               child: const Text('No users'),
             );
           }
+          final result = snapshot.data!
+              .where(
+                (element) => element.firstName!
+                    .toLowerCase()
+                    .contains(_searchText.toLowerCase()),
+              )
+              .toList();
 
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: result.length,
             itemBuilder: (context, index) {
-              final user = snapshot.data![index];
+              final user = result[index];
 
               return GestureDetector(
                 onTap: () {
