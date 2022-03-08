@@ -19,13 +19,19 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+
 enum BackIcon { none, arrow }
 
 class ChatPage extends StatefulWidget {
   final String username;
+  final String roomId;
+  final String userId;
 
   const ChatPage({
-    required this.username,
+    this.username = 'Test user',
+    required this.roomId,
+    required this.userId,
   });
 
   @override
@@ -42,21 +48,12 @@ class _ChatPageState extends State<ChatPage> {
     _loadMessages();
   }
 
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.insert(0, message);
-    });
-  }
-
   void _handleSendPressed(types.PartialText message) {
-    final textMessage = types.TextMessage(
-      author: _user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: const Uuid().v4(),
-      text: message.text,
+    print('_handleSendPressed');
+    FirebaseChatCore.instance.sendMessage(
+      message,
+      widget.roomId,
     );
-
-    _addMessage(textMessage);
   }
 
   void _loadMessages() async {
@@ -73,24 +70,56 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('room id');
+    print(widget.roomId);
+    // print(FirebaseChatCore.instance.room(widget.roomId));
     return CommonLayout(
       customTitle: ChatTitleBar(user: widget.username, phone: '23456789'),
       bottomBackColor: WalletColor.white,
       child: Scaffold(
-        body: SafeArea(
-          bottom: false,
-          child: Chat(
-            theme: DarkChatTheme(
-              inputBackgroundColor: WalletColor.white,
-              inputTextColor: WalletColor.black,
-              primaryColor: WalletColor.primary,
-            ),
-            messages: _messages,
-            onSendPressed: _handleSendPressed,
-            user: _user,
-            showUserAvatars: true,
-          ),
+        body: StreamBuilder<types.Room>(
+          // initialData: null,
+          // initialData: widget.room,
+          stream: FirebaseChatCore.instance.room(widget.roomId),
+          builder: (context, snapshot) {
+            print(snapshot.data);
+            return StreamBuilder<List<types.Message>>(
+              initialData: const [],
+              stream: FirebaseChatCore.instance.messages(snapshot.data!),
+              builder: (context, snapshot) {
+                return SafeArea(
+                  bottom: false,
+                  child: Chat(
+                    theme: DarkChatTheme(
+                      inputBackgroundColor: WalletColor.white,
+                      inputTextColor: WalletColor.black,
+                      primaryColor: WalletColor.primary,
+                    ),
+                    messages: snapshot.data ?? [],
+                    onSendPressed: _handleSendPressed,
+                    user: types.User(
+                      id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
+        // SafeArea(
+        //   bottom: false,
+        //   child: Chat(
+        //     theme: DarkChatTheme(
+        //       inputBackgroundColor: WalletColor.white,
+        //       inputTextColor: WalletColor.black,
+        //       primaryColor: WalletColor.primary,
+        //     ),
+        //     messages: _messages,
+        //     onSendPressed: _handleSendPressed,
+        //     user: _user,
+        //     showUserAvatars: true,
+        //   ),
+        // ),
       ),
     );
   }
@@ -122,19 +151,19 @@ class ChatTitleBar extends StatelessWidget {
           children: [
             if (backIcon != BackIcon.none)
               IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/back-arrow.svg',
-                    // color: WalletColor.white
-                  ),
-                  iconSize: 30,
-                  color: WalletColor.white,
-                  onPressed: () async {
-                    if (null != beforeDispose) {
-                      await beforeDispose!();
-                    }
-                    Application.router.pop(context);
-                  },
+                icon: SvgPicture.asset(
+                  'assets/icons/back-arrow.svg',
+                  // color: WalletColor.white
                 ),
+                iconSize: 30,
+                color: WalletColor.white,
+                onPressed: () async {
+                  if (null != beforeDispose) {
+                    await beforeDispose!();
+                  }
+                  Application.router.pop(context);
+                },
+              ),
             const CircleAvatar(
               radius: 20,
               backgroundImage: NetworkImage('https://picsum.photos/150'),

@@ -11,6 +11,9 @@ import '../../../router/routers.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
 
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:tw_wallet_ui/store/identity_store.dart';
+
 class MessagePage extends StatefulWidget {
   const MessagePage();
 
@@ -135,7 +138,9 @@ class CharCard extends StatelessWidget {
     return Material(
       color: WalletColor.messageBg,
       child: InkWell(
-        onTap: () => Get.to(ChatPage(username: chat.name)),
+        onTap: () => Get.to(ChatPage(
+            roomId: 'J80yKQudpLxIXHXrSabM',
+            userId: Get.find<IdentityStore>().selectedIdentityDid )),
         hoverColor: WalletColor.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),

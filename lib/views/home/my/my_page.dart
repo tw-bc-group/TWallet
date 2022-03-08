@@ -17,6 +17,13 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/views/ble_payment/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
   final ProgressDialog _dialog = Get.find();
@@ -53,6 +60,7 @@ class MyPage extends StatelessWidget {
 
   Widget _buildButton(String text, VoidCallback onTap) {
     final _screenUtil = ScreenUtil();
+    ;
 
     return GestureDetector(
       onTap: onTap,
@@ -127,8 +135,14 @@ class MyPage extends StatelessWidget {
                   ),
                   _buildButton(
                     '我的聊天',
-                    () => Application.router
-                        .navigateTo(context, Routes.messagePage),
+                    () => {
+                      _login(),
+                      Application.router.navigateTo(context, Routes.messagePage)
+                    },
+                  ),
+                  _buildButton(
+                    'Test firebase action',
+                    () => _login(),
                   ),
                   _buildButton('清除数据', () => _cleanPrivateData(context)),
                   Padding(
@@ -146,3 +160,50 @@ class MyPage extends StatelessWidget {
     );
   }
 }
+
+void _login() async {
+  await Firebase.initializeApp();
+  if (Get.find<IdentityStore>().selectedIdentity.isPresent) {
+    final DecentralizedIdentity identity =
+        Get.find<IdentityStore>().selectedIdentity.value;
+
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: identity.profileInfo.email ?? '',
+        password: identity.profileInfo.phone ?? '',
+      );
+      print(identity.profileInfo.email);
+      print('User logged in to firebase');
+    } catch (e) {
+      print('Create user in firebase');
+      _createUser();
+    }
+
+  } else {
+    print('DID role not found');
+  }
+}
+
+void _createUser() async {
+  if (Get.find<IdentityStore>().selectedIdentity.isPresent) {
+    final DecentralizedIdentity identity =
+        Get.find<IdentityStore>().selectedIdentity.value;
+
+    final credential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: identity.profileInfo.email ?? '',
+      password: identity.profileInfo.phone ?? '',
+    );
+    await FirebaseChatCore.instance.createUserInFirestore(
+      types.User(
+        firstName: identity.profileInfo.name,
+        id: credential.user!.uid,
+        imageUrl: '',
+      ),
+    );
+    print('User created');
+  } else {
+    print('no user created');
+  }
+}
+
