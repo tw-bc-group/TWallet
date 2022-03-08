@@ -82,6 +82,7 @@ dependencies:
   flutter_chat_ui: ^1.5.5
   firebase_core: ^1.13.1
   flutter_firebase_chat_core: ^1.5.2
+  firebase_analytics: ^9.1.2
 
 dev_dependencies:
   flutter_test:
