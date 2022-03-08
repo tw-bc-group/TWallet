@@ -70,12 +70,11 @@ class _ChatPageState extends State<ChatPage> {
     print(widget.room.id);
     // print(FirebaseChatCore.instance.room(widget.roomId));
     return CommonLayout(
-      customTitle: ChatTitleBar(user: 'Test', phone: '23456789'),
+      customTitle: ChatTitleBar(user: widget.room.name ?? 'Test User'),
       bottomBackColor: WalletColor.white,
       child: Scaffold(
         body: StreamBuilder<types.Room>(
-          // initialData: null,
-          // initialData: widget.room,
+          initialData: widget.room,
           stream: FirebaseChatCore.instance.room(widget.room.id),
           builder: (context, snapshot) {
             print(snapshot.data);
@@ -102,20 +101,6 @@ class _ChatPageState extends State<ChatPage> {
             );
           },
         ),
-        // SafeArea(
-        //   bottom: false,
-        //   child: Chat(
-        //     theme: DarkChatTheme(
-        //       inputBackgroundColor: WalletColor.white,
-        //       inputTextColor: WalletColor.black,
-        //       primaryColor: WalletColor.primary,
-        //     ),
-        //     messages: _messages,
-        //     onSendPressed: _handleSendPressed,
-        //     user: _user,
-        //     showUserAvatars: true,
-        //   ),
-        // ),
       ),
     );
   }
@@ -124,7 +109,7 @@ class _ChatPageState extends State<ChatPage> {
 class ChatTitleBar extends StatelessWidget {
   final String user;
   final String? avatorUrl;
-  final String phone;
+  final String? phone;
   final BackIcon backIcon;
   final BeforeDispose? beforeDispose;
 
@@ -173,23 +158,23 @@ class ChatTitleBar extends StatelessWidget {
                     Text(
                       this.user,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: WalletColor.white,
                       ),
                     ),
-                    Opacity(
-                      opacity: 0.64,
-                      child: Text(
-                        this.phone,
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: WalletColor.white,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
+                    // Opacity(
+                    //   opacity: 0.64,
+                    //   child: Text(
+                    //     this.phone,
+                    //     style: TextStyle(
+                    //       fontSize: 13,
+                    //       color: WalletColor.white,
+                    //     ),
+                    //     maxLines: 1,
+                    //     overflow: TextOverflow.ellipsis,
+                    //   ),
+                    // )
                   ],
                 ),
               ),
