@@ -64,6 +64,24 @@ class _UsersPageState extends State<UsersPage> {
     );
   }
 
+  Widget _emptyUserList() {
+    return Container(
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(
+        bottom: 200,
+      ),
+      child: Text(
+        '暂无用户，请搜索用户名',
+        style: TextStyle(
+          color: WalletColor.lightGrey,
+          fontSize: 9,
+          fontWeight: FontWeight.w400,
+          fontStyle: FontStyle.normal,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,21 +107,7 @@ class _UsersPageState extends State<UsersPage> {
           if (!snapshot.hasData ||
               snapshot.data!.isEmpty ||
               _searchText.isEmpty) {
-            return Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(
-                bottom: 200,
-              ),
-              child: Text(
-                '暂无用户，请搜索用户名',
-                style: TextStyle(
-                  color: WalletColor.lightGrey,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
-                ),
-              ),
-            );
+            return _emptyUserList();
           }
           final result = snapshot.data!
               .where(
@@ -112,6 +116,9 @@ class _UsersPageState extends State<UsersPage> {
                     .contains(_searchText.toLowerCase()),
               )
               .toList();
+          if (result.isEmpty) {
+            return _emptyUserList();
+          }
 
           return ListView.builder(
             itemCount: result.length,
