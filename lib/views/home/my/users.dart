@@ -9,11 +9,11 @@ import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class UsersPage extends StatefulWidget {
   @override
-  _UsersPageState createState() => new _UsersPageState();
+  _UsersPageState createState() => _UsersPageState();
 }
 
 class _UsersPageState extends State<UsersPage> {
-  final TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String _searchText = "";
 
   _UsersPageState() {
@@ -38,6 +38,7 @@ class _UsersPageState extends State<UsersPage> {
       MaterialPageRoute(
         builder: (context) => ChatPage(
           room: room,
+          user: otherUser,
         ),
       ),
     );
@@ -95,9 +96,10 @@ class _UsersPageState extends State<UsersPage> {
             color: Colors.white,
           ),
           decoration: const InputDecoration(
-              prefixIcon: const Icon(Icons.search, color: Colors.white),
-              hintText: "搜索...",
-              hintStyle: const TextStyle(color: Colors.white)),
+            prefixIcon: Icon(Icons.search, color: Colors.white),
+            hintText: "搜索...",
+            hintStyle: TextStyle(color: Colors.white),
+          ),
         ),
       ),
       body: StreamBuilder<List<types.User>>(

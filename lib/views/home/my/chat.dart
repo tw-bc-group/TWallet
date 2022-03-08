@@ -25,9 +25,11 @@ enum BackIcon { none, arrow }
 
 class ChatPage extends StatefulWidget {
   final types.Room room;
+  final types.User? user;
 
   const ChatPage({
     required this.room,
+    this.user,
   });
 
   @override
@@ -45,7 +47,6 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void _handleSendPressed(types.PartialText message) {
-    print('_handleSendPressed');
     FirebaseChatCore.instance.sendMessage(
       message,
       widget.room.id,
@@ -70,7 +71,9 @@ class _ChatPageState extends State<ChatPage> {
     print(widget.room.id);
     // print(FirebaseChatCore.instance.room(widget.roomId));
     return CommonLayout(
-      customTitle: ChatTitleBar(user: widget.room.name ?? 'Test User'),
+      customTitle: ChatTitleBar(
+        user: widget.room.name ?? widget.user?.firstName ?? 'Test User',
+      ),
       bottomBackColor: WalletColor.white,
       child: Scaffold(
         body: StreamBuilder<types.Room>(
@@ -156,7 +159,7 @@ class ChatTitleBar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      this.user,
+                      user,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
