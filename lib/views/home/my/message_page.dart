@@ -44,6 +44,8 @@ class _MessagePageState extends State<MessagePage> {
   Future<void> initializeFlutterFire() async {
     try {
       await firebaseService.initFirebase();
+      await firebaseService
+          .findOrCreateUser(_identityStore.selectedIdentity.first);
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
@@ -209,7 +211,8 @@ class _MessagePageState extends State<MessagePage> {
                                           ? Text(
                                               lastMessage.toString(),
                                               style: TextStyle(
-                                                  color: WalletColor.white),
+                                                color: WalletColor.white,
+                                              ),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                             )
