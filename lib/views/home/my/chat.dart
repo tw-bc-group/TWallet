@@ -80,7 +80,6 @@ class _ChatPageState extends State<ChatPage> {
           initialData: widget.room,
           stream: FirebaseChatCore.instance.room(widget.room.id),
           builder: (context, snapshot) {
-            print(snapshot.data);
             return StreamBuilder<List<types.Message>>(
               initialData: const [],
               stream: FirebaseChatCore.instance.messages(snapshot.data!),

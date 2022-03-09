@@ -166,7 +166,6 @@ class _MessagePageState extends State<MessagePage> {
               itemBuilder: (context, index) {
                 final room = snapshot.data![index];
                 final lastMessage = room.lastMessages?.last;
-
                 return Material(
                   color: WalletColor.messageBg,
                   child: InkWell(
