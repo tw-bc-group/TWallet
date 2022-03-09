@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum BackIcon { none, arrow }
 
@@ -28,12 +29,18 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  void _handleSendPressed(types.PartialText message) async {
     FirebaseChatCore.instance.sendMessage(
       message,
       widget.room.id,
     );
-    // ******Can add that room doc with this latest message and time
+    final Map<String, dynamic> messageMap = message.toJson();
+    messageMap['updatedAt'] = FieldValue.serverTimestamp();
+    FirebaseChatCore.instance
+        .getFirebaseFirestore()
+        .collection('rooms')
+        .doc(widget.room.id)
+        .set(messageMap, SetOptions(merge: true));
   }
 
   @override
@@ -42,7 +49,7 @@ class _ChatPageState extends State<ChatPage> {
     print(widget.room);
     return CommonLayout(
       customTitle: ChatTitleBar(
-        userName: widget.room.name ?? 'Test User',
+        userName: widget.room.name ?? widget.user!.firstName ?? '',
         avatorUrl: widget.room.imageUrl ??
             'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY',
       ),
