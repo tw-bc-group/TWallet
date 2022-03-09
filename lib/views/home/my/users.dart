@@ -71,14 +71,31 @@ class _UsersPageState extends State<UsersPage> {
       margin: const EdgeInsets.only(
         bottom: 200,
       ),
-      child: Text(
-        '暂无用户，请搜索用户名',
-        style: TextStyle(
-          color: WalletColor.lightGrey,
-          fontSize: 9,
-          fontWeight: FontWeight.w400,
-          fontStyle: FontStyle.normal,
-        ),
+      child: 
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "No Matching User Found",
+            style: TextStyle(
+              color: WalletColor.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.normal,
+              letterSpacing: 0,
+            ),
+          ),
+          Text(
+            "Please enter user name to search for new user",  //暂无用户，请搜索用户名
+            style: TextStyle(
+              color: WalletColor.lightGrey,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.normal,
+              letterSpacing: 0,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -97,7 +114,7 @@ class _UsersPageState extends State<UsersPage> {
           ),
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search, color: Colors.white),
-            hintText: "搜索...",
+            hintText: "Search User...",  // 搜索...
             hintStyle: TextStyle(color: Colors.white),
           ),
         ),

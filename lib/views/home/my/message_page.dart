@@ -120,7 +120,7 @@ class _MessagePageState extends State<MessagePage> {
             Column(
               children: <Widget>[
                 Text(
-                  "没有联系人",
+                  "IT'S EMPTY HERE",  //没有联系人
                   style: TextStyle(
                     color: WalletColor.white,
                     fontSize: 14,
@@ -130,10 +130,10 @@ class _MessagePageState extends State<MessagePage> {
                   ),
                 ),
                 Text(
-                  "新启聊天",
+                  "Start a new chat",  //新启聊天
                   style: TextStyle(
                     color: WalletColor.lightGrey,
-                    fontSize: 9,
+                    fontSize: 12,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
                     letterSpacing: 0,

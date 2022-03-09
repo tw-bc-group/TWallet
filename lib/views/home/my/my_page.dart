@@ -112,7 +112,7 @@ class MyPage extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              '我的',
+              'My Profile',
               style: WalletFont.font_24(
                 textStyle: TextStyle(
                   color: WalletColor.white,
@@ -130,21 +130,21 @@ class MyPage extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   _buildButton(
-                    '离线支付',
+                    'Offline Payment', //离线支付
                     () => Get.to(BlePaymentHome(homeStore)),
                   ),
                   _buildButton(
-                    '我的聊天',
+                    'My Chat', //我的聊天
                     () => {
                       Application.router.navigateTo(context, Routes.messagePage)
                     },
                   ),
-                  _buildButton('清除数据', () => _cleanPrivateData(context)),
+                  _buildButton('Clear Data', () => _cleanPrivateData(context)),  //清除数据
                   Padding(
                     padding: EdgeInsets.only(
                       top: _screenUtil.setWidth(5).toDouble(),
                     ),
-                    child: const Tips('将从此设备中删除所有钱包数据且无法恢复，请谨慎操作'),
+                    child: const Tips('Please be careful, all data would be deleted permanently and cannot be recovered'),  // 将从此设备中删除所有钱包数据且无法恢复，请谨慎操作
                   )
                 ],
               ),

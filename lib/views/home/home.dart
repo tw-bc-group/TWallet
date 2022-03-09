@@ -50,22 +50,22 @@ class HomeState extends State<Home> {
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['home']!['unselected']!),
       activeIcon: svgIcon(iconPaths['home']!['selected']!),
-      label: '首页',
+      label: 'Home', //首页
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['discovery']!['unselected']!),
       activeIcon: svgIcon(iconPaths['discovery']!['selected']!),
-      label: '发现',
+      label: 'Discover', //发现
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['identity']!['unselected']!),
       activeIcon: svgIcon(iconPaths['identity']!['selected']!),
-      label: '身份',
+      label: 'Role', //身份
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['me']!['unselected']!),
       activeIcon: svgIcon(iconPaths['me']!['selected']!),
-      label: '我',
+      label: 'Profile', //我
     ),
   ];
 
