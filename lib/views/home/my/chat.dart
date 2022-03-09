@@ -1,25 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:mime/mime.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:uuid/uuid.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:flutter_svg/svg.dart';
-
-// For header
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 enum BackIcon { none, arrow }
 
@@ -37,13 +23,9 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List<types.Message> _messages = [];
-  // final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
-
   @override
   void initState() {
     super.initState();
-    _loadMessages();
   }
 
   void _handleSendPressed(types.PartialText message) {
@@ -51,30 +33,17 @@ class _ChatPageState extends State<ChatPage> {
       message,
       widget.room.id,
     );
-  }
-
-  void _loadMessages() async {
-    final response =
-        await rootBundle.loadString('assets/dummy_data/chat_data.json');
-    final messages = (jsonDecode(response) as List)
-        .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
-        .toList();
-
-    setState(() {
-      _messages = messages;
-    });
+    // ******Can add that room doc with this latest message and time
   }
 
   @override
   Widget build(BuildContext context) {
-    print('===room id===');
-    print(widget.room.id);
-    print(widget.user);
-    // print(FirebaseChatCore.instance.room(widget.roomId));
+    print('===ROOM===');
+    print(widget.room);
     return CommonLayout(
       customTitle: ChatTitleBar(
-        userName: widget.room.name ?? widget.user?.firstName ?? 'Test User',
-        avatorUrl: widget.user?.imageUrl ??
+        userName: widget.room.name ?? 'Test User',
+        avatorUrl: widget.room.imageUrl ??
             'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY',
       ),
       bottomBackColor: WalletColor.white,
@@ -128,8 +97,6 @@ class ChatTitleBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _whiteColor = TextStyle(color: WalletColor.white);
-    print(avatorUrl);
     return Stack(
       children: <Widget>[
         Row(
@@ -152,8 +119,7 @@ class ChatTitleBar extends StatelessWidget {
               ),
             CircleAvatar(
               radius: 24,
-              backgroundImage: NetworkImage(
-                  'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY'),
+              backgroundImage: NetworkImage(avatorUrl),
             ),
             Expanded(
               child: Padding(
