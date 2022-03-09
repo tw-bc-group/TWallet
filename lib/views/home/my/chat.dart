@@ -67,12 +67,15 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('room id');
+    print('===room id===');
     print(widget.room.id);
+    print(widget.user);
     // print(FirebaseChatCore.instance.room(widget.roomId));
     return CommonLayout(
       customTitle: ChatTitleBar(
-        user: widget.room.name ?? widget.user?.firstName ?? 'Test User',
+        userName: widget.room.name ?? widget.user?.firstName ?? 'Test User',
+        avatorUrl: widget.user?.imageUrl ??
+            'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY',
       ),
       bottomBackColor: WalletColor.white,
       child: Scaffold(
@@ -109,15 +112,15 @@ class _ChatPageState extends State<ChatPage> {
 }
 
 class ChatTitleBar extends StatelessWidget {
-  final String user;
-  final String? avatorUrl;
+  final String userName;
+  final String avatorUrl;
   final String? phone;
   final BackIcon backIcon;
   final BeforeDispose? beforeDispose;
 
   const ChatTitleBar({
-    required this.user,
-    this.avatorUrl,
+    required this.userName,
+    required this.avatorUrl,
     this.phone = '',
     this.backIcon = BackIcon.arrow,
     this.beforeDispose,
@@ -126,7 +129,7 @@ class ChatTitleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _whiteColor = TextStyle(color: WalletColor.white);
-
+    print(avatorUrl);
     return Stack(
       children: <Widget>[
         Row(
@@ -147,9 +150,10 @@ class ChatTitleBar extends StatelessWidget {
                   Application.router.pop(context);
                 },
               ),
-            const CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage('https://picsum.photos/150'),
+            CircleAvatar(
+              radius: 24,
+              backgroundImage: NetworkImage(
+                  'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY'),
             ),
             Expanded(
               child: Padding(
@@ -158,25 +162,13 @@ class ChatTitleBar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user,
+                      userName,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: WalletColor.white,
                       ),
                     ),
-                    // Opacity(
-                    //   opacity: 0.64,
-                    //   child: Text(
-                    //     this.phone,
-                    //     style: TextStyle(
-                    //       fontSize: 13,
-                    //       color: WalletColor.white,
-                    //     ),
-                    //     maxLines: 1,
-                    //     overflow: TextOverflow.ellipsis,
-                    //   ),
-                    // )
                   ],
                 ),
               ),

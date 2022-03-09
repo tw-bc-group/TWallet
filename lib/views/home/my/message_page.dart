@@ -49,7 +49,6 @@ class _MessagePageState extends State<MessagePage> {
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
-          print(_user);
         });
       });
       setState(() {
@@ -61,10 +60,6 @@ class _MessagePageState extends State<MessagePage> {
       });
     }
   }
-
-  String get _name => _identityStore.selectedIdentity
-      .map((identity) => identity.profileInfo.name)
-      .orElse('');
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +115,7 @@ class _MessagePageState extends State<MessagePage> {
             Column(
               children: <Widget>[
                 Text(
-                  "IT'S EMPTY HERE",  //没有联系人
+                  "IT'S EMPTY HERE", //没有联系人
                   style: TextStyle(
                     color: WalletColor.white,
                     fontSize: 14,
@@ -130,7 +125,7 @@ class _MessagePageState extends State<MessagePage> {
                   ),
                 ),
                 Text(
-                  "Start a new chat",  //新启聊天
+                  "Start a new chat", //新启聊天
                   style: TextStyle(
                     color: WalletColor.lightGrey,
                     fontSize: 12,
@@ -165,78 +160,13 @@ class _MessagePageState extends State<MessagePage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final room = snapshot.data![index];
-                final lastMessage = room.lastMessages?.last;
-                return Material(
-                  color: WalletColor.messageBg,
-                  child: InkWell(
-                    hoverColor: WalletColor.white,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              room: room,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 15,
-                        ),
-                        child: Row(
-                          children: [
-                            _buildAvatar(room),
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      room.name ?? '',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color: WalletColor.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Opacity(
-                                      opacity: 0.64,
-                                      child: lastMessage != null
-                                          ? Text(
-                                              lastMessage.toString(),
-                                              style: TextStyle(
-                                                color: WalletColor.white,
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            )
-                                          : null,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Opacity(
-                              opacity: 0.64,
-                              child: room.updatedAt != null
-                                  ? Text(
-                                      DateFormat('hh:mm a').format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                          room.updatedAt!,
-                                        ).toLocal(),
-                                      ),
-                                      style:
-                                          TextStyle(color: WalletColor.white),
-                                    )
-                                  : null,
-                            ),
-                          ],
-                        ),
+
+                return _chatCard(
+                  room,
+                  () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ChatPage(
+                        room: room,
                       ),
                     ),
                   ),
@@ -249,37 +179,77 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 
-  Widget _buildAvatar(types.Room room) {
-    var color = Colors.transparent;
+  Widget _chatCard(types.Room room, VoidCallback onTap) {
+    final otherUser = room.users.firstWhere(
+      (u) => u.id != _user!.uid,
+    );
+    final lastMessage = room.lastMessages?.last;
 
-    if (room.type == types.RoomType.direct) {
-      try {
-        final otherUser = room.users.firstWhere(
-          (u) => u.id != _user!.uid,
-        );
-
-        color = getUserAvatarNameColor(otherUser);
-      } catch (e) {
-        // Do nothing if other user is not found
-      }
-    }
-
-    final hasImage = room.imageUrl != null;
-    final name = room.name ?? '';
-
-    return Container(
-      margin: const EdgeInsets.only(right: 16),
-      child: CircleAvatar(
-        backgroundColor: hasImage ? Colors.transparent : color,
-        backgroundImage: hasImage ? NetworkImage(room.imageUrl!) : null,
-        radius: 24,
-        child: !hasImage
-            ? Text(
-                name.isEmpty ? '' : name[0].toUpperCase(),
-                style: const TextStyle(color: Colors.white),
-              )
-            : null,
-      ),
+    return Material(
+      color: WalletColor.messageBg,
+      child: InkWell(
+          onTap: () => onTap(),
+          hoverColor: WalletColor.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 15,
+            ),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 24,
+                  backgroundImage: NetworkImage(otherUser.imageUrl ??
+                      'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY'),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          room.name ?? '',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: WalletColor.white,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Opacity(
+                          opacity: 0.64,
+                          child: lastMessage != null
+                              ? Text(
+                                  lastMessage.toString(),
+                                  style: TextStyle(
+                                    color: WalletColor.white,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : null,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Opacity(
+                  opacity: 0.64,
+                  child: room.updatedAt != null
+                      ? Text(
+                          DateFormat('hh:mm a').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                              room.updatedAt!,
+                            ).toLocal(),
+                          ),
+                          style: TextStyle(color: WalletColor.white),
+                        )
+                      : null,
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
