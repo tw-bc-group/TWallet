@@ -60,4 +60,9 @@ List<DAppInfo> dappList = [
   //     'CAC Management',
   //     'http://cac-management.cn.blockchain.thoughtworks.cn',
   //     'assets/icons/cac.svg')
+  DAppInfo(
+      'dapp-11',
+      'NFT',
+      'https://dev.admin.nft.cn.blockchain.thoughtworks.cn/mobile/denom',
+      'assets/icons/dapp/nft.svg'),
 ];
