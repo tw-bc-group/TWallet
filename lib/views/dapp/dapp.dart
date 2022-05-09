@@ -66,9 +66,8 @@ class DAppPageState extends State<DAppPage> {
       resetToAppStatusBar();
       return true;
     }
-    // final webViewController = await _controller.future;
-    // webViewController.evaluateJavascript('window.TWallet.emit("BACK");');
-    Navigator.pop(context);
+    final webViewController = await _controller.future;
+    webViewController.evaluateJavascript('window.TWallet.emit("BACK");');
     return false;
   }
 
