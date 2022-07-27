@@ -85,7 +85,7 @@ class _IdentityPageState extends State<IdentityPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           children: <Widget>[
             Center(
                 child: Text('身份',
@@ -171,7 +171,7 @@ class _IdentityPageState extends State<IdentityPage> {
                           identity.profileInfo.name.contains(_store.searchName))
                       .map((identity) => _listItem(identity))
                       .toList()
-                        ..add(buildNewIdentityCard()),
+                    ..add(buildNewIdentityCard()),
                 ));
           }))
         ]));
