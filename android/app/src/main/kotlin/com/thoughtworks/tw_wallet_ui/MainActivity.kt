@@ -99,7 +99,7 @@ class MainActivity : FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, _methodChannel).setMethodCallHandler { call, result ->
             when (call.method) {
                 "startAdvertising" -> {
-                    startAdvertising(call.arguments())
+                    startAdvertising(call.arguments()!!)
                     result.success(true)
                 }
                 "stopAdvertising" -> {
