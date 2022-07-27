@@ -23,7 +23,7 @@
 
 ***From wikipedia:***
 
-`A digital wallet also known as "e-Wallet" refers to an electronic device, online service, or software program that allows one party to make electronic transactions with another party bartering digital currency units for goods and services. This can include purchasing items on-line with a computer or using a smartphone to purchase something at a store. Money can be deposited in the digital wallet prior to any transactions or, in other cases, an individual's bank account can be linked to the digital wallet. Users might also have their driver's license, health card, loyalty card(s) and other ID documents stored within the wallet. The credentials can be passed to a merchant's terminal wirelessly via near field communication (NFC). Increasingly, digital wallets are being made not just for basic financial transactions but to also authenticate the holder's credentials. For example, a digital wallet could verify the age of the buyer to the store while purchasing alcohol. The system has already gained popularity in Japan, where digital wallets are known as "wallet mobiles". A cryptocurrency wallet is a digital wallet where private keys are stored for cryptocurrencies like bitcoin.`
+> A digital wallet also known as "e-Wallet" refers to an electronic device, online service, or software program that allows one party to make electronic transactions with another party bartering digital currency units for goods and services. This can include purchasing items on-line with a computer or using a smartphone to purchase something at a store. Money can be deposited in the digital wallet prior to any transactions or, in other cases, an individual's bank account can be linked to the digital wallet. Users might also have their driver's license, health card, loyalty card(s) and other ID documents stored within the wallet. The credentials can be passed to a merchant's terminal wirelessly via near field communication (NFC). Increasingly, digital wallets are being made not just for basic financial transactions but to also authenticate the holder's credentials. For example, a digital wallet could verify the age of the buyer to the store while purchasing alcohol. The system has already gained popularity in Japan, where digital wallets are known as "wallet mobiles". A cryptocurrency wallet is a digital wallet where private keys are stored for cryptocurrencies like bitcoin.
 
 ### What Is DID (Decentralized Identifiers)
 
@@ -31,17 +31,17 @@
 
 ***From wikipedia:***
 
-`Decentralized identifiers (DIDs) are a type of identifier that enables a verifiable, decentralized digital identity. They are based on the Self-sovereign identity paradigm. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies. These identifiers are designed to enable the controller of a DID to prove control over it and to be implemented independently of any centralized registry, identity provider, or certificate authority. DIDs are URLs that associate a DID subject with a DID document allowing trustable interactions associated with that subject. Each DID document can express cryptographic material, verification methods, or service endpoints, which provide a set of mechanisms enabling a DID controller to prove control of the DID. Service endpoints enable trusted interactions associated with the DID subject. A DID document might contain semantics about the subject that it identifies. A DID document might contain the DID subject itself (e.g. a data model).`
+> Decentralized identifiers (DIDs) are a type of identifier that enables a verifiable, decentralized digital identity. They are based on the Self-sovereign identity paradigm. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies. These identifiers are designed to enable the controller of a DID to prove control over it and to be implemented independently of any centralized registry, identity provider, or certificate authority. DIDs are URLs that associate a DID subject with a DID document allowing trustable interactions associated with that subject. Each DID document can express cryptographic material, verification methods, or service endpoints, which provide a set of mechanisms enabling a DID controller to prove control of the DID. Service endpoints enable trusted interactions associated with the DID subject. A DID document might contain semantics about the subject that it identifies. A DID document might contain the DID subject itself (e.g. a data model).
 
 ### What Is A DApp
 
 ***From wikipedia:***
 
-`A decentralized application (DApp, dApp, Dapp, or dapp) is a computer application that runs on a distributed computing system. DApps have been popularized by distributed ledger technologies (DLT) such as the Ethereum Blockchain, where DApps are often referred to as smart contracts.`
+> A decentralized application (DApp, dApp, Dapp, or dapp) is a computer application that runs on a distributed computing system. DApps have been popularized by distributed ledger technologies (DLT) such as the Ethereum Blockchain, where DApps are often referred to as smart contracts.
 
 ### What is a DApp Browser
 
-`A decentralized app (DApp) browser is a combination of a messaging interface and a UX that enables users to interact with decentralized applications.`
+> A decentralized app (DApp) browser is a combination of a messaging interface and a UX that enables users to interact with decentralized applications.
 
 ## User Guide
 
@@ -58,8 +58,15 @@ Please don't be stingy to give us feedback. You can go to [issues page](https://
 ### Quick Start
 
 1. make sure you have ```flutter``` installed
+```
+Flutter 3.0.5 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision f1875d570e (2 weeks ago) • 2022-07-13 11:24:16 -0700
+Engine • revision e85ea0e79c
+Tools • Dart 2.17.6 • DevTools 2.12.2
+```
 2. ```flutter doctor``` to check your `flutter` environment and find which device you can use to build the app
-3. ```flutter run --no-sound-null-safety -d device``` run the project in specific device
+
+3. ```flutter run --no-sound-null-safety -d <device>``` run the project in specific device. please run `flutter emulators` first if you want to launch a emulator instead of a device.
 
 ### Contributing
 
