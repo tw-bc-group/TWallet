@@ -198,7 +198,7 @@ class HintDialogSample extends Dialog {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       Timer(
         const Duration(seconds: 1, milliseconds: 500),
         () => Navigator.pop(context),

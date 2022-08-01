@@ -1,5 +1,4 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// @dart=2.9
 
 part of 'identity_store.dart';
 
@@ -10,7 +9,7 @@ part of 'identity_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$IdentityStore on IdentityStoreBase, Store {
-  Computed<List<DecentralizedIdentity>> _$identitiesWithoutDappComputed;
+  Computed<List<DecentralizedIdentity>>? _$identitiesWithoutDappComputed;
 
   @override
   List<DecentralizedIdentity> get identitiesWithoutDapp =>
@@ -19,7 +18,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
                   () => super.identitiesWithoutDapp,
                   name: 'IdentityStoreBase.identitiesWithoutDapp'))
           .value;
-  Computed<List<DecentralizedIdentity>> _$identitiesWithDappComputed;
+  Computed<List<DecentralizedIdentity>>? _$identitiesWithDappComputed;
 
   @override
   List<DecentralizedIdentity> get identitiesWithDapp =>
@@ -27,35 +26,35 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
               () => super.identitiesWithDapp,
               name: 'IdentityStoreBase.identitiesWithDapp'))
           .value;
-  Computed<String> _$selectedIdentityNameComputed;
+  Computed<String>? _$selectedIdentityNameComputed;
 
   @override
   String get selectedIdentityName => (_$selectedIdentityNameComputed ??=
           Computed<String>(() => super.selectedIdentityName,
               name: 'IdentityStoreBase.selectedIdentityName'))
       .value;
-  Computed<String> _$selectedIdentityAddressComputed;
+  Computed<String>? _$selectedIdentityAddressComputed;
 
   @override
   String get selectedIdentityAddress => (_$selectedIdentityAddressComputed ??=
           Computed<String>(() => super.selectedIdentityAddress,
               name: 'IdentityStoreBase.selectedIdentityAddress'))
       .value;
-  Computed<String> _$selectedIdentityDidComputed;
+  Computed<String>? _$selectedIdentityDidComputed;
 
   @override
   String get selectedIdentityDid => (_$selectedIdentityDidComputed ??=
           Computed<String>(() => super.selectedIdentityDid,
               name: 'IdentityStoreBase.selectedIdentityDid'))
       .value;
-  Computed<Amount> _$selectedIdentityBalanceComputed;
+  Computed<Amount>? _$selectedIdentityBalanceComputed;
 
   @override
   Amount get selectedIdentityBalance => (_$selectedIdentityBalanceComputed ??=
           Computed<Amount>(() => super.selectedIdentityBalance,
               name: 'IdentityStoreBase.selectedIdentityBalance'))
       .value;
-  Computed<List<DecentralizedIdentity>> _$identitiesExceptSelectedComputed;
+  Computed<List<DecentralizedIdentity>>? _$identitiesExceptSelectedComputed;
 
   @override
   List<DecentralizedIdentity> get identitiesExceptSelected =>
@@ -64,7 +63,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
                   () => super.identitiesExceptSelected,
                   name: 'IdentityStoreBase.identitiesExceptSelected'))
           .value;
-  Computed<List<DecentralizedIdentity>>
+  Computed<List<DecentralizedIdentity>>?
       _$selectedFirstIdentitiesInHealthDAppComputed;
 
   @override
@@ -149,7 +148,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
   final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
 
   @override
-  Future<DecentralizedIdentity> addIdentity({DecentralizedIdentity identity}) {
+  Future<DecentralizedIdentity> addIdentity(
+      {required DecentralizedIdentity identity}) {
     return _$addIdentityAsyncAction
         .run(() => super.addIdentity(identity: identity));
   }
@@ -185,7 +185,7 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       ActionController(name: 'IdentityStoreBase');
 
   @override
-  void fetchLatestPoint({bool withLoading}) {
+  void fetchLatestPoint({bool withLoading = false}) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.fetchLatestPoint');
     try {
