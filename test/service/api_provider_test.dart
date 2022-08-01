@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart' as g;
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
@@ -10,8 +11,10 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 
-class MockHttpClient extends Mock implements HttpClient {}
+import 'api_provider_test.mocks.dart';
 
+// see https://github.com/dart-lang/mockito/blob/master/NULL_SAFETY_README.md
+@GenerateMocks([HttpClient])
 void main() {
   g.Get.put<HttpClient>(MockHttpClient());
 
