@@ -62,7 +62,11 @@ dependencies:
   get: ^4.6.1
   intl: ^0.17.0
   webview_flutter: ^3.0.4
+<<<<<<< HEAD
   sentry: ^6.9.0
+=======
+  sentry: ^4.0.1
+>>>>>>> e1bcb33 (fix: upgrade the library package webview to null safety)
   crypto: ^2.1.5
   flutter_native_splash: ^2.0.5
   corsac_jwt: ^1.0.0-nullsafety.1

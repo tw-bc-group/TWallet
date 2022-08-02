@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e1bcb33 (fix: upgrade the library package webview to null safety)
 import 'dart:async';
 import 'dart:convert';
 
@@ -13,8 +16,13 @@ import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DAppPage extends StatefulWidget {
+<<<<<<< HEAD
   final String? id;
   const DAppPage({this.id});
+=======
+  final String id;
+  const DAppPage({required this.id});
+>>>>>>> e1bcb33 (fix: upgrade the library package webview to null safety)
 
   @override
   State<StatefulWidget> createState() {
@@ -49,7 +57,7 @@ class DAppPageState extends State<DAppPage> {
           final WebviewRequest webviewRequest =
               WebviewRequest.fromJson(requestJson);
           DAppService.getOperator(webviewRequest.method)
-              .call(webviewRequest.id, webviewRequest.param);
+              .call(webviewRequest.id, webviewRequest.param!);
         } catch (e) {
           _controller.future.then(
             (webviewController) => webviewController.evaluateJavascript(

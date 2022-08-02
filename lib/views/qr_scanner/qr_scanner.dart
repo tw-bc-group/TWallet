@@ -93,7 +93,7 @@ class QrScannerPageState extends State<QrScannerPage>
 
   @override
   Widget build(BuildContext context) {
-    final Color? buttonColor = Colors.grey[800];
+    final Color buttonColor = Colors.grey[800]!;
 
     return Scaffold(
       backgroundColor: Colors.black,

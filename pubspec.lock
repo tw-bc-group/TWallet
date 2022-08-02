@@ -1371,7 +1371,11 @@ packages:
       name: webview_flutter_android
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.9.3"
+=======
+    version: "2.9.2"
+>>>>>>> e1bcb33 (fix: upgrade the library package webview to null safety)
   webview_flutter_platform_interface:
     dependency: transitive
     description:

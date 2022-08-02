@@ -1,5 +1,3 @@
-
-
 import 'dart:collection';
 
 import 'dart:isolate';
@@ -69,7 +67,9 @@ class OfflineTxStore {
 
     await _store.getListLike('$offlineTxPrefix: %').then((list) {
       if (null != list && list.isNotEmpty) {
-        _txQueue.addAll(list.map((item) => TxReceive.fromJson(item)));
+        _txQueue.addAll(
+          list.map((item) => TxReceive.fromJson(item)).whereType<TxReceive>(),
+        );
       }
     });
 
