@@ -12,10 +12,9 @@ description: A new Flutter project.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 0.4.0+1
-
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ^2.10.2
+  flutter: ^3.0.5
 
 dependencies:
   flutter:
@@ -42,7 +41,7 @@ dependencies:
   json_store: ^2.0.0-nullsafety.0
   more: ^3.5.0
   uuid: ^3.0.6
-  date_format: ^1.0.9
+  date_format: ^2.0.6
   web3dart: ^2.3.5
   http: ^0.13.4
   built_value: ^8.1.4
@@ -51,19 +50,19 @@ dependencies:
   mockito: ^5.1.0
   flutter_custom_dialog: ^1.0.19
   qr_flutter: ^4.0.0
-  ai_barcode: 3.1.0
-  permission_handler: ^9.2.0
+  ai_barcode: ^3.2.4
+  permission_handler: ^10.0.0
   flushbar: ^1.10.2
   flutter_svg: ^1.0.3
   flutter_screenutil: ^5.3.1
   custom_radio_grouped_button: ^2.1.1
   convert: ^2.1.1
-  package_info: ^0.4.0+18
+  package_info: ^2.0.2
   device_info: ^2.0.0
   get: ^4.6.1
   intl: ^0.17.0
-  webview_flutter: ^1.0.7
-  sentry: ^4.0.1
+  webview_flutter: ^3.0.4
+  sentry: ^6.9.0
   crypto: ^2.1.5
   flutter_native_splash: ^2.0.5
   corsac_jwt: ^1.0.0-nullsafety.1
@@ -71,9 +70,9 @@ dependencies:
   flutter_webview_plugin: ^0.4.0
   collection: ^1.15.0
   flutter_ble_lib_ios_15: ^2.5.2
-  flutter_ble_peripheral: ^0.2.0
+  flutter_ble_peripheral: ^1.0.0
   crypton: ^2.0.3
-  search_choices: ^1.0.17
+  search_choices: ^2.1.1
   connectivity: ^3.0.2
   quick_log: ^5.2.1
   flutter_blue: ^0.8.0

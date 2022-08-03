@@ -59,7 +59,7 @@ class TWallet extends StatelessWidget {
   final String initialRoute;
 
   TWallet({required this.initialRoute}) {
-    final router = FluroRouter();
+    final router = FluroRouter.appRouter;
     Routes.configureRoutes(router);
     Application.router = router;
   }
@@ -69,7 +69,7 @@ class TWallet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: () => GetMaterialApp(
+      builder: (context, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: Application.appName,
         theme: ThemeData(

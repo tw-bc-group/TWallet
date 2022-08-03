@@ -6,7 +6,7 @@ part of 'identity_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$IdentityStore on IdentityStoreBase, Store {
   Computed<List<DecentralizedIdentity>>? _$identitiesWithoutDappComputed;
@@ -47,11 +47,11 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
           Computed<String>(() => super.selectedIdentityDid,
               name: 'IdentityStoreBase.selectedIdentityDid'))
       .value;
-  Computed<Amount>? _$selectedIdentityBalanceComputed;
+  Computed<Amount?>? _$selectedIdentityBalanceComputed;
 
   @override
-  Amount get selectedIdentityBalance => (_$selectedIdentityBalanceComputed ??=
-          Computed<Amount>(() => super.selectedIdentityBalance,
+  Amount? get selectedIdentityBalance => (_$selectedIdentityBalanceComputed ??=
+          Computed<Amount?>(() => super.selectedIdentityBalance,
               name: 'IdentityStoreBase.selectedIdentityBalance'))
       .value;
   Computed<List<DecentralizedIdentity>>? _$identitiesExceptSelectedComputed;
@@ -75,8 +75,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
                       'IdentityStoreBase.selectedFirstIdentitiesInHealthDApp'))
           .value;
 
-  final _$healthCertLastSelectIndexAtom =
-      Atom(name: 'IdentityStoreBase.healthCertLastSelectIndex');
+  late final _$healthCertLastSelectIndexAtom = Atom(
+      name: 'IdentityStoreBase.healthCertLastSelectIndex', context: context);
 
   @override
   int get healthCertLastSelectIndex {
@@ -92,7 +92,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     });
   }
 
-  final _$identitiesAtom = Atom(name: 'IdentityStoreBase.identities');
+  late final _$identitiesAtom =
+      Atom(name: 'IdentityStoreBase.identities', context: context);
 
   @override
   ObservableList<DecentralizedIdentity> get identities {
@@ -107,7 +108,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     });
   }
 
-  final _$searchNameAtom = Atom(name: 'IdentityStoreBase.searchName');
+  late final _$searchNameAtom =
+      Atom(name: 'IdentityStoreBase.searchName', context: context);
 
   @override
   String get searchName {
@@ -122,30 +124,32 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
     });
   }
 
-  final _$selectedIdentityAtom =
-      Atom(name: 'IdentityStoreBase.selectedIdentity');
+  late final _$selectedIdentityAtom =
+      Atom(name: 'IdentityStoreBase.selectedIdentity', context: context);
 
   @override
-  Optional<DecentralizedIdentity> get selectedIdentity {
+  Optional<DecentralizedIdentity>? get selectedIdentity {
     _$selectedIdentityAtom.reportRead();
     return super.selectedIdentity;
   }
 
   @override
-  set selectedIdentity(Optional<DecentralizedIdentity> value) {
+  set selectedIdentity(Optional<DecentralizedIdentity>? value) {
     _$selectedIdentityAtom.reportWrite(value, super.selectedIdentity, () {
       super.selectedIdentity = value;
     });
   }
 
-  final _$clearAsyncAction = AsyncAction('IdentityStoreBase.clear');
+  late final _$clearAsyncAction =
+      AsyncAction('IdentityStoreBase.clear', context: context);
 
   @override
   Future<void> clear() {
     return _$clearAsyncAction.run(() => super.clear());
   }
 
-  final _$addIdentityAsyncAction = AsyncAction('IdentityStoreBase.addIdentity');
+  late final _$addIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.addIdentity', context: context);
 
   @override
   Future<DecentralizedIdentity> addIdentity(
@@ -154,8 +158,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.addIdentity(identity: identity));
   }
 
-  final _$selectIdentityAsyncAction =
-      AsyncAction('IdentityStoreBase.selectIdentity');
+  late final _$selectIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.selectIdentity', context: context);
 
   @override
   Future<void> selectIdentity(DecentralizedIdentity identity) {
@@ -163,8 +167,8 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.selectIdentity(identity));
   }
 
-  final _$updateIdentityAsyncAction =
-      AsyncAction('IdentityStoreBase.updateIdentity');
+  late final _$updateIdentityAsyncAction =
+      AsyncAction('IdentityStoreBase.updateIdentity', context: context);
 
   @override
   Future<void> updateIdentity(DecentralizedIdentity identity) {
@@ -172,8 +176,9 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.updateIdentity(identity));
   }
 
-  final _$updateHealthCertLastSelectedAsyncAction =
-      AsyncAction('IdentityStoreBase.updateHealthCertLastSelected');
+  late final _$updateHealthCertLastSelectedAsyncAction = AsyncAction(
+      'IdentityStoreBase.updateHealthCertLastSelected',
+      context: context);
 
   @override
   Future<dynamic> updateHealthCertLastSelected(DecentralizedIdentity identity) {
@@ -181,11 +186,11 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
         .run(() => super.updateHealthCertLastSelected(identity));
   }
 
-  final _$IdentityStoreBaseActionController =
-      ActionController(name: 'IdentityStoreBase');
+  late final _$IdentityStoreBaseActionController =
+      ActionController(name: 'IdentityStoreBase', context: context);
 
   @override
-  void fetchLatestPoint({bool withLoading = false}) {
+  void fetchLatestPoint({bool? withLoading}) {
     final _$actionInfo = _$IdentityStoreBaseActionController.startAction(
         name: 'IdentityStoreBase.fetchLatestPoint');
     try {
