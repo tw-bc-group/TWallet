@@ -6,7 +6,7 @@ part of 'tx_list_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TxListStore on _TxListStore, Store {
   Computed<bool>? _$loadingComputed;
@@ -16,7 +16,8 @@ mixin _$TxListStore on _TxListStore, Store {
           Computed<bool>(() => super.loading, name: '_TxListStore.loading'))
       .value;
 
-  final _$listFutureAtom = Atom(name: '_TxListStore.listFuture');
+  late final _$listFutureAtom =
+      Atom(name: '_TxListStore.listFuture', context: context);
 
   @override
   ObservableFuture<List<Transaction>> get listFuture {
@@ -31,7 +32,7 @@ mixin _$TxListStore on _TxListStore, Store {
     });
   }
 
-  final _$txAtom = Atom(name: '_TxListStore.tx');
+  late final _$txAtom = Atom(name: '_TxListStore.tx', context: context);
 
   @override
   ObservableFuture<Optional<Transaction>> get tx {
@@ -46,7 +47,7 @@ mixin _$TxListStore on _TxListStore, Store {
     });
   }
 
-  final _$listAtom = Atom(name: '_TxListStore.list');
+  late final _$listAtom = Atom(name: '_TxListStore.list', context: context);
 
   @override
   List<Transaction> get list {
@@ -61,7 +62,8 @@ mixin _$TxListStore on _TxListStore, Store {
     });
   }
 
-  final _$errorMessageAtom = Atom(name: '_TxListStore.errorMessage');
+  late final _$errorMessageAtom =
+      Atom(name: '_TxListStore.errorMessage', context: context);
 
   @override
   String? get errorMessage {
@@ -76,14 +78,16 @@ mixin _$TxListStore on _TxListStore, Store {
     });
   }
 
-  final _$fetchListAsyncAction = AsyncAction('_TxListStore.fetchList');
+  late final _$fetchListAsyncAction =
+      AsyncAction('_TxListStore.fetchList', context: context);
 
   @override
   Future<dynamic> fetchList(String myAddress) {
     return _$fetchListAsyncAction.run(() => super.fetchList(myAddress));
   }
 
-  final _$_TxListStoreActionController = ActionController(name: '_TxListStore');
+  late final _$_TxListStoreActionController =
+      ActionController(name: '_TxListStore', context: context);
 
   @override
   Future<dynamic> fetchDetails(String hash) {

@@ -58,17 +58,17 @@ class _$DecentralizedIdentitySerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'dappId':
           result.dappId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'profileInfo':
           result.profileInfo.replace(serializers.deserialize(value,
@@ -111,7 +111,7 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
 
   factory _$DecentralizedIdentity(
           [void Function(DecentralizedIdentityBuilder)? updates]) =>
-      (new DecentralizedIdentityBuilder()..update(updates)).build();
+      (new DecentralizedIdentityBuilder()..update(updates))._build();
 
   _$DecentralizedIdentity._(
       {required this.id,
@@ -121,15 +121,15 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
       required this.healthInfo,
       this.extra})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, 'DecentralizedIdentity', 'id');
+    BuiltValueNullFieldError.checkNotNull(id, r'DecentralizedIdentity', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        dappId, 'DecentralizedIdentity', 'dappId');
+        dappId, r'DecentralizedIdentity', 'dappId');
     BuiltValueNullFieldError.checkNotNull(
-        profileInfo, 'DecentralizedIdentity', 'profileInfo');
+        profileInfo, r'DecentralizedIdentity', 'profileInfo');
     BuiltValueNullFieldError.checkNotNull(
-        accountInfo, 'DecentralizedIdentity', 'accountInfo');
+        accountInfo, r'DecentralizedIdentity', 'accountInfo');
     BuiltValueNullFieldError.checkNotNull(
-        healthInfo, 'DecentralizedIdentity', 'healthInfo');
+        healthInfo, r'DecentralizedIdentity', 'healthInfo');
   }
 
   @override
@@ -173,7 +173,7 @@ class _$DecentralizedIdentity extends DecentralizedIdentity {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('DecentralizedIdentity')
+    return (newBuiltValueToStringHelper(r'DecentralizedIdentity')
           ..add('id', id)
           ..add('dappId', dappId)
           ..add('profileInfo', profileInfo)
@@ -246,15 +246,17 @@ class DecentralizedIdentityBuilder
   }
 
   @override
-  _$DecentralizedIdentity build() {
+  DecentralizedIdentity build() => _build();
+
+  _$DecentralizedIdentity _build() {
     _$DecentralizedIdentity _$result;
     try {
       _$result = _$v ??
           new _$DecentralizedIdentity._(
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'DecentralizedIdentity', 'id'),
+                  id, r'DecentralizedIdentity', 'id'),
               dappId: BuiltValueNullFieldError.checkNotNull(
-                  dappId, 'DecentralizedIdentity', 'dappId'),
+                  dappId, r'DecentralizedIdentity', 'dappId'),
               profileInfo: profileInfo.build(),
               accountInfo: accountInfo.build(),
               healthInfo: healthInfo.build(),
@@ -270,7 +272,7 @@ class DecentralizedIdentityBuilder
         healthInfo.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'DecentralizedIdentity', _$failedField, e.toString());
+            r'DecentralizedIdentity', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -279,4 +281,4 @@ class DecentralizedIdentityBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

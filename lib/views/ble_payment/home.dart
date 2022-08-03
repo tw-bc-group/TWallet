@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:collection';
 
@@ -37,7 +37,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   bool isNonceSynced = false;
 
   final Connectivity _connectivity = Connectivity();
-  final Rx<DcepType> _redeemType = Rx(DcepType.rmb100);
+  final Rx<DcepType?> _redeemType = Rx(DcepType.rmb100);
   final DcepStore _dcepStore = Get.find<DcepStore>();
   final OfflineTxStore _txStore = Get.find<OfflineTxStore>();
 
@@ -124,7 +124,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
-  Widget _buildNetworkOffScreen(ConnectivityResult result) {
+  Widget _buildNetworkOffScreen(ConnectivityResult? result) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -138,7 +138,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             '网络已关闭，请打开网络同步账户信息',
             style: Theme.of(context)
                 .primaryTextTheme
-                .subtitle1
+                .subtitle1!
                 .copyWith(color: Colors.white),
           ),
         ],
@@ -146,9 +146,9 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
     );
   }
 
-  List<Widget> _dcepListItems(List<Dcep> dcepList, Queue<TxReceive> txList) {
+  List<Widget> _dcepListItems(List<Dcep> dcepList, Queue<TxReceive?> txList) {
     final items = dcepList.map((item) => item.type.humanReadable).toList()
-      ..addAll(txList.map((tx) => '${tx.description}(冻结，待确权)').toList());
+      ..addAll(txList.map((tx) => '${tx!.description}(冻结，待确权)').toList());
     return items.map((item) => _dcepListItem(item)).toList();
   }
 
@@ -173,7 +173,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                           ),
                         )
                         .toList(),
-                    onChanged: (DcepType value) {
+                    onChanged: (DcepType? value) {
                       _redeemType.value = value;
                     },
                   ),
@@ -181,7 +181,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                 WalletTheme.button(
                   text: '兑换',
                   height: 28,
-                  onPressed: () => identity.redeemDcep(_redeemType.value).then(
+                  onPressed: () => identity.redeemDcep(_redeemType.value!).then(
                         (_) => showDialogSimple(DialogType.success, '兑换成功'),
                       ),
                 ),
@@ -228,15 +228,15 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   }
 
   Widget _buildScreen() {
-    if (Get.find<IdentityStore>().selectedIdentity.isPresent) {
+    if (Get.find<IdentityStore>().selectedIdentity!.isPresent) {
       final DecentralizedIdentity identity =
-          Get.find<IdentityStore>().selectedIdentity.value;
+          Get.find<IdentityStore>().selectedIdentity!.value;
 
       return FutureBuilder(
         initialData: null,
         future: _connectivity.checkConnectivity(),
         builder:
-            (BuildContext context, AsyncSnapshot<ConnectivityResult> snapshot) {
+            (BuildContext context, AsyncSnapshot<ConnectivityResult?> snapshot) {
           if (null == snapshot.data) {
             return Container();
           } else {
@@ -253,15 +253,15 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   return FutureBuilder(
                     initialData: null,
                     future: Get.find<ContractService>()
-                        .nftTokenContract
+                        .nftTokenContract!
                         .getTransactionCount(
                           EthereumAddress.fromHex(identity.address),
                         ),
                     builder:
-                        (BuildContext context, AsyncSnapshot<int> snapshot) {
+                        (BuildContext context, AsyncSnapshot<int?> snapshot) {
                       if (null != snapshot.data) {
                         isNonceSynced = true;
-                        _dcepStore.nonce = snapshot.data;
+                        _dcepStore.nonce = snapshot.data!;
                         return _buildMainScreen(identity);
                       } else {
                         return Container();

@@ -6,7 +6,7 @@ part of 'health_certification_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
   Computed<bool>? _$isBoundCertComputed;
@@ -24,8 +24,8 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
               name: '_HealthCertificationStore.isHealthy'))
           .value;
 
-  final _$currentTokenAtom =
-      Atom(name: '_HealthCertificationStore.currentToken');
+  late final _$currentTokenAtom =
+      Atom(name: '_HealthCertificationStore.currentToken', context: context);
 
   @override
   Optional<HealthCertificationToken> get currentToken {
@@ -40,8 +40,8 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
     });
   }
 
-  final _$bindHealthCertAsyncAction =
-      AsyncAction('_HealthCertificationStore.bindHealthCert');
+  late final _$bindHealthCertAsyncAction =
+      AsyncAction('_HealthCertificationStore.bindHealthCert', context: context);
 
   @override
   Future<Optional<HealthCertificationToken>> bindHealthCert(String did,
@@ -50,8 +50,9 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
         () => super.bindHealthCert(did, phone, temperature, contact, symptoms));
   }
 
-  final _$fetchHealthCertByDIDAsyncAction =
-      AsyncAction('_HealthCertificationStore.fetchHealthCertByDID');
+  late final _$fetchHealthCertByDIDAsyncAction = AsyncAction(
+      '_HealthCertificationStore.fetchHealthCertByDID',
+      context: context);
 
   @override
   Future<dynamic> fetchHealthCertByDID(String did) {
@@ -59,8 +60,9 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
         .run(() => super.fetchHealthCertByDID(did));
   }
 
-  final _$fetchLatestHealthCertAsyncAction =
-      AsyncAction('_HealthCertificationStore.fetchLatestHealthCert');
+  late final _$fetchLatestHealthCertAsyncAction = AsyncAction(
+      '_HealthCertificationStore.fetchLatestHealthCert',
+      context: context);
 
   @override
   Future<Optional<HealthCertificationToken>> fetchLatestHealthCert(String did) {

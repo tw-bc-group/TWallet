@@ -1,5 +1,4 @@
-// @dart=2.9
-
+//Dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -26,7 +25,7 @@ class PinInputWidget extends StatelessWidget {
       ValueChanged<String> onChanged) {
     return PinCodeTextField(
       showCursor: false,
-      appContext: Get.context,
+      appContext: Get.context!,
       pinTheme: PinTheme(
         activeColor: WalletColor.black,
         inactiveColor: WalletColor.black,

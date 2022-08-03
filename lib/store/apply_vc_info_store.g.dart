@@ -6,10 +6,11 @@ part of 'apply_vc_info_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ApplyVcInfoStore on _ApplyVcInfoStore, Store {
-  final _$nameAtom = Atom(name: '_ApplyVcInfoStore.name');
+  late final _$nameAtom =
+      Atom(name: '_ApplyVcInfoStore.name', context: context);
 
   @override
   String get name {
@@ -24,7 +25,8 @@ mixin _$ApplyVcInfoStore on _ApplyVcInfoStore, Store {
     });
   }
 
-  final _$phoneAtom = Atom(name: '_ApplyVcInfoStore.phone');
+  late final _$phoneAtom =
+      Atom(name: '_ApplyVcInfoStore.phone', context: context);
 
   @override
   String get phone {
@@ -39,15 +41,16 @@ mixin _$ApplyVcInfoStore on _ApplyVcInfoStore, Store {
     });
   }
 
-  final _$applyNewVcAsyncAction = AsyncAction('_ApplyVcInfoStore.applyNewVc');
+  late final _$applyNewVcAsyncAction =
+      AsyncAction('_ApplyVcInfoStore.applyNewVc', context: context);
 
   @override
   Future<dynamic> applyNewVc() {
     return _$applyNewVcAsyncAction.run(() => super.applyNewVc());
   }
 
-  final _$_ApplyVcInfoStoreActionController =
-      ActionController(name: '_ApplyVcInfoStore');
+  late final _$_ApplyVcInfoStoreActionController =
+      ActionController(name: '_ApplyVcInfoStore', context: context);
 
   @override
   void clearError() {
@@ -100,7 +103,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
               name: '_FormErrorState.hasErrors'))
           .value;
 
-  final _$usernameAtom = Atom(name: '_FormErrorState.username');
+  late final _$usernameAtom =
+      Atom(name: '_FormErrorState.username', context: context);
 
   @override
   String? get username {
@@ -115,7 +119,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$phoneAtom = Atom(name: '_FormErrorState.phone');
+  late final _$phoneAtom =
+      Atom(name: '_FormErrorState.phone', context: context);
 
   @override
   String? get phone {

@@ -39,7 +39,7 @@ class _MessagePageState extends State<MessagePage> {
     try {
       await firebaseService.initFirebase();
       await firebaseService
-          .findOrCreateUser(_identityStore.selectedIdentity.first);
+          .findOrCreateUser(_identityStore.selectedIdentity!.first);
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;

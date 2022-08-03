@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:collection';
 
@@ -17,7 +17,7 @@ const offlineTxPrefix = 'offlineTx';
 class OfflineTxStore {
   final SendPort _sendPort;
   final Connectivity _connectivity;
-  final Rx<Queue<TxReceive>> txQueue;
+  final Rx<Queue<TxReceive?>> txQueue;
 
   static final JsonStore _store = JsonStore();
 
@@ -30,7 +30,7 @@ class OfflineTxStore {
     _connectivity.onConnectivityChanged.listen((res) {
       if (res != ConnectivityResult.none) {
         if (txQueue.value.isNotEmpty) {
-          for (final TxReceive tx in txQueue.value) {
+          for (final TxReceive? tx in txQueue.value) {
             _sendPort.send(tx);
           }
         }
@@ -43,7 +43,7 @@ class OfflineTxStore {
   }
 
   static Future<OfflineTxStore> init() async {
-    final Queue<TxReceive> _txQueue = Queue();
+    final Queue<TxReceive?> _txQueue = Queue();
     final ReceivePort receivePort = ReceivePort();
     final Connectivity _connectivity = Connectivity();
     const Logger log = Logger('offlineTxStore');

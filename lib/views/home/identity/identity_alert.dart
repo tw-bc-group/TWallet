@@ -12,7 +12,7 @@ void showDialogIfNoIdentity(BuildContext context, HomeStore homeStore) {
   final IdentityStore _identityStore = Get.find();
 
   if (_identityStore.identitiesWithoutDapp.isEmpty) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _showAddIdentityDialog(context, homeStore);
     });
   }

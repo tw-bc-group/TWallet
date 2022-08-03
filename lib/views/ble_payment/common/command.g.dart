@@ -118,13 +118,13 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(CommandType)) as CommandType;
+              specifiedType: const FullType(CommandType))! as CommandType;
           break;
         case 'param':
           result.param = serializers.deserialize(value,
@@ -144,10 +144,10 @@ class _$Command extends Command {
   final String? param;
 
   factory _$Command([void Function(CommandBuilder)? updates]) =>
-      (new CommandBuilder()..update(updates)).build();
+      (new CommandBuilder()..update(updates))._build();
 
   _$Command._({required this.type, this.param}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(type, 'Command', 'type');
+    BuiltValueNullFieldError.checkNotNull(type, r'Command', 'type');
   }
 
   @override
@@ -170,7 +170,7 @@ class _$Command extends Command {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Command')
+    return (newBuiltValueToStringHelper(r'Command')
           ..add('type', type)
           ..add('param', param))
         .toString();
@@ -212,15 +212,17 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   }
 
   @override
-  _$Command build() {
+  Command build() => _build();
+
+  _$Command _build() {
     final _$result = _$v ??
         new _$Command._(
             type:
-                BuiltValueNullFieldError.checkNotNull(type, 'Command', 'type'),
+                BuiltValueNullFieldError.checkNotNull(type, r'Command', 'type'),
             param: param);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

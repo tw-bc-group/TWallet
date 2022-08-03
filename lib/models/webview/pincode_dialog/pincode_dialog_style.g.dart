@@ -52,7 +52,7 @@ class _$WebviewPincodeDialogStyleSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -102,7 +102,7 @@ class _$WebviewPincodeDialogStyle extends WebviewPincodeDialogStyle {
 
   factory _$WebviewPincodeDialogStyle(
           [void Function(WebviewPincodeDialogStyleBuilder)? updates]) =>
-      (new WebviewPincodeDialogStyleBuilder()..update(updates)).build();
+      (new WebviewPincodeDialogStyleBuilder()..update(updates))._build();
 
   _$WebviewPincodeDialogStyle._(
       {required this.closeIcon,
@@ -112,15 +112,15 @@ class _$WebviewPincodeDialogStyle extends WebviewPincodeDialogStyle {
       required this.title})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        closeIcon, 'WebviewPincodeDialogStyle', 'closeIcon');
+        closeIcon, r'WebviewPincodeDialogStyle', 'closeIcon');
     BuiltValueNullFieldError.checkNotNull(
-        errorMsg, 'WebviewPincodeDialogStyle', 'errorMsg');
+        errorMsg, r'WebviewPincodeDialogStyle', 'errorMsg');
     BuiltValueNullFieldError.checkNotNull(
-        hintMsg, 'WebviewPincodeDialogStyle', 'hintMsg');
+        hintMsg, r'WebviewPincodeDialogStyle', 'hintMsg');
     BuiltValueNullFieldError.checkNotNull(
-        inputFields, 'WebviewPincodeDialogStyle', 'inputFields');
+        inputFields, r'WebviewPincodeDialogStyle', 'inputFields');
     BuiltValueNullFieldError.checkNotNull(
-        title, 'WebviewPincodeDialogStyle', 'title');
+        title, r'WebviewPincodeDialogStyle', 'title');
   }
 
   @override
@@ -155,7 +155,7 @@ class _$WebviewPincodeDialogStyle extends WebviewPincodeDialogStyle {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeDialogStyle')
+    return (newBuiltValueToStringHelper(r'WebviewPincodeDialogStyle')
           ..add('closeIcon', closeIcon)
           ..add('errorMsg', errorMsg)
           ..add('hintMsg', hintMsg)
@@ -226,7 +226,9 @@ class WebviewPincodeDialogStyleBuilder
   }
 
   @override
-  _$WebviewPincodeDialogStyle build() {
+  WebviewPincodeDialogStyle build() => _build();
+
+  _$WebviewPincodeDialogStyle _build() {
     _$WebviewPincodeDialogStyle _$result;
     try {
       _$result = _$v ??
@@ -251,7 +253,7 @@ class WebviewPincodeDialogStyleBuilder
         title.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'WebviewPincodeDialogStyle', _$failedField, e.toString());
+            r'WebviewPincodeDialogStyle', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -260,4 +262,4 @@ class WebviewPincodeDialogStyleBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

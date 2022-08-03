@@ -118,25 +118,25 @@ class _$DcepSerializer implements StructuredSerializer<Dcep> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'serial_number':
           result.sn = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'owner':
           result.owner = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'signature':
           result.signature = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'money_type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(DcepType)) as DcepType;
+              specifiedType: const FullType(DcepType))! as DcepType;
           break;
       }
     }
@@ -156,7 +156,7 @@ class _$Dcep extends Dcep {
   final DcepType type;
 
   factory _$Dcep([void Function(DcepBuilder)? updates]) =>
-      (new DcepBuilder()..update(updates)).build();
+      (new DcepBuilder()..update(updates))._build();
 
   _$Dcep._(
       {required this.sn,
@@ -164,10 +164,10 @@ class _$Dcep extends Dcep {
       required this.signature,
       required this.type})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(sn, 'Dcep', 'sn');
-    BuiltValueNullFieldError.checkNotNull(owner, 'Dcep', 'owner');
-    BuiltValueNullFieldError.checkNotNull(signature, 'Dcep', 'signature');
-    BuiltValueNullFieldError.checkNotNull(type, 'Dcep', 'type');
+    BuiltValueNullFieldError.checkNotNull(sn, r'Dcep', 'sn');
+    BuiltValueNullFieldError.checkNotNull(owner, r'Dcep', 'owner');
+    BuiltValueNullFieldError.checkNotNull(signature, r'Dcep', 'signature');
+    BuiltValueNullFieldError.checkNotNull(type, r'Dcep', 'type');
   }
 
   @override
@@ -196,7 +196,7 @@ class _$Dcep extends Dcep {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Dcep')
+    return (newBuiltValueToStringHelper(r'Dcep')
           ..add('sn', sn)
           ..add('owner', owner)
           ..add('signature', signature)
@@ -250,18 +250,20 @@ class DcepBuilder implements Builder<Dcep, DcepBuilder> {
   }
 
   @override
-  _$Dcep build() {
+  Dcep build() => _build();
+
+  _$Dcep _build() {
     final _$result = _$v ??
         new _$Dcep._(
-            sn: BuiltValueNullFieldError.checkNotNull(sn, 'Dcep', 'sn'),
+            sn: BuiltValueNullFieldError.checkNotNull(sn, r'Dcep', 'sn'),
             owner:
-                BuiltValueNullFieldError.checkNotNull(owner, 'Dcep', 'owner'),
+                BuiltValueNullFieldError.checkNotNull(owner, r'Dcep', 'owner'),
             signature: BuiltValueNullFieldError.checkNotNull(
-                signature, 'Dcep', 'signature'),
-            type: BuiltValueNullFieldError.checkNotNull(type, 'Dcep', 'type'));
+                signature, r'Dcep', 'signature'),
+            type: BuiltValueNullFieldError.checkNotNull(type, r'Dcep', 'type'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

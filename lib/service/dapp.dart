@@ -1,5 +1,4 @@
-// @dart=2.9
-
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bip39/bip39.dart' as bip39;
@@ -34,13 +33,13 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-typedef OperatorFunction = void Function(String id, String param);
+typedef OperatorFunction = void Function(String id, String? param);
 
 class DAppService {
-  static BuildContext context;
-  static WebViewController webviewController;
-  static DAppPageState dappPageStateInstance;
-  static String dappid;
+  static late BuildContext context;
+  static late WebViewController webviewController;
+  static late DAppPageState dappPageStateInstance;
+  static String? dappid;
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
     switch (method) {
@@ -81,12 +80,12 @@ class DAppService {
     Application.router.pop(context);
   }
 
-  static Future<void> signTransaction(String id, String param) async {
+  static Future<void> signTransaction(String id, String? param) async {
     try {
       final WebviewSignTransaction _signTransaction =
-          WebviewSignTransaction.fromJson(json.decode(param));
+          WebviewSignTransaction.fromJson(json.decode(param!));
       final pincodeValidate = await PincodeService.validate(
-        _signTransaction.token,
+        _signTransaction.token!,
         _signTransaction.pincodeDialogStyle,
       );
       if (pincodeValidate == null) {
@@ -95,8 +94,8 @@ class DAppService {
       final _transactionInfo = _signTransaction.transactionInfo;
       final Web3Client _web3Client =
           Web3Client(_transactionInfo.rpcUrl, Client());
-      final DecentralizedIdentity _identity =
-          Get.find<IdentityStore>().getIdentityById(_transactionInfo.accountId);
+      final DecentralizedIdentity _identity = Get.find<IdentityStore>()
+          .getIdentityById(_transactionInfo.accountId)!;
       final DeployedContract _contract = DeployedContract(
         ContractAbi.fromJson(
           _transactionInfo.contractAbi,
@@ -133,9 +132,9 @@ class DAppService {
     }
   }
 
-  static void sendTransaction(String id, String param) {
+  static void sendTransaction(String id, String? param) {
     final SendTransactionRequest _sendTransactionRequest =
-        SendTransactionRequest.fromJson(json.decode(param));
+        SendTransactionRequest.fromJson(json.decode(param!));
     Get.find<ApiProvider>()
         .transferPoint(
       _sendTransactionRequest.fromAddress,
@@ -177,9 +176,9 @@ class DAppService {
     resolve(id, _identity.basicInfo());
   }
 
-  static void createAccount(String id, String param) {
+  static void createAccount(String id, String? param) {
     final CreateAccountParam createAccountParam =
-        CreateAccountParam.fromJson(json.decode(param));
+        CreateAccountParam.fromJson(json.decode(param!));
     final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
     _mnemonicsStore.generateKeys(
       (index, keys) => Future.value(
@@ -209,27 +208,27 @@ class DAppService {
     resolve(id, sha256.convert(walletSeed).toString());
   }
 
-  static void setStatusBarMode(String id, String param) {
+  static void setStatusBarMode(String id, String? param) {
     if (param == 'dark') {
       return SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     }
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   }
 
-  static void setStatusBarBackgroundColor(String id, String param) {
+  static void setStatusBarBackgroundColor(String id, String? param) {
     if (DeviceInfo.isIOS()) {
       return dappPageStateInstance
-          .changeBackgroundColor(WalletTheme.rgbColor(param));
+          .changeBackgroundColor(WalletTheme.rgbColor(param!));
     }
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: WalletTheme.rgbColor(param),
+        statusBarColor: WalletTheme.rgbColor(param!),
       ),
     );
   }
 
   static void getAccounts(String id, _) {
-    if (dappid.isEmpty) {
+    if (dappid!.isEmpty) {
       resolve(id, null);
     } else {
       resolve(
@@ -243,23 +242,23 @@ class DAppService {
     }
   }
 
-  static void getAccountById(String id, String param) {
-    if (param.isEmpty) {
+  static void getAccountById(String id, String? param) {
+    if (param!.isEmpty) {
       return resolve(id, null);
     }
 
-    resolve(id, Get.find<IdentityStore>().getIdentityById(param).basicInfo());
+    resolve(id, Get.find<IdentityStore>().getIdentityById(param)!.basicInfo());
   }
 
-  static void getAccountByIds(String id, String param) {
-    if (param.isEmpty) {
+  static void getAccountByIds(String id, String? param) {
+    if (param!.isEmpty) {
       return resolve(id, []);
     }
 
     final IdentityStore _identityStore = Get.find<IdentityStore>();
     final List<Map> result = [];
     param.split(',').forEach((accountId) {
-      final identity = _identityStore.getIdentityById(accountId);
+      final identity = _identityStore.getIdentityById(accountId)!;
       result.add({
         'id': identity.id,
         'address': identity.address,
@@ -270,7 +269,7 @@ class DAppService {
     resolve(id, result);
   }
 
-  static Future<void> validatePin(String id, String pin) async {
+  static Future<void> validatePin(String id, String? pin) async {
     final iv = encrypt_tool.IV.fromUtf8('${pin}0123456789');
     final encrypt_tool.Key aesKey =
         encrypt_tool.Key.fromUtf8('${pin}abcdefghijklmnopqrstuvwxyz');
@@ -278,8 +277,8 @@ class DAppService {
       encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc),
     );
     final SecureStorage _secureStorage = Get.find();
-    final String encryptedString =
-        await _secureStorage.get(SecureStorageItem.masterKey);
+    final String encryptedString = await (_secureStorage
+        .get(SecureStorageItem.masterKey) as FutureOr<String>);
     final encrypt_tool.Encrypted encryptedKey =
         encrypt_tool.Encrypted.fromBase64(encryptedString);
     try {

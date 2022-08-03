@@ -45,21 +45,21 @@ class _$WebviewPincodeDialogTitleSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'text':
           result.text = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'color':
           result.color = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'fontSize':
           result.fontSize = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -78,17 +78,17 @@ class _$WebviewPincodeDialogTitle extends WebviewPincodeDialogTitle {
 
   factory _$WebviewPincodeDialogTitle(
           [void Function(WebviewPincodeDialogTitleBuilder)? updates]) =>
-      (new WebviewPincodeDialogTitleBuilder()..update(updates)).build();
+      (new WebviewPincodeDialogTitleBuilder()..update(updates))._build();
 
   _$WebviewPincodeDialogTitle._(
       {required this.text, required this.color, required this.fontSize})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        text, 'WebviewPincodeDialogTitle', 'text');
+        text, r'WebviewPincodeDialogTitle', 'text');
     BuiltValueNullFieldError.checkNotNull(
-        color, 'WebviewPincodeDialogTitle', 'color');
+        color, r'WebviewPincodeDialogTitle', 'color');
     BuiltValueNullFieldError.checkNotNull(
-        fontSize, 'WebviewPincodeDialogTitle', 'fontSize');
+        fontSize, r'WebviewPincodeDialogTitle', 'fontSize');
   }
 
   @override
@@ -117,7 +117,7 @@ class _$WebviewPincodeDialogTitle extends WebviewPincodeDialogTitle {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeDialogTitle')
+    return (newBuiltValueToStringHelper(r'WebviewPincodeDialogTitle')
           ..add('text', text)
           ..add('color', color)
           ..add('fontSize', fontSize))
@@ -169,18 +169,20 @@ class WebviewPincodeDialogTitleBuilder
   }
 
   @override
-  _$WebviewPincodeDialogTitle build() {
+  WebviewPincodeDialogTitle build() => _build();
+
+  _$WebviewPincodeDialogTitle _build() {
     final _$result = _$v ??
         new _$WebviewPincodeDialogTitle._(
             text: BuiltValueNullFieldError.checkNotNull(
-                text, 'WebviewPincodeDialogTitle', 'text'),
+                text, r'WebviewPincodeDialogTitle', 'text'),
             color: BuiltValueNullFieldError.checkNotNull(
-                color, 'WebviewPincodeDialogTitle', 'color'),
+                color, r'WebviewPincodeDialogTitle', 'color'),
             fontSize: BuiltValueNullFieldError.checkNotNull(
-                fontSize, 'WebviewPincodeDialogTitle', 'fontSize'));
+                fontSize, r'WebviewPincodeDialogTitle', 'fontSize'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

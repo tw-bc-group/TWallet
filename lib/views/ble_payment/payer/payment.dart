@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:async';
 import 'dart:typed_data';
@@ -81,18 +81,17 @@ class _PaymentState extends State<Payment> {
   final DcepStore _dcepStore = Get.find<DcepStore>();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
-  StreamSubscription _dataMonitor;
-  Characteristic _readCharacteristic;
-  Characteristic _writeCharacteristic;
+  late StreamSubscription _dataMonitor;
+  Characteristic? _readCharacteristic;
+  Characteristic? _writeCharacteristic;
 
-  Future<Optional<Tuple2<Characteristic, Characteristic>>> discovery() async {
+  Future<Optional<Tuple2<Characteristic?, Characteristic?>>> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
 
     final Service service = await widget._bleDevice.peripheral.services().then(
-          (services) => services.firstWhere(
+          (services) => services.firstWhereOrNull(
             (service) => service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0",
-            orElse: () => null,
-          ),
+          )!,
         );
 
     if (null == service) {
@@ -241,7 +240,6 @@ class _PaymentState extends State<Payment> {
           text: '余额不足，结束转账',
           onPressed: () => Get.back(),
         );
-        break;
 
       case PaymentProgress.waitUserConnect:
         return WalletTheme.button(text: '重新连接', onPressed: () => _doConnect());

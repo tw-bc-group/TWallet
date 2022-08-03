@@ -67,7 +67,7 @@ class _PointTabState extends State<PointTab> {
   void initState() {
     super.initState();
     reactionDispose = reaction(
-      (_) => _identityStore.selectedIdentity.value.id,
+      (_) => _identityStore.selectedIdentity!.value.id,
       (_) => _refresh(),
     );
     _identityStore.fetchLatestPoint(withLoading: false);
@@ -78,7 +78,7 @@ class _PointTabState extends State<PointTab> {
         builder: (_) {
           Optional<Amount> amount;
           final ObservableFuture<TwBalance> future =
-              _identityStore.fetchBalanceFutureStream.value!;
+              _identityStore.fetchBalanceFutureStream!.value!;
 
           switch (future.status) {
             case FutureStatus.fulfilled:
@@ -89,7 +89,7 @@ class _PointTabState extends State<PointTab> {
               amount = const Optional.empty();
               break;
             default:
-              amount = _identityStore.selectedIdentity
+              amount = _identityStore.selectedIdentity!
                   .map((i) => i.accountInfo.balance!);
               break;
           }

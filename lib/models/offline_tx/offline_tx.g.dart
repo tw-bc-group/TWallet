@@ -40,25 +40,25 @@ class _$TxReceiveSerializer implements StructuredSerializer<TxReceive> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'tx':
           result.tx = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'from':
           result.from = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'publicKey':
           result.publicKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'description':
           result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -78,7 +78,7 @@ class _$TxReceive extends TxReceive {
   final String description;
 
   factory _$TxReceive([void Function(TxReceiveBuilder)? updates]) =>
-      (new TxReceiveBuilder()..update(updates)).build();
+      (new TxReceiveBuilder()..update(updates))._build();
 
   _$TxReceive._(
       {required this.tx,
@@ -86,11 +86,11 @@ class _$TxReceive extends TxReceive {
       required this.publicKey,
       required this.description})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(tx, 'TxReceive', 'tx');
-    BuiltValueNullFieldError.checkNotNull(from, 'TxReceive', 'from');
-    BuiltValueNullFieldError.checkNotNull(publicKey, 'TxReceive', 'publicKey');
+    BuiltValueNullFieldError.checkNotNull(tx, r'TxReceive', 'tx');
+    BuiltValueNullFieldError.checkNotNull(from, r'TxReceive', 'from');
+    BuiltValueNullFieldError.checkNotNull(publicKey, r'TxReceive', 'publicKey');
     BuiltValueNullFieldError.checkNotNull(
-        description, 'TxReceive', 'description');
+        description, r'TxReceive', 'description');
   }
 
   @override
@@ -119,7 +119,7 @@ class _$TxReceive extends TxReceive {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TxReceive')
+    return (newBuiltValueToStringHelper(r'TxReceive')
           ..add('tx', tx)
           ..add('from', from)
           ..add('publicKey', publicKey)
@@ -173,16 +173,18 @@ class TxReceiveBuilder implements Builder<TxReceive, TxReceiveBuilder> {
   }
 
   @override
-  _$TxReceive build() {
+  TxReceive build() => _build();
+
+  _$TxReceive _build() {
     final _$result = _$v ??
         new _$TxReceive._(
-            tx: BuiltValueNullFieldError.checkNotNull(tx, 'TxReceive', 'tx'),
+            tx: BuiltValueNullFieldError.checkNotNull(tx, r'TxReceive', 'tx'),
             from: BuiltValueNullFieldError.checkNotNull(
-                from, 'TxReceive', 'from'),
+                from, r'TxReceive', 'from'),
             publicKey: BuiltValueNullFieldError.checkNotNull(
-                publicKey, 'TxReceive', 'publicKey'),
+                publicKey, r'TxReceive', 'publicKey'),
             description: BuiltValueNullFieldError.checkNotNull(
-                description, 'TxReceive', 'description'));
+                description, r'TxReceive', 'description'));
     replace(_$result);
     return _$result;
   }
@@ -195,11 +197,12 @@ class _$TxSend extends TxSend {
   final String signedRawTx;
 
   factory _$TxSend([void Function(TxSendBuilder)? updates]) =>
-      (new TxSendBuilder()..update(updates)).build();
+      (new TxSendBuilder()..update(updates))._build();
 
   _$TxSend._({required this.dcep, required this.signedRawTx}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(dcep, 'TxSend', 'dcep');
-    BuiltValueNullFieldError.checkNotNull(signedRawTx, 'TxSend', 'signedRawTx');
+    BuiltValueNullFieldError.checkNotNull(dcep, r'TxSend', 'dcep');
+    BuiltValueNullFieldError.checkNotNull(
+        signedRawTx, r'TxSend', 'signedRawTx');
   }
 
   @override
@@ -224,7 +227,7 @@ class _$TxSend extends TxSend {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TxSend')
+    return (newBuiltValueToStringHelper(r'TxSend')
           ..add('dcep', dcep)
           ..add('signedRawTx', signedRawTx))
         .toString();
@@ -266,14 +269,16 @@ class TxSendBuilder implements Builder<TxSend, TxSendBuilder> {
   }
 
   @override
-  _$TxSend build() {
+  TxSend build() => _build();
+
+  _$TxSend _build() {
     _$TxSend _$result;
     try {
       _$result = _$v ??
           new _$TxSend._(
               dcep: dcep.build(),
               signedRawTx: BuiltValueNullFieldError.checkNotNull(
-                  signedRawTx, 'TxSend', 'signedRawTx'));
+                  signedRawTx, r'TxSend', 'signedRawTx'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -281,7 +286,7 @@ class TxSendBuilder implements Builder<TxSend, TxSendBuilder> {
         dcep.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'TxSend', _$failedField, e.toString());
+            r'TxSend', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -290,4 +295,4 @@ class TxSendBuilder implements Builder<TxSend, TxSendBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

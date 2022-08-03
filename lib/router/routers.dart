@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tw_wallet_ui/router/router_handler.dart';
 
 class Routes {
@@ -72,5 +73,10 @@ class Routes {
 
     routers.forEach(
         (p, h) => router.define(p, handler: h, transitionType: transitionType));
+    router.notFoundHandler = Handler(
+      handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+        return null;
+      },
+    );
   }
 }

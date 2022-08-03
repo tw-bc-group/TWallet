@@ -50,7 +50,7 @@ class _$WebviewSignTransactionSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -85,7 +85,7 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
 
   factory _$WebviewSignTransaction(
           [void Function(WebviewSignTransactionBuilder)? updates]) =>
-      (new WebviewSignTransactionBuilder()..update(updates)).build();
+      (new WebviewSignTransactionBuilder()..update(updates))._build();
 
   _$WebviewSignTransaction._(
       {required this.transactionInfo,
@@ -93,9 +93,9 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
       required this.pincodeDialogStyle})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        transactionInfo, 'WebviewSignTransaction', 'transactionInfo');
+        transactionInfo, r'WebviewSignTransaction', 'transactionInfo');
     BuiltValueNullFieldError.checkNotNull(
-        pincodeDialogStyle, 'WebviewSignTransaction', 'pincodeDialogStyle');
+        pincodeDialogStyle, r'WebviewSignTransaction', 'pincodeDialogStyle');
   }
 
   @override
@@ -124,7 +124,7 @@ class _$WebviewSignTransaction extends WebviewSignTransaction {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewSignTransaction')
+    return (newBuiltValueToStringHelper(r'WebviewSignTransaction')
           ..add('transactionInfo', transactionInfo)
           ..add('token', token)
           ..add('pincodeDialogStyle', pincodeDialogStyle))
@@ -178,7 +178,9 @@ class WebviewSignTransactionBuilder
   }
 
   @override
-  _$WebviewSignTransaction build() {
+  WebviewSignTransaction build() => _build();
+
+  _$WebviewSignTransaction _build() {
     _$WebviewSignTransaction _$result;
     try {
       _$result = _$v ??
@@ -196,7 +198,7 @@ class WebviewSignTransactionBuilder
         pincodeDialogStyle.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'WebviewSignTransaction', _$failedField, e.toString());
+            r'WebviewSignTransaction', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -205,4 +207,4 @@ class WebviewSignTransactionBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

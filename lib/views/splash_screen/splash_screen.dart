@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 class SplashScreen extends StatefulWidget {
-  final Function(String) onInitializationComplete;
+  final Function(String)? onInitializationComplete;
 
   const SplashScreen({
     this.onInitializationComplete,
@@ -39,10 +39,10 @@ class _SplashAppState extends State<SplashScreen> {
 
   Future<void> _initializeAsyncDependencies() async {
     Application.appName =
-        (await PackageInfo.fromPlatform())?.appName ?? 'test-app';
+        (await PackageInfo.fromPlatform()).appName;
     await initGlobalDependencies();
     final route = await _initialRoute();
-    widget.onInitializationComplete(route);
+    widget.onInitializationComplete!(route);
   }
 
   @override

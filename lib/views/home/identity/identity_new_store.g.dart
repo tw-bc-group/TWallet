@@ -6,10 +6,11 @@ part of 'identity_new_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$IdentityNewStore on _IdentityNewStore, Store {
-  final _$nameAtom = Atom(name: '_IdentityNewStore.name');
+  late final _$nameAtom =
+      Atom(name: '_IdentityNewStore.name', context: context);
 
   @override
   String get name {
@@ -24,7 +25,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
     });
   }
 
-  final _$phoneAtom = Atom(name: '_IdentityNewStore.phone');
+  late final _$phoneAtom =
+      Atom(name: '_IdentityNewStore.phone', context: context);
 
   @override
   String get phone {
@@ -39,7 +41,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_IdentityNewStore.email');
+  late final _$emailAtom =
+      Atom(name: '_IdentityNewStore.email', context: context);
 
   @override
   String get email {
@@ -54,7 +57,8 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
     });
   }
 
-  final _$birthdayAtom = Atom(name: '_IdentityNewStore.birthday');
+  late final _$birthdayAtom =
+      Atom(name: '_IdentityNewStore.birthday', context: context);
 
   @override
   String get birthday {
@@ -69,15 +73,16 @@ mixin _$IdentityNewStore on _IdentityNewStore, Store {
     });
   }
 
-  final _$addIdentityAsyncAction = AsyncAction('_IdentityNewStore.addIdentity');
+  late final _$addIdentityAsyncAction =
+      AsyncAction('_IdentityNewStore.addIdentity', context: context);
 
   @override
   Future<dynamic> addIdentity() {
     return _$addIdentityAsyncAction.run(() => super.addIdentity());
   }
 
-  final _$_IdentityNewStoreActionController =
-      ActionController(name: '_IdentityNewStore');
+  late final _$_IdentityNewStoreActionController =
+      ActionController(name: '_IdentityNewStore', context: context);
 
   @override
   void clearError() {
@@ -154,7 +159,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
               name: '_FormErrorState.hasErrors'))
           .value;
 
-  final _$usernameAtom = Atom(name: '_FormErrorState.username');
+  late final _$usernameAtom =
+      Atom(name: '_FormErrorState.username', context: context);
 
   @override
   String? get username {
@@ -169,7 +175,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$phoneAtom = Atom(name: '_FormErrorState.phone');
+  late final _$phoneAtom =
+      Atom(name: '_FormErrorState.phone', context: context);
 
   @override
   String? get phone {
@@ -184,7 +191,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_FormErrorState.email');
+  late final _$emailAtom =
+      Atom(name: '_FormErrorState.email', context: context);
 
   @override
   String? get email {
@@ -199,7 +207,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$birthdayAtom = Atom(name: '_FormErrorState.birthday');
+  late final _$birthdayAtom =
+      Atom(name: '_FormErrorState.birthday', context: context);
 
   @override
   String? get birthday {

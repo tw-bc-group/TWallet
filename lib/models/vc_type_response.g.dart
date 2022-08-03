@@ -40,21 +40,21 @@ class _$VcTypeSerializer implements StructuredSerializer<VcType> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'url':
           result.url = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'content':
           result.content.replace(serializers.deserialize(value,
@@ -80,7 +80,7 @@ class _$VcType extends VcType {
   final BuiltList<String> content;
 
   factory _$VcType([void Function(VcTypeBuilder)? updates]) =>
-      (new VcTypeBuilder()..update(updates)).build();
+      (new VcTypeBuilder()..update(updates))._build();
 
   _$VcType._(
       {required this.id,
@@ -88,10 +88,10 @@ class _$VcType extends VcType {
       required this.url,
       required this.content})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, 'VcType', 'id');
-    BuiltValueNullFieldError.checkNotNull(name, 'VcType', 'name');
-    BuiltValueNullFieldError.checkNotNull(url, 'VcType', 'url');
-    BuiltValueNullFieldError.checkNotNull(content, 'VcType', 'content');
+    BuiltValueNullFieldError.checkNotNull(id, r'VcType', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, r'VcType', 'name');
+    BuiltValueNullFieldError.checkNotNull(url, r'VcType', 'url');
+    BuiltValueNullFieldError.checkNotNull(content, r'VcType', 'content');
   }
 
   @override
@@ -119,7 +119,7 @@ class _$VcType extends VcType {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('VcType')
+    return (newBuiltValueToStringHelper(r'VcType')
           ..add('id', id)
           ..add('name', name)
           ..add('url', url)
@@ -174,15 +174,17 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
   }
 
   @override
-  _$VcType build() {
+  VcType build() => _build();
+
+  _$VcType _build() {
     _$VcType _$result;
     try {
       _$result = _$v ??
           new _$VcType._(
-              id: BuiltValueNullFieldError.checkNotNull(id, 'VcType', 'id'),
-              name:
-                  BuiltValueNullFieldError.checkNotNull(name, 'VcType', 'name'),
-              url: BuiltValueNullFieldError.checkNotNull(url, 'VcType', 'url'),
+              id: BuiltValueNullFieldError.checkNotNull(id, r'VcType', 'id'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'VcType', 'name'),
+              url: BuiltValueNullFieldError.checkNotNull(url, r'VcType', 'url'),
               content: content.build());
     } catch (_) {
       late String _$failedField;
@@ -191,7 +193,7 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
         content.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'VcType', _$failedField, e.toString());
+            r'VcType', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -200,4 +202,4 @@ class VcTypeBuilder implements Builder<VcType, VcTypeBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

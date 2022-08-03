@@ -50,21 +50,21 @@ class _$ContractSerializer implements StructuredSerializer<Contract> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'abi':
           result.abi = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'symbol':
           result.symbol = serializers.deserialize(value,
@@ -94,7 +94,7 @@ class _$Contract extends Contract {
   final int? decimal;
 
   factory _$Contract([void Function(ContractBuilder)? updates]) =>
-      (new ContractBuilder()..update(updates)).build();
+      (new ContractBuilder()..update(updates))._build();
 
   _$Contract._(
       {required this.name,
@@ -103,9 +103,9 @@ class _$Contract extends Contract {
       this.symbol,
       this.decimal})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(name, 'Contract', 'name');
-    BuiltValueNullFieldError.checkNotNull(address, 'Contract', 'address');
-    BuiltValueNullFieldError.checkNotNull(abi, 'Contract', 'abi');
+    BuiltValueNullFieldError.checkNotNull(name, r'Contract', 'name');
+    BuiltValueNullFieldError.checkNotNull(address, r'Contract', 'address');
+    BuiltValueNullFieldError.checkNotNull(abi, r'Contract', 'abi');
   }
 
   @override
@@ -136,7 +136,7 @@ class _$Contract extends Contract {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Contract')
+    return (newBuiltValueToStringHelper(r'Contract')
           ..add('name', name)
           ..add('address', address)
           ..add('abi', abi)
@@ -196,14 +196,16 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
   }
 
   @override
-  _$Contract build() {
+  Contract build() => _build();
+
+  _$Contract _build() {
     final _$result = _$v ??
         new _$Contract._(
-            name:
-                BuiltValueNullFieldError.checkNotNull(name, 'Contract', 'name'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'Contract', 'name'),
             address: BuiltValueNullFieldError.checkNotNull(
-                address, 'Contract', 'address'),
-            abi: BuiltValueNullFieldError.checkNotNull(abi, 'Contract', 'abi'),
+                address, r'Contract', 'address'),
+            abi: BuiltValueNullFieldError.checkNotNull(abi, r'Contract', 'abi'),
             symbol: symbol,
             decimal: decimal);
     replace(_$result);
@@ -211,4 +213,4 @@ class ContractBuilder implements Builder<Contract, ContractBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -62,7 +62,7 @@ class _$HealthCertificationSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -74,23 +74,23 @@ class _$HealthCertificationSerializer
           break;
         case 'exp':
           result.exp = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'iat':
           result.iat = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'iss':
           result.iss = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'ver':
           result.ver = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'typ':
           result.typ.replace(serializers.deserialize(value,
@@ -146,17 +146,17 @@ class _$HealthCertificationSubSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'phone':
           result.phone = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'healthyStatus':
           result.healthyStatus.replace(serializers.deserialize(value,
@@ -196,17 +196,17 @@ class _$HealthyStatusSerializer implements StructuredSerializer<HealthyStatus> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'typ':
           result.typ = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'val':
           result.val = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -235,7 +235,7 @@ class _$HealthCertification extends HealthCertification {
 
   factory _$HealthCertification(
           [void Function(HealthCertificationBuilder)? updates]) =>
-      (new HealthCertificationBuilder()..update(updates)).build();
+      (new HealthCertificationBuilder()..update(updates))._build();
 
   _$HealthCertification._(
       {required this.context,
@@ -248,14 +248,14 @@ class _$HealthCertification extends HealthCertification {
       required this.sub})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        context, 'HealthCertification', 'context');
-    BuiltValueNullFieldError.checkNotNull(exp, 'HealthCertification', 'exp');
-    BuiltValueNullFieldError.checkNotNull(iat, 'HealthCertification', 'iat');
-    BuiltValueNullFieldError.checkNotNull(id, 'HealthCertification', 'id');
-    BuiltValueNullFieldError.checkNotNull(iss, 'HealthCertification', 'iss');
-    BuiltValueNullFieldError.checkNotNull(ver, 'HealthCertification', 'ver');
-    BuiltValueNullFieldError.checkNotNull(typ, 'HealthCertification', 'typ');
-    BuiltValueNullFieldError.checkNotNull(sub, 'HealthCertification', 'sub');
+        context, r'HealthCertification', 'context');
+    BuiltValueNullFieldError.checkNotNull(exp, r'HealthCertification', 'exp');
+    BuiltValueNullFieldError.checkNotNull(iat, r'HealthCertification', 'iat');
+    BuiltValueNullFieldError.checkNotNull(id, r'HealthCertification', 'id');
+    BuiltValueNullFieldError.checkNotNull(iss, r'HealthCertification', 'iss');
+    BuiltValueNullFieldError.checkNotNull(ver, r'HealthCertification', 'ver');
+    BuiltValueNullFieldError.checkNotNull(typ, r'HealthCertification', 'typ');
+    BuiltValueNullFieldError.checkNotNull(sub, r'HealthCertification', 'sub');
   }
 
   @override
@@ -299,7 +299,7 @@ class _$HealthCertification extends HealthCertification {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('HealthCertification')
+    return (newBuiltValueToStringHelper(r'HealthCertification')
           ..add('context', context)
           ..add('exp', exp)
           ..add('iat', iat)
@@ -380,22 +380,24 @@ class HealthCertificationBuilder
   }
 
   @override
-  _$HealthCertification build() {
+  HealthCertification build() => _build();
+
+  _$HealthCertification _build() {
     _$HealthCertification _$result;
     try {
       _$result = _$v ??
           new _$HealthCertification._(
               context: context.build(),
               exp: BuiltValueNullFieldError.checkNotNull(
-                  exp, 'HealthCertification', 'exp'),
+                  exp, r'HealthCertification', 'exp'),
               iat: BuiltValueNullFieldError.checkNotNull(
-                  iat, 'HealthCertification', 'iat'),
+                  iat, r'HealthCertification', 'iat'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'HealthCertification', 'id'),
+                  id, r'HealthCertification', 'id'),
               iss: BuiltValueNullFieldError.checkNotNull(
-                  iss, 'HealthCertification', 'iss'),
+                  iss, r'HealthCertification', 'iss'),
               ver: BuiltValueNullFieldError.checkNotNull(
-                  ver, 'HealthCertification', 'ver'),
+                  ver, r'HealthCertification', 'ver'),
               typ: typ.build(),
               sub: sub.build());
     } catch (_) {
@@ -410,7 +412,7 @@ class HealthCertificationBuilder
         sub.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'HealthCertification', _$failedField, e.toString());
+            r'HealthCertification', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -429,16 +431,16 @@ class _$HealthCertificationSub extends HealthCertificationSub {
 
   factory _$HealthCertificationSub(
           [void Function(HealthCertificationSubBuilder)? updates]) =>
-      (new HealthCertificationSubBuilder()..update(updates)).build();
+      (new HealthCertificationSubBuilder()..update(updates))._build();
 
   _$HealthCertificationSub._(
       {required this.id, required this.phone, required this.healthyStatus})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, 'HealthCertificationSub', 'id');
+    BuiltValueNullFieldError.checkNotNull(id, r'HealthCertificationSub', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        phone, 'HealthCertificationSub', 'phone');
+        phone, r'HealthCertificationSub', 'phone');
     BuiltValueNullFieldError.checkNotNull(
-        healthyStatus, 'HealthCertificationSub', 'healthyStatus');
+        healthyStatus, r'HealthCertificationSub', 'healthyStatus');
   }
 
   @override
@@ -467,7 +469,7 @@ class _$HealthCertificationSub extends HealthCertificationSub {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('HealthCertificationSub')
+    return (newBuiltValueToStringHelper(r'HealthCertificationSub')
           ..add('id', id)
           ..add('phone', phone)
           ..add('healthyStatus', healthyStatus))
@@ -518,15 +520,17 @@ class HealthCertificationSubBuilder
   }
 
   @override
-  _$HealthCertificationSub build() {
+  HealthCertificationSub build() => _build();
+
+  _$HealthCertificationSub _build() {
     _$HealthCertificationSub _$result;
     try {
       _$result = _$v ??
           new _$HealthCertificationSub._(
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'HealthCertificationSub', 'id'),
+                  id, r'HealthCertificationSub', 'id'),
               phone: BuiltValueNullFieldError.checkNotNull(
-                  phone, 'HealthCertificationSub', 'phone'),
+                  phone, r'HealthCertificationSub', 'phone'),
               healthyStatus: healthyStatus.build());
     } catch (_) {
       late String _$failedField;
@@ -535,7 +539,7 @@ class HealthCertificationSubBuilder
         healthyStatus.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'HealthCertificationSub', _$failedField, e.toString());
+            r'HealthCertificationSub', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -551,11 +555,11 @@ class _$HealthyStatus extends HealthyStatus {
   final String val;
 
   factory _$HealthyStatus([void Function(HealthyStatusBuilder)? updates]) =>
-      (new HealthyStatusBuilder()..update(updates)).build();
+      (new HealthyStatusBuilder()..update(updates))._build();
 
   _$HealthyStatus._({required this.typ, required this.val}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(typ, 'HealthyStatus', 'typ');
-    BuiltValueNullFieldError.checkNotNull(val, 'HealthyStatus', 'val');
+    BuiltValueNullFieldError.checkNotNull(typ, r'HealthyStatus', 'typ');
+    BuiltValueNullFieldError.checkNotNull(val, r'HealthyStatus', 'val');
   }
 
   @override
@@ -578,7 +582,7 @@ class _$HealthyStatus extends HealthyStatus {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('HealthyStatus')
+    return (newBuiltValueToStringHelper(r'HealthyStatus')
           ..add('typ', typ)
           ..add('val', val))
         .toString();
@@ -621,16 +625,18 @@ class HealthyStatusBuilder
   }
 
   @override
-  _$HealthyStatus build() {
+  HealthyStatus build() => _build();
+
+  _$HealthyStatus _build() {
     final _$result = _$v ??
         new _$HealthyStatus._(
             typ: BuiltValueNullFieldError.checkNotNull(
-                typ, 'HealthyStatus', 'typ'),
+                typ, r'HealthyStatus', 'typ'),
             val: BuiltValueNullFieldError.checkNotNull(
-                val, 'HealthyStatus', 'val'));
+                val, r'HealthyStatus', 'val'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

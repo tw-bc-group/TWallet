@@ -68,21 +68,21 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'hash':
           result.hash = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'amount':
           result.amount = serializers.deserialize(value,
-              specifiedType: const FullType(Amount)) as Amount;
+              specifiedType: const FullType(Amount))! as Amount;
           break;
         case 'create_time':
           result.createTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+              specifiedType: const FullType(DateTime))! as DateTime;
           break;
         case 'confirm_time':
           result.confirmTime = serializers.deserialize(value,
@@ -90,7 +90,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
           break;
         case 'from_address':
           result.fromAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'from_address_name':
           result.fromAddressName = serializers.deserialize(value,
@@ -98,7 +98,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
           break;
         case 'to_address':
           result.toAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'to_address_name':
           result.toAddressName = serializers.deserialize(value,
@@ -106,7 +106,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
           break;
         case 'tx_type':
           result.txType = serializers.deserialize(value,
-              specifiedType: const FullType(TxStatus)) as TxStatus;
+              specifiedType: const FullType(TxStatus))! as TxStatus;
           break;
       }
     }
@@ -136,7 +136,7 @@ class _$Transaction extends Transaction {
   final TxStatus txType;
 
   factory _$Transaction([void Function(TransactionBuilder)? updates]) =>
-      (new TransactionBuilder()..update(updates)).build();
+      (new TransactionBuilder()..update(updates))._build();
 
   _$Transaction._(
       {required this.hash,
@@ -149,15 +149,15 @@ class _$Transaction extends Transaction {
       this.toAddressName,
       required this.txType})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(hash, 'Transaction', 'hash');
-    BuiltValueNullFieldError.checkNotNull(amount, 'Transaction', 'amount');
+    BuiltValueNullFieldError.checkNotNull(hash, r'Transaction', 'hash');
+    BuiltValueNullFieldError.checkNotNull(amount, r'Transaction', 'amount');
     BuiltValueNullFieldError.checkNotNull(
-        createTime, 'Transaction', 'createTime');
+        createTime, r'Transaction', 'createTime');
     BuiltValueNullFieldError.checkNotNull(
-        fromAddress, 'Transaction', 'fromAddress');
+        fromAddress, r'Transaction', 'fromAddress');
     BuiltValueNullFieldError.checkNotNull(
-        toAddress, 'Transaction', 'toAddress');
-    BuiltValueNullFieldError.checkNotNull(txType, 'Transaction', 'txType');
+        toAddress, r'Transaction', 'toAddress');
+    BuiltValueNullFieldError.checkNotNull(txType, r'Transaction', 'txType');
   }
 
   @override
@@ -202,7 +202,7 @@ class _$Transaction extends Transaction {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Transaction')
+    return (newBuiltValueToStringHelper(r'Transaction')
           ..add('hash', hash)
           ..add('amount', amount)
           ..add('createTime', createTime)
@@ -288,27 +288,29 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
   }
 
   @override
-  _$Transaction build() {
+  Transaction build() => _build();
+
+  _$Transaction _build() {
     final _$result = _$v ??
         new _$Transaction._(
             hash: BuiltValueNullFieldError.checkNotNull(
-                hash, 'Transaction', 'hash'),
+                hash, r'Transaction', 'hash'),
             amount: BuiltValueNullFieldError.checkNotNull(
-                amount, 'Transaction', 'amount'),
+                amount, r'Transaction', 'amount'),
             createTime: BuiltValueNullFieldError.checkNotNull(
-                createTime, 'Transaction', 'createTime'),
+                createTime, r'Transaction', 'createTime'),
             confirmTime: confirmTime,
             fromAddress: BuiltValueNullFieldError.checkNotNull(
-                fromAddress, 'Transaction', 'fromAddress'),
+                fromAddress, r'Transaction', 'fromAddress'),
             fromAddressName: fromAddressName,
             toAddress: BuiltValueNullFieldError.checkNotNull(
-                toAddress, 'Transaction', 'toAddress'),
+                toAddress, r'Transaction', 'toAddress'),
             toAddressName: toAddressName,
             txType: BuiltValueNullFieldError.checkNotNull(
-                txType, 'Transaction', 'txType'));
+                txType, r'Transaction', 'txType'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

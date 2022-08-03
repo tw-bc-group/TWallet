@@ -69,53 +69,53 @@ class _$WebviewPincodeDialogInputSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'borderWidth':
           result.borderWidth = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'borderRadius':
           result.borderRadius = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'size':
           result.size = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'textSize':
           result.textSize = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'textColor':
           result.textColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'borderColor':
           result.borderColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'activeBorderColor':
           result.activeBorderColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'selectedBorderColor':
           result.selectedBorderColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'filledColor':
           result.filledColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'activeFillColor':
           result.activeFillColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'selectedFillColor':
           result.selectedFillColor = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -150,7 +150,7 @@ class _$WebviewPincodeDialogInput extends WebviewPincodeDialogInput {
 
   factory _$WebviewPincodeDialogInput(
           [void Function(WebviewPincodeDialogInputBuilder)? updates]) =>
-      (new WebviewPincodeDialogInputBuilder()..update(updates)).build();
+      (new WebviewPincodeDialogInputBuilder()..update(updates))._build();
 
   _$WebviewPincodeDialogInput._(
       {required this.borderWidth,
@@ -166,27 +166,27 @@ class _$WebviewPincodeDialogInput extends WebviewPincodeDialogInput {
       required this.selectedFillColor})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        borderWidth, 'WebviewPincodeDialogInput', 'borderWidth');
+        borderWidth, r'WebviewPincodeDialogInput', 'borderWidth');
     BuiltValueNullFieldError.checkNotNull(
-        borderRadius, 'WebviewPincodeDialogInput', 'borderRadius');
+        borderRadius, r'WebviewPincodeDialogInput', 'borderRadius');
     BuiltValueNullFieldError.checkNotNull(
-        size, 'WebviewPincodeDialogInput', 'size');
+        size, r'WebviewPincodeDialogInput', 'size');
     BuiltValueNullFieldError.checkNotNull(
-        textSize, 'WebviewPincodeDialogInput', 'textSize');
+        textSize, r'WebviewPincodeDialogInput', 'textSize');
     BuiltValueNullFieldError.checkNotNull(
-        textColor, 'WebviewPincodeDialogInput', 'textColor');
+        textColor, r'WebviewPincodeDialogInput', 'textColor');
     BuiltValueNullFieldError.checkNotNull(
-        borderColor, 'WebviewPincodeDialogInput', 'borderColor');
+        borderColor, r'WebviewPincodeDialogInput', 'borderColor');
     BuiltValueNullFieldError.checkNotNull(
-        activeBorderColor, 'WebviewPincodeDialogInput', 'activeBorderColor');
+        activeBorderColor, r'WebviewPincodeDialogInput', 'activeBorderColor');
     BuiltValueNullFieldError.checkNotNull(selectedBorderColor,
-        'WebviewPincodeDialogInput', 'selectedBorderColor');
+        r'WebviewPincodeDialogInput', 'selectedBorderColor');
     BuiltValueNullFieldError.checkNotNull(
-        filledColor, 'WebviewPincodeDialogInput', 'filledColor');
+        filledColor, r'WebviewPincodeDialogInput', 'filledColor');
     BuiltValueNullFieldError.checkNotNull(
-        activeFillColor, 'WebviewPincodeDialogInput', 'activeFillColor');
+        activeFillColor, r'WebviewPincodeDialogInput', 'activeFillColor');
     BuiltValueNullFieldError.checkNotNull(
-        selectedFillColor, 'WebviewPincodeDialogInput', 'selectedFillColor');
+        selectedFillColor, r'WebviewPincodeDialogInput', 'selectedFillColor');
   }
 
   @override
@@ -241,7 +241,7 @@ class _$WebviewPincodeDialogInput extends WebviewPincodeDialogInput {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewPincodeDialogInput')
+    return (newBuiltValueToStringHelper(r'WebviewPincodeDialogInput')
           ..add('borderWidth', borderWidth)
           ..add('borderRadius', borderRadius)
           ..add('size', size)
@@ -345,31 +345,33 @@ class WebviewPincodeDialogInputBuilder
   }
 
   @override
-  _$WebviewPincodeDialogInput build() {
+  WebviewPincodeDialogInput build() => _build();
+
+  _$WebviewPincodeDialogInput _build() {
     final _$result = _$v ??
         new _$WebviewPincodeDialogInput._(
             borderWidth: BuiltValueNullFieldError.checkNotNull(
-                borderWidth, 'WebviewPincodeDialogInput', 'borderWidth'),
+                borderWidth, r'WebviewPincodeDialogInput', 'borderWidth'),
             borderRadius: BuiltValueNullFieldError.checkNotNull(
-                borderRadius, 'WebviewPincodeDialogInput', 'borderRadius'),
+                borderRadius, r'WebviewPincodeDialogInput', 'borderRadius'),
             size: BuiltValueNullFieldError.checkNotNull(
-                size, 'WebviewPincodeDialogInput', 'size'),
+                size, r'WebviewPincodeDialogInput', 'size'),
             textSize: BuiltValueNullFieldError.checkNotNull(
-                textSize, 'WebviewPincodeDialogInput', 'textSize'),
+                textSize, r'WebviewPincodeDialogInput', 'textSize'),
             textColor: BuiltValueNullFieldError.checkNotNull(
-                textColor, 'WebviewPincodeDialogInput', 'textColor'),
+                textColor, r'WebviewPincodeDialogInput', 'textColor'),
             borderColor: BuiltValueNullFieldError.checkNotNull(
-                borderColor, 'WebviewPincodeDialogInput', 'borderColor'),
+                borderColor, r'WebviewPincodeDialogInput', 'borderColor'),
             activeBorderColor: BuiltValueNullFieldError.checkNotNull(
-                activeBorderColor, 'WebviewPincodeDialogInput', 'activeBorderColor'),
+                activeBorderColor, r'WebviewPincodeDialogInput', 'activeBorderColor'),
             selectedBorderColor: BuiltValueNullFieldError.checkNotNull(
-                selectedBorderColor, 'WebviewPincodeDialogInput', 'selectedBorderColor'),
-            filledColor: BuiltValueNullFieldError.checkNotNull(filledColor, 'WebviewPincodeDialogInput', 'filledColor'),
-            activeFillColor: BuiltValueNullFieldError.checkNotNull(activeFillColor, 'WebviewPincodeDialogInput', 'activeFillColor'),
-            selectedFillColor: BuiltValueNullFieldError.checkNotNull(selectedFillColor, 'WebviewPincodeDialogInput', 'selectedFillColor'));
+                selectedBorderColor, r'WebviewPincodeDialogInput', 'selectedBorderColor'),
+            filledColor: BuiltValueNullFieldError.checkNotNull(filledColor, r'WebviewPincodeDialogInput', 'filledColor'),
+            activeFillColor: BuiltValueNullFieldError.checkNotNull(activeFillColor, r'WebviewPincodeDialogInput', 'activeFillColor'),
+            selectedFillColor: BuiltValueNullFieldError.checkNotNull(selectedFillColor, r'WebviewPincodeDialogInput', 'selectedFillColor'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

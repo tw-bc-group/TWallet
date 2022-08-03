@@ -84,18 +84,18 @@ class _$WebviewParameterSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'type':
           result.type = serializers.deserialize(value,
-                  specifiedType: const FullType(WebviewParameterType))
+                  specifiedType: const FullType(WebviewParameterType))!
               as WebviewParameterType;
           break;
         case 'value':
           result.value = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -112,11 +112,11 @@ class _$WebviewParameter extends WebviewParameter {
 
   factory _$WebviewParameter(
           [void Function(WebviewParameterBuilder)? updates]) =>
-      (new WebviewParameterBuilder()..update(updates)).build();
+      (new WebviewParameterBuilder()..update(updates))._build();
 
   _$WebviewParameter._({required this.type, required this.value}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(type, 'WebviewParameter', 'type');
-    BuiltValueNullFieldError.checkNotNull(value, 'WebviewParameter', 'value');
+    BuiltValueNullFieldError.checkNotNull(type, r'WebviewParameter', 'type');
+    BuiltValueNullFieldError.checkNotNull(value, r'WebviewParameter', 'value');
   }
 
   @override
@@ -142,7 +142,7 @@ class _$WebviewParameter extends WebviewParameter {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewParameter')
+    return (newBuiltValueToStringHelper(r'WebviewParameter')
           ..add('type', type)
           ..add('value', value))
         .toString();
@@ -185,16 +185,18 @@ class WebviewParameterBuilder
   }
 
   @override
-  _$WebviewParameter build() {
+  WebviewParameter build() => _build();
+
+  _$WebviewParameter _build() {
     final _$result = _$v ??
         new _$WebviewParameter._(
             type: BuiltValueNullFieldError.checkNotNull(
-                type, 'WebviewParameter', 'type'),
+                type, r'WebviewParameter', 'type'),
             value: BuiltValueNullFieldError.checkNotNull(
-                value, 'WebviewParameter', 'value'));
+                value, r'WebviewParameter', 'value'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

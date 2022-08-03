@@ -34,7 +34,7 @@ class DcepStore {
 
   DcepStore() {
     Get.find<IdentityStore>()
-        .selectedIdentityStream
+        .selectedIdentityStream!
         .listen((identity) => _updateOwner(identity.address));
 
     Get.find<ContractService>().nftTokenContract!.eventStream('TransferSingle',

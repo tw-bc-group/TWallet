@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,20 +11,20 @@ import 'package:tw_wallet_ui/widgets/page_title.dart';
 typedef BeforeDispose = Future<void> Function();
 
 class CommonLayout extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final bool withBottomBtn;
   final String btnText;
-  final VoidCallback btnOnPressed;
-  final String title;
-  final Color bodyBackColor;
-  final Color bottomBackColor;
+  final VoidCallback? btnOnPressed;
+  final String? title;
+  final Color? bodyBackColor;
+  final Color? bottomBackColor;
   final BackIcon backIcon;
-  final BeforeDispose beforeDispose;
-  final List<Widget> appBarActions;
+  final BeforeDispose? beforeDispose;
+  final List<Widget>? appBarActions;
   final String errorText;
-  final Widget floatingBtn;
+  final Widget? floatingBtn;
   final bool withFloatingBtn;
-  final Widget customTitle;
+  final Widget? customTitle;
 
   const CommonLayout({
     this.child,
@@ -51,7 +51,7 @@ class CommonLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
         title: customTitle ?? PageTitleWidget(
-          title: title,
+          title: title??"",
           backIcon: backIcon,
           appBarActions: appBarActions,
           beforeDispose: beforeDispose,
@@ -124,7 +124,7 @@ class CommonLayout extends StatelessWidget {
     );
   }
 
-  Widget _bottomContainer({Widget child}) {
+  Widget _bottomContainer({Widget? child}) {
     return Container(
       color: WalletColor.white,
       padding: const EdgeInsets.symmetric(horizontal: 30),

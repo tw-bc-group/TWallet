@@ -30,7 +30,6 @@ import 'package:tw_wallet_ui/views/transfer_confirm/transfer_confirm.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_details_page.dart';
 import 'package:tw_wallet_ui/views/tx_list/tx_list_page.dart';
 
-import '../views/home/my/chat.dart';
 
 Handler newWalletHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
@@ -226,4 +225,10 @@ Handler newVcPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return NewVcPage();
   },
+);
+
+Handler notFoundHandler = Handler(
+  handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+    return null;
+    },
 );

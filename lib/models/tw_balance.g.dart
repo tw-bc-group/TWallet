@@ -33,13 +33,13 @@ class _$TwBalanceSerializer implements StructuredSerializer<TwBalance> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'balance':
           result.amount = serializers.deserialize(value,
-              specifiedType: const FullType(Amount)) as Amount;
+              specifiedType: const FullType(Amount))! as Amount;
           break;
       }
     }
@@ -54,10 +54,10 @@ class _$TwBalance extends TwBalance {
   Decimal? __original;
 
   factory _$TwBalance([void Function(TwBalanceBuilder)? updates]) =>
-      (new TwBalanceBuilder()..update(updates)).build();
+      (new TwBalanceBuilder()..update(updates))._build();
 
   _$TwBalance._({required this.amount}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(amount, 'TwBalance', 'amount');
+    BuiltValueNullFieldError.checkNotNull(amount, r'TwBalance', 'amount');
   }
 
   @override
@@ -83,7 +83,7 @@ class _$TwBalance extends TwBalance {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TwBalance')..add('amount', amount))
+    return (newBuiltValueToStringHelper(r'TwBalance')..add('amount', amount))
         .toString();
   }
 }
@@ -118,14 +118,16 @@ class TwBalanceBuilder implements Builder<TwBalance, TwBalanceBuilder> {
   }
 
   @override
-  _$TwBalance build() {
+  TwBalance build() => _build();
+
+  _$TwBalance _build() {
     final _$result = _$v ??
         new _$TwBalance._(
             amount: BuiltValueNullFieldError.checkNotNull(
-                amount, 'TwBalance', 'amount'));
+                amount, r'TwBalance', 'amount'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

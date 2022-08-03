@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,7 @@ class _TxListPageState extends State<TxListPage> {
       margin: const EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        iStore.selectedIdentityBalance.humanReadableWithSymbol,
+        iStore.selectedIdentityBalance!.humanReadableWithSymbol,
         style:
             WalletFont.font_24(textStyle: TextStyle(color: WalletColor.white)),
       ),
@@ -123,7 +123,7 @@ class _TxListPageState extends State<TxListPage> {
               onPressed: () => Navigator.pushNamed(
                 context,
                 Routes.qrPage,
-                arguments: iStore.selectedIdentity.value,
+                arguments: iStore.selectedIdentity!.value,
               ),
               buttonType: ButtonType.outlineType,
               outlineColor: WalletColor.white,
@@ -152,7 +152,7 @@ class _TxListPageState extends State<TxListPage> {
 
     return ListView.separated(
       padding: const EdgeInsets.all(8),
-      itemCount: txList.length ?? 0,
+      itemCount: txList.length,
       itemBuilder: (BuildContext context, int index) {
         final item = txList[index];
         return TxListItem(

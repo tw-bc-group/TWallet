@@ -64,41 +64,41 @@ class _$WebviewTransactionInfoSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'accountId':
           result.accountId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'rpcUrl':
           result.rpcUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'contractName':
           result.contractName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'contractAddress':
           result.contractAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'contractAbi':
           result.contractAbi = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'functionName':
           result.functionName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'gasPrice':
           result.gasPrice = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
         case 'maxGas':
           result.maxGas = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'parameters':
           result.parameters.replace(serializers.deserialize(value,
@@ -135,7 +135,7 @@ class _$WebviewTransactionInfo extends WebviewTransactionInfo {
 
   factory _$WebviewTransactionInfo(
           [void Function(WebviewTransactionInfoBuilder)? updates]) =>
-      (new WebviewTransactionInfoBuilder()..update(updates)).build();
+      (new WebviewTransactionInfoBuilder()..update(updates))._build();
 
   _$WebviewTransactionInfo._(
       {required this.accountId,
@@ -149,23 +149,23 @@ class _$WebviewTransactionInfo extends WebviewTransactionInfo {
       required this.parameters})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accountId, 'WebviewTransactionInfo', 'accountId');
+        accountId, r'WebviewTransactionInfo', 'accountId');
     BuiltValueNullFieldError.checkNotNull(
-        rpcUrl, 'WebviewTransactionInfo', 'rpcUrl');
+        rpcUrl, r'WebviewTransactionInfo', 'rpcUrl');
     BuiltValueNullFieldError.checkNotNull(
-        contractName, 'WebviewTransactionInfo', 'contractName');
+        contractName, r'WebviewTransactionInfo', 'contractName');
     BuiltValueNullFieldError.checkNotNull(
-        contractAddress, 'WebviewTransactionInfo', 'contractAddress');
+        contractAddress, r'WebviewTransactionInfo', 'contractAddress');
     BuiltValueNullFieldError.checkNotNull(
-        contractAbi, 'WebviewTransactionInfo', 'contractAbi');
+        contractAbi, r'WebviewTransactionInfo', 'contractAbi');
     BuiltValueNullFieldError.checkNotNull(
-        functionName, 'WebviewTransactionInfo', 'functionName');
+        functionName, r'WebviewTransactionInfo', 'functionName');
     BuiltValueNullFieldError.checkNotNull(
-        gasPrice, 'WebviewTransactionInfo', 'gasPrice');
+        gasPrice, r'WebviewTransactionInfo', 'gasPrice');
     BuiltValueNullFieldError.checkNotNull(
-        maxGas, 'WebviewTransactionInfo', 'maxGas');
+        maxGas, r'WebviewTransactionInfo', 'maxGas');
     BuiltValueNullFieldError.checkNotNull(
-        parameters, 'WebviewTransactionInfo', 'parameters');
+        parameters, r'WebviewTransactionInfo', 'parameters');
   }
 
   @override
@@ -214,7 +214,7 @@ class _$WebviewTransactionInfo extends WebviewTransactionInfo {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WebviewTransactionInfo')
+    return (newBuiltValueToStringHelper(r'WebviewTransactionInfo')
           ..add('accountId', accountId)
           ..add('rpcUrl', rpcUrl)
           ..add('contractName', contractName)
@@ -302,27 +302,29 @@ class WebviewTransactionInfoBuilder
   }
 
   @override
-  _$WebviewTransactionInfo build() {
+  WebviewTransactionInfo build() => _build();
+
+  _$WebviewTransactionInfo _build() {
     _$WebviewTransactionInfo _$result;
     try {
       _$result = _$v ??
           new _$WebviewTransactionInfo._(
               accountId: BuiltValueNullFieldError.checkNotNull(
-                  accountId, 'WebviewTransactionInfo', 'accountId'),
+                  accountId, r'WebviewTransactionInfo', 'accountId'),
               rpcUrl: BuiltValueNullFieldError.checkNotNull(
-                  rpcUrl, 'WebviewTransactionInfo', 'rpcUrl'),
+                  rpcUrl, r'WebviewTransactionInfo', 'rpcUrl'),
               contractName: BuiltValueNullFieldError.checkNotNull(
-                  contractName, 'WebviewTransactionInfo', 'contractName'),
+                  contractName, r'WebviewTransactionInfo', 'contractName'),
               contractAddress: BuiltValueNullFieldError.checkNotNull(
-                  contractAddress, 'WebviewTransactionInfo', 'contractAddress'),
+                  contractAddress, r'WebviewTransactionInfo', 'contractAddress'),
               contractAbi: BuiltValueNullFieldError.checkNotNull(
-                  contractAbi, 'WebviewTransactionInfo', 'contractAbi'),
+                  contractAbi, r'WebviewTransactionInfo', 'contractAbi'),
               functionName: BuiltValueNullFieldError.checkNotNull(
-                  functionName, 'WebviewTransactionInfo', 'functionName'),
+                  functionName, r'WebviewTransactionInfo', 'functionName'),
               gasPrice: BuiltValueNullFieldError.checkNotNull(
-                  gasPrice, 'WebviewTransactionInfo', 'gasPrice'),
+                  gasPrice, r'WebviewTransactionInfo', 'gasPrice'),
               maxGas: BuiltValueNullFieldError.checkNotNull(
-                  maxGas, 'WebviewTransactionInfo', 'maxGas'),
+                  maxGas, r'WebviewTransactionInfo', 'maxGas'),
               parameters: parameters.build());
     } catch (_) {
       late String _$failedField;
@@ -331,7 +333,7 @@ class WebviewTransactionInfoBuilder
         parameters.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'WebviewTransactionInfo', _$failedField, e.toString());
+            r'WebviewTransactionInfo', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -340,4 +342,4 @@ class WebviewTransactionInfoBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:async';
 import 'dart:convert';
@@ -13,7 +13,7 @@ import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DAppPage extends StatefulWidget {
-  final String id;
+  final String? id;
   const DAppPage({this.id});
 
   @override
@@ -35,7 +35,7 @@ class DAppPageState extends State<DAppPage> {
     DAppService.setStatusBarMode('id', 'dark');
   }
 
-  DAppInfo getDappById(String id) {
+  DAppInfo getDappById(String? id) {
     return dappList.firstWhere((dapp) => dapp.id == id);
   }
 
@@ -44,8 +44,8 @@ class DAppPageState extends State<DAppPage> {
       name: 'TWalletNative',
       onMessageReceived: (JavascriptMessage message) {
         try {
-          final Map<String, dynamic> requestJson =
-              jsonDecode(message.message) as Map<String, dynamic>;
+          final Map<String, dynamic>? requestJson =
+              jsonDecode(message.message) as Map<String, dynamic>?;
           final WebviewRequest webviewRequest =
               WebviewRequest.fromJson(requestJson);
           DAppService.getOperator(webviewRequest.method)

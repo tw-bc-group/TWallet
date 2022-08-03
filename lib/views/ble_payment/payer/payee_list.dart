@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:async';
 
@@ -100,9 +100,9 @@ class PayeeListScreen extends StatefulWidget {
 class _PayeeListScreenState extends State<PayeeListScreen> {
   final BleManager _bleManager = BleManager();
   final RxList<Payee> _bleDevices = RxList([]);
-  StreamSubscription<ScanResult> _scanSubscription;
+  late StreamSubscription<ScanResult> _scanSubscription;
 
-  Future<bool> _checkAndRequirePermissions() async {
+  Future<bool?> _checkAndRequirePermissions() async {
     const Permission _permission = Permission.locationWhenInUse;
     final PermissionStatus status = await _permission.status;
 
@@ -143,7 +143,7 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   Future<void> _waitForBluetoothPoweredOn() async {
     final Completer completer = Completer();
 
-    StreamSubscription<BluetoothState> subscription;
+    late StreamSubscription<BluetoothState> subscription;
 
     subscription =
         _bleManager.observeBluetoothState().listen((bluetoothState) async {
