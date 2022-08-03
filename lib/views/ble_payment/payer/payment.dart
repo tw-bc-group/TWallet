@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -82,8 +80,8 @@ class _PaymentState extends State<Payment> {
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
   late StreamSubscription _dataMonitor;
-  Characteristic? _readCharacteristic;
-  Characteristic? _writeCharacteristic;
+  late Characteristic _readCharacteristic;
+  late Characteristic _writeCharacteristic;
 
   Future<Optional<Tuple2<Characteristic?, Characteristic?>>> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 48b1c8f (fix: widget test)
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
@@ -68,8 +71,12 @@ class Session {
   late List<TxSend> _txList;
   SymmEncrypt? _encrypter;
 
-  Session(this.address, this.publicKey, this._readCharacteristic,
-      this._writeCharacteristic);
+  Session(
+    this.address,
+    this.publicKey,
+    this._readCharacteristic,
+    this._writeCharacteristic,
+  );
 
   Future<void> _sendCommand(Command command, SessionState newState) {
     Future sendFuture;
@@ -80,7 +87,11 @@ class Session {
 
     if (_encrypter != null) {
       sendFuture =
+<<<<<<< HEAD
           _writeCharacteristic!.sendEncryptedCommand(_encrypter!, command);
+=======
+          _writeCharacteristic.sendEncryptedCommand(_encrypter!, command);
+>>>>>>> 48b1c8f (fix: widget test)
     } else {
       sendFuture = _writeCharacteristic!.sendCommand(command);
     }
@@ -166,8 +177,13 @@ class Session {
           _sendCommand(
             Command.build(
               CommandType.setAesKey,
+<<<<<<< HEAD
               param:
                   RSAPublicKey.fromString(command.param!).encrypt('$aesKey $iv'),
+=======
+              param: RSAPublicKey.fromString(command.param!)
+                  .encrypt('$aesKey $iv'),
+>>>>>>> 48b1c8f (fix: widget test)
             ),
             SessionState.waitAesKeyAnswer,
           ).then((_) => _encrypter = SymmEncrypt(aesKey, iv));
