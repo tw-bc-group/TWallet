@@ -59,7 +59,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
       bodyBackColor: bgColor,
       btnText: "确定并生成二维码",
       btnOnPressed: () => _handleVsSubmit(),
-      errorText: errorText??"",
+      errorText: errorText ?? '',
       appBarActions: <Widget>[
         ScanIcon(scanCallBack: _handleScanResult),
       ],

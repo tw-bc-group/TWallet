@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -13,8 +11,8 @@ import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DAppPage extends StatefulWidget {
-  final String? id;
-  const DAppPage({this.id});
+  final String id;
+  const DAppPage({required this.id});
 
   @override
   State<StatefulWidget> createState() {

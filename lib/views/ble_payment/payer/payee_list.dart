@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -110,7 +108,7 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
       if (status.isDenied ||
           status.isRestricted ||
           status.isPermanentlyDenied) {
-        return showCupertinoDialog(
+        return showCupertinoDialog<bool?>(
           context: context,
           builder: (BuildContext context) {
             return CupertinoAlertDialog(
@@ -149,12 +147,11 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
         _bleManager.observeBluetoothState().listen((bluetoothState) async {
       if (bluetoothState == BluetoothState.POWERED_ON &&
           !completer.isCompleted) {
-        await subscription.cancel();
         completer.complete();
       }
     });
 
-    return completer.future;
+    return completer.future.whenComplete(() => subscription.cancel());
   }
 
   void _startScan() {

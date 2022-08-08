@@ -59,7 +59,13 @@ class TWallet extends StatelessWidget {
   final String initialRoute;
 
   TWallet({required this.initialRoute}) {
-    final router = FluroRouter.appRouter;
+    final router = FluroRouter();
+    // see issue: https://github.com/lukepighetti/fluro/issues/227
+    router.notFoundHandler = Handler(
+      handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+        return;
+      },
+    );
     Routes.configureRoutes(router);
     Application.router = router;
   }

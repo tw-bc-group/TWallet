@@ -1,5 +1,3 @@
-
-
 import 'dart:collection';
 
 import 'package:connectivity/connectivity.dart';
@@ -138,8 +136,8 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
             '网络已关闭，请打开网络同步账户信息',
             style: Theme.of(context)
                 .primaryTextTheme
-                .subtitle1!
-                .copyWith(color: Colors.white),
+                .subtitle1
+                ?.copyWith(color: Colors.white),
           ),
         ],
       ),
@@ -174,7 +172,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                         )
                         .toList(),
                     onChanged: (DcepType? value) {
-                      _redeemType.value = value;
+                      if (value != null) _redeemType.value = value;
                     },
                   ),
                 ),
@@ -232,11 +230,10 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
       final DecentralizedIdentity identity =
           Get.find<IdentityStore>().selectedIdentity!.value;
 
-      return FutureBuilder(
-        initialData: null,
+      return FutureBuilder<ConnectivityResult>(
         future: _connectivity.checkConnectivity(),
-        builder:
-            (BuildContext context, AsyncSnapshot<ConnectivityResult?> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<ConnectivityResult?> snapshot) {
           if (null == snapshot.data) {
             return Container();
           } else {
@@ -247,14 +244,13 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
                   AsyncSnapshot<ConnectivityResult> snapshot) {
                 if (!isNonceSynced &&
                     ConnectivityResult.none == snapshot.data) {
-                  return _buildNetworkOffScreen(snapshot.data);
+                  return _buildNetworkOffScreen(snapshot.data!);
                 } else if (!isNonceSynced &&
                     ConnectivityResult.none != snapshot.data) {
-                  return FutureBuilder(
-                    initialData: null,
+                  return FutureBuilder<int>(
                     future: Get.find<ContractService>()
-                        .nftTokenContract!
-                        .getTransactionCount(
+                        .nftTokenContract
+                        ?.getTransactionCount(
                           EthereumAddress.fromHex(identity.address),
                         ),
                     builder:

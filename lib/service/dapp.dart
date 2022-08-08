@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:bip39/bip39.dart' as bip39;
@@ -36,9 +35,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 typedef OperatorFunction = void Function(String id, String? param);
 
 class DAppService {
-  static late BuildContext context;
-  static late WebViewController webviewController;
-  static late DAppPageState dappPageStateInstance;
+  static BuildContext? context;
+  static WebViewController? webviewController;
+  static DAppPageState? dappPageStateInstance;
   static String? dappid;
 
   static OperatorFunction getOperator(WebviewRequestMethod method) {
@@ -77,7 +76,7 @@ class DAppService {
   static void quitApp(String id, _) {
     setStatusBarMode(id, 'dark');
     setStatusBarBackgroundColor(id, WalletColor.PRIMARY);
-    Application.router.pop(context);
+    Application.router.pop(context!);
   }
 
   static Future<void> signTransaction(String id, String? param) async {
@@ -158,7 +157,7 @@ class DAppService {
     resolve(
       id,
       Optional.ofNullable(
-        await Application.router.navigateTo(context, Routes.qrScanner),
+        await Application.router.navigateTo(context!, Routes.qrScanner),
       ).orElse(''),
     );
   }
@@ -218,7 +217,7 @@ class DAppService {
   static void setStatusBarBackgroundColor(String id, String? param) {
     if (DeviceInfo.isIOS()) {
       return dappPageStateInstance
-          .changeBackgroundColor(WalletTheme.rgbColor(param!));
+          ?.changeBackgroundColor(WalletTheme.rgbColor(param!));
     }
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -247,7 +246,7 @@ class DAppService {
       return resolve(id, null);
     }
 
-    resolve(id, Get.find<IdentityStore>().getIdentityById(param)!.basicInfo());
+    resolve(id, Get.find<IdentityStore>().getIdentityById(param)?.basicInfo());
   }
 
   static void getAccountByIds(String id, String? param) {
@@ -277,10 +276,10 @@ class DAppService {
       encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc),
     );
     final SecureStorage _secureStorage = Get.find();
-    final String encryptedString = await (_secureStorage
-        .get(SecureStorageItem.masterKey) as FutureOr<String>);
+    final String? encryptedString =
+        await _secureStorage.get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
-        encrypt_tool.Encrypted.fromBase64(encryptedString);
+        encrypt_tool.Encrypted.fromBase64(encryptedString!);
     try {
       encrypt.decrypt(encryptedKey, iv: iv);
       resolve(id, true);
@@ -290,7 +289,7 @@ class DAppService {
   }
 
   static void resolve(String id, dynamic data) {
-    webviewController.evaluateJavascript(
+    webviewController?.evaluateJavascript(
       'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})',
     );
   }
@@ -298,7 +297,7 @@ class DAppService {
   static void reject(String id, dynamic data) {
     webviewController
         // ignore: avoid_escaping_inner_quotes
-        .evaluateJavascript(
+        ?.evaluateJavascript(
       'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});',
     );
   }

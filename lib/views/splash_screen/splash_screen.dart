@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
@@ -14,7 +12,7 @@ class SplashScreen extends StatefulWidget {
   final Function(String)? onInitializationComplete;
 
   const SplashScreen({
-    this.onInitializationComplete,
+    required this.onInitializationComplete,
   });
 
   @override
@@ -38,8 +36,7 @@ class _SplashAppState extends State<SplashScreen> {
   }
 
   Future<void> _initializeAsyncDependencies() async {
-    Application.appName =
-        (await PackageInfo.fromPlatform()).appName;
+    Application.appName = (await PackageInfo.fromPlatform()).appName;
     await initGlobalDependencies();
     final route = await _initialRoute();
     widget.onInitializationComplete!(route);

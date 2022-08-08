@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
@@ -20,7 +18,7 @@ class CommonLayout extends StatelessWidget {
   final Color? bottomBackColor;
   final BackIcon backIcon;
   final BeforeDispose? beforeDispose;
-  final List<Widget>? appBarActions;
+  final List<Widget> appBarActions;
   final String errorText;
   final Widget? floatingBtn;
   final bool withFloatingBtn;
@@ -37,7 +35,7 @@ class CommonLayout extends StatelessWidget {
     this.beforeDispose,
     this.backIcon = BackIcon.arrow,
     this.errorText = '',
-    this.appBarActions,
+    this.appBarActions = const [],
     this.floatingBtn,
     this.withFloatingBtn = false,
     this.customTitle,
@@ -50,12 +48,13 @@ class CommonLayout extends StatelessWidget {
       backgroundColor: bodyBackColor ?? WalletColor.primary,
       appBar: AppBar(
         backgroundColor: WalletColor.primary,
-        title: customTitle ?? PageTitleWidget(
-          title: title??"",
-          backIcon: backIcon,
-          appBarActions: appBarActions,
-          beforeDispose: beforeDispose,
-        ),
+        title: customTitle ??
+            PageTitleWidget(
+              title: title!,
+              backIcon: backIcon,
+              appBarActions: appBarActions,
+              beforeDispose: beforeDispose,
+            ),
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
@@ -124,7 +123,7 @@ class CommonLayout extends StatelessWidget {
     );
   }
 
-  Widget _bottomContainer({Widget? child}) {
+  Widget _bottomContainer({required Widget child}) {
     return Container(
       color: WalletColor.white,
       padding: const EdgeInsets.symmetric(horizontal: 30),

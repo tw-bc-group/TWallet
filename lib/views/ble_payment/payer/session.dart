@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
@@ -68,8 +66,12 @@ class Session {
   late List<TxSend> _txList;
   SymmEncrypt? _encrypter;
 
-  Session(this.address, this.publicKey, this._readCharacteristic,
-      this._writeCharacteristic);
+  Session(
+    this.address,
+    this.publicKey,
+    this._readCharacteristic,
+    this._writeCharacteristic,
+  );
 
   Future<void> _sendCommand(Command command, SessionState newState) {
     Future sendFuture;
@@ -166,8 +168,8 @@ class Session {
           _sendCommand(
             Command.build(
               CommandType.setAesKey,
-              param:
-                  RSAPublicKey.fromString(command.param!).encrypt('$aesKey $iv'),
+              param: RSAPublicKey.fromString(command.param!)
+                  .encrypt('$aesKey $iv'),
             ),
             SessionState.waitAesKeyAnswer,
           ).then((_) => _encrypter = SymmEncrypt(aesKey, iv));
