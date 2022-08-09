@@ -83,7 +83,7 @@ class DcepType extends EnumClass {
 
   @override
   String toString() {
-    return (serializers.serialize(this) as Map<String, dynamic>)[''] as String;
+    return (serializers.serialize(this)! as Map<String, dynamic>)[''] as String;
   }
 }
 
@@ -107,7 +107,7 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
   int get amount => type.amount;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   bool verify() {
@@ -123,7 +123,7 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(Dcep),
-    ) as Dcep;
+    )! as Dcep;
   }
 
   Dcep._();

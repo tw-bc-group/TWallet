@@ -44,7 +44,7 @@ class TxListDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TxListDetailsPageArgs args =
-        ModalRoute.of(context)!.settings.arguments as TxListDetailsPageArgs;
+        ModalRoute.of(context)!.settings.arguments! as TxListDetailsPageArgs;
 
     return WillPopScope(
       onWillPop: args.shouldBackToHome ? () async => false : null,

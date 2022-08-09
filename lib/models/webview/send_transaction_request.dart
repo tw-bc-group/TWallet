@@ -18,7 +18,7 @@ abstract class SendTransactionRequest
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(SendTransactionRequest),
-      ) as SendTransactionRequest;
+      )! as SendTransactionRequest;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

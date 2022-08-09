@@ -29,7 +29,7 @@ abstract class WebviewPincodeDialogErrorMsg
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(WebviewPincodeDialogErrorMsg),
-      ) as WebviewPincodeDialogErrorMsg;
+      )! as WebviewPincodeDialogErrorMsg;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }

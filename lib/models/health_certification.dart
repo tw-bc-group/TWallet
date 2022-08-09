@@ -30,11 +30,11 @@ abstract class HealthCertification
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(HealthCertification),
-    ) as HealthCertification;
+    )! as HealthCertification;
   }
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   HealthCertification._();
@@ -57,7 +57,7 @@ abstract class HealthCertificationSub
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(HealthCertificationSub),
-    ) as HealthCertificationSub;
+    )! as HealthCertificationSub;
   }
 
   HealthCertificationSub._();
@@ -77,7 +77,7 @@ abstract class HealthyStatus
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(HealthyStatus),
-    ) as HealthyStatus;
+    )! as HealthyStatus;
   }
 
   HealthyStatus._();

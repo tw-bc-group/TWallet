@@ -19,7 +19,7 @@ abstract class WebviewRequest
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(WebviewRequest),
-      ) as WebviewRequest;
+      )! as WebviewRequest;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

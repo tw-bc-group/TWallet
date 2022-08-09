@@ -33,7 +33,7 @@ abstract class WebviewParameter
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(WebviewParameter),
-      ) as WebviewParameter;
+      )! as WebviewParameter;
     } catch (error) {
       throw Exception('webview parameter deserialize error, $error');
     }

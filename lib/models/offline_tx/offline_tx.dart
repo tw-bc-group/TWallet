@@ -17,7 +17,7 @@ abstract class TxReceive implements Built<TxReceive, TxReceiveBuilder> {
   factory TxReceive([void Function(TxReceiveBuilder) updates]) = _$TxReceive;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   static TxReceive? fromJson(Map<String, dynamic> json) {

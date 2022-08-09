@@ -15,7 +15,7 @@ abstract class Contract extends Object
   int? get decimal;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   factory Contract([void Function(ContractBuilder) updates]) = _$Contract;
@@ -24,7 +24,7 @@ abstract class Contract extends Object
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(Contract),
-    ) as Contract;
+    )! as Contract;
   }
 
   Contract._();

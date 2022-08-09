@@ -26,7 +26,7 @@ abstract class WebviewTransactionInfo
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(WebviewTransactionInfo),
-      ) as WebviewTransactionInfo;
+      )! as WebviewTransactionInfo;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }

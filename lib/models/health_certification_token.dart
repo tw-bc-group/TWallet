@@ -25,7 +25,7 @@ abstract class HealthCertificationToken extends Object
   }
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   Future<bool> verify() {
@@ -44,7 +44,7 @@ abstract class HealthCertificationToken extends Object
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(HealthCertificationToken),
-    ) as HealthCertificationToken;
+    )! as HealthCertificationToken;
   }
 
   @override

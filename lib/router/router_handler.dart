@@ -217,7 +217,7 @@ Handler verificationScenarioPageHandler = Handler(
 
 Handler verificationScenarioQrPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> parms) {
-    final name = context!.settings!.arguments as String;
+    final name = context!.settings!.arguments! as String;
     return VerificationScenarioQrPage(name: name);
   },
 );

@@ -12,7 +12,7 @@ abstract class SendTransactionResponse extends Object
   String get hash;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   factory SendTransactionResponse([
@@ -23,7 +23,7 @@ abstract class SendTransactionResponse extends Object
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(SendTransactionResponse),
-    ) as SendTransactionResponse;
+    )! as SendTransactionResponse;
   }
 
   SendTransactionResponse._();

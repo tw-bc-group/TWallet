@@ -21,7 +21,7 @@ abstract class CreateAccountParam
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(CreateAccountParam),
-      ) as CreateAccountParam;
+      )! as CreateAccountParam;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

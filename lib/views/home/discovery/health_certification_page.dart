@@ -28,7 +28,7 @@ class HealthCertificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeStore = ModalRoute.of(context)!.settings.arguments as HomeStore;
+    final homeStore = ModalRoute.of(context)!.settings.arguments! as HomeStore;
 
     return CommonLayout(
       appBarActions: <Widget>[ScanIcon(onTap: () => _handleScan(context))],

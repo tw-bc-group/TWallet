@@ -26,7 +26,7 @@ abstract class WebviewPincodeDialogStyle
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(WebviewPincodeDialogStyle),
-      ) as WebviewPincodeDialogStyle;
+      )! as WebviewPincodeDialogStyle;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }

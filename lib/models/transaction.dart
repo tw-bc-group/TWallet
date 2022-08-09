@@ -35,7 +35,7 @@ abstract class Transaction extends Object
   TxStatus get txType;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   factory Transaction([void Function(TransactionBuilder) updates]) =
@@ -45,7 +45,7 @@ abstract class Transaction extends Object
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(Transaction),
-    ) as Transaction;
+    )! as Transaction;
   }
 
   Transaction._();

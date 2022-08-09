@@ -21,7 +21,7 @@ abstract class AccountInfo implements Built<AccountInfo, AccountInfoBuilder> {
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(AccountInfo),
-      ) as AccountInfo;
+      )! as AccountInfo;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

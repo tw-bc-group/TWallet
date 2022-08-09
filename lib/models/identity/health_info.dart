@@ -16,7 +16,7 @@ abstract class HealthInfo implements Built<HealthInfo, HealthInfoBuilder> {
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(HealthInfo),
-      ) as HealthInfo;
+      )! as HealthInfo;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

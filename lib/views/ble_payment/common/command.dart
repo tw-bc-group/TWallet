@@ -45,7 +45,7 @@ abstract class Command implements Built<Command, CommandBuilder> {
   }
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   static Command fromJson(dynamic serialized) {
@@ -53,7 +53,7 @@ abstract class Command implements Built<Command, CommandBuilder> {
       return serializers.deserialize(
         serialized,
         specifiedType: const FullType(Command),
-      ) as Command;
+      )! as Command;
     } catch (error) {
       throw Exception('command deserialize error, $error');
     }

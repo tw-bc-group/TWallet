@@ -10,7 +10,7 @@ class IdentityQRPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DecentralizedIdentity identity =
-        ModalRoute.of(context)!.settings.arguments as DecentralizedIdentity;
+        ModalRoute.of(context)!.settings.arguments! as DecentralizedIdentity;
 
     return CommonLayout(
       title: '身份二维码',

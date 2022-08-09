@@ -14,7 +14,7 @@ abstract class VcType extends Object implements Built<VcType, VcTypeBuilder> {
   BuiltList<String> get content;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   factory VcType([void Function(VcTypeBuilder) updates]) = _$VcType;
@@ -23,7 +23,7 @@ abstract class VcType extends Object implements Built<VcType, VcTypeBuilder> {
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(VcType),
-    ) as VcType;
+    )! as VcType;
   }
 
   VcType._();

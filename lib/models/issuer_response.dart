@@ -17,7 +17,7 @@ abstract class IssuerResponse extends Object
   BuiltList<VcType> get vcTypes;
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   factory IssuerResponse([void Function(IssuerResponseBuilder) updates]) =
@@ -27,7 +27,7 @@ abstract class IssuerResponse extends Object
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(IssuerResponse),
-    ) as IssuerResponse;
+    )! as IssuerResponse;
   }
 
   IssuerResponse._();

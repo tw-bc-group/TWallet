@@ -124,14 +124,14 @@ abstract class DecentralizedIdentity extends Object
   }
 
   Map<String, dynamic> toJson() {
-    return serializers.serialize(this) as Map<String, dynamic>;
+    return serializers.serialize(this)! as Map<String, dynamic>;
   }
 
   factory DecentralizedIdentity.fromJson(dynamic serialized) {
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(DecentralizedIdentity),
-    ) as DecentralizedIdentity;
+    )! as DecentralizedIdentity;
   }
 
   DecentralizedIdentity._();

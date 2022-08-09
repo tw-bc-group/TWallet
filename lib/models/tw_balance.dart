@@ -26,7 +26,7 @@ abstract class TwBalance extends Object
     return serializers.deserialize(
       serialized,
       specifiedType: const FullType(TwBalance),
-    ) as TwBalance;
+    )! as TwBalance;
   }
 
   static Future<Optional<TwBalance>> fetchBalance({
