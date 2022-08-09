@@ -71,11 +71,11 @@ abstract class _HealthCertificatePageStore with Store {
 
   @action
   void validatePhone() {
-    error.phone = (phone.isEmpty
-        ? '手机号码不能为空'
-        : Util.isValidPhone(phone)
-            ? null
-            : '请输入有效的手机号')!;
+    if (phone.isEmpty) {
+      error.phone = '手机号码不能为空';
+    } else if (!Util.isValidPhone(phone)) {
+      error.phone = '请输入有效的手机号';
+    }
   }
 
   @action
