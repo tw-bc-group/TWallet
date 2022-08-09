@@ -100,16 +100,16 @@ class HealthCertificationPage extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: EdgeInsets.only(
-          left: screenUtil.setWidth(24).toDouble(),
-          right: screenUtil.setWidth(24).toDouble(),
-          top: screenUtil.setHeight(10).toDouble(),
-          bottom: screenUtil.setHeight(147).toDouble(),
+          left: screenUtil.setWidth(24),
+          right: screenUtil.setWidth(24),
+          top: screenUtil.setHeight(10),
+          bottom: screenUtil.setHeight(147),
         ),
         padding: EdgeInsets.only(
-          left: screenUtil.setWidth(20).toDouble(),
-          right: screenUtil.setWidth(20).toDouble(),
-          top: screenUtil.setHeight(90).toDouble(),
-          bottom: screenUtil.setHeight(46).toDouble(),
+          left: screenUtil.setWidth(20),
+          right: screenUtil.setWidth(20),
+          top: screenUtil.setHeight(90),
+          bottom: screenUtil.setHeight(46),
         ),
         decoration: BoxDecoration(
           color: Colors.white,

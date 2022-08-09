@@ -182,7 +182,7 @@ class TransferPageState extends State<TransferPage> {
       final bool transferSuccess =
           await iStore.selectedIdentity!.value.transferPoint(
         toAddress: payeeAddress,
-        amount: Amount(Decimal.parse(amount.toString())),
+        amount: Amount(Decimal.parse(amount)),
       );
       if (transferSuccess) {
         return Navigator.pushNamed(

@@ -98,10 +98,10 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: screenUtil.setWidth(40).toDouble(),
-                  bottom: screenUtil.setWidth(24).toDouble(),
-                  left: screenUtil.setWidth(24).toDouble(),
-                  right: screenUtil.setWidth(24).toDouble(),
+                  top: screenUtil.setWidth(40),
+                  bottom: screenUtil.setWidth(24),
+                  left: screenUtil.setWidth(24),
+                  right: screenUtil.setWidth(24),
                 ),
                 child: Center(
                   child: Text(
@@ -112,10 +112,10 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenUtil.setWidth(24).toDouble(),
+                  horizontal: screenUtil.setWidth(24),
                 ),
                 child: Container(
-                  height: screenUtil.setHeight(162).toDouble(),
+                  height: screenUtil.setHeight(162),
                   decoration: BoxDecoration(
                     color: WalletColor.lightGrey,
                     borderRadius: BorderRadius.circular(12),
@@ -152,7 +152,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenUtil.setWidth(24).toDouble(),
+                  horizontal: screenUtil.setWidth(24),
                 ),
                 child: _restoreFailed.value
                     ? const Tips('恢复失败，请稍后再试')

@@ -31,8 +31,8 @@ Future<void> _showAddIdentityDialog(
         type: MaterialType.transparency,
         child: Center(
           child: Container(
-            width: screenUtil.setWidth(327).toDouble(),
-            height: screenUtil.setHeight(555).toDouble(),
+            width: screenUtil.setWidth(327),
+            height: screenUtil.setHeight(555),
             decoration: BoxDecoration(
               color: const Color(0xffffffff),
               borderRadius: BorderRadius.circular(12),
@@ -42,19 +42,19 @@ Future<void> _showAddIdentityDialog(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(
-                    top: screenUtil.setHeight(155).toDouble(),
+                    top: screenUtil.setHeight(155),
                   ),
                   child: SvgPicture.asset(
                     'assets/icons/new-identity.svg',
-                    width: screenUtil.setWidth(118).toDouble(),
-                    height: screenUtil.setHeight(115).toDouble(),
+                    width: screenUtil.setWidth(118),
+                    height: screenUtil.setHeight(115),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: screenUtil.setHeight(38).toDouble(),
-                    left: screenUtil.setWidth(71).toDouble(),
-                    right: screenUtil.setWidth(71).toDouble(),
+                    top: screenUtil.setHeight(38),
+                    left: screenUtil.setWidth(71),
+                    right: screenUtil.setWidth(71),
                   ),
                   child: Text(
                     '您还没有添加身份，请前往"身份"页面添加身份',
@@ -69,8 +69,8 @@ Future<void> _showAddIdentityDialog(
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: screenUtil.setWidth(20).toDouble(),
-                    vertical: screenUtil.setHeight(48).toDouble(),
+                    horizontal: screenUtil.setWidth(20),
+                    vertical: screenUtil.setHeight(48),
                   ),
                   child: WalletTheme.button(
                     text: '立即前往',

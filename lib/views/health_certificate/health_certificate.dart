@@ -90,14 +90,14 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       _formTitle(title),
       Container(
         padding: EdgeInsets.symmetric(
-          horizontal: screenUtil.setWidth(16).toDouble(),
+          horizontal: screenUtil.setWidth(16),
         ),
         margin: const EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: WalletColor.grey),
         ),
-        height: screenUtil.setHeight(44).toDouble(),
+        height: screenUtil.setHeight(44),
         child: TextField(
           controller: controller,
           keyboardType: inputType,
@@ -189,8 +189,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       ),
       child: Padding(
         padding: EdgeInsets.only(
-          left: screenUtil.setWidth(24).toDouble(),
-          right: screenUtil.setWidth(24).toDouble(),
+          left: screenUtil.setWidth(24),
+          right: screenUtil.setWidth(24),
           top: 24,
         ),
         child: ListView(
@@ -285,7 +285,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: screenUtil.setWidth(10).toDouble(),
+                          horizontal: screenUtil.setWidth(10),
                         ),
                         child: Text(
                           '上述信息是我本人填写，本人对内容真实性和完整性负责，因信息填报不实导致相关后果的，本人愿意承担相应责任。',
@@ -305,7 +305,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: screenUtil.setHeight(24).toDouble(),
+                vertical: screenUtil.setHeight(24),
               ),
               child: WalletTheme.button(
                 text: '确定',
@@ -331,12 +331,12 @@ class HealthCertificateState extends State<HealthCertificatePage> {
           children: <Widget>[
             SvgPicture.asset(
               'assets/icons/security.svg',
-              width: screenUtil.setWidth(60).toDouble(),
+              width: screenUtil.setWidth(60),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: screenUtil.setWidth(24).toDouble(),
-                vertical: screenUtil.setHeight(24).toDouble(),
+                horizontal: screenUtil.setWidth(24),
+                vertical: screenUtil.setHeight(24),
               ),
               child: Text(
                 '本服务基于手机运营商提供的行程数据以及个人健康信息的填报，为公众提供本人防疫健康信息查询服务。',

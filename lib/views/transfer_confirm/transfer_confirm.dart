@@ -42,7 +42,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
       final bool transferSuccess =
           await identityStore.selectedIdentity!.value.transferPoint(
         toAddress: widget.toAddress,
-        amount: Amount(Decimal.parse(widget.amount.toString())),
+        amount: Amount(Decimal.parse(widget.amount)),
       );
       if (transferSuccess) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');

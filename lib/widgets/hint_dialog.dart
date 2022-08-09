@@ -99,7 +99,7 @@ class HintDialog extends Dialog {
 
     final List<Widget> children = [
       Padding(
-        padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
+        padding: EdgeInsets.only(top: screenUtil.setHeight(16)),
         child: Text(
           title.isEmpty ? '提示' : title,
           textAlign: TextAlign.center,
@@ -109,14 +109,14 @@ class HintDialog extends Dialog {
         ),
       ),
       Padding(
-        padding: EdgeInsets.only(top: screenUtil.setHeight(16).toDouble()),
+        padding: EdgeInsets.only(top: screenUtil.setHeight(16)),
         child: Divider(color: WalletColor.grey),
       ),
       Padding(
         padding: EdgeInsets.only(
-          top: screenUtil.setHeight(20).toDouble(),
-          left: screenUtil.setHeight(20).toDouble(),
-          right: screenUtil.setHeight(20).toDouble(),
+          top: screenUtil.setHeight(20),
+          left: screenUtil.setHeight(20),
+          right: screenUtil.setHeight(20),
         ),
         child: Text(
           text,
@@ -128,11 +128,11 @@ class HintDialog extends Dialog {
       ),
       Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: screenUtil.setWidth(20).toDouble(),
-          vertical: screenUtil.setHeight(20).toDouble(),
+          horizontal: screenUtil.setWidth(20),
+          vertical: screenUtil.setHeight(20),
         ),
         child: WalletTheme.button(
-          height: screenUtil.setHeight(44).toDouble(),
+          height: screenUtil.setHeight(44),
           text: buttonText.isEmpty ? '知道了' : buttonText,
           onPressed: () {
             Navigator.pop(context);
@@ -145,7 +145,7 @@ class HintDialog extends Dialog {
       (svgPicture) => children.insert(
         2,
         Padding(
-          padding: EdgeInsets.only(top: screenUtil.setHeight(20).toDouble()),
+          padding: EdgeInsets.only(top: screenUtil.setHeight(20)),
           child: svgPicture,
         ),
       ),
@@ -156,9 +156,9 @@ class HintDialog extends Dialog {
         4,
         Padding(
           padding: EdgeInsets.only(
-            top: screenUtil.setWidth(20).toDouble(),
-            left: screenUtil.setWidth(20).toDouble(),
-            right: screenUtil.setWidth(20).toDouble(),
+            top: screenUtil.setWidth(20),
+            left: screenUtil.setWidth(20),
+            right: screenUtil.setWidth(20),
           ),
           child: Text(
             subText,
@@ -179,7 +179,7 @@ class HintDialog extends Dialog {
       type: MaterialType.transparency,
       child: Center(
         child: Container(
-          width: screenUtil.setWidth(280).toDouble(),
+          width: screenUtil.setWidth(280),
           decoration: BoxDecoration(
             color: WalletColor.white,
             borderRadius: BorderRadius.circular(12),
@@ -222,7 +222,7 @@ class HintDialogSample extends Dialog {
             .map((svgPicture) {
       return [
         Padding(
-          padding: EdgeInsets.only(top: screenUtil.setHeight(32).toDouble()),
+          padding: EdgeInsets.only(top: screenUtil.setHeight(32)),
           child: svgPicture,
         )
       ];
@@ -231,8 +231,8 @@ class HintDialogSample extends Dialog {
     children.add(
       Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: screenUtil.setWidth(20).toDouble(),
-          vertical: screenUtil.setHeight(textVerticalPadding).toDouble(),
+          horizontal: screenUtil.setWidth(20),
+          vertical: screenUtil.setHeight(textVerticalPadding),
         ),
         child: Text(
           text,
@@ -248,9 +248,7 @@ class HintDialogSample extends Dialog {
       type: MaterialType.transparency,
       child: Center(
         child: Container(
-          width: screenUtil
-              .setWidth(type == DialogType.none ? 120 : 160)
-              .toDouble(),
+          width: screenUtil.setWidth(type == DialogType.none ? 120 : 160),
           decoration: BoxDecoration(
             color: WalletColor.white,
             borderRadius: BorderRadius.circular(12),

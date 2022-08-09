@@ -249,11 +249,10 @@ class PinInputWidget extends StatelessWidget {
                               ),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      screenUtil.setWidth(30).toDouble(),
+                                  horizontal: screenUtil.setWidth(30),
                                   vertical: DeviceInfo.isIphoneXSeries()
-                                      ? screenUtil.setHeight(34).toDouble()
-                                      : screenUtil.setHeight(20).toDouble(),
+                                      ? screenUtil.setHeight(34)
+                                      : screenUtil.setHeight(20),
                                 ),
                                 child: WalletTheme.button(
                                   text: '下一步',

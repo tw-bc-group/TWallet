@@ -58,8 +58,8 @@ class MyPage extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: screenUtil.setWidth(15).toDouble()),
-        height: screenUtil.setWidth(90).toDouble(),
+        margin: EdgeInsets.only(bottom: screenUtil.setWidth(15)),
+        height: screenUtil.setWidth(90),
         decoration: BoxDecoration(
           color: WalletColor.white,
           borderRadius: BorderRadius.circular(12),
@@ -74,7 +74,7 @@ class MyPage extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: screenUtil.setWidth(20).toDouble(),
+              horizontal: screenUtil.setWidth(20),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +96,7 @@ class MyPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          height: screenUtil.setHeight(244).toDouble(),
+          height: screenUtil.setHeight(244),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/background.png'),
@@ -119,7 +119,7 @@ class MyPage extends StatelessWidget {
           child: Container(
             color: WalletColor.lightGrey,
             child: Padding(
-              padding: EdgeInsets.all(screenUtil.setWidth(24).toDouble()),
+              padding: EdgeInsets.all(screenUtil.setWidth(24)),
               child: ListView(
                 children: <Widget>[
                   _buildButton(
@@ -133,13 +133,16 @@ class MyPage extends StatelessWidget {
                     },
                   ),
                   _buildButton(
-                      'Clear Data', () => _cleanPrivateData(context),), //清除数据
+                    'Clear Data',
+                    () => _cleanPrivateData(context),
+                  ), //清除数据
                   Padding(
                     padding: EdgeInsets.only(
-                      top: screenUtil.setWidth(5).toDouble(),
+                      top: screenUtil.setWidth(5),
                     ),
                     child: const Tips(
-                        'Please be careful, all data would be deleted permanently and cannot be recovered',), // 将从此设备中删除所有钱包数据且无法恢复，请谨慎操作
+                      'Please be careful, all data would be deleted permanently and cannot be recovered',
+                    ), // 将从此设备中删除所有钱包数据且无法恢复，请谨慎操作
                   )
                 ],
               ),
