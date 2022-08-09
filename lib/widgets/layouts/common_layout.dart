@@ -50,7 +50,7 @@ class CommonLayout extends StatelessWidget {
         backgroundColor: WalletColor.primary,
         title: customTitle ??
             PageTitleWidget(
-              title: title!,
+              title: title ?? '',
               backIcon: backIcon,
               appBarActions: appBarActions,
               beforeDispose: beforeDispose,
