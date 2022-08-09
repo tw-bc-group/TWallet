@@ -66,7 +66,7 @@ Tools • Dart 2.17.6 • DevTools 2.12.2
 ```
 
 2. 使用 ```flutter doctor``` 检查 `flutter` 环境，并查看是否有已经安装的模拟器可以运行 TWallet
-3. ```flutter run -d ${device}``` 在指定设备中运行。如果你想使用模拟器运行，预先运行下`flutter emulators`以查看可用的模拟器。
+3. ```flutter run -d <device>``` 在指定设备中运行。如果你想使用模拟器运行，预先运行下`flutter emulators`以查看可用的模拟器。
 
 ### 如何贡献
 

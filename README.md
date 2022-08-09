@@ -66,7 +66,7 @@ Tools • Dart 2.17.6 • DevTools 2.12.2
 ```
 2. ```flutter doctor``` to check your `flutter` environment and find which device you can use to build the app
 
-3. ```flutter run --no-sound-null-safety -d <device>``` run the project in specific device. please run `flutter emulators` first if you want to launch a emulator instead of a device.
+3. ```flutter run -d <device>``` run the project in specific device. please run `flutter emulators` first if you want to launch a emulator instead of a device.
 
 ### Contributing
 
