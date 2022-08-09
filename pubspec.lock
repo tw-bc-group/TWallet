@@ -491,13 +491,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
-  flushbar:
-    dependency: "direct main"
-    description:
-      name: flushbar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.10.4"
   flutter:
     dependency: "direct main"
     description: flutter
