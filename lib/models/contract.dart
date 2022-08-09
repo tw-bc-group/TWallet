@@ -21,8 +21,10 @@ abstract class Contract extends Object
   factory Contract([void Function(ContractBuilder) updates]) = _$Contract;
 
   factory Contract.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Contract)) as Contract;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(Contract),
+    ) as Contract;
   }
 
   Contract._();

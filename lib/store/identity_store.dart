@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -24,9 +22,11 @@ const didHealthCertSelectIndexKey = 'did_health_cert_select_index';
 enum AssetsType { point, token }
 
 class IdentityStore extends IdentityStoreBase with _$IdentityStore {
-  IdentityStore(ObservableList<DecentralizedIdentity> identities,
-      int didHealthSelectIndex, String? lastSelectedIdentityId)
-      : super(identities, didHealthSelectIndex, lastSelectedIdentityId);
+  IdentityStore(
+    ObservableList<DecentralizedIdentity> identities,
+    int didHealthSelectIndex,
+    String? lastSelectedIdentityId,
+  ) : super(identities, didHealthSelectIndex, lastSelectedIdentityId);
 
   static Future<IdentityStore> init() async {
     final int didHealthSelectIndex = await IdentityStoreBase._db
@@ -179,17 +179,17 @@ abstract class IdentityStoreBase with Store {
   Future<int> restore() async {
     int maxIndex = -1;
 
-    final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
+    final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
     final List<dynamic> queryResult = await Get.find<ContractService>()
         .identitiesContract!
-        .callFunction(_mnemonicsStore.firstPublicKey, 'identityOf', null);
+        .callFunction(mnemonicsStore.firstPublicKey, 'identityOf', null);
 
     if (queryResult.isNotEmpty) {
       await clear();
 
       for (int i = 0; i < (queryResult[0] as List<dynamic>).length; i++) {
         final int index = (queryResult[3][i] as BigInt).toInt();
-        final Tuple2<String, String> keys = _mnemonicsStore.indexKeys(index);
+        final Tuple2<String, String> keys = mnemonicsStore.indexKeys(index);
         final DecentralizedIdentity identity = DecentralizedIdentity(
           (identity) => identity
             ..id = const Uuid().v1()
@@ -217,8 +217,9 @@ abstract class IdentityStoreBase with Store {
   }
 
   @action
-  Future<DecentralizedIdentity> addIdentity(
-      {required DecentralizedIdentity identity}) async {
+  Future<DecentralizedIdentity> addIdentity({
+    required DecentralizedIdentity identity,
+  }) async {
     return _db
         .setItem(_itemKey(identity.profileInfo.name), identity.toJson())
         .then((_) {
@@ -239,7 +240,7 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> selectIdentity(DecentralizedIdentity identity) async {
     final int index = identities.indexWhere(
-      (_identity) => _identity.id == identity.id,
+      (identity) => identity.id == identity.id,
     );
 
     final lastSelectedIdentity = selectedIdentity;
@@ -263,7 +264,7 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> updateIdentity(DecentralizedIdentity identity) async {
     final int index =
-        identities.indexWhere((_identity) => _identity.id == identity.id);
+        identities.indexWhere((identity) => identity.id == identity.id);
     if (index >= 0) {
       await _db
           .setItem(

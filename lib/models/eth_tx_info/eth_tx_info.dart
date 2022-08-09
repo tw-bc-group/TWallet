@@ -38,17 +38,21 @@ abstract class EthTxInfo extends Object
   MsgSignature get msgSignature => MsgSignature(r, s, v + 27 - 55);
 
   Uint8List get messageHash {
-    return keccak256(Uint8List.fromList(rlp.encode([
-      nonce,
-      gasPrice,
-      gasLimit,
-      hexToBytes(to),
-      value,
-      data,
-      Application.globalEnv.chainId,
-      BigInt.zero,
-      BigInt.zero
-    ])));
+    return keccak256(
+      Uint8List.fromList(
+        rlp.encode([
+          nonce,
+          gasPrice,
+          gasLimit,
+          hexToBytes(to),
+          value,
+          data,
+          Application.globalEnv.chainId,
+          BigInt.zero,
+          BigInt.zero
+        ]),
+      ),
+    );
   }
 
   Optional<String> recoverPublicKey() {
@@ -62,16 +66,18 @@ abstract class EthTxInfo extends Object
   factory EthTxInfo([void Function(EthTxInfoBuilder) updates]) = _$EthTxInfo;
 
   factory EthTxInfo.fromDecodedRlp(List<Uint8List> decodedRlp) {
-    return EthTxInfo((builder) => builder
-      ..nonce = bytesToInt(decodedRlp[0])
-      ..gasPrice = bytesToInt(decodedRlp[1])
-      ..gasLimit = bytesToInt(decodedRlp[2])
-      ..to = bytesToHex(decodedRlp[3])
-      ..value = bytesToInt(decodedRlp[4])
-      ..data = decodedRlp[5]
-      ..v = bytesToInt(decodedRlp[6]).toInt()
-      ..r = bytesToInt(decodedRlp[7])
-      ..s = bytesToInt(decodedRlp[8]));
+    return EthTxInfo(
+      (builder) => builder
+        ..nonce = bytesToInt(decodedRlp[0])
+        ..gasPrice = bytesToInt(decodedRlp[1])
+        ..gasLimit = bytesToInt(decodedRlp[2])
+        ..to = bytesToHex(decodedRlp[3])
+        ..value = bytesToInt(decodedRlp[4])
+        ..data = decodedRlp[5]
+        ..v = bytesToInt(decodedRlp[6]).toInt()
+        ..r = bytesToInt(decodedRlp[7])
+        ..s = bytesToInt(decodedRlp[8]),
+    );
   }
 
   EthTxInfo._();

@@ -101,8 +101,8 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   late StreamSubscription<ScanResult> _scanSubscription;
 
   Future<bool?> _checkAndRequirePermissions() async {
-    const Permission _permission = Permission.locationWhenInUse;
-    final PermissionStatus status = await _permission.status;
+    const Permission permission = Permission.locationWhenInUse;
+    final PermissionStatus status = await permission.status;
 
     if (!status.isGranted) {
       if (status.isDenied ||
@@ -132,10 +132,10 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
           },
         );
       } else {
-        await _permission.request();
+        await permission.request();
       }
     }
-    return _permission.isGranted;
+    return permission.isGranted;
   }
 
   Future<void> _waitForBluetoothPoweredOn() async {

@@ -112,14 +112,18 @@ abstract class Dcep extends Object implements Built<Dcep, DcepBuilder> {
 
   bool verify() {
     return Application.globalEnv.centralBankPublicKey.verifySHA256Signature(
-        Uint8List.fromList(utf8.encode(sn)), base64.decode(signature));
+      Uint8List.fromList(utf8.encode(sn)),
+      base64.decode(signature),
+    );
   }
 
   factory Dcep([void Function(DcepBuilder) updates]) = _$Dcep;
 
   factory Dcep.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Dcep)) as Dcep;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(Dcep),
+    ) as Dcep;
   }
 
   Dcep._();

@@ -4,16 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
-
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
-
-import '../../../router/routers.dart';
 
 class IdentityPage extends StatefulWidget {
   @override
@@ -25,54 +23,69 @@ class _IdentityPageState extends State<IdentityPage> {
 
   Widget _listItem(DecentralizedIdentity identity) {
     return Container(
-        margin: const EdgeInsets.only(bottom: 24),
-        child: GestureDetector(
-            onTap: () {
-              Application.router.navigateTo(
-                  context, '${Routes.identityDetail}?id=${identity.id}');
-            },
-            child: Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                    color: WalletColor.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Color(0x0f000000),
-                          offset: Offset(0, 4),
-                          blurRadius: 12)
-                    ]),
-                child: Column(children: <Widget>[
-                  Row(children: <Widget>[
-                    const AvatarWidget(width: 32),
-                    Expanded(
-                        child: Container(
-                            margin: const EdgeInsets.only(left: 12),
-                            child: Text(
-                              identity.profileInfo.name,
-                              style: WalletFont.font_18(),
-                            )))
-                  ]),
-                  Container(
-                      margin: const EdgeInsets.only(top: 16, bottom: 16),
-                      height: 1,
-                      color: WalletColor.middleGrey),
-                  GestureDetector(
-                    onLongPress: () async {
-                      return Clipboard.setData(
-                              ClipboardData(text: identity.did.toString()))
-                          .then(
-                              (_) => showDialogSimple(DialogType.none, '复制成功'));
-                    },
-                    child: Text(
-                      identity.did.toString(),
-                      style: WalletFont.font_12(
-                        textStyle: TextStyle(color: WalletColor.grey),
+      margin: const EdgeInsets.only(bottom: 24),
+      child: GestureDetector(
+        onTap: () {
+          Application.router.navigateTo(
+            context,
+            '${Routes.identityDetail}?id=${identity.id}',
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: WalletColor.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0f000000),
+                offset: Offset(0, 4),
+                blurRadius: 12,
+              )
+            ],
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  const AvatarWidget(width: 32),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 12),
+                      child: Text(
+                        identity.profileInfo.name,
+                        style: WalletFont.font_18(),
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   )
-                ]))));
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 16, bottom: 16),
+                height: 1,
+                color: WalletColor.middleGrey,
+              ),
+              GestureDetector(
+                onLongPress: () async {
+                  return Clipboard.setData(
+                    ClipboardData(text: identity.did.toString()),
+                  ).then(
+                    (_) => showDialogSimple(DialogType.none, '复制成功'),
+                  );
+                },
+                child: Text(
+                  identity.did.toString(),
+                  style: WalletFont.font_12(
+                    textStyle: TextStyle(color: WalletColor.grey),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -88,9 +101,13 @@ class _IdentityPageState extends State<IdentityPage> {
           clipBehavior: Clip.none,
           children: <Widget>[
             Center(
-                child: Text('身份',
-                    style: WalletFont.font_18(
-                        textStyle: TextStyle(color: WalletColor.white)))),
+              child: Text(
+                '身份',
+                style: WalletFont.font_18(
+                  textStyle: TextStyle(color: WalletColor.white),
+                ),
+              ),
+            ),
           ],
         )
         // TextField(
@@ -113,7 +130,10 @@ class _IdentityPageState extends State<IdentityPage> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: const [
             BoxShadow(
-                color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 12)
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 12,
+            )
           ],
           color: WalletColor.white,
         ),
@@ -124,9 +144,10 @@ class _IdentityPageState extends State<IdentityPage> {
             Container(
               margin: const EdgeInsets.only(top: 56),
               child: WalletTheme.button(
-                  text: '新增身份',
-                  onPressed: () => Application.router
-                      .navigateTo(context, Routes.newIdentity)),
+                text: '新增身份',
+                onPressed: () =>
+                    Application.router.navigateTo(context, Routes.newIdentity),
+              ),
             )
           ],
         ),
@@ -134,46 +155,62 @@ class _IdentityPageState extends State<IdentityPage> {
     }
 
     return Container(
-        margin: const EdgeInsets.only(bottom: 24),
-        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 24),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-                color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 12)
-          ],
-          color: WalletColor.white,
-        ),
-        child: WalletTheme.button(
-            text: '新增身份',
-            onPressed: () =>
-                Application.router.navigateTo(context, Routes.newIdentity)));
+      margin: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0f000000),
+            offset: Offset(0, 4),
+            blurRadius: 12,
+          )
+        ],
+        color: WalletColor.white,
+      ),
+      child: WalletTheme.button(
+        text: '新增身份',
+        onPressed: () =>
+            Application.router.navigateTo(context, Routes.newIdentity),
+      ),
+    );
     // onPressed: () => DAppService.signTransaction('id', 'param')));
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          color: WalletColor.primary,
-          image: const DecorationImage(
-              image: AssetImage('assets/images/background.png'),
-              alignment: Alignment.bottomCenter),
+      decoration: BoxDecoration(
+        color: WalletColor.primary,
+        image: const DecorationImage(
+          image: AssetImage('assets/images/background.png'),
+          alignment: Alignment.bottomCenter,
         ),
-        child: Column(children: <Widget>[
+      ),
+      child: Column(
+        children: <Widget>[
           Container(padding: const EdgeInsets.all(10), child: buildHeader()),
-          Expanded(child: Observer(builder: (_) {
-            return Container(
-                padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
-                child: ListView(
-                  children: _store.identitiesWithoutDapp
-                      .where((identity) =>
-                          identity.profileInfo.name.contains(_store.searchName))
-                      .map((identity) => _listItem(identity))
-                      .toList()
-                    ..add(buildNewIdentityCard()),
-                ));
-          }))
-        ]));
+          Expanded(
+            child: Observer(
+              builder: (_) {
+                return Container(
+                  padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+                  child: ListView(
+                    children: _store.identitiesWithoutDapp
+                        .where(
+                          (identity) => identity.profileInfo.name
+                              .contains(_store.searchName),
+                        )
+                        .map((identity) => _listItem(identity))
+                        .toList()
+                      ..add(buildNewIdentityCard()),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

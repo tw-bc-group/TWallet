@@ -13,12 +13,13 @@ class HomePageHeader extends StatelessWidget {
   final SvgPicture changeImg =
       SvgPicture.asset('assets/icons/change-identity.svg');
 
-  HomePageHeader(
-      {required this.avatar,
-      required this.name,
-      required this.tabBar,
-      this.onAvatarTap,
-      this.onChangeIdentityTap});
+  HomePageHeader({
+    required this.avatar,
+    required this.name,
+    required this.tabBar,
+    this.onAvatarTap,
+    this.onChangeIdentityTap,
+  });
 
   @override
   Widget build(BuildContext context) {

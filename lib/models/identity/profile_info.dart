@@ -17,8 +17,10 @@ abstract class ProfileInfo implements Built<ProfileInfo, ProfileInfoBuilder> {
 
   static ProfileInfo fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-          specifiedType: const FullType(ProfileInfo)) as ProfileInfo;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(ProfileInfo),
+      ) as ProfileInfo;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

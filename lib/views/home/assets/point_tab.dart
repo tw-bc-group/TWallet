@@ -10,8 +10,8 @@ import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
-import 'home_list_item.dart';
-import 'home_list_view.dart';
+import 'package:tw_wallet_ui/views/home/assets/home_list_item.dart';
+import 'package:tw_wallet_ui/views/home/assets/home_list_view.dart';
 
 Widget _pointItem({required String point, required BuildContext context}) {
   return GestureDetector(

@@ -56,10 +56,11 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
     }
   }
 
-  InputDecoration buildInputDecoration(
-      {required String assetIcon,
-      required String labelText,
-      required String hintText}) {
+  InputDecoration buildInputDecoration({
+    required String assetIcon,
+    required String labelText,
+    required String hintText,
+  }) {
     return InputDecoration(
       icon: SvgPicture.asset(assetIcon),
       labelText: labelText,

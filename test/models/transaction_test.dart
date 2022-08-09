@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 void main() {
   group('Transaction', () {
     test('Transaction deserialize should be successful', () {
-      final Map<String, dynamic> _serialized = {
+      final Map<String, dynamic> serialized = {
         'hash':
             '0x454971ef7eb2377ce00ca2686ab4f6c752e1a437ecf6edb363fff0ca0471ca92',
         'tx_type': 'Transfer',
@@ -13,7 +13,7 @@ void main() {
         'from_address': '0x55e9f09e71e33adce530c888f3e1f303bc257248',
         'to_address': '0xc2583ac729840311e32fac95f0fc9076b302f94f',
       };
-      expect(Transaction.fromJson(_serialized), isA<Transaction>());
+      expect(Transaction.fromJson(serialized), isA<Transaction>());
     });
   });
 }

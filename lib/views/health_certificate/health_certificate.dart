@@ -79,24 +79,25 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   }
 
   Widget _inputFiled(
-      ScreenUtil _screenUtil,
-      String title,
-      String? errorText,
-      TextEditingController controller,
-      TextInputType inputType,
-      ValueChanged<String> onChanged) {
+    ScreenUtil screenUtil,
+    String title,
+    String? errorText,
+    TextEditingController controller,
+    TextInputType inputType,
+    ValueChanged<String> onChanged,
+  ) {
     final List<Widget> columnChildren = [
       _formTitle(title),
       Container(
         padding: EdgeInsets.symmetric(
-          horizontal: _screenUtil.setWidth(16).toDouble(),
+          horizontal: screenUtil.setWidth(16).toDouble(),
         ),
         margin: const EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: WalletColor.grey),
         ),
-        height: _screenUtil.setHeight(44).toDouble(),
+        height: screenUtil.setHeight(44).toDouble(),
         child: TextField(
           controller: controller,
           keyboardType: inputType,
@@ -177,7 +178,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
     );
   }
 
-  Widget _buildForm(ScreenUtil _screenUtil) {
+  Widget _buildForm(ScreenUtil screenUtil) {
     return Container(
       decoration: BoxDecoration(
         color: WalletColor.white,
@@ -188,8 +189,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
       ),
       child: Padding(
         padding: EdgeInsets.only(
-          left: _screenUtil.setWidth(24).toDouble(),
-          right: _screenUtil.setWidth(24).toDouble(),
+          left: screenUtil.setWidth(24).toDouble(),
+          right: screenUtil.setWidth(24).toDouble(),
           top: 24,
         ),
         child: ListView(
@@ -205,7 +206,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _inputFiled(
-                _screenUtil,
+                screenUtil,
                 '手机号',
                 _pageStore.error.phone,
                 _phoneInputController!,
@@ -216,7 +217,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _inputFiled(
-                _screenUtil,
+                screenUtil,
                 '今日体温（℃）',
                 _pageStore.error.temperature,
                 _temperatureInputController!,
@@ -284,7 +285,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: _screenUtil.setWidth(10).toDouble(),
+                          horizontal: screenUtil.setWidth(10).toDouble(),
                         ),
                         child: Text(
                           '上述信息是我本人填写，本人对内容真实性和完整性负责，因信息填报不实导致相关后果的，本人愿意承担相应责任。',
@@ -304,7 +305,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: _screenUtil.setHeight(24).toDouble(),
+                vertical: screenUtil.setHeight(24).toDouble(),
               ),
               child: WalletTheme.button(
                 text: '确定',
@@ -321,7 +322,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenUtil = ScreenUtil();
+    final screenUtil = ScreenUtil();
 
     return Observer(
       builder: (_) => CommonLayout(
@@ -330,12 +331,12 @@ class HealthCertificateState extends State<HealthCertificatePage> {
           children: <Widget>[
             SvgPicture.asset(
               'assets/icons/security.svg',
-              width: _screenUtil.setWidth(60).toDouble(),
+              width: screenUtil.setWidth(60).toDouble(),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: _screenUtil.setWidth(24).toDouble(),
-                vertical: _screenUtil.setHeight(24).toDouble(),
+                horizontal: screenUtil.setWidth(24).toDouble(),
+                vertical: screenUtil.setHeight(24).toDouble(),
               ),
               child: Text(
                 '本服务基于手机运营商提供的行程数据以及个人健康信息的填报，为公众提供本人防疫健康信息查询服务。',
@@ -348,7 +349,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                 ),
               ),
             ),
-            Expanded(child: _buildForm(_screenUtil)),
+            Expanded(child: _buildForm(screenUtil)),
           ],
         ),
       ),

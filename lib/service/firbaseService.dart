@@ -1,15 +1,18 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 
 class FirebaseService {
   Future<void> initFirebase() async {
     try {
       await Firebase.initializeApp();
-    } catch (e) {}
+    } catch (e) {
+      log('Failed to initialize Firebase: $e');
+    }
   }
 
   Future<void> findOrCreateUser(DecentralizedIdentity identity) async {
@@ -40,7 +43,7 @@ class FirebaseService {
         ),
       );
     } catch (e) {
-      print('register error');
+      log('Failed to register an user: $e');
     }
   }
 

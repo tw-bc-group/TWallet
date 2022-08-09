@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
+import 'package:tw_wallet_ui/views/home/assets/home_page.dart';
+import 'package:tw_wallet_ui/views/home/discovery/discovery_page.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
-
-import 'assets/home_page.dart';
-import 'discovery/discovery_page.dart';
-import 'identity/identity_page.dart';
-import 'my/my_page.dart';
+import 'package:tw_wallet_ui/views/home/identity/identity_page.dart';
+import 'package:tw_wallet_ui/views/home/my/my_page.dart';
 
 class Home extends StatefulWidget {
   const Home({this.defaultIndex = 0});

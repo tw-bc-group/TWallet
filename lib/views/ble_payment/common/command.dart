@@ -40,7 +40,8 @@ abstract class Command implements Built<Command, CommandBuilder> {
 
   Uint8List encode() {
     return Uint8List.fromList(
-        json.encode(serializers.serialize(this)).codeUnits);
+      json.encode(serializers.serialize(this)).codeUnits,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -49,8 +50,10 @@ abstract class Command implements Built<Command, CommandBuilder> {
 
   static Command fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-          specifiedType: const FullType(Command)) as Command;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(Command),
+      ) as Command;
     } catch (error) {
       throw Exception('command deserialize error, $error');
     }

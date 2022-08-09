@@ -4,7 +4,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
-import 'hint_dialog.dart';
+import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 class ScanIcon extends StatelessWidget {
   const ScanIcon({

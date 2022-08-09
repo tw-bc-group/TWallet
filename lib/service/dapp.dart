@@ -81,39 +81,39 @@ class DAppService {
 
   static Future<void> signTransaction(String id, String? param) async {
     try {
-      final WebviewSignTransaction _signTransaction =
+      final WebviewSignTransaction signTransaction =
           WebviewSignTransaction.fromJson(json.decode(param!));
       final pincodeValidate = await PincodeService.validate(
-        _signTransaction.token!,
-        _signTransaction.pincodeDialogStyle,
+        signTransaction.token!,
+        signTransaction.pincodeDialogStyle,
       );
       if (pincodeValidate == null) {
         return reject(id, '');
       }
-      final _transactionInfo = _signTransaction.transactionInfo;
-      final Web3Client _web3Client =
-          Web3Client(_transactionInfo.rpcUrl, Client());
-      final DecentralizedIdentity _identity = Get.find<IdentityStore>()
-          .getIdentityById(_transactionInfo.accountId)!;
-      final DeployedContract _contract = DeployedContract(
+      final transactionInfo = signTransaction.transactionInfo;
+      final Web3Client web3Client =
+          Web3Client(transactionInfo.rpcUrl, Client());
+      final DecentralizedIdentity identity =
+          Get.find<IdentityStore>().getIdentityById(transactionInfo.accountId)!;
+      final DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(
-          _transactionInfo.contractAbi,
-          _transactionInfo.contractName,
+          transactionInfo.contractAbi,
+          transactionInfo.contractName,
         ),
-        EthereumAddress.fromHex(_transactionInfo.contractAddress),
+        EthereumAddress.fromHex(transactionInfo.contractAddress),
       );
 
-      final credentials = await _web3Client
-          .credentialsFromPrivateKey(_identity.accountInfo.priKey);
-      final rawTx = await _web3Client.signTransaction(
+      final credentials = await web3Client
+          .credentialsFromPrivateKey(identity.accountInfo.priKey);
+      final rawTx = await web3Client.signTransaction(
         credentials,
         Transaction.callContract(
-          contract: _contract,
-          function: _contract.function(_transactionInfo.functionName),
+          contract: contract,
+          function: contract.function(transactionInfo.functionName),
           parameters:
-              _transactionInfo.parameters.map((p) => p.realType()).toList(),
-          gasPrice: EtherAmount.inWei(_transactionInfo.gasPrice),
-          maxGas: _transactionInfo.maxGas,
+              transactionInfo.parameters.map((p) => p.realType()).toList(),
+          gasPrice: EtherAmount.inWei(transactionInfo.gasPrice),
+          maxGas: transactionInfo.maxGas,
         ),
         fetchChainIdFromNetworkId: true,
       );
@@ -123,7 +123,7 @@ class DAppService {
           'rawData': '0x${bytesToHex(rawTx)}',
           'token': pincodeValidate is String
               ? pincodeValidate
-              : _signTransaction.token
+              : signTransaction.token
         },
       );
     } catch (err) {
@@ -132,13 +132,13 @@ class DAppService {
   }
 
   static void sendTransaction(String id, String? param) {
-    final SendTransactionRequest _sendTransactionRequest =
+    final SendTransactionRequest sendTransactionRequest =
         SendTransactionRequest.fromJson(json.decode(param!));
     Get.find<ApiProvider>()
         .transferPoint(
-      _sendTransactionRequest.fromAddress,
-      _sendTransactionRequest.fromPublicKey,
-      _sendTransactionRequest.signedTransactionRawData,
+      sendTransactionRequest.fromAddress,
+      sendTransactionRequest.fromPublicKey,
+      sendTransactionRequest.signedTransactionRawData,
     )
         .then((data) {
       data.map(
@@ -163,23 +163,23 @@ class DAppService {
   }
 
   static void peekAccount(String id, _) {
-    final Tuple3<int, String, String> _keyPair =
+    final Tuple3<int, String, String> keyPair =
         Get.find<MnemonicsStore>().peekKeys();
-    final DecentralizedIdentity _identity = DecentralizedIdentity(
+    final DecentralizedIdentity identity = DecentralizedIdentity(
       (builder) => builder
         ..profileInfo.name = id
-        ..accountInfo.index = _keyPair.first
-        ..accountInfo.pubKey = _keyPair.second
-        ..accountInfo.priKey = _keyPair.third,
+        ..accountInfo.index = keyPair.first
+        ..accountInfo.pubKey = keyPair.second
+        ..accountInfo.priKey = keyPair.third,
     );
-    resolve(id, _identity.basicInfo());
+    resolve(id, identity.basicInfo());
   }
 
   static void createAccount(String id, String? param) {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param!));
-    final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
-    _mnemonicsStore.generateKeys(
+    final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
+    mnemonicsStore.generateKeys(
       (index, keys) => Future.value(
         DecentralizedIdentity(
           (identity) => identity
@@ -202,8 +202,8 @@ class DAppService {
   }
 
   static void getRootKey(String id, _) {
-    final MnemonicsStore _mnemonicsStore = Get.find<MnemonicsStore>();
-    final walletSeed = bip39.mnemonicToSeed(_mnemonicsStore.mnemonics);
+    final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
+    final walletSeed = bip39.mnemonicToSeed(mnemonicsStore.mnemonics);
     resolve(id, sha256.convert(walletSeed).toString());
   }
 
@@ -254,10 +254,10 @@ class DAppService {
       return resolve(id, []);
     }
 
-    final IdentityStore _identityStore = Get.find<IdentityStore>();
+    final IdentityStore identityStore = Get.find<IdentityStore>();
     final List<Map> result = [];
     param.split(',').forEach((accountId) {
-      final identity = _identityStore.getIdentityById(accountId)!;
+      final identity = identityStore.getIdentityById(accountId)!;
       result.add({
         'id': identity.id,
         'address': identity.address,
@@ -275,9 +275,9 @@ class DAppService {
     final encrypt = encrypt_tool.Encrypter(
       encrypt_tool.AES(aesKey, mode: encrypt_tool.AESMode.cbc),
     );
-    final SecureStorage _secureStorage = Get.find();
+    final SecureStorage secureStorage = Get.find();
     final String? encryptedString =
-        await _secureStorage.get(SecureStorageItem.masterKey);
+        await secureStorage.get(SecureStorageItem.masterKey);
     final encrypt_tool.Encrypted encryptedKey =
         encrypt_tool.Encrypted.fromBase64(encryptedString!);
     try {

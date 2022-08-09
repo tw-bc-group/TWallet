@@ -10,16 +10,18 @@ abstract class CreateAccountParam
       _$createAccountParamSerializer;
 
   static void _initializeBuilder(
-          CreateAccountParamBuilder webviewPincodeDialogCloseBuilder) =>
+    CreateAccountParamBuilder webviewPincodeDialogCloseBuilder,
+  ) =>
       webviewPincodeDialogCloseBuilder..extra = '{}';
 
   String? get extra;
 
   static CreateAccountParam fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(CreateAccountParam))
-          as CreateAccountParam;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(CreateAccountParam),
+      ) as CreateAccountParam;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

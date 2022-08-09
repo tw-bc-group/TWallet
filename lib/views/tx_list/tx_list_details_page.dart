@@ -28,15 +28,16 @@ class TxListDetailsPageArgs {
   final bool isExpense;
   final bool shouldBackToHome;
 
-  TxListDetailsPageArgs(
-      {required this.amount,
-      required this.fromAddressName,
-      required this.isExpense,
-      required this.time,
-      required this.status,
-      required this.fromAddress,
-      required this.toAddress,
-      this.shouldBackToHome = false});
+  TxListDetailsPageArgs({
+    required this.amount,
+    required this.fromAddressName,
+    required this.isExpense,
+    required this.time,
+    required this.status,
+    required this.fromAddress,
+    required this.toAddress,
+    this.shouldBackToHome = false,
+  });
 }
 
 class TxListDetailsPage extends StatelessWidget {
@@ -56,7 +57,9 @@ class TxListDetailsPage extends StatelessWidget {
   }
 
   Container _buildMainContent(
-      BuildContext context, TxListDetailsPageArgs args) {
+    BuildContext context,
+    TxListDetailsPageArgs args,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       child: ListView(

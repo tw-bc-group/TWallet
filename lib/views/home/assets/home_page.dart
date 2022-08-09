@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
@@ -9,15 +8,14 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/assets/asset_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/certification_tab.dart';
+import 'package:tw_wallet_ui/views/home/assets/home_page_header.dart';
+import 'package:tw_wallet_ui/views/home/assets/home_page_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/point_tab.dart';
 import 'package:tw_wallet_ui/views/home/assets/ticket_tab.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_alert.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/identity_selection_sheet.dart';
-
-import 'home_page_header.dart';
-import 'home_page_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.homeStore);
@@ -145,7 +143,9 @@ class _HomePageState extends State<HomePage>
   }
 
   void _onIdentityCardTap(
-      BuildContext context, DecentralizedIdentity identity) {
+    BuildContext context,
+    DecentralizedIdentity identity,
+  ) {
     _identityStore.selectIdentity(identity);
     Navigator.pop(context);
   }

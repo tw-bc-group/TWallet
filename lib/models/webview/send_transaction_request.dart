@@ -15,16 +15,17 @@ abstract class SendTransactionRequest
 
   static SendTransactionRequest fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(SendTransactionRequest))
-          as SendTransactionRequest;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(SendTransactionRequest),
+      ) as SendTransactionRequest;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }
   }
 
-  factory SendTransactionRequest(
-          [Function(SendTransactionRequestBuilder) updates]) =
-      _$SendTransactionRequest;
+  factory SendTransactionRequest([
+    Function(SendTransactionRequestBuilder) updates,
+  ]) = _$SendTransactionRequest;
   SendTransactionRequest._();
 }

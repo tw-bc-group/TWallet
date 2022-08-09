@@ -24,8 +24,10 @@ abstract class IssuerResponse extends Object
       _$IssuerResponse;
 
   factory IssuerResponse.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(IssuerResponse)) as IssuerResponse;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(IssuerResponse),
+    ) as IssuerResponse;
   }
 
   IssuerResponse._();

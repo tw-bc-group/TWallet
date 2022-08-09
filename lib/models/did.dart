@@ -22,8 +22,11 @@ class DID {
     if (did.startsWith(Application.globalEnv.didPrefix)) {
       return DID(EthereumAddress.fromHex('0x${_withoutPrefixTag(did)}'));
     } else {
-      throw ArgumentError.value(did, 'strParse',
-          'DID must be start with ${Application.globalEnv.didPrefix}');
+      throw ArgumentError.value(
+        did,
+        'strParse',
+        'DID must be start with ${Application.globalEnv.didPrefix}',
+      );
     }
   }
 

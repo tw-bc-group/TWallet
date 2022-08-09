@@ -4,9 +4,8 @@ import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/did.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/views/tx_list/utils/date.dart';
+import 'package:tw_wallet_ui/views/tx_list/widgets/color_money_text.dart';
 import 'package:web3dart/credentials.dart';
-
-import 'color_money_text.dart';
 
 enum TxType {
   credit,
@@ -23,14 +22,23 @@ class TxListItem extends StatelessWidget {
   final GestureTapCallback _onTap;
   final TxType _txType;
 
-  const TxListItem(this._address, this._status, this._amount, this._dateTime,
-      this._onTap, this._txType);
+  const TxListItem(
+    this._address,
+    this._status,
+    this._amount,
+    this._dateTime,
+    this._onTap,
+    this._txType,
+  );
 
-  Widget _renderDate() => Text(parseDate(_dateTime),
-      style: const TextStyle(
+  Widget _renderDate() => Text(
+        parseDate(_dateTime),
+        style: const TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 10.7,
-          color: Color(_greyColor)));
+          color: Color(_greyColor),
+        ),
+      );
 
   Widget _renderAddress() =>
       Text(addressToShorthandDID(_address), style: WalletFont.font_16());

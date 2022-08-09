@@ -12,7 +12,8 @@ abstract class WebviewPincodeDialogInput
       _$webviewPincodeDialogInputSerializer;
 
   static void _initializeBuilder(
-          WebviewPincodeDialogInputBuilder webviewPincodeDialogCloseBuilder) =>
+    WebviewPincodeDialogInputBuilder webviewPincodeDialogCloseBuilder,
+  ) =>
       webviewPincodeDialogCloseBuilder
         ..borderWidth = 1
         ..borderRadius = 4
@@ -40,16 +41,17 @@ abstract class WebviewPincodeDialogInput
 
   static WebviewPincodeDialogInput fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewPincodeDialogInput))
-          as WebviewPincodeDialogInput;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewPincodeDialogInput),
+      ) as WebviewPincodeDialogInput;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewPincodeDialogInput(
-          [Function(WebviewPincodeDialogInputBuilder) updates]) =
-      _$WebviewPincodeDialogInput;
+  factory WebviewPincodeDialogInput([
+    Function(WebviewPincodeDialogInputBuilder) updates,
+  ]) = _$WebviewPincodeDialogInput;
   WebviewPincodeDialogInput._();
 }

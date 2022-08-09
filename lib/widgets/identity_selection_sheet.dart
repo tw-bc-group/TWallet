@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 
-import 'identity_card.dart';
+import 'package:tw_wallet_ui/widgets/identity_card.dart';
 
 typedef SheetItemTapCallback = void Function(int index);
 
@@ -11,8 +11,11 @@ class IdentitySelectionSheet extends StatelessWidget {
   final SheetItemTapCallback? onSheetItemTap;
   final DecentralizedIdentity? selectedIdentity;
 
-  const IdentitySelectionSheet(
-      {required this.identities, this.onSheetItemTap, this.selectedIdentity});
+  const IdentitySelectionSheet({
+    required this.identities,
+    this.onSheetItemTap,
+    this.selectedIdentity,
+  });
 
   @override
   Widget build(BuildContext context) {

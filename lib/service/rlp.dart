@@ -57,7 +57,8 @@ Tuple2<List<dynamic>, Uint8List> _decode(Uint8List input) {
 
     if (length <= 55) {
       throw Exception(
-          'invalid RLP: expected string length to be greater than 55');
+        'invalid RLP: expected string length to be greater than 55',
+      );
     }
 
     data = input.sublist(tempLength, length + tempLength);

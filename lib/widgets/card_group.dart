@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 
-import 'header.dart';
+import 'package:tw_wallet_ui/widgets/header.dart';
 
 class CardGroup extends StatelessWidget {
   const CardGroup({

@@ -12,7 +12,7 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
-import 'input_pin_store.dart';
+import 'package:tw_wallet_ui/views/input_pin/input_pin_store.dart';
 
 class PinInputWidget extends StatelessWidget {
   final _inputPin = InputPinStore();
@@ -20,8 +20,10 @@ class PinInputWidget extends StatelessWidget {
   final TextEditingController textEditingController1 = TextEditingController();
   final TextEditingController textEditingController2 = TextEditingController();
 
-  Widget _inputPinField(TextEditingController textEditingController,
-      ValueChanged<String> onChanged) {
+  Widget _inputPinField(
+    TextEditingController textEditingController,
+    ValueChanged<String> onChanged,
+  ) {
     return PinCodeTextField(
       showCursor: false,
       appContext: Get.context!,
@@ -51,7 +53,7 @@ class PinInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil _screenUtil = ScreenUtil();
+    final ScreenUtil screenUtil = ScreenUtil();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -248,10 +250,10 @@ class PinInputWidget extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal:
-                                      _screenUtil.setWidth(30).toDouble(),
+                                      screenUtil.setWidth(30).toDouble(),
                                   vertical: DeviceInfo.isIphoneXSeries()
-                                      ? _screenUtil.setHeight(34).toDouble()
-                                      : _screenUtil.setHeight(20).toDouble(),
+                                      ? screenUtil.setHeight(34).toDouble()
+                                      : screenUtil.setHeight(20).toDouble(),
                                 ),
                                 child: WalletTheme.button(
                                   text: '下一步',

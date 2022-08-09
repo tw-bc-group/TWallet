@@ -17,17 +17,10 @@ import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/views/ble_payment/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 
 Future<void> _cleanPrivateData(BuildContext context) async {
-  final ProgressDialog _dialog = Get.find();
-  _dialog.show();
+  final ProgressDialog dialog = Get.find();
+  dialog.show();
   return Get.find<IdentityStore>()
       .clear()
       .then((_) => Get.find<DcepStore>().clear())
@@ -36,7 +29,7 @@ Future<void> _cleanPrivateData(BuildContext context) async {
       .then((_) => clearAllDappStorage(FlutterWebviewPlugin()))
       .then(
         (_) => Future.delayed(const Duration(seconds: 1)).then((_) {
-          _dialog.dismiss();
+          dialog.dismiss();
           Application.router
               .navigateTo(context, Routes.inputPin, clearStack: true);
         }),
@@ -44,7 +37,8 @@ Future<void> _cleanPrivateData(BuildContext context) async {
 }
 
 Future<void> clearAllDappStorage(
-    FlutterWebviewPlugin flutterWebviewPlugin) async {
+  FlutterWebviewPlugin flutterWebviewPlugin,
+) async {
   // ignore: avoid_function_literals_in_foreach_calls
   dappList.forEach((dapp) async {
     await flutterWebviewPlugin.launch(dapp.url, hidden: true);
@@ -59,14 +53,13 @@ class MyPage extends StatelessWidget {
   const MyPage(this.homeStore);
 
   Widget _buildButton(String text, VoidCallback onTap) {
-    final _screenUtil = ScreenUtil();
-    ;
+    final screenUtil = ScreenUtil();
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: _screenUtil.setWidth(15).toDouble()),
-        height: _screenUtil.setWidth(90).toDouble(),
+        margin: EdgeInsets.only(bottom: screenUtil.setWidth(15).toDouble()),
+        height: screenUtil.setWidth(90).toDouble(),
         decoration: BoxDecoration(
           color: WalletColor.white,
           borderRadius: BorderRadius.circular(12),
@@ -81,7 +74,7 @@ class MyPage extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: _screenUtil.setWidth(20).toDouble(),
+              horizontal: screenUtil.setWidth(20).toDouble(),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,12 +91,12 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenUtil = ScreenUtil();
+    final screenUtil = ScreenUtil();
 
     return Column(
       children: <Widget>[
         Container(
-          height: _screenUtil.setHeight(244).toDouble(),
+          height: screenUtil.setHeight(244).toDouble(),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/background.png'),
@@ -126,7 +119,7 @@ class MyPage extends StatelessWidget {
           child: Container(
             color: WalletColor.lightGrey,
             child: Padding(
-              padding: EdgeInsets.all(_screenUtil.setWidth(24).toDouble()),
+              padding: EdgeInsets.all(screenUtil.setWidth(24).toDouble()),
               child: ListView(
                 children: <Widget>[
                   _buildButton(
@@ -139,12 +132,14 @@ class MyPage extends StatelessWidget {
                       Application.router.navigateTo(context, Routes.messagePage)
                     },
                   ),
-                  _buildButton('Clear Data', () => _cleanPrivateData(context)),  //清除数据
+                  _buildButton(
+                      'Clear Data', () => _cleanPrivateData(context),), //清除数据
                   Padding(
                     padding: EdgeInsets.only(
-                      top: _screenUtil.setWidth(5).toDouble(),
+                      top: screenUtil.setWidth(5).toDouble(),
                     ),
-                    child: const Tips('Please be careful, all data would be deleted permanently and cannot be recovered'),  // 将从此设备中删除所有钱包数据且无法恢复，请谨慎操作
+                    child: const Tips(
+                        'Please be careful, all data would be deleted permanently and cannot be recovered',), // 将从此设备中删除所有钱包数据且无法恢复，请谨慎操作
                   )
                 ],
               ),

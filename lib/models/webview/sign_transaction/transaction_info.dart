@@ -23,16 +23,17 @@ abstract class WebviewTransactionInfo
 
   static WebviewTransactionInfo fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewTransactionInfo))
-          as WebviewTransactionInfo;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewTransactionInfo),
+      ) as WebviewTransactionInfo;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewTransactionInfo(
-          [Function(WebviewTransactionInfoBuilder) updates]) =
-      _$WebviewTransactionInfo;
+  factory WebviewTransactionInfo([
+    Function(WebviewTransactionInfoBuilder) updates,
+  ]) = _$WebviewTransactionInfo;
   WebviewTransactionInfo._();
 }

@@ -11,15 +11,15 @@ class VcIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final num _width = ScreenUtil().setWidth(width);
+    final num width = ScreenUtil().setWidth(this.width);
 
     return SizedBox(
-      width: _width.toDouble(),
-      height: _width.toDouble(),
+      width: width.toDouble(),
+      height: width.toDouble(),
       child: SvgPicture.asset(
         'assets/icons/vc.svg',
-        width: _width.toDouble(),
-        height: _width.toDouble(),
+        width: width.toDouble(),
+        height: width.toDouble(),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -48,8 +47,9 @@ class _OwnVcPageState extends State<OwnVcPage> {
           _tips,
           Expanded(
             child: ListView(
-                padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-                children: list),
+              padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+              children: list,
+            ),
           ),
           _bottom(context),
         ],
@@ -59,34 +59,37 @@ class _OwnVcPageState extends State<OwnVcPage> {
 
   Widget get _tips {
     return Container(
-        padding: const EdgeInsets.only(top: 10, bottom: 10),
-        child: Column(
-          children: <Widget>[
-            const Text(
-              "选择右上角扫描\n获取验证方二维码，获取所需出示凭证",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0,
-                height: 1.5,
-              ),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      child: Column(
+        children: <Widget>[
+          const Text(
+            "选择右上角扫描\n获取验证方二维码，获取所需出示凭证",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0,
+              height: 1.5,
             ),
-            Container(
-                margin: const EdgeInsets.only(top: 14, bottom: 14),
-                width: 167,
-                height: 1,
-                decoration: const BoxDecoration(color: Color(0xffffffff))),
-            _noVcHint(),
-          ],
-        ));
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 14, bottom: 14),
+            width: 167,
+            height: 1,
+            decoration: const BoxDecoration(color: Color(0xffffffff)),
+          ),
+          _noVcHint(),
+        ],
+      ),
+    );
   }
 
   Future<void> _handleScanResult(String scanResult) async {
     final VerifiableCredentialPresentationRequest vpr =
         await SsiService.createVerifiableCredentialPresentationRequest(
-            scanResult);
+      scanResult,
+    );
     Get.find<VcStore>().vpReq = vpr;
     Application.router.navigateTo(context, Routes.composeVcPage);
   }

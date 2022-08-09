@@ -7,13 +7,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/service/firbaseService.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
 import 'package:tw_wallet_ui/views/home/my/users.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-
-import '../../../router/routers.dart';
-import '../../../service/firbaseService.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage();
@@ -182,68 +181,71 @@ class _MessagePageState extends State<MessagePage> {
     return Material(
       color: WalletColor.messageBg,
       child: InkWell(
-          onTap: () => onTap(),
-          hoverColor: WalletColor.white,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 25,
-              vertical: 15,
-            ),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 24,
-                  backgroundImage: NetworkImage(otherUser.imageUrl ??
-                      'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY'),
+        onTap: () => onTap(),
+        hoverColor: WalletColor.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 25,
+            vertical: 15,
+          ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundImage: NetworkImage(
+                  otherUser.imageUrl ??
+                      'https://i.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY',
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          room.name ?? '',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: WalletColor.white,
-                          ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        room.name ?? '',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: WalletColor.white,
                         ),
-                        const SizedBox(height: 8),
-                        Opacity(
-                          opacity: 0.64,
-                          child: lastMessage != null
-                              ? Text(
-                                  lastMessage.toString(),
-                                  style: TextStyle(
-                                    color: WalletColor.white,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              : null,
-                        )
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 8),
+                      Opacity(
+                        opacity: 0.64,
+                        child: lastMessage != null
+                            ? Text(
+                                lastMessage.toString(),
+                                style: TextStyle(
+                                  color: WalletColor.white,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            : null,
+                      )
+                    ],
                   ),
                 ),
-                Opacity(
-                  opacity: 0.64,
-                  child: room.updatedAt != null
-                      ? Text(
-                          DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                              room.updatedAt!,
-                            ).toLocal(),
-                          ),
-                          style: TextStyle(color: WalletColor.white),
-                        )
-                      : null,
-                ),
-              ],
-            ),
-          )),
+              ),
+              Opacity(
+                opacity: 0.64,
+                child: room.updatedAt != null
+                    ? Text(
+                        DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                            room.updatedAt!,
+                          ).toLocal(),
+                        ),
+                        style: TextStyle(color: WalletColor.white),
+                      )
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

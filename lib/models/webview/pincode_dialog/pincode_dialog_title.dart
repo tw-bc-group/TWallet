@@ -12,7 +12,8 @@ abstract class WebviewPincodeDialogTitle
       _$webviewPincodeDialogTitleSerializer;
 
   static void _initializeBuilder(
-          WebviewPincodeDialogTitleBuilder webviewPincodeDialogCloseBuilder) =>
+    WebviewPincodeDialogTitleBuilder webviewPincodeDialogCloseBuilder,
+  ) =>
       webviewPincodeDialogCloseBuilder
         ..text = 'PIN CODE'
         ..color = WalletColor.BLACK
@@ -24,16 +25,17 @@ abstract class WebviewPincodeDialogTitle
 
   static WebviewPincodeDialogTitle fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewPincodeDialogTitle))
-          as WebviewPincodeDialogTitle;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewPincodeDialogTitle),
+      ) as WebviewPincodeDialogTitle;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewPincodeDialogTitle(
-          [Function(WebviewPincodeDialogTitleBuilder) updates]) =
-      _$WebviewPincodeDialogTitle;
+  factory WebviewPincodeDialogTitle([
+    Function(WebviewPincodeDialogTitleBuilder) updates,
+  ]) = _$WebviewPincodeDialogTitle;
   WebviewPincodeDialogTitle._();
 }

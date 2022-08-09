@@ -42,8 +42,10 @@ abstract class Transaction extends Object
       _$Transaction;
 
   factory Transaction.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(Transaction)) as Transaction;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(Transaction),
+    ) as Transaction;
   }
 
   Transaction._();

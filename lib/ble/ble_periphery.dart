@@ -33,18 +33,17 @@ class BleCentralState extends EnumClass {
 }
 
 class BlePeriphery {
-  static final BlePeriphery _instance = BlePeriphery();
   final EventChannel _dataChannel;
   final EventChannel _stateChannel;
   final MethodChannel _methodChannel;
 
   factory BlePeriphery() {
-    const EventChannel _dataChannel = EventChannel('matrix.ble_periphery/data');
-    const EventChannel _stateChannel =
+    const EventChannel dataChannel = EventChannel('matrix.ble_periphery/data');
+    const EventChannel stateChannel =
         EventChannel('matrix.ble_periphery/state');
-    const MethodChannel _methodChannel =
+    const MethodChannel methodChannel =
         MethodChannel('matrix.ble_periphery/method');
-    return BlePeriphery.private(_methodChannel, _stateChannel, _dataChannel);
+    return BlePeriphery.private(methodChannel, stateChannel, dataChannel);
   }
 
   BlePeriphery.private(

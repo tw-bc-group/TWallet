@@ -19,8 +19,11 @@ class TxInfoCardWidget extends StatelessWidget {
   final String? name;
   final String? did;
 
-  const TxInfoCardWidget(
-      {required this.txInfoCardType, required this.name, required this.did});
+  const TxInfoCardWidget({
+    required this.txInfoCardType,
+    required this.name,
+    required this.did,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -52,8 +51,11 @@ class DiscoveryPage extends StatelessWidget {
 
     dappItemList.add(
       GestureDetector(
-        onTap: () => Navigator.pushNamed(context, Routes.ownVcPage,
-            arguments: homeStore),
+        onTap: () => Navigator.pushNamed(
+          context,
+          Routes.ownVcPage,
+          arguments: homeStore,
+        ),
         child: const DiscoveryItem(
           text: '更多凭证',
           svgAsset: 'assets/icons/vc.svg',

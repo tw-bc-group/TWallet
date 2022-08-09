@@ -13,8 +13,8 @@ abstract class WebviewPincodeDialogErrorMsg
       _$webviewPincodeDialogErrorMsgSerializer;
 
   static void _initializeBuilder(
-          WebviewPincodeDialogErrorMsgBuilder
-              webviewPincodeDialogCloseBuilder) =>
+    WebviewPincodeDialogErrorMsgBuilder webviewPincodeDialogCloseBuilder,
+  ) =>
       webviewPincodeDialogCloseBuilder
         ..text = 'PIN码错误，请重新输入'
         ..color = WalletColor.ACCENT
@@ -26,16 +26,17 @@ abstract class WebviewPincodeDialogErrorMsg
 
   static WebviewPincodeDialogErrorMsg fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewPincodeDialogErrorMsg))
-          as WebviewPincodeDialogErrorMsg;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewPincodeDialogErrorMsg),
+      ) as WebviewPincodeDialogErrorMsg;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewPincodeDialogErrorMsg(
-          [Function(WebviewPincodeDialogErrorMsgBuilder) updates]) =
-      _$WebviewPincodeDialogErrorMsg;
+  factory WebviewPincodeDialogErrorMsg([
+    Function(WebviewPincodeDialogErrorMsgBuilder) updates,
+  ]) = _$WebviewPincodeDialogErrorMsg;
   WebviewPincodeDialogErrorMsg._();
 }

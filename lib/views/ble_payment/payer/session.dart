@@ -14,7 +14,9 @@ import 'package:tw_wallet_ui/views/ble_payment/common/extension.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
 typedef WaitOnSignPayment = Future<Optional<List<TxSend>>> Function(
-    String toAddress, int amount);
+  String toAddress,
+  int amount,
+);
 
 typedef OnStateUpdate = void Function(SessionState state);
 
@@ -144,7 +146,9 @@ class Session {
   }
 
   Future<void> run(
-      WaitOnSignPayment onSignPayment, OnStateUpdate onStateUpdate) async {
+    WaitOnSignPayment onSignPayment,
+    OnStateUpdate onStateUpdate,
+  ) async {
     _state.listen((newState) => onStateUpdate(newState));
 
     _readCharacteristic!.monitor().listen((data) async {

@@ -9,9 +9,9 @@ import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 
 void showDialogIfNoIdentity(BuildContext context, HomeStore homeStore) {
-  final IdentityStore _identityStore = Get.find();
+  final IdentityStore identityStore = Get.find();
 
-  if (_identityStore.identitiesWithoutDapp.isEmpty) {
+  if (identityStore.identitiesWithoutDapp.isEmpty) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _showAddIdentityDialog(context, homeStore);
     });
@@ -19,7 +19,9 @@ void showDialogIfNoIdentity(BuildContext context, HomeStore homeStore) {
 }
 
 Future<void> _showAddIdentityDialog(
-    BuildContext context, HomeStore homeStore) async {
+  BuildContext context,
+  HomeStore homeStore,
+) async {
   return showDialog<void>(
     barrierDismissible: false,
     context: context,

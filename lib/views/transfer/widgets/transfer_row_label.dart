@@ -6,8 +6,11 @@ class TransferRowWidget extends StatelessWidget {
   final String errorMsg;
   final Widget child;
 
-  const TransferRowWidget(
-      {required this.title, required this.errorMsg, required this.child});
+  const TransferRowWidget({
+    required this.title,
+    required this.errorMsg,
+    required this.child,
+  });
 
   Widget buildLabel() {
     return Container(

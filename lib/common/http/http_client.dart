@@ -8,12 +8,12 @@ import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 void showErrorDialog(DioError err) {
   String errorMessage = '未知错误';
-  DialogType _hintType = DialogType.error;
+  DialogType hintType = DialogType.error;
 
   if (err.type == DioErrorType.connectTimeout ||
       err.type == DioErrorType.sendTimeout ||
       err.type == DioErrorType.receiveTimeout) {
-    _hintType = DialogType.network;
+    hintType = DialogType.network;
   }
 
   switch (err.type) {
@@ -48,31 +48,34 @@ void showErrorDialog(DioError err) {
       }
       break;
   }
-  showDialogSimple(_hintType, '$errorMessage，请稍后再试。。。');
+  showDialogSimple(hintType, '$errorMessage，请稍后再试。。。');
 }
 
 Dio _initDio() {
-  final LoadingInterceptor _loadingInterceptor = g.Get.find();
-  final LogInterceptor _logInterceptor = g.Get.find();
-  final Dio _dio = Dio()
+  final LoadingInterceptor loadingInterceptor = g.Get.find();
+  final LogInterceptor logInterceptor = g.Get.find();
+  final Dio dio = Dio()
     ..options = BaseOptions(
       baseUrl: Application.globalEnv.apiGatewayBaseUrl,
       connectTimeout: Application.globalEnv.apiGatewayConnectTimeout,
     )
-    ..interceptors.add(_loadingInterceptor);
+    ..interceptors.add(loadingInterceptor);
 
   if (kDebugMode) {
-    _dio.interceptors.add(_logInterceptor);
+    dio.interceptors.add(logInterceptor);
   }
 
-  return _dio;
+  return dio;
 }
 
 class HttpClient {
   final Dio _dio = _initDio();
 
-  Future<Optional<Response>> get(String url,
-      {bool loading = true, bool throwError = false}) async {
+  Future<Optional<Response>> get(
+    String url, {
+    bool loading = true,
+    bool throwError = false,
+  }) async {
     return _dio
         .get(url, options: Options(extra: {'withoutLoading': !loading}))
         .then((response) => Optional.of(response))
@@ -86,8 +89,12 @@ class HttpClient {
     });
   }
 
-  Future<Optional<Response>> post(String url, Map<String, dynamic> data,
-      {bool loading = true, bool throwError = false}) async {
+  Future<Optional<Response>> post(
+    String url,
+    Map<String, dynamic> data, {
+    bool loading = true,
+    bool throwError = false,
+  }) async {
     return _dio
         .post(
           url,
@@ -105,8 +112,12 @@ class HttpClient {
     });
   }
 
-  Future<Optional<Response>> patch(String url, Map<String, dynamic> data,
-      {bool loading = true, bool throwError = false}) async {
+  Future<Optional<Response>> patch(
+    String url,
+    Map<String, dynamic> data, {
+    bool loading = true,
+    bool throwError = false,
+  }) async {
     return _dio
         .patch(
           url,

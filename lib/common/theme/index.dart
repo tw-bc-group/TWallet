@@ -66,20 +66,21 @@ class WalletTheme {
     );
 
     final OutlinedButton outlineButton = OutlinedButton(
-        style: outlineButtonStyle,
-        onPressed: onPressed,
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              height: 1.38,
-              fontFamily: 'PingFangHK',
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1,
-            ),
+      style: outlineButtonStyle,
+      onPressed: onPressed,
+      child: Center(
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 16,
+            height: 1.38,
+            fontFamily: 'PingFangHK',
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
           ),
-        ));
+        ),
+      ),
+    );
 
     return ButtonTheme(
       height: height,

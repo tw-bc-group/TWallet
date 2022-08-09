@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
@@ -35,14 +34,16 @@ class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
   }
 
   Widget _issuerTitle(String name) {
-    return Text(name,
-        textAlign: TextAlign.left,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 1.5,
-        ));
+    return Text(
+      name,
+      textAlign: TextAlign.left,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 1.5,
+      ),
+    );
   }
 
   Widget _vcCard(VcType vcType, VcStatus vcStatus) {
@@ -75,8 +76,9 @@ class _ApplyVcPageState extends State<ApplyVcPage> with RouteAware {
       child: Stack(
         children: <Widget>[
           ListView(
-              padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-              children: list),
+            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            children: list,
+          ),
         ],
       ),
     );

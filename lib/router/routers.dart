@@ -72,7 +72,8 @@ class Routes {
         Platform.isIOS ? TransitionType.cupertino : TransitionType.material;
 
     routers.forEach(
-        (p, h) => router.define(p, handler: h, transitionType: transitionType));
+      (p, h) => router.define(p, handler: h, transitionType: transitionType),
+    );
     router.notFoundHandler = Handler(
       handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
         return null;

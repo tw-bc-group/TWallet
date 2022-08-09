@@ -8,7 +8,9 @@ import 'package:tw_wallet_ui/service/blockchain.dart';
 part 'mnemonics.g.dart';
 
 typedef GenerateKeysCallback = Future<dynamic> Function(
-    int index, Tuple2<String, String> keys);
+  int index,
+  Tuple2<String, String> keys,
+);
 
 const saveSplitTag = '|';
 const identityStartIndex = 1;
@@ -65,8 +67,8 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
 
   static Future<MnemonicsStore> init() async {
     Tuple2<int, String> value;
-    final SecureStorage _secureStorage = Get.find();
-    final String? saved = await _secureStorage.get(SecureStorageItem.mnemonics);
+    final SecureStorage secureStorage = Get.find();
+    final String? saved = await secureStorage.get(SecureStorageItem.mnemonics);
 
     if (null != saved) {
       final List<String> splits = saved.split(saveSplitTag);
@@ -102,8 +104,8 @@ abstract class MnemonicsBase with Store {
   Future<void> save({int newIndex = 0}) async {
     value = Tuple2(newIndex, value.second);
 
-    final SecureStorage _secureStorage = Get.find();
-    await _secureStorage.set(
+    final SecureStorage secureStorage = Get.find();
+    await secureStorage.set(
       SecureStorageItem.mnemonics,
       '$index$saveSplitTag$mnemonics',
     );

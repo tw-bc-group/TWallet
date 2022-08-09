@@ -13,8 +13,10 @@ abstract class HealthInfo implements Built<HealthInfo, HealthInfoBuilder> {
 
   static HealthInfo fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-          specifiedType: const FullType(HealthInfo)) as HealthInfo;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(HealthInfo),
+      ) as HealthInfo;
     } catch (error) {
       throw Exception('webview request deserialize error, $error');
     }

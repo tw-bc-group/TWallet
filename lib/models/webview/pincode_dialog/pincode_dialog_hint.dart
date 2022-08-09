@@ -12,7 +12,8 @@ abstract class WebviewPincodeDialogHint
       _$webviewPincodeDialogHintSerializer;
 
   static void _initializeBuilder(
-          WebviewPincodeDialogHintBuilder webviewPincodeDialogCloseBuilder) =>
+    WebviewPincodeDialogHintBuilder webviewPincodeDialogCloseBuilder,
+  ) =>
       webviewPincodeDialogCloseBuilder
         ..text = 'Please input PIN code to confirm transaction'
         ..color = WalletColor.GREY
@@ -24,16 +25,17 @@ abstract class WebviewPincodeDialogHint
 
   static WebviewPincodeDialogHint fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewPincodeDialogHint))
-          as WebviewPincodeDialogHint;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewPincodeDialogHint),
+      ) as WebviewPincodeDialogHint;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewPincodeDialogHint(
-          [Function(WebviewPincodeDialogHintBuilder) updates]) =
-      _$WebviewPincodeDialogHint;
+  factory WebviewPincodeDialogHint([
+    Function(WebviewPincodeDialogHintBuilder) updates,
+  ]) = _$WebviewPincodeDialogHint;
   WebviewPincodeDialogHint._();
 }

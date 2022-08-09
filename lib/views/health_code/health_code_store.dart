@@ -27,7 +27,10 @@ abstract class HealthCodeStoreBase with Store {
   ObservableStream<ObservableFuture<void>>? fetchHealthCodeStream;
 
   HealthCodeStoreBase(
-      this.did, this.initialCountDown, FirstRefreshState firstRefresh) {
+    this.did,
+    this.initialCountDown,
+    FirstRefreshState firstRefresh,
+  ) {
     _fetchHealthCodeStreamController = StreamController();
     fetchHealthCodeStream = ObservableStream(
       _fetchHealthCodeStreamController!.stream,

@@ -22,8 +22,6 @@ class Payee {
   @override
   bool operator ==(Object other) =>
       other is Payee &&
-      name != null &&
-      other.name != null &&
       compareAsciiLowerCase(name, other.name) == 0 &&
       id == other.id;
 
@@ -54,7 +52,7 @@ extension on ScanResult {
   DeviceCategory get category {
     if (name == "SensorTag") {
       return DeviceCategory.sensorTag;
-    } else if (name != null && name.startsWith("Hex")) {
+    } else if (name.startsWith("Hex")) {
       return DeviceCategory.hex;
     } else {
       return DeviceCategory.other;

@@ -13,10 +13,9 @@ import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/health_code/health_code_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-
-import 'health_code_store.dart';
 
 class HealthCodePage extends StatefulWidget {
   final String id;
@@ -56,9 +55,9 @@ class HealthCodeState extends State<HealthCodePage> {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) {
-          final ScreenUtil _screenUtil = ScreenUtil();
-          final num _avatarWidth = _screenUtil.setWidth(70);
-          final ObservableFuture<void> _future =
+          final ScreenUtil screenUtil = ScreenUtil();
+          final num avatarWidth = screenUtil.setWidth(70);
+          final ObservableFuture<void> future =
               _certStore!.fetchHealthCodeStream!.value!;
 
           return CommonLayout(
@@ -66,7 +65,7 @@ class HealthCodeState extends State<HealthCodePage> {
             // ignore: missing_return
             child: Observer(
               builder: (_) {
-                switch (_future.status) {
+                switch (future.status) {
                   case FutureStatus.rejected:
                     return Center(
                       child: Column(
@@ -92,20 +91,20 @@ class HealthCodeState extends State<HealthCodePage> {
                         children: [
                           Container(
                             padding: EdgeInsets.only(
-                              left: _screenUtil.setWidth(24).toDouble(),
-                              right: _screenUtil.setWidth(24).toDouble(),
-                              top: _screenUtil.setHeight(20).toDouble(),
+                              left: screenUtil.setWidth(24).toDouble(),
+                              right: screenUtil.setWidth(24).toDouble(),
+                              top: screenUtil.setHeight(20).toDouble(),
                             ),
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(top: _avatarWidth / 2),
+                                      EdgeInsets.only(top: avatarWidth / 2),
                                   child: Container(
                                     padding: EdgeInsets.only(
                                       bottom:
-                                          _screenUtil.setHeight(91).toDouble(),
+                                          screenUtil.setHeight(91).toDouble(),
                                     ),
                                     decoration: BoxDecoration(
                                       color: WalletColor.white,
@@ -114,7 +113,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                         horizontal:
-                                            _screenUtil.setWidth(20).toDouble(),
+                                            screenUtil.setWidth(20).toDouble(),
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
@@ -122,8 +121,8 @@ class HealthCodeState extends State<HealthCodePage> {
                                         children: <Widget>[
                                           Padding(
                                             padding: EdgeInsets.only(
-                                              top: _avatarWidth / 2 +
-                                                  _screenUtil.setHeight(20),
+                                              top: avatarWidth / 2 +
+                                                  screenUtil.setHeight(20),
                                             ),
                                             child: Center(
                                               child: Text(
@@ -139,13 +138,13 @@ class HealthCodeState extends State<HealthCodePage> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
-                                              top: _screenUtil
+                                              top: screenUtil
                                                   .setHeight(28)
                                                   .toDouble(),
                                             ),
                                             child: Center(
                                               child: observeQrImage(
-                                                _screenUtil
+                                                screenUtil
                                                     .setWidth(200)
                                                     .toDouble(),
                                               ),
@@ -153,7 +152,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
-                                              top: _screenUtil
+                                              top: screenUtil
                                                   .setHeight(28)
                                                   .toDouble(),
                                             ),
@@ -175,7 +174,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
-                                              top: _screenUtil
+                                              top: screenUtil
                                                   .setHeight(28)
                                                   .toDouble(),
                                             ),
@@ -186,7 +185,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
-                                              top: _screenUtil
+                                              top: screenUtil
                                                   .setHeight(32)
                                                   .toDouble(),
                                             ),
@@ -226,7 +225,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
-                                              top: _screenUtil
+                                              top: screenUtil
                                                   .setHeight(20)
                                                   .toDouble(),
                                             ),
@@ -268,7 +267,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                 ),
                                 Positioned(
                                   top: 0,
-                                  child: AvatarWidget(width: _avatarWidth),
+                                  child: AvatarWidget(width: avatarWidth),
                                 ),
                               ],
                             ),

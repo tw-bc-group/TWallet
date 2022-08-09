@@ -26,10 +26,11 @@ List<DAppInfo> dappList = [
   //     'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html',
   //     'assets/icons/dapp/loyalty-club.svg'),
   DAppInfo(
-      'dapp-9',
-      'M. CLUB',
-      'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html',
-      'assets/icons/dapp/loyalty-club.svg'),
+    'dapp-9',
+    'M. CLUB',
+    'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html',
+    'assets/icons/dapp/loyalty-club.svg',
+  ),
   // DAppInfo(
   //     'dapp-4',
   //     'M. Enterprise LOCAL',
@@ -51,18 +52,20 @@ List<DAppInfo> dappList = [
   //     'https://tw-loyalty-club-app-uat.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
   //     'assets/icons/dapp/loyalty-enterprise.svg'),
   DAppInfo(
-      'dapp-10',
-      'M. Enterprise',
-      'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
-      'assets/icons/dapp/loyalty-enterprise.svg'),
+    'dapp-10',
+    'M. Enterprise',
+    'https://tw-loyalty-club-app-prod.s3.us-east-2.amazonaws.com/www/index.html#/enterprise',
+    'assets/icons/dapp/loyalty-enterprise.svg',
+  ),
   // DAppInfo(
   //     'cac-management',
   //     'CAC Management',
   //     'http://cac-management.cn.blockchain.thoughtworks.cn',
   //     'assets/icons/cac.svg')
   DAppInfo(
-      'dapp-11',
-      'NFT',
-      'https://dev.admin.nft.cn.blockchain.thoughtworks.cn/mobile/denom',
-      'assets/icons/dapp/nft.svg'),
+    'dapp-11',
+    'NFT',
+    'https://dev.admin.nft.cn.blockchain.thoughtworks.cn/mobile/denom',
+    'assets/icons/dapp/nft.svg',
+  ),
 ];

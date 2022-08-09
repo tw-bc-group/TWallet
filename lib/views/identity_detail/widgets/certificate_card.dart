@@ -8,8 +8,11 @@ class CertificateCardWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String routeTitle;
 
-  const CertificateCardWidget(
-      {required this.title, required this.onTap, required this.routeTitle});
+  const CertificateCardWidget({
+    required this.title,
+    required this.onTap,
+    required this.routeTitle,
+  });
 
   @override
   Widget build(BuildContext context) {

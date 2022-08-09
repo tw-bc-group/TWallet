@@ -83,82 +83,115 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(const FullType(Dcep), () => DcepBuilder())
       ..addBuilderFactory(const FullType(TxReceive), () => TxReceiveBuilder())
       ..addBuilderFactory(const FullType(TxSend), () => TxSendBuilder())
-      ..addBuilderFactory(const FullType(BuiltList, [FullType(Dcep)]),
-          () => ListBuilder<Dcep>())
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(Dcep)]),
+        () => ListBuilder<Dcep>(),
+      )
       ..addBuilderFactory(const FullType(Command), () => CommandBuilder())
-      ..addBuilderFactory(const FullType(BuiltList, [FullType(Transaction)]),
-          () => ListBuilder<Transaction>())
-      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Contract)]),
-          () => ApiResponseBuilder<Contract>())
-      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Dcep)]),
-          () => ApiResponseBuilder<Dcep>())
       ..addBuilderFactory(
-          const FullType(ApiResponse, [FullType(SendTransactionResponse)]),
-          () => ApiResponseBuilder<SendTransactionResponse>())
+        const FullType(BuiltList, [FullType(Transaction)]),
+        () => ListBuilder<Transaction>(),
+      )
       ..addBuilderFactory(
-          const FullType(ApiResponse, [
-            FullType(BuiltList, [FullType(Dcep)])
-          ]),
-          () => ApiResponseBuilder<BuiltList<Dcep>>())
-      ..addBuilderFactory(const FullType(ApiResponse, [FullType(Transaction)]),
-          () => ApiResponseBuilder<Transaction>())
+        const FullType(ApiResponse, [FullType(Contract)]),
+        () => ApiResponseBuilder<Contract>(),
+      )
       ..addBuilderFactory(
-          const FullType(ApiResponse, [
-            FullType(BuiltList, [FullType(Transaction)])
-          ]),
-          () => ApiResponseBuilder<BuiltList<Transaction>>())
-      ..addBuilderFactory(const FullType(ApiResponse, [FullType(TwBalance)]),
-          () => ApiResponseBuilder<TwBalance>())
+        const FullType(ApiResponse, [FullType(Dcep)]),
+        () => ApiResponseBuilder<Dcep>(),
+      )
       ..addBuilderFactory(
-          const FullType(ApiResponse, [FullType(HealthCertificationToken)]),
-          () => ApiResponseBuilder<HealthCertificationToken>())
+        const FullType(ApiResponse, [FullType(SendTransactionResponse)]),
+        () => ApiResponseBuilder<SendTransactionResponse>(),
+      )
       ..addBuilderFactory(
-          const FullType(WebviewRequest), () => WebviewRequestBuilder())
+        const FullType(ApiResponse, [
+          FullType(BuiltList, [FullType(Dcep)])
+        ]),
+        () => ApiResponseBuilder<BuiltList<Dcep>>(),
+      )
       ..addBuilderFactory(
-          const FullType(WebviewParameter, [FullType(WebviewParameterType)]),
-          () => WebviewParameterBuilder())
+        const FullType(ApiResponse, [FullType(Transaction)]),
+        () => ApiResponseBuilder<Transaction>(),
+      )
       ..addBuilderFactory(
-          const FullType(WebviewTransactionInfo,
-              [FullType(BuiltList), FullType(WebviewParameter)]),
-          () => WebviewTransactionInfoBuilder())
+        const FullType(ApiResponse, [
+          FullType(BuiltList, [FullType(Transaction)])
+        ]),
+        () => ApiResponseBuilder<BuiltList<Transaction>>(),
+      )
       ..addBuilderFactory(
-          const FullType(
-            WebviewSignTransaction,
-            [
-              FullType(WebviewTransactionInfo),
-              FullType(WebviewPincodeDialogStyle),
-            ],
-          ),
-          () => WebviewSignTransactionBuilder)
+        const FullType(ApiResponse, [FullType(TwBalance)]),
+        () => ApiResponseBuilder<TwBalance>(),
+      )
       ..addBuilderFactory(
-          const FullType(
-            WebviewPincodeDialogStyle,
-            [
-              FullType(WebviewPincodeDialogClose),
-              FullType(WebviewPincodeDialogErrorMsg),
-              FullType(WebviewPincodeDialogHint),
-              FullType(WebviewPincodeDialogInput),
-              FullType(WebviewPincodeDialogTitle)
-            ],
-          ),
-          () => WebviewPincodeDialogStyleBuilder)
-      ..addBuilderFactory(const FullType(BuiltList, [FullType(IssuerResponse)]),
-          () => ListBuilder<IssuerResponse>())
+        const FullType(ApiResponse, [FullType(HealthCertificationToken)]),
+        () => ApiResponseBuilder<HealthCertificationToken>(),
+      )
       ..addBuilderFactory(
-          const FullType(ApiResponse, [FullType(IssuerResponse)]),
-          () => ApiResponseBuilder<IssuerResponse>())
+        const FullType(WebviewRequest),
+        () => WebviewRequestBuilder(),
+      )
       ..addBuilderFactory(
-          const FullType(ApiResponse, [
-            FullType(BuiltList, [FullType(IssuerResponse)])
-          ]),
-          () => ApiResponseBuilder<BuiltList<IssuerResponse>>())
-      ..addBuilderFactory(const FullType(BuiltList, [FullType(VcType)]),
-          () => ListBuilder<VcType>())
-      ..addBuilderFactory(const FullType(ApiResponse, [FullType(VcType)]),
-          () => ApiResponseBuilder<VcType>())
+        const FullType(WebviewParameter, [FullType(WebviewParameterType)]),
+        () => WebviewParameterBuilder(),
+      )
       ..addBuilderFactory(
-          const FullType(ApiResponse, [
-            FullType(BuiltList, [FullType(VcType)])
-          ]),
-          () => ApiResponseBuilder<BuiltList<VcType>>()))
+        const FullType(
+          WebviewTransactionInfo,
+          [FullType(BuiltList), FullType(WebviewParameter)],
+        ),
+        () => WebviewTransactionInfoBuilder(),
+      )
+      ..addBuilderFactory(
+        const FullType(
+          WebviewSignTransaction,
+          [
+            FullType(WebviewTransactionInfo),
+            FullType(WebviewPincodeDialogStyle),
+          ],
+        ),
+        () => WebviewSignTransactionBuilder,
+      )
+      ..addBuilderFactory(
+        const FullType(
+          WebviewPincodeDialogStyle,
+          [
+            FullType(WebviewPincodeDialogClose),
+            FullType(WebviewPincodeDialogErrorMsg),
+            FullType(WebviewPincodeDialogHint),
+            FullType(WebviewPincodeDialogInput),
+            FullType(WebviewPincodeDialogTitle)
+          ],
+        ),
+        () => WebviewPincodeDialogStyleBuilder,
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(IssuerResponse)]),
+        () => ListBuilder<IssuerResponse>(),
+      )
+      ..addBuilderFactory(
+        const FullType(ApiResponse, [FullType(IssuerResponse)]),
+        () => ApiResponseBuilder<IssuerResponse>(),
+      )
+      ..addBuilderFactory(
+        const FullType(ApiResponse, [
+          FullType(BuiltList, [FullType(IssuerResponse)])
+        ]),
+        () => ApiResponseBuilder<BuiltList<IssuerResponse>>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(VcType)]),
+        () => ListBuilder<VcType>(),
+      )
+      ..addBuilderFactory(
+        const FullType(ApiResponse, [FullType(VcType)]),
+        () => ApiResponseBuilder<VcType>(),
+      )
+      ..addBuilderFactory(
+        const FullType(ApiResponse, [
+          FullType(BuiltList, [FullType(VcType)])
+        ]),
+        () => ApiResponseBuilder<BuiltList<VcType>>(),
+      ))
     .build();

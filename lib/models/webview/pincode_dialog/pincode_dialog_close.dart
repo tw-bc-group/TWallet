@@ -12,7 +12,8 @@ abstract class WebviewPincodeDialogClose
       _$webviewPincodeDialogCloseSerializer;
 
   static void _initializeBuilder(
-          WebviewPincodeDialogCloseBuilder webviewPincodeDialogCloseBuilder) =>
+    WebviewPincodeDialogCloseBuilder webviewPincodeDialogCloseBuilder,
+  ) =>
       webviewPincodeDialogCloseBuilder
         ..color = WalletColor.PRIMARY
         ..size = 20;
@@ -22,16 +23,17 @@ abstract class WebviewPincodeDialogClose
 
   static WebviewPincodeDialogClose fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewPincodeDialogClose))
-          as WebviewPincodeDialogClose;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewPincodeDialogClose),
+      ) as WebviewPincodeDialogClose;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewPincodeDialogClose(
-          [Function(WebviewPincodeDialogCloseBuilder) updates]) =
-      _$WebviewPincodeDialogClose;
+  factory WebviewPincodeDialogClose([
+    Function(WebviewPincodeDialogCloseBuilder) updates,
+  ]) = _$WebviewPincodeDialogClose;
   WebviewPincodeDialogClose._();
 }

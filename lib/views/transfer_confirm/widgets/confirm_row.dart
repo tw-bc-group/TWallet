@@ -7,8 +7,11 @@ class ConfirmRowWidget extends StatelessWidget {
   final String contentLeft;
   final String? contentRight;
 
-  const ConfirmRowWidget(
-      {required this.title, required this.contentLeft, this.contentRight});
+  const ConfirmRowWidget({
+    required this.title,
+    required this.contentLeft,
+    this.contentRight,
+  });
 
   @override
   Widget build(BuildContext context) {

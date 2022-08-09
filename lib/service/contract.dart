@@ -84,8 +84,11 @@ class Contract {
     ).decode(data.buffer, 4).data;
   }
 
-  Transaction makeTransaction(String functionName, List<dynamic> parameters,
-      {int? nonce}) {
+  Transaction makeTransaction(
+    String functionName,
+    List<dynamic> parameters, {
+    int? nonce,
+  }) {
     return Transaction.callContract(
       contract: contract,
       function: contract.function(functionName),
@@ -112,7 +115,10 @@ class Contract {
   }
 
   Future<List<dynamic>> callFunction(
-      String publicKey, String functionName, List<dynamic>? parameters) async {
+    String publicKey,
+    String functionName,
+    List<dynamic>? parameters,
+  ) async {
     return web3Client
         .call(
       sender: EthereumAddress.fromHex(
@@ -128,7 +134,10 @@ class Contract {
   }
 
   Future<bool> sendTransaction(
-      String privateKey, String functionName, List<dynamic> parameters) async {
+    String privateKey,
+    String functionName,
+    List<dynamic> parameters,
+  ) async {
     TransactionReceipt? receipt;
     final String hash =
         await web3Client.credentialsFromPrivateKey(privateKey).then(
@@ -152,8 +161,11 @@ class Contract {
   }
 
   Future<String> signContractCall(
-      String privateKey, String functionName, List<dynamic> parameters,
-      {int? nonce}) async {
+    String privateKey,
+    String functionName,
+    List<dynamic> parameters, {
+    int? nonce,
+  }) async {
     return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
       return web3Client
           .signTransaction(

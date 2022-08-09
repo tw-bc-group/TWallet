@@ -51,8 +51,12 @@ Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {required num width}) {
 }
 
 Future<void> hintDialogHelper(
-    BuildContext context, DialogType type, String text,
-    {String title = '', String subText = ''}) async {
+  BuildContext context,
+  DialogType type,
+  String text, {
+  String title = '',
+  String subText = '',
+}) async {
   return hintDialogFull(
     context,
     type,
@@ -82,7 +86,12 @@ class HintDialog extends Dialog {
   final DialogType type;
 
   const HintDialog(
-      this.title, this.text, this.subText, this.buttonText, this.type);
+    this.title,
+    this.text,
+    this.subText,
+    this.buttonText,
+    this.type,
+  );
 
   @override
   Widget build(BuildContext context) {

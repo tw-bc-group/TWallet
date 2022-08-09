@@ -41,14 +41,14 @@ class OfflineTxStore {
   }
 
   static Future<OfflineTxStore> init() async {
-    final Queue<TxReceive?> _txQueue = Queue();
+    final Queue<TxReceive?> txQueue = Queue();
     final ReceivePort receivePort = ReceivePort();
-    final Connectivity _connectivity = Connectivity();
+    final Connectivity connectivity = Connectivity();
     const Logger log = Logger('offlineTxStore');
 
     receivePort.listen((tx) async {
       if (!DeviceInfo.isPhysicalDevice ||
-          ConnectivityResult.none != await _connectivity.checkConnectivity()) {
+          ConnectivityResult.none != await connectivity.checkConnectivity()) {
         final TxReceive offlineTx = tx as TxReceive;
         try {
           await Get.find<ApiProvider>().transferDcepV2(
@@ -61,19 +61,19 @@ class OfflineTxStore {
         }
 
         await _store.deleteItem(_itemKey(offlineTx));
-        _txQueue.remove(tx);
+        txQueue.remove(tx);
       }
     });
 
     await _store.getListLike('$offlineTxPrefix: %').then((list) {
       if (null != list && list.isNotEmpty) {
-        _txQueue.addAll(
+        txQueue.addAll(
           list.map((item) => TxReceive.fromJson(item)).whereType<TxReceive>(),
         );
       }
     });
 
-    return OfflineTxStore(receivePort.sendPort, Rx(_txQueue), _connectivity);
+    return OfflineTxStore(receivePort.sendPort, Rx(txQueue), connectivity);
   }
 
   Future<void> addOne(TxReceive tx) async {

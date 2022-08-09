@@ -14,7 +14,9 @@ void main() {
       final request = WebviewRequest.fromJson(jsonMap);
       expect(request is WebviewRequest, isTrue);
       expect(
-          request.method.toString(), WebviewRequestMethod.quitApp.toString());
+        request.method.toString(),
+        WebviewRequestMethod.quitApp.toString(),
+      );
     });
 
     test(
@@ -60,8 +62,10 @@ void main() {
         }
       };
 
-      expect(WebviewSignTransaction.fromJson(serialized),
-          isA<WebviewSignTransaction>());
+      expect(
+        WebviewSignTransaction.fromJson(serialized),
+        isA<WebviewSignTransaction>(),
+      );
     });
   });
 }

@@ -12,13 +12,14 @@ class TransferInputWidget extends StatelessWidget {
   final List<TextInputFormatter> inputFormatters;
   final TextEditingController? controller;
 
-  const TransferInputWidget(
-      {this.withPrefix = true,
-      required this.onChange,
-      this.errorText,
-      required this.keyboardType,
-      required this.inputFormatters,
-      this.controller});
+  const TransferInputWidget({
+    this.withPrefix = true,
+    required this.onChange,
+    this.errorText,
+    required this.keyboardType,
+    required this.inputFormatters,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {

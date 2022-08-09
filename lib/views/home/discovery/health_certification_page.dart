@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,13 +13,12 @@ import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/health_certification_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/identity_card.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/scan_icon.dart';
-
-import '../home.dart';
 
 class HealthCertificationPage extends StatelessWidget {
   final IdentityStore _identityStore = Get.find();
@@ -97,21 +95,21 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Widget _buildIdentityEmpty(BuildContext context, HomeStore homeStore) {
-    final ScreenUtil _screenUtil = ScreenUtil();
+    final ScreenUtil screenUtil = ScreenUtil();
 
     return Expanded(
       child: Container(
         margin: EdgeInsets.only(
-          left: _screenUtil.setWidth(24).toDouble(),
-          right: _screenUtil.setWidth(24).toDouble(),
-          top: _screenUtil.setHeight(10).toDouble(),
-          bottom: _screenUtil.setHeight(147).toDouble(),
+          left: screenUtil.setWidth(24).toDouble(),
+          right: screenUtil.setWidth(24).toDouble(),
+          top: screenUtil.setHeight(10).toDouble(),
+          bottom: screenUtil.setHeight(147).toDouble(),
         ),
         padding: EdgeInsets.only(
-          left: _screenUtil.setWidth(20).toDouble(),
-          right: _screenUtil.setWidth(20).toDouble(),
-          top: _screenUtil.setHeight(90).toDouble(),
-          bottom: _screenUtil.setHeight(46).toDouble(),
+          left: screenUtil.setWidth(20).toDouble(),
+          right: screenUtil.setWidth(20).toDouble(),
+          top: screenUtil.setHeight(90).toDouble(),
+          bottom: screenUtil.setHeight(46).toDouble(),
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -187,7 +185,9 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Future _onIdentityTap(
-      BuildContext context, DecentralizedIdentity identity) async {
+    BuildContext context,
+    DecentralizedIdentity identity,
+  ) async {
     await certStore.fetchHealthCertByDID(identity.did.toString());
     await _identityStore.updateHealthCertLastSelected(identity);
 
@@ -210,22 +210,22 @@ class HealthCertificationPage extends StatelessWidget {
         final HealthCertificationToken token =
             HealthCertificationToken.fromJson(json.decode(scanResult));
         if (await token.verify()) {
-          DialogType _hintType = DialogType.success;
-          String _hintText = '无健康风险';
+          DialogType hintType = DialogType.success;
+          String hintText = '无健康风险';
 
           if (token.healthCertification.sub.healthyStatus.val == unHealthy) {
-            _hintType = DialogType.error;
-            _hintText = '存在健康风险';
+            hintType = DialogType.error;
+            hintText = '存在健康风险';
           }
 
-          final String _subHintText =
+          final String subHintText =
               '该健康码和持有人身份相符。\n\n身份信息：${token.healthCertification.sub.id}\n\n该健康认证结果由防疫中心（${token.healthCertification.iss}）提供。';
 
           await hintDialogHelper(
             context,
-            _hintType,
-            _hintText,
-            subText: _subHintText,
+            hintType,
+            hintText,
+            subText: subHintText,
           );
         } else {
           await hintDialogHelper(context, DialogType.warning, '该健康码与持有人身份不符');

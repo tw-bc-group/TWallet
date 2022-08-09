@@ -20,8 +20,10 @@ abstract class VcType extends Object implements Built<VcType, VcTypeBuilder> {
   factory VcType([void Function(VcTypeBuilder) updates]) = _$VcType;
 
   factory VcType.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(VcType)) as VcType;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(VcType),
+    ) as VcType;
   }
 
   VcType._();

@@ -29,8 +29,10 @@ abstract class TwBalance extends Object
     ) as TwBalance;
   }
 
-  static Future<Optional<TwBalance>> fetchBalance(
-      {required String address, required bool withLoading}) async {
+  static Future<Optional<TwBalance>> fetchBalance({
+    required String address,
+    required bool withLoading,
+  }) async {
     return Get.find<ApiProvider>()
         .fetchPointV1(address: address, withLoading: withLoading);
   }

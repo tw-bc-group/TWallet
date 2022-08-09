@@ -38,7 +38,9 @@ abstract class _InputPinStore with Store {
     final Key aesKey = Key.fromUtf8('${pin1}abcdefghijklmnopqrstuvwxyz');
     final encrypt = Encrypter(AES(aesKey, mode: AESMode.cbc));
 
-    return Get.find<SecureStorage>().set(SecureStorageItem.masterKey,
-        encrypt.encrypt(randomString(masterKeyLength), iv: iv).base64);
+    return Get.find<SecureStorage>().set(
+      SecureStorageItem.masterKey,
+      encrypt.encrypt(randomString(masterKeyLength), iv: iv).base64,
+    );
   }
 }

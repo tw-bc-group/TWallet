@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
@@ -12,7 +12,6 @@ import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-import 'package:get/get.dart';
 
 class RestoreMnemonicsPage extends StatefulWidget {
   @override
@@ -47,28 +46,28 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil _screenUtil = ScreenUtil();
+    final ScreenUtil screenUtil = ScreenUtil();
 
     return Obx(
       () => CommonLayout(
         withBottomBtn: true,
         btnOnPressed: _isValidInput
             ? () async {
-                final ProgressDialog _progressDialog = Get.find();
-                _progressDialog.show();
+                final ProgressDialog progressDialog = Get.find();
+                progressDialog.show();
                 try {
-                  final MnemonicsStore _mnemonicsStore = Get.find();
-                  _mnemonicsStore.brandNew(mnemonics: _inputWords.join(' '));
+                  final MnemonicsStore mnemonicsStore = Get.find();
+                  mnemonicsStore.brandNew(mnemonics: _inputWords.join(' '));
                   Get.find<IdentityStore>().restore().then((maxIndex) {
-                    _mnemonicsStore.save(newIndex: maxIndex);
+                    mnemonicsStore.save(newIndex: maxIndex);
                   }).then((_) {
-                    _progressDialog.dismiss();
+                    progressDialog.dismiss();
                     Application.router
                         .navigateTo(context, Routes.home, clearStack: true);
                   });
                 } catch (_) {
                   _restoreFailed.value = true;
-                  _progressDialog.dismiss();
+                  progressDialog.dismiss();
                 }
               }
             : null,
@@ -99,10 +98,10 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: _screenUtil.setWidth(40).toDouble(),
-                  bottom: _screenUtil.setWidth(24).toDouble(),
-                  left: _screenUtil.setWidth(24).toDouble(),
-                  right: _screenUtil.setWidth(24).toDouble(),
+                  top: screenUtil.setWidth(40).toDouble(),
+                  bottom: screenUtil.setWidth(24).toDouble(),
+                  left: screenUtil.setWidth(24).toDouble(),
+                  right: screenUtil.setWidth(24).toDouble(),
                 ),
                 child: Center(
                   child: Text(
@@ -113,10 +112,10 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: _screenUtil.setWidth(24).toDouble(),
+                  horizontal: screenUtil.setWidth(24).toDouble(),
                 ),
                 child: Container(
-                  height: _screenUtil.setHeight(162).toDouble(),
+                  height: screenUtil.setHeight(162).toDouble(),
                   decoration: BoxDecoration(
                     color: WalletColor.lightGrey,
                     borderRadius: BorderRadius.circular(12),
@@ -153,7 +152,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: _screenUtil.setWidth(24).toDouble(),
+                  horizontal: screenUtil.setWidth(24).toDouble(),
                 ),
                 child: _restoreFailed.value
                     ? const Tips('恢复失败，请稍后再试')

@@ -10,11 +10,12 @@ class ColorMoneyText extends StatelessWidget {
   final bool isExpense;
   final TextStyle? textStyle;
 
-  const ColorMoneyText(
-      {required this.amount,
-      required this.status,
-      required this.isExpense,
-      this.textStyle});
+  const ColorMoneyText({
+    required this.amount,
+    required this.status,
+    required this.isExpense,
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +37,11 @@ class ColorMoneyText extends StatelessWidget {
   }
 
   Color _toColor(TxStatus status) {
-    final _statusColorMap = {
+    final statusColorMap = {
       TxStatus.succeeded: _parseSucceededColor(),
       TxStatus.transferring: _parseSucceededColor(),
       TxStatus.failed: _parseSucceededColor(),
     };
-    return _statusColorMap[status]!;
+    return statusColorMap[status]!;
   }
 }

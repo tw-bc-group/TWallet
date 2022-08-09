@@ -51,8 +51,9 @@ abstract class DecentralizedIdentity extends Object
         'extra': extra
       };
 
-  factory DecentralizedIdentity(
-          [void Function(DecentralizedIdentityBuilder)? updates]) =>
+  factory DecentralizedIdentity([
+    void Function(DecentralizedIdentityBuilder)? updates,
+  ]) =>
       _$DecentralizedIdentity(
         (builder) => builder
           ..id = const Uuid().v1()
@@ -103,8 +104,10 @@ abstract class DecentralizedIdentity extends Object
         );
   }
 
-  Future<bool> transferPoint(
-      {required String toAddress, required Amount amount}) async {
+  Future<bool> transferPoint({
+    required String toAddress,
+    required Amount amount,
+  }) async {
     return Get.find<ContractService>()
         .tokenContract!
         .signContractCall(accountInfo.priKey, 'transfer', [

@@ -151,7 +151,9 @@ class _PaymentState extends State<Payment> {
   }
 
   Future<Optional<List<TxSend>>> _onWaitSignPayment(
-      String toAddress, int amount) async {
+    String toAddress,
+    int amount,
+  ) async {
     _amount.value = amount;
 
     if (await _confirmCompleter.future) {

@@ -27,9 +27,10 @@ abstract class HealthCertification
       _$HealthCertification;
 
   factory HealthCertification.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-            specifiedType: const FullType(HealthCertification))
-        as HealthCertification;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(HealthCertification),
+    ) as HealthCertification;
   }
 
   Map<String, dynamic> toJson() {
@@ -48,14 +49,15 @@ abstract class HealthCertificationSub
   String get phone;
   HealthyStatus get healthyStatus;
 
-  factory HealthCertificationSub(
-          [Function(HealthCertificationSubBuilder) updates]) =
-      _$HealthCertificationSub;
+  factory HealthCertificationSub([
+    Function(HealthCertificationSubBuilder) updates,
+  ]) = _$HealthCertificationSub;
 
   factory HealthCertificationSub.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-            specifiedType: const FullType(HealthCertificationSub))
-        as HealthCertificationSub;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(HealthCertificationSub),
+    ) as HealthCertificationSub;
   }
 
   HealthCertificationSub._();
@@ -72,8 +74,10 @@ abstract class HealthyStatus
       _$HealthyStatus;
 
   factory HealthyStatus.fromJson(dynamic serialized) {
-    return serializers.deserialize(serialized,
-        specifiedType: const FullType(HealthyStatus)) as HealthyStatus;
+    return serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(HealthyStatus),
+    ) as HealthyStatus;
   }
 
   HealthyStatus._();

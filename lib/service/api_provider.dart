@@ -1,7 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as g;
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
@@ -19,7 +18,10 @@ class ApiProvider {
   final HttpClient _httpClient = g.Get.find();
 
   Future<void> transferDcepV2(
-      String from, String publicKey, String signedRawTx) {
+    String from,
+    String publicKey,
+    String signedRawTx,
+  ) {
     return _httpClient.post(
       '/v2/token/transfer',
       {
@@ -60,8 +62,10 @@ class ApiProvider {
         );
   }
 
-  Future<Optional<TwBalance>> fetchPointV1(
-      {required String address, bool? withLoading}) async {
+  Future<Optional<TwBalance>> fetchPointV1({
+    required String address,
+    bool? withLoading,
+  }) async {
     return _httpClient
         .get('/v1/token/$address', loading: withLoading ?? true)
         .then((res) {
@@ -76,8 +80,9 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<Contract>> fetchContractAbiV1(
-      {required String contractName}) async {
+  Future<Optional<Contract>> fetchContractAbiV1({
+    required String contractName,
+  }) async {
     return _httpClient
         .get('/v1/contracts/$contractName', loading: false, throwError: true)
         .then((res) {
@@ -92,8 +97,13 @@ class ApiProvider {
   }
 
   @Deprecated("Replaced by DecentralizedIdentity.register")
-  Future<Optional<Response>> identityRegister(String name, String publicKey,
-      String address, String did, String signedRawTx) {
+  Future<Optional<Response>> identityRegister(
+    String name,
+    String publicKey,
+    String address,
+    String did,
+    String signedRawTx,
+  ) {
     return _httpClient.post(
       '/v1/identities',
       {
@@ -107,7 +117,10 @@ class ApiProvider {
   }
 
   Future<Optional<Response>> transferPoint(
-      String fromAddress, String publicKey, String signedRawTx) {
+    String fromAddress,
+    String publicKey,
+    String signedRawTx,
+  ) {
     return _httpClient.post('/v1/token/transfer', {
       'fromAddress': fromAddress,
       'fromPublicKey': publicKey,
@@ -141,8 +154,13 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<HealthCertificationToken>> healthCertificate(String did,
-      String phone, double temperature, String contact, String symptoms) {
+  Future<Optional<HealthCertificationToken>> healthCertificate(
+    String did,
+    String phone,
+    double temperature,
+    String contact,
+    String symptoms,
+  ) {
     return _httpClient.post('/v1/health-certifications', {
       'did': did,
       'phone': phone,
@@ -162,7 +180,8 @@ class ApiProvider {
   }
 
   Future<Optional<HealthCertificationToken>> fetchHealthCertificate(
-      String did) {
+    String did,
+  ) {
     return _httpClient.get('/v1/health-certifications/$did').then(
           (res) => Future.value(
             res.map(
@@ -198,7 +217,12 @@ class ApiProvider {
   }
 
   Future<Optional<HealthCertificationToken>> applyVc(
-      String vcTypeId, String issuerId, String did, String name, String phone) {
+    String vcTypeId,
+    String issuerId,
+    String did,
+    String name,
+    String phone,
+  ) {
     return _httpClient.post('/v2/vc-market/vcs', {
       'did': did,
       'issueId': issuerId,
@@ -218,7 +242,10 @@ class ApiProvider {
   }
 
   Future<Optional<Response>> patchVerifier(
-      String id, String name, List<VcType> vcTypes) {
+    String id,
+    String name,
+    List<VcType> vcTypes,
+  ) {
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
     return _httpClient.patch('/v2/vc-market/verifiers/${id}', {
       "name": name,
@@ -231,7 +258,9 @@ class ApiProvider {
   }
 
   Future<Optional<Response>> verifierTravelBadgeVerify(
-      String verifierId, String token) {
+    String verifierId,
+    String token,
+  ) {
     return _httpClient.post(
       '/v2/verifier/travel-badge/verify',
       {

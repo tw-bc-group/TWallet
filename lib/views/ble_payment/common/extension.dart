@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
+import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
-
-import 'command.dart';
 
 extension CharacteristicExtension on Characteristic {
   Future<String> receiveString() {

@@ -43,14 +43,20 @@ class Amount {
 
 class AmountSerializer implements PrimitiveSerializer<Amount> {
   @override
-  Amount deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Amount deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return Amount.parse(serialized);
   }
 
   @override
-  Object serialize(Serializers serializers, Amount amount,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Amount amount, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return amount.toString();
   }
 

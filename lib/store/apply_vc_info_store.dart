@@ -82,13 +82,13 @@ abstract class _ApplyVcInfoStore with Store {
 
   @action
   Future<dynamic> applyNewVc() async {
-    final ApiProvider _apiProvider = Get.find<ApiProvider>();
-    final VcStore _vcStore = Get.find();
-    final IssuerStore _issuerStore = Get.find();
+    final ApiProvider apiProvider = Get.find<ApiProvider>();
+    final VcStore vcStore = Get.find();
+    final IssuerStore issuerStore = Get.find();
 
     const mockIssuerId = 'did:tw:mockIssuerId';
 
-    return _apiProvider
+    return apiProvider
         .applyVc(
       vcType.id,
       mockIssuerId,
@@ -99,10 +99,10 @@ abstract class _ApplyVcInfoStore with Store {
         .then((res) {
       bool success = false;
       res.ifPresent((tokenResponse) {
-        _vcStore.addVc(
+        vcStore.addVc(
           VerifiableCredential(
             name: vcType.name,
-            issuer: _issuerStore.getIssuerNameByVcTypeId(vcType.id),
+            issuer: issuerStore.getIssuerNameByVcTypeId(vcType.id),
             vcTypeId: vcType.id,
             token: tokenResponse.token,
             content: vcType.content.toList(),

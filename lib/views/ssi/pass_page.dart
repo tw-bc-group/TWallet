@@ -22,12 +22,16 @@ class PassPage extends StatelessWidget {
     try {
       final exp = jwt.getClaim("exp") as int;
       return CommonLayout(
-          child: Column(children: <Widget>[
-        Header(title: "请出示用于\n【${vcPass.name}】"),
-        QrCard(
-            data: vcPass.token,
-            before: DateTime.fromMillisecondsSinceEpoch(exp * 1000))
-      ]));
+        child: Column(
+          children: <Widget>[
+            Header(title: "请出示用于\n【${vcPass.name}】"),
+            QrCard(
+              data: vcPass.token,
+              before: DateTime.fromMillisecondsSinceEpoch(exp * 1000),
+            )
+          ],
+        ),
+      );
     } catch (e) {
       return ErrorRowWidget(errorText: "$e");
     }

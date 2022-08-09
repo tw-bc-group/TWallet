@@ -32,11 +32,15 @@ class VerifiableCredentialPresentationRequest {
   @JsonKey(name: 'vc_types')
   List<String> vcTypes;
 
-  VerifiableCredentialPresentationRequest(
-      {required this.id, required this.name, required this.vcTypes});
+  VerifiableCredentialPresentationRequest({
+    required this.id,
+    required this.name,
+    required this.vcTypes,
+  });
 
   factory VerifiableCredentialPresentationRequest.fromJson(
-          Map<String, dynamic> json) =>
+    Map<String, dynamic> json,
+  ) =>
       _$VerifiableCredentialPresentationRequestFromJson(json);
 
   Map<String, dynamic> toJson() =>
@@ -56,7 +60,8 @@ class VerifiableCredentialTokenResponse {
   VerifiableCredentialTokenResponse({required this.token});
 
   factory VerifiableCredentialTokenResponse.fromJson(
-          Map<String, dynamic> json) =>
+    Map<String, dynamic> json,
+  ) =>
       _$VerifiableCredentialTokenResponseFromJson(json);
 
   Map<String, dynamic> toJson() =>

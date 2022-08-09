@@ -5,7 +5,6 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
 import 'package:tw_wallet_ui/views/home/my/util.dart';
-import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
 class UsersPage extends StatefulWidget {
   @override
@@ -30,7 +29,8 @@ class _UsersPageState extends State<UsersPage> {
     });
   }
 
-  void _handlePressed(types.User otherUser, BuildContext context) async {
+  Future<void> _handlePressed(
+      types.User otherUser, BuildContext context,) async {
     final room = await FirebaseChatCore.instance.createRoom(otherUser);
 
     Navigator.of(context).pop();
@@ -71,8 +71,7 @@ class _UsersPageState extends State<UsersPage> {
       margin: const EdgeInsets.only(
         bottom: 200,
       ),
-      child: 
-      Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
@@ -86,7 +85,7 @@ class _UsersPageState extends State<UsersPage> {
             ),
           ),
           Text(
-            "Please enter user name to search for new user",  //暂无用户，请搜索用户名
+            "Please enter user name to search for new user", //暂无用户，请搜索用户名
             style: TextStyle(
               color: WalletColor.lightGrey,
               fontSize: 12,
@@ -114,7 +113,7 @@ class _UsersPageState extends State<UsersPage> {
           ),
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search, color: Colors.white),
-            hintText: "Search User...",  // 搜索...
+            hintText: "Search User...", // 搜索...
             hintStyle: TextStyle(color: Colors.white),
           ),
         ),

@@ -331,12 +331,13 @@ class TransferPageState extends State<TransferPage> {
     );
   }
 
-  Widget buildFunctionButton(
-      {bool active = true,
-      required String iconAsset,
-      required String title,
-      EdgeInsetsGeometry? margin,
-      VoidCallback? onTap}) {
+  Widget buildFunctionButton({
+    bool active = true,
+    required String iconAsset,
+    required String title,
+    EdgeInsetsGeometry? margin,
+    VoidCallback? onTap,
+  }) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,

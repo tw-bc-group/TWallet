@@ -21,7 +21,8 @@ class VerificationScenarioQrPage extends StatelessWidget {
         children: <Widget>[
           Header(title: name),
           QrCard(
-              data: _apiProvider.verifiersVcQrPath(SsiService.getSelectDid())),
+            data: _apiProvider.verifiersVcQrPath(SsiService.getSelectDid()),
+          ),
         ],
       ),
     );

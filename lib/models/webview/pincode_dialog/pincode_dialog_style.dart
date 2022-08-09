@@ -23,16 +23,17 @@ abstract class WebviewPincodeDialogStyle
 
   static WebviewPincodeDialogStyle fromJson(dynamic serialized) {
     try {
-      return serializers.deserialize(serialized,
-              specifiedType: const FullType(WebviewPincodeDialogStyle))
-          as WebviewPincodeDialogStyle;
+      return serializers.deserialize(
+        serialized,
+        specifiedType: const FullType(WebviewPincodeDialogStyle),
+      ) as WebviewPincodeDialogStyle;
     } catch (error) {
       throw Exception('webview sign transaction deserialize error, $error');
     }
   }
 
-  factory WebviewPincodeDialogStyle(
-          [Function(WebviewPincodeDialogStyleBuilder) updates]) =
-      _$WebviewPincodeDialogStyle;
+  factory WebviewPincodeDialogStyle([
+    Function(WebviewPincodeDialogStyleBuilder) updates,
+  ]) = _$WebviewPincodeDialogStyle;
   WebviewPincodeDialogStyle._();
 }

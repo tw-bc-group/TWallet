@@ -18,15 +18,15 @@ import 'api_provider_test.mocks.dart';
 void main() {
   g.Get.put<HttpClient>(MockHttpClient());
 
-  final HttpClient _httpClient = g.Get.find();
-  final ApiProvider _apiProvider = ApiProvider();
+  final HttpClient httpClient = g.Get.find();
+  final ApiProvider apiProvider = ApiProvider();
   const address = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 
   test('Return a Contract Instance', () async {
-    const _contractName = 'test-name';
+    const contractName = 'test-name';
     when(
-      _httpClient.get(
-        '/v1/contracts/$_contractName',
+      httpClient.get(
+        '/v1/contracts/$contractName',
         loading: false,
         throwError: true,
       ),
@@ -37,11 +37,7 @@ void main() {
           data: {
             'code': 200,
             'msg': 'OK',
-            'result': {
-              'name': _contractName,
-              'address': 'address',
-              'abi': 'abi'
-            }
+            'result': {'name': contractName, 'address': 'address', 'abi': 'abi'}
           },
           requestOptions: RequestOptions(path: ''),
         ),
@@ -49,14 +45,14 @@ void main() {
     );
 
     expect(
-      await _apiProvider.fetchContractAbiV1(contractName: _contractName),
+      await apiProvider.fetchContractAbiV1(contractName: contractName),
       isA<Optional<Contract>>(),
     );
   });
 
   test('Return a TwBalance Instance', () async {
     const url = '/v1/token/$address';
-    when(_httpClient.get(url, loading: false)).thenAnswer(
+    when(httpClient.get(url, loading: false)).thenAnswer(
       (_) async => Optional.of(
         Response(
           statusCode: 200,
@@ -78,14 +74,14 @@ void main() {
     );
 
     expect(
-      await _apiProvider.fetchPointV1(address: address, withLoading: false),
+      await apiProvider.fetchPointV1(address: address, withLoading: false),
       isA<Optional<TwBalance>>(),
     );
   });
 
   test('Return a List Of Transactions Instances', () async {
     const url = '/v1/transactions?from_addr=$address';
-    when(_httpClient.get(url, throwError: true)).thenAnswer(
+    when(httpClient.get(url, throwError: true)).thenAnswer(
       (_) async => Optional.of(
         Response(
           statusCode: 200,
@@ -110,7 +106,7 @@ void main() {
     );
 
     expect(
-      await _apiProvider.fetchTxList(address),
+      await apiProvider.fetchTxList(address),
       isA<Optional<List<Transaction>>>(),
     );
   });
@@ -119,7 +115,7 @@ void main() {
     const txHash =
         '0x13232ba90547279d00b30511ba4ca6c6f4ad08f27c22d75872d60c16fabd6ee5';
     const url = '/v1/transactions/$txHash';
-    when(_httpClient.get(url)).thenAnswer(
+    when(httpClient.get(url)).thenAnswer(
       (_) async => Optional.of(
         Response(
           statusCode: 200,
@@ -142,7 +138,7 @@ void main() {
     );
 
     expect(
-      await _apiProvider.fetchTxDetails(txHash: txHash),
+      await apiProvider.fetchTxDetails(txHash: txHash),
       isA<Optional<Transaction>>(),
     );
   });
@@ -157,7 +153,7 @@ void main() {
     const String symptoms = 'No';
 
     when(
-      _httpClient.post('/v1/health-certifications', {
+      httpClient.post('/v1/health-certifications', {
         'did': did,
         'phone': phone,
         'temperature': temperature,
@@ -182,7 +178,7 @@ void main() {
     );
 
     expect(
-      await _apiProvider.healthCertificate(
+      await apiProvider.healthCertificate(
         did,
         phone,
         temperature,

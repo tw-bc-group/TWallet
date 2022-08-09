@@ -18,8 +18,11 @@ class TransferConfirmPage extends StatefulWidget {
   final String amount;
   final String toAddress;
 
-  const TransferConfirmPage(
-      {required this.currency, required this.amount, required this.toAddress});
+  const TransferConfirmPage({
+    required this.currency,
+    required this.amount,
+    required this.toAddress,
+  });
 
   @override
   State<StatefulWidget> createState() => TransferConfirmState();

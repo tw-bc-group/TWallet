@@ -9,11 +9,12 @@ class ProfileRowWidget extends StatelessWidget {
   final dynamic value;
   final bool withoutBottomBorder;
 
-  const ProfileRowWidget(
-      {required this.assetIcon,
-      required this.name,
-      this.value,
-      this.withoutBottomBorder = false});
+  const ProfileRowWidget({
+    required this.assetIcon,
+    required this.name,
+    this.value,
+    this.withoutBottomBorder = false,
+  });
 
   @override
   Widget build(BuildContext context) {

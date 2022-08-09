@@ -45,20 +45,20 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   }
 
   Widget _buildAddIdentityCard(BuildContext context, HomeStore homeStore) {
-    final ScreenUtil _screenUtil = ScreenUtil();
+    final ScreenUtil screenUtil = ScreenUtil();
 
     return Container(
       margin: EdgeInsets.only(
-        left: _screenUtil.setWidth(24).toDouble(),
-        right: _screenUtil.setWidth(24).toDouble(),
-        top: _screenUtil.setHeight(10).toDouble(),
-        bottom: _screenUtil.setHeight(147).toDouble(),
+        left: screenUtil.setWidth(24),
+        right: screenUtil.setWidth(24),
+        top: screenUtil.setHeight(10),
+        bottom: screenUtil.setHeight(147),
       ),
       padding: EdgeInsets.only(
-        left: _screenUtil.setWidth(20).toDouble(),
-        right: _screenUtil.setWidth(20).toDouble(),
-        top: _screenUtil.setHeight(90).toDouble(),
-        bottom: _screenUtil.setHeight(46).toDouble(),
+        left: screenUtil.setWidth(20),
+        right: screenUtil.setWidth(20),
+        top: screenUtil.setHeight(90),
+        bottom: screenUtil.setHeight(46),
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -232,19 +232,23 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
 
       return FutureBuilder<ConnectivityResult>(
         future: _connectivity.checkConnectivity(),
-        builder: (BuildContext context,
-            AsyncSnapshot<ConnectivityResult?> snapshot) {
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<ConnectivityResult?> snapshot,
+        ) {
           if (null == snapshot.data) {
             return Container();
           } else {
             return StreamBuilder(
               initialData: snapshot.data,
               stream: _connectivity.onConnectivityChanged,
-              builder: (BuildContext context,
-                  AsyncSnapshot<ConnectivityResult> snapshot) {
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<ConnectivityResult> snapshot,
+              ) {
                 if (!isNonceSynced &&
                     ConnectivityResult.none == snapshot.data) {
-                  return _buildNetworkOffScreen(snapshot.data!);
+                  return _buildNetworkOffScreen(snapshot.data);
                 } else if (!isNonceSynced &&
                     ConnectivityResult.none != snapshot.data) {
                   return FutureBuilder<int>(

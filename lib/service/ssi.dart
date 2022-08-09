@@ -31,7 +31,9 @@ class SsiService {
   }
 
   static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(
-      String verifierId, List<String?> tokens) async {
+    String verifierId,
+    List<String?> tokens,
+  ) async {
     final response = await http.post(
       Uri.dataFromString(
         '${Application.globalEnv.apiGatewayBaseUrl}v2/verifier/health-certification/verify?simple=true',

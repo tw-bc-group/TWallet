@@ -48,7 +48,10 @@ class Session {
   }
 
   Future<void> onData(
-      Uint8List data, OnStateUpdate onStateUpdate, OnSuccess onSuccess) async {
+    Uint8List data,
+    OnStateUpdate onStateUpdate,
+    OnSuccess onSuccess,
+  ) async {
     Uint8List cmdData;
 
     if (encrypter != null) {

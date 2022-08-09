@@ -24,13 +24,19 @@ abstract class _HealthCertificationStore with Store {
   @computed
   bool get isHealthy => currentToken
       .map(
-          (token) => token.healthCertification.sub.healthyStatus.val == healthy)
+        (token) => token.healthCertification.sub.healthyStatus.val == healthy,
+      )
       .orElse(false);
 
   //TODO
   @action
-  Future<Optional<HealthCertificationToken>> bindHealthCert(String did,
-      String phone, double temperature, String contact, String symptoms) async {
+  Future<Optional<HealthCertificationToken>> bindHealthCert(
+    String did,
+    String phone,
+    double temperature,
+    String contact,
+    String symptoms,
+  ) async {
     return _apiProvider
         .healthCertificate(did, phone, temperature, contact, symptoms)
         .then((res) {
@@ -49,7 +55,8 @@ abstract class _HealthCertificationStore with Store {
   //TODO
   @action
   Future<Optional<HealthCertificationToken>> fetchLatestHealthCert(
-      String did) async {
+    String did,
+  ) async {
     return _apiProvider.fetchHealthCertificate(did).then((res) {
       res.ifPresent((token) => _db.setItem(did, token.toJson()));
       currentToken = res;
