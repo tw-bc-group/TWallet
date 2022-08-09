@@ -71,8 +71,10 @@ class _NewVcPageState extends State<NewVcPage> {
     );
   }
 
-  Widget buildInputField(
-      {required Widget textFieldChild, required String errorText}) {
+  Widget buildInputField({
+    required Widget textFieldChild,
+    required String errorText,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
@@ -88,11 +90,12 @@ class _NewVcPageState extends State<NewVcPage> {
           ),
           Container(
             height: 1,
-            color:
-                errorText != null ? WalletColor.accent : WalletColor.middleGrey,
+            color: errorText.isNotEmpty
+                ? WalletColor.accent
+                : WalletColor.middleGrey,
             margin: const EdgeInsets.only(top: 6),
           ),
-          if (errorText != null) ErrorRowWidget(errorText: errorText)
+          if (errorText.isNotEmpty) ErrorRowWidget(errorText: errorText)
         ],
       ),
     );
@@ -136,7 +139,7 @@ class _NewVcPageState extends State<NewVcPage> {
                             hintText: '输入姓名',
                           ),
                         ),
-                        errorText: store.error.username!,
+                        errorText: store.error.username ?? '',
                       ),
                       buildInputField(
                         textFieldChild: TextField(
@@ -148,7 +151,7 @@ class _NewVcPageState extends State<NewVcPage> {
                             hintText: '输入手机号',
                           ),
                         ),
-                        errorText: store.error.phone!,
+                        errorText: store.error.phone ?? '',
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 100),
