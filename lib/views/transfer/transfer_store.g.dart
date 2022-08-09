@@ -6,10 +6,11 @@ part of 'transfer_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TransferStore on _TransferStore, Store {
-  final _$payerDIDAtom = Atom(name: '_TransferStore.payerDID');
+  late final _$payerDIDAtom =
+      Atom(name: '_TransferStore.payerDID', context: context);
 
   @override
   String? get payerDID {
@@ -24,7 +25,8 @@ mixin _$TransferStore on _TransferStore, Store {
     });
   }
 
-  final _$balanceAtom = Atom(name: '_TransferStore.balance');
+  late final _$balanceAtom =
+      Atom(name: '_TransferStore.balance', context: context);
 
   @override
   String? get balance {
@@ -39,7 +41,8 @@ mixin _$TransferStore on _TransferStore, Store {
     });
   }
 
-  final _$amountAtom = Atom(name: '_TransferStore.amount');
+  late final _$amountAtom =
+      Atom(name: '_TransferStore.amount', context: context);
 
   @override
   String? get amount {
@@ -54,7 +57,8 @@ mixin _$TransferStore on _TransferStore, Store {
     });
   }
 
-  final _$payeeDIDAtom = Atom(name: '_TransferStore.payeeDID');
+  late final _$payeeDIDAtom =
+      Atom(name: '_TransferStore.payeeDID', context: context);
 
   @override
   String? get payeeDID {
@@ -69,8 +73,8 @@ mixin _$TransferStore on _TransferStore, Store {
     });
   }
 
-  final _$_TransferStoreActionController =
-      ActionController(name: '_TransferStore');
+  late final _$_TransferStoreActionController =
+      ActionController(name: '_TransferStore', context: context);
 
   @override
   void resetAmountError(String? value) {
@@ -136,7 +140,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
               name: '_FormErrorState.hasErrors'))
           .value;
 
-  final _$amountAtom = Atom(name: '_FormErrorState.amount');
+  late final _$amountAtom =
+      Atom(name: '_FormErrorState.amount', context: context);
 
   @override
   String? get amount {
@@ -151,7 +156,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$payeeDIDAtom = Atom(name: '_FormErrorState.payeeDID');
+  late final _$payeeDIDAtom =
+      Atom(name: '_FormErrorState.payeeDID', context: context);
 
   @override
   String? get payeeDID {

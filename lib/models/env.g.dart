@@ -59,49 +59,49 @@ class _$EnvSerializer implements StructuredSerializer<Env> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'apiGatewayBaseUrl':
           result.apiGatewayBaseUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'apiGatewayConnectTimeout':
           result.apiGatewayConnectTimeout = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'web3RpcGatewayUrl':
           result.web3RpcGatewayUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'didPrefix':
           result.didPrefix = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'tokenName':
           result.tokenName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'tokenSymbol':
           result.tokenSymbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'tokenPrecision':
           result.tokenPrecision = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'tokenHumanReadablePrecision':
           result.tokenHumanReadablePrecision = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'chainId':
           result.chainId = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'centralBankPublicKey':
           result.centralBankPublicKey = serializers.deserialize(value,
-              specifiedType: const FullType(RSAPublicKey)) as RSAPublicKey;
+              specifiedType: const FullType(RSAPublicKey))! as RSAPublicKey;
           break;
       }
     }
@@ -133,7 +133,7 @@ class _$Env extends Env {
   final RSAPublicKey centralBankPublicKey;
 
   factory _$Env([void Function(EnvBuilder)? updates]) =>
-      (new EnvBuilder()..update(updates)).build();
+      (new EnvBuilder()..update(updates))._build();
 
   _$Env._(
       {required this.apiGatewayBaseUrl,
@@ -148,21 +148,21 @@ class _$Env extends Env {
       required this.centralBankPublicKey})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        apiGatewayBaseUrl, 'Env', 'apiGatewayBaseUrl');
+        apiGatewayBaseUrl, r'Env', 'apiGatewayBaseUrl');
     BuiltValueNullFieldError.checkNotNull(
-        apiGatewayConnectTimeout, 'Env', 'apiGatewayConnectTimeout');
+        apiGatewayConnectTimeout, r'Env', 'apiGatewayConnectTimeout');
     BuiltValueNullFieldError.checkNotNull(
-        web3RpcGatewayUrl, 'Env', 'web3RpcGatewayUrl');
-    BuiltValueNullFieldError.checkNotNull(didPrefix, 'Env', 'didPrefix');
-    BuiltValueNullFieldError.checkNotNull(tokenName, 'Env', 'tokenName');
-    BuiltValueNullFieldError.checkNotNull(tokenSymbol, 'Env', 'tokenSymbol');
+        web3RpcGatewayUrl, r'Env', 'web3RpcGatewayUrl');
+    BuiltValueNullFieldError.checkNotNull(didPrefix, r'Env', 'didPrefix');
+    BuiltValueNullFieldError.checkNotNull(tokenName, r'Env', 'tokenName');
+    BuiltValueNullFieldError.checkNotNull(tokenSymbol, r'Env', 'tokenSymbol');
     BuiltValueNullFieldError.checkNotNull(
-        tokenPrecision, 'Env', 'tokenPrecision');
+        tokenPrecision, r'Env', 'tokenPrecision');
     BuiltValueNullFieldError.checkNotNull(
-        tokenHumanReadablePrecision, 'Env', 'tokenHumanReadablePrecision');
-    BuiltValueNullFieldError.checkNotNull(chainId, 'Env', 'chainId');
+        tokenHumanReadablePrecision, r'Env', 'tokenHumanReadablePrecision');
+    BuiltValueNullFieldError.checkNotNull(chainId, r'Env', 'chainId');
     BuiltValueNullFieldError.checkNotNull(
-        centralBankPublicKey, 'Env', 'centralBankPublicKey');
+        centralBankPublicKey, r'Env', 'centralBankPublicKey');
   }
 
   @override
@@ -212,7 +212,7 @@ class _$Env extends Env {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Env')
+    return (newBuiltValueToStringHelper(r'Env')
           ..add('apiGatewayBaseUrl', apiGatewayBaseUrl)
           ..add('apiGatewayConnectTimeout', apiGatewayConnectTimeout)
           ..add('web3RpcGatewayUrl', web3RpcGatewayUrl)
@@ -308,31 +308,33 @@ class EnvBuilder implements Builder<Env, EnvBuilder> {
   }
 
   @override
-  _$Env build() {
+  Env build() => _build();
+
+  _$Env _build() {
     final _$result = _$v ??
         new _$Env._(
             apiGatewayBaseUrl: BuiltValueNullFieldError.checkNotNull(
-                apiGatewayBaseUrl, 'Env', 'apiGatewayBaseUrl'),
+                apiGatewayBaseUrl, r'Env', 'apiGatewayBaseUrl'),
             apiGatewayConnectTimeout: BuiltValueNullFieldError.checkNotNull(
-                apiGatewayConnectTimeout, 'Env', 'apiGatewayConnectTimeout'),
+                apiGatewayConnectTimeout, r'Env', 'apiGatewayConnectTimeout'),
             web3RpcGatewayUrl: BuiltValueNullFieldError.checkNotNull(
-                web3RpcGatewayUrl, 'Env', 'web3RpcGatewayUrl'),
+                web3RpcGatewayUrl, r'Env', 'web3RpcGatewayUrl'),
             didPrefix: BuiltValueNullFieldError.checkNotNull(
-                didPrefix, 'Env', 'didPrefix'),
+                didPrefix, r'Env', 'didPrefix'),
             tokenName: BuiltValueNullFieldError.checkNotNull(
-                tokenName, 'Env', 'tokenName'),
+                tokenName, r'Env', 'tokenName'),
             tokenSymbol: BuiltValueNullFieldError.checkNotNull(
-                tokenSymbol, 'Env', 'tokenSymbol'),
+                tokenSymbol, r'Env', 'tokenSymbol'),
             tokenPrecision: BuiltValueNullFieldError.checkNotNull(
-                tokenPrecision, 'Env', 'tokenPrecision'),
+                tokenPrecision, r'Env', 'tokenPrecision'),
             tokenHumanReadablePrecision: BuiltValueNullFieldError.checkNotNull(
-                tokenHumanReadablePrecision, 'Env', 'tokenHumanReadablePrecision'),
+                tokenHumanReadablePrecision, r'Env', 'tokenHumanReadablePrecision'),
             chainId:
-                BuiltValueNullFieldError.checkNotNull(chainId, 'Env', 'chainId'),
-            centralBankPublicKey: BuiltValueNullFieldError.checkNotNull(centralBankPublicKey, 'Env', 'centralBankPublicKey'));
+                BuiltValueNullFieldError.checkNotNull(chainId, r'Env', 'chainId'),
+            centralBankPublicKey: BuiltValueNullFieldError.checkNotNull(centralBankPublicKey, r'Env', 'centralBankPublicKey'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

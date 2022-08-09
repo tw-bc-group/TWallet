@@ -62,13 +62,13 @@ class _$SelectOptionSerializer implements PrimitiveSerializer<SelectOption> {
           _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
 
 // **************************************************************************
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
   Computed<bool>? _$hasEmptyComputed;
@@ -79,7 +79,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
               name: '_HealthCertificatePageStore.hasEmpty'))
           .value;
 
-  final _$phoneAtom = Atom(name: '_HealthCertificatePageStore.phone');
+  late final _$phoneAtom =
+      Atom(name: '_HealthCertificatePageStore.phone', context: context);
 
   @override
   String get phone {
@@ -94,8 +95,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
     });
   }
 
-  final _$temperatureAtom =
-      Atom(name: '_HealthCertificatePageStore.temperature');
+  late final _$temperatureAtom =
+      Atom(name: '_HealthCertificatePageStore.temperature', context: context);
 
   @override
   String get temperature {
@@ -110,8 +111,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
     });
   }
 
-  final _$contactOptionAtom =
-      Atom(name: '_HealthCertificatePageStore.contactOption');
+  late final _$contactOptionAtom =
+      Atom(name: '_HealthCertificatePageStore.contactOption', context: context);
 
   @override
   SelectOption get contactOption {
@@ -126,8 +127,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
     });
   }
 
-  final _$symptomsOptionAtom =
-      Atom(name: '_HealthCertificatePageStore.symptomsOption');
+  late final _$symptomsOptionAtom = Atom(
+      name: '_HealthCertificatePageStore.symptomsOption', context: context);
 
   @override
   SelectOption get symptomsOption {
@@ -142,8 +143,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
     });
   }
 
-  final _$hasCommitmentAtom =
-      Atom(name: '_HealthCertificatePageStore.hasCommitment');
+  late final _$hasCommitmentAtom =
+      Atom(name: '_HealthCertificatePageStore.hasCommitment', context: context);
 
   @override
   bool get hasCommitment {
@@ -158,8 +159,8 @@ mixin _$HealthCertificatePageStore on _HealthCertificatePageStore, Store {
     });
   }
 
-  final _$_HealthCertificatePageStoreActionController =
-      ActionController(name: '_HealthCertificatePageStore');
+  late final _$_HealthCertificatePageStoreActionController =
+      ActionController(name: '_HealthCertificatePageStore', context: context);
 
   @override
   void validatePhone() {
@@ -238,7 +239,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
               name: '_FormErrorState.hasErrors'))
           .value;
 
-  final _$phoneAtom = Atom(name: '_FormErrorState.phone');
+  late final _$phoneAtom =
+      Atom(name: '_FormErrorState.phone', context: context);
 
   @override
   String? get phone {
@@ -253,7 +255,8 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
-  final _$temperatureAtom = Atom(name: '_FormErrorState.temperature');
+  late final _$temperatureAtom =
+      Atom(name: '_FormErrorState.temperature', context: context);
 
   @override
   String? get temperature {

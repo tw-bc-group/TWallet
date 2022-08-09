@@ -6,7 +6,7 @@ part of 'mnemonics.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$MnemonicsStore on MnemonicsBase, Store {
   Computed<int>? _$indexComputed;
@@ -23,7 +23,7 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
               name: 'MnemonicsBase.mnemonics'))
           .value;
 
-  final _$valueAtom = Atom(name: 'MnemonicsBase.value');
+  late final _$valueAtom = Atom(name: 'MnemonicsBase.value', context: context);
 
   @override
   Tuple2<int, String> get value {
@@ -38,7 +38,8 @@ mixin _$MnemonicsStore on MnemonicsBase, Store {
     });
   }
 
-  final _$saveAsyncAction = AsyncAction('MnemonicsBase.save');
+  late final _$saveAsyncAction =
+      AsyncAction('MnemonicsBase.save', context: context);
 
   @override
   Future<void> save({int newIndex = 0}) {

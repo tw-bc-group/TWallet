@@ -53,45 +53,45 @@ class _$EthTxInfoSerializer implements StructuredSerializer<EthTxInfo> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'nonce':
           result.nonce = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
         case 'gasPrice':
           result.gasPrice = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
         case 'gasLimit':
           result.gasLimit = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
         case 'to':
           result.to = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'value':
           result.value = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
         case 'data':
           result.data = serializers.deserialize(value,
-              specifiedType: const FullType(Uint8List)) as Uint8List;
+              specifiedType: const FullType(Uint8List))! as Uint8List;
           break;
         case 'v':
           result.v = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'r':
           result.r = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
         case 's':
           result.s = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt)) as BigInt;
+              specifiedType: const FullType(BigInt))! as BigInt;
           break;
       }
     }
@@ -121,7 +121,7 @@ class _$EthTxInfo extends EthTxInfo {
   final BigInt s;
 
   factory _$EthTxInfo([void Function(EthTxInfoBuilder)? updates]) =>
-      (new EthTxInfoBuilder()..update(updates)).build();
+      (new EthTxInfoBuilder()..update(updates))._build();
 
   _$EthTxInfo._(
       {required this.nonce,
@@ -134,15 +134,15 @@ class _$EthTxInfo extends EthTxInfo {
       required this.r,
       required this.s})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(nonce, 'EthTxInfo', 'nonce');
-    BuiltValueNullFieldError.checkNotNull(gasPrice, 'EthTxInfo', 'gasPrice');
-    BuiltValueNullFieldError.checkNotNull(gasLimit, 'EthTxInfo', 'gasLimit');
-    BuiltValueNullFieldError.checkNotNull(to, 'EthTxInfo', 'to');
-    BuiltValueNullFieldError.checkNotNull(value, 'EthTxInfo', 'value');
-    BuiltValueNullFieldError.checkNotNull(data, 'EthTxInfo', 'data');
-    BuiltValueNullFieldError.checkNotNull(v, 'EthTxInfo', 'v');
-    BuiltValueNullFieldError.checkNotNull(r, 'EthTxInfo', 'r');
-    BuiltValueNullFieldError.checkNotNull(s, 'EthTxInfo', 's');
+    BuiltValueNullFieldError.checkNotNull(nonce, r'EthTxInfo', 'nonce');
+    BuiltValueNullFieldError.checkNotNull(gasPrice, r'EthTxInfo', 'gasPrice');
+    BuiltValueNullFieldError.checkNotNull(gasLimit, r'EthTxInfo', 'gasLimit');
+    BuiltValueNullFieldError.checkNotNull(to, r'EthTxInfo', 'to');
+    BuiltValueNullFieldError.checkNotNull(value, r'EthTxInfo', 'value');
+    BuiltValueNullFieldError.checkNotNull(data, r'EthTxInfo', 'data');
+    BuiltValueNullFieldError.checkNotNull(v, r'EthTxInfo', 'v');
+    BuiltValueNullFieldError.checkNotNull(r, r'EthTxInfo', 'r');
+    BuiltValueNullFieldError.checkNotNull(s, r'EthTxInfo', 's');
   }
 
   @override
@@ -187,7 +187,7 @@ class _$EthTxInfo extends EthTxInfo {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('EthTxInfo')
+    return (newBuiltValueToStringHelper(r'EthTxInfo')
           ..add('nonce', nonce)
           ..add('gasPrice', gasPrice)
           ..add('gasLimit', gasLimit)
@@ -271,26 +271,28 @@ class EthTxInfoBuilder implements Builder<EthTxInfo, EthTxInfoBuilder> {
   }
 
   @override
-  _$EthTxInfo build() {
+  EthTxInfo build() => _build();
+
+  _$EthTxInfo _build() {
     final _$result = _$v ??
         new _$EthTxInfo._(
             nonce: BuiltValueNullFieldError.checkNotNull(
-                nonce, 'EthTxInfo', 'nonce'),
+                nonce, r'EthTxInfo', 'nonce'),
             gasPrice: BuiltValueNullFieldError.checkNotNull(
-                gasPrice, 'EthTxInfo', 'gasPrice'),
+                gasPrice, r'EthTxInfo', 'gasPrice'),
             gasLimit: BuiltValueNullFieldError.checkNotNull(
-                gasLimit, 'EthTxInfo', 'gasLimit'),
-            to: BuiltValueNullFieldError.checkNotNull(to, 'EthTxInfo', 'to'),
+                gasLimit, r'EthTxInfo', 'gasLimit'),
+            to: BuiltValueNullFieldError.checkNotNull(to, r'EthTxInfo', 'to'),
             value: BuiltValueNullFieldError.checkNotNull(
-                value, 'EthTxInfo', 'value'),
+                value, r'EthTxInfo', 'value'),
             data: BuiltValueNullFieldError.checkNotNull(
-                data, 'EthTxInfo', 'data'),
-            v: BuiltValueNullFieldError.checkNotNull(v, 'EthTxInfo', 'v'),
-            r: BuiltValueNullFieldError.checkNotNull(r, 'EthTxInfo', 'r'),
-            s: BuiltValueNullFieldError.checkNotNull(s, 'EthTxInfo', 's'));
+                data, r'EthTxInfo', 'data'),
+            v: BuiltValueNullFieldError.checkNotNull(v, r'EthTxInfo', 'v'),
+            r: BuiltValueNullFieldError.checkNotNull(r, r'EthTxInfo', 'r'),
+            s: BuiltValueNullFieldError.checkNotNull(s, r'EthTxInfo', 's'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

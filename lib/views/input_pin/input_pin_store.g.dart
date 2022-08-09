@@ -6,7 +6,7 @@ part of 'input_pin_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$InputPinStore on _InputPinStore, Store {
   Computed<bool>? _$isCompletedComputed;
@@ -24,7 +24,7 @@ mixin _$InputPinStore on _InputPinStore, Store {
               name: '_InputPinStore.isUnequal'))
           .value;
 
-  final _$pin1Atom = Atom(name: '_InputPinStore.pin1');
+  late final _$pin1Atom = Atom(name: '_InputPinStore.pin1', context: context);
 
   @override
   String get pin1 {
@@ -39,7 +39,7 @@ mixin _$InputPinStore on _InputPinStore, Store {
     });
   }
 
-  final _$pin2Atom = Atom(name: '_InputPinStore.pin2');
+  late final _$pin2Atom = Atom(name: '_InputPinStore.pin2', context: context);
 
   @override
   String get pin2 {
@@ -54,7 +54,8 @@ mixin _$InputPinStore on _InputPinStore, Store {
     });
   }
 
-  final _$setMasterKeyAsyncAction = AsyncAction('_InputPinStore.setMasterKey');
+  late final _$setMasterKeyAsyncAction =
+      AsyncAction('_InputPinStore.setMasterKey', context: context);
 
   @override
   Future<void> setMasterKey() {
