@@ -3,7 +3,7 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 
 class WordButton extends StatefulWidget {
   final String text;
-  final Function onPressed;
+  final Function() onPressed;
 
   const WordButton({required this.text, required this.onPressed});
 

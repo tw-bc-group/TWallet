@@ -144,13 +144,16 @@ class DAppService {
       data.map(
         (response) => resolve(
           id,
-          ApiResponse.fromJson(
+          (ApiResponse.fromJson(
             response.data,
             [const FullType(SendTransactionResponse)],
-          ).result.hash,
+          ).result as SendTransactionResponse)
+              .hash,
         ),
       );
-    }).catchError(() => reject(id, false));
+    }).catchError((err) {
+      reject(id, false);
+    });
   }
 
   static Future<void> qrCode(String id, _) async {

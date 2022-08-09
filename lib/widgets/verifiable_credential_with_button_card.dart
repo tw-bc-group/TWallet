@@ -10,7 +10,7 @@ import 'package:tw_wallet_ui/store/apply_vc_info_store.dart';
 class VerifiableCredentialWithButtonCard extends StatelessWidget {
   final VcType vcType;
   final VcStatus vcStatus;
-  final dynamic onFinish;
+  final Function() onFinish;
   final Color bgColor;
   final bool isSelected;
   final GestureTapCallback? onTap;
@@ -117,7 +117,7 @@ class VerifiableCredentialWithButtonCard extends StatelessWidget {
                   applyStore.vcType = vcType;
                   Application.router
                       .navigateTo(context, Routes.newVcPage)
-                      .then((value) => onFinish());
+                      .then((_) => onFinish());
                 },
               ),
             ],

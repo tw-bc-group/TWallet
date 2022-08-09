@@ -14,7 +14,7 @@ class CountdownTimer extends StatefulWidget {
   }) : super(key: key);
 
   final DateTime before;
-  final Function? atExpiration;
+  final Function()? atExpiration;
 
   @override
   _CountdownTimerState createState() => _CountdownTimerState();
@@ -29,10 +29,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
     super.initState();
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       remainTime.value = widget.before.difference(DateTime.now());
-      if (remainTime.value <= const Duration()) {
-        if (widget.atExpiration != null) {
-          widget.atExpiration!();
-        }
+      if (remainTime.value <= Duration.zero) {
+        widget.atExpiration!();
       }
     });
   }
