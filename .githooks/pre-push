@@ -2,25 +2,19 @@
 # To use add to `.git/hooks/`
 # Should be named `pre-push`
 # Make executable with `chmod +x`
+# Or git config core.hooksPath .githooks
 
 # stash any unstaged changes
 git stash -q --keep-index
 
-flutter packages pub run build_runner build --delete-conflicting-outputs
+flutter pub run build_runner build --delete-conflicting-outputs
 
-# run Flutter analyze + test
 flutter analyze
-
-if [ $? -ne 0 ]; then
-        # unstash the unstashed changes
-        git stash pop -q
-        exit 1
-fi
 
 flutter test
 
+# if wrong, recover the stashed changes
 if [ $? -ne 0 ]; then
-        # unstash the unstashed changes
         git stash pop -q
         exit 1
 fi
