@@ -141,17 +141,18 @@ class _PayeeListScreenState extends State<PayeeListScreen> {
   Future<void> _waitForBluetoothPoweredOn() async {
     final Completer completer = Completer();
 
-    late StreamSubscription<BluetoothState> subscription;
+    StreamSubscription<BluetoothState>? subscription;
 
     subscription =
         _bleManager.observeBluetoothState().listen((bluetoothState) async {
       if (bluetoothState == BluetoothState.POWERED_ON &&
           !completer.isCompleted) {
+        subscription?.cancel();
         completer.complete();
       }
     });
 
-    return completer.future.whenComplete(() => subscription.cancel());
+    return completer.future;
   }
 
   void _startScan() {
