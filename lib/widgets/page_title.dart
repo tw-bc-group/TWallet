@@ -30,13 +30,12 @@ class PageTitleWidget extends StatelessWidget {
             const SizedBox(
               height: 48,
             ),
-            if (title != null)
-              Text(
-                title,
-                style: WalletFont.font_18(
-                  textStyle: TextStyle(color: WalletColor.white),
-                ),
+            Text(
+              title,
+              style: WalletFont.font_18(
+                textStyle: TextStyle(color: WalletColor.white),
               ),
+            ),
           ],
         ),
         if (backIcon != BackIcon.none)

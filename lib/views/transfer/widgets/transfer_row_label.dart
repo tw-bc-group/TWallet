@@ -20,34 +20,28 @@ class TransferRowWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          if (title == null)
-            Container()
-          else
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 10,
-                color: WalletTheme.rgbColor('#aaaaaa'),
-              ),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 10,
+              color: WalletTheme.rgbColor('#aaaaaa'),
             ),
-          if (errorMsg == null)
-            Container()
-          else
-            SizedBox(
-              width: 200,
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: errorMsg is Widget
-                    ? errorMsg as Widget
-                    : Text(
-                        '* $errorMsg',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: WalletTheme.rgbColor('#dd5757'),
-                        ),
+          ),
+          SizedBox(
+            width: 200,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: errorMsg is Widget
+                  ? errorMsg as Widget
+                  : Text(
+                      '* $errorMsg',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: WalletTheme.rgbColor('#dd5757'),
                       ),
-              ),
-            )
+                    ),
+            ),
+          )
         ],
       ),
     );

@@ -79,17 +79,16 @@ class _PaymentState extends State<Payment> {
   final DcepStore _dcepStore = Get.find<DcepStore>();
   final Rx<PaymentProgress> _paymentProgress = Rx(PaymentProgress.connecting);
 
-  late StreamSubscription _dataMonitor;
-  late Characteristic _readCharacteristic;
-  late Characteristic _writeCharacteristic;
+  Characteristic? _readCharacteristic;
+  Characteristic? _writeCharacteristic;
 
   Future<Optional<Tuple2<Characteristic?, Characteristic?>>> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
 
-    final Service service = await widget._bleDevice.peripheral.services().then(
+    final Service? service = await widget._bleDevice.peripheral.services().then(
           (services) => services.firstWhereOrNull(
             (service) => service.uuid == "36efb2e4-8711-4852-b339-c6b5dac518e0",
-          )!,
+          ),
         );
 
     if (null == service) {
@@ -99,12 +98,12 @@ class _PaymentState extends State<Payment> {
     final List<Characteristic> characteristics =
         await service.characteristics();
 
-    _readCharacteristic = characteristics.firstWhere(
+    _readCharacteristic = characteristics.firstWhereOrNull(
       (characteristic) =>
           characteristic.uuid == "0ac637b0-9c14-4741-8f9f-b0baae77d0b4",
     );
 
-    _writeCharacteristic = characteristics.firstWhere(
+    _writeCharacteristic = characteristics.firstWhereOrNull(
       (characteristic) =>
           characteristic.uuid == "4fec0357-2493-4901-b1a2-9e2ec21b9676",
     );
@@ -120,8 +119,6 @@ class _PaymentState extends State<Payment> {
     if (!_confirmCompleter.isCompleted) {
       _confirmCompleter.complete(false);
     }
-
-    await _dataMonitor.cancel();
 
     if (await widget._bleDevice.isConnected()) {
       await widget._bleDevice.disconnect();

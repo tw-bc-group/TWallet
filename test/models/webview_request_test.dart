@@ -12,7 +12,6 @@ void main() {
       final Map<String, dynamic> jsonMap =
           json.decode(jsonMapString) as Map<String, dynamic>;
       final request = WebviewRequest.fromJson(jsonMap);
-      expect(request is WebviewRequest, isTrue);
       expect(
         request.method.toString(),
         WebviewRequestMethod.quitApp.toString(),

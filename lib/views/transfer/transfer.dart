@@ -293,8 +293,8 @@ class TransferPageState extends State<TransferPage> {
                   iconAsset: 'assets/icons/scan.svg',
                   title: '扫码识别',
                   onTap: () async {
-                    final String scanResult = await Application.router
-                        .navigateTo(context, Routes.qrScanner) as String;
+                    final String? scanResult = await Application.router
+                        .navigateTo(context, Routes.qrScanner) as String?;
 
                     if (null == scanResult) {
                       return;

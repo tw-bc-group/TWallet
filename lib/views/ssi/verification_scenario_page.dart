@@ -89,19 +89,10 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
   }
 
   List<Widget> get _form {
-    if (issuers == null) {
-      return <Widget>[];
-    }
-
-    final List<Widget> list = <Widget>[];
-    for (final IssuerResponse issuer in issuers) {
-      if (issuer.vcTypes.isEmpty) {
-        continue;
-      }
-      list.add(_issuerVcGroup(issuer));
-    }
-
-    return list;
+    return [
+      for (final issuer in issuers)
+        if (issuer.vcTypes.isNotEmpty) _issuerVcGroup(issuer)
+    ];
   }
 
   Widget _issuerVcGroup(IssuerResponse issuer) {

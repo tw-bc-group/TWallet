@@ -198,8 +198,8 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Future<void> _handleScan(BuildContext context) async {
-    final String scanResult = await Application.router
-        .navigateTo(context, Routes.qrScanner) as String;
+    final String? scanResult = await Application.router
+        .navigateTo(context, Routes.qrScanner) as String?;
 
     if (null == scanResult) {
       return;
