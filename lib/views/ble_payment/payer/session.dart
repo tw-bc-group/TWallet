@@ -60,8 +60,8 @@ extension SessionStateExtension on SessionState {
 class Session {
   final String address;
   final String publicKey;
-  final Characteristic? _readCharacteristic;
-  final Characteristic? _writeCharacteristic;
+  late final Characteristic? _readCharacteristic;
+  late final Characteristic? _writeCharacteristic;
   final Queue<Completer> _readQueue = Queue();
   final Rx<SessionState> _state = Rx(SessionState.initial);
 

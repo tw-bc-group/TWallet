@@ -29,14 +29,14 @@ class HealthCodePage extends StatefulWidget {
 
 class HealthCodeState extends State<HealthCodePage> {
   final HealthCertificationStore certStore = Get.find();
-  HealthCodeStore? _certStore;
+  late HealthCodeStore _certStore;
 
   DecentralizedIdentity? identity;
 
   HealthCodeState();
 
   Future onRefresh() async {
-    return _certStore!.fetchLatestHealthCode();
+    return _certStore.fetchLatestHealthCode();
   }
 
   @override
@@ -48,7 +48,7 @@ class HealthCodeState extends State<HealthCodePage> {
 
   @override
   void dispose() {
-    _certStore!.dispose();
+    _certStore.dispose();
     super.dispose();
   }
 
@@ -58,7 +58,7 @@ class HealthCodeState extends State<HealthCodePage> {
           final ScreenUtil screenUtil = ScreenUtil();
           final num avatarWidth = screenUtil.setWidth(70);
           final ObservableFuture<void> future =
-              _certStore!.fetchHealthCodeStream!.value!;
+              _certStore.fetchHealthCodeStream.value!;
 
           return CommonLayout(
             title: '健康码',
@@ -150,7 +150,7 @@ class HealthCodeState extends State<HealthCodePage> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                _certStore!.currentCountDown
+                                                _certStore.currentCountDown
                                                     .map(
                                                       (countDown) =>
                                                           '$countDown s',

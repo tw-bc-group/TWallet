@@ -28,8 +28,8 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   final HealthCertificatePageStore _pageStore = HealthCertificatePageStore();
   final ScrollController _scrollController = ScrollController();
 
-  TextEditingController? _phoneInputController;
-  TextEditingController? _temperatureInputController;
+  late TextEditingController _phoneInputController;
+  late TextEditingController _temperatureInputController;
 
   HealthCertificateState();
 
@@ -209,7 +209,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                 screenUtil,
                 '手机号',
                 _pageStore.error.phone,
-                _phoneInputController!,
+                _phoneInputController,
                 TextInputType.phone,
                 (String value) => _pageStore.updatePhone(value),
               ),
@@ -220,7 +220,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
                 screenUtil,
                 '今日体温（℃）',
                 _pageStore.error.temperature,
-                _temperatureInputController!,
+                _temperatureInputController,
                 const TextInputType.numberWithOptions(decimal: true),
                 (String value) => _pageStore.updateTemperature(value),
               ),

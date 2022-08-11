@@ -24,7 +24,7 @@ abstract class HealthCodeStoreBase with Store {
   final _healthCertStore = Get.find<HealthCertificationStore>();
 
   StreamController<ObservableFuture<void>>? _fetchHealthCodeStreamController;
-  ObservableStream<ObservableFuture<void>>? fetchHealthCodeStream;
+  late final ObservableStream<ObservableFuture<void>> fetchHealthCodeStream;
 
   HealthCodeStoreBase(
     this.did,

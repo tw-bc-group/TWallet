@@ -69,7 +69,7 @@ class HomeState extends State<Home> {
 
   final HomeStore homeStore = HomeStore();
 
-  List<Widget>? _pages;
+  late List<Widget> _pages;
 
   @override
   void initState() {
@@ -91,7 +91,7 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: WalletColor.primary,
       body: Observer(
-        builder: (_) => SafeArea(child: _pages![homeStore.currentPage]),
+        builder: (_) => SafeArea(child: _pages[homeStore.currentPage]),
       ),
       bottomNavigationBar: Observer(
         builder: (_) => BottomNavigationBar(
