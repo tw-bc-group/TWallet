@@ -75,7 +75,7 @@ class HealthCodeState extends State<HealthCodePage> {
                             '加载健康码失败',
                             style: TextStyle(color: WalletColor.white),
                           ),
-                          RaisedButton(
+                          ElevatedButton(
                             onPressed: onRefresh,
                             child: const Text('点击重试'),
                           )
