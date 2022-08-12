@@ -91,7 +91,7 @@ class CommonLayout extends StatelessWidget {
         child: SafeArea(
           maintainBottomViewPadding: true,
           child: Container(
-            margin: const EdgeInsets.all(0),
+            margin: EdgeInsets.zero,
             child: Column(
               children: <Widget>[
                 Expanded(child: Container(child: child)),
