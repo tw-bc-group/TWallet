@@ -25,7 +25,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final DecentralizedIdentity? identity = identityStore.getIdentityById(id);
 
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         color: WalletColor.white,

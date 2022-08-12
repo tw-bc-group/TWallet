@@ -179,7 +179,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
   }
 
   Widget _buildForm(ScreenUtil screenUtil) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: WalletColor.white,
         borderRadius: const BorderRadius.only(
@@ -259,7 +259,7 @@ class HealthCertificateState extends State<HealthCertificatePage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24),
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: WalletColor.lightGrey,
                   borderRadius: BorderRadius.circular(8),

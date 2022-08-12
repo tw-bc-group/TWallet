@@ -179,7 +179,7 @@ class _IdentityPageState extends State<IdentityPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: WalletColor.primary,
         image: const DecorationImage(

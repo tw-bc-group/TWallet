@@ -72,7 +72,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
               }
             : null,
         bottomBackColor: WalletColor.white,
-        child: Container(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             color: WalletColor.white,
             borderRadius: const BorderRadius.only(

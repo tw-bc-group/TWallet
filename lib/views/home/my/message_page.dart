@@ -93,7 +93,7 @@ class _MessagePageState extends State<MessagePage> {
 
   Widget _buildMessageEmpty(BuildContext context) {
     return Expanded(
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: WalletColor.messageBg,
         ),
@@ -137,7 +137,7 @@ class _MessagePageState extends State<MessagePage> {
 
   Widget _buildMessageList(BuildContext context) {
     return Expanded(
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: WalletColor.messageBg,
         ),
