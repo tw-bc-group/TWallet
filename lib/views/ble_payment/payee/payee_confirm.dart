@@ -71,7 +71,7 @@ class PayeeConfirm extends StatelessWidget {
                   ),
                 )
             : () => {},
-        child: Container(
+        child: ColoredBox(
           color: WalletColor.white,
           child: Form(
             child: ListView(

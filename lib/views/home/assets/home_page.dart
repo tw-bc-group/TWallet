@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget get _mainContent => Expanded(
-        child: Container(
+        child: ColoredBox(
           color: WalletColor.backgroundWhite,
           child: TabBarView(
             controller: _tabController,

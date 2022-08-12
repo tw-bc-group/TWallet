@@ -151,7 +151,7 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   }
 
   Widget _buildMainScreen(DecentralizedIdentity identity) {
-    return Container(
+    return ColoredBox(
       color: WalletColor.white,
       child: Padding(
         padding: const EdgeInsets.all(8.0),

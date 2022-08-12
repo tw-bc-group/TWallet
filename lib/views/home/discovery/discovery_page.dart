@@ -93,7 +93,7 @@ class DiscoveryPage extends StatelessWidget {
 
   Widget get _mainContent {
     return Expanded(
-      child: Container(
+      child: ColoredBox(
         color: WalletColor.backgroundWhite,
       ),
     );

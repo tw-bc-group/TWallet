@@ -116,7 +116,7 @@ class MyPage extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
+          child: ColoredBox(
             color: WalletColor.lightGrey,
             child: Padding(
               padding: EdgeInsets.all(screenUtil.setWidth(24)),
