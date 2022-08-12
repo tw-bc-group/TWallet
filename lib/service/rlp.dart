@@ -24,8 +24,10 @@ int safeParseInt(String v, int base) {
 }
 
 Tuple2<List<dynamic>, Uint8List> _decode(Uint8List input) {
-  int length, tempLength;
-  Uint8List data, innerRemainder;
+  int length;
+  int tempLength;
+  Uint8List data;
+  Uint8List innerRemainder;
   Tuple2<dynamic, Uint8List> tempDecoded;
 
   final List<List<int>> decoded = [];
