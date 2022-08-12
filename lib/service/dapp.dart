@@ -292,7 +292,7 @@ class DAppService {
   }
 
   static void resolve(String id, dynamic data) {
-    webviewController?.evaluateJavascript(
+    webviewController?.runJavascript(
       'window.TWallet.resolvePromise("$id", ${json.encode(json.encode(data))})',
     );
   }
@@ -300,7 +300,7 @@ class DAppService {
   static void reject(String id, dynamic data) {
     webviewController
         // ignore: avoid_escaping_inner_quotes
-        ?.evaluateJavascript(
+        ?.runJavascript(
       'window.TWallet.rejectPromise("$id", ${json.encode(json.encode(data))});',
     );
   }

@@ -50,7 +50,7 @@ class DAppPageState extends State<DAppPage> {
               .call(webviewRequest.id, webviewRequest.param);
         } catch (e) {
           _controller.future.then(
-            (webviewController) => webviewController.evaluateJavascript(
+            (webviewController) => webviewController.runJavascript(
               'window.TWallet.rejectPromise(${json.encode(json.encode(e.toString()))});',
             ),
           );
@@ -65,7 +65,7 @@ class DAppPageState extends State<DAppPage> {
       return true;
     }
     final webViewController = await _controller.future;
-    webViewController.evaluateJavascript('window.TWallet.emit("BACK");');
+    webViewController.runJavascript('window.TWallet.emit("BACK");');
     return false;
   }
 
@@ -121,7 +121,7 @@ class DAppPageState extends State<DAppPage> {
                     },
                     onPageStarted: (String url) {
                       _controller.future.then((webViewController) {
-                        webViewController.evaluateJavascript(
+                        webViewController.runJavascript(
                           'window._wallet_dapp_id = ${json.encode(widget.id)}',
                         );
                       });
