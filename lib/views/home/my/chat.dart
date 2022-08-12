@@ -45,8 +45,6 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('===ROOM===');
-    print(widget.room);
     return CommonLayout(
       customTitle: ChatTitleBar(
         userName: widget.room.name ?? widget.user!.firstName ?? '',
