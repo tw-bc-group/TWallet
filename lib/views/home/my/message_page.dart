@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -5,9 +7,7 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/firbaseService.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
@@ -24,7 +24,6 @@ class MessagePage extends StatefulWidget {
 class _MessagePageState extends State<MessagePage> {
   final IdentityStore _identityStore = Get.find();
   final FirebaseService firebaseService = FirebaseService();
-  bool _error = false;
   bool _initialized = false;
   User? _user;
 
@@ -48,9 +47,7 @@ class _MessagePageState extends State<MessagePage> {
         _initialized = true;
       });
     } catch (e) {
-      setState(() {
-        _error = true;
-      });
+      log(e.toString());
     }
   }
 
@@ -73,13 +70,6 @@ class _MessagePageState extends State<MessagePage> {
           },
         )
       ],
-      // floatingBtn: FloatingActionButton(
-      //   backgroundColor: WalletColor.red,
-      //   child: const Icon(Icons.person_add_alt_1),
-      //   onPressed: () {
-      //     _handleScan(context);
-      //   },
-      // ),
       child: Column(
         children: [
           if (!_initialized || _user == null)
@@ -248,13 +238,4 @@ class _MessagePageState extends State<MessagePage> {
       ),
     );
   }
-}
-
-Future<void> _handleScan(BuildContext context) async {
-  final String scanResult =
-      await Application.router.navigateTo(context, Routes.qrScanner) as String;
-
-  return Future.delayed(const Duration(milliseconds: 500)).then((_) async {
-    try {} catch (_) {}
-  });
 }
