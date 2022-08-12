@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
-import 'package:tw_wallet_ui/service/firbaseService.dart';
+import 'package:tw_wallet_ui/service/firbase_service.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/my/chat.dart';
 import 'package:tw_wallet_ui/views/home/my/users.dart';
