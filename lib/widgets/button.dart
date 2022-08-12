@@ -30,8 +30,23 @@ class ButtonBase extends State<Button> {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: FlatButton(
-          disabledColor: Theme.of(context).disabledColor,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            primary: Colors.black87,
+            minimumSize: const Size(88, 36),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(2.0)),
+            ),
+          ).copyWith(
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return Theme.of(context).disabledColor;
+              }
+              return null;
+            }),
+          ),
           onPressed: widget.onPressed,
           child: Center(
             child: Text(
@@ -41,26 +56,6 @@ class ButtonBase extends State<Button> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-          ),
-        ),
-      ),
-    );
-    return Container(
-      height: widget.height,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-      ),
-      child: FlatButton(
-        disabledColor: Theme.of(context).disabledColor,
-        onPressed: widget.onPressed,
-        child: Center(
-          child: Text(
-            widget.text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ),
