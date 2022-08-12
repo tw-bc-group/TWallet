@@ -103,10 +103,8 @@ class DAppService {
         EthereumAddress.fromHex(transactionInfo.contractAddress),
       );
 
-      final credentials = await web3Client
-          .credentialsFromPrivateKey(identity.accountInfo.priKey);
       final rawTx = await web3Client.signTransaction(
-        credentials,
+        EthPrivateKey.fromHex(identity.accountInfo.priKey),
         Transaction.callContract(
           contract: contract,
           function: contract.function(transactionInfo.functionName),

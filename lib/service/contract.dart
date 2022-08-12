@@ -139,19 +139,16 @@ class Contract {
     List<dynamic> parameters,
   ) async {
     TransactionReceipt? receipt;
-    final String hash =
-        await web3Client.credentialsFromPrivateKey(privateKey).then(
-              (credentials) => web3Client.sendTransaction(
-                credentials,
-                makeTransaction(functionName, parameters),
-                chainId: null,
-                fetchChainIdFromNetworkId: true,
-              ),
-            );
+    final String hash = await web3Client.sendTransaction(
+      EthPrivateKey.fromHex(privateKey),
+      makeTransaction(functionName, parameters),
+      chainId: null,
+      fetchChainIdFromNetworkId: true,
+    );
 
     while (true) {
       await Future.delayed(const Duration(seconds: 2)).then((_) async {
-        receipt = (await web3Client.getTransactionReceipt(hash))!;
+        receipt = await web3Client.getTransactionReceipt(hash);
       });
 
       break;
@@ -166,14 +163,12 @@ class Contract {
     List<dynamic> parameters, {
     int? nonce,
   }) async {
-    return web3Client.credentialsFromPrivateKey(privateKey).then((credentials) {
-      return web3Client
-          .signTransaction(
-            credentials,
-            makeTransaction(functionName, parameters, nonce: nonce),
-            chainId: 10,
-          )
-          .then((rawTx) => '0x${bytesToHex(rawTx)}');
-    });
+    return web3Client
+        .signTransaction(
+          EthPrivateKey.fromHex(privateKey),
+          makeTransaction(functionName, parameters, nonce: nonce),
+          chainId: 10,
+        )
+        .then((rawTx) => '0x${bytesToHex(rawTx)}');
   }
 }
