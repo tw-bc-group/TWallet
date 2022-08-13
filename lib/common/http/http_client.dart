@@ -85,7 +85,7 @@ class HttpClient {
       } else {
         showErrorDialog(error as DioError);
       }
-      return const Optional.empty();
+      return const Optional<Response>.empty();
     });
   }
 
@@ -108,7 +108,7 @@ class HttpClient {
       } else {
         showErrorDialog(error as DioError);
       }
-      return const Optional.empty();
+      return const Optional<Response>.empty();
     });
   }
 
@@ -131,7 +131,7 @@ class HttpClient {
       } else {
         showErrorDialog(error as DioError);
       }
-      return const Optional.empty();
+      return const Optional<Response>.empty();
     });
   }
 }
