@@ -32,18 +32,16 @@ class ProfileRowWidget extends StatelessWidget {
             margin: const EdgeInsets.only(right: 50),
             child: Row(
               children: <Widget>[
-                if (assetIcon != null)
-                  Container(
-                    margin: const EdgeInsets.only(right: 10),
-                    child: SvgPicture.asset(assetIcon),
+                Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: SvgPicture.asset(assetIcon),
+                ),
+                Text(
+                  name,
+                  style: WalletFont.font_14(
+                    textStyle: TextStyle(color: WalletColor.grey),
                   ),
-                if (name != null)
-                  Text(
-                    name,
-                    style: WalletFont.font_14(
-                      textStyle: TextStyle(color: WalletColor.grey),
-                    ),
-                  ),
+                ),
               ],
             ),
           ),
