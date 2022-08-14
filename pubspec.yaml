@@ -79,9 +79,14 @@ dependencies:
   duration: ^3.0.10
   rational: ^2.1.0
   flutter_chat_ui: ^1.5.5
+  flutter_chat_types: ^3.4.3
   firebase_core: ^1.13.1
+  cloud_firestore: ^3.4.3
   flutter_firebase_chat_core: ^1.5.2
   firebase_analytics: ^9.1.2
+  firebase_auth: ^3.6.2
+  json_annotation: ^4.6.0
+
 
 dev_dependencies:
   build_runner: ^2.1.7
