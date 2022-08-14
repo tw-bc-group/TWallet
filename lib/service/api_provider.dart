@@ -38,12 +38,10 @@ class ApiProvider {
       '/v2/token/mint',
       {'address': address, 'moneyType': type.toString()},
     ).then(
-      (res) => Future.value(
-        res.map(
-          (response) =>
-              ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
-                  as Dcep,
-        ),
+      (res) => res.map(
+        (response) =>
+            ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
+                as Dcep,
       ),
     );
   }
@@ -52,12 +50,10 @@ class ApiProvider {
     String address,
   ) {
     return _httpClient.get('/v2/token?address=$address', loading: false).then(
-          (res) => Future.value(
-            res.map(
-              (response) => ApiResponse.fromJson(response.data, const [
-                FullType(BuiltList, [FullType(Dcep)])
-              ]).result.toList() as List<Dcep>,
-            ),
+          (res) => res.map(
+            (response) => ApiResponse.fromJson(response.data, const [
+              FullType(BuiltList, [FullType(Dcep)])
+            ]).result.toList() as List<Dcep>,
           ),
         );
   }
@@ -69,13 +65,11 @@ class ApiProvider {
     return _httpClient
         .get('/v1/token/$address', loading: withLoading ?? true)
         .then((res) {
-      return Future.value(
-        res.map(
-          (response) => ApiResponse.fromJson(
-            response.data,
-            const [FullType(TwBalance)],
-          ).result as TwBalance,
-        ),
+      return res.map(
+        (response) => ApiResponse.fromJson(
+          response.data,
+          const [FullType(TwBalance)],
+        ).result as TwBalance,
       );
     });
   }
@@ -86,12 +80,10 @@ class ApiProvider {
     return _httpClient
         .get('/v1/contracts/$contractName', loading: false, throwError: true)
         .then((res) {
-      return Future.value(
-        res.map(
-          (response) =>
-              ApiResponse.fromJson(response.data, const [FullType(Contract)])
-                  .result as Contract,
-        ),
+      return res.map(
+        (response) =>
+            ApiResponse.fromJson(response.data, const [FullType(Contract)])
+                .result as Contract,
       );
     });
   }
@@ -132,24 +124,20 @@ class ApiProvider {
     return _httpClient
         .get('/v1/transactions?from_addr=$fromAddress', throwError: true)
         .then((res) {
-      return Future.value(
-        res.map(
-          (response) => ApiResponse.fromJson(response.data, const [
-            FullType(BuiltList, [FullType(Transaction)])
-          ]).result.toList() as List<Transaction>,
-        ),
+      return res.map(
+        (response) => ApiResponse.fromJson(response.data, const [
+          FullType(BuiltList, [FullType(Transaction)])
+        ]).result.toList() as List<Transaction>,
       );
     });
   }
 
   Future<Optional<Transaction>> fetchTxDetails({required String txHash}) async {
     return _httpClient.get('/v1/transactions/$txHash').then((res) {
-      return Future.value(
-        res.map(
-          (response) =>
-              ApiResponse.fromJson(response.data, [const FullType(Transaction)])
-                  .result as Transaction,
-        ),
+      return res.map(
+        (response) =>
+            ApiResponse.fromJson(response.data, [const FullType(Transaction)])
+                .result as Transaction,
       );
     });
   }
@@ -168,13 +156,11 @@ class ApiProvider {
       'contact': contact,
       "symptoms": symptoms
     }).then(
-      (res) => Future.value(
-        res.map(
-          (response) => ApiResponse.fromJson(
-            response.data,
-            [const FullType(HealthCertificationToken)],
-          ).result as HealthCertificationToken,
-        ),
+      (res) => res.map(
+        (response) => ApiResponse.fromJson(
+          response.data,
+          [const FullType(HealthCertificationToken)],
+        ).result as HealthCertificationToken,
       ),
     );
   }
@@ -183,13 +169,11 @@ class ApiProvider {
     String did,
   ) {
     return _httpClient.get('/v1/health-certifications/$did').then(
-          (res) => Future.value(
-            res.map(
-              (response) => ApiResponse.fromJson(
-                response.data,
-                [const FullType(HealthCertificationToken)],
-              ).result as HealthCertificationToken,
-            ),
+          (res) => res.map(
+            (response) => ApiResponse.fromJson(
+              response.data,
+              [const FullType(HealthCertificationToken)],
+            ).result as HealthCertificationToken,
           ),
         );
   }
@@ -206,12 +190,10 @@ class ApiProvider {
 
   Future<Optional<List<IssuerResponse>>> fetchIssuers() {
     return _httpClient.get('/v2/vc-market/issuers').then(
-          (res) => Future.value(
-            res.map(
-              (response) => ApiResponse.fromJson(response.data, const [
-                FullType(BuiltList, [FullType(IssuerResponse)])
-              ]).result.toList() as List<IssuerResponse>,
-            ),
+          (res) => res.map(
+            (response) => ApiResponse.fromJson(response.data, const [
+              FullType(BuiltList, [FullType(IssuerResponse)])
+            ]).result.toList() as List<IssuerResponse>,
           ),
         );
   }
@@ -230,13 +212,11 @@ class ApiProvider {
       'phone': phone,
       'vcType': vcTypeId,
     }).then(
-      (res) => Future.value(
-        res.map(
-          (response) => ApiResponse.fromJson(
-            response.data,
-            [const FullType(HealthCertificationToken)],
-          ).result as HealthCertificationToken,
-        ),
+      (res) => res.map(
+        (response) => ApiResponse.fromJson(
+          response.data,
+          [const FullType(HealthCertificationToken)],
+        ).result as HealthCertificationToken,
       ),
     );
   }
