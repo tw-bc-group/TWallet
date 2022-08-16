@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 
-class LoginPage extends StatefulWidget {
+class MagicLinkLoginPage extends StatefulWidget {
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<MagicLinkLoginPage> createState() => _MagicLinkLoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
