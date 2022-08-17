@@ -188,7 +188,7 @@ class HealthCertificationPage extends StatelessWidget {
     BuildContext context,
     DecentralizedIdentity identity,
   ) async {
-    Future useBuildContextSynchronously() {
+    Future safeUseBuildContextAsynchronously() {
       final String path = certStore.isBoundCert
           ? '${Routes.healthCode}?id=${identity.id}'
           : '${Routes.certificate}?id=${identity.id}';
@@ -198,7 +198,7 @@ class HealthCertificationPage extends StatelessWidget {
     await certStore.fetchHealthCertByDID(identity.did.toString());
     await _identityStore.updateHealthCertLastSelected(identity);
 
-    return useBuildContextSynchronously();
+    return safeUseBuildContextAsynchronously();
   }
 
   Future<void> _handleScan(BuildContext context) async {
