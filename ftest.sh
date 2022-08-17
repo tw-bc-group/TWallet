@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-if [[ $(command -v lcov) == '' ]] ; then
+if [[ $(command -v lcov) == '' ]]; then
     printf "${RED}You haven't installed lcov.\n"
     printf "${RED}We will run 'brew install lcov'.\n"
     brew install lcov
 else
     printf "${GREEN}You have installed lcov 👍.\n"
 fi
-       
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 
@@ -17,13 +17,11 @@ PATH_COVERAGE='coverage/lcov.info'
 flutter pub get
 flutter test --coverage
 lcov --remove $PATH_COVERAGE \
-'lib/main.dart' \
-'lib/*/*.g.dart' \
--o coverage/lcov.info
-if [ -n "$1" ]
-then
-    if [ "$1" = true ]
-    then
+    'lib/main.dart' \
+    'lib/*/*.g.dart' \
+    -o coverage/lcov.info
+if [ -n "$1" ]; then
+    if [ "$1" = true ]; then
         printf "${GREEN}Let's open an report.\n"
         genhtml $PATH_COVERAGE -o coverage
         open coverage/index.html
