@@ -88,7 +88,7 @@ void main() {
 
     expect(observations.length, 3);
     expect(observations[2].operation, 'push');
-    expect(observations[2].current, Routes.newWallet);
+    expect(observations[2].current, Routes.magicLinkLogin);
     expect(observations[2].previous, Routes.inputPin);
   });
 }

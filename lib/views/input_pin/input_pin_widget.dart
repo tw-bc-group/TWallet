@@ -263,7 +263,7 @@ class PinInputWidget extends StatelessWidget {
                                           await _inputPin.setMasterKey();
                                           return Application.router.navigateTo(
                                             context,
-                                            Routes.newWallet,
+                                            Routes.magicLinkLogin,
                                             clearStack: true,
                                           );
                                         }
