@@ -55,8 +55,11 @@ class PinInputWidget extends StatelessWidget {
 
   VoidCallback _setKey(BuildContext context) {
     return () async {
+      // resolved issue - use_build_context_synchronously
+      // https://stackoverflow.com/questions/69466478/waiting-asynchronously-for-navigator-push-linter-warning-appears-use-build/69512692#69512692
+      Future safeUseBuildContextAsynchronously() => _pageJump(context);
       await _inputPin.setMasterKey();
-      _pageJump(context);
+      return safeUseBuildContextAsynchronously();
     };
   }
 

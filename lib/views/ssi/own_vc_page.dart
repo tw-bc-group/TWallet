@@ -91,6 +91,8 @@ class _OwnVcPageState extends State<OwnVcPage> {
       scanResult,
     );
     Get.find<VcStore>().vpReq = vpr;
+    // https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html
+    if (!mounted) return;
     Application.router.navigateTo(context, Routes.composeVcPage);
   }
 

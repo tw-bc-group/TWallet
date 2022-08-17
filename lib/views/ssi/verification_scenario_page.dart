@@ -147,6 +147,9 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         name,
         vcTypes,
       );
+
+      if (!mounted) return;
+
       Application.router.navigateTo(
         context,
         Routes.verificationScenarioQrPage,
@@ -164,6 +167,9 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
         scanResult,
       );
       final res = op.first;
+
+      if (!mounted) return;
+
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         if (res.data['result']['overdue'] as String != 'FALSE') {
           await hintDialogHelper(

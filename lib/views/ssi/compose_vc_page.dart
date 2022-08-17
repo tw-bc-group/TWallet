@@ -98,6 +98,10 @@ class _ComposeVcPageState extends State<ComposeVcPage> {
           await SsiService.verifyAndGetPassport(_store.vpReq.id, vcTokens);
       final vcPass = VcPass(name: vpReq.name, token: vctr.token);
       _store.vcPass = vcPass;
+
+      // https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html
+      if (!mounted) return;
+
       Application.router.navigateTo(context, Routes.passPage);
     } catch (err) {
       await hintDialogHelper(context, DialogType.error, "$err");

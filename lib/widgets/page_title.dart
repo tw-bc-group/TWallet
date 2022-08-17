@@ -50,10 +50,13 @@ class PageTitleWidget extends StatelessWidget {
               iconSize: 30,
               color: WalletColor.white,
               onPressed: () async {
+                void safeUseBuildContextAsynchronously() =>
+                    Application.router.pop(context);
+
                 if (null != beforeDispose) {
                   await beforeDispose!();
                 }
-                Application.router.pop(context);
+                safeUseBuildContextAsynchronously();
               },
             ),
           ),

@@ -30,8 +30,13 @@ class _UsersPageState extends State<UsersPage> {
   }
 
   Future<void> _handlePressed(
-      types.User otherUser, BuildContext context,) async {
+    types.User otherUser,
+    BuildContext context,
+  ) async {
     final room = await FirebaseChatCore.instance.createRoom(otherUser);
+
+    // https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html
+    if (!mounted) return;
 
     Navigator.of(context).pop();
     await Navigator.of(context).push(

@@ -44,7 +44,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
         toAddress: widget.toAddress,
         amount: Amount(Decimal.parse(widget.amount)),
       );
-      if (transferSuccess) {
+      if (transferSuccess && mounted) {
         // Application.router.navigateTo(context, '${Routes.transferResult}?amount=$amount&toAddress=$toAddress');
         return Navigator.pushNamed(
           context,

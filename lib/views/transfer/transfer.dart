@@ -184,7 +184,8 @@ class TransferPageState extends State<TransferPage> {
         toAddress: payeeAddress,
         amount: Amount(Decimal.parse(amount)),
       );
-      if (transferSuccess) {
+
+      if (transferSuccess && mounted) {
         return Navigator.pushNamed(
           context,
           Routes.txListDetails,
@@ -305,6 +306,7 @@ class TransferPageState extends State<TransferPage> {
                       _payeeAddressController.text = did.toString();
                       _transferStore.payeeDID = did.toString();
                     } catch (_) {
+                      if (!mounted) return;
                       await hintDialogHelper(
                         context,
                         DialogType.warning,
