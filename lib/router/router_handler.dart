@@ -56,7 +56,7 @@ Handler homeHandler = Handler(
 
 Handler inputPinHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-    return PinInputWidget();
+    return PinInputWidget(TextEditingController(), TextEditingController());
   },
 );
 

@@ -5,10 +5,13 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:tw_wallet_ui/main.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 
 void main() {
   testWidgets('Landing page smoke test', (WidgetTester tester) async {
@@ -20,5 +23,39 @@ void main() {
     );
 
     expect(find.text('请创建您的 PIN 码'), findsOneWidget);
+  });
+
+  testWidgets('input pin smoke test', (tester) async {
+    final ctl1 = TextEditingController();
+    final ctl2 = TextEditingController();
+
+    final Handler mockHandler = Handler(
+      handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
+        return PinInputWidget(ctl1, ctl2);
+      },
+    );
+    Routes.routers[Routes.inputPin] = mockHandler;
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(
+      TWallet(
+        initialRoute: Routes.inputPin,
+      ),
+    );
+
+    ctl1.text = '123456';
+    ctl2.text = '123456';
+
+    await tester.pump();
+    final list = find.byType(ListView);
+    final scrollable = find.byWidgetPredicate((w) => w is Scrollable);
+    final scrollableOfList = find.descendant(of: list, matching: scrollable);
+
+    await tester.scrollUntilVisible(
+      find.text('下一步'),
+      200.0,
+      scrollable: scrollableOfList.first,
+    );
+
+    expect(find.text('下一步'), findsOneWidget);
   });
 }

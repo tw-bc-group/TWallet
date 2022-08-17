@@ -17,8 +17,10 @@ import 'package:tw_wallet_ui/views/input_pin/input_pin_store.dart';
 class PinInputWidget extends StatelessWidget {
   final _inputPin = InputPinStore();
 
-  final TextEditingController textEditingController1 = TextEditingController();
-  final TextEditingController textEditingController2 = TextEditingController();
+  final TextEditingController textEditingController1;
+  final TextEditingController textEditingController2;
+
+  PinInputWidget(this.textEditingController1, this.textEditingController2);
 
   Widget _inputPinField(
     TextEditingController textEditingController,
