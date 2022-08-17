@@ -57,8 +57,9 @@ void runMainApp(String initialRoute) {
 
 class TWallet extends StatelessWidget {
   final String initialRoute;
+  final List<NavigatorObserver> navigatorObservers;
 
-  TWallet({required this.initialRoute}) {
+  TWallet({required this.initialRoute, this.navigatorObservers = const []}) {
     final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
@@ -70,6 +71,7 @@ class TWallet extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) => GetMaterialApp(
+        navigatorObservers: navigatorObservers,
         debugShowCheckedModeBanner: false,
         title: Application.appName,
         theme: ThemeData(

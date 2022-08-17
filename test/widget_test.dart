@@ -8,11 +8,20 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:mockito/annotations.dart';
+import 'package:tw_wallet_ui/common/secure_storage.dart';
 
 import 'package:tw_wallet_ui/main.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 
+import 'observer_tester.dart';
+
+import 'widget_test.mocks.dart';
+
+// Annotation which generates the cat.mocks.dart library and the MockCat class.
+@GenerateMocks([SecureStorage])
 void main() {
   testWidgets('Landing page smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -26,6 +35,20 @@ void main() {
   });
 
   testWidgets('input pin smoke test', (tester) async {
+    final List<NavigatorObservation> observations = <NavigatorObservation>[];
+
+    final TestObserver observer = TestObserver()
+      ..onPushed = (Route<dynamic>? route, Route<dynamic>? previousRoute) {
+        // Pushes the initial route.
+        observations.add(
+          NavigatorObservation(
+            current: route?.settings.name,
+            previous: previousRoute?.settings.name,
+            operation: 'push',
+          ),
+        );
+      };
+
     final ctl1 = TextEditingController();
     final ctl2 = TextEditingController();
 
@@ -39,6 +62,7 @@ void main() {
     await tester.pumpWidget(
       TWallet(
         initialRoute: Routes.inputPin,
+        navigatorObservers: [observer],
       ),
     );
 
@@ -57,5 +81,14 @@ void main() {
     );
 
     expect(find.text('下一步'), findsOneWidget);
+
+    Get.put<SecureStorage>(MockSecureStorage());
+    await tester.tap(find.text('下一步'));
+    await tester.pump();
+
+    expect(observations.length, 3);
+    expect(observations[2].operation, 'push');
+    expect(observations[2].current, Routes.newWallet);
+    expect(observations[2].previous, Routes.inputPin);
   });
 }
