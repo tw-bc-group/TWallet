@@ -1,5 +1,14 @@
 #!/bin/bash
 set -e
+
+if [[ $(command -v lcov) == '' ]] ; then
+    printf "${RED}You haven't installed lcov.\n"
+    printf "${RED}We will run 'brew install lcov'.\n"
+    brew install lcov
+else
+    printf "${GREEN}You have installed lcov 👍.\n"
+fi
+       
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 
@@ -15,15 +24,7 @@ if [ -n "$1" ]
 then
     if [ "$1" = true ]
     then
-        if [[ $(command -v lcov) == '' ]] ; then
-            printf "${RED}You haven't installed lcov.\n"
-            printf "${RED}We will run 'brew install lcov'.\n"
-            brew install lcov
-        else
-            printf "${GREEN}You have installed lcov 👍.\n"
-            printf "${GREEN}Let's open an report.\n"
-        fi
-       
+        printf "${GREEN}Let's open an report.\n"
         genhtml $PATH_COVERAGE -o coverage
         open coverage/index.html
     fi
