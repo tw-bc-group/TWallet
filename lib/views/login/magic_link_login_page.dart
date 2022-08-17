@@ -12,13 +12,23 @@ class MagicLinkLoginPage extends StatefulWidget {
 class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  final _magic = Magic.instance;
+  final magic = Magic.instance;
+
+  Future loginFunction({required String email}) async {
+    try {
+      final did =
+          await magic.auth.loginWithMagicLink(email: _emailController.text);
+      debugPrint('did: $did');
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'test',
+      title: 'magic-login',
       home: CommonLayout(
         bodyBackColor: WalletColor.white,
         backIcon: BackIcon.none,
@@ -50,8 +60,21 @@ class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          _magic.auth
-                              .loginWithMagicLink(email: _emailController.text);
+                          loginFunction(email: _emailController.text);
+                          debugPrint('Email: ${_emailController.text}');
+                          magic.user.getIdToken().then(
+                                (idToken) => debugPrint('id Token: $idToken'),
+                              );
+
+                          magic.user.getMetadata().then(
+                                (metadata) => debugPrint(
+                                  'metadata: ${metadata.issuer}, ${metadata.email}, ${metadata.publicAddress}',
+                                ),
+                              );
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Check you email')),
+                          );
                         }
                       },
                       child: const Text('Login'),
