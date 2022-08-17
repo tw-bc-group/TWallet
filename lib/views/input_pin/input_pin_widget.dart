@@ -52,6 +52,19 @@ class PinInputWidget extends StatelessWidget {
       onChanged: onChanged,
     );
   }
+VoidCallback _setKey(BuildContext context) { 
+  return () async {
+    await _inputPin.setMasterKey();
+    _pageJump(context);
+  };
+}
+Future<dynamic> _pageJump(BuildContext context) {
+  return Application.router.navigateTo(
+      context,
+      Routes.magicLinkLogin,
+      clearStack: true,
+      );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -259,14 +272,7 @@ class PinInputWidget extends StatelessWidget {
                                 child: WalletTheme.button(
                                   text: '下一步',
                                   onPressed: _inputPin.isCompleted
-                                      ? () async {
-                                          await _inputPin.setMasterKey();
-                                          return Application.router.navigateTo(
-                                            context,
-                                            Routes.magicLinkLogin,
-                                            clearStack: true,
-                                          );
-                                        }
+                                      ? () _setKey(context)
                                       : null,
                                 ),
                               ),
@@ -285,3 +291,5 @@ class PinInputWidget extends StatelessWidget {
     );
   }
 }
+
+
