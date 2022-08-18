@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:magic_sdk/magic_sdk.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -19,6 +20,7 @@ Future<void> initGlobalDependencies() async {
   Get.put(SecureStorage());
   Get.put(ProgressDialog());
   Get.put(LoadingInterceptor());
+  Get.put(magicLink());
   Get.put(LogInterceptor(requestBody: true, responseBody: true));
   Get.put(HttpClient());
   Get.put(ApiProvider());
@@ -31,4 +33,12 @@ Future<void> initGlobalDependencies() async {
   Get.put(IssuerStore());
   Get.put(ApplyVcInfoStore());
   await Get.putAsync(OfflineTxStore.init);
+}
+
+Magic magicLink() {
+  return Magic.custom(
+    "pk_live_CCD4C7EF13C55895",
+    rpcUrl: 'https://rinkeby.infura.io/v3/f392fa8f8e5448b690169441ea7d43e6',
+    chainId: 0x4,
+  );
 }

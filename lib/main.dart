@@ -64,12 +64,6 @@ class TWallet extends StatelessWidget {
     final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
-
-    Magic.instance = Magic.custom(
-      "pk_live_CCD4C7EF13C55895",
-      rpcUrl: 'https://rinkeby.infura.io/v3/f392fa8f8e5448b690169441ea7d43e6',
-      chainId: 0x4,
-    );
   }
 
   // This widget is the root of your application.
