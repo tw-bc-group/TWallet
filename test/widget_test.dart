@@ -9,7 +9,9 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:magic_sdk/magic_sdk.dart';
 import 'package:mockito/annotations.dart';
+import 'package:tw_wallet_ui/common/getx.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 
 import 'package:tw_wallet_ui/main.dart';
@@ -83,6 +85,7 @@ void main() {
     expect(find.text('下一步'), findsOneWidget);
 
     Get.put<SecureStorage>(MockSecureStorage());
+    Get.put<Magic>(magicLink());
     await tester.tap(find.text('下一步'));
     await tester.pump();
 
