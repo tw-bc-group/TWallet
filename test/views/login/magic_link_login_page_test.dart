@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:tw_wallet_ui/common/getx.dart';
 import 'package:tw_wallet_ui/main.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/magic_link.dart';
 
 void main() {
   testWidgets('show login page properly', (WidgetTester tester) async {

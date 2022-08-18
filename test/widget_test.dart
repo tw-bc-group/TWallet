@@ -11,11 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:magic_sdk/magic_sdk.dart';
 import 'package:mockito/annotations.dart';
-import 'package:tw_wallet_ui/common/getx.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 
 import 'package:tw_wallet_ui/main.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/magic_link.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 
 import 'observer_tester.dart';
