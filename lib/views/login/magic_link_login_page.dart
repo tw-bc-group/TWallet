@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:magic_sdk/magic_sdk.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
@@ -61,7 +62,8 @@ class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: ElevatedButton(
+                      child: WalletTheme.button(
+                        text: 'Login',
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             loginFunction(email: _emailController.text);
@@ -81,7 +83,6 @@ class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
                             );
                           }
                         },
-                        child: const Text('Login'),
                       ),
                     )
                   ],
