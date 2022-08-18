@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -129,7 +129,7 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FlutterBlue.instance.state,
+      stream: FlutterBluePlus.instance.state,
       builder: (BuildContext context, AsyncSnapshot<BluetoothState> snapshot) {
         if (BluetoothState.on == snapshot.data) {
           return PaymentScreen(name, address, amount);

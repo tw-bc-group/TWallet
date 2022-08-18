@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
-import 'package:flutter_blue/flutter_blue.dart' as flutter_blue;
+import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
@@ -211,7 +211,7 @@ class PayeeListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: flutter_blue.FlutterBlue.instance.state,
+      stream: flutter_blue.FlutterBluePlus.instance.state,
       builder: (
         BuildContext context,
         AsyncSnapshot<flutter_blue.BluetoothState> snapshot,
