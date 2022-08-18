@@ -34,4 +34,3 @@ Future<void> initGlobalDependencies() async {
   Get.put(ApplyVcInfoStore());
   await Get.putAsync(OfflineTxStore.init);
 }
-
