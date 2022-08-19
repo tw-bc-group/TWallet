@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magic_sdk/magic_sdk.dart';
@@ -20,13 +22,13 @@ class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
 
   Future loginFunction({required String email}) async {
     try {
-      final did =
+      final didToken =
           await magic.auth.loginWithMagicLink(email: _emailController.text);
       if (!mounted) return;
       Application.router.navigateTo(context, Routes.home);
-      debugPrint('did: $did');
+      debugPrint('did token: $didToken');
     } catch (e) {
-      debugPrint('Error: $e');
+      log('Error: $e');
     }
   }
 
@@ -67,7 +69,6 @@ class _MagicLinkLoginPageState extends State<MagicLinkLoginPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             loginFunction(email: _emailController.text);
-                            debugPrint('Email: ${_emailController.text}');
                             magic.user.getIdToken().then(
                                   (idToken) => debugPrint('id Token: $idToken'),
                                 );
