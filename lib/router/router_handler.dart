@@ -15,6 +15,7 @@ import 'package:tw_wallet_ui/views/identity_detail/identity_detail.dart';
 import 'package:tw_wallet_ui/views/identity_qr/identity_qr_code.dart';
 import 'package:tw_wallet_ui/views/input_pin/input_pin_widget.dart';
 import 'package:tw_wallet_ui/views/login/magic_link_login_page.dart';
+import 'package:tw_wallet_ui/views/login/web3auth_login_page.dart';
 import 'package:tw_wallet_ui/views/new_wallet/new_wallet_widget.dart';
 import 'package:tw_wallet_ui/views/profile/profile.dart';
 import 'package:tw_wallet_ui/views/qr_scanner/qr_scanner.dart';
@@ -232,6 +233,11 @@ Handler newVcPageHandler = Handler(
 Handler magicLoginPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return MagicLinkLoginPage();
+  },
+);
+Handler web3authLoginPageHandler = Handler(
+  handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
+    return Web3authLoginPage();
   },
 );
 
