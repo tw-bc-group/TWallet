@@ -43,6 +43,7 @@ dependencies:
   uuid: ^3.0.6
   date_format: ^2.0.6
   magic_sdk: ^1.2.1
+  web3auth_flutter: ^0.0.2
   web3dart: ^2.3.3
   http: ^0.13.4
   built_value: ^8.1.4

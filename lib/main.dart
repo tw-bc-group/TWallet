@@ -9,6 +9,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/views/splash_screen/splash_screen.dart';
 
 final SentryClient sentry = SentryClient(
@@ -63,6 +64,7 @@ class TWallet extends StatelessWidget {
     final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
+    web3authInit();
   }
 
   // This widget is the root of your application.
