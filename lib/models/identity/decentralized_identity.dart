@@ -63,8 +63,10 @@ abstract class DecentralizedIdentity extends Object
       );
 
   Future<bool> register() async {
-    return Get.find<ContractService>().identitiesContract!.sendTransaction(
-        Get.find<MnemonicsStore>().firstPrivateKey, 'registerIdentity', [
+    final priKey = Get.find<MnemonicsStore>().firstPrivateKey;
+    return Get.find<ContractService>()
+        .identitiesContract!
+        .sendTransaction(EthPrivateKey.fromHex(priKey), 'registerIdentity', [
       profileInfo.name,
       did.toString(),
       dappId,

@@ -134,13 +134,13 @@ class Contract {
   }
 
   Future<bool> sendTransaction(
-    String privateKey,
+    Credentials credentials,
     String functionName,
     List<dynamic> parameters,
   ) async {
     TransactionReceipt? receipt;
     final String hash = await web3Client.sendTransaction(
-      EthPrivateKey.fromHex(privateKey),
+      credentials,
       makeTransaction(functionName, parameters),
       chainId: null,
       fetchChainIdFromNetworkId: true,
