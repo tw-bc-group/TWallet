@@ -8,7 +8,8 @@ class Routes {
   static const String home = "/home";
   static const String inputPin = "/input_pin";
   static const String newWallet = "/new_wallet";
-  static const String magicLinkLogin = '/login/login_page';
+  static const String magicLinkLogin = '/login/magic_link_login_page';
+  static const String web3auth = '/login/web3auth_login_page';
   static const String newIdentity = "/new_identity";
   static const String backupMnemonics = "/backup_mnemonics";
   static const String confirmMnemonics = "/confirm_mnemonics";
@@ -41,6 +42,7 @@ class Routes {
     home: homeHandler,
     inputPin: inputPinHandler,
     newWallet: newWalletHandler,
+    magicLinkLogin: magicLoginPageHandler,
     newIdentity: newIdentityHandler,
     backupMnemonics: backupMnemonicsHandler,
     confirmMnemonics: confirmMnemonicsHandler,
@@ -66,7 +68,6 @@ class Routes {
     newVcPage: newVcPageHandler,
     messagePage: messagePageHandler,
     chatDetailPage: chatDetailPageHandler,
-    magicLinkLogin: loginPageHandler,
   };
 
   static void configureRoutes(FluroRouter router) {

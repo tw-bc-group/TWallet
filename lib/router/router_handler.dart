@@ -229,7 +229,7 @@ Handler newVcPageHandler = Handler(
   },
 );
 
-Handler loginPageHandler = Handler(
+Handler magicLoginPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return MagicLinkLoginPage();
   },
