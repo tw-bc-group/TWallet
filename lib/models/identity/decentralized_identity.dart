@@ -9,11 +9,9 @@ import 'package:tw_wallet_ui/models/identity/health_info.dart';
 import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
-import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
-import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web3dart/credentials.dart';
 
@@ -37,8 +35,7 @@ abstract class DecentralizedIdentity extends Object
   String? get extra;
 
   @memoized
-  String get address =>
-      BlockChainService.publicKeyToAddress(accountInfo.pubKey.substring(2));
+  String get address => accountInfo.address;
 
   @memoized
   DID get did => DID.fromEthAddress(EthereumAddress.fromHex(address));
@@ -62,11 +59,10 @@ abstract class DecentralizedIdentity extends Object
           ..update(updates),
       );
 
-  Future<bool> register() async {
-    final priKey = Get.find<MnemonicsStore>().firstPrivateKey;
+  Future<bool> register(Credentials creds) async {
     return Get.find<ContractService>()
         .identitiesContract!
-        .sendTransaction(EthPrivateKey.fromHex(priKey), 'registerIdentity', [
+        .sendTransaction(creds, 'registerIdentity', [
       profileInfo.name,
       did.toString(),
       dappId,

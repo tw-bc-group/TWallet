@@ -12,6 +12,8 @@ abstract class AccountInfo implements Built<AccountInfo, AccountInfoBuilder> {
 
   String get pubKey;
 
+  String get address;
+
   String get priKey;
 
   Amount? get balance;

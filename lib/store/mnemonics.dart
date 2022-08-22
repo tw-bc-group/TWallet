@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
+import 'package:tw_wallet_ui/models/identity/account_info.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
+import 'package:tw_wallet_ui/store/account_store.dart';
+import 'package:web3dart/web3dart.dart';
 
 part 'mnemonics.g.dart';
 
@@ -15,7 +18,9 @@ typedef GenerateKeysCallback = Future<dynamic> Function(
 const saveSplitTag = '|';
 const identityStartIndex = 1;
 
-class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
+class MnemonicsStore extends MnemonicsBase
+    with _$MnemonicsStore
+    implements AccountStore {
   late Tuple2<String, String> indexZeroKeypair;
 
   MnemonicsStore(Tuple2<int, String> value) : super(value) {
@@ -84,6 +89,28 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
 
     return MnemonicsStore(value);
   }
+
+  @override
+  Future<AccountInfo> get accountInfo {
+    final res = generateKeypair(
+      (index, keypair) => Future.value(
+        AccountInfo(
+          (accountInfo) => accountInfo
+            ..index = index
+            ..address = BlockChainService.publicKeyToAddress(keypair.first)
+            ..pubKey = keypair.first
+            ..priKey = keypair.second,
+        ),
+      ),
+    );
+
+    return res as Future<AccountInfo>;
+    // TODO: implement did
+  }
+
+  @override
+  // TODO: implement credentials
+  Credentials get credentials => EthPrivateKey.fromHex(firstPrivateKey);
 }
 
 abstract class MnemonicsBase with Store {

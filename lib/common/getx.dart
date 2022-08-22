@@ -25,6 +25,7 @@ Future<void> initGlobalDependencies() async {
   Get.put(HttpClient());
   Get.put(ApiProvider());
   await Get.putAsync(MnemonicsStore.init);
+  await Get.putAsync(MagicLinkStore.init);
   await Get.putAsync(ContractService.init);
   await Get.putAsync(IdentityStore.init);
   Get.put(DcepStore());

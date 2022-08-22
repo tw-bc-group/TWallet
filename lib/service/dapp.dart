@@ -193,7 +193,8 @@ class DAppService {
             ..accountInfo.index = index,
         ),
       ).then(
-        (identity) => identity.register().then((success) {
+        (identity) =>
+            identity.register(mnemonicsStore.credentials).then((success) {
           if (success) {
             resolve(id, identity.basicInfo());
           }

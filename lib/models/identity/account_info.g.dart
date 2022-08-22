@@ -23,6 +23,9 @@ class _$AccountInfoSerializer implements StructuredSerializer<AccountInfo> {
       'pubKey',
       serializers.serialize(object.pubKey,
           specifiedType: const FullType(String)),
+      'address',
+      serializers.serialize(object.address,
+          specifiedType: const FullType(String)),
       'priKey',
       serializers.serialize(object.priKey,
           specifiedType: const FullType(String)),
@@ -57,6 +60,10 @@ class _$AccountInfoSerializer implements StructuredSerializer<AccountInfo> {
           result.pubKey = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
+        case 'address':
+          result.address = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
         case 'priKey':
           result.priKey = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
@@ -78,6 +85,8 @@ class _$AccountInfo extends AccountInfo {
   @override
   final String pubKey;
   @override
+  final String address;
+  @override
   final String priKey;
   @override
   final Amount? balance;
@@ -88,11 +97,13 @@ class _$AccountInfo extends AccountInfo {
   _$AccountInfo._(
       {required this.index,
       required this.pubKey,
+      required this.address,
       required this.priKey,
       this.balance})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(index, r'AccountInfo', 'index');
     BuiltValueNullFieldError.checkNotNull(pubKey, r'AccountInfo', 'pubKey');
+    BuiltValueNullFieldError.checkNotNull(address, r'AccountInfo', 'address');
     BuiltValueNullFieldError.checkNotNull(priKey, r'AccountInfo', 'priKey');
   }
 
@@ -109,6 +120,7 @@ class _$AccountInfo extends AccountInfo {
     return other is AccountInfo &&
         index == other.index &&
         pubKey == other.pubKey &&
+        address == other.address &&
         priKey == other.priKey &&
         balance == other.balance;
   }
@@ -116,7 +128,8 @@ class _$AccountInfo extends AccountInfo {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, index.hashCode), pubKey.hashCode), priKey.hashCode),
+        $jc($jc($jc($jc(0, index.hashCode), pubKey.hashCode), address.hashCode),
+            priKey.hashCode),
         balance.hashCode));
   }
 
@@ -125,6 +138,7 @@ class _$AccountInfo extends AccountInfo {
     return (newBuiltValueToStringHelper(r'AccountInfo')
           ..add('index', index)
           ..add('pubKey', pubKey)
+          ..add('address', address)
           ..add('priKey', priKey)
           ..add('balance', balance))
         .toString();
@@ -142,6 +156,10 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
   String? get pubKey => _$this._pubKey;
   set pubKey(String? pubKey) => _$this._pubKey = pubKey;
 
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
+
   String? _priKey;
   String? get priKey => _$this._priKey;
   set priKey(String? priKey) => _$this._priKey = priKey;
@@ -157,6 +175,7 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
     if ($v != null) {
       _index = $v.index;
       _pubKey = $v.pubKey;
+      _address = $v.address;
       _priKey = $v.priKey;
       _balance = $v.balance;
       _$v = null;
@@ -185,6 +204,8 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
                 index, r'AccountInfo', 'index'),
             pubKey: BuiltValueNullFieldError.checkNotNull(
                 pubKey, r'AccountInfo', 'pubKey'),
+            address: BuiltValueNullFieldError.checkNotNull(
+                address, r'AccountInfo', 'address'),
             priKey: BuiltValueNullFieldError.checkNotNull(
                 priKey, r'AccountInfo', 'priKey'),
             balance: balance);

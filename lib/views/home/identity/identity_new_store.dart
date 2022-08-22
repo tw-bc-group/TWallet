@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
+import 'package:tw_wallet_ui/store/account_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/views/home/identity/date_validator.dart';
@@ -117,26 +118,27 @@ abstract class _IdentityNewStore with Store {
 
   @action
   Future<dynamic> addIdentity() async {
-    final MnemonicsStore store = Get.find();
+    final AccountStore store = Get.find<MnemonicsStore>();
 
     if (!error.hasErrors) {
-      return store.generateKeypair(
-        (index, keypair) => Future.value(
-          DecentralizedIdentity(
-            (identity) => identity
-              ..id = const Uuid().v1()
-              ..profileInfo.name = name
-              ..accountInfo.index = index
-              ..accountInfo.pubKey = keypair.first
-              ..accountInfo.priKey = keypair.second
-              ..profileInfo.phone = phone
-              ..profileInfo.email = email
-              ..profileInfo.birthday = birthday,
-          ),
-        ).then((identity) {
-          return identity.register();
-        }),
-      );
+      return store.accountInfo
+          .then(
+        (accountInfo) => DecentralizedIdentity(
+          (identity) => identity
+            ..id = const Uuid().v1()
+            ..profileInfo.name = name
+            ..accountInfo.index = accountInfo.index
+            ..accountInfo.pubKey = accountInfo.pubKey
+            ..accountInfo.priKey = accountInfo.priKey
+            ..accountInfo.address = accountInfo.address
+            ..profileInfo.phone = phone
+            ..profileInfo.email = email
+            ..profileInfo.birthday = birthday,
+        ),
+      )
+          .then((identity) {
+        return identity.register(store.credentials);
+      });
     }
     return false;
   }
