@@ -9,32 +9,32 @@ part 'mnemonics.g.dart';
 
 typedef GenerateKeysCallback = Future<dynamic> Function(
   int index,
-  Tuple2<String, String> keys,
+  Tuple2<String, String> keypair,
 );
 
 const saveSplitTag = '|';
 const identityStartIndex = 1;
 
 class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
-  late Tuple2<String, String> indexZeroKeys;
+  late Tuple2<String, String> indexZeroKeypair;
 
   MnemonicsStore(Tuple2<int, String> value) : super(value) {
     generateIndexZeroKeys(value.second);
   }
 
-  String get firstPublicKey => indexZeroKeys.first;
+  String get firstPublicKey => indexZeroKeypair.first;
 
-  String get firstPrivateKey => indexZeroKeys.second;
+  String get firstPrivateKey => indexZeroKeypair.second;
 
   void generateIndexZeroKeys(String mnemonics) {
-    indexZeroKeys = BlockChainService.generateKeys(
+    indexZeroKeypair = BlockChainService.generateKeypair(
       BlockChainService.generateHDWallet(mnemonics),
     );
   }
 
   Tuple3<int, String, String> peekKeys() {
     final int nextIndex = index + 1;
-    final keyPair = BlockChainService.generateKeys(
+    final keyPair = BlockChainService.generateKeypair(
       BlockChainService.generateHDWallet(mnemonics),
       nextIndex,
     );
@@ -42,19 +42,19 @@ class MnemonicsStore extends MnemonicsBase with _$MnemonicsStore {
   }
 
   Tuple2<String, String> indexKeys(int index) {
-    return BlockChainService.generateKeys(
+    return BlockChainService.generateKeypair(
       BlockChainService.generateHDWallet(mnemonics),
       index,
     );
   }
 
-  Future<dynamic> generateKeys(GenerateKeysCallback callBack) async {
+  Future<dynamic> generateKeypair(GenerateKeysCallback callBack) async {
     return Future.value(
-      BlockChainService.generateKeys(
+      BlockChainService.generateKeypair(
         BlockChainService.generateHDWallet(mnemonics),
         ++index,
       ),
-    ).then((keys) => callBack(index, keys)).then((res) {
+    ).then((keypair) => callBack(index, keypair)).then((res) {
       return save().then((_) => res);
     });
   }

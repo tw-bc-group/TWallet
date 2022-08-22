@@ -697,12 +697,12 @@ PODS:
     - MultiplatformBleAdapter (~> 0.1.9)
   - flutter_ble_peripheral (0.0.3):
     - Flutter
-  - flutter_blue (0.0.1):
+  - flutter_blue_plus (0.0.1):
     - Flutter
-    - flutter_blue/Protos (= 0.0.1)
-  - flutter_blue/Protos (0.0.1):
+    - flutter_blue_plus/Protos (= 0.0.1)
+  - flutter_blue_plus/Protos (0.0.1):
     - Flutter
-    - Protobuf (~> 3.11.4)
+    - Protobuf (~> 3.11)
   - flutter_custom_dialog (0.0.1):
     - Flutter
   - flutter_native_splash (0.0.1):
@@ -832,7 +832,7 @@ PODS:
   - permission_handler_apple (9.0.4):
     - Flutter
   - PromisesObjC (2.1.1)
-  - Protobuf (3.11.4)
+  - Protobuf (3.21.5)
   - Reachability (3.2)
   - search_choices (0.0.1):
     - Flutter
@@ -855,7 +855,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_ble_lib_ios_15 (from `.symlinks/plugins/flutter_ble_lib_ios_15/ios`)
   - flutter_ble_peripheral (from `.symlinks/plugins/flutter_ble_peripheral/ios`)
-  - flutter_blue (from `.symlinks/plugins/flutter_blue/ios`)
+  - flutter_blue_plus (from `.symlinks/plugins/flutter_blue_plus/ios`)
   - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -918,8 +918,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_ble_lib_ios_15/ios"
   flutter_ble_peripheral:
     :path: ".symlinks/plugins/flutter_ble_peripheral/ios"
-  flutter_blue:
-    :path: ".symlinks/plugins/flutter_blue/ios"
+  flutter_blue_plus:
+    :path: ".symlinks/plugins/flutter_blue_plus/ios"
   flutter_custom_dialog:
     :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   flutter_native_splash:
@@ -966,7 +966,7 @@ SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_ble_lib_ios_15: 6c856306f784bcb94f3e1ca2fc4834f865925d25
   flutter_ble_peripheral: e12ab87914fc1690b22bb26649e4f6698625f425
-  flutter_blue: eeb381dc4727a0954dede73515f683865494b370
+  flutter_blue_plus: 6787777145d615de01828f3a9fa423c3c702f0b3
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
@@ -988,7 +988,7 @@ SPEC CHECKSUMS:
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  Protobuf: 7504b04fffcf6662ad629694db8231f5e744327f
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   search_choices: b50731e8c425078048f681f39c34375c58d6ce8d
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904

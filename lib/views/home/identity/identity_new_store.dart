@@ -120,15 +120,15 @@ abstract class _IdentityNewStore with Store {
     final MnemonicsStore store = Get.find();
 
     if (!error.hasErrors) {
-      return store.generateKeys(
-        (index, keys) => Future.value(
+      return store.generateKeypair(
+        (index, keypair) => Future.value(
           DecentralizedIdentity(
             (identity) => identity
               ..id = const Uuid().v1()
               ..profileInfo.name = name
               ..accountInfo.index = index
-              ..accountInfo.pubKey = keys.first
-              ..accountInfo.priKey = keys.second
+              ..accountInfo.pubKey = keypair.first
+              ..accountInfo.priKey = keypair.second
               ..profileInfo.phone = phone
               ..profileInfo.email = email
               ..profileInfo.birthday = birthday,

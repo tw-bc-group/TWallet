@@ -180,7 +180,7 @@ class DAppService {
     final CreateAccountParam createAccountParam =
         CreateAccountParam.fromJson(json.decode(param!));
     final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
-    mnemonicsStore.generateKeys(
+    mnemonicsStore.generateKeypair(
       (index, keys) => Future.value(
         DecentralizedIdentity(
           (identity) => identity

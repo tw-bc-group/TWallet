@@ -66,7 +66,7 @@ void main() {
     final BIP32 bip32 =
         BlockChainService.generateHDWallet('1 2 3 4 5 6 7 8 9 10 11 12');
     final Tuple2<String, String> keyPair =
-        BlockChainService.generateKeys(bip32);
+        BlockChainService.generateKeypair(bip32);
 
     final publicKey = decompressPublicKey(hexToBytes(keyPair.first)).sublist(1);
 
