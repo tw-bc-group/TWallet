@@ -6,8 +6,8 @@ import 'package:web3dart/credentials.dart';
 Future<void> web3authInit() async {
   await Web3AuthFlutter.init(
     clientId:
-        'BPEJFOrDMwJ5WvPhNyffgRSfjZKDiQfP-JRXkJ0Xn_VN-btJvaJdjH5xs7C9jJi-otu161s6j7z_Rlm4lpRLrao',
-    network: Network.mainnet,
+        'BOX6rnr4ryi64ruyL-WBLvHIhu44BzUKwiyETZo0657ubAeer3kC55vzObEjPsn3PAkS_zlz4U42y79u3rw_aRs',
+    network: Network.testnet,
     redirectUri: 'com.thoughtworks.flutter.twallet://auth',
     whiteLabelData: WhiteLabelData(),
   );
@@ -16,7 +16,11 @@ Future<void> web3authInit() async {
 class Web3authStore implements AccountStore {
   late final String privateKey;
 
-  late final _credential = EthPrivateKey.fromHex(privateKey);
+  late final EthPrivateKey _credential;
+
+  Web3authStore(this.privateKey) {
+    _credential = EthPrivateKey.fromHex(privateKey);
+  }
 
   @override
   // TODO: implement accountInfo
@@ -24,8 +28,8 @@ class Web3authStore implements AccountStore {
         AccountInfo(
           (acc) => acc
             ..index = 1
-            ..address = _credential.address.toString()
-            ..pubKey = _credential.encodedPublicKey.toString()
+            ..address = _credential.address.hexEip55
+            ..pubKey = String.fromCharCodes(_credential.encodedPublicKey)
             ..priKey = privateKey,
         ),
       );

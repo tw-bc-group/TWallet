@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
+import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
 import 'package:web3auth_flutter/web3auth_flutter.dart';
@@ -20,6 +22,8 @@ class _Web3authLoginPageState extends State<Web3authLoginPage> {
     return () async {
       try {
         final Web3AuthResponse response = await method();
+        final web3AuthStore = Web3authStore(response.privKey);
+        Get.put(web3AuthStore);
         if (!mounted) return;
         Application.router.navigateTo(context, Routes.home);
       } on UserCancelledException {
@@ -30,10 +34,10 @@ class _Web3authLoginPageState extends State<Web3authLoginPage> {
     };
   }
 
-  Future<Web3AuthResponse> _withEmail() {
+  Future<Web3AuthResponse> _withSocial() {
     return Web3AuthFlutter.login(
-      provider: Provider.email_passwordless,
-      mfaLevel: MFALevel.NONE,
+      provider: Provider.google,
+      mfaLevel: MFALevel.DEFAULT,
     );
   }
 
@@ -49,7 +53,7 @@ class _Web3authLoginPageState extends State<Web3authLoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: WalletTheme.button(
               text: 'Login',
-              onPressed: _login(context, _withEmail),
+              onPressed: _login(context, _withSocial),
             ),
           )
         ],
