@@ -11,8 +11,8 @@ import 'package:tw_wallet_ui/widgets/page_title.dart';
 class NewWalletWidget extends StatelessWidget {
   Widget buildBigButton({required String title, bool disabled = false}) {
     return Container(
-      margin: const EdgeInsets.only(top: 40),
-      padding: const EdgeInsets.symmetric(vertical: 70),
+      margin: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.symmetric(vertical: 50),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         color: WalletColor.lightGrey,
@@ -23,7 +23,7 @@ class NewWalletWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: WalletFont.font_24(
+              style: WalletFont.font_18(
                 textStyle: TextStyle(
                   color: disabled ? WalletColor.grey : WalletColor.primary,
                 ),
@@ -79,6 +79,11 @@ class NewWalletWidget extends StatelessWidget {
                 onTap: () => Application.router
                     .navigateTo(context, Routes.restoreMnemonics),
                 child: buildBigButton(title: '恢复钱包'),
+              ),
+              GestureDetector(
+                onTap: () => Application.router
+                    .navigateTo(context, Routes.web3authLogin),
+                child: buildBigButton(title: '社交登陆'),
               ),
             ],
           ),

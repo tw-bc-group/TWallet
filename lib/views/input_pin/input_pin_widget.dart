@@ -66,7 +66,7 @@ class PinInputWidget extends StatelessWidget {
   Future<dynamic> _pageJump(BuildContext context) {
     return Application.router.navigateTo(
       context,
-      Routes.web3authLogin,
+      Routes.newWallet,
       clearStack: true,
     );
   }
