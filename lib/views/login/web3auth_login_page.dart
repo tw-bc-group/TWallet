@@ -6,7 +6,6 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
-import 'package:tw_wallet_ui/widgets/page_title.dart';
 import 'package:web3auth_flutter/web3auth_flutter.dart';
 
 class Web3authLoginPage extends StatefulWidget {
@@ -34,9 +33,23 @@ class _Web3authLoginPageState extends State<Web3authLoginPage> {
     };
   }
 
-  Future<Web3AuthResponse> _withSocial() {
+  Future<Web3AuthResponse> _withGoogle() {
     return Web3AuthFlutter.login(
       provider: Provider.google,
+      mfaLevel: MFALevel.DEFAULT,
+    );
+  }
+
+  Future<Web3AuthResponse> _withFacebook() {
+    return Web3AuthFlutter.login(
+      provider: Provider.facebook,
+      mfaLevel: MFALevel.DEFAULT,
+    );
+  }
+
+  Future<Web3AuthResponse> _withGithub() {
+    return Web3AuthFlutter.login(
+      provider: Provider.github,
       mfaLevel: MFALevel.DEFAULT,
     );
   }
@@ -45,15 +58,31 @@ class _Web3authLoginPageState extends State<Web3authLoginPage> {
   Widget build(BuildContext context) {
     return CommonLayout(
       bodyBackColor: WalletColor.white,
-      backIcon: BackIcon.none,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 25.0, horizontal: 12.0),
             child: WalletTheme.button(
-              text: 'Login',
-              onPressed: _login(context, _withSocial),
+              text: 'Login with Google',
+              onPressed: _login(context, _withGoogle),
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 25.0, horizontal: 12.0),
+            child: WalletTheme.button(
+              text: 'Login with Facebook',
+              onPressed: _login(context, _withFacebook),
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 25.0, horizontal: 12.0),
+            child: WalletTheme.button(
+              text: 'Login with Github',
+              onPressed: _login(context, _withGithub),
             ),
           )
         ],

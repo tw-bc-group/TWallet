@@ -27,7 +27,7 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('社交登陆'));
+    await tester.tap(find.text('Web2.0 钱包'));
 
     await tester.pumpAndSettle();
 

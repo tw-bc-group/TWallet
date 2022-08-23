@@ -83,7 +83,7 @@ class NewWalletWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () => Application.router
                     .navigateTo(context, Routes.web3authLogin),
-                child: buildBigButton(title: '社交登陆'),
+                child: buildBigButton(title: 'Web2.0 钱包'),
               ),
             ],
           ),
