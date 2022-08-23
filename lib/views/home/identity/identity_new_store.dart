@@ -4,6 +4,7 @@ import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/account_store.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/date_validator.dart';
 import 'package:uuid/uuid.dart';
@@ -118,7 +119,12 @@ abstract class _IdentityNewStore with Store {
 
   @action
   Future<dynamic> addIdentity() async {
-    final AccountStore store = Get.find<Web3authStore>();
+    AccountStore store;
+    if (Get.isRegistered<Web3authStore>()) {
+      store = Get.find<Web3authStore>();
+    } else {
+      store = Get.find<MnemonicsStore>();
+    }
 
     if (!error.hasErrors) {
       return store.accountInfo
