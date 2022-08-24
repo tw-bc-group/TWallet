@@ -7,8 +7,6 @@ import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
-import 'package:tw_wallet_ui/store/identity_store.dart';
-import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/error_row.dart';
@@ -38,13 +36,6 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   }
 
   bool btnDisabled() {
-    bool? isUsingWeb3authWithIdentity;
-    if (Get.isRegistered<Web3authStore>()) {
-      isUsingWeb3authWithIdentity =
-          Get.find<IdentityStore>().identities.isNotEmpty &&
-              Get.find<Web3authStore>().privateKey.isNotEmpty;
-      return store.name.isEmpty || isUsingWeb3authWithIdentity;
-    }
     return store.name.isEmpty;
   }
 

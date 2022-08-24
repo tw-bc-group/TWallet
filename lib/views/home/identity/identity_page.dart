@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
+import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
@@ -153,6 +154,7 @@ class _IdentityPageState extends State<IdentityPage> {
         ),
       );
     }
+    if (btnDisabled()) return Container();
 
     return Container(
       margin: const EdgeInsets.only(bottom: 24),
@@ -212,5 +214,12 @@ class _IdentityPageState extends State<IdentityPage> {
         ],
       ),
     );
+  }
+
+  bool btnDisabled() {
+    if (Get.isRegistered<Web3authStore>()) {
+      return Get.find<IdentityStore>().identities.isNotEmpty;
+    }
+    return false;
   }
 }
