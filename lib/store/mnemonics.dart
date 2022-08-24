@@ -10,7 +10,7 @@ import 'package:web3dart/web3dart.dart';
 
 part 'mnemonics.g.dart';
 
-typedef GenerateKeysCallback = Future<dynamic> Function(
+typedef GenerateKeysCallback<T> = Future<T> Function(
   int index,
   Tuple2<String, String> keypair,
 );
@@ -53,7 +53,9 @@ class MnemonicsStore extends MnemonicsBase
     );
   }
 
-  Future<dynamic> generateKeypair(GenerateKeysCallback callBack) async {
+  Future<T> generateKeypair<T>(
+    GenerateKeysCallback<T> callBack,
+  ) async {
     return Future.value(
       BlockChainService.generateKeypair(
         BlockChainService.generateHDWallet(mnemonics),
@@ -92,7 +94,7 @@ class MnemonicsStore extends MnemonicsBase
 
   @override
   Future<AccountInfo> get accountInfo {
-    final res = generateKeypair(
+    return generateKeypair(
       (index, keypair) => Future.value(
         AccountInfo(
           (accountInfo) => accountInfo
@@ -103,13 +105,9 @@ class MnemonicsStore extends MnemonicsBase
         ),
       ),
     );
-
-    return res as Future<AccountInfo>;
-    // TODO: implement did
   }
 
   @override
-  // TODO: implement credentials
   Credentials get credentials => EthPrivateKey.fromHex(firstPrivateKey);
 }
 
