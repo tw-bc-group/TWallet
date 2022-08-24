@@ -23,6 +23,9 @@ class BlockChainService {
   }
 
   static String publicKeyToAddress(String publicKey) {
-    return ethereumAddressFromPublicKey(hex.decode(publicKey) as Uint8List);
+    final list = publicKey.startsWith('0x')
+        ? hex.decode(publicKey.substring(2))
+        : hex.decode(publicKey);
+    return ethereumAddressFromPublicKey(list as Uint8List);
   }
 }
