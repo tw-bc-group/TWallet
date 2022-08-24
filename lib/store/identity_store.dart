@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
 import 'package:optional/optional_internal.dart';
+import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
+import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
@@ -177,36 +180,41 @@ abstract class IdentityStoreBase with Store {
   }
 
   Future<int> restore() async {
-    int maxIndex = -1;
-
     final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
     final List<dynamic> queryResult = await Get.find<ContractService>()
         .identitiesContract!
         .callFunction(mnemonicsStore.firstPublicKey, 'identityOf', null);
-
     if (queryResult.isNotEmpty) {
       await clear();
-
-      for (int i = 0; i < (queryResult[0] as List<dynamic>).length; i++) {
-        final int index = (queryResult[3][i] as BigInt).toInt();
-        final Tuple2<String, String> keys = mnemonicsStore.indexKeys(index);
-        final DecentralizedIdentity identity = DecentralizedIdentity(
-          (identity) => identity
-            ..id = const Uuid().v1()
-            ..profileInfo.name = queryResult[0][i] as String?
-            ..accountInfo.pubKey = keys.first
-            ..accountInfo.priKey = keys.second
-            ..dappId = queryResult[2][i] as String?
-            ..accountInfo.index = index
-            ..extra = queryResult[4][i] as String?,
-        );
-        await addIdentity(identity: identity);
-        if (index > maxIndex) {
-          maxIndex = index;
-        }
-      }
+      return restoreIdentities(queryResult);
     }
-    return maxIndex;
+    return -1;
+  }
+
+  Future<int> restoreIdentities(
+    List<dynamic> queryResult,
+  ) async {
+    final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
+    final identities = Util.assemble(queryResult);
+    final ids = identities.map((e) {
+      final Tuple2<String, String> keypair = mnemonicsStore.indexKeys(e.index);
+      return DecentralizedIdentity(
+        (identity) => identity
+          ..id = const Uuid().v1()
+          ..profileInfo.name = e.name
+          ..accountInfo.pubKey = keypair.first
+          ..accountInfo.priKey = keypair.second
+          ..accountInfo.index = e.index
+          ..accountInfo.address =
+              BlockChainService.publicKeyToAddress(keypair.first)
+          ..dappId = e.dappId
+          ..extra = e.extraInfo,
+      );
+    });
+
+    await Future.wait(ids.map((id) => addIdentity(identity: id)));
+
+    return identities.map((e) => e.index).reduce(max);
   }
 
   @action
