@@ -1,0 +1,7 @@
+{
+    "editor.formatOnSave": true,
+    "editor.bracketPairColorization.enabled": true,
+    "dart.previewFlutterUiGuides": true,
+    "dart.hotReloadOnSave": "manual",
+    "dart.previewSdkDaps": false,
+}
