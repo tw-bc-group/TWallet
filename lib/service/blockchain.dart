@@ -7,7 +7,7 @@ import 'package:ethereum_addresses/ethereum_addresses.dart';
 import 'package:more/tuple.dart';
 
 class BlockChainService {
-  static BIP32 generateHDWallet(String mnemonics) {
+  static BIP32 _hdWallet(String mnemonics) {
     final Uint8List seed = bip39.mnemonicToSeed(mnemonics);
     return BIP32.fromSeed(seed);
   }
@@ -20,6 +20,13 @@ class BlockChainService {
     final String publicKey = '0x${hex.encode(keypair.publicKey)}';
     final String privateKey = '0x${hex.encode(keypair.privateKey!)}';
     return Tuple2<String, String>(publicKey, privateKey);
+  }
+
+  static Tuple2<String, String> keypairFromMnenomics(
+    String mnemonics, [
+    int index = 0,
+  ]) {
+    return generateKeypair(_hdWallet(mnemonics), index);
   }
 
   static String publicKeyToAddress(String publicKey) {

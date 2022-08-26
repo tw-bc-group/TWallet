@@ -32,23 +32,21 @@ class MnemonicsStore extends MnemonicsBase
   String get firstPrivateKey => indexZeroKeypair.second;
 
   void generateIndexZeroKeys(String mnemonics) {
-    indexZeroKeypair = BlockChainService.generateKeypair(
-      BlockChainService.generateHDWallet(mnemonics),
-    );
+    indexZeroKeypair = BlockChainService.keypairFromMnenomics(mnemonics);
   }
 
   Tuple3<int, String, String> peekKeys() {
     final int nextIndex = index + 1;
-    final keyPair = BlockChainService.generateKeypair(
-      BlockChainService.generateHDWallet(mnemonics),
+    final keyPair = BlockChainService.keypairFromMnenomics(
+      mnemonics,
       nextIndex,
     );
     return Tuple3(nextIndex, keyPair.first, keyPair.second);
   }
 
   Tuple2<String, String> indexKeys(int index) {
-    return BlockChainService.generateKeypair(
-      BlockChainService.generateHDWallet(mnemonics),
+    return BlockChainService.keypairFromMnenomics(
+      mnemonics,
       index,
     );
   }
@@ -57,12 +55,12 @@ class MnemonicsStore extends MnemonicsBase
     GenerateKeysCallback<T> callBack,
   ) async {
     return Future.value(
-      BlockChainService.generateKeypair(
-        BlockChainService.generateHDWallet(mnemonics),
+      BlockChainService.keypairFromMnenomics(
+        mnemonics,
         ++index,
       ),
     ).then((keypair) => callBack(index, keypair)).then((res) {
-      return save().then((_) => res);
+      return save(newIndex: index).then((_) => res);
     });
   }
 

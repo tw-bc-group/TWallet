@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:bip32/bip32.dart';
 import 'package:crypton/crypton.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -63,10 +62,8 @@ void main() {
   });
 
   group('ecdsa test', () {
-    final BIP32 bip32 =
-        BlockChainService.generateHDWallet('1 2 3 4 5 6 7 8 9 10 11 12');
     final Tuple2<String, String> keyPair =
-        BlockChainService.generateKeypair(bip32);
+        BlockChainService.keypairFromMnenomics('1 2 3 4 5 6 7 8 9 10 11 12');
 
     final publicKey = decompressPublicKey(hexToBytes(keyPair.first)).sublist(1);
 
