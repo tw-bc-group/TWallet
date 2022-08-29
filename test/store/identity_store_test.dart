@@ -18,8 +18,9 @@ void main() {
 
   final store = IdentityStore(mobx.ObservableList.of(list), 1, null, jsonStore);
   test('should select none when selectedIdentity is not given', () async {
-    expect(store.selectedIdentity, Optional.ofNullable(null));
+    expect(store.selectedIdentity, const Optional.empty());
   });
+
   test('should select identity', () async {
     final last = list.last;
 
