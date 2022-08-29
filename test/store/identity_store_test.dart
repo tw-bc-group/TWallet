@@ -32,24 +32,35 @@ void main() {
   });
 
   test('should update identity', () async {
-    final DecentralizedIdentity updateIdentity = updatedIdentity();
+    final originalIdentity = list.first;
+    final DecentralizedIdentity updateIdentity =
+        updatedIdentityByEmail(originalIdentity, 'jack@gmail.com');
 
-    store.updateIdentity(updateIdentity);
+    await store.updateIdentity(updateIdentity);
 
-    verify(jsonStore.setItem('name: 1', updateIdentity.toJson())).called(1);
+    verify(
+      jsonStore.setItem(
+        'name: ${originalIdentity.profileInfo.name}',
+        updateIdentity.toJson(),
+      ),
+    ).called(1);
+    expect(store.getIdentityById(originalIdentity.id), updateIdentity);
   });
 }
 
-DecentralizedIdentity updatedIdentity() {
+DecentralizedIdentity updatedIdentityByEmail(
+  DecentralizedIdentity originalIdentity,
+  String email,
+) {
   final updateIdentity = DecentralizedIdentity(
     (identity) => identity
-      ..id = '1'
-      ..profileInfo.name = '1'
-      ..profileInfo.email = '1@1.com'
-      ..accountInfo.index = 1
-      ..accountInfo.pubKey = '1'
-      ..accountInfo.priKey = '1'
-      ..accountInfo.address = '1',
+      ..id = originalIdentity.id
+      ..profileInfo.name = originalIdentity.profileInfo.name
+      ..profileInfo.email = email
+      ..accountInfo.index = originalIdentity.accountInfo.index
+      ..accountInfo.pubKey = originalIdentity.accountInfo.pubKey
+      ..accountInfo.priKey = originalIdentity.accountInfo.priKey
+      ..accountInfo.address = originalIdentity.accountInfo.address,
   );
   return updateIdentity;
 }
@@ -60,13 +71,6 @@ MockJsonStore mockJsonStore(List<DecentralizedIdentity> list) {
     jsonStore,
     tag: identityStorageName,
   );
-  // mokito
-  //     .when(jsonStore.getItem('1'))
-  //     .thenAnswer((_) => Future.value(list.first.toJson()));
-
-  // mokito
-  //     .when(jsonStore.getItem('2'))
-  //     .thenAnswer((_) => Future.value(list.last.toJson()));
   return jsonStore;
 }
 
@@ -76,7 +80,7 @@ List<DecentralizedIdentity> savedDecentralizedIdentites() {
     DecentralizedIdentity(
       (identity) => identity
         ..id = '1'
-        ..profileInfo.name = '1'
+        ..profileInfo.name = 'Jack1'
         ..accountInfo.index = 1
         ..accountInfo.pubKey = '1'
         ..accountInfo.priKey = '1'
@@ -87,7 +91,7 @@ List<DecentralizedIdentity> savedDecentralizedIdentites() {
     DecentralizedIdentity(
       (identity) => identity
         ..id = '2'
-        ..profileInfo.name = '2'
+        ..profileInfo.name = 'Jack2'
         ..accountInfo.index = 2
         ..accountInfo.pubKey = '2'
         ..accountInfo.priKey = '2'
