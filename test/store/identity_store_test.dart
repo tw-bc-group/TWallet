@@ -12,11 +12,10 @@ import 'identity_store_test.mocks.dart';
 
 @GenerateMocks([JsonStore])
 void main() {
+  final MockJsonStore jsonStore = mockJsonStore();
   final List<DecentralizedIdentity> list = savedDecentralizedIdentites();
-
-  final MockJsonStore jsonStore = mockJsonStore(list);
-
   final store = IdentityStore(mobx.ObservableList.of(list), 1, null, jsonStore);
+
   test('should select none when selectedIdentity is not given', () async {
     expect(store.selectedIdentity, const Optional.empty());
   });
@@ -34,22 +33,22 @@ void main() {
 
   test('should update identity', () async {
     final originalIdentity = list.first;
-    final DecentralizedIdentity updateIdentity =
-        updatedIdentityByEmail(originalIdentity, 'jack@gmail.com');
+    final DecentralizedIdentity tobeIdentity =
+        updateIdentityByEmail(originalIdentity, 'jack1@gmail.com');
 
-    await store.updateIdentity(updateIdentity);
+    await store.updateIdentity(tobeIdentity);
 
     verify(
       jsonStore.setItem(
         'name: ${originalIdentity.profileInfo.name}',
-        updateIdentity.toJson(),
+        tobeIdentity.toJson(),
       ),
     ).called(1);
-    expect(store.getIdentityById(originalIdentity.id), updateIdentity);
+    expect(store.getIdentityById(originalIdentity.id), tobeIdentity);
   });
 }
 
-DecentralizedIdentity updatedIdentityByEmail(
+DecentralizedIdentity updateIdentityByEmail(
   DecentralizedIdentity originalIdentity,
   String email,
 ) {
@@ -66,7 +65,7 @@ DecentralizedIdentity updatedIdentityByEmail(
   return updateIdentity;
 }
 
-MockJsonStore mockJsonStore(List<DecentralizedIdentity> list) {
+MockJsonStore mockJsonStore() {
   final jsonStore = MockJsonStore();
   Get.put<JsonStore>(
     jsonStore,
@@ -76,8 +75,7 @@ MockJsonStore mockJsonStore(List<DecentralizedIdentity> list) {
 }
 
 List<DecentralizedIdentity> savedDecentralizedIdentites() {
-  final List<DecentralizedIdentity> list = [];
-  list.add(
+  return [
     DecentralizedIdentity(
       (identity) => identity
         ..id = '1'
@@ -87,8 +85,6 @@ List<DecentralizedIdentity> savedDecentralizedIdentites() {
         ..accountInfo.priKey = '1'
         ..accountInfo.address = '1',
     ),
-  );
-  list.add(
     DecentralizedIdentity(
       (identity) => identity
         ..id = '2'
@@ -98,6 +94,5 @@ List<DecentralizedIdentity> savedDecentralizedIdentites() {
         ..accountInfo.priKey = '2'
         ..accountInfo.address = '2',
     ),
-  );
-  return list;
+  ];
 }
