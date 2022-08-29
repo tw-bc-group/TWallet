@@ -226,9 +226,9 @@ class _BlePaymentHomeState extends State<BlePaymentHome> {
   }
 
   Widget _buildScreen() {
-    if (Get.find<IdentityStore>().selectedIdentity!.isPresent) {
+    if (Get.find<IdentityStore>().selectedIdentity != null) {
       final DecentralizedIdentity identity =
-          Get.find<IdentityStore>().selectedIdentity!.value;
+          Get.find<IdentityStore>().selectedIdentity!;
 
       return FutureBuilder<ConnectivityResult>(
         future: _connectivity.checkConnectivity(),

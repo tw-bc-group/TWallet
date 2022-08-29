@@ -68,7 +68,7 @@ class _TxListPageState extends State<TxListPage> {
       margin: const EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        iStore.selectedIdentityBalance!.humanReadableWithSymbol,
+        iStore.selectedIdentityBalance.humanReadableWithSymbol,
         style:
             WalletFont.font_24(textStyle: TextStyle(color: WalletColor.white)),
       ),
@@ -121,7 +121,7 @@ class _TxListPageState extends State<TxListPage> {
               onPressed: () => Navigator.pushNamed(
                 context,
                 Routes.qrPage,
-                arguments: iStore.selectedIdentity!.value,
+                arguments: iStore.selectedIdentity,
               ),
               buttonType: ButtonType.outlineType,
               outlineColor: WalletColor.white,

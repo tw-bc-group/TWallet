@@ -95,13 +95,10 @@ abstract class IdentityStoreBase with Store {
     selectedIdentityStream = ObservableStream(_selectStreamController.stream);
 
     _identitiesSort();
-    selectedIdentity =
-        Optional.ofNullable(getIdentityById(lastSelectedIdentityId))
-          ..ifPresent((identity) {
-            if (identity.id.isNotEmpty) {
-              _selectStreamController.add(identity);
-            }
-          });
+    selectedIdentity = getIdentityById(lastSelectedIdentityId);
+    if (selectedIdentity != null && selectedIdentity!.id.isNotEmpty) {
+      _selectStreamController.add(selectedIdentity!);
+    }
   }
 
   DecentralizedIdentity? getIdentityById(String? id) {
@@ -136,32 +133,28 @@ abstract class IdentityStoreBase with Store {
   ObservableStream<DecentralizedIdentity>? selectedIdentityStream;
 
   @observable
-  Optional<DecentralizedIdentity>? selectedIdentity;
+  DecentralizedIdentity? selectedIdentity;
 
   @computed
-  String get selectedIdentityName =>
-      selectedIdentity!.map((identity) => identity.profileInfo.name).orElse('');
+  String get selectedIdentityName => selectedIdentity?.profileInfo.name ?? '';
 
   @computed
-  String get selectedIdentityAddress =>
-      selectedIdentity!.map((identity) => identity.address).orElse('');
+  String get selectedIdentityAddress => selectedIdentity?.address ?? '';
 
   @computed
-  String get selectedIdentityDid =>
-      selectedIdentity!.map((identity) => identity.did.toString()).orElse('');
+  String get selectedIdentityDid => selectedIdentity?.did.toString() ?? '';
 
   @computed
-  Amount? get selectedIdentityBalance => selectedIdentity!
-      .map((identity) => identity.accountInfo.balance)
-      .orElse(Amount.zero);
+  Amount get selectedIdentityBalance =>
+      selectedIdentity?.accountInfo.balance ?? Amount.zero;
 
   @computed
   List<DecentralizedIdentity> get identitiesExceptSelected {
     final List<DecentralizedIdentity> ids =
         identities.where((e) => e.dappId.isEmpty).toList();
-    if (selectedIdentity!.isPresent) {
-      ids.removeWhere((ele) => ele.id == selectedIdentity!.first.id);
-      return [selectedIdentity!.first] + ids;
+    if (selectedIdentity != null) {
+      ids.removeWhere((it) => it.id == selectedIdentity!.id);
+      return [selectedIdentity!] + ids;
     }
     return ids;
   }
@@ -262,18 +255,17 @@ abstract class IdentityStoreBase with Store {
     final lastSelectedIdentity = selectedIdentity;
 
     if (index >= 0) {
-      selectedIdentity = Optional.ofNullable(identities[index]);
+      selectedIdentity = identities[index];
       await db.setItem(
         'lastSelectedIdentityId',
-        selectedIdentity!.value.toJson(),
+        selectedIdentity!.toJson(),
       );
     } else {
       throw Exception('Identity selected not exist.');
     }
 
     if (lastSelectedIdentity != selectedIdentity) {
-      selectedIdentity!
-          .ifPresent((identity) => _selectStreamController.add(identity));
+      _selectStreamController.add(selectedIdentity!);
     }
   }
 
@@ -294,22 +286,21 @@ abstract class IdentityStoreBase with Store {
 
   @action
   void fetchLatestPoint({bool? withLoading}) {
-    selectedIdentity!.ifPresent((identity) {
+    final identity = selectedIdentity;
+    if (identity != null) {
       TwBalance.fetchBalance(
         address: identity.address,
         withLoading: withLoading!,
       ).then((res) {
         res.ifPresent((balance) {
-          selectedIdentity = Optional.of(
-            identity.rebuild(
-              (builder) => builder.accountInfo.balance = balance.amount,
-            ),
+          selectedIdentity = identity.rebuild(
+            (builder) => builder.accountInfo.balance = balance.amount,
           );
-          updateIdentity(selectedIdentity!.value);
+          updateIdentity(identity);
           _streamController.add(ObservableFuture(Future.value(balance)));
         });
       });
-    });
+    }
   }
 
   @action

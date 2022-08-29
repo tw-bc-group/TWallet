@@ -36,8 +36,7 @@ class _MessagePageState extends State<MessagePage> {
   Future<void> initializeFlutterFire() async {
     try {
       await firebaseService.initFirebase();
-      await firebaseService
-          .findOrCreateUser(_identityStore.selectedIdentity!.first);
+      await firebaseService.findOrCreateUser(_identityStore.selectedIdentity!);
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;

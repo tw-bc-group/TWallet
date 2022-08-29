@@ -4,7 +4,6 @@ import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 
@@ -13,26 +12,27 @@ import 'identity_store_test.mocks.dart';
 @GenerateMocks([JsonStore])
 void main() {
   final MockJsonStore jsonStore = mockJsonStore();
-  final List<DecentralizedIdentity> list = savedDecentralizedIdentites();
-  final store = IdentityStore(mobx.ObservableList.of(list), 1, null, jsonStore);
+  final List<DecentralizedIdentity> identities = savedDecentralizedIdentites();
+  final store =
+      IdentityStore(mobx.ObservableList.of(identities), 1, null, jsonStore);
 
   test('should select none when selectedIdentity is not given', () async {
-    expect(store.selectedIdentity, const Optional.empty());
+    expect(store.selectedIdentity, isNull);
   });
 
   test('should select identity', () async {
-    final last = list.last;
+    final last = identities.last;
 
     store.selectIdentity(last);
 
     verify(jsonStore.setItem('lastSelectedIdentityId', last.toJson()))
         .called(1);
 
-    expect(store.selectedIdentity!.value, last);
+    expect(store.selectedIdentity, last);
   });
 
   test('should update identity', () async {
-    final originalIdentity = list.first;
+    final originalIdentity = identities.first;
     final DecentralizedIdentity tobeIdentity =
         updateIdentityByEmail(originalIdentity, 'jack1@gmail.com');
 

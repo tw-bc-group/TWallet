@@ -98,9 +98,7 @@ class _HomePageState extends State<HomePage>
         ),
       );
 
-  String get _name => _identityStore.selectedIdentity!
-      .map((identity) => identity.profileInfo.name)
-      .orElse('');
+  String get _name => _identityStore.selectedIdentityName;
 
   Widget get _avatar => const AvatarWidget(width: 80);
 
@@ -118,10 +116,11 @@ class _HomePageState extends State<HomePage>
       );
 
   void _onAvatarTap(BuildContext context) {
-    _identityStore.selectedIdentity!.ifPresent((identity) {
+    final identity = _identityStore.selectedIdentity;
+    if (identity != null) {
       final path = '${Routes.identityDetail}?id=${identity.id}';
       Application.router.navigateTo(context, path);
-    });
+    }
   }
 
   Future<void> _onChangeIdentityTap(BuildContext context) {
@@ -136,7 +135,7 @@ class _HomePageState extends State<HomePage>
         return IdentitySelectionSheet(
           identities: ids,
           onSheetItemTap: (index) => _onIdentityCardTap(context, ids[index]),
-          selectedIdentity: selectedIdentity!.value,
+          selectedIdentity: selectedIdentity,
         );
       },
     );

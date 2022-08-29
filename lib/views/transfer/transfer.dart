@@ -42,7 +42,7 @@ class TransferPageState extends State<TransferPage> {
   void initState() {
     super.initState();
     _transferStore.setupErrorDisposers();
-    identity = Get.find<IdentityStore>().selectedIdentity!.value;
+    identity = Get.find<IdentityStore>().selectedIdentity!;
     _transferStore.payerDID = identity.did.toString();
     _transferStore.balance = identity.accountInfo.balance?.humanReadable;
   }
@@ -179,8 +179,7 @@ class TransferPageState extends State<TransferPage> {
     final String payeeAddress = '0x${_transferStore.payeeDID!.substring(7)}';
     final String amount = _transferStore.amount!;
     if (pinValidation) {
-      final bool transferSuccess =
-          await iStore.selectedIdentity!.value.transferPoint(
+      final bool transferSuccess = await iStore.selectedIdentity!.transferPoint(
         toAddress: payeeAddress,
         amount: Amount(Decimal.parse(amount)),
       );
@@ -193,7 +192,7 @@ class TransferPageState extends State<TransferPage> {
             amount: amount,
             time: parseDateTime(DateTime.now()),
             status: TxStatus.transferring,
-            fromAddress: iStore.selectedIdentity!.value.address,
+            fromAddress: iStore.selectedIdentityAddress,
             toAddress: payeeAddress,
             fromAddressName: iStore.selectedIdentityName,
             isExpense: true,
@@ -235,7 +234,7 @@ class TransferPageState extends State<TransferPage> {
       margin: const EdgeInsets.only(top: 34),
       alignment: Alignment.center,
       child: Text(
-        iStore.selectedIdentityBalance!.humanReadableWithSymbol,
+        iStore.selectedIdentityBalance.humanReadableWithSymbol,
         style:
             WalletFont.font_24(textStyle: TextStyle(color: WalletColor.white)),
       ),

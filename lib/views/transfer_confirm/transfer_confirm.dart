@@ -40,7 +40,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
         await inputPinWidgetKey.currentState!.validatePin();
     if (pinValidation) {
       final bool transferSuccess =
-          await identityStore.selectedIdentity!.value.transferPoint(
+          await identityStore.selectedIdentity!.transferPoint(
         toAddress: widget.toAddress,
         amount: Amount(Decimal.parse(widget.amount)),
       );
@@ -53,7 +53,7 @@ class TransferConfirmState extends State<TransferConfirmPage> {
             amount: '${Application.globalEnv.tokenSymbol}${widget.amount}',
             time: parseDate(DateTime.now()),
             status: TxStatus.transferring,
-            fromAddress: identityStore.selectedIdentity!.value.address,
+            fromAddress: identityStore.selectedIdentityAddress,
             toAddress: widget.toAddress,
             fromAddressName: identityStore.selectedIdentityName,
             isExpense: true,

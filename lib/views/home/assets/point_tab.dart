@@ -67,7 +67,7 @@ class _PointTabState extends State<PointTab> {
   void initState() {
     super.initState();
     reactionDispose = reaction(
-      (_) => _identityStore.selectedIdentity!.value.id,
+      (_) => _identityStore.selectedIdentity!.id,
       (_) => _refresh(),
     );
     _identityStore.fetchLatestPoint(withLoading: false);
@@ -76,21 +76,19 @@ class _PointTabState extends State<PointTab> {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) {
-          Optional<Amount> amount;
+          Amount? amount;
           final ObservableFuture<TwBalance> future =
               _identityStore.fetchBalanceFutureStream!.value!;
 
           switch (future.status) {
             case FutureStatus.fulfilled:
-              amount = Optional.ofNullable(future.result as TwBalance)
-                  .map((balance) => balance.amount);
+              amount = (future.result as TwBalance).amount;
               break;
             case FutureStatus.pending:
-              amount = const Optional.empty();
+              amount = null;
               break;
             default:
-              amount = _identityStore.selectedIdentity!
-                  .map((i) => i.accountInfo.balance!);
+              amount = _identityStore.selectedIdentityBalance;
               break;
           }
 
@@ -98,8 +96,7 @@ class _PointTabState extends State<PointTab> {
             onRefresh: _refresh,
             children: [
               _pointItem(
-                point:
-                    amount.map((a) => a.humanReadableWithSymbol).orElse('--'),
+                point: amount?.humanReadableWithSymbol ?? '--',
                 context: context,
               )
             ],

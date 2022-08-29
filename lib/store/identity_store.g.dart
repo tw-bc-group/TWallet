@@ -47,11 +47,11 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
           Computed<String>(() => super.selectedIdentityDid,
               name: 'IdentityStoreBase.selectedIdentityDid'))
       .value;
-  Computed<Amount?>? _$selectedIdentityBalanceComputed;
+  Computed<Amount>? _$selectedIdentityBalanceComputed;
 
   @override
-  Amount? get selectedIdentityBalance => (_$selectedIdentityBalanceComputed ??=
-          Computed<Amount?>(() => super.selectedIdentityBalance,
+  Amount get selectedIdentityBalance => (_$selectedIdentityBalanceComputed ??=
+          Computed<Amount>(() => super.selectedIdentityBalance,
               name: 'IdentityStoreBase.selectedIdentityBalance'))
       .value;
   Computed<List<DecentralizedIdentity>>? _$identitiesExceptSelectedComputed;
@@ -128,13 +128,13 @@ mixin _$IdentityStore on IdentityStoreBase, Store {
       Atom(name: 'IdentityStoreBase.selectedIdentity', context: context);
 
   @override
-  Optional<DecentralizedIdentity>? get selectedIdentity {
+  DecentralizedIdentity? get selectedIdentity {
     _$selectedIdentityAtom.reportRead();
     return super.selectedIdentity;
   }
 
   @override
-  set selectedIdentity(Optional<DecentralizedIdentity>? value) {
+  set selectedIdentity(DecentralizedIdentity? value) {
     _$selectedIdentityAtom.reportWrite(value, super.selectedIdentity, () {
       super.selectedIdentity = value;
     });
