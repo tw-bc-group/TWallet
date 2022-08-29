@@ -43,7 +43,11 @@ class HealthCodeState extends State<HealthCodePage> {
   void initState() {
     super.initState();
     identity = Get.find<IdentityStore>().getIdentityById(widget.id);
-    _certStore = HealthCodeStore(identity!.did, 60, widget.firstRefresh);
+    _certStore = HealthCodeStore(
+      did: identity!.did,
+      initialCountDown: 60,
+      firstRefresh: widget.firstRefresh,
+    );
   }
 
   @override
@@ -150,12 +154,10 @@ class HealthCodeState extends State<HealthCodePage> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                _certStore.currentCountDown
-                                                    .map(
-                                                      (countDown) =>
-                                                          '$countDown s',
-                                                    )
-                                                    .orElse(''),
+                                                _certStore.currentCountDown !=
+                                                        null
+                                                    ? '${_certStore.currentCountDown} s'
+                                                    : '',
                                                 style: WalletFont.font_14(
                                                   textStyle: const TextStyle(
                                                     fontWeight: FontWeight.w600,

@@ -13,13 +13,13 @@ mixin _$HealthCodeStore on HealthCodeStoreBase, Store {
       Atom(name: 'HealthCodeStoreBase.currentCountDown', context: context);
 
   @override
-  Optional<int> get currentCountDown {
+  int? get currentCountDown {
     _$currentCountDownAtom.reportRead();
     return super.currentCountDown;
   }
 
   @override
-  set currentCountDown(Optional<int> value) {
+  set currentCountDown(int? value) {
     _$currentCountDownAtom.reportWrite(value, super.currentCountDown, () {
       super.currentCountDown = value;
     });
