@@ -248,7 +248,7 @@ abstract class IdentityStoreBase with Store {
   @action
   Future<void> selectIdentity(DecentralizedIdentity identity) async {
     final int index = identities.indexWhere(
-      (identity) => identity.id == identity.id,
+      (it) => it.id == identity.id,
     );
 
     final lastSelectedIdentity = selectedIdentity;
@@ -271,8 +271,7 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future<void> updateIdentity(DecentralizedIdentity identity) async {
-    final int index =
-        identities.indexWhere((identity) => identity.id == identity.id);
+    final int index = identities.indexWhere((it) => it.id == identity.id);
     if (index >= 0) {
       await _db
           .setItem(
