@@ -29,29 +29,36 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
     ObservableList<DecentralizedIdentity> identities,
     int didHealthSelectIndex,
     String? lastSelectedIdentityId,
-  ) : super(identities, didHealthSelectIndex, lastSelectedIdentityId);
+    JsonStore db,
+  ) : super(
+          identities: identities,
+          healthCertLastSelectIndex: didHealthSelectIndex,
+          lastSelectedIdentityId: lastSelectedIdentityId,
+          db: db,
+        );
 
   static Future<IdentityStore> init() async {
-    final int didHealthSelectIndex = await IdentityStoreBase._db
-        .getItem(didHealthCertSelectIndexKey)
-        .then((savedItem) {
+    final int didHealthSelectIndex =
+        await identityDb.getItem(didHealthCertSelectIndexKey).then((savedItem) {
       return savedItem != null
           ? (savedItem[didHealthCertSelectIndexKey] as int?)!
           : 0;
     });
 
     final List<DecentralizedIdentity> identities = Optional.ofNullable(
-      await IdentityStoreBase._db.getListLike('$identityNameKey: %'),
+      await identityDb.getListLike('$identityNameKey: %'),
     )
         .map(
-      (listItems) => listItems.map((item) {
-        return DecentralizedIdentity.fromJson(item);
-      }).toList(),
+      (listItems) => listItems.map(
+        (item) {
+          return DecentralizedIdentity.fromJson(item);
+        },
+      ).toList(),
     )
         .orElse([]);
 
     final Map<String, dynamic>? lastSelectedIdentityIdItem =
-        await IdentityStoreBase._db.getItem('lastSelectedIdentityId');
+        await identityDb.getItem('lastSelectedIdentityId');
     final lastSelectedIdentityId = (lastSelectedIdentityIdItem != null
         ? lastSelectedIdentityIdItem['id']
         : '') as String?;
@@ -60,22 +67,23 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
       ObservableList.of(identities),
       didHealthSelectIndex,
       lastSelectedIdentityId,
+      identityDb,
     );
   }
-}
 
-String _itemKey(String name) {
-  return '$identityNameKey: $name';
+  static JsonStore get identityDb =>
+      Get.find<JsonStore>(tag: identityStorageName);
 }
 
 abstract class IdentityStoreBase with Store {
-  static final _db = JsonStore(dbName: identityStorageName);
+  JsonStore db;
 
-  IdentityStoreBase(
-    this.identities,
-    this.healthCertLastSelectIndex,
+  IdentityStoreBase({
+    required this.identities,
+    required this.healthCertLastSelectIndex,
     String? lastSelectedIdentityId,
-  ) {
+    required this.db,
+  }) {
     _streamController = StreamController();
     _selectStreamController = StreamController();
 
@@ -219,7 +227,7 @@ abstract class IdentityStoreBase with Store {
 
   @action
   Future<void> clear() async {
-    await _db.clearDataBase();
+    await db.clearDataBase();
     healthCertLastSelectIndex = 0;
     identities.clear();
   }
@@ -228,7 +236,7 @@ abstract class IdentityStoreBase with Store {
   Future<DecentralizedIdentity> addIdentity({
     required DecentralizedIdentity identity,
   }) async {
-    return _db
+    return db
         .setItem(_itemKey(identity.profileInfo.name), identity.toJson())
         .then((_) {
       final isFirstIdentity = identities
@@ -255,7 +263,7 @@ abstract class IdentityStoreBase with Store {
 
     if (index >= 0) {
       selectedIdentity = Optional.ofNullable(identities[index]);
-      await _db.setItem(
+      await db.setItem(
         'lastSelectedIdentityId',
         selectedIdentity!.value.toJson(),
       );
@@ -273,7 +281,7 @@ abstract class IdentityStoreBase with Store {
   Future<void> updateIdentity(DecentralizedIdentity identity) async {
     final int index = identities.indexWhere((it) => it.id == identity.id);
     if (index >= 0) {
-      await _db
+      await db
           .setItem(
             _itemKey(identities[index].profileInfo.name),
             identity.toJson(),
@@ -314,6 +322,10 @@ abstract class IdentityStoreBase with Store {
     }
 
     const key = didHealthCertSelectIndexKey;
-    await _db.setItem(key, {key: index});
+    await db.setItem(key, {key: index});
+  }
+
+  String _itemKey(String name) {
+    return '$identityNameKey: $name';
   }
 }

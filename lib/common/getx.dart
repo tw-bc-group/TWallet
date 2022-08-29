@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:json_store/json_store.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -24,6 +25,10 @@ Future<void> initGlobalDependencies() async {
   Get.put(LogInterceptor(requestBody: true, responseBody: true));
   Get.put(HttpClient());
   Get.put(ApiProvider());
+  Get.put(
+    JsonStore(dbName: identityStorageName),
+    tag: identityStorageName,
+  );
   await Get.putAsync(MnemonicsStore.init);
   await Get.putAsync(MagicLinkStore.init);
   await Get.putAsync(ContractService.init);
