@@ -15,6 +15,7 @@ import 'package:tw_wallet_ui/store/issuer_store.dart';
 import 'package:tw_wallet_ui/store/magic_link.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:tw_wallet_ui/store/vc_store.dart';
+import 'package:tw_wallet_ui/store/web3auth_store.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/tx_store.dart';
 
 Future<void> initGlobalDependencies() async {
@@ -25,6 +26,7 @@ Future<void> initGlobalDependencies() async {
   Get.put(LogInterceptor(requestBody: true, responseBody: true));
   Get.put(HttpClient());
   Get.put(ApiProvider());
+  Get.put(web3authInit());
   Get.put(
     JsonStore(dbName: identityStorageName),
     tag: identityStorageName,

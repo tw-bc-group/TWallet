@@ -64,7 +64,6 @@ class TWallet extends StatelessWidget {
     final router = FluroRouter();
     Routes.configureRoutes(router);
     Application.router = router;
-    web3authInit();
   }
 
   // This widget is the root of your application.
