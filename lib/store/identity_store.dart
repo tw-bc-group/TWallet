@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
-import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
@@ -45,17 +44,11 @@ class IdentityStore extends IdentityStoreBase with _$IdentityStore {
           : 0;
     });
 
-    final List<DecentralizedIdentity> identities = Optional.ofNullable(
-      await identityDb.getListLike('$identityNameKey: %'),
-    )
-        .map(
-      (listItems) => listItems.map(
-        (item) {
-          return DecentralizedIdentity.fromJson(item);
-        },
-      ).toList(),
-    )
-        .orElse([]);
+    final List<DecentralizedIdentity> identities =
+        (await identityDb.getListLike('$identityNameKey: %'))
+                ?.map(DecentralizedIdentity.fromJson)
+                .toList() ??
+            [];
 
     final Map<String, dynamic>? lastSelectedIdentityIdItem =
         await identityDb.getItem('lastSelectedIdentityId');
