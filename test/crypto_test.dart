@@ -5,7 +5,6 @@ import 'package:crypton/crypton.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:more/tuple.dart';
-import 'package:optional/optional.dart';
 import 'package:random_string/random_string.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
@@ -117,9 +116,7 @@ void main() {
 
       expect(
         ethTxInfo.recoverPublicKey(),
-        Optional.of(
-          '85c26b6182946f3354174ade4c48fc769d07fb16839f8f58ce9a5f4f15354037fce9ce5b6e2bc413188c6ba201300265bdd1c075c4152dd3b01613b03a580a4d',
-        ),
+        '85c26b6182946f3354174ade4c48fc769d07fb16839f8f58ce9a5f4f15354037fce9ce5b6e2bc413188c6ba201300265bdd1c075c4152dd3b01613b03a580a4d',
       );
     });
   });

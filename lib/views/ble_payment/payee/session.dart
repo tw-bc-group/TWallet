@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:crypton/crypton.dart';
 import 'package:get/get.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/ble/ble_periphery.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/eth_tx_info/eth_tx_info.dart';
@@ -144,7 +143,7 @@ class Session {
             .nftTokenContract!
             .decodeParameters('safeTransferFrom', ethTxInfo.data);
 
-        final Optional<String> recoverPubKey = ethTxInfo.recoverPublicKey();
+        final String? recoverPubKey = ethTxInfo.recoverPublicKey();
 
         final String decompressedPubKey = bytesToHex(
           decompressPublicKey(hexToBytes(fromPublicKey!)).sublist(1),
@@ -157,7 +156,7 @@ class Session {
 
         final String? description = dcepMap.remove(dcepSn);
 
-        if (recoverPubKey == Optional.of(decompressedPubKey) &&
+        if (recoverPubKey == decompressedPubKey &&
             (params[0] as EthereumAddress).toString().toLowerCase() ==
                 fromAddress!.toLowerCase() &&
             (params[1] as EthereumAddress).toString().toLowerCase() ==

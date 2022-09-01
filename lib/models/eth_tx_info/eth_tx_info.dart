@@ -2,11 +2,8 @@ import 'dart:typed_data';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:web3dart/crypto.dart';
-
-// ignore: implementation_imports
 import 'package:web3dart/src/utils/rlp.dart' as rlp;
 
 part 'eth_tx_info.g.dart';
@@ -55,11 +52,11 @@ abstract class EthTxInfo extends Object
     );
   }
 
-  Optional<String> recoverPublicKey() {
+  String? recoverPublicKey() {
     try {
-      return Optional.of(bytesToHex(ecRecover(messageHash, msgSignature)));
+      return bytesToHex(ecRecover(messageHash, msgSignature));
     } catch (_) {
-      return const Optional.empty();
+      return null;
     }
   }
 
