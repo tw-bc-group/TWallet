@@ -89,6 +89,23 @@ class HttpClient {
     });
   }
 
+  Future<Response> get_(
+    String url, {
+    bool loading = true,
+    bool throwError = false,
+  }) async {
+    return _dio
+        .get(url, options: Options(extra: {'withoutLoading': !loading}))
+        .then((response) => response)
+        .catchError((error) {
+      if (throwError) {
+        throw Exception(error);
+      } else {
+        showErrorDialog(error as DioError);
+      }
+    });
+  }
+
   Future<Optional<Response>> post(
     String url,
     Map<String, dynamic> data, {

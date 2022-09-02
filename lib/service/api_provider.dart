@@ -74,17 +74,18 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<Contract>> fetchContractAbiV1({
+  Future<Contract> fetchContractAbiV1({
     required String contractName,
   }) async {
     return _httpClient
-        .get('/v1/contracts/$contractName', loading: false, throwError: true)
-        .then((res) {
-      return res.map(
-        (response) =>
-            ApiResponse.fromJson(response.data, const [FullType(Contract)])
-                .result as Contract,
-      );
+        .get_('/v1/contracts/$contractName', loading: false, throwError: true)
+        .then((response) {
+      return ApiResponse.fromJson(
+        response.data,
+        const [
+          FullType(Contract),
+        ],
+      ).result as Contract;
     });
   }
 

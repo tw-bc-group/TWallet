@@ -43,24 +43,22 @@ class Contract {
   static Future<Optional<Contract>> fromApi(String contractName) async {
     return Get.find<ApiProvider>()
         .fetchContractAbiV1(contractName: contractName)
-        .then((res) {
-      res.ifPresent((contract) {
-        if (contractName == contractsOnChain[0]) {
-          Application.globalEnv.rebuild((builder) {
-            builder.tokenName = contract.name;
-            if (null != contract.symbol) {
-              builder.tokenSymbol = contract.symbol;
-            }
-            if (null != contract.decimal) {
-              builder.tokenPrecision = contract.decimal;
-            }
-            Application.globalEnv = builder.build();
-          });
-        }
-      });
+        .then((contract) {
+      if (contractName == contractsOnChain[0]) {
+        Application.globalEnv.rebuild((builder) {
+          builder.tokenName = contract.name;
+          if (null != contract.symbol) {
+            builder.tokenSymbol = contract.symbol;
+          }
+          if (null != contract.decimal) {
+            builder.tokenPrecision = contract.decimal;
+          }
+          Application.globalEnv = builder.build();
+        });
+      }
 
-      return res.map(
-        (contract) => Contract(
+      return Optional.of(
+        Contract(
           DeployedContract(
             ContractAbi.fromJson(contract.abi, contractName),
             EthereumAddress.fromHex(contract.address),

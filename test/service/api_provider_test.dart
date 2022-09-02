@@ -25,28 +25,26 @@ void main() {
   test('Return a Contract Instance', () async {
     const contractName = 'test-name';
     when(
-      httpClient.get(
+      httpClient.get_(
         '/v1/contracts/$contractName',
         loading: false,
         throwError: true,
       ),
     ).thenAnswer(
-      (_) async => Optional.of(
-        Response(
-          statusCode: 200,
-          data: {
-            'code': 200,
-            'msg': 'OK',
-            'result': {'name': contractName, 'address': 'address', 'abi': 'abi'}
-          },
-          requestOptions: RequestOptions(path: ''),
-        ),
+      (_) async => Response(
+        statusCode: 200,
+        data: {
+          'code': 200,
+          'msg': 'OK',
+          'result': {'name': contractName, 'address': 'address', 'abi': 'abi'}
+        },
+        requestOptions: RequestOptions(path: ''),
       ),
     );
 
     expect(
       await apiProvider.fetchContractAbiV1(contractName: contractName),
-      isA<Optional<Contract>>(),
+      isA<Contract>(),
     );
   });
 
