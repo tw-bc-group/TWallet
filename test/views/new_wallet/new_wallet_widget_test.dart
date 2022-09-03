@@ -6,7 +6,7 @@ import 'package:tw_wallet_ui/router/routers.dart';
 import '../../observer_tester.dart';
 
 void main() {
-  testWidgets('should jump to home page', (tester) async {
+  testWidgets('should jump to restore wallet page', (tester) async {
     final List<NavigatorObservation> observations = <NavigatorObservation>[];
 
     final TestObserver observer = TestObserver()
@@ -27,13 +27,13 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Web2.0 钱包'));
+    await tester.tap(find.text('恢复钱包'));
 
     await tester.pumpAndSettle();
 
     expect(observations.length, 3);
     expect(observations[2].operation, 'push');
-    expect(observations[2].current, Routes.web3authLogin);
+    expect(observations[2].current, Routes.restoreMnemonics);
     expect(observations[2].previous, Routes.newWallet);
   });
 }
