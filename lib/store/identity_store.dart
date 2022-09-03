@@ -284,14 +284,12 @@ abstract class IdentityStoreBase with Store {
       TwBalance.fetchBalance(
         address: identity.address,
         withLoading: withLoading!,
-      ).then((res) {
-        res.ifPresent((balance) {
-          selectedIdentity = identity.rebuild(
-            (builder) => builder.accountInfo.balance = balance.amount,
-          );
-          updateIdentity(identity);
-          _streamController.add(ObservableFuture(Future.value(balance)));
-        });
+      ).then((balance) {
+        selectedIdentity = identity.rebuild(
+          (builder) => builder.accountInfo.balance = balance.amount,
+        );
+        updateIdentity(identity);
+        _streamController.add(ObservableFuture(Future.value(balance)));
       });
     }
   }

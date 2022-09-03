@@ -50,30 +50,28 @@ void main() {
 
   test('Return a TwBalance Instance', () async {
     const url = '/v1/token/$address';
-    when(httpClient.get(url, loading: false)).thenAnswer(
-      (_) async => Optional.of(
-        Response(
-          statusCode: 200,
-          data: {
-            'code': 200,
-            'msg': 'SUCCESS',
-            'result': {
-              'balance': '10000000000000000000000',
-              'twpoint': {
-                'name': 'TWPointERC20Token',
-                'symbol': 'TWP',
-                'decimal': 18
-              }
+    when(httpClient.get_(url, loading: false)).thenAnswer(
+      (_) async => Response(
+        statusCode: 200,
+        data: {
+          'code': 200,
+          'msg': 'SUCCESS',
+          'result': {
+            'balance': '10000000000000000000000',
+            'twpoint': {
+              'name': 'TWPointERC20Token',
+              'symbol': 'TWP',
+              'decimal': 18
             }
-          },
-          requestOptions: RequestOptions(path: ''),
-        ),
+          }
+        },
+        requestOptions: RequestOptions(path: ''),
       ),
     );
 
     expect(
       await apiProvider.fetchPointV1(address: address, withLoading: false),
-      isA<Optional<TwBalance>>(),
+      isA<TwBalance>(),
     );
   });
 

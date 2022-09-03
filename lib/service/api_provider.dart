@@ -58,19 +58,17 @@ class ApiProvider {
         );
   }
 
-  Future<Optional<TwBalance>> fetchPointV1({
+  Future<TwBalance> fetchPointV1({
     required String address,
     bool? withLoading,
   }) async {
     return _httpClient
-        .get('/v1/token/$address', loading: withLoading ?? true)
-        .then((res) {
-      return res.map(
-        (response) => ApiResponse.fromJson(
-          response.data,
-          const [FullType(TwBalance)],
-        ).result as TwBalance,
-      );
+        .get_('/v1/token/$address', loading: withLoading ?? true)
+        .then((response) {
+      return ApiResponse.fromJson(
+        response.data,
+        const [FullType(TwBalance)],
+      ).result as TwBalance;
     });
   }
 

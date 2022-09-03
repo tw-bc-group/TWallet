@@ -2,7 +2,6 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:decimal/decimal.dart';
 import 'package:get/get.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/serializer.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -29,7 +28,7 @@ abstract class TwBalance extends Object
     )! as TwBalance;
   }
 
-  static Future<Optional<TwBalance>> fetchBalance({
+  static Future<TwBalance> fetchBalance({
     required String address,
     required bool withLoading,
   }) async {
