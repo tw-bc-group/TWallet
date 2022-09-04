@@ -119,15 +119,13 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<List<Transaction>>> fetchTxList(String fromAddress) async {
+  Future<List<Transaction>> fetchTxList(String fromAddress) async {
     return _httpClient
-        .get('/v1/transactions?from_addr=$fromAddress', throwError: true)
-        .then((res) {
-      return res.map(
-        (response) => ApiResponse.fromJson(response.data, const [
-          FullType(BuiltList, [FullType(Transaction)])
-        ]).result.toList() as List<Transaction>,
-      );
+        .get_('/v1/transactions?from_addr=$fromAddress', throwError: true)
+        .then((response) {
+      return ApiResponse.fromJson(response.data, const [
+        FullType(BuiltList, [FullType(Transaction)])
+      ]).result.toList() as List<Transaction>;
     });
   }
 
