@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
 
@@ -15,7 +14,7 @@ abstract class _TxListStore with Store {
       ObservableFuture.value(<Transaction>[]);
 
   @observable
-  late ObservableFuture<Optional<Transaction>> tx;
+  late ObservableFuture<Transaction> tx;
 
   @observable
   List<Transaction> list = [];

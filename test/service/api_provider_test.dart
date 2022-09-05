@@ -109,31 +109,29 @@ void main() {
     const txHash =
         '0x13232ba90547279d00b30511ba4ca6c6f4ad08f27c22d75872d60c16fabd6ee5';
     const url = '/v1/transactions/$txHash';
-    when(httpClient.get(url)).thenAnswer(
-      (_) async => Optional.of(
-        Response(
-          statusCode: 200,
-          data: {
-            'code': 200,
-            'msg': 'SUCCESS',
-            'result': {
-              "hash":
-                  "0x454971ef7eb2377ce00ca2686ab4f6c752e1a437ecf6edb363fff0ca0471ca92",
-              "tx_type": "Transfer",
-              "amount": "2000000000000000000",
-              "create_time": "2020-04-24 06:47:18",
-              "from_address": "0x55e9f09e71e33adce530c888f3e1f303bc257248",
-              "to_address": "0xc2583ac729840311e32fac95f0fc9076b302f94f",
-            }
-          },
-          requestOptions: RequestOptions(path: ''),
-        ),
+    when(httpClient.get_(url)).thenAnswer(
+      (_) async => Response(
+        statusCode: 200,
+        data: {
+          'code': 200,
+          'msg': 'SUCCESS',
+          'result': {
+            "hash":
+                "0x454971ef7eb2377ce00ca2686ab4f6c752e1a437ecf6edb363fff0ca0471ca92",
+            "tx_type": "Transfer",
+            "amount": "2000000000000000000",
+            "create_time": "2020-04-24 06:47:18",
+            "from_address": "0x55e9f09e71e33adce530c888f3e1f303bc257248",
+            "to_address": "0xc2583ac729840311e32fac95f0fc9076b302f94f",
+          }
+        },
+        requestOptions: RequestOptions(path: ''),
       ),
     );
 
     expect(
       await apiProvider.fetchTxDetails(txHash: txHash),
-      isA<Optional<Transaction>>(),
+      isA<Transaction>(),
     );
   });
 

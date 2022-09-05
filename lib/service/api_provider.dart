@@ -129,13 +129,10 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<Transaction>> fetchTxDetails({required String txHash}) async {
-    return _httpClient.get('/v1/transactions/$txHash').then((res) {
-      return res.map(
-        (response) =>
-            ApiResponse.fromJson(response.data, [const FullType(Transaction)])
-                .result as Transaction,
-      );
+  Future<Transaction> fetchTxDetails({required String txHash}) async {
+    return _httpClient.get_('/v1/transactions/$txHash').then((response) {
+      return ApiResponse.fromJson(response.data, [const FullType(Transaction)])
+          .result as Transaction;
     });
   }
 
