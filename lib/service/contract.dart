@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' show Client;
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/models/contract.dart' as model;
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:web3dart/crypto.dart';
@@ -26,8 +26,7 @@ class ContractService {
   static Future<ContractService> init() async {
     final Map<String, Contract> contracts = {};
     for (final name in contractsOnChain) {
-      (await Contract.fromApi(name))
-          .ifPresent((contract) => contracts[name] = contract);
+      contracts[name] = await Contract.fromApi(name);
     }
     return ContractService(contracts);
   }
@@ -40,31 +39,33 @@ class Contract {
   final Web3Client web3Client =
       Web3Client(Application.globalEnv.web3RpcGatewayUrl, Client());
 
-  static Future<Optional<Contract>> fromApi(String contractName) async {
+  static Future<Contract> fromApi(String contractName) async {
     return Get.find<ApiProvider>()
         .fetchContractAbiV1(contractName: contractName)
         .then((contract) {
       if (contractName == contractsOnChain[0]) {
-        Application.globalEnv.rebuild((builder) {
-          builder.tokenName = contract.name;
-          if (null != contract.symbol) {
-            builder.tokenSymbol = contract.symbol;
-          }
-          if (null != contract.decimal) {
-            builder.tokenPrecision = contract.decimal;
-          }
-          Application.globalEnv = builder.build();
-        });
+        rebuildTokenEnv(contract);
       }
 
-      return Optional.of(
-        Contract(
-          DeployedContract(
-            ContractAbi.fromJson(contract.abi, contractName),
-            EthereumAddress.fromHex(contract.address),
-          ),
+      return Contract(
+        DeployedContract(
+          ContractAbi.fromJson(contract.abi, contractName),
+          EthereumAddress.fromHex(contract.address),
         ),
       );
+    });
+  }
+
+  static void rebuildTokenEnv(model.Contract contract) {
+    Application.globalEnv.rebuild((builder) {
+      builder.tokenName = contract.name;
+      if (null != contract.symbol) {
+        builder.tokenSymbol = contract.symbol;
+      }
+      if (null != contract.decimal) {
+        builder.tokenPrecision = contract.decimal;
+      }
+      Application.globalEnv = builder.build();
     });
   }
 
