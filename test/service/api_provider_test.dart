@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart' as g;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
@@ -145,7 +144,7 @@ void main() {
     const String symptoms = 'No';
 
     when(
-      httpClient.post('/v1/health-certifications', {
+      httpClient.post_('/v1/health-certifications', {
         'did': did,
         'phone': phone,
         'temperature': temperature,
@@ -153,19 +152,17 @@ void main() {
         "symptoms": symptoms
       }),
     ).thenAnswer(
-      (_) async => Optional.of(
-        Response(
-          statusCode: 200,
-          data: {
-            'code': 200,
-            'msg': 'SUCCESS',
-            'result': {
-              'token':
-                  'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkRJRDpUVzoybVBYaFAyQVY3MkM0NE1jcUN6djg1R05HTnJFUXVDc0F5a3pkRHZTIiwidmVyIjoiMC4xIiwiaXNzIjoiRElEOlRXOmNBODQzNTY5ZTM0MjcxNDRjRWFkNWU0ZDU5OTlhM0QwY0NGOTJCOGUiLCJpYXQiOjE1OTAwNDU4NjksImV4cCI6MTU5MDA0NjE2OSwidHlwIjpbIkhlYWx0aHlDcmVkZW50aWFsIl0sInN1YiI6eyJpZCI6IkRJRDpUVzo3MjY3NjJlNTM5OGJjOTgzMjYzYTQ5RUNkMTM4MjI1RjIyOTFjNTBDIiwicGhvbmUiOiIxMzgwMDAwMDAwMSIsInRlbXBlcmF0dXJlIjozNy4wLCJjb250YWN0IjoiTk8iLCJzeW1wdG9tcyI6Ik5PIiwiaGVhbHRoeVN0YXR1cyI6eyJ0eXAiOiJIZWFsdGh5U3RhdHVzIiwidmFsIjoiaGVhbHRoeSJ9fSwiQGNvbnRleHQiOlsiaHR0cHM6Ly9ibG9ja2NoYWluLnRob3VnaHR3b3Jrcy5jbi9jcmVkZW50aWFscy92MS8iXX0=.MDFjNTE0MTBhMWRhMTViNTM1ZDE2ZGY3NDEzZDJlMjY5ODM5N2VlN2Q5NTcxNjBjYTk1MGZjMjY4YTkwYzgxNzI3MmE4MDUyN2Y5YTc2Yjg1OTY3ZDM4ZjYzY2Y3ZGNmYjExNmQyOTdjNjc5Yzk2MGRhMjRiYWZlYmQ5YTBkOWVlYQ=='
-            }
-          },
-          requestOptions: RequestOptions(path: ''),
-        ),
+      (_) async => Response(
+        statusCode: 200,
+        data: {
+          'code': 200,
+          'msg': 'SUCCESS',
+          'result': {
+            'token':
+                'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkRJRDpUVzoybVBYaFAyQVY3MkM0NE1jcUN6djg1R05HTnJFUXVDc0F5a3pkRHZTIiwidmVyIjoiMC4xIiwiaXNzIjoiRElEOlRXOmNBODQzNTY5ZTM0MjcxNDRjRWFkNWU0ZDU5OTlhM0QwY0NGOTJCOGUiLCJpYXQiOjE1OTAwNDU4NjksImV4cCI6MTU5MDA0NjE2OSwidHlwIjpbIkhlYWx0aHlDcmVkZW50aWFsIl0sInN1YiI6eyJpZCI6IkRJRDpUVzo3MjY3NjJlNTM5OGJjOTgzMjYzYTQ5RUNkMTM4MjI1RjIyOTFjNTBDIiwicGhvbmUiOiIxMzgwMDAwMDAwMSIsInRlbXBlcmF0dXJlIjozNy4wLCJjb250YWN0IjoiTk8iLCJzeW1wdG9tcyI6Ik5PIiwiaGVhbHRoeVN0YXR1cyI6eyJ0eXAiOiJIZWFsdGh5U3RhdHVzIiwidmFsIjoiaGVhbHRoeSJ9fSwiQGNvbnRleHQiOlsiaHR0cHM6Ly9ibG9ja2NoYWluLnRob3VnaHR3b3Jrcy5jbi9jcmVkZW50aWFscy92MS8iXX0=.MDFjNTE0MTBhMWRhMTViNTM1ZDE2ZGY3NDEzZDJlMjY5ODM5N2VlN2Q5NTcxNjBjYTk1MGZjMjY4YTkwYzgxNzI3MmE4MDUyN2Y5YTc2Yjg1OTY3ZDM4ZjYzY2Y3ZGNmYjExNmQyOTdjNjc5Yzk2MGRhMjRiYWZlYmQ5YTBkOWVlYQ=='
+          }
+        },
+        requestOptions: RequestOptions(path: ''),
       ),
     );
 
@@ -177,7 +174,7 @@ void main() {
         contact,
         symptoms,
       ),
-      isA<Optional<HealthCertificationToken>>(),
+      isA<HealthCertificationToken>(),
     );
   });
 }

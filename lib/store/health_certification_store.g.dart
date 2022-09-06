@@ -44,8 +44,8 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
       AsyncAction('_HealthCertificationStore.bindHealthCert', context: context);
 
   @override
-  Future<Optional<HealthCertificationToken>> bindHealthCert(String did,
-      String phone, double temperature, String contact, String symptoms) {
+  Future<HealthCertificationToken> bindHealthCert(String did, String phone,
+      double temperature, String contact, String symptoms) {
     return _$bindHealthCertAsyncAction.run(
         () => super.bindHealthCert(did, phone, temperature, contact, symptoms));
   }

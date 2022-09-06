@@ -136,26 +136,24 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<HealthCertificationToken>> healthCertificate(
+  Future<HealthCertificationToken> healthCertificate(
     String did,
     String phone,
     double temperature,
     String contact,
     String symptoms,
   ) {
-    return _httpClient.post('/v1/health-certifications', {
+    return _httpClient.post_('/v1/health-certifications', {
       'did': did,
       'phone': phone,
       'temperature': temperature,
       'contact': contact,
       "symptoms": symptoms
     }).then(
-      (res) => res.map(
-        (response) => ApiResponse.fromJson(
-          response.data,
-          [const FullType(HealthCertificationToken)],
-        ).result as HealthCertificationToken,
-      ),
+      (response) => ApiResponse.fromJson(
+        response.data,
+        [const FullType(HealthCertificationToken)],
+      ).result as HealthCertificationToken,
     );
   }
 

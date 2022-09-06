@@ -30,7 +30,7 @@ abstract class _HealthCertificationStore with Store {
 
   //TODO
   @action
-  Future<Optional<HealthCertificationToken>> bindHealthCert(
+  Future<HealthCertificationToken> bindHealthCert(
     String did,
     String phone,
     double temperature,
@@ -39,10 +39,10 @@ abstract class _HealthCertificationStore with Store {
   ) async {
     return _apiProvider
         .healthCertificate(did, phone, temperature, contact, symptoms)
-        .then((res) {
-      res.ifPresent((newToken) async => _db.setItem(did, newToken.toJson()));
-      currentToken = res;
-      return Future.value(res);
+        .then((newToken) {
+      _db.setItem(did, newToken.toJson());
+      currentToken = Optional.of(newToken);
+      return newToken;
     });
   }
 
