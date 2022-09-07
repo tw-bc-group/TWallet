@@ -24,6 +24,17 @@ abstract class ApiResponse<T>
     }
   }
 
+  static ApiResponse? fromJsonWith(dynamic serialized) {
+    try {
+      return serializers.deserializeWith(
+        serializer,
+        serialized,
+      );
+    } catch (error) {
+      throw Exception('api response deserialize error, $error');
+    }
+  }
+
   factory ApiResponse([Function(ApiResponseBuilder<T>) updates]) =
       _$ApiResponse<T>;
   ApiResponse._();

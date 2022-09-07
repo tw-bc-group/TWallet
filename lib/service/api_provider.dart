@@ -51,9 +51,10 @@ class ApiProvider {
   ) {
     return _httpClient.get('/v2/token?address=$address', loading: false).then(
           (res) => res.map(
-            (response) => ApiResponse.fromJson(response.data, const [
+            (response) => (ApiResponse.fromJson(response.data, const [
               FullType(BuiltList, [FullType(Dcep)])
-            ]).result.toList() as List<Dcep>,
+            ]).result as BuiltList)
+                .toList() as List<Dcep>,
           ),
         );
   }
@@ -123,9 +124,10 @@ class ApiProvider {
     return _httpClient
         .get_('/v1/transactions?from_addr=$fromAddress', throwError: true)
         .then((response) {
-      return ApiResponse.fromJson(response.data, const [
+      return (ApiResponse.fromJson(response.data, const [
         FullType(BuiltList, [FullType(Transaction)])
-      ]).result.toList() as List<Transaction>;
+      ]).result as BuiltList)
+          .toList() as List<Transaction>;
     });
   }
 
@@ -183,9 +185,10 @@ class ApiProvider {
   Future<Optional<List<IssuerResponse>>> fetchIssuers() {
     return _httpClient.get('/v2/vc-market/issuers').then(
           (res) => res.map(
-            (response) => ApiResponse.fromJson(response.data, const [
+            (response) => (ApiResponse.fromJson(response.data, const [
               FullType(BuiltList, [FullType(IssuerResponse)])
-            ]).result.toList() as List<IssuerResponse>,
+            ]).result as BuiltList)
+                .toList() as List<IssuerResponse>,
           ),
         );
   }
