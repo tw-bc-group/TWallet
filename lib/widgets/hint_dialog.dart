@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -18,7 +17,7 @@ enum DialogType {
   none,
 }
 
-Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {required num width}) {
+SvgPicture? _dialogTypeToSvg(DialogType type, {required num width}) {
   String? asset;
 
   switch (type) {
@@ -41,12 +40,14 @@ Optional<SvgPicture> _dialogTypeToSvg(DialogType type, {required num width}) {
       break;
   }
 
-  return Optional.ofNullable(asset).map(
-    (asset) => SvgPicture.asset(
-      asset,
-      width: width.toDouble(),
-      height: width.toDouble(),
-    ),
+  if (asset == null) {
+    return null;
+  }
+
+  return SvgPicture.asset(
+    asset,
+    width: width.toDouble(),
+    height: width.toDouble(),
   );
 }
 
@@ -141,15 +142,16 @@ class HintDialog extends Dialog {
       )
     ];
 
-    _dialogTypeToSvg(type, width: screenUtil.setWidth(44)).ifPresent(
-      (svgPicture) => children.insert(
+    final svgPicture = _dialogTypeToSvg(type, width: screenUtil.setWidth(44));
+    if (svgPicture != null) {
+      children.insert(
         2,
         Padding(
           padding: EdgeInsets.only(top: screenUtil.setHeight(20)),
           child: svgPicture,
         ),
-      ),
-    );
+      );
+    }
 
     if (subText.isNotEmpty) {
       children.insert(
@@ -216,17 +218,15 @@ class HintDialogSample extends Dialog {
 
     final ScreenUtil screenUtil = ScreenUtil();
     final int textVerticalPadding = type == DialogType.none ? 15 : 32;
-
-    final List<Widget> children =
-        _dialogTypeToSvg(type, width: screenUtil.setWidth(44))
-            .map((svgPicture) {
-      return [
-        Padding(
-          padding: EdgeInsets.only(top: screenUtil.setHeight(32)),
-          child: svgPicture,
-        )
-      ];
-    }).orElse([]);
+    final svgPicture = _dialogTypeToSvg(type, width: screenUtil.setWidth(44));
+    final List<Widget> children = svgPicture != null
+        ? [
+            Padding(
+              padding: EdgeInsets.only(top: screenUtil.setHeight(32)),
+              child: svgPicture,
+            )
+          ]
+        : [];
 
     children.add(
       Padding(
