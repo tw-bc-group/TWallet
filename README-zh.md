@@ -6,7 +6,7 @@
   <br>
   <p align="center">
     <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions welcome">
-    <img src="https://img.shields.io/badge/flutter-3.0.5-informational" alt="Flutter">
+    <img src="https://img.shields.io/badge/flutter-3.3.0-informational" alt="Flutter">
     <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License">
   </p>
 </h1>
