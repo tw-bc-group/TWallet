@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
@@ -188,9 +187,8 @@ class TxListDetailsPage extends StatelessWidget {
           Get.find<IdentityStore>().fetchLatestPoint();
           Navigator.popUntil(
             context,
-            (Route<dynamic> route) => Optional.ofNullable(route.settings.name)
-                .map((name) => name.startsWith(Routes.home))
-                .orElse(false),
+            (Route<dynamic> route) =>
+                route.settings.name?.startsWith(Routes.home) ?? false,
           );
         },
       ),
