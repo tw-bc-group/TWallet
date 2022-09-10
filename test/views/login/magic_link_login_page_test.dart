@@ -10,6 +10,7 @@ void main() {
     Get.put(magicLink());
     await tester.pumpWidget(TWallet(initialRoute: Routes.magicLinkLogin));
 
+    await tester.pump();
     expect(find.text('Enter your email'), findsOneWidget);
     expect(find.text('Login'), findsOneWidget);
   });
@@ -17,7 +18,7 @@ void main() {
   testWidgets('should show login verification message', (tester) async {
     Get.put(magicLink());
     await tester.pumpWidget(TWallet(initialRoute: Routes.magicLinkLogin));
-
+    await tester.pump();
     await tester.enterText(find.byType(TextField), '111@1.com');
     await tester.tap(find.text('Login'));
 

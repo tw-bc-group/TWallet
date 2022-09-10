@@ -94,7 +94,7 @@ class TWallet extends StatelessWidget {
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
+          GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
       ),
