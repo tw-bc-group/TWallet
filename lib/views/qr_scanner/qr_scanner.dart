@@ -132,8 +132,8 @@ class QrScannerPageState extends State<QrScannerPage>
                           padding: const EdgeInsets.only(left: 10),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              onPrimary: Colors.black87,
-                              primary: buttonColor,
+                              foregroundColor: Colors.black87,
+                              backgroundColor: buttonColor,
                               elevation: 0,
                               minimumSize: const Size(88, 36),
                               padding:

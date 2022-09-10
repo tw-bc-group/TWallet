@@ -17,9 +17,9 @@ class WalletTheme {
     Color? outlineColor,
   }) {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-      onPrimary: Colors.black87,
-      primary: WalletColor.primary,
-      onSurface: WalletColor.middleGrey,
+      foregroundColor: Colors.black87,
+      backgroundColor: WalletColor.primary,
+      disabledForegroundColor: WalletColor.middleGrey,
       elevation: 0,
       minimumSize: const Size(88, 36),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -41,10 +41,10 @@ class WalletTheme {
     );
 
     final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
-      primary: outlineColor ?? WalletColor.primary,
+      foregroundColor: outlineColor ?? WalletColor.primary,
       minimumSize: const Size(88, 36),
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      onSurface: WalletColor.middleGrey,
+      disabledForegroundColor: WalletColor.middleGrey,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(22)),
       ),
