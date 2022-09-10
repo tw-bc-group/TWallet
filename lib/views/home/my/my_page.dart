@@ -9,6 +9,7 @@ import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/store/dcep/dcep_store.dart';
@@ -105,7 +106,7 @@ class MyPage extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'My Profile',
+              S.of(context).pageMeMyProfile,
               style: WalletFont.font_24(
                 textStyle: TextStyle(
                   color: WalletColor.white,
@@ -123,26 +124,26 @@ class MyPage extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   _buildButton(
-                    'Offline Payment', //离线支付
+                    S.of(context).pageMeOfflinePayment,
                     () => Get.to(BlePaymentHome(homeStore)),
                   ),
                   _buildButton(
-                    'My Chat', //我的聊天
+                    S.of(context).pageMeMyChat,
                     () => {
                       Application.router.navigateTo(context, Routes.messagePage)
                     },
                   ),
                   _buildButton(
-                    'Clear Data',
+                    S.of(context).pageMeClearData,
                     () => _cleanPrivateData(context),
-                  ), //清除数据
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: screenUtil.setWidth(5),
                     ),
-                    child: const Tips(
-                      'Please be careful, all data would be deleted permanently and cannot be recovered',
-                    ), // 将从此设备中删除所有钱包数据且无法恢复，请谨慎操作
+                    child: Tips(
+                      S.of(context).pageMeWarningOnClear,
+                    ),
                   )
                 ],
               ),

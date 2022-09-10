@@ -110,6 +110,46 @@ class S {
     );
   }
 
+  /// `Home`
+  String get pageHomeHome {
+    return Intl.message(
+      'Home',
+      name: 'pageHomeHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discovery`
+  String get pageHomeDiscovery {
+    return Intl.message(
+      'Discovery',
+      name: 'pageHomeDiscovery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity`
+  String get pageHomeIdentity {
+    return Intl.message(
+      'Identity',
+      name: 'pageHomeIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Me`
+  String get pageHomeMe {
+    return Intl.message(
+      'Me',
+      name: 'pageHomeMe',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discovery`
   String get pageDiscoveryDiscovery {
     return Intl.message(
@@ -165,6 +205,66 @@ class S {
     return Intl.message(
       'New Identity',
       name: 'pageIdentityNewIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy successfully`
+  String get pageIdentityCopySuccessfully {
+    return Intl.message(
+      'Copy successfully',
+      name: 'pageIdentityCopySuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Profile`
+  String get pageMeMyProfile {
+    return Intl.message(
+      'My Profile',
+      name: 'pageMeMyProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Offline Payment`
+  String get pageMeOfflinePayment {
+    return Intl.message(
+      'Offline Payment',
+      name: 'pageMeOfflinePayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Chat`
+  String get pageMeMyChat {
+    return Intl.message(
+      'My Chat',
+      name: 'pageMeMyChat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear Data`
+  String get pageMeClearData {
+    return Intl.message(
+      'Clear Data',
+      name: 'pageMeClearData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please be careful, all data would be deleted permanently and cannot be recovered`
+  String get pageMeWarningOnClear {
+    return Intl.message(
+      'Please be careful, all data would be deleted permanently and cannot be recovered',
+      name: 'pageMeWarningOnClear',
       desc: '',
       args: [],
     );

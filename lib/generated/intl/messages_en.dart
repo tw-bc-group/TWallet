@@ -37,10 +37,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeDeed": MessageLookupByLibrary.simpleMessage("Deed"),
         "pageHomeDigitalCurrency":
             MessageLookupByLibrary.simpleMessage("Digital Currency"),
+        "pageHomeDiscovery": MessageLookupByLibrary.simpleMessage("Discovery"),
+        "pageHomeHome": MessageLookupByLibrary.simpleMessage("Home"),
+        "pageHomeIdentity": MessageLookupByLibrary.simpleMessage("Identity"),
+        "pageHomeMe": MessageLookupByLibrary.simpleMessage("Me"),
         "pageHomeTicket": MessageLookupByLibrary.simpleMessage("Ticket"),
+        "pageIdentityCopySuccessfully":
+            MessageLookupByLibrary.simpleMessage("Copy successfully"),
         "pageIdentityIdentity":
             MessageLookupByLibrary.simpleMessage("Identity"),
         "pageIdentityNewIdentity":
-            MessageLookupByLibrary.simpleMessage("New Identity")
+            MessageLookupByLibrary.simpleMessage("New Identity"),
+        "pageMeClearData": MessageLookupByLibrary.simpleMessage("Clear Data"),
+        "pageMeMyChat": MessageLookupByLibrary.simpleMessage("My Chat"),
+        "pageMeMyProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
+        "pageMeOfflinePayment":
+            MessageLookupByLibrary.simpleMessage("Offline Payment"),
+        "pageMeWarningOnClear": MessageLookupByLibrary.simpleMessage(
+            "Please be careful, all data would be deleted permanently and cannot be recovered")
       };
 }
