@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/views/home/assets/home_list_item.dart';
 import 'package:tw_wallet_ui/views/home/assets/home_list_view.dart';
 
@@ -12,9 +13,9 @@ class AssetTab extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.only(bottom: 16),
-          child: const Text(
-            '数字货币',
-            style: TextStyle(
+          child: Text(
+            S.of(context).pageHomeDigitalCurrency,
+            style: const TextStyle(
               fontFamily: 'OpenSans',
               color: Color(0xff111111),
               fontSize: 16,
@@ -75,9 +76,9 @@ class AssetTab extends StatelessWidget {
         Divider(color: WalletColor.grey, height: 20),
         Container(
           padding: const EdgeInsets.only(bottom: 16),
-          child: const Text(
-            '房产证',
-            style: TextStyle(
+          child: Text(
+            S.of(context).pageHomeDeed,
+            style: const TextStyle(
               fontFamily: 'OpenSans',
               color: Color(0xff111111),
               fontSize: 16,

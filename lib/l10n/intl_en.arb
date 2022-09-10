@@ -1,1 +1,8 @@
-{}
+{
+  "pageHomeChangeIdentity": "Change Identity",
+  "pageHomeTicket": "Ticket",
+  "pageHomeCertification": "Certification",
+  "pageHomeAsset": "Asset",
+  "pageHomeDigitalCurrency": "Digital Currency",
+  "pageHomeDeed": "Deed"
+}

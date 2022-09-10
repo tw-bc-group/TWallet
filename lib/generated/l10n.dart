@@ -49,6 +49,66 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Change Identity`
+  String get pageHomeChangeIdentity {
+    return Intl.message(
+      'Change Identity',
+      name: 'pageHomeChangeIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket`
+  String get pageHomeTicket {
+    return Intl.message(
+      'Ticket',
+      name: 'pageHomeTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Certification`
+  String get pageHomeCertification {
+    return Intl.message(
+      'Certification',
+      name: 'pageHomeCertification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asset`
+  String get pageHomeAsset {
+    return Intl.message(
+      'Asset',
+      name: 'pageHomeAsset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Digital Currency`
+  String get pageHomeDigitalCurrency {
+    return Intl.message(
+      'Digital Currency',
+      name: 'pageHomeDigitalCurrency',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deed`
+  String get pageHomeDeed {
+    return Intl.message(
+      'Deed',
+      name: 'pageHomeDeed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

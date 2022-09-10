@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 
 class HomePageHeader extends StatelessWidget {
   final Widget avatar;
@@ -66,7 +67,7 @@ class HomePageHeader extends StatelessWidget {
           changeImg,
           const SizedBox(width: 4),
           Text(
-            '切换身份',
+            S.current.pageHomeChangeIdentity,
             style: TextStyle(
               color: WalletColor.white,
               fontSize: 16,

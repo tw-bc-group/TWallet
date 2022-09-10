@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -32,22 +33,25 @@ class _HomePageState extends State<HomePage>
 
   final IdentityStore _identityStore = Get.find();
 
-  static const _tabs = [
-    HomePageTab(
+  static final _tabs = [
+    const HomePageTab(
       text: 'CBDC',
       icon: ImageIcon(AssetImage('assets/icons/tab-assets.png'), size: 32),
     ),
     HomePageTab(
-      text: '票券',
-      icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
+      text: S.current.pageHomeTicket,
+      icon:
+          const ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
     ),
     HomePageTab(
-      text: '证书',
-      icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
+      text: S.current.pageHomeCertification,
+      icon:
+          const ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
     ),
     HomePageTab(
-      text: '资产',
-      icon: ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
+      text: S.current.pageHomeAsset,
+      icon:
+          const ImageIcon(AssetImage('assets/icons/tab-package.png'), size: 32),
     ),
   ];
 

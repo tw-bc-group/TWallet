@@ -58,7 +58,7 @@ class HomeState extends State<Home> {
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['identity']!['unselected']!),
       activeIcon: svgIcon(iconPaths['identity']!['selected']!),
-      label: 'Role', //身份
+      label: 'Identity', //身份
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['me']!['unselected']!),
