@@ -6,14 +6,13 @@ import 'dart:typed_data';
 import 'package:crypton/crypton.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:get/get.dart';
-import 'package:optional/optional.dart';
 import 'package:random_string/random_string.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/command.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/extension.dart';
 import 'package:tw_wallet_ui/views/ble_payment/common/symm_encrypt.dart';
 
-typedef WaitOnSignPayment = Future<Optional<List<TxSend>>> Function(
+typedef WaitOnSignPayment = Future<List<TxSend>> Function(
   String toAddress,
   int amount,
 );
@@ -192,19 +191,17 @@ class Session {
         case SessionState.waitTxInfo:
           final List<String> fields = command.param!.split(':');
           _state.value = SessionState.waitUserConfirm;
-          (await onSignPayment(fields[0], int.parse(fields[1])))
-              .ifPresent((txList) {
-            _txList = txList;
-            txList.asMap().forEach((index, tx) {
-              _sendCommand(
-                Command.build(
-                  CommandType.setDcep,
-                  param:
-                      '${index + 1} ${txList.length} ${json.encode(tx.dcep.toJson())}',
-                ),
-                SessionState.waitDcepAnswer,
-              );
-            });
+          final txList = await onSignPayment(fields[0], int.parse(fields[1]));
+          _txList = txList;
+          txList.asMap().forEach((index, tx) {
+            _sendCommand(
+              Command.build(
+                CommandType.setDcep,
+                param:
+                    '${index + 1} ${txList.length} ${json.encode(tx.dcep.toJson())}',
+              ),
+              SessionState.waitDcepAnswer,
+            );
           });
           break;
 

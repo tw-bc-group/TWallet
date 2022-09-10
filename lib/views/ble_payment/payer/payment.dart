@@ -147,7 +147,7 @@ class _PaymentState extends State<Payment> {
     }
   }
 
-  Future<Optional<List<TxSend>>> _onWaitSignPayment(
+  Future<List<TxSend>> _onWaitSignPayment(
     String toAddress,
     int amount,
   ) async {
@@ -175,13 +175,13 @@ class _PaymentState extends State<Payment> {
             ),
           );
         }
-        return Optional.of(txList);
+        return txList;
       } else {
         _paymentProgress.value = PaymentProgress.balanceNotEnough;
       }
     }
 
-    return const Optional.empty();
+    return const [];
   }
 
   void _onStateUpdate(SessionState state) {
