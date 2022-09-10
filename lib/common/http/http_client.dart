@@ -34,15 +34,16 @@ void showErrorDialog(DioError err) {
       break;
 
     default:
-      if (err.response != null) {
-        if (err.response!.statusCode == 400) {
-          if (err.response!.data['code'] == 40000) {
-            errorMessage = err.response!.data['msg'] as String;
+      final response = err.response;
+      if (response != null) {
+        if (response.statusCode == 400) {
+          if (response.data['code'] == 40000) {
+            errorMessage = response.data['msg'] as String;
           } else {
             errorMessage = '请求失败';
           }
         }
-        if (err.response!.statusCode! >= 500) {
+        if (response.statusCode! >= 500) {
           errorMessage = '服务端不响应';
         }
       }
