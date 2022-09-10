@@ -29,6 +29,7 @@ void main() {
         initialRoute: Routes.inputPin,
       ),
     );
+    await tester.pump();
 
     expect(find.text('请创建您的 PIN 码'), findsOneWidget);
   });
@@ -97,7 +98,7 @@ Future<void> inputPinsHaveBeenFilled(
       navigatorObservers: [observer],
     ),
   );
-
+  await tester.pump();
   ctl1.text = '123456';
   ctl2.text = '123456';
 }

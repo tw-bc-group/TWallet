@@ -26,6 +26,7 @@ void main() {
         navigatorObservers: [observer],
       ),
     );
+    await tester.pump();
 
     await tester.tap(find.text('恢复钱包'));
 
