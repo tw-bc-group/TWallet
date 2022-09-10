@@ -22,10 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "pageDiscoveryDiscovery": MessageLookupByLibrary.simpleMessage("发现"),
+        "pageDiscoveryHealthCert": MessageLookupByLibrary.simpleMessage("健康认证"),
+        "pageDiscoveryMoreVc": MessageLookupByLibrary.simpleMessage("更多凭证"),
+        "pageDiscoveryVerificationSenario":
+            MessageLookupByLibrary.simpleMessage("验证场景"),
         "pageHomeAsset": MessageLookupByLibrary.simpleMessage("资产"),
         "pageHomeCertification": MessageLookupByLibrary.simpleMessage("证书"),
         "pageHomeChangeIdentity": MessageLookupByLibrary.simpleMessage("切换身份"),
         "pageHomeDeed": MessageLookupByLibrary.simpleMessage("房产证"),
+        "pageHomeDigitalCurrency": MessageLookupByLibrary.simpleMessage("数字货币"),
         "pageHomeTicket": MessageLookupByLibrary.simpleMessage("票券")
       };
 }

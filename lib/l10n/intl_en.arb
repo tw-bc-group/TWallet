@@ -1,8 +1,14 @@
 {
+  "@_HOME_PAGE": {},
   "pageHomeChangeIdentity": "Change Identity",
   "pageHomeTicket": "Ticket",
   "pageHomeCertification": "Certification",
   "pageHomeAsset": "Asset",
   "pageHomeDigitalCurrency": "Digital Currency",
-  "pageHomeDeed": "Deed"
+  "pageHomeDeed": "Deed",
+  "@_DISCOVERY_PAGE": {},
+  "pageDiscoveryDiscovery": "Discovery",
+  "pageDiscoveryHealthCert": "Health Cert",
+  "pageDiscoveryMoreVc": "More VC",
+  "pageDiscoveryVerificationSenario": "Verification Senario"
 }
