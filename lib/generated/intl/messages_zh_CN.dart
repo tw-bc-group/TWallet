@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeChangeIdentity": MessageLookupByLibrary.simpleMessage("切换身份"),
         "pageHomeDeed": MessageLookupByLibrary.simpleMessage("房产证"),
         "pageHomeDigitalCurrency": MessageLookupByLibrary.simpleMessage("数字货币"),
-        "pageHomeTicket": MessageLookupByLibrary.simpleMessage("票券")
+        "pageHomeTicket": MessageLookupByLibrary.simpleMessage("票券"),
+        "pageIdentityIdentity": MessageLookupByLibrary.simpleMessage("身份"),
+        "pageIdentityNewIdentity": MessageLookupByLibrary.simpleMessage("新增身份")
       };
 }

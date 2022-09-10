@@ -10,5 +10,8 @@
   "pageDiscoveryDiscovery": "发现",
   "pageDiscoveryHealthCert": "健康认证",
   "pageDiscoveryMoreVc": "更多凭证",
-  "pageDiscoveryVerificationSenario": "验证场景"
+  "pageDiscoveryVerificationSenario": "验证场景",
+  "@_IDENTITY_PAGE": {},
+  "pageIdentityIdentity": "身份",
+  "pageIdentityNewIdentity": "新增身份"
 }

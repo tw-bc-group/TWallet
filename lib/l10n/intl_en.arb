@@ -10,5 +10,8 @@
   "pageDiscoveryDiscovery": "Discovery",
   "pageDiscoveryHealthCert": "Health Cert",
   "pageDiscoveryMoreVc": "More VC",
-  "pageDiscoveryVerificationSenario": "Verification Senario"
+  "pageDiscoveryVerificationSenario": "Verification Senario",
+  "@_IDENTITY_PAGE": {},
+  "pageIdentityIdentity": "Identity",
+  "pageIdentityNewIdentity": "New Identity"
 }
