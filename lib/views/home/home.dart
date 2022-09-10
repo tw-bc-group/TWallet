@@ -3,6 +3,7 @@ import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/service/dapp.dart';
 import 'package:tw_wallet_ui/views/home/assets/home_page.dart';
 import 'package:tw_wallet_ui/views/home/discovery/discovery_page.dart';
@@ -48,22 +49,22 @@ class HomeState extends State<Home> {
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['home']!['unselected']!),
       activeIcon: svgIcon(iconPaths['home']!['selected']!),
-      label: 'Home', //首页
+      label: S.current.pageHomeHome, //首页
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['discovery']!['unselected']!),
       activeIcon: svgIcon(iconPaths['discovery']!['selected']!),
-      label: 'Discover', //发现
+      label: S.current.pageHomeDiscovery, //发现
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['identity']!['unselected']!),
       activeIcon: svgIcon(iconPaths['identity']!['selected']!),
-      label: 'Identity', //身份
+      label: S.current.pageHomeIdentity, //身份
     ),
     BottomNavigationBarItem(
       icon: svgIcon(iconPaths['me']!['unselected']!),
       activeIcon: svgIcon(iconPaths['me']!['selected']!),
-      label: 'Profile', //我
+      label: S.current.pageHomeMe, //我
     ),
   ];
 

@@ -32,8 +32,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeChangeIdentity": MessageLookupByLibrary.simpleMessage("切换身份"),
         "pageHomeDeed": MessageLookupByLibrary.simpleMessage("房产证"),
         "pageHomeDigitalCurrency": MessageLookupByLibrary.simpleMessage("数字货币"),
+        "pageHomeDiscovery": MessageLookupByLibrary.simpleMessage("发现"),
+        "pageHomeHome": MessageLookupByLibrary.simpleMessage("首页"),
+        "pageHomeIdentity": MessageLookupByLibrary.simpleMessage("身份"),
+        "pageHomeMe": MessageLookupByLibrary.simpleMessage("我"),
         "pageHomeTicket": MessageLookupByLibrary.simpleMessage("票券"),
+        "pageIdentityCopySuccessfully":
+            MessageLookupByLibrary.simpleMessage("复制成功"),
         "pageIdentityIdentity": MessageLookupByLibrary.simpleMessage("身份"),
-        "pageIdentityNewIdentity": MessageLookupByLibrary.simpleMessage("新增身份")
+        "pageIdentityNewIdentity": MessageLookupByLibrary.simpleMessage("新增身份"),
+        "pageMeClearData": MessageLookupByLibrary.simpleMessage("清除数据"),
+        "pageMeMyChat": MessageLookupByLibrary.simpleMessage("我的聊天"),
+        "pageMeMyProfile": MessageLookupByLibrary.simpleMessage("我的"),
+        "pageMeOfflinePayment": MessageLookupByLibrary.simpleMessage("离线支付"),
+        "pageMeWarningOnClear":
+            MessageLookupByLibrary.simpleMessage("将从此设备中删除所有钱包数据且无法恢复，请谨慎操作")
       };
 }

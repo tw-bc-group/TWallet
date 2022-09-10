@@ -6,6 +6,10 @@
   "pageHomeAsset": "Asset",
   "pageHomeDigitalCurrency": "Digital Currency",
   "pageHomeDeed": "Deed",
+  "pageHomeHome": "Home",
+  "pageHomeDiscovery": "Discovery",
+  "pageHomeIdentity": "Identity",
+  "pageHomeMe": "Me",
   "@_DISCOVERY_PAGE": {},
   "pageDiscoveryDiscovery": "Discovery",
   "pageDiscoveryHealthCert": "Health Cert",
@@ -13,5 +17,12 @@
   "pageDiscoveryVerificationSenario": "Verification Senario",
   "@_IDENTITY_PAGE": {},
   "pageIdentityIdentity": "Identity",
-  "pageIdentityNewIdentity": "New Identity"
+  "pageIdentityNewIdentity": "New Identity",
+  "pageIdentityCopySuccessfully": "Copy successfully",
+  "@_PAGE_ME": {},
+  "pageMeMyProfile": "My Profile",
+  "pageMeOfflinePayment": "Offline Payment",
+  "pageMeMyChat": "My Chat",
+  "pageMeClearData": "Clear Data",
+  "pageMeWarningOnClear": "Please be careful, all data would be deleted permanently and cannot be recovered"
 }

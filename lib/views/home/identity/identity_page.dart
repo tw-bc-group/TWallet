@@ -72,7 +72,10 @@ class _IdentityPageState extends State<IdentityPage> {
                   return Clipboard.setData(
                     ClipboardData(text: identity.did.toString()),
                   ).then(
-                    (_) => showDialogSimple(DialogType.none, '复制成功'),
+                    (_) => showDialogSimple(
+                      DialogType.none,
+                      S.of(context).pageIdentityCopySuccessfully,
+                    ),
                   );
                 },
                 child: Text(
