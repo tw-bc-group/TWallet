@@ -4,6 +4,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/dapp_list.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/home/discovery/discovery_item.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
@@ -24,7 +25,11 @@ class DiscoveryPage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Header(title: "发现", height: 138, textStyle: headerTextStyle),
+            Header(
+              title: S.of(context).pageDiscoveryDiscovery,
+              height: 138,
+              textStyle: headerTextStyle,
+            ),
             _mainContent,
           ],
         ),
@@ -45,7 +50,7 @@ class DiscoveryPage extends StatelessWidget {
           Routes.healthCertPage,
           arguments: homeStore,
         ),
-        child: const DiscoveryItem(text: '健康认证'),
+        child: DiscoveryItem(text: S.of(context).pageDiscoveryHealthCert),
       )
     ];
 
@@ -56,8 +61,8 @@ class DiscoveryPage extends StatelessWidget {
           Routes.ownVcPage,
           arguments: homeStore,
         ),
-        child: const DiscoveryItem(
-          text: '更多凭证',
+        child: DiscoveryItem(
+          text: S.of(context).pageDiscoveryMoreVc,
           svgAsset: 'assets/icons/vc.svg',
         ),
       ),
@@ -70,8 +75,8 @@ class DiscoveryPage extends StatelessWidget {
           Routes.verificationScenarioPage,
           arguments: homeStore,
         ),
-        child: const DiscoveryItem(
-          text: '验证场景',
+        child: DiscoveryItem(
+          text: S.of(context).pageDiscoveryVerificationSenario,
           svgAsset: 'assets/icons/verification-scenario.svg',
         ),
       ),

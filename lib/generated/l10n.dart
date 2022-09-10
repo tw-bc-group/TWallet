@@ -109,6 +109,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Discovery`
+  String get pageDiscoveryDiscovery {
+    return Intl.message(
+      'Discovery',
+      name: 'pageDiscoveryDiscovery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Health Cert`
+  String get pageDiscoveryHealthCert {
+    return Intl.message(
+      'Health Cert',
+      name: 'pageDiscoveryHealthCert',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More VC`
+  String get pageDiscoveryMoreVc {
+    return Intl.message(
+      'More VC',
+      name: 'pageDiscoveryMoreVc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verification Senario`
+  String get pageDiscoveryVerificationSenario {
+    return Intl.message(
+      'Verification Senario',
+      name: 'pageDiscoveryVerificationSenario',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
