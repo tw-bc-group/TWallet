@@ -7,6 +7,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
@@ -103,7 +104,7 @@ class _IdentityPageState extends State<IdentityPage> {
           children: <Widget>[
             Center(
               child: Text(
-                '身份',
+                S.of(context).pageIdentityIdentity,
                 style: WalletFont.font_18(
                   textStyle: TextStyle(color: WalletColor.white),
                 ),
@@ -145,7 +146,7 @@ class _IdentityPageState extends State<IdentityPage> {
             Container(
               margin: const EdgeInsets.only(top: 56),
               child: WalletTheme.button(
-                text: '新增身份',
+                text: S.of(context).pageIdentityNewIdentity,
                 onPressed: () =>
                     Application.router.navigateTo(context, Routes.newIdentity),
               ),
@@ -171,7 +172,7 @@ class _IdentityPageState extends State<IdentityPage> {
         color: WalletColor.white,
       ),
       child: WalletTheme.button(
-        text: '新增身份',
+        text: S.of(context).pageIdentityNewIdentity,
         onPressed: () =>
             Application.router.navigateTo(context, Routes.newIdentity),
       ),

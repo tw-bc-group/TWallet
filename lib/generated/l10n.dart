@@ -149,6 +149,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Identity`
+  String get pageIdentityIdentity {
+    return Intl.message(
+      'Identity',
+      name: 'pageIdentityIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Identity`
+  String get pageIdentityNewIdentity {
+    return Intl.message(
+      'New Identity',
+      name: 'pageIdentityNewIdentity',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

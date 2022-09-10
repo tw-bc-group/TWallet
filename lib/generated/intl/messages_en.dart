@@ -37,6 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeDeed": MessageLookupByLibrary.simpleMessage("Deed"),
         "pageHomeDigitalCurrency":
             MessageLookupByLibrary.simpleMessage("Digital Currency"),
-        "pageHomeTicket": MessageLookupByLibrary.simpleMessage("Ticket")
+        "pageHomeTicket": MessageLookupByLibrary.simpleMessage("Ticket"),
+        "pageIdentityIdentity":
+            MessageLookupByLibrary.simpleMessage("Identity"),
+        "pageIdentityNewIdentity":
+            MessageLookupByLibrary.simpleMessage("New Identity")
       };
 }
