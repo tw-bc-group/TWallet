@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sentry/sentry.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/views/splash_screen/splash_screen.dart';
 
@@ -89,6 +91,12 @@ class TWallet extends StatelessWidget {
         ),
         initialRoute: initialRoute,
         onGenerateRoute: Application.router.generator,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: S.delegate.supportedLocales,
       ),
     );
   }
