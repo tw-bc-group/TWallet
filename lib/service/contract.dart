@@ -3,9 +3,11 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:http/http.dart' show Client;
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/contract.dart' as model;
 import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
+import 'package:tw_wallet_ui/service/identity.dart';
 import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -29,6 +31,22 @@ class ContractService {
       contracts[name] = await Contract.fromApi(name);
     }
     return ContractService(contracts);
+  }
+
+  static List<Identity> assemble(List<dynamic> callResult) {
+    final rawList = callResult.map((e) => e as List).toList();
+    return Util.zip(Util.expand(rawList))
+        .map(
+          (c) => Identity(
+            name: c[0] as String,
+            did: c[1] as String,
+            dappId: c[2] as String?,
+            index: (c[3] as BigInt).toInt(),
+            extraInfo: c[4] as String?,
+            publicKey: c[5] as String,
+          ),
+        )
+        .toList();
   }
 }
 

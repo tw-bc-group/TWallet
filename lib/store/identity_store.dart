@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:more/tuple.dart';
-import 'package:tw_wallet_ui/common/util.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
 import 'package:tw_wallet_ui/models/identity/decentralized_identity.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/service/blockchain.dart';
 import 'package:tw_wallet_ui/service/contract.dart';
+import 'package:tw_wallet_ui/service/identity.dart';
 import 'package:tw_wallet_ui/store/mnemonics.dart';
 import 'package:uuid/uuid.dart';
 
@@ -180,16 +180,17 @@ abstract class IdentityStoreBase with Store {
         .callFunction(mnemonicsStore.firstPublicKey, 'identityOf', null);
     if (queryResult.isNotEmpty) {
       await clear();
-      return restoreIdentities(queryResult);
+      return restoreIdentities(
+        ContractService.assemble(queryResult),
+      );
     }
     return -1;
   }
 
   Future<int> restoreIdentities(
-    List<dynamic> queryResult,
+    List<Identity> identities,
   ) async {
     final MnemonicsStore mnemonicsStore = Get.find<MnemonicsStore>();
-    final identities = Util.assemble(queryResult);
     final ids = identities.map((e) {
       final Tuple2<String, String> keypair = mnemonicsStore.indexKeys(e.index);
       return DecentralizedIdentity(
