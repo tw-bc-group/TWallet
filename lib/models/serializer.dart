@@ -3,6 +3,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:tw_wallet_ui/models/amount.dart';
+import 'package:tw_wallet_ui/models/api_error.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
@@ -39,6 +40,7 @@ part 'serializer.g.dart';
 
 @SerializersFor([
   ApiResponse,
+  ApiError,
   Contract,
   DecentralizedIdentity,
   AccountInfo,

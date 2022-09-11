@@ -4,6 +4,7 @@ import 'package:get/get.dart' as g;
 import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
+import 'package:tw_wallet_ui/models/api_error.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 
 void showErrorDialog(DioError err) {
@@ -37,8 +38,9 @@ void showErrorDialog(DioError err) {
       final response = err.response;
       if (response != null) {
         if (response.statusCode == 400) {
-          if (response.data['code'] == 40000) {
-            errorMessage = response.data['msg'] as String;
+          final err = ApiError.fromJson(response.data)!;
+          if (isUserError(err)) {
+            errorMessage = err.message;
           } else {
             errorMessage = '请求失败';
           }
@@ -51,6 +53,9 @@ void showErrorDialog(DioError err) {
   }
   showDialogSimple(hintType, '$errorMessage，请稍后再试。。。');
 }
+
+// see ErrorCode.java in project tw-wallet-backend/
+bool isUserError(ApiError err) => err.code > 40000 && err.code < 50000;
 
 Dio _initDio() {
   final LoadingInterceptor loadingInterceptor = g.Get.find();
