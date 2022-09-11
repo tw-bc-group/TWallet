@@ -49,5 +49,10 @@
   "pageInputPinInput": "请输入 6 位 PIN 码",
   "pageInputPinAgain": "请再次输入 6 位 PIN 码",
   "pageInputPinInconsist": "* 请输入一致的 PIN 码",
-  "pageInputPinNext": "下一步"
+  "pageInputPinNext": "下一步",
+  "@_NEW_WALLET_PAGE": {},
+  "pageNewWalletYouCan": "您可以",
+  "pageNewWalletCreate": "创建钱包",
+  "pageNewWalletRestore": "恢复钱包",
+  "pageNewWalletWeb2": "Web2.0 钱包"
 }

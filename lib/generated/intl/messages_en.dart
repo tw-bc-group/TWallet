@@ -94,6 +94,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageNewIdentityMobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "pageNewIdentityMobileHint":
             MessageLookupByLibrary.simpleMessage("Please input phone number"),
-        "pageNewIdentityName": MessageLookupByLibrary.simpleMessage("Name*")
+        "pageNewIdentityName": MessageLookupByLibrary.simpleMessage("Name*"),
+        "pageNewWalletCreate":
+            MessageLookupByLibrary.simpleMessage("Create wallet"),
+        "pageNewWalletRestore":
+            MessageLookupByLibrary.simpleMessage("Restore wallet"),
+        "pageNewWalletWeb2":
+            MessageLookupByLibrary.simpleMessage("Web2.0 wallet"),
+        "pageNewWalletYouCan": MessageLookupByLibrary.simpleMessage("You can")
       };
 }

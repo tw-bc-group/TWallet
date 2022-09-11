@@ -499,6 +499,46 @@ class S {
       args: [],
     );
   }
+
+  /// `You can`
+  String get pageNewWalletYouCan {
+    return Intl.message(
+      'You can',
+      name: 'pageNewWalletYouCan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create wallet`
+  String get pageNewWalletCreate {
+    return Intl.message(
+      'Create wallet',
+      name: 'pageNewWalletCreate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restore wallet`
+  String get pageNewWalletRestore {
+    return Intl.message(
+      'Restore wallet',
+      name: 'pageNewWalletRestore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Web2.0 wallet`
+  String get pageNewWalletWeb2 {
+    return Intl.message(
+      'Web2.0 wallet',
+      name: 'pageNewWalletWeb2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
