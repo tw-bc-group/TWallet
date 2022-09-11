@@ -38,9 +38,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeDigitalCurrency":
             MessageLookupByLibrary.simpleMessage("Digital Currency"),
         "pageHomeDiscovery": MessageLookupByLibrary.simpleMessage("Discovery"),
+        "pageHomeGoNow": MessageLookupByLibrary.simpleMessage("Go Now"),
         "pageHomeHome": MessageLookupByLibrary.simpleMessage("Home"),
         "pageHomeIdentity": MessageLookupByLibrary.simpleMessage("Identity"),
         "pageHomeMe": MessageLookupByLibrary.simpleMessage("Me"),
+        "pageHomeNoIdentity": MessageLookupByLibrary.simpleMessage(
+            "You have not added an identity, please go to the \"Identity\" page to add an identity"),
         "pageHomeTicket": MessageLookupByLibrary.simpleMessage("Ticket"),
         "pageIdentityCopySuccessfully":
             MessageLookupByLibrary.simpleMessage("Copy successfully"),
@@ -54,6 +57,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageMeOfflinePayment":
             MessageLookupByLibrary.simpleMessage("Offline Payment"),
         "pageMeWarningOnClear": MessageLookupByLibrary.simpleMessage(
-            "Please be careful, all data would be deleted permanently and cannot be recovered")
+            "Please be careful, all data would be deleted permanently and cannot be recovered"),
+        "pageNewIdeneityNameHint":
+            MessageLookupByLibrary.simpleMessage("Please input name"),
+        "pageNewIdeneityPersonalInformation":
+            MessageLookupByLibrary.simpleMessage("Personal Information"),
+        "pageNewIdentityBirthday":
+            MessageLookupByLibrary.simpleMessage("Birthday"),
+        "pageNewIdentityBirthdayHint":
+            MessageLookupByLibrary.simpleMessage("YYYY-MM-DD"),
+        "pageNewIdentityConfirm":
+            MessageLookupByLibrary.simpleMessage("Confirm"),
+        "pageNewIdentityCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Created Successfully"),
+        "pageNewIdentityEmail": MessageLookupByLibrary.simpleMessage("Email"),
+        "pageNewIdentityEmailHint":
+            MessageLookupByLibrary.simpleMessage("Please input email"),
+        "pageNewIdentityMobile": MessageLookupByLibrary.simpleMessage("Mobile"),
+        "pageNewIdentityMobileHint":
+            MessageLookupByLibrary.simpleMessage("Please input phone number"),
+        "pageNewIdentityName": MessageLookupByLibrary.simpleMessage("Name*")
       };
 }

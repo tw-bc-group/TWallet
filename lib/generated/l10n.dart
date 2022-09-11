@@ -150,6 +150,26 @@ class S {
     );
   }
 
+  /// `You have not added an identity, please go to the "Identity" page to add an identity`
+  String get pageHomeNoIdentity {
+    return Intl.message(
+      'You have not added an identity, please go to the "Identity" page to add an identity',
+      name: 'pageHomeNoIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go Now`
+  String get pageHomeGoNow {
+    return Intl.message(
+      'Go Now',
+      name: 'pageHomeGoNow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discovery`
   String get pageDiscoveryDiscovery {
     return Intl.message(
@@ -265,6 +285,116 @@ class S {
     return Intl.message(
       'Please be careful, all data would be deleted permanently and cannot be recovered',
       name: 'pageMeWarningOnClear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created Successfully`
+  String get pageNewIdentityCreatedSuccessfully {
+    return Intl.message(
+      'Created Successfully',
+      name: 'pageNewIdentityCreatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get pageNewIdeneityPersonalInformation {
+    return Intl.message(
+      'Personal Information',
+      name: 'pageNewIdeneityPersonalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name*`
+  String get pageNewIdentityName {
+    return Intl.message(
+      'Name*',
+      name: 'pageNewIdentityName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input name`
+  String get pageNewIdeneityNameHint {
+    return Intl.message(
+      'Please input name',
+      name: 'pageNewIdeneityNameHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get pageNewIdentityEmail {
+    return Intl.message(
+      'Email',
+      name: 'pageNewIdentityEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input email`
+  String get pageNewIdentityEmailHint {
+    return Intl.message(
+      'Please input email',
+      name: 'pageNewIdentityEmailHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mobile`
+  String get pageNewIdentityMobile {
+    return Intl.message(
+      'Mobile',
+      name: 'pageNewIdentityMobile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input phone number`
+  String get pageNewIdentityMobileHint {
+    return Intl.message(
+      'Please input phone number',
+      name: 'pageNewIdentityMobileHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Birthday`
+  String get pageNewIdentityBirthday {
+    return Intl.message(
+      'Birthday',
+      name: 'pageNewIdentityBirthday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YYYY-MM-DD`
+  String get pageNewIdentityBirthdayHint {
+    return Intl.message(
+      'YYYY-MM-DD',
+      name: 'pageNewIdentityBirthdayHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get pageNewIdentityConfirm {
+    return Intl.message(
+      'Confirm',
+      name: 'pageNewIdentityConfirm',
       desc: '',
       args: [],
     );

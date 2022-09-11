@@ -6,6 +6,7 @@ import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/service/progress_dialog.dart';
 import 'package:tw_wallet_ui/views/home/identity/identity_new_store.dart';
 import 'package:tw_wallet_ui/widgets/avatar.dart';
@@ -48,8 +49,10 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
         store.clearError();
         _dialog.dismiss();
         if (success as bool) {
-          showDialogSimple(DialogType.success, '创建成功')
-              .then((_) => Application.router.pop(context));
+          showDialogSimple(
+            DialogType.success,
+            S.of(context).pageNewIdentityCreatedSuccessfully,
+          ).then((_) => Application.router.pop(context));
         }
         isAdding = false;
       });
@@ -102,7 +105,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => CommonLayout(
-        title: '个人信息',
+        title: S.of(context).pageNewIdeneityPersonalInformation,
         bottomBackColor: WalletColor.white,
         child: Column(
           children: <Widget>[
@@ -132,8 +135,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                               store.name = value.trim(),
                           decoration: buildInputDecoration(
                             assetIcon: 'assets/icons/name.svg',
-                            labelText: '名称*',
-                            hintText: '输入名称',
+                            labelText: S.of(context).pageNewIdentityName,
+                            hintText: S.of(context).pageNewIdeneityNameHint,
                           ),
                         ),
                         errorText: store.error.username,
@@ -144,8 +147,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: buildInputDecoration(
                             assetIcon: 'assets/icons/email.svg',
-                            labelText: '邮箱',
-                            hintText: '输入邮箱',
+                            labelText: S.of(context).pageNewIdentityEmail,
+                            hintText: S.of(context).pageNewIdentityEmailHint,
                           ),
                         ),
                         errorText: store.error.email,
@@ -156,8 +159,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                           keyboardType: TextInputType.phone,
                           decoration: buildInputDecoration(
                             assetIcon: 'assets/icons/phone.svg',
-                            labelText: '手机',
-                            hintText: '输入手机号',
+                            labelText: S.of(context).pageNewIdentityMobile,
+                            hintText: S.of(context).pageNewIdentityMobileHint,
                           ),
                         ),
                         errorText: store.error.phone,
@@ -168,8 +171,8 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                           keyboardType: TextInputType.datetime,
                           decoration: buildInputDecoration(
                             assetIcon: 'assets/icons/birth.svg',
-                            labelText: '生日',
-                            hintText: 'YYYY-MM-DD',
+                            labelText: S.of(context).pageNewIdentityBirthday,
+                            hintText: S.of(context).pageNewIdentityBirthdayHint,
                           ),
                         ),
                         errorText: store.error.birthday,
@@ -177,7 +180,7 @@ class _IdentityNewPageState extends State<IdentityNewPage> {
                       Container(
                         margin: const EdgeInsets.only(top: 100),
                         child: WalletTheme.button(
-                          text: '确定创建身份',
+                          text: S.of(context).pageNewIdentityConfirm,
                           onPressed:
                               btnDisabled() || isAdding ? null : _addOnPressed,
                         ),
