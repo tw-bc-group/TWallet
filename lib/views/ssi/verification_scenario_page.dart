@@ -1,9 +1,12 @@
+import 'package:built_value/serializer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/models/api_response.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
+import 'package:tw_wallet_ui/models/ssi/verified.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -162,16 +165,21 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   Future<void> _handleScanResult(String scanResult) async {
     try {
-      final op = await _apiProvider.verifierTravelBadgeVerify(
+      final res = (await _apiProvider.verifierTravelBadgeVerify(
         SsiService.getSelectDid(),
         scanResult,
-      );
-      final res = op.first;
+      ))
+          .first;
+
+      final verified = ApiResponse.fromJson(res.data, const [
+        FullType(Verified),
+      ]).result as Verified;
 
       if (!mounted) return;
 
-      if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        if (res.data['result']['overdue'] as String != 'FALSE') {
+      final statusCode = res.statusCode!;
+      if (statusCode >= 200 && statusCode < 300) {
+        if (verified.overdue == 'FALSE') {
           await hintDialogHelper(
             context,
             DialogType.error,
@@ -180,7 +188,7 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
           );
           return;
         }
-        if (res.data['result']['verify_signature'] as String != 'TRUE') {
+        if (verified.verifySignature != 'TRUE') {
           await hintDialogHelper(
             context,
             DialogType.error,

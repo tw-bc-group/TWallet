@@ -16,6 +16,7 @@ import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/models/send_transaction_response.dart';
+import 'package:tw_wallet_ui/models/ssi/verified.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
@@ -53,6 +54,7 @@ part 'serializer.g.dart';
   HealthCertificationSub,
   HealthCertificationToken,
   HealthyStatus,
+  Verified,
   SelectOption,
   WebviewRequest,
   WebviewRequestMethod,
@@ -125,6 +127,10 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(ApiResponse, [FullType(TwBalance)]),
         () => ApiResponseBuilder<TwBalance>(),
+      )
+      ..addBuilderFactory(
+        const FullType(ApiResponse, [FullType(Verified)]),
+        () => ApiResponseBuilder<Verified>(),
       )
       ..addBuilderFactory(
         const FullType(ApiResponse, [FullType(HealthCertificationToken)]),
