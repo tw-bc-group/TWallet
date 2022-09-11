@@ -31,18 +31,18 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('请创建您的 PIN 码'), findsOneWidget);
+    expect(find.text('Please create your PIN'), findsOneWidget);
   });
 
   testWidgets('input pin smoke test', (tester) async {
     final List<NavigatorObservation> observations = <NavigatorObservation>[];
     await inputPinsHaveBeenFilled(tester, observations);
-    await findNextStepButton(tester, '下一步');
+    await findNextStepButton(tester, 'Next');
 
     // dummy secure storage
     Get.put<SecureStorage>(MockSecureStorage());
 
-    await tester.tap(find.text('下一步'));
+    await tester.tap(find.text('Next'));
 
     await tester.pump();
 
