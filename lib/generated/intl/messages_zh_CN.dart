@@ -82,6 +82,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageNewIdentityMobile": MessageLookupByLibrary.simpleMessage("手机"),
         "pageNewIdentityMobileHint":
             MessageLookupByLibrary.simpleMessage("输入手机号"),
-        "pageNewIdentityName": MessageLookupByLibrary.simpleMessage("名称*")
+        "pageNewIdentityName": MessageLookupByLibrary.simpleMessage("名称*"),
+        "pageNewWalletCreate": MessageLookupByLibrary.simpleMessage("创建钱包"),
+        "pageNewWalletRestore": MessageLookupByLibrary.simpleMessage("恢复钱包"),
+        "pageNewWalletWeb2": MessageLookupByLibrary.simpleMessage("Web2.0 钱包"),
+        "pageNewWalletYouCan": MessageLookupByLibrary.simpleMessage("您可以")
       };
 }

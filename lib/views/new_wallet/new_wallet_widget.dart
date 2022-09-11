@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 import 'package:tw_wallet_ui/widgets/page_title.dart';
@@ -45,6 +46,7 @@ class NewWalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = S.of(context);
     return CommonLayout(
       backIcon: BackIcon.none,
       bodyBackColor: WalletColor.white,
@@ -65,7 +67,7 @@ class NewWalletWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 44),
                 child: Text(
-                  '您可以',
+                  t.pageNewWalletYouCan,
                   style: WalletFont.font_20(),
                   textAlign: TextAlign.center,
                 ),
@@ -73,17 +75,17 @@ class NewWalletWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () => Application.router
                     .navigateTo(context, Routes.backupMnemonics),
-                child: buildBigButton(title: '创建钱包'),
+                child: buildBigButton(title: t.pageNewWalletCreate),
               ),
               GestureDetector(
                 onTap: () => Application.router
                     .navigateTo(context, Routes.restoreMnemonics),
-                child: buildBigButton(title: '恢复钱包'),
+                child: buildBigButton(title: t.pageNewWalletRestore),
               ),
               // GestureDetector(
               //   onTap: () => Application.router
               //       .navigateTo(context, Routes.web3authLogin),
-              //   child: buildBigButton(title: 'Web2.0 钱包'),
+              //   child: buildBigButton(title: t.pageNewWalletWeb2),
               // ),
             ],
           ),

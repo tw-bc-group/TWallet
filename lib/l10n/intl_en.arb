@@ -49,5 +49,10 @@
   "pageInputPinInput": "Please input 6 digits PIN",
   "pageInputPinAgain": "Please input 6 digits PIN again",
   "pageInputPinInconsist": "* Please input the same PIN ",
-  "pageInputPinNext": "Next"
+  "pageInputPinNext": "Next",
+  "@_NEW_WALLET_PAGE": {},
+  "pageNewWalletYouCan": "You can",
+  "pageNewWalletCreate": "Create wallet",
+  "pageNewWalletRestore": "Restore wallet",
+  "pageNewWalletWeb2": "Web2.0 wallet"
 }

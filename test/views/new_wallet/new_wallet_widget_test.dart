@@ -28,7 +28,7 @@ void main() {
     );
     await tester.pump();
 
-    await tester.tap(find.text('恢复钱包'));
+    await tester.tap(find.text('Restore wallet'));
 
     await tester.pumpAndSettle();
 
