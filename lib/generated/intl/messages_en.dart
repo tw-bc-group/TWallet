@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(appName) => "Welcome to ${appName}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "pageDiscoveryDiscovery":
@@ -51,6 +53,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Identity"),
         "pageIdentityNewIdentity":
             MessageLookupByLibrary.simpleMessage("New Identity"),
+        "pageInputPinAgain": MessageLookupByLibrary.simpleMessage(
+            "Please input 6 digits PIN again"),
+        "pageInputPinCreatePin":
+            MessageLookupByLibrary.simpleMessage("Please create your PIN"),
+        "pageInputPinInconsist": MessageLookupByLibrary.simpleMessage(
+            "* Please input the same PIN "),
+        "pageInputPinInput":
+            MessageLookupByLibrary.simpleMessage("Please input 6 digits PIN"),
+        "pageInputPinNext": MessageLookupByLibrary.simpleMessage("Next"),
+        "pageInputPinSettings":
+            MessageLookupByLibrary.simpleMessage("Settings"),
+        "pageInputPinTransaction":
+            MessageLookupByLibrary.simpleMessage("Transaction"),
+        "pageInputPinUnlock": MessageLookupByLibrary.simpleMessage("Unlock"),
+        "pageInputPinUsage": MessageLookupByLibrary.simpleMessage("- Usage -"),
+        "pageInputPinWelcome": m0,
         "pageMeClearData": MessageLookupByLibrary.simpleMessage("Clear Data"),
         "pageMeMyChat": MessageLookupByLibrary.simpleMessage("My Chat"),
         "pageMeMyProfile": MessageLookupByLibrary.simpleMessage("My Profile"),

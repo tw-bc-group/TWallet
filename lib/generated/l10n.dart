@@ -399,6 +399,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome to {appName}`
+  String pageInputPinWelcome(Object appName) {
+    return Intl.message(
+      'Welcome to $appName',
+      name: 'pageInputPinWelcome',
+      desc: '',
+      args: [appName],
+    );
+  }
+
+  /// `Please create your PIN`
+  String get pageInputPinCreatePin {
+    return Intl.message(
+      'Please create your PIN',
+      name: 'pageInputPinCreatePin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- Usage -`
+  String get pageInputPinUsage {
+    return Intl.message(
+      '- Usage -',
+      name: 'pageInputPinUsage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock`
+  String get pageInputPinUnlock {
+    return Intl.message(
+      'Unlock',
+      name: 'pageInputPinUnlock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction`
+  String get pageInputPinTransaction {
+    return Intl.message(
+      'Transaction',
+      name: 'pageInputPinTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get pageInputPinSettings {
+    return Intl.message(
+      'Settings',
+      name: 'pageInputPinSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input 6 digits PIN`
+  String get pageInputPinInput {
+    return Intl.message(
+      'Please input 6 digits PIN',
+      name: 'pageInputPinInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input 6 digits PIN again`
+  String get pageInputPinAgain {
+    return Intl.message(
+      'Please input 6 digits PIN again',
+      name: 'pageInputPinAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `* Please input the same PIN `
+  String get pageInputPinInconsist {
+    return Intl.message(
+      '* Please input the same PIN ',
+      name: 'pageInputPinInconsist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get pageInputPinNext {
+    return Intl.message(
+      'Next',
+      name: 'pageInputPinNext',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

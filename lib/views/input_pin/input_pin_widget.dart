@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/router/routers.dart';
 
 import 'package:tw_wallet_ui/views/input_pin/input_pin_store.dart';
@@ -103,7 +104,9 @@ class PinInputWidget extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.only(top: 94, bottom: 85),
                     child: Text(
-                      "欢迎来到 ${Application.appName.replaceAll('\n', '')}",
+                      S.of(context).pageInputPinWelcome(
+                            Application.appName.replaceAll('\n', ''),
+                          ),
                       style: WalletFont.font_22(
                         textStyle: TextStyle(color: WalletColor.white),
                       ),
@@ -125,7 +128,7 @@ class PinInputWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 34),
                             child: Text(
-                              "请创建您的 PIN 码",
+                              S.of(context).pageInputPinCreatePin,
                               style: WalletFont.font_18(
                                 textStyle: TextStyle(
                                   color: WalletColor.black,
@@ -137,7 +140,7 @@ class PinInputWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 16),
                             child: Text(
-                              '- 用于 -',
+                              S.of(context).pageInputPinUsage,
                               style: WalletFont.font_14(),
                               textAlign: TextAlign.center,
                             ),
@@ -154,7 +157,7 @@ class PinInputWidget extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        "解锁钱包",
+                                        S.of(context).pageInputPinUnlock,
                                         style: WalletFont.font_14(
                                           textStyle: TextStyle(
                                             color: WalletColor.primary,
@@ -172,7 +175,7 @@ class PinInputWidget extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        "确认交易",
+                                        S.of(context).pageInputPinTransaction,
                                         style: WalletFont.font_14(
                                           textStyle: TextStyle(
                                             color: WalletColor.primary,
@@ -190,7 +193,7 @@ class PinInputWidget extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        "更多设置",
+                                        S.of(context).pageInputPinSettings,
                                         style: WalletFont.font_14(
                                           textStyle: TextStyle(
                                             color: WalletColor.primary,
@@ -211,7 +214,7 @@ class PinInputWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 40.0),
                             child: Text(
-                              "请输入 6 位 PIN 码",
+                              S.of(context).pageInputPinInput,
                               style: WalletFont.font_14(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w500,
@@ -230,7 +233,7 @@ class PinInputWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 40.0),
                             child: Text(
-                              "请再次输入 6 位 PIN 码",
+                              S.of(context).pageInputPinAgain,
                               style: WalletFont.font_14(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w500,
@@ -250,7 +253,9 @@ class PinInputWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 10.0),
                             child: Observer(
                               builder: (_) => Text(
-                                _inputPin.isUnequal ? "* 请输入一致的 PIN 码" : "",
+                                _inputPin.isUnequal
+                                    ? S.of(context).pageInputPinInconsist
+                                    : "",
                                 style: TextStyle(
                                   color: Colors.red.shade300,
                                   fontSize: 15,
@@ -275,7 +280,7 @@ class PinInputWidget extends StatelessWidget {
                                       : screenUtil.setHeight(20),
                                 ),
                                 child: WalletTheme.button(
-                                  text: '下一步',
+                                  text: S.of(context).pageInputPinNext,
                                   onPressed: _inputPin.isCompleted
                                       ? _setKey(context)
                                       : null,

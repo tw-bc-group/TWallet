@@ -38,5 +38,16 @@
   "pageNewIdentityMobileHint": "输入手机号",
   "pageNewIdentityBirthday": "生日",
   "pageNewIdentityBirthdayHint": "YYYY-MM-DD",
-  "pageNewIdentityConfirm": "确定创建身份"
+  "pageNewIdentityConfirm": "确定创建身份",
+  "@_INPUT_PIN_PAGE": {},
+  "pageInputPinWelcome": "欢迎来到 {appName}",
+  "pageInputPinCreatePin": "请创建您的 PIN 码",
+  "pageInputPinUsage": "- 用于 -",
+  "pageInputPinUnlock": "解锁钱包",
+  "pageInputPinTransaction": "确认交易",
+  "pageInputPinSettings": "更多设置",
+  "pageInputPinInput": "请输入 6 位 PIN 码",
+  "pageInputPinAgain": "请再次输入 6 位 PIN 码",
+  "pageInputPinInconsist": "* 请输入一致的 PIN 码",
+  "pageInputPinNext": "下一步"
 }

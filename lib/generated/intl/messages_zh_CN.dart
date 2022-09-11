@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
+  static String m0(appName) => "欢迎来到 ${appName}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "pageDiscoveryDiscovery": MessageLookupByLibrary.simpleMessage("发现"),
@@ -44,6 +46,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("复制成功"),
         "pageIdentityIdentity": MessageLookupByLibrary.simpleMessage("身份"),
         "pageIdentityNewIdentity": MessageLookupByLibrary.simpleMessage("新增身份"),
+        "pageInputPinAgain":
+            MessageLookupByLibrary.simpleMessage("请再次输入 6 位 PIN 码"),
+        "pageInputPinCreatePin":
+            MessageLookupByLibrary.simpleMessage("请创建您的 PIN 码"),
+        "pageInputPinInconsist":
+            MessageLookupByLibrary.simpleMessage("* 请输入一致的 PIN 码"),
+        "pageInputPinInput":
+            MessageLookupByLibrary.simpleMessage("请输入 6 位 PIN 码"),
+        "pageInputPinNext": MessageLookupByLibrary.simpleMessage("下一步"),
+        "pageInputPinSettings": MessageLookupByLibrary.simpleMessage("更多设置"),
+        "pageInputPinTransaction": MessageLookupByLibrary.simpleMessage("确认交易"),
+        "pageInputPinUnlock": MessageLookupByLibrary.simpleMessage("解锁钱包"),
+        "pageInputPinUsage": MessageLookupByLibrary.simpleMessage("- 用于 -"),
+        "pageInputPinWelcome": m0,
         "pageMeClearData": MessageLookupByLibrary.simpleMessage("清除数据"),
         "pageMeMyChat": MessageLookupByLibrary.simpleMessage("我的聊天"),
         "pageMeMyProfile": MessageLookupByLibrary.simpleMessage("我的"),
