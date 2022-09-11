@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:tw_wallet_ui/generated/l10n.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/views/home/home_store.dart';
@@ -57,7 +58,7 @@ Future<void> _showAddIdentityDialog(
                     right: screenUtil.setWidth(71),
                   ),
                   child: Text(
-                    '您还没有添加身份，请前往"身份"页面添加身份',
+                    S.of(context).pageHomeNoIdentity,
                     style: WalletFont.font_14(
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.w400,
@@ -73,7 +74,7 @@ Future<void> _showAddIdentityDialog(
                     vertical: screenUtil.setHeight(48),
                   ),
                   child: WalletTheme.button(
-                    text: '立即前往',
+                    text: S.of(context).pageHomeGoNow,
                     height: 44,
                     onPressed: () {
                       Navigator.pop(context);

@@ -33,9 +33,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeDeed": MessageLookupByLibrary.simpleMessage("房产证"),
         "pageHomeDigitalCurrency": MessageLookupByLibrary.simpleMessage("数字货币"),
         "pageHomeDiscovery": MessageLookupByLibrary.simpleMessage("发现"),
+        "pageHomeGoNow": MessageLookupByLibrary.simpleMessage("立即前往"),
         "pageHomeHome": MessageLookupByLibrary.simpleMessage("首页"),
         "pageHomeIdentity": MessageLookupByLibrary.simpleMessage("身份"),
         "pageHomeMe": MessageLookupByLibrary.simpleMessage("我"),
+        "pageHomeNoIdentity":
+            MessageLookupByLibrary.simpleMessage("您还没有添加身份，请前往\"身份\"页面添加身份"),
         "pageHomeTicket": MessageLookupByLibrary.simpleMessage("票券"),
         "pageIdentityCopySuccessfully":
             MessageLookupByLibrary.simpleMessage("复制成功"),
@@ -46,6 +49,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageMeMyProfile": MessageLookupByLibrary.simpleMessage("我的"),
         "pageMeOfflinePayment": MessageLookupByLibrary.simpleMessage("离线支付"),
         "pageMeWarningOnClear":
-            MessageLookupByLibrary.simpleMessage("将从此设备中删除所有钱包数据且无法恢复，请谨慎操作")
+            MessageLookupByLibrary.simpleMessage("将从此设备中删除所有钱包数据且无法恢复，请谨慎操作"),
+        "pageNewIdeneityNameHint": MessageLookupByLibrary.simpleMessage("输入名称"),
+        "pageNewIdeneityPersonalInformation":
+            MessageLookupByLibrary.simpleMessage("个人信息"),
+        "pageNewIdentityBirthday": MessageLookupByLibrary.simpleMessage("生日"),
+        "pageNewIdentityBirthdayHint":
+            MessageLookupByLibrary.simpleMessage("YYYY-MM-DD"),
+        "pageNewIdentityConfirm":
+            MessageLookupByLibrary.simpleMessage("确定创建身份"),
+        "pageNewIdentityCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("创建成功"),
+        "pageNewIdentityEmail": MessageLookupByLibrary.simpleMessage("邮箱"),
+        "pageNewIdentityEmailHint":
+            MessageLookupByLibrary.simpleMessage("输入邮箱"),
+        "pageNewIdentityMobile": MessageLookupByLibrary.simpleMessage("手机"),
+        "pageNewIdentityMobileHint":
+            MessageLookupByLibrary.simpleMessage("输入手机号"),
+        "pageNewIdentityName": MessageLookupByLibrary.simpleMessage("名称*")
       };
 }
