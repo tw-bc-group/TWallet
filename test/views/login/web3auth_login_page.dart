@@ -9,6 +9,5 @@ void main() {
     expect(find.text('Login with Google'), findsOneWidget);
     expect(find.text('Login with Facebook'), findsOneWidget);
     expect(find.text('Login with Github'), findsOneWidget);
-
   });
 }
