@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:get/get.dart';
 import 'package:more/tuple.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
@@ -82,7 +81,7 @@ class _PaymentState extends State<Payment> {
   Characteristic? _readCharacteristic;
   Characteristic? _writeCharacteristic;
 
-  Future<Optional<Tuple2<Characteristic?, Characteristic?>>> discovery() async {
+  Future<Tuple2<Characteristic?, Characteristic?>?> discovery() async {
     await widget._bleDevice.peripheral.discoverAllServicesAndCharacteristics();
 
     final Service? service = await widget._bleDevice.peripheral.services().then(
@@ -92,7 +91,7 @@ class _PaymentState extends State<Payment> {
         );
 
     if (null == service) {
-      return const Optional.empty();
+      return null;
     }
 
     final List<Characteristic> characteristics =
@@ -109,10 +108,10 @@ class _PaymentState extends State<Payment> {
     );
 
     if (_writeCharacteristic == null) {
-      return const Optional.empty();
+      return null;
     }
 
-    return Optional.of(Tuple2(_readCharacteristic, _writeCharacteristic));
+    return Tuple2(_readCharacteristic, _writeCharacteristic);
   }
 
   Future<void> _doCleanup() async {
@@ -207,16 +206,17 @@ class _PaymentState extends State<Payment> {
   void _doConnect() {
     widget._bleDevice.connect().then(
           (_) => discovery().then((res) {
-            res.ifPresent(
-              (characteristics) => Session(
+            final characteristics = res;
+            if (characteristics != null) {
+              Session(
                 widget._identity.address,
                 widget._identity.accountInfo.pubKey,
                 characteristics.first,
                 characteristics.second,
-              ).run(_onWaitSignPayment, _onStateUpdate),
-              orElse: () =>
-                  _paymentProgress.value = PaymentProgress.notSupported,
-            );
+              ).run(_onWaitSignPayment, _onStateUpdate);
+            } else {
+              _paymentProgress.value = PaymentProgress.notSupported;
+            }
           }),
         );
   }
