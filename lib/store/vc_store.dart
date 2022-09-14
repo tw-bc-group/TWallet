@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/vc_pass.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 
@@ -23,14 +22,6 @@ class VcStore {
   void addVc(VerifiableCredential vc) {
     removeVc(vc.vcTypeId!);
     rxVcs.add(vc);
-  }
-
-  Optional<String> findVc(String vcTypeId) {
-    final vcs = rxVcs.where((vc) => vc.vcTypeId == vcTypeId).toList();
-    if (vcs.isEmpty) {
-      return const Optional.empty();
-    }
-    return Optional.of(vcs.last.token!);
   }
 
   void removeVc(String vcTypeId) {
