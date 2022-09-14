@@ -1,6 +1,5 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:optional/optional_internal.dart';
 import 'package:tw_wallet_ui/views/backup_mnemonics/backup_mnemonics.dart';
 import 'package:tw_wallet_ui/views/confirm_mnemonics/confirm_mnemonics.dart';
 import 'package:tw_wallet_ui/views/dapp/dapp.dart';
@@ -47,14 +46,18 @@ Handler newIdentityHandler = Handler(
 Handler homeHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return Home(
-      defaultIndex: int.parse(
-        Optional.ofNullable(params['index'])
-            .map((indexes) => indexes.first)
-            .orElse('0'),
-      ),
+      defaultIndex: _index(params['index']),
     );
   },
 );
+
+int _index(List<String>? indexes) {
+  if (indexes == null || indexes.isEmpty) {
+    return 0;
+  } else {
+    return int.parse(indexes.first);
+  }
+}
 
 Handler inputPinHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
@@ -135,18 +138,21 @@ Handler healthCodeHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
     return HealthCodePage(
       params['id']!.first,
-      Optional.ofNullable(params['firstRefresh'])
-          .flatMap((v) => Optional.ofNullable(v[0]))
-          .map((v) {
-        if (v.toLowerCase() == 'true') {
-          return FirstRefreshState.enabled;
-        } else {
-          return FirstRefreshState.disabled;
-        }
-      }).orElse(FirstRefreshState.enabled),
+      _extract(params['firstRefresh']),
     );
   },
 );
+
+FirstRefreshState _extract(List<String>? list) {
+  if (list == null || list.isEmpty) {
+    return FirstRefreshState.enabled;
+  }
+  if (list.first.toLowerCase() == 'true') {
+    return FirstRefreshState.enabled;
+  } else {
+    return FirstRefreshState.disabled;
+  }
+}
 
 Handler healthCertificationPageHandler = Handler(
   handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
