@@ -20,7 +20,7 @@ class IdentityDetailPage extends StatelessWidget {
   IdentityDetailPage({required this.id});
 
   String certTitle() {
-    return certStore.currentToken.isPresent ? '健康码' : '健康认证';
+    return certStore.currentToken != null ? '健康码' : '健康认证';
   }
 
   void onHealthBtnTap(BuildContext context) {

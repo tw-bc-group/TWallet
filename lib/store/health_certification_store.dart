@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:json_store/json_store.dart';
 import 'package:mobx/mobx.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/models/health_certification.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/service/api_provider.dart';
@@ -16,17 +15,14 @@ abstract class _HealthCertificationStore with Store {
   final _db = JsonStore(dbName: "HealthCertificationToken");
 
   @observable
-  Optional<HealthCertificationToken> currentToken = const Optional.empty();
+  HealthCertificationToken? currentToken;
 
   @computed
-  bool get isBoundCert => currentToken.isPresent;
+  bool get isBoundCert => currentToken == null;
 
   @computed
-  bool get isHealthy => currentToken
-      .map(
-        (token) => token.healthCertification.sub.healthyStatus.val == healthy,
-      )
-      .orElse(false);
+  bool get isHealthy =>
+      currentToken?.healthCertification.sub.healthyStatus.val == healthy;
 
   //TODO
   @action
@@ -41,31 +37,35 @@ abstract class _HealthCertificationStore with Store {
         .healthCertificate(did, phone, temperature, contact, symptoms)
         .then((newToken) {
       _db.setItem(did, newToken.toJson());
-      currentToken = Optional.of(newToken);
+      currentToken = newToken;
       return newToken;
     });
   }
 
   @action
   Future fetchHealthCertByDID(String did) async {
-    currentToken = Optional.ofNullable(await _db.getItem(did))
-        .map((token) => HealthCertificationToken.fromJson(token));
+    final token = await _db.getItem(did);
+    if (token != null) {
+      currentToken = HealthCertificationToken.fromJson(token);
+    }
   }
 
   //TODO
   @action
-  Future<Optional<HealthCertificationToken>> fetchLatestHealthCert(
+  Future<HealthCertificationToken?> fetchLatestHealthCert(
     String did,
   ) async {
     return _apiProvider.fetchHealthCertificate(did).then((res) {
-      res.ifPresent((token) => _db.setItem(did, token.toJson()));
-      currentToken = res;
+      res.ifPresent((token) {
+        _db.setItem(did, token.toJson());
+        currentToken = res.value;
+      });
       return Future.value(currentToken);
     });
   }
 
   Future<void> clear() async {
-    currentToken = const Optional.empty();
+    currentToken = null;
     return _db.clearDataBase();
   }
 }

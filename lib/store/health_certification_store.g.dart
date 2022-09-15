@@ -28,13 +28,13 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
       Atom(name: '_HealthCertificationStore.currentToken', context: context);
 
   @override
-  Optional<HealthCertificationToken> get currentToken {
+  HealthCertificationToken? get currentToken {
     _$currentTokenAtom.reportRead();
     return super.currentToken;
   }
 
   @override
-  set currentToken(Optional<HealthCertificationToken> value) {
+  set currentToken(HealthCertificationToken? value) {
     _$currentTokenAtom.reportWrite(value, super.currentToken, () {
       super.currentToken = value;
     });
@@ -65,7 +65,7 @@ mixin _$HealthCertificationStore on _HealthCertificationStore, Store {
       context: context);
 
   @override
-  Future<Optional<HealthCertificationToken>> fetchLatestHealthCert(String did) {
+  Future<HealthCertificationToken?> fetchLatestHealthCert(String did) {
     return _$fetchLatestHealthCertAsyncAction
         .run(() => super.fetchLatestHealthCert(did));
   }
