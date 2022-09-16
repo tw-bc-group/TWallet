@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:more/tuple.dart';
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/device_info.dart';
 import 'package:tw_wallet_ui/common/secure_storage.dart';
@@ -157,9 +156,7 @@ class DAppService {
   static Future<void> qrCode(String id, _) async {
     resolve(
       id,
-      Optional.ofNullable(
-        await Application.router.navigateTo(context!, Routes.qrScanner),
-      ).orElse(''),
+      (await Application.router.navigateTo(context!, Routes.qrScanner)) ?? '',
     );
   }
 
