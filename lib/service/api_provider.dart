@@ -46,16 +46,14 @@ class ApiProvider {
     );
   }
 
-  Future<Optional<List<Dcep>>> fetchDcepV2(
+  Future<List<Dcep>> fetchDcepV2(
     String address,
   ) {
-    return _httpClient.get('/v2/token?address=$address', loading: false).then(
-          (res) => res.map(
-            (response) => (ApiResponse.fromJson(response.data, const [
-              FullType(BuiltList, [FullType(Dcep)])
-            ]).result as BuiltList)
-                .toList() as List<Dcep>,
-          ),
+    return _httpClient.get_('/v2/token?address=$address', loading: false).then(
+          (response) => (ApiResponse.fromJson(response.data, const [
+            FullType(BuiltList, [FullType(Dcep)])
+          ]).result as BuiltList)
+              .toList() as List<Dcep>,
         );
   }
 
@@ -86,26 +84,6 @@ class ApiProvider {
         ],
       ).result as Contract;
     });
-  }
-
-  @Deprecated("Replaced by DecentralizedIdentity.register")
-  Future<Optional<Response>> identityRegister(
-    String name,
-    String publicKey,
-    String address,
-    String did,
-    String signedRawTx,
-  ) {
-    return _httpClient.post(
-      '/v1/identities',
-      {
-        'name': name,
-        'publicKey': publicKey,
-        'address': address,
-        'did': did,
-        'signedTransactionRawData': signedRawTx
-      },
-    );
   }
 
   Future<Optional<Response>> transferPoint(

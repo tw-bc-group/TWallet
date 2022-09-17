@@ -5,6 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/contract.dart';
+import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
@@ -175,6 +176,34 @@ void main() {
         symptoms,
       ),
       isA<HealthCertificationToken>(),
+    );
+  });
+
+  test('Return a List Of DCEP', () async {
+    const url = '/v2/token?address=$address';
+    when(httpClient.get_(url, loading: false)).thenAnswer(
+      (_) async => Response(
+        statusCode: 200,
+        data: {
+          'code': 200,
+          'msg': 'SUCCESS',
+          'result': [
+            {
+              "serial_number": "10000000000000000000000",
+              "owner": address,
+              "signature": "2000000000000000000",
+              "money_type": "RMB100_00",
+              "create_time": "2020-04-24 06:47:18",
+            }
+          ]
+        },
+        requestOptions: RequestOptions(path: ''),
+      ),
+    );
+
+    expect(
+      await apiProvider.fetchDcepV2(address),
+      isA<List<Dcep>>(),
     );
   });
 }

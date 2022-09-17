@@ -22,10 +22,8 @@ class DcepStore {
 
   Future<void> refresh() {
     if (null != owner) {
-      Get.find<ApiProvider>().fetchDcepV2(owner!).then((res) {
-        res.ifPresent((list) {
-          _items.assignAll(list..sort((a, b) => b.compareTo(a)));
-        });
+      Get.find<ApiProvider>().fetchDcepV2(owner!).then((list) {
+        _items.assignAll(list..sort((a, b) => b.compareTo(a)));
       });
     }
 
