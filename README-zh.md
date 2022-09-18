@@ -57,12 +57,12 @@
 
 ### 本地启动
 
-1. 确保你已安装 ```flutter```
+1. 确保你已安装 ```flutter --version```
 ```
-Flutter 3.0.5 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision f1875d570e (2 weeks ago) • 2022-07-13 11:24:16 -0700
-Engine • revision e85ea0e79c
-Tools • Dart 2.17.6 • DevTools 2.12.2
+Flutter 3.3.1 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 4f9d92fbbd (11 days ago) • 2022-09-06 17:54:53 -0700
+Engine • revision 3efdf03e73
+Tools • Dart 2.18.0 • DevTools 2.15.0
 ```
 
 2. 使用 `flutter doctor` 检查 `flutter` 环境，并查看是否有已经安装的模拟器可以运行 TWallet

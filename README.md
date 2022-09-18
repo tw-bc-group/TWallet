@@ -57,12 +57,12 @@ Please don't be stingy to give us feedback. You can go to [issues page](https://
 
 ### Quick Start
 
-1. make sure you have ```flutter``` installed
+1. make sure you have ```flutter --version``` installed
 ```
-Flutter 3.0.5 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision f1875d570e (2 weeks ago) • 2022-07-13 11:24:16 -0700
-Engine • revision e85ea0e79c
-Tools • Dart 2.17.6 • DevTools 2.12.2
+Flutter 3.3.1 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 4f9d92fbbd (11 days ago) • 2022-09-06 17:54:53 -0700
+Engine • revision 3efdf03e73
+Tools • Dart 2.18.0 • DevTools 2.15.0
 ```
 
 2. `flutter doctor` to check your `flutter` environment and find which device you can use to build the app
