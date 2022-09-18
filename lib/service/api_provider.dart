@@ -10,6 +10,7 @@ import 'package:tw_wallet_ui/models/contract.dart';
 import 'package:tw_wallet_ui/models/dcep/dcep.dart';
 import 'package:tw_wallet_ui/models/health_certification_token.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
+import 'package:tw_wallet_ui/models/ssi/verifiable_presentation.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
@@ -222,5 +223,14 @@ class ApiProvider {
       },
       throwError: true,
     );
+  }
+
+  Future<VerifiablePresentation> fetchVP(String url) {
+    return _httpClient.get_(url, throwError: true).then(
+          (response) => ApiResponse.fromJson(
+            response.data,
+            [const FullType(VerifiablePresentation)],
+          ).result as VerifiablePresentation,
+        );
   }
 }

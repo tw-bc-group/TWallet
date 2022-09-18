@@ -16,6 +16,7 @@ import 'package:tw_wallet_ui/models/identity/profile_info.dart';
 import 'package:tw_wallet_ui/models/issuer_response.dart';
 import 'package:tw_wallet_ui/models/offline_tx/offline_tx.dart';
 import 'package:tw_wallet_ui/models/send_transaction_response.dart';
+import 'package:tw_wallet_ui/models/ssi/verifiable_presentation.dart';
 import 'package:tw_wallet_ui/models/ssi/verified.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
@@ -79,6 +80,7 @@ part 'serializer.g.dart';
   SendTransactionResponse,
   IssuerResponse,
   VcType,
+  VerifiablePresentation,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -201,5 +203,9 @@ final Serializers serializers = (_$serializers.toBuilder()
           FullType(BuiltList, [FullType(VcType)])
         ]),
         () => ApiResponseBuilder<BuiltList<VcType>>(),
+      )
+      ..addBuilderFactory(
+        const FullType(ApiResponse, [FullType(VerifiablePresentation)]),
+        () => ApiResponseBuilder<VerifiablePresentation>(),
       ))
     .build();

@@ -31,7 +31,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(TwBalance.serializer)
       ..add(TxReceive.serializer)
       ..add(TxStatus.serializer)
+      ..add(VAgent.serializer)
+      ..add(VObject.serializer)
+      ..add(VTarget.serializer)
       ..add(VcType.serializer)
+      ..add(VerifiablePresentation.serializer)
       ..add(Verified.serializer)
       ..add(WebviewParameter.serializer)
       ..add(WebviewParameterType.serializer)
@@ -45,6 +49,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(WebviewRequestMethod.serializer)
       ..add(WebviewSignTransaction.serializer)
       ..add(WebviewTransactionInfo.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

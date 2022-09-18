@@ -4,30 +4,19 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/models/verifiable_credential.dart';
+import 'package:tw_wallet_ui/service/api_provider.dart';
 import 'package:tw_wallet_ui/store/identity_store.dart';
 import 'package:validators/validators.dart';
 
 class SsiService {
   static Future<VerifiableCredentialPresentationRequest>
       createVerifiableCredentialPresentationRequest(String url) async {
-    final response = await http.get(Uri.dataFromString(url));
-    if (response.statusCode == 200) {
-      try {
-        final Map<String, dynamic> json =
-            jsonDecode(response.body)['result'] as Map<String, dynamic>;
-        final List<dynamic> vcTypes =
-            json['vc']['object']['itemListElement'] as List<dynamic>;
-        return VerifiableCredentialPresentationRequest(
-          id: json['vc']['target']['identifier'] as String,
-          name: json['vc']['agent']['legalName'] as String,
-          vcTypes: vcTypes.map((vcType) => vcType.toString()).toList(),
-        );
-      } catch (error) {
-        throw Exception('Failed to parse data: $error');
-      }
-    } else {
-      throw Exception('Failed to load data');
-    }
+    final vp = await Get.find<ApiProvider>().fetchVP(url);
+    return VerifiableCredentialPresentationRequest(
+      id: vp.target.identifier,
+      name: vp.agent.legalName,
+      vcTypes: vp.object.itemListElement as List<String>,
+    );
   }
 
   static Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(
