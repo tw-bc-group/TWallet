@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tw_wallet_ui/common/application.dart';
+import 'package:tw_wallet_ui/service/rlp.dart';
 import 'package:web3dart/crypto.dart';
-import 'package:web3dart/src/utils/rlp.dart' as rlp;
 
 part 'eth_tx_info.g.dart';
 
@@ -37,7 +37,7 @@ abstract class EthTxInfo extends Object
   Uint8List get messageHash {
     return keccak256(
       Uint8List.fromList(
-        rlp.encode([
+        encode([
           nonce,
           gasPrice,
           gasLimit,

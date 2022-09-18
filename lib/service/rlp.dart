@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:more/tuple.dart';
 import 'package:web3dart/crypto.dart';
+// ignore: implementation_imports
+import 'package:web3dart/src/utils/rlp.dart' as rlp;
 
 List<Uint8List> decode(Uint8List data) {
   final Tuple2<dynamic, Uint8List> decoded = _decode(data);
@@ -107,4 +109,8 @@ Tuple2<List<dynamic>, Uint8List> _decode(Uint8List input) {
 
     return Tuple2(decoded, input.sublist(totalLength));
   }
+}
+
+List<int> encode(dynamic value) {
+  return rlp.encode(value);
 }
