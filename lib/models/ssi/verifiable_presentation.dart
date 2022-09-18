@@ -12,9 +12,9 @@ abstract class VerifiablePresentation extends Object
   VTarget get target;
   VAgent get agent;
 
-  factory VerifiablePresentation(
-          [Function(VerifiablePresentationBuilder) updates]) =
-      _$VerifiablePresentation;
+  factory VerifiablePresentation([
+    Function(VerifiablePresentationBuilder) updates,
+  ]) = _$VerifiablePresentation;
   VerifiablePresentation._();
 }
 

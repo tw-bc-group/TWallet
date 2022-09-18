@@ -14,6 +14,7 @@ import 'package:tw_wallet_ui/models/ssi/verifiable_presentation.dart';
 import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
+import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 
 class ApiProvider {
   final HttpClient _httpClient = g.Get.find();
@@ -223,6 +224,27 @@ class ApiProvider {
       },
       throwError: true,
     );
+  }
+
+  Future<VerifiableCredentialTokenResponse> verifyAndGetPassport(
+    String verifierId,
+    List<String?> tokens,
+  ) {
+    return _httpClient
+        .post_(
+          '/v2/verifier/health-certification/verify?simple=true',
+          {
+            "verifierId": verifierId,
+            "tokens": tokens,
+          },
+          throwError: true,
+        )
+        .then(
+          (response) => ApiResponse.fromJson(
+            response.data,
+            [const FullType(VerifiableCredentialTokenResponse)],
+          ).result as VerifiableCredentialTokenResponse,
+        );
   }
 
   Future<VerifiablePresentation> fetchVP(String url) {

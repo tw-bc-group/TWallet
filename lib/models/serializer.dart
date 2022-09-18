@@ -22,6 +22,7 @@ import 'package:tw_wallet_ui/models/transaction.dart';
 import 'package:tw_wallet_ui/models/tw_balance.dart';
 import 'package:tw_wallet_ui/models/tx_status.dart';
 import 'package:tw_wallet_ui/models/vc_type_response.dart';
+import 'package:tw_wallet_ui/models/verifiable_credential.dart';
 import 'package:tw_wallet_ui/models/webview/create_account_param.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_close.dart';
 import 'package:tw_wallet_ui/models/webview/pincode_dialog/pincode_dialog_error_msg.dart';
@@ -81,6 +82,7 @@ part 'serializer.g.dart';
   IssuerResponse,
   VcType,
   VerifiablePresentation,
+  VerifiableCredentialTokenResponse,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -207,5 +209,12 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(ApiResponse, [FullType(VerifiablePresentation)]),
         () => ApiResponseBuilder<VerifiablePresentation>(),
+      )
+      ..addBuilderFactory(
+        const FullType(
+          ApiResponse,
+          [FullType(VerifiableCredentialTokenResponse)],
+        ),
+        () => ApiResponseBuilder<VerifiableCredentialTokenResponse>(),
       ))
     .build();

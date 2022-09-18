@@ -1,3 +1,5 @@
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:validators/validators.dart';
 
@@ -54,16 +56,16 @@ class VerifiableCredentialPresentation {
 }
 */
 
-@JsonSerializable(explicitToJson: true)
-class VerifiableCredentialTokenResponse {
-  String token;
-  VerifiableCredentialTokenResponse({required this.token});
+abstract class VerifiableCredentialTokenResponse extends Object
+    implements
+        Built<VerifiableCredentialTokenResponse,
+            VerifiableCredentialTokenResponseBuilder> {
+  static Serializer<VerifiableCredentialTokenResponse> get serializer =>
+      _$verifiableCredentialTokenResponseSerializer;
+  String get token;
 
-  factory VerifiableCredentialTokenResponse.fromJson(
-    Map<String, dynamic> json,
-  ) =>
-      _$VerifiableCredentialTokenResponseFromJson(json);
-
-  Map<String, dynamic> toJson() =>
-      _$VerifiableCredentialTokenResponseToJson(this);
+  factory VerifiableCredentialTokenResponse([
+    Function(VerifiableCredentialTokenResponseBuilder) updates,
+  ]) = _$VerifiableCredentialTokenResponse;
+  VerifiableCredentialTokenResponse._();
 }
