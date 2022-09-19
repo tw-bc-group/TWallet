@@ -137,16 +137,14 @@ class DAppService {
       sendTransactionRequest.fromPublicKey,
       sendTransactionRequest.signedTransactionRawData,
     )
-        .then((data) {
-      data.map(
-        (response) => resolve(
-          id,
-          (ApiResponse.fromJson(
-            response.data,
-            [const FullType(SendTransactionResponse)],
-          ).result as SendTransactionResponse)
-              .hash,
-        ),
+        .then((response) {
+      resolve(
+        id,
+        (ApiResponse.fromJson(
+          response.data,
+          [const FullType(SendTransactionResponse)],
+        ).result as SendTransactionResponse)
+            .hash,
       );
     }).catchError((err) {
       reject(id, false);

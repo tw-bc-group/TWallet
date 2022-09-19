@@ -114,10 +114,7 @@ abstract class DecentralizedIdentity extends Object
     ]).then((signedRawTx) {
       return Get.find<ApiProvider>()
           .transferPoint(address, accountInfo.pubKey, signedRawTx)
-          .then(
-            (res) =>
-                res.map((response) => response.statusCode == 200).orElse(false),
-          );
+          .then((response) => response.statusCode == 200);
     });
   }
 

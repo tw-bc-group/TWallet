@@ -88,12 +88,12 @@ class ApiProvider {
     });
   }
 
-  Future<Optional<Response>> transferPoint(
+  Future<Response> transferPoint(
     String fromAddress,
     String publicKey,
     String signedRawTx,
   ) {
-    return _httpClient.post('/v1/token/transfer', {
+    return _httpClient.post_('/v1/token/transfer', {
       'fromAddress': fromAddress,
       'fromPublicKey': publicKey,
       'signedTransactionRawData': signedRawTx
