@@ -154,9 +154,9 @@ class ApiProvider {
         .post_('/v1/health-certifications/verify', {'token': token});
   }
 
-  Future<Optional<Response>> issuePoints(String address) {
+  Future<Response> issuePoints(String address) {
     return _httpClient
-        .post('/v1/token/reward', {'address': address, 'amount': 10});
+        .post_('/v1/token/reward', {'address': address, 'amount': 10});
   }
 
   Future<Optional<List<IssuerResponse>>> fetchIssuers() {
