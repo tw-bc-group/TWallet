@@ -16,10 +16,8 @@ abstract class _IssuerStore with Store {
   }
 
   Future<void> fetchIssuers() {
-    return Get.find<ApiProvider>().fetchIssuers().then((res) {
-      res.ifPresent((list) {
-        _issuers = list;
-      });
+    return Get.find<ApiProvider>().fetchIssuers().then((list) {
+      _issuers = list;
     });
   }
 

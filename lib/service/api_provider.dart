@@ -157,14 +157,12 @@ class ApiProvider {
         .post_('/v1/token/reward', {'address': address, 'amount': 10});
   }
 
-  Future<Optional<List<IssuerResponse>>> fetchIssuers() {
-    return _httpClient.get('/v2/vc-market/issuers').then(
-          (res) => res.map(
-            (response) => (ApiResponse.fromJson(response.data, const [
-              FullType(BuiltList, [FullType(IssuerResponse)])
-            ]).result as BuiltList)
-                .toList() as List<IssuerResponse>,
-          ),
+  Future<List<IssuerResponse>> fetchIssuers() {
+    return _httpClient.get_('/v2/vc-market/issuers').then(
+          (response) => (ApiResponse.fromJson(response.data, const [
+            FullType(BuiltList, [FullType(IssuerResponse)])
+          ]).result as BuiltList)
+              .toList() as List<IssuerResponse>,
         );
   }
 
