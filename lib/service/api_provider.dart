@@ -2,7 +2,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as g;
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/http_client.dart';
 import 'package:tw_wallet_ui/models/api_response.dart';
