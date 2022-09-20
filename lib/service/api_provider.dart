@@ -149,9 +149,9 @@ class ApiProvider {
         );
   }
 
-  Future<Optional<Response>> verifyHealthCertificationToken(String token) {
+  Future<Response> verifyHealthCertificationToken(String token) {
     return _httpClient
-        .post('/v1/health-certifications/verify', {'token': token});
+        .post_('/v1/health-certifications/verify', {'token': token});
   }
 
   Future<Optional<Response>> issuePoints(String address) {
