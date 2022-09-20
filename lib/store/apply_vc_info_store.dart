@@ -96,22 +96,18 @@ abstract class _ApplyVcInfoStore with Store {
       name,
       phone,
     )
-        .then((res) {
-      bool success = false;
-      res.ifPresent((tokenResponse) {
-        vcStore.addVc(
-          VerifiableCredential(
-            name: vcType.name,
-            issuer: issuerStore.getIssuerNameByVcTypeId(vcType.id),
-            vcTypeId: vcType.id,
-            token: tokenResponse.token,
-            content: vcType.content.toList(),
-            applicationTime: DateTime.now(),
-          ),
-        );
-        success = true;
-      });
-      return success;
+        .then((tokenResponse) {
+      vcStore.addVc(
+        VerifiableCredential(
+          name: vcType.name,
+          issuer: issuerStore.getIssuerNameByVcTypeId(vcType.id),
+          vcTypeId: vcType.id,
+          token: tokenResponse.token,
+          content: vcType.content.toList(),
+          applicationTime: DateTime.now(),
+        ),
+      );
+      return true;
     });
   }
 }

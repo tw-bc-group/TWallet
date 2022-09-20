@@ -168,26 +168,24 @@ class ApiProvider {
         );
   }
 
-  Future<Optional<HealthCertificationToken>> applyVc(
+  Future<HealthCertificationToken> applyVc(
     String vcTypeId,
     String issuerId,
     String did,
     String name,
     String phone,
   ) {
-    return _httpClient.post('/v2/vc-market/vcs', {
+    return _httpClient.post_('/v2/vc-market/vcs', {
       'did': did,
       'issueId': issuerId,
       'name': name,
       'phone': phone,
       'vcType': vcTypeId,
     }).then(
-      (res) => res.map(
-        (response) => ApiResponse.fromJson(
-          response.data,
-          [const FullType(HealthCertificationToken)],
-        ).result as HealthCertificationToken,
-      ),
+      (response) => ApiResponse.fromJson(
+        response.data,
+        [const FullType(HealthCertificationToken)],
+      ).result as HealthCertificationToken,
     );
   }
 
