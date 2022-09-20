@@ -209,11 +209,11 @@ class ApiProvider {
     return "${Application.globalEnv.apiGatewayBaseUrl}/v2/vc-market/verifiers/${verifierId}/vc";
   }
 
-  Future<Optional<Response>> verifierTravelBadgeVerify(
+  Future<Response> verifierTravelBadgeVerify(
     String verifierId,
     String token,
   ) {
-    return _httpClient.post(
+    return _httpClient.post_(
       '/v2/verifier/travel-badge/verify',
       {
         "verifierId": verifierId,

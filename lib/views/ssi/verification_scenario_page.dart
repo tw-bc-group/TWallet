@@ -165,11 +165,10 @@ class _VerificationScenarioPage extends State<VerificationScenarioPage> {
 
   Future<void> _handleScanResult(String scanResult) async {
     try {
-      final res = (await _apiProvider.verifierTravelBadgeVerify(
+      final res = await _apiProvider.verifierTravelBadgeVerify(
         SsiService.getSelectDid(),
         scanResult,
-      ))
-          .first;
+      );
 
       final verified = ApiResponse.fromJson(res.data, const [
         FullType(Verified),
