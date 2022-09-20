@@ -35,16 +35,13 @@ class ApiProvider {
     );
   }
 
-  Future<Optional<Dcep>> redeemDcepV2(String address, DcepType type) {
-    return _httpClient.post(
+  Future<Dcep> redeemDcepV2(String address, DcepType type) {
+    return _httpClient.post_(
       '/v2/token/mint',
       {'address': address, 'moneyType': type.toString()},
     ).then(
-      (res) => res.map(
-        (response) =>
-            ApiResponse.fromJson(response.data, const [FullType(Dcep)]).result
-                as Dcep,
-      ),
+      (response) => ApiResponse.fromJson(response.data, const [FullType(Dcep)])
+          .result as Dcep,
     );
   }
 

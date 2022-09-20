@@ -78,15 +78,13 @@ abstract class DecentralizedIdentity extends Object
   }
 
   Future<void> redeemDcep(DcepType type) {
-    return Get.find<ApiProvider>().redeemDcepV2(address, type).then(
-          (res) => res.ifPresent((dcep) {
-            if (dcep.verify()) {
-              if (dcep.owner == address) {
-                Get.find<DcepStore>().add(dcep);
-              }
-            }
-          }),
-        );
+    return Get.find<ApiProvider>().redeemDcepV2(address, type).then((dcep) {
+      if (dcep.verify()) {
+        if (dcep.owner == address) {
+          Get.find<DcepStore>().add(dcep);
+        }
+      }
+    });
   }
 
   Future<String> signOfflinePayment(BigInt bill, String toAddress, int nonce) {
