@@ -178,4 +178,25 @@ class HttpClient {
       return const Optional<Response>.empty();
     });
   }
+
+  Future<Response> patch_(
+    String url,
+    Map<String, dynamic> data, {
+    bool loading = true,
+    bool throwError = false,
+  }) async {
+    return _dio
+        .patch(
+      url,
+      data: data,
+      options: Options(extra: {'withoutLoading': !loading}),
+    )
+        .catchError((error) {
+      if (throwError) {
+        throw Exception(error);
+      } else {
+        showErrorDialog(error as DioError);
+      }
+    });
+  }
 }
