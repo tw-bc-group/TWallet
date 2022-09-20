@@ -136,16 +136,14 @@ class ApiProvider {
     );
   }
 
-  Future<Optional<HealthCertificationToken>> fetchHealthCertificate(
+  Future<HealthCertificationToken> fetchHealthCertificate(
     String did,
   ) {
-    return _httpClient.get('/v1/health-certifications/$did').then(
-          (res) => res.map(
-            (response) => ApiResponse.fromJson(
-              response.data,
-              [const FullType(HealthCertificationToken)],
-            ).result as HealthCertificationToken,
-          ),
+    return _httpClient.get_('/v1/health-certifications/$did').then(
+          (response) => ApiResponse.fromJson(
+            response.data,
+            [const FullType(HealthCertificationToken)],
+          ).result as HealthCertificationToken,
         );
   }
 
