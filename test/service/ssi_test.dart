@@ -74,7 +74,7 @@ void main() {
     const verifierId = 'did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4';
     const tokens = ['', ''];
     when(
-      httpClient.post_(
+      httpClient.post(
         '/v2/verifier/health-certification/verify?simple=true',
         {
           "verifierId": verifierId,

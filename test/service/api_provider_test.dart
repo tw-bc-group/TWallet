@@ -145,7 +145,7 @@ void main() {
     const String symptoms = 'No';
 
     when(
-      httpClient.post_('/v1/health-certifications', {
+      httpClient.post('/v1/health-certifications', {
         'did': did,
         'phone': phone,
         'temperature': temperature,

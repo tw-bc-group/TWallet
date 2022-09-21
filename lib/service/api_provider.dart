@@ -23,7 +23,7 @@ class ApiProvider {
     String publicKey,
     String signedRawTx,
   ) {
-    return _httpClient.post_(
+    return _httpClient.post(
       '/v2/token/transfer',
       {
         'fromAddress': from,
@@ -35,7 +35,7 @@ class ApiProvider {
   }
 
   Future<Dcep> redeemDcepV2(String address, DcepType type) {
-    return _httpClient.post_(
+    return _httpClient.post(
       '/v2/token/mint',
       {'address': address, 'moneyType': type.toString()},
     ).then(
@@ -89,7 +89,7 @@ class ApiProvider {
     String publicKey,
     String signedRawTx,
   ) {
-    return _httpClient.post_('/v1/token/transfer', {
+    return _httpClient.post('/v1/token/transfer', {
       'fromAddress': fromAddress,
       'fromPublicKey': publicKey,
       'signedTransactionRawData': signedRawTx
@@ -121,7 +121,7 @@ class ApiProvider {
     String contact,
     String symptoms,
   ) {
-    return _httpClient.post_('/v1/health-certifications', {
+    return _httpClient.post('/v1/health-certifications', {
       'did': did,
       'phone': phone,
       'temperature': temperature,
@@ -148,12 +148,12 @@ class ApiProvider {
 
   Future<Response> verifyHealthCertificationToken(String token) {
     return _httpClient
-        .post_('/v1/health-certifications/verify', {'token': token});
+        .post('/v1/health-certifications/verify', {'token': token});
   }
 
   Future<Response> issuePoints(String address) {
     return _httpClient
-        .post_('/v1/token/reward', {'address': address, 'amount': 10});
+        .post('/v1/token/reward', {'address': address, 'amount': 10});
   }
 
   Future<List<IssuerResponse>> fetchIssuers() {
@@ -172,7 +172,7 @@ class ApiProvider {
     String name,
     String phone,
   ) {
-    return _httpClient.post_('/v2/vc-market/vcs', {
+    return _httpClient.post('/v2/vc-market/vcs', {
       'did': did,
       'issueId': issuerId,
       'name': name,
@@ -206,7 +206,7 @@ class ApiProvider {
     String verifierId,
     String token,
   ) {
-    return _httpClient.post_(
+    return _httpClient.post(
       '/v2/verifier/travel-badge/verify',
       {
         "verifierId": verifierId,
@@ -221,7 +221,7 @@ class ApiProvider {
     List<String?> tokens,
   ) {
     return _httpClient
-        .post_(
+        .post(
           '/v2/verifier/health-certification/verify?simple=true',
           {
             "verifierId": verifierId,

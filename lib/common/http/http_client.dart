@@ -93,7 +93,7 @@ class HttpClient {
     });
   }
 
-  Future<Response> post_(
+  Future<Response> post(
     String url,
     Map<String, dynamic> data, {
     bool loading = true,
