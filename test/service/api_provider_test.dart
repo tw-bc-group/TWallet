@@ -25,7 +25,7 @@ void main() {
   test('Return a Contract Instance', () async {
     const contractName = 'test-name';
     when(
-      httpClient.get_(
+      httpClient.get(
         '/v1/contracts/$contractName',
         loading: false,
         throwError: true,
@@ -50,7 +50,7 @@ void main() {
 
   test('Return a TwBalance Instance', () async {
     const url = '/v1/token/$address';
-    when(httpClient.get_(url, loading: false)).thenAnswer(
+    when(httpClient.get(url, loading: false)).thenAnswer(
       (_) async => Response(
         statusCode: 200,
         data: {
@@ -77,7 +77,7 @@ void main() {
 
   test('Return a List Of Transactions Instances', () async {
     const url = '/v1/transactions?from_addr=$address';
-    when(httpClient.get_(url, throwError: true)).thenAnswer(
+    when(httpClient.get(url, throwError: true)).thenAnswer(
       (_) async => Response(
         statusCode: 200,
         data: {
@@ -109,7 +109,7 @@ void main() {
     const txHash =
         '0x13232ba90547279d00b30511ba4ca6c6f4ad08f27c22d75872d60c16fabd6ee5';
     const url = '/v1/transactions/$txHash';
-    when(httpClient.get_(url)).thenAnswer(
+    when(httpClient.get(url)).thenAnswer(
       (_) async => Response(
         statusCode: 200,
         data: {
@@ -181,7 +181,7 @@ void main() {
 
   test('Return a List Of DCEP', () async {
     const url = '/v2/token?address=$address';
-    when(httpClient.get_(url, loading: false)).thenAnswer(
+    when(httpClient.get(url, loading: false)).thenAnswer(
       (_) async => Response(
         statusCode: 200,
         data: {

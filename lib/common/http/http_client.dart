@@ -76,7 +76,7 @@ Dio _initDio() {
 class HttpClient {
   final Dio _dio = _initDio();
 
-  Future<Response> get_(
+  Future<Response> get(
     String url, {
     bool loading = true,
     bool throwError = false,

@@ -19,7 +19,7 @@ void main() {
   test('Returns verifialble presentations', () async {
     const id = "did:tw:816F81681dC8dd12039c05B0093ccce24B4215f4";
     const url = '/v2/vc-market/verifiers/${id}/vc';
-    when(httpClient.get_(url, throwError: true)).thenAnswer(
+    when(httpClient.get(url, throwError: true)).thenAnswer(
       (_) async => Response(
         statusCode: 200,
         data: {

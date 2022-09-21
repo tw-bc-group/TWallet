@@ -47,7 +47,7 @@ class ApiProvider {
   Future<List<Dcep>> fetchDcepV2(
     String address,
   ) {
-    return _httpClient.get_('/v2/token?address=$address', loading: false).then(
+    return _httpClient.get('/v2/token?address=$address', loading: false).then(
           (response) => (ApiResponse.fromJson(response.data, const [
             FullType(BuiltList, [FullType(Dcep)])
           ]).result as BuiltList)
@@ -60,7 +60,7 @@ class ApiProvider {
     bool? withLoading,
   }) async {
     return _httpClient
-        .get_('/v1/token/$address', loading: withLoading ?? true)
+        .get('/v1/token/$address', loading: withLoading ?? true)
         .then((response) {
       return ApiResponse.fromJson(
         response.data,
@@ -73,7 +73,7 @@ class ApiProvider {
     required String contractName,
   }) async {
     return _httpClient
-        .get_('/v1/contracts/$contractName', loading: false, throwError: true)
+        .get('/v1/contracts/$contractName', loading: false, throwError: true)
         .then((response) {
       return ApiResponse.fromJson(
         response.data,
@@ -98,7 +98,7 @@ class ApiProvider {
 
   Future<List<Transaction>> fetchTxList(String fromAddress) async {
     return _httpClient
-        .get_('/v1/transactions?from_addr=$fromAddress', throwError: true)
+        .get('/v1/transactions?from_addr=$fromAddress', throwError: true)
         .then((response) {
       return (ApiResponse.fromJson(response.data, const [
         FullType(BuiltList, [FullType(Transaction)])
@@ -108,7 +108,7 @@ class ApiProvider {
   }
 
   Future<Transaction> fetchTxDetails({required String txHash}) async {
-    return _httpClient.get_('/v1/transactions/$txHash').then((response) {
+    return _httpClient.get('/v1/transactions/$txHash').then((response) {
       return ApiResponse.fromJson(response.data, [const FullType(Transaction)])
           .result as Transaction;
     });
@@ -138,7 +138,7 @@ class ApiProvider {
   Future<HealthCertificationToken> fetchHealthCertificate(
     String did,
   ) {
-    return _httpClient.get_('/v1/health-certifications/$did').then(
+    return _httpClient.get('/v1/health-certifications/$did').then(
           (response) => ApiResponse.fromJson(
             response.data,
             [const FullType(HealthCertificationToken)],
@@ -157,7 +157,7 @@ class ApiProvider {
   }
 
   Future<List<IssuerResponse>> fetchIssuers() {
-    return _httpClient.get_('/v2/vc-market/issuers').then(
+    return _httpClient.get('/v2/vc-market/issuers').then(
           (response) => (ApiResponse.fromJson(response.data, const [
             FullType(BuiltList, [FullType(IssuerResponse)])
           ]).result as BuiltList)
@@ -238,7 +238,7 @@ class ApiProvider {
   }
 
   Future<VerifiablePresentation> fetchVP(String url) {
-    return _httpClient.get_(url, throwError: true).then(
+    return _httpClient.get(url, throwError: true).then(
           (response) => ApiResponse.fromJson(
             response.data,
             [const FullType(VerifiablePresentation)],
