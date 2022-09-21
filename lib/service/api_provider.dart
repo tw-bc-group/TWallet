@@ -23,7 +23,7 @@ class ApiProvider {
     String publicKey,
     String signedRawTx,
   ) {
-    return _httpClient.post(
+    return _httpClient.post_(
       '/v2/token/transfer',
       {
         'fromAddress': from,

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as g;
-import 'package:optional/optional.dart';
 import 'package:tw_wallet_ui/common/application.dart';
 import 'package:tw_wallet_ui/common/http/loading_interceptor.dart';
 import 'package:tw_wallet_ui/models/api_error.dart';
@@ -77,24 +76,6 @@ Dio _initDio() {
 class HttpClient {
   final Dio _dio = _initDio();
 
-  Future<Optional<Response>> get(
-    String url, {
-    bool loading = true,
-    bool throwError = false,
-  }) async {
-    return _dio
-        .get(url, options: Options(extra: {'withoutLoading': !loading}))
-        .then((response) => Optional.of(response))
-        .catchError((error) {
-      if (throwError) {
-        throw Exception(error);
-      } else {
-        showErrorDialog(error as DioError);
-      }
-      return const Optional<Response>.empty();
-    });
-  }
-
   Future<Response> get_(
     String url, {
     bool loading = true,
@@ -109,29 +90,6 @@ class HttpClient {
       } else {
         showErrorDialog(error as DioError);
       }
-    });
-  }
-
-  Future<Optional<Response>> post(
-    String url,
-    Map<String, dynamic> data, {
-    bool loading = true,
-    bool throwError = false,
-  }) async {
-    return _dio
-        .post(
-          url,
-          data: data,
-          options: Options(extra: {'withoutLoading': !loading}),
-        )
-        .then((response) => Optional.of(response))
-        .catchError((error) {
-      if (throwError) {
-        throw Exception(error);
-      } else {
-        showErrorDialog(error as DioError);
-      }
-      return const Optional<Response>.empty();
     });
   }
 
@@ -153,29 +111,6 @@ class HttpClient {
       } else {
         showErrorDialog(error as DioError);
       }
-    });
-  }
-
-  Future<Optional<Response>> patch(
-    String url,
-    Map<String, dynamic> data, {
-    bool loading = true,
-    bool throwError = false,
-  }) async {
-    return _dio
-        .patch(
-          url,
-          data: data,
-          options: Options(extra: {'withoutLoading': !loading}),
-        )
-        .then((response) => Optional.of(response))
-        .catchError((error) {
-      if (throwError) {
-        throw Exception(error);
-      } else {
-        showErrorDialog(error as DioError);
-      }
-      return const Optional<Response>.empty();
     });
   }
 
