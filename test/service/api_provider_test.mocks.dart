@@ -54,13 +54,13 @@ class MockHttpClient extends _i1.Mock implements _i3.HttpClient {
                           #post, [url, data], {#loading: loading, #throwError: throwError}))))
           as _i4.Future<_i2.Response<dynamic>>);
   @override
-  _i4.Future<_i2.Response<dynamic>> patch_(String? url, Map<String, dynamic>? data,
+  _i4.Future<_i2.Response<dynamic>> patch(String? url, Map<String, dynamic>? data,
           {bool? loading = true, bool? throwError = false}) =>
-      (super.noSuchMethod(Invocation.method(#patch_, [url, data], {#loading: loading, #throwError: throwError}),
+      (super.noSuchMethod(Invocation.method(#patch, [url, data], {#loading: loading, #throwError: throwError}),
               returnValue: _i4.Future<_i2.Response<dynamic>>.value(
                   _FakeResponse_0<dynamic>(
                       this,
                       Invocation.method(
-                          #patch_, [url, data], {#loading: loading, #throwError: throwError}))))
+                          #patch, [url, data], {#loading: loading, #throwError: throwError}))))
           as _i4.Future<_i2.Response<dynamic>>);
 }

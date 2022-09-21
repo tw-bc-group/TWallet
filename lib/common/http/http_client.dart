@@ -114,7 +114,7 @@ class HttpClient {
     });
   }
 
-  Future<Response> patch_(
+  Future<Response> patch(
     String url,
     Map<String, dynamic> data, {
     bool loading = true,

@@ -192,7 +192,7 @@ class ApiProvider {
     List<VcType> vcTypes,
   ) {
     final List<String> vcTypesList = vcTypes.map((v) => v.id).toList();
-    return _httpClient.patch_('/v2/vc-market/verifiers/${id}', {
+    return _httpClient.patch('/v2/vc-market/verifiers/${id}', {
       "name": name,
       "vcTypes": vcTypesList,
     });
