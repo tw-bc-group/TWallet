@@ -284,7 +284,7 @@ abstract class IdentityStoreBase with Store {
     if (identity != null) {
       TwBalance.fetchBalance(
         address: identity.address,
-        withLoading: withLoading!,
+        withLoading: withLoading ?? true,
       ).then((balance) {
         selectedIdentity = identity.rebuild(
           (builder) => builder.accountInfo.balance = balance.amount,
