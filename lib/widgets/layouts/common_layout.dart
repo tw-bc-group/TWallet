@@ -27,7 +27,7 @@ class CommonLayout extends StatelessWidget {
   const CommonLayout({
     this.child,
     this.withBottomBtn = false,
-    this.btnText = '完成',
+    this.btnText = 'Finish',
     this.btnOnPressed,
     this.title,
     this.bodyBackColor,

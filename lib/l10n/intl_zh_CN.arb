@@ -63,5 +63,11 @@
   "pageCreateWalletBackupHintTitle": "备份提示",
   "pageCreateWalletBackupWarning": "助记词为账户凭证，为了避免账户被盗，请勿截图",
   "pageCreateWalletBackupHintDescription": "使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。",
-  "pageBackupHintNext": "知道了"
+  "pageBackupHintNext": "知道了",
+  "@_CREATE_WALLET_CONFIRM_PAGE": {},
+  "pageCreateWalletConfirmTitle": "验证助记词",
+  "pageCreateWalletConfirmDescription": "-请按顺序点击助记词，确认您的正确备份-",
+  "pageCreateWalletConfirmNext": "完成",
+  "pageCreateWalletConfirmHintTitle": "备份提示",
+  "pageCreateWalletConfirmHintDescription": "使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。"
 }

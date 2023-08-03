@@ -43,6 +43,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Backup mnemonics"),
         "pageCreateWalletBackupWarning": MessageLookupByLibrary.simpleMessage(
             "Mnemonics are account credentials. To avoid account theft, please do not take screenshots"),
+        "pageCreateWalletConfirmDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "Click on the mnemonic words below in order"),
+        "pageCreateWalletConfirmHintDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets."),
+        "pageCreateWalletConfirmHintTitle":
+            MessageLookupByLibrary.simpleMessage("Backup Hint"),
+        "pageCreateWalletConfirmNext":
+            MessageLookupByLibrary.simpleMessage("finish"),
+        "pageCreateWalletConfirmTitle":
+            MessageLookupByLibrary.simpleMessage("Verify mnemonics"),
         "pageDiscoveryDiscovery":
             MessageLookupByLibrary.simpleMessage("Discovery"),
         "pageDiscoveryHealthCert":

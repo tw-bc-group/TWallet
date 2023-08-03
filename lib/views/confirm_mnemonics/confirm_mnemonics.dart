@@ -11,6 +11,8 @@ import 'package:tw_wallet_ui/views/home/home.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
+import '../../generated/l10n.dart';
+
 class ConfirmMnemonicsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -70,8 +72,8 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
         onTap: () => hintDialogHelper(
           context,
           DialogType.none,
-          '使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。',
-          title: '备份提示',
+          S.of(context).pageCreateWalletConfirmHintDescription,
+          title: S.of(context).pageCreateWalletConfirmHintTitle,
         ),
         child: const Image(
           image: AssetImage('assets/images/info-black.png'),
@@ -128,7 +130,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: Text(
-                        '确认助记词',
+                        S.of(context).pageCreateWalletConfirmTitle,
                         style: WalletFont.font_20(),
                       ),
                     ),
@@ -140,7 +142,7 @@ class ConfirmMnemonicsState extends State<ConfirmMnemonicsPage> {
             Container(
               margin: const EdgeInsets.only(top: 40),
               child: Text(
-                '-请按顺序点击下方助记词，确认您的正确备份-',
+                S.of(context).pageCreateWalletConfirmDescription,
                 style: WalletFont.font_14(),
                 textAlign: TextAlign.center,
               ),

@@ -40,6 +40,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("备份助记词"),
         "pageCreateWalletBackupWarning":
             MessageLookupByLibrary.simpleMessage("助记词为账户凭证，为了避免账户被盗，请勿截图"),
+        "pageCreateWalletConfirmDescription":
+            MessageLookupByLibrary.simpleMessage("-请按顺序点击助记词，确认您的正确备份-"),
+        "pageCreateWalletConfirmHintDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。"),
+        "pageCreateWalletConfirmHintTitle":
+            MessageLookupByLibrary.simpleMessage("备份提示"),
+        "pageCreateWalletConfirmNext":
+            MessageLookupByLibrary.simpleMessage("完成"),
+        "pageCreateWalletConfirmTitle":
+            MessageLookupByLibrary.simpleMessage("验证助记词"),
         "pageDiscoveryDiscovery": MessageLookupByLibrary.simpleMessage("发现"),
         "pageDiscoveryHealthCert": MessageLookupByLibrary.simpleMessage("健康认证"),
         "pageDiscoveryMoreVc": MessageLookupByLibrary.simpleMessage("更多凭证"),

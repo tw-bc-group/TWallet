@@ -619,6 +619,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Verify mnemonics`
+  String get pageCreateWalletConfirmTitle {
+    return Intl.message(
+      'Verify mnemonics',
+      name: 'pageCreateWalletConfirmTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click on the mnemonic words below in order`
+  String get pageCreateWalletConfirmDescription {
+    return Intl.message(
+      'Click on the mnemonic words below in order',
+      name: 'pageCreateWalletConfirmDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `finish`
+  String get pageCreateWalletConfirmNext {
+    return Intl.message(
+      'finish',
+      name: 'pageCreateWalletConfirmNext',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup Hint`
+  String get pageCreateWalletConfirmHintTitle {
+    return Intl.message(
+      'Backup Hint',
+      name: 'pageCreateWalletConfirmHintTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.`
+  String get pageCreateWalletConfirmHintDescription {
+    return Intl.message(
+      'Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.',
+      name: 'pageCreateWalletConfirmHintDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
