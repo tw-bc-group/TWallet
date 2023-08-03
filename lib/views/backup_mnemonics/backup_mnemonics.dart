@@ -9,6 +9,8 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
+import '../../generated/l10n.dart';
+
 class BackupMnemonicsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => BackupMnemonicsPageState();
@@ -45,8 +47,8 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
         onTap: () => hintDialogHelper(
           context,
           DialogType.none,
-          '使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。',
-          title: '备份提示',
+          S.of(context).pageCreateWalletBackupHintDescription,
+          title: S.of(context).pageCreateWalletBackupHintTitle,
         ),
         child: const Image(
           image: AssetImage('assets/images/info-black.png'),
@@ -63,7 +65,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
       withBottomBtn: true,
       btnOnPressed: () =>
           Application.router.navigateTo(context, Routes.confirmMnemonics),
-      btnText: '下一步',
+      btnText: S.of(context).pageCreateWalletBackupNext,
       bottomBackColor: WalletColor.white,
       child: Container(
         decoration: BoxDecoration(
@@ -88,7 +90,7 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Text(
-                            '备份助记词',
+                            S.of(context).pageCreateWalletBackupTitle,
                             style: WalletFont.font_20(),
                           ),
                         ),
@@ -110,13 +112,13 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                 Container(
                   margin: const EdgeInsets.only(top: 24),
                   child: Text(
-                    '请用纸笔抄写下方助记词',
+                    S.of(context).pageCreateWalletBackupDescriptionSecOne,
                     style: WalletFont.font_14(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Text(
-                  '我们将在下一步验证',
+                  S.of(context).pageCreateWalletBackupDescriptionSecTwo,
                   style: WalletFont.font_14(),
                   textAlign: TextAlign.center,
                 ),
@@ -134,7 +136,8 @@ class BackupMnemonicsPageState extends State<BackupMnemonicsPage> {
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 24),
-                  child: Tips('助记词为账户凭证，为了避免账户被盗，请勿截图'),
+                  child: Tips(
+                      'Mnemonics are account credentials. To avoid account theft, please do not take screenshots'),
                 ),
               ],
             ),

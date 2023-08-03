@@ -24,6 +24,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "pageBackupHintNext": MessageLookupByLibrary.simpleMessage("知道了"),
+        "pageCreateWalletBackupDescriptionSecOne":
+            MessageLookupByLibrary.simpleMessage("请用纸笔抄写下方助记词"),
+        "pageCreateWalletBackupDescriptionSecTwo":
+            MessageLookupByLibrary.simpleMessage("我们会在下一步验证"),
+        "pageCreateWalletBackupHintDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。"),
+        "pageCreateWalletBackupHintTitle":
+            MessageLookupByLibrary.simpleMessage("备份提示"),
+        "pageCreateWalletBackupNext":
+            MessageLookupByLibrary.simpleMessage("下一步"),
+        "pageCreateWalletBackupTitle":
+            MessageLookupByLibrary.simpleMessage("备份助记词"),
+        "pageCreateWalletBackupWarning":
+            MessageLookupByLibrary.simpleMessage("助记词为账户凭证，为了避免账户被盗，请勿截图"),
         "pageDiscoveryDiscovery": MessageLookupByLibrary.simpleMessage("发现"),
         "pageDiscoveryHealthCert": MessageLookupByLibrary.simpleMessage("健康认证"),
         "pageDiscoveryMoreVc": MessageLookupByLibrary.simpleMessage("更多凭证"),

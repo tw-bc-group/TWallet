@@ -54,5 +54,14 @@
   "pageNewWalletYouCan": "您可以",
   "pageNewWalletCreate": "创建钱包",
   "pageNewWalletRestore": "恢复钱包",
-  "pageNewWalletWeb2": "Web2.0 钱包"
+  "pageNewWalletWeb2": "Web2.0 钱包",
+  "@_CREATE_WALLET_BACKUP_PAGE": {},
+  "pageCreateWalletBackupTitle": "备份助记词",
+  "pageCreateWalletBackupDescriptionSecOne": "请用纸笔抄写下方助记词",
+  "pageCreateWalletBackupDescriptionSecTwo": "我们会在下一步验证",
+  "pageCreateWalletBackupNext": "下一步",
+  "pageCreateWalletBackupHintTitle": "备份提示",
+  "pageCreateWalletBackupWarning": "助记词为账户凭证，为了避免账户被盗，请勿截图",
+  "pageCreateWalletBackupHintDescription": "使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。",
+  "pageBackupHintNext": "知道了"
 }

@@ -7,6 +7,9 @@ import 'package:get/get.dart';
 import 'package:tw_wallet_ui/common/theme/color.dart';
 import 'package:tw_wallet_ui/common/theme/font.dart';
 import 'package:tw_wallet_ui/common/theme/index.dart';
+import 'package:validators/sanitizers.dart';
+
+import '../generated/l10n.dart';
 
 enum DialogType {
   success,
@@ -64,7 +67,7 @@ Future<void> hintDialogHelper(
     title,
     text,
     subText: subText,
-    buttonText: '知道了',
+    buttonText: toString(S.of(context).pageBackupHintNext),
   );
 }
 

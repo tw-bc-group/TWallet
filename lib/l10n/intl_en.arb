@@ -54,5 +54,14 @@
   "pageNewWalletYouCan": "You can",
   "pageNewWalletCreate": "Create wallet",
   "pageNewWalletRestore": "Restore wallet",
-  "pageNewWalletWeb2": "Web2.0 wallet"
+  "pageNewWalletWeb2": "Web2.0 wallet",
+  "@_CREATE_WALLET_BACKUP_PAGE": {},
+  "pageCreateWalletBackupTitle": "Backup mnemonics",
+  "pageCreateWalletBackupDescriptionSecOne": "Please copy the mnemonics below",
+  "pageCreateWalletBackupDescriptionSecTwo": "We will verify them in the next step",
+  "pageCreateWalletBackupNext": "Next",
+  "pageCreateWalletBackupHintTitle": "Backup Hint",
+  "pageCreateWalletBackupWarning": "Mnemonics are account credentials. To avoid account theft, please do not take screenshots",
+  "pageCreateWalletBackupHintDescription": "Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.",
+  "pageBackupHintNext": "I have copied it"
 }

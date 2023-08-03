@@ -539,6 +539,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Backup mnemonics`
+  String get pageCreateWalletBackupTitle {
+    return Intl.message(
+      'Backup mnemonics',
+      name: 'pageCreateWalletBackupTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please copy the mnemonics below`
+  String get pageCreateWalletBackupDescriptionSecOne {
+    return Intl.message(
+      'Please copy the mnemonics below',
+      name: 'pageCreateWalletBackupDescriptionSecOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will verify them in the next step`
+  String get pageCreateWalletBackupDescriptionSecTwo {
+    return Intl.message(
+      'We will verify them in the next step',
+      name: 'pageCreateWalletBackupDescriptionSecTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get pageCreateWalletBackupNext {
+    return Intl.message(
+      'Next',
+      name: 'pageCreateWalletBackupNext',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup Hint`
+  String get pageCreateWalletBackupHintTitle {
+    return Intl.message(
+      'Backup Hint',
+      name: 'pageCreateWalletBackupHintTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mnemonics are account credentials. To avoid account theft, please do not take screenshots`
+  String get pageCreateWalletBackupWarning {
+    return Intl.message(
+      'Mnemonics are account credentials. To avoid account theft, please do not take screenshots',
+      name: 'pageCreateWalletBackupWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.`
+  String get pageCreateWalletBackupHintDescription {
+    return Intl.message(
+      'Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.',
+      name: 'pageCreateWalletBackupHintDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I have copied it`
+  String get pageBackupHintNext {
+    return Intl.message(
+      'I have copied it',
+      name: 'pageBackupHintNext',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
