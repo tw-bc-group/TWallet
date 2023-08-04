@@ -82,11 +82,11 @@ class NewWalletWidget extends StatelessWidget {
                     .navigateTo(context, Routes.restoreMnemonics),
                 child: buildBigButton(title: t.pageNewWalletRestore),
               ),
-              // GestureDetector(
-              //   onTap: () => Application.router
-              //       .navigateTo(context, Routes.web3authLogin),
-              //   child: buildBigButton(title: t.pageNewWalletWeb2),
-              // ),
+              GestureDetector(
+                onTap: () => Application.router
+                    .navigateTo(context, Routes.web3authLogin),
+                child: buildBigButton(title: t.pageNewWalletWeb2),
+              ),
             ],
           ),
         ),
