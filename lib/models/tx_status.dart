@@ -22,13 +22,13 @@ class TxStatus extends EnumClass {
     String res = '';
     switch (this) {
       case TxStatus.succeeded:
-        res = '该笔交易已经完成';
+        res = 'The transaction has been completed';
         break;
       case TxStatus.failed:
-        res = '失败';
+        res = 'Failed';
         break;
       case TxStatus.transferring:
-        res = '您的转账申请已受理，请耐心等待转账结果';
+        res = 'The transaction is being processed';
         break;
     }
     return res;
@@ -39,13 +39,13 @@ class TxStatus extends EnumClass {
     String res = '';
     switch (this) {
       case TxStatus.succeeded:
-        res = '成功';
+        res = 'Success';
         break;
       case TxStatus.failed:
-        res = '失败';
+        res = 'Failed';
         break;
       case TxStatus.transferring:
-        res = '处理中';
+        res = 'Transferring';
         break;
     }
     return res;

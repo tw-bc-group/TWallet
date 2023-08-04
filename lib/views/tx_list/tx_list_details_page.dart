@@ -48,7 +48,7 @@ class TxListDetailsPage extends StatelessWidget {
     return WillPopScope(
       onWillPop: args.shouldBackToHome ? () async => false : null,
       child: CommonLayout(
-        title: '交易状态',
+        title: 'Transactionn Details',
         backIcon: args.shouldBackToHome ? BackIcon.none : BackIcon.arrow,
         child: _buildMainContent(context, args),
       ),
@@ -124,7 +124,7 @@ class TxListDetailsPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(right: 30),
                 child: Text(
-                  '交易时间',
+                  'Transaction Time',
                   style: WalletFont.font_14(
                     textStyle: TextStyle(color: WalletColor.grey),
                   ),
@@ -182,7 +182,7 @@ class TxListDetailsPage extends StatelessWidget {
         color: WalletColor.white,
       ),
       child: WalletTheme.button(
-        text: '好的',
+        text: 'OK',
         onPressed: () {
           Get.find<IdentityStore>().fetchLatestPoint();
           Navigator.popUntil(

@@ -57,21 +57,21 @@ abstract class _TransferStore with Store {
       final double res = double.parse(value);
       final int indexOfDot = value.indexOf('.');
       if (res <= 0) {
-        error.amount = '请输入大于 0 的金额';
+        error.amount = 'Enter an amount greater than 0';
       } else if (res > double.parse(balance!)) {
-        error.amount = '金额超过您目前的余额';
+        error.amount = 'Amount exceeds your current balance';
       } else if (indexOfDot >= 0 &&
           value.length - indexOfDot >
               Application.globalEnv.tokenHumanReadablePrecision + 1) {
         error.amount =
-            '金额仅支持 ${Application.globalEnv.tokenHumanReadablePrecision} 位小数';
+            'Amounts support only ${Application.globalEnv.tokenHumanReadablePrecision} digits.';
       } else if (value.endsWith('.')) {
         throw Error();
       } else {
         error.amount = null;
       }
     } catch (_) {
-      error.amount = '请输入有效的金额';
+      error.amount = 'Please enter a valid amount';
     }
   }
 
@@ -79,13 +79,14 @@ abstract class _TransferStore with Store {
   void validatePayeeDID(String value) {
     try {
       if (value == payerDID) {
-        error.payeeDID = '收款人账户不能与付款人账户相同';
+        error.payeeDID =
+            "The payee's account cannot be the same as the payer's account";
         return;
       }
       DID.parse(value);
       error.payeeDID = null;
     } catch (_) {
-      error.payeeDID = '请输入有效的接收账户';
+      error.payeeDID = 'Please enter a valid recipient account';
       return;
     }
   }

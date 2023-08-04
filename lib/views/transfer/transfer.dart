@@ -72,7 +72,7 @@ class TransferPageState extends State<TransferPage> {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                '请核对转账信息',
+                'Please check the transfer information',
                 style: WalletFont.font_14(
                   textStyle: const TextStyle(fontWeight: FontWeight.w600),
                 ),
@@ -92,7 +92,7 @@ class TransferPageState extends State<TransferPage> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      '金额',
+                      'Amount',
                       style: WalletFont.font_14(
                         textStyle: TextStyle(color: WalletColor.grey),
                       ),
@@ -111,7 +111,7 @@ class TransferPageState extends State<TransferPage> {
                     margin: const EdgeInsets.only(top: 20),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      '接收账户',
+                      'Reciever Account',
                       style: WalletFont.font_14(
                         textStyle: TextStyle(color: WalletColor.grey),
                       ),
@@ -131,7 +131,7 @@ class TransferPageState extends State<TransferPage> {
             Container(
               margin: const EdgeInsets.only(bottom: 20, top: 32),
               child: Text(
-                '输入PIN码',
+                'Enter PIN',
                 style: WalletFont.font_16(),
               ),
             ),
@@ -145,12 +145,15 @@ class TransferPageState extends State<TransferPage> {
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.only(top: 34),
-                    child: WalletTheme.button(text: '确定', onPressed: onConfirm),
+                    child: WalletTheme.button(
+                      text: 'Confirm',
+                      onPressed: onConfirm,
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                     child: WalletTheme.button(
-                      text: '取消',
+                      text: 'Cancel',
                       onPressed: () {
                         confirmDialogInstance!.dismiss();
                         confirmDialogInstance = null;
@@ -216,7 +219,7 @@ class TransferPageState extends State<TransferPage> {
     return Observer(
       builder: (context) => CommonLayout(
         withBottomBtn: true,
-        btnText: '下一步',
+        btnText: 'Next',
         btnOnPressed: btnDisabled() ? null : onNext,
         title: 'DC/EP',
         child: Column(
@@ -256,7 +259,7 @@ class TransferPageState extends State<TransferPage> {
         child: ListView(
           children: <Widget>[
             Text(
-              '金额',
+              'Amount',
               style: WalletFont.font_14(
                 textStyle: const TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -274,7 +277,7 @@ class TransferPageState extends State<TransferPage> {
             Container(
               margin: const EdgeInsets.only(top: 40, bottom: 16),
               child: Text(
-                '接收账户',
+                'Receive Account',
                 style: WalletFont.font_14(
                   textStyle: const TextStyle(fontWeight: FontWeight.w600),
                 ),
@@ -286,12 +289,12 @@ class TransferPageState extends State<TransferPage> {
                 buildFunctionButton(
                   active: false,
                   iconAsset: 'assets/icons/address.svg',
-                  title: '地址簿',
+                  title: 'Address',
                   margin: const EdgeInsets.only(right: 20),
                 ),
                 buildFunctionButton(
                   iconAsset: 'assets/icons/scan.svg',
-                  title: '扫码识别',
+                  title: 'Scan QR Code',
                   onTap: () async {
                     final String? scanResult = await Application.router
                         .navigateTo(context, Routes.qrScanner) as String?;
@@ -309,7 +312,7 @@ class TransferPageState extends State<TransferPage> {
                       await hintDialogHelper(
                         context,
                         DialogType.warning,
-                        '未识别到有效的身份信息',
+                        'No valid identification recognized',
                       );
                     }
                   },

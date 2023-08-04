@@ -105,7 +105,7 @@ class _TxListPageState extends State<TxListPage> {
         children: <Widget>[
           Expanded(
             child: WalletTheme.button(
-              text: '转账',
+              text: 'Transfer',
               onPressed: () => Application.router
                   .navigateTo(context, Routes.transferTwPoints),
               buttonType: ButtonType.outlineType,
@@ -117,7 +117,7 @@ class _TxListPageState extends State<TxListPage> {
           ),
           Expanded(
             child: WalletTheme.button(
-              text: '收款',
+              text: 'Recieve',
               onPressed: () => Navigator.pushNamed(
                 context,
                 Routes.qrPage,

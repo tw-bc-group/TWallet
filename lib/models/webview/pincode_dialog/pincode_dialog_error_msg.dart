@@ -16,7 +16,7 @@ abstract class WebviewPincodeDialogErrorMsg
     WebviewPincodeDialogErrorMsgBuilder webviewPincodeDialogCloseBuilder,
   ) =>
       webviewPincodeDialogCloseBuilder
-        ..text = 'PIN码错误，请重新输入'
+        ..text = 'PIN code is incorrect, please re-enter'
         ..color = WalletColor.ACCENT
         ..fontSize = 12;
 

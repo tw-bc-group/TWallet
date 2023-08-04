@@ -5,8 +5,8 @@ import 'package:tw_wallet_ui/common/theme/font.dart';
 enum TxInfoCardType { sender, receiver }
 
 final Map<TxInfoCardType, String> cardTypeTitleMap = {
-  TxInfoCardType.sender: '发送方',
-  TxInfoCardType.receiver: '接收方'
+  TxInfoCardType.sender: 'Sender',
+  TxInfoCardType.receiver: 'Reciever'
 };
 
 final Map<TxInfoCardType, Color> cardTypeBackColorMap = {
@@ -45,7 +45,7 @@ class TxInfoCardWidget extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 30),
                       child: Text(
-                        '姓名',
+                        'Name',
                         style: WalletFont.font_12(
                           textStyle: TextStyle(color: WalletColor.grey),
                         ),

@@ -143,7 +143,7 @@ class InputPinWidgetState extends State<InputPinWidget> {
         ),
         if (showErrorMsg)
           ErrorRowWidget(
-            errorText: 'PIN码错误，请重新输入',
+            errorText: 'PIN code is incorrect, please re-enter',
             pincodeDialogErrorMsg: widget.pincodeDialogErrorMsg,
           )
       ],
