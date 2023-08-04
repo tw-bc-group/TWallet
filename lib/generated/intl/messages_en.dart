@@ -132,6 +132,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Restore wallet"),
         "pageNewWalletWeb2":
             MessageLookupByLibrary.simpleMessage("Web2.0 wallet"),
-        "pageNewWalletYouCan": MessageLookupByLibrary.simpleMessage("You can")
+        "pageNewWalletYouCan": MessageLookupByLibrary.simpleMessage("You can"),
+        "pageRestoreWalletDescription": MessageLookupByLibrary.simpleMessage(
+            "Please enter the mnemonic you backed up when you created your wallet."),
+        "pageRestoreWalletHintDescription": MessageLookupByLibrary.simpleMessage(
+            "Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets."),
+        "pageRestoreWalletHintTitle":
+            MessageLookupByLibrary.simpleMessage("Backup Hint"),
+        "pageRestoreWalletTitle":
+            MessageLookupByLibrary.simpleMessage("Enter mnemonics")
       };
 }

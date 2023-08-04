@@ -669,6 +669,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter mnemonics`
+  String get pageRestoreWalletTitle {
+    return Intl.message(
+      'Enter mnemonics',
+      name: 'pageRestoreWalletTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the mnemonic you backed up when you created your wallet.`
+  String get pageRestoreWalletDescription {
+    return Intl.message(
+      'Please enter the mnemonic you backed up when you created your wallet.',
+      name: 'pageRestoreWalletDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup Hint`
+  String get pageRestoreWalletHintTitle {
+    return Intl.message(
+      'Backup Hint',
+      name: 'pageRestoreWalletHintTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.`
+  String get pageRestoreWalletHintDescription {
+    return Intl.message(
+      'Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.',
+      name: 'pageRestoreWalletHintDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

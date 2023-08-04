@@ -69,5 +69,10 @@
   "pageCreateWalletConfirmDescription": "Click on the mnemonic words below in order",
   "pageCreateWalletConfirmNext": "finish",
   "pageCreateWalletConfirmHintTitle": "Backup Hint",
-  "pageCreateWalletConfirmHintDescription": "Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets."
+  "pageCreateWalletConfirmHintDescription": "Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets.",
+  "@_RESTORE_WALLET_PAGE": {},
+  "pageRestoreWalletTitle": "Enter mnemonics",
+  "pageRestoreWalletDescription": "Please enter the mnemonic you backed up when you created your wallet.",
+  "pageRestoreWalletHintTitle": "Backup Hint",
+  "pageRestoreWalletHintDescription": "Use paper and pen to copy the mnemonics correctly. \nDo not share the mnemonic with anyone and keep it in a safe place on an isolated network. \nIf your phone is lost, stolen, or damaged, the mnemonic can restore your assets."
 }

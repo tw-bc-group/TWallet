@@ -113,6 +113,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageNewWalletCreate": MessageLookupByLibrary.simpleMessage("创建钱包"),
         "pageNewWalletRestore": MessageLookupByLibrary.simpleMessage("恢复钱包"),
         "pageNewWalletWeb2": MessageLookupByLibrary.simpleMessage("Web2.0 钱包"),
-        "pageNewWalletYouCan": MessageLookupByLibrary.simpleMessage("您可以")
+        "pageNewWalletYouCan": MessageLookupByLibrary.simpleMessage("您可以"),
+        "pageRestoreWalletDescription":
+            MessageLookupByLibrary.simpleMessage("请输入您的助记词"),
+        "pageRestoreWalletHintDescription": MessageLookupByLibrary.simpleMessage(
+            "使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。"),
+        "pageRestoreWalletHintTitle":
+            MessageLookupByLibrary.simpleMessage("备份提示"),
+        "pageRestoreWalletTitle": MessageLookupByLibrary.simpleMessage("恢复钱包")
       };
 }

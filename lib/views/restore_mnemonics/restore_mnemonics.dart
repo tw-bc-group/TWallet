@@ -13,6 +13,8 @@ import 'package:tw_wallet_ui/views/backup_mnemonics/widgets/tips.dart';
 import 'package:tw_wallet_ui/widgets/hint_dialog.dart';
 import 'package:tw_wallet_ui/widgets/layouts/common_layout.dart';
 
+import '../../generated/l10n.dart';
+
 class RestoreMnemonicsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => RestoreMnemonicsPageState();
@@ -32,8 +34,8 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
         onTap: () => hintDialogHelper(
           context,
           DialogType.none,
-          '使用纸和笔正确抄写助记词。\n请勿将助记词告诉任何人，妥善保管至隔离网络的安全地方。\n如果您的手机丢失、被盗、损坏，助记词可以恢复您的资产。',
-          title: '备份提示',
+          S.of(context).pageRestoreWalletHintDescription,
+          title: S.of(context).pageRestoreWalletHintTitle,
         ),
         child: const Image(
           image: AssetImage('assets/images/info-black.png'),
@@ -89,7 +91,8 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Text('输入助记词', style: WalletFont.font_20()),
+                        child: Text(S.of(context).pageRestoreWalletTitle,
+                            style: WalletFont.font_20()),
                       ),
                       // buildInfoTipButton()
                     ],
@@ -105,7 +108,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                 ),
                 child: Center(
                   child: Text(
-                    '请输入您在创建钱包时备份的助记词。正确输入后，钱包将被恢复。',
+                    S.of(context).pageRestoreWalletDescription,
                     style: WalletFont.font_14(),
                   ),
                 ),
@@ -155,7 +158,7 @@ class RestoreMnemonicsPageState extends State<RestoreMnemonicsPage> {
                   horizontal: screenUtil.setWidth(24),
                 ),
                 child: _restoreFailed.value
-                    ? const Tips('恢复失败，请稍后再试')
+                    ? const Tips('Recovery failed, please try again later')
                     : Container(),
               )
             ],
