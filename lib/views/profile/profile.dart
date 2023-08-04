@@ -37,7 +37,7 @@ class ProfilePage extends StatelessWidget {
     certStore.fetchHealthCertByDID(identity!.did.toString());
 
     return CommonLayout(
-      title: '个人信息',
+      title: 'Personal information',
       child: Column(
         children: <Widget>[
           Container(
@@ -59,29 +59,30 @@ class ProfilePage extends StatelessWidget {
                 children: <Widget>[
                   ProfileRowWidget(
                     assetIcon: 'assets/icons/name.svg',
-                    name: '名称*',
+                    name: 'Name*',
                     value: identity.profileInfo.name,
                   ),
                   ProfileRowWidget(
                     assetIcon: 'assets/icons/email.svg',
-                    name: '邮箱',
+                    name: 'Mail',
                     value: identity.profileInfo.email,
                   ),
                   ProfileRowWidget(
                     assetIcon: 'assets/icons/phone.svg',
-                    name: '电话',
+                    name: 'Phone',
                     value: identity.profileInfo.phone,
                   ),
                   ProfileRowWidget(
                     assetIcon: 'assets/icons/birth.svg',
-                    name: '生日',
+                    name: 'Birthday',
                     value: identity.profileInfo.birthday ?? '',
                   ),
                   GestureDetector(
                     onLongPress: () async {
                       return Clipboard.setData(
                         ClipboardData(text: identity.did.toString()),
-                      ).then((_) => showDialogSimple(DialogType.none, '复制成功'));
+                      ).then(
+                          (_) => showDialogSimple(DialogType.none, 'Copied'));
                     },
                     child: ProfileRowWidget(
                       assetIcon: 'assets/icons/eye.svg',
@@ -91,7 +92,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   ProfileRowWidget(
                     assetIcon: 'assets/icons/qrcode.svg',
-                    name: '二维码名片',
+                    name: 'My QR Code',
                     value: _buildQR(context, identity),
                     withoutBottomBorder: true,
                   ),

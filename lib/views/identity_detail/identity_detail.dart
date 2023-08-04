@@ -20,7 +20,7 @@ class IdentityDetailPage extends StatelessWidget {
   IdentityDetailPage({required this.id});
 
   String certTitle() {
-    return certStore.currentToken != null ? '健康码' : '健康认证';
+    return certStore.currentToken != null ? 'Health Code' : 'Health Cert';
   }
 
   void onHealthBtnTap(BuildContext context) {
@@ -45,7 +45,7 @@ class IdentityDetailPage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 40),
               child: Text(
-                '- 认证 -',
+                '- Certification -',
                 style: WalletFont.font_18(
                   textStyle: TextStyle(color: WalletColor.white),
                 ),
@@ -54,7 +54,7 @@ class IdentityDetailPage extends StatelessWidget {
             ),
             Observer(
               builder: (context) => CertificateCardWidget(
-                title: '健康认证',
+                title: 'Health Cert',
                 onTap: () => onHealthBtnTap(context),
                 routeTitle: certTitle(),
               ),

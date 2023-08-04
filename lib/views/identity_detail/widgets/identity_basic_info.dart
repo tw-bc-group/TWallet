@@ -43,7 +43,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  '基本信息',
+                  'Basic Information',
                   style: WalletFont.font_14(
                     textStyle: const TextStyle(fontWeight: FontWeight.w600),
                   ),
@@ -54,7 +54,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Text(
-                        '查看全部',
+                        'See all',
                         style: WalletFont.font_14(
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -129,7 +129,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.only(left: 10),
                             child: Text(
-                              '二维码名片',
+                              'My QR Code',
                               style: WalletFont.font_14(
                                 textStyle: TextStyle(color: WalletColor.grey),
                               ),
@@ -160,7 +160,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.only(left: 10),
                             child: Text(
-                              '获取 DC/EP',
+                              'Get DC/EP',
                               style: WalletFont.font_14(
                                 textStyle: TextStyle(color: WalletColor.grey),
                               ),
@@ -169,7 +169,7 @@ class IdentityBasicInfoWidget extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        '点击获取',
+                        'Click to Get',
                         style: WalletFont.font_14(
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w600,

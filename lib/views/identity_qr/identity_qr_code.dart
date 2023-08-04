@@ -13,7 +13,7 @@ class IdentityQRPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments! as DecentralizedIdentity;
 
     return CommonLayout(
-      title: '身份二维码',
+      title: 'My QR Code',
       child: _buildMainContent(identity),
     );
   }
