@@ -185,7 +185,7 @@ class TransferPageState extends State<TransferPage> {
       );
 
       if (transferSuccess && mounted) {
-        return Navigator.pushNamed(
+        Navigator.pushNamed<dynamic>(
           context,
           Routes.txListDetails,
           arguments: TxListDetailsPageArgs(
