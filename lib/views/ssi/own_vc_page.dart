@@ -41,7 +41,7 @@ class _OwnVcPageState extends State<OwnVcPage> {
 
     return CommonLayout(
       appBarActions: <Widget>[ScanIcon(scanCallBack: _handleScanResult)],
-      title: "我的凭证",
+      title: "My Certification",
       child: Column(
         children: [
           _tips,

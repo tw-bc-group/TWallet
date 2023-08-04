@@ -65,7 +65,7 @@ class HealthCodeState extends State<HealthCodePage> {
               _certStore.fetchHealthCodeStream.value!;
 
           return CommonLayout(
-            title: '健康码',
+            title: 'Health Code',
             // ignore: missing_return
             child: Observer(
               builder: (_) {
@@ -76,12 +76,12 @@ class HealthCodeState extends State<HealthCodePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            '加载健康码失败',
+                            'Health Code Loading Failed',
                             style: TextStyle(color: WalletColor.white),
                           ),
                           ElevatedButton(
                             onPressed: onRefresh,
-                            child: const Text('点击重试'),
+                            child: const Text('Click to reload'),
                           )
                         ],
                       ),

@@ -32,7 +32,7 @@ class HealthCertificationPage extends StatelessWidget {
 
     return CommonLayout(
       appBarActions: <Widget>[ScanIcon(onTap: () => _handleScan(context))],
-      title: "健康认证",
+      title: "Health Cert",
       child: Column(
         children: [
           _tips,
@@ -51,7 +51,7 @@ class HealthCertificationPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           const Text(
-            "选择右上角进行健康码扫码验证",
+            "Select the upper right for health code scanning verification",
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,
@@ -67,7 +67,7 @@ class HealthCertificationPage extends StatelessWidget {
           ),
           _hint,
           const Text(
-            "进行健康认证或查看健康码",
+            "Make a health certification or view a health code",
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,
@@ -81,8 +81,9 @@ class HealthCertificationPage extends StatelessWidget {
   }
 
   Text get _hint {
-    final text =
-        _identityStore.identitiesWithoutDapp.isNotEmpty ? "选择使用下方身份" : "添加身份";
+    final text = _identityStore.identitiesWithoutDapp.isNotEmpty
+        ? "Select identity below"
+        : "Add identity";
     return Text(
       text,
       style: const TextStyle(
@@ -124,7 +125,7 @@ class HealthCertificationPage extends StatelessWidget {
             Column(
               children: const <Widget>[
                 Text(
-                  "您还没有添加身份",
+                  "No identity yet",
                   style: TextStyle(
                     color: Color(0xff111111),
                     fontSize: 14,
@@ -134,7 +135,7 @@ class HealthCertificationPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "请前往“身份”页面添加身份。",
+                  "Please add identity in 'identity' page",
                   style: TextStyle(
                     color: Color(0xff111111),
                     fontSize: 14,
@@ -146,7 +147,7 @@ class HealthCertificationPage extends StatelessWidget {
               ],
             ),
             WalletTheme.button(
-              text: '立即前往',
+              text: 'Add now',
               height: 44,
               onPressed: () {
                 Navigator.pop(context);
