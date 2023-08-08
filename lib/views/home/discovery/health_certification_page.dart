@@ -52,6 +52,7 @@ class HealthCertificationPage extends StatelessWidget {
         children: <Widget>[
           const Text(
             "Select the upper right for health code scanning verification",
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,

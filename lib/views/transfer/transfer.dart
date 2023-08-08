@@ -294,7 +294,7 @@ class TransferPageState extends State<TransferPage> {
                 ),
                 buildFunctionButton(
                   iconAsset: 'assets/icons/scan.svg',
-                  title: 'Scan QR Code',
+                  title: 'Scan',
                   onTap: () async {
                     final String? scanResult = await Application.router
                         .navigateTo(context, Routes.qrScanner) as String?;
